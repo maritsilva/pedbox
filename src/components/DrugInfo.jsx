@@ -1,7 +1,30 @@
 import React, { useState } from 'react';
-import { AlertTriangle, FlaskConical, ShieldAlert, ChevronDown, ChevronUp, Info, Tag, Syringe, X } from 'lucide-react';
+import { AlertTriangle, FlaskConical, ShieldAlert, ChevronDown, ChevronUp, Info, Tag, Syringe, X, Calculator } from 'lucide-react';
+import { r } from '@/lib/drugData';
 
-export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }) {
+function computeDose(doseOption, peso) {
+  const { mgPerKgPerDay, mgPerKgPerDose, maxMgPerDay, maxMgPerDose, interval, fixedNote, mlPerKgPerDay, maxMlPerDay } = doseOption;
+  if (mlPerKgPerDay) {
+    const mlPerDay = r(Math.min(peso * mlPerKgPerDay, maxMlPerDay || 9999), 1);
+    const mlPerDose = interval ? r(mlPerDay / interval, 1) : mlPerDay;
+    return { mlPerDay, mlPerDose, isFixed: false, isMlBased: true };
+  }
+  if (fixedNote) return { isFixed: true, fixedNote };
+  if (mgPerKgPerDose) {
+    const raw = peso * mgPerKgPerDose;
+    const mgPerDose = maxMgPerDose ? r(Math.min(raw, maxMgPerDose), 2) : r(raw, 2);
+    return { mgPerDose, isFixed: false, isByDose: true };
+  }
+  if (mgPerKgPerDay) {
+    const raw = peso * mgPerKgPerDay;
+    const mgPerDay = maxMgPerDay ? r(Math.min(raw, maxMgPerDay), 1) : r(raw, 1);
+    const mgPerDose = interval ? r(mgPerDay / interval, 2) : null;
+    return { mgPerDay, mgPerDose, isFixed: false };
+  }
+  return { isFixed: true, fixedNote: 'Ver bula / protocolo' };
+}
+
+export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose, peso, resultado }) {
   const [showSensitivity, setShowSensitivity] = useState(false);
   const [showSideEffects, setShowSideEffects] = useState(false);
   const [showBrands, setShowBrands] = useState(false);
@@ -16,6 +39,11 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
     return null;
   };
 
+  // Compute dose result inline for the selected dose
+  const doseOption = drug.doses[selectedDoseIdx] || drug.doses[0];
+  const computed = resultado && peso ? computeDose(doseOption, peso) : null;
+  const mgPerDose = computed?.mgPerDose || null;
+
   return (
     <div className="space-y-4">
 
@@ -27,10 +55,10 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
         </div>
       )}
 
-      {/* Two-column: Apresentações | Indicações + Doses */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Three-column (or two): Apresentações | Indicações | Dose Calculada */}
+      <div className={`grid grid-cols-1 gap-4 ${computed ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
 
-        {/* LEFT – Apresentações */}
+        {/* COL 1 – Apresentações */}
         {drug.presentations && drug.presentations.length > 0 && (
           <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
             <h3 className="text-base font-semibold text-foreground text-center mb-4 flex items-center justify-center gap-2">
@@ -38,19 +66,26 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
               Apresentações Disponíveis
             </h3>
             <div className="space-y-3">
-              {drug.presentations.map((pres, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Syringe className="w-4 h-4 text-blue-400" />
+              {drug.presentations.map((pres, i) => {
+                const ml = (mgPerDose && pres.mgPerMl && !computed?.isFixed && !computed?.isMlBased)
+                  ? r(mgPerDose / pres.mgPerMl, 2) : null;
+                return (
+                  <div key={i} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 ${ml ? `${colors.bg} border ${colors.border}` : 'bg-secondary/40'}`}>
+                    <div className="w-7 h-7 rounded-lg bg-white/70 flex items-center justify-center flex-shrink-0">
+                      <Syringe className="w-3.5 h-3.5 text-blue-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-foreground leading-snug">{pres.label}</p>
+                      {ml && <p className={`text-sm font-bold ${colors.text} mt-0.5`}>{ml} mL/dose</p>}
+                    </div>
                   </div>
-                  <p className="text-sm text-foreground leading-relaxed">{pres.label}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
 
-        {/* RIGHT – Doses (indicações) */}
+        {/* COL 2 – Indicações Clínicas */}
         <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
           <h3 className="text-base font-semibold text-foreground text-center mb-4">
             Indicações Clínicas
@@ -93,6 +128,55 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
             })}
           </div>
         </div>
+
+        {/* COL 3 – Dose Calculada (só aparece quando há resultado) */}
+        {computed && (
+          <div className={`${colors.bg} border-2 ${colors.border} rounded-2xl p-5 shadow-sm`}>
+            <h3 className={`text-base font-semibold ${colors.text} text-center mb-4 flex items-center justify-center gap-2`}>
+              <Calculator className="w-4 h-4" />
+              Dose para {peso} kg
+            </h3>
+            <div className="space-y-2">
+              {computed.isFixed ? (
+                <div className="bg-white/70 rounded-xl p-3">
+                  <p className={`text-sm font-bold ${colors.text}`}>{computed.fixedNote}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{doseOption.via}</p>
+                </div>
+              ) : computed.isMlBased ? (
+                <>
+                  <div className="bg-white/70 rounded-xl p-3 flex justify-between items-center">
+                    <span className="text-xs text-muted-foreground">Volume/dia</span>
+                    <span className={`font-bold text-lg ${colors.text}`}>{computed.mlPerDay} mL</span>
+                  </div>
+                  {computed.mlPerDose && doseOption.interval > 1 && (
+                    <div className="bg-white/70 rounded-xl p-3 flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Por dose</span>
+                      <span className={`font-bold text-lg ${colors.text}`}>{computed.mlPerDose} mL</span>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  {computed.mgPerDay && (
+                    <div className="bg-white/70 rounded-xl p-3 flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Total/dia</span>
+                      <span className={`font-bold text-base ${colors.text}`}>{computed.mgPerDay} mg</span>
+                    </div>
+                  )}
+                  {computed.mgPerDose && (
+                    <div className="bg-white rounded-xl p-3 flex justify-between items-center border border-white">
+                      <span className="text-xs text-muted-foreground">Por dose</span>
+                      <span className={`font-bold text-2xl ${colors.text}`}>{computed.mgPerDose} mg</span>
+                    </div>
+                  )}
+                </>
+              )}
+              <div className="bg-white/60 rounded-xl px-3 py-2 text-center">
+                <span className="text-xs text-muted-foreground">{doseOption.via}</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Orientações */}

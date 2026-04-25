@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ALL_CATEGORIES } from '@/lib/drugData';
 import { Search, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import DrugResult from '@/components/DrugResult';
 import DrugInfo from '@/components/DrugInfo';
 
 const categoryColorMap = {
@@ -25,7 +24,6 @@ export default function Calculadora() {
   const [selectedDoseIdx, setSelectedDoseIdx] = useState(0);
   const [peso, setPeso] = useState('');
   const [resultado, setResultado] = useState(null);
-  const resultRef = useRef(null);
 
   // Handle URL param ?categoria=
   useEffect(() => {
@@ -42,7 +40,6 @@ export default function Calculadora() {
     const p = parseFloat(peso);
     if (!p || p < 1.5) return;
     setResultado(true);
-    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   };
 
   const resetDrug = () => {
@@ -85,7 +82,7 @@ export default function Calculadora() {
           </div>
         </div>
 
-        {/* Peso form + resultado inline */}
+        {/* Peso form */}
         <div className="bg-white border border-border rounded-2xl p-5 shadow-sm mb-6">
           <p className="text-sm font-semibold text-foreground mb-3">Calcular dose</p>
           <form onSubmit={handleCalcular} className="flex gap-2">
@@ -106,34 +103,16 @@ export default function Calculadora() {
               Calcular
             </button>
           </form>
-
-          <AnimatePresence>
-            {resultado && (
-              <motion.div
-                ref={resultRef}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="mt-4"
-              >
-                <DrugResult
-                  key={`${selectedDrug.id}-${selectedDoseIdx}`}
-                  drug={selectedDrug}
-                  peso={parseFloat(peso)}
-                  colors={colors}
-                  selectedDoseIdx={selectedDoseIdx}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
-        {/* Drug info (doses, presentations, indications, notes) */}
+        {/* Drug info (doses, presentations, indications, dose result) */}
         <DrugInfo
           drug={selectedDrug}
           colors={colors}
           selectedDoseIdx={selectedDoseIdx}
           onSelectDose={(idx) => { setSelectedDoseIdx(idx); setResultado(null); }}
+          peso={resultado ? parseFloat(peso) : null}
+          resultado={resultado}
         />
       </div>
     );
