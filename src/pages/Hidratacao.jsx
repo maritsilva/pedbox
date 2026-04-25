@@ -117,9 +117,12 @@ function calcularManutencao(peso, comPerdas) {
   let infusao = (SF + SG + K) / (parseInt(hora.split('/')[0]) * 3);
   infusao = round(infusao, 0);
 
+  const volumeTotal = SF + SG + K;
+
   return {
     title: 'Fase de Manutenção',
     subtitle: comPerdas ? 'Regra de Holliday-Segar + Reposição (50 mL/kg/dia)' : 'Regra de Holliday-Segar',
+    volumeTotal,
     steps: [
       { num: 1, label: 'Soro Fisiológico 0,9%', value: `${SF} mL` },
       { num: 2, label: 'Soro Glicosado 5%', value: `${SG} mL` },
@@ -248,6 +251,13 @@ export default function Hidratacao() {
                 <h2 className="font-bold text-foreground text-lg">{resultado.title}</h2>
                 {resultado.subtitle && <p className="text-sm text-muted-foreground mt-0.5">{resultado.subtitle}</p>}
               </div>
+
+              {resultado.volumeTotal != null && (
+                <div className="mb-4 bg-cyan-50 border border-cyan-200 rounded-xl px-4 py-3 flex items-center justify-between">
+                  <span className="text-sm font-semibold text-cyan-700">Volume total por dose</span>
+                  <span className="text-xl font-extrabold text-cyan-600">{resultado.volumeTotal} mL</span>
+                </div>
+              )}
 
               <div className="space-y-3">
                 {resultado.steps.map((step, i) => (
