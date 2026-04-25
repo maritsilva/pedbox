@@ -69,77 +69,72 @@ export default function Calculadora() {
     const cat = ALL_CATEGORIES.find(c => c.id === selectedDrug.category);
     const colors = categoryColorMap[cat?.color] || categoryColorMap['blue-500'];
     return (
-      <div className="max-w-5xl mx-auto px-4 pb-12">
+      <div className="max-w-5xl mx-auto px-4 pb-12 pt-6">
 
-        {/* Sticky top panel: header + peso + resultado */}
-        <div className="sticky top-14 z-40 bg-background pt-4 pb-3 -mx-4 px-4 border-b border-border shadow-sm">
-          {/* Back + Drug name */}
-          <div className="flex items-center gap-3 mb-3">
-            <button onClick={resetDrug} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <div className={`flex items-center gap-2 flex-1 min-w-0`}>
-              <span className="text-xl flex-shrink-0">{cat?.icon}</span>
-              <div className="min-w-0">
-                <p className={`text-xs font-semibold ${colors.text} leading-none`}>{cat?.label}</p>
-                <h1 className="text-base font-bold text-foreground truncate">{selectedDrug.name}</h1>
-              </div>
+        {/* Back + Drug name */}
+        <div className="flex items-center gap-3 mb-6">
+          <button onClick={resetDrug} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <span className="text-2xl flex-shrink-0">{cat?.icon}</span>
+            <div className="min-w-0">
+              <p className={`text-xs font-semibold ${colors.text} leading-none`}>{cat?.label}</p>
+              <h1 className="text-xl font-bold text-foreground truncate">{selectedDrug.name}</h1>
             </div>
           </div>
+        </div>
 
-          {/* Peso form */}
+        {/* Peso form + resultado inline */}
+        <div className="bg-white border border-border rounded-2xl p-5 shadow-sm mb-6">
+          <p className="text-sm font-semibold text-foreground mb-3">Calcular dose</p>
           <form onSubmit={handleCalcular} className="flex gap-2">
-            <div className="flex-1 relative">
-              <input
-                type="number"
-                placeholder="Peso da criança (kg)"
-                value={peso}
-                onChange={e => { setPeso(e.target.value); setResultado(null); }}
-                step="0.1"
-                min="1.5"
-                className="w-full border border-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
-              />
-            </div>
+            <input
+              type="number"
+              placeholder="Peso da criança (kg)"
+              value={peso}
+              onChange={e => { setPeso(e.target.value); setResultado(null); }}
+              step="0.1"
+              min="1.5"
+              className="flex-1 border border-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+            />
             <button
               type="submit"
-              className="bg-primary text-white px-4 py-2.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm shadow-primary/30 text-sm flex-shrink-0"
+              className="bg-primary text-white px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm shadow-primary/30 text-sm flex-shrink-0"
             >
               {resultado ? <RotateCcw className="w-4 h-4" /> : <Calculator className="w-4 h-4" />}
               Calcular
             </button>
           </form>
-        </div>
 
-        {/* Result (shown right after the sticky bar) */}
-        <AnimatePresence>
-          {resultado && (
-            <motion.div
-              ref={resultRef}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="mt-4"
-            >
-              <DrugResult
-                key={`${selectedDrug.id}-${selectedDoseIdx}`}
-                drug={selectedDrug}
-                peso={parseFloat(peso)}
-                colors={colors}
-                selectedDoseIdx={selectedDoseIdx}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <AnimatePresence>
+            {resultado && (
+              <motion.div
+                ref={resultRef}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mt-4"
+              >
+                <DrugResult
+                  key={`${selectedDrug.id}-${selectedDoseIdx}`}
+                  drug={selectedDrug}
+                  peso={parseFloat(peso)}
+                  colors={colors}
+                  selectedDoseIdx={selectedDoseIdx}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Drug info (doses, presentations, indications, notes) */}
-        <div className="mt-4">
-          <DrugInfo
-            drug={selectedDrug}
-            colors={colors}
-            selectedDoseIdx={selectedDoseIdx}
-            onSelectDose={(idx) => { setSelectedDoseIdx(idx); setResultado(null); }}
-          />
-        </div>
+        <DrugInfo
+          drug={selectedDrug}
+          colors={colors}
+          selectedDoseIdx={selectedDoseIdx}
+          onSelectDose={(idx) => { setSelectedDoseIdx(idx); setResultado(null); }}
+        />
       </div>
     );
   }
