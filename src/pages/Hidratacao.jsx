@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Droplets, RotateCcw, Calculator, AlertCircle, Info } from 'lucide-react';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
 function round(value, decimals) {
@@ -36,103 +37,41 @@ function calcularExpansao(peso, tipo) {
   }
 }
 
-function calcularManutencao(peso, comPerdas) {
-  let solucao, SF, SG, hora;
-
+// Holliday-Segar (Merck): volume diário + taxa contínua mL/h
+function calcularManutencao(peso) {
+  let dailyVol;
   if (peso <= 10) {
-    solucao = Math.min(100 * peso, 2400);
-    let potassio = Math.trunc(solucao / 100) * 2 / 4;
-    solucao = solucao / 5;
-    SF = solucao;
-    SG = solucao * 4;
-    if (comPerdas) {
-      const rep = (50 * peso) / 2;
-      SF += rep;
-      SG += rep;
-    }
-    potassio = Math.trunc((SF + SG) / 100) * 2 / 4;
-    SF = round(SF / 4, 0);
-    SG = round(SG / 4, 0);
-    hora = '6/6';
-    var K = potassio;
+    dailyVol = 100 * peso;
   } else if (peso <= 20) {
-    solucao = Math.min(1000 + 50 * (peso - 10), 2400);
-    let potassio = solucao / 100;
-    solucao = solucao / 5;
-    SF = solucao;
-    SG = solucao * 4;
-    if (comPerdas) {
-      const rep = (50 * peso) / 2;
-      SF += rep;
-      SG += rep;
-    }
-    if ((SF + SG) <= 2000) {
-      hora = '6/6';
-      potassio = (potassio * 2) / 4;
-      SF = round(SF / 4, 0);
-      SG = round(SG / 4, 0);
-    } else {
-      hora = '4/4';
-      potassio = (potassio * 2) / 6;
-      SF = round(SF / 6, 0);
-      SG = round(SG / 6, 0);
-    }
-    var K = Math.trunc(potassio);
+    dailyVol = 1000 + 50 * (peso - 10);
   } else {
-    solucao = Math.min(1500 + 20 * (peso - 20), 2400);
-    let potassio = solucao / 100;
-    solucao = solucao / 5;
-    SF = solucao;
-    SG = solucao * 4;
-    if (comPerdas) {
-      const rep = (50 * peso) / 2;
-      SF += rep;
-      SG += rep;
-    }
-    const total = SF + SG;
-    if (total <= 2000) {
-      hora = '6/6';
-      potassio = (potassio * 2) / 4;
-      SF = round(SF / 4, 0);
-      SG = round(SG / 4, 0);
-    } else if (total <= 3000) {
-      hora = '4/4';
-      potassio = (potassio * 2) / 6;
-      SF = round(SF / 6, 0);
-      SG = round(SG / 6, 0);
-    } else {
-      hora = '2/2';
-      potassio = (potassio * 2) / 12;
-      SF = round(SF / 12, 0);
-      SG = round(SG / 12, 0);
-    }
-    var K = Math.trunc(potassio);
+    dailyVol = Math.min(1500 + 20 * (peso - 20), 2400);
   }
+  dailyVol = round(dailyVol, 0);
+  const ratePerHour = round(dailyVol / 24, 1);
+  const ratePerMin = round(dailyVol / 1440, 2);
 
-  const Kest = round(((SF + SG) / 100 * 3) / 2.56, 1);
-  let kLabel;
-  if (K === 0) kLabel = 'Não é necessário adicionar potássio para este peso.';
-  else kLabel = `Cloreto de Potássio 10% — ${K} mL`;
-
-  let infusao = (SF + SG + K) / (parseInt(hora.split('/')[0]) * 3);
-  infusao = round(infusao, 0);
-
-  const volumeTotal = SF + SG + K;
+  let formula;
+  if (peso <= 10) formula = `100 mL/kg/dia × ${peso} kg = ${dailyVol} mL/dia`;
+  else if (peso <= 20) formula = `1000 mL + 50 mL/kg × ${peso - 10} kg (excesso de 10) = ${dailyVol} mL/dia`;
+  else formula = `1500 mL + 20 mL/kg × ${Math.min(peso - 20, 20)} kg (excesso de 20) = ${dailyVol} mL/dia`;
 
   return {
-    title: 'Fase de Manutenção',
-    subtitle: comPerdas ? 'Regra de Holliday-Segar + Reposição (50 mL/kg/dia)' : 'Regra de Holliday-Segar',
-    volumeTotal,
+    title: 'Hidratação de Manutenção',
+    subtitle: 'Fórmula de Holliday-Segar (Merck Manuals)',
+    dailyVol,
+    ratePerHour,
+    ratePerMin,
+    formula,
     steps: [
-      { num: 1, label: 'Soro Fisiológico 0,9%', value: `${SF} mL` },
-      { num: 2, label: 'Soro Glicosado 5%', value: `${SG} mL` },
-      { num: 3, label: 'Cloreto de Potássio', value: kLabel },
-      { num: 4, label: 'Intervalo de infusão', value: `A cada ${hora}h (${infusao} gotas/min), EV` },
+      { num: 1, label: 'Volume diário total', value: `${dailyVol} mL/dia` },
+      { num: 2, label: 'Taxa de infusão contínua', value: `${ratePerHour} mL/h` },
+      { num: 3, label: 'Equivalente em gotas', value: `${ratePerMin} mL/min` },
     ],
     alerts: [
-      'Monitorar peso, débito urinário, densidade urinária e eletrólitos.',
-      'Quando o paciente puder beber (2–3h após início), iniciar SRO mantendo hidratação EV.',
-      'Interromper EV quando o paciente puder ingerir SRO em quantidade suficiente.',
+      'Não aplicável a recém-nascidos (0–28 dias após termo).',
+      'Para pacientes com > 20 kg, volume máximo é 2400 mL/dia.',
+      'Monitorar débito urinário, eletrólitos e sinais clínicos de hiper/hipo-hidratação.',
     ],
   };
 }
@@ -141,7 +80,7 @@ export default function Hidratacao() {
   const [peso, setPeso] = useState('');
   const [fase, setFase] = useState(null);
   const [resultado, setResultado] = useState(null);
-  const [showPerdas, setShowPerdas] = useState(false);
+  const [showPerdas, setShowPerdas] = useState(false); // kept for compat
   const resultRef = useRef(null);
 
   const handleSubmit = (e) => {
@@ -160,17 +99,11 @@ export default function Hidratacao() {
     if (f === 'menor5' || f === 'maior5') {
       setFase(f);
       setResultado(calcularExpansao(p, f));
-      setShowPerdas(false);
     } else {
       setFase('manut');
-      setShowPerdas(true);
+      setResultado(calcularManutencao(p));
     }
-  };
-
-  const handlePerdas = (comPerdas) => {
-    const p = parseFloat(peso);
     setShowPerdas(false);
-    setResultado(calcularManutencao(p, comPerdas));
   };
 
   const reset = () => {
@@ -252,10 +185,21 @@ export default function Hidratacao() {
                 {resultado.subtitle && <p className="text-sm text-muted-foreground mt-0.5">{resultado.subtitle}</p>}
               </div>
 
-              {resultado.volumeTotal != null && (
-                <div className="mb-4 bg-cyan-50 border border-cyan-200 rounded-xl px-4 py-3 flex items-center justify-between">
-                  <span className="text-sm font-semibold text-cyan-700">Volume total por dose</span>
-                  <span className="text-xl font-extrabold text-cyan-600">{resultado.volumeTotal} mL</span>
+              {resultado.dailyVol != null && (
+                <div className="mb-4 space-y-2">
+                  <div className="bg-cyan-50 border border-cyan-200 rounded-xl px-4 py-3 flex items-center justify-between">
+                    <span className="text-sm font-semibold text-cyan-700">Volume diário total</span>
+                    <span className="text-2xl font-extrabold text-cyan-600">{resultado.dailyVol} mL/dia</span>
+                  </div>
+                  <div className="bg-teal-50 border border-teal-200 rounded-xl px-4 py-3 flex items-center justify-between">
+                    <span className="text-sm font-semibold text-teal-700">Taxa de infusão contínua</span>
+                    <span className="text-2xl font-extrabold text-teal-600">{resultado.ratePerHour} mL/h</span>
+                  </div>
+                  {resultado.formula && (
+                    <div className="bg-secondary rounded-xl px-4 py-2">
+                      <p className="text-xs text-muted-foreground font-medium">{resultado.formula}</p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -295,43 +239,6 @@ export default function Hidratacao() {
         )}
       </AnimatePresence>
 
-      {/* Perdas modal */}
-      <AnimatePresence>
-        {showPerdas && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4"
-            onClick={() => setShowPerdas(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={e => e.stopPropagation()}
-              className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl"
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <Info className="w-5 h-5 text-cyan-500" />
-                <h3 className="font-bold text-foreground">Estimativa de Perdas</h3>
-              </div>
-              <p className="text-sm text-muted-foreground mb-5">
-                A criança apresenta algum tipo de perda de líquido importante (diarreia, sudorese, hiperventilação ou febre)?
-              </p>
-              <div className="flex gap-3">
-                <button onClick={() => handlePerdas(false)} className="flex-1 border border-border rounded-xl py-2.5 text-sm font-semibold hover:bg-secondary transition-colors">
-                  Não
-                </button>
-                <button onClick={() => handlePerdas(true)} className="flex-1 bg-cyan-500 text-white rounded-xl py-2.5 text-sm font-semibold hover:bg-cyan-600 transition-colors">
-                  Sim
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Info box */}
       <div className="mt-6 bg-blue-50 border border-blue-200 rounded-2xl p-4">
         <div className="flex items-center gap-2 mb-2">
@@ -341,8 +248,10 @@ export default function Hidratacao() {
         <ul className="space-y-1 text-xs text-blue-700">
           <li>• <strong>Expansão &lt; 5 anos:</strong> SF 0,9% — 20 mL/kg em 30 min</li>
           <li>• <strong>Expansão &gt; 5 anos:</strong> SF 30 mL/kg (30 min) + Ringer Lactato 70 mL/kg (2h30)</li>
-          <li>• <strong>Manutenção:</strong> Regra de Holliday-Segar (solução 1:4 — SF+SG)</li>
-          <li>• Peso mínimo para cálculo: 3 kg</li>
+          <li>• <strong>Manutenção (≤ 10 kg):</strong> 100 mL/kg/dia</li>
+          <li>• <strong>Manutenção (11–20 kg):</strong> 1000 mL + 50 mL/kg acima de 10</li>
+          <li>• <strong>Manutenção (&gt; 20 kg):</strong> 1500 mL + 20 mL/kg acima de 20 (máx. 2400 mL/dia)</li>
+          <li>• Taxa contínua = Volume diário ÷ 24h — Holliday MA, Segar WE. Pediatrics, 1957</li>
         </ul>
       </div>
     </div>
