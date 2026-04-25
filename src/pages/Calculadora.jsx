@@ -69,7 +69,7 @@ export default function Calculadora() {
     const cat = ALL_CATEGORIES.find(c => c.id === selectedDrug.category);
     const colors = categoryColorMap[cat?.color] || categoryColorMap['blue-500'];
     return (
-      <div className="max-w-2xl mx-auto px-4 pb-12">
+      <div className="max-w-4xl mx-auto px-4 pb-12">
 
         {/* Sticky top panel: header + peso + resultado */}
         <div className="sticky top-14 z-40 bg-background pt-4 pb-3 -mx-4 px-4 border-b border-border shadow-sm">
@@ -147,7 +147,7 @@ export default function Calculadora() {
   if (selectedCat) {
     const colors = categoryColorMap[selectedCat.color] || categoryColorMap['blue-500'];
     return (
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto px-4 py-8">
         <button onClick={resetAll} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Todas as Categorias
         </button>
