@@ -37,6 +37,11 @@ export default function Home() {
         ...ALL_CATEGORIES
           .filter(c => c.label.toLowerCase().includes(search.toLowerCase()))
           .map(c => ({ label: c.label, desc: `${c.drugs.length} medicamentos`, path: `/calculadora?categoria=${c.id}`, icon: <span className="text-lg">{c.icon}</span>, keywords: [] })),
+        ...ALL_CATEGORIES.flatMap(cat =>
+          cat.drugs
+            .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
+            .map(d => ({ label: d.name, desc: cat.label, path: `/calculadora?categoria=${cat.id}&drug=${d.id}`, icon: <span className="text-lg">{cat.icon}</span>, keywords: [] }))
+        ).slice(0, 8),
       ]
     : [];
 
