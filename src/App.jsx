@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Calculadora from './pages/Calculadora';
 import Hidratacao from './pages/Hidratacao';
+import IMC from './pages/IMC';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/calculadora" element={<Calculadora />} />
             <Route path="/hidratacao" element={<Hidratacao />} />
+            <Route path="/imc" element={<IMC />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
