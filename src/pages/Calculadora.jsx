@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ALL_CATEGORIES } from '@/lib/drugData';
 import { Search, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import DrugResult from '@/components/DrugResult';
 
 const categoryColorMap = {
   'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', pill: 'bg-red-500' },
@@ -38,8 +39,7 @@ export default function Calculadora() {
     e.preventDefault();
     const p = parseFloat(peso);
     if (!p || p < 1.5) return;
-    const res = selectedDrug.calculate(p);
-    setResultado(res);
+    setResultado(true);
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   };
 
@@ -110,53 +110,8 @@ export default function Calculadora() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="space-y-4"
             >
-              {/* Apresentações */}
-              <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-                <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${colors.pill}`}></span>
-                  Apresentações e Doses
-                </h3>
-                <div className="space-y-2">
-                  {resultado.presentations.map((p, i) => (
-                    <div key={i} className={`${colors.bg} rounded-xl p-3 flex items-start justify-between gap-3`}>
-                      <span className="text-sm text-muted-foreground flex-1">{p.label}</span>
-                      <span className={`text-sm font-bold ${colors.text} text-right`}>{p.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Indicações */}
-              <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-                <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                  Indicações Clínicas
-                </h3>
-                <ul className="space-y-1.5">
-                  {resultado.indications.map((ind, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                      <span className="text-green-500 mt-0.5">✓</span> {ind}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Orientações */}
-              <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-                <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                  Orientações
-                </h3>
-                <ul className="space-y-1.5">
-                  {resultado.notes.map((note, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                      <span className="text-amber-500 mt-0.5">⚠</span> {note}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <DrugResult drug={selectedDrug} peso={parseFloat(peso)} colors={colors} />
             </motion.div>
           )}
         </AnimatePresence>
