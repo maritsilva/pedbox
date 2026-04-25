@@ -31,11 +31,10 @@ export default function Home() {
           <span>👶</span> Pediátricas
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-3">
-          Quando eles chegarem:<br />
-          <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">PedAjuda!</span>
+          <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">PedBox</span>
         </h1>
         <p className="text-muted-foreground max-w-xl mx-auto text-base">
-          Calculadora de doses pediátricas e hidratação venosa para médicos e profissionais de saúde.
+          Calculadora de doses pediátricas, hidratação venosa, IMC e pressão arterial para profissionais de saúde.
         </p>
       </motion.div>
 
