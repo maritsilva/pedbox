@@ -1,39 +1,31 @@
 import React, { useState } from 'react';
 import { r } from '@/lib/drugData';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Pencil, CheckCircle, Info, AlertTriangle } from 'lucide-react';
+import { Pencil, CheckCircle } from 'lucide-react';
 
-// Calculate mL per dose from mg/dose and presentation
 function calcMl(mgPerDose, mgPerMl) {
   if (!mgPerMl || !mgPerDose) return null;
-  const ml = mgPerDose / mgPerMl;
-  return r(ml, 2);
+  return r(mgPerDose / mgPerMl, 2);
 }
 
-// For a dose option, compute mgPerDay, mgPerDose, and mL per presentation
 function computeDose(doseOption, peso) {
   const { mgPerKgPerDay, mgPerKgPerDose, maxMgPerDay, maxMgPerDose, interval, fixedNote, mlPerKgPerDay, maxMlPerDay } = doseOption;
 
-  // mL-based drug (e.g. lactulose)
   if (mlPerKgPerDay) {
     const mlPerDay = r(Math.min(peso * mlPerKgPerDay, maxMlPerDay || 9999), 1);
     const mlPerDose = interval ? r(mlPerDay / interval, 1) : mlPerDay;
     return { mgPerDay: null, mgPerDose: null, mlPerDay, mlPerDose, isFixed: false, isMlBased: true };
   }
 
-  // fixed note (UI, or non-weight-based)
   if (fixedNote) {
     return { mgPerDay: null, mgPerDose: null, isFixed: true, fixedNote };
   }
 
-  // Per-dose drug
   if (mgPerKgPerDose) {
     const raw = peso * mgPerKgPerDose;
     const mgPerDose = maxMgPerDose ? r(Math.min(raw, maxMgPerDose), 2) : r(raw, 2);
     return { mgPerDay: null, mgPerDose, isFixed: false, isByDose: true };
   }
 
-  // Per-day drug
   if (mgPerKgPerDay) {
     const raw = peso * mgPerKgPerDay;
     const mgPerDay = maxMgPerDay ? r(Math.min(raw, maxMgPerDay), 1) : r(raw, 1);
@@ -44,11 +36,10 @@ function computeDose(doseOption, peso) {
   return { isFixed: true, fixedNote: 'Ver bula / protocolo' };
 }
 
-export default function DrugResult({ drug, peso, colors }) {
-  const [selectedDoseIdx, setSelectedDoseIdx] = useState(0);
-  const [customDose, setCustomDose] = useState('');
+export default function DrugResult({ drug, peso, colors, selectedDoseIdx }) {
+  const [customMgKgDay, setCustomMgKgDay] = useState('');
   const [showCustom, setShowCustom] = useState(false);
-  const [appliedCustom, setAppliedCustom] = useState(null);
+  const [appliedCustomMgKgDay, setAppliedCustomMgKgDay] = useState(null);
 
   if (!drug || !drug.doses || drug.doses.length === 0) return null;
 
@@ -56,48 +47,28 @@ export default function DrugResult({ drug, peso, colors }) {
   const doseOption = drug.doses[safeIdx];
   const computed = computeDose(doseOption, peso);
 
-  // Effective mgPerDose to use for mL calculation
-  const effectiveMgPerDose = appliedCustom !== null
-    ? appliedCustom
-    : computed.mgPerDose;
+  // Custom dose: user enters mg/kg/dia, we compute mg/dose from it
+  const customMgPerDay = appliedCustomMgKgDay !== null ? r(appliedCustomMgKgDay * peso, 2) : null;
+  const customMgPerDose = appliedCustomMgKgDay !== null && doseOption.interval
+    ? r(customMgPerDay / doseOption.interval, 2)
+    : appliedCustomMgKgDay !== null ? customMgPerDay : null;
+
+  const effectiveMgPerDose = customMgPerDose !== null ? customMgPerDose : computed.mgPerDose;
+  const effectiveMgPerDay = customMgPerDay !== null ? customMgPerDay : computed.mgPerDay;
 
   const handleApplyCustom = () => {
-    const v = parseFloat(customDose);
-    if (!isNaN(v) && v > 0) setAppliedCustom(v);
+    const v = parseFloat(customMgKgDay);
+    if (!isNaN(v) && v > 0) setAppliedCustomMgKgDay(v);
   };
 
-  const handleDoseChange = (idx) => {
-    setSelectedDoseIdx(idx);
-    setAppliedCustom(null);
-    setCustomDose('');
+  const handleResetCustom = () => {
     setShowCustom(false);
+    setAppliedCustomMgKgDay(null);
+    setCustomMgKgDay('');
   };
 
   return (
     <div className="space-y-4 animate-fade-in">
-
-      {/* Dose selector */}
-      {drug.doses.length > 1 && (
-        <div className="bg-white border border-border rounded-2xl p-4 shadow-sm">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Selecionar Dose</p>
-          <div className="flex flex-col gap-2">
-            {drug.doses.map((d, i) => (
-              <button
-                key={i}
-                onClick={() => handleDoseChange(i)}
-                className={`text-left text-sm px-3 py-2.5 rounded-xl border transition-all ${
-                  selectedDoseIdx === i
-                    ? `${colors.bg} ${colors.border} ${colors.text} font-semibold border`
-                    : 'border-border text-muted-foreground hover:bg-secondary'
-                }`}
-              >
-                {d.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Main result card */}
       <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
         <div className="flex items-center justify-between mb-4">
@@ -134,17 +105,20 @@ export default function DrugResult({ drug, peso, colors }) {
           </div>
         ) : (
           <div className="space-y-2">
-            {computed.mgPerDay && (
+            {effectiveMgPerDay && (
               <div className={`${colors.bg} rounded-xl p-3 flex justify-between items-center`}>
-                <span className="text-sm text-muted-foreground">Dose total/dia</span>
-                <span className={`font-bold text-lg ${colors.text}`}>{computed.mgPerDay} mg/dia</span>
+                <span className="text-sm text-muted-foreground">
+                  Dose total/dia
+                  {appliedCustomMgKgDay !== null && <span className="ml-1 text-xs text-amber-600">(personalizada)</span>}
+                </span>
+                <span className={`font-bold text-lg ${colors.text}`}>{effectiveMgPerDay} mg/dia</span>
               </div>
             )}
             {effectiveMgPerDose && (
               <div className={`${colors.bg} border ${colors.border} rounded-xl p-3 flex justify-between items-center`}>
                 <span className="text-sm text-muted-foreground">
                   Dose por tomada
-                  {appliedCustom !== null && <span className="ml-1 text-xs text-amber-600">(personalizada)</span>}
+                  {appliedCustomMgKgDay !== null && <span className="ml-1 text-xs text-amber-600">(personalizada)</span>}
                 </span>
                 <span className={`font-bold text-xl ${colors.text}`}>{effectiveMgPerDose} mg/dose</span>
               </div>
@@ -157,7 +131,7 @@ export default function DrugResult({ drug, peso, colors }) {
         )}
 
         {/* Dose personalizada */}
-        {!computed.isFixed && !computed.isMlBased && effectiveMgPerDose && (
+        {!computed.isFixed && !computed.isMlBased && (
           <div className="mt-3">
             {!showCustom ? (
               <button
@@ -169,13 +143,13 @@ export default function DrugResult({ drug, peso, colors }) {
               </button>
             ) : (
               <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-                <p className="text-xs font-semibold text-amber-800 mb-2">Dose personalizada (mg/dose)</p>
+                <p className="text-xs font-semibold text-amber-800 mb-2">Dose personalizada (mg/kg/dia)</p>
                 <div className="flex gap-2">
                   <input
                     type="number"
-                    placeholder="Ex: 250"
-                    value={customDose}
-                    onChange={e => { setCustomDose(e.target.value); setAppliedCustom(null); }}
+                    placeholder="Ex: 50"
+                    value={customMgKgDay}
+                    onChange={e => { setCustomMgKgDay(e.target.value); setAppliedCustomMgKgDay(null); }}
                     className="flex-1 border border-amber-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
                   />
                   <button
@@ -185,7 +159,7 @@ export default function DrugResult({ drug, peso, colors }) {
                     <CheckCircle className="w-3 h-3" /> Aplicar
                   </button>
                   <button
-                    onClick={() => { setShowCustom(false); setAppliedCustom(null); setCustomDose(''); }}
+                    onClick={handleResetCustom}
                     className="text-xs text-muted-foreground hover:text-foreground px-2"
                   >
                     ✕
@@ -197,7 +171,7 @@ export default function DrugResult({ drug, peso, colors }) {
         )}
       </div>
 
-      {/* Apresentações em mL */}
+      {/* Volume por Apresentação */}
       {drug.presentations && drug.presentations.some(p => p.mgPerMl) && effectiveMgPerDose && !computed.isFixed && !computed.isMlBased && (
         <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
           <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
@@ -217,7 +191,7 @@ export default function DrugResult({ drug, peso, colors }) {
                   </div>
                   <div className="text-right">
                     <p className="text-xl font-bold text-blue-600">{ml} mL</p>
-                    {computed.mgPerDay && doseOption.interval && (
+                    {effectiveMgPerDay && doseOption.interval && (
                       <p className="text-xs text-muted-foreground">{r(ml * doseOption.interval, 2)} mL/dia total</p>
                     )}
                   </div>
@@ -227,58 +201,6 @@ export default function DrugResult({ drug, peso, colors }) {
           </div>
         </div>
       )}
-
-      {/* Apresentações sólidas */}
-      {drug.presentations && drug.presentations.some(p => p.fixedMg) && (
-        <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-          <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-            Apresentações Disponíveis
-          </h3>
-          <div className="space-y-2">
-            {drug.presentations.filter(p => p.fixedMg).map((pres, i) => (
-              <div key={i} className="flex items-center justify-between bg-purple-50 border border-purple-200 rounded-xl px-4 py-3">
-                <p className="text-sm font-medium">{pres.label}</p>
-                {effectiveMgPerDose && pres.fixedMg && (
-                  <p className="text-xs text-muted-foreground">
-                    ≈ {r(effectiveMgPerDose / pres.fixedMg, 1)} comp./dose
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Indicações */}
-      <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-        <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500"></span>
-          Indicações Clínicas
-        </h3>
-        <ul className="space-y-1.5">
-          {drug.indications.map((ind, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-              <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span> {ind}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Notas */}
-      <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-        <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-amber-500" />
-          Orientações
-        </h3>
-        <ul className="space-y-1.5">
-          {drug.notes.map((note, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-              <span className="text-amber-500 mt-0.5 flex-shrink-0">•</span> {note}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }

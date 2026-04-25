@@ -3,6 +3,7 @@ import { ALL_CATEGORIES } from '@/lib/drugData';
 import { Search, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugResult from '@/components/DrugResult';
+import DrugInfo from '@/components/DrugInfo';
 
 const categoryColorMap = {
   'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', pill: 'bg-red-500' },
@@ -21,6 +22,7 @@ export default function Calculadora() {
   const [search, setSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedDrug, setSelectedDrug] = useState(null);
+  const [selectedDoseIdx, setSelectedDoseIdx] = useState(0);
   const [peso, setPeso] = useState('');
   const [resultado, setResultado] = useState(null);
   const resultRef = useRef(null);
@@ -47,6 +49,7 @@ export default function Calculadora() {
     setSelectedDrug(null);
     setResultado(null);
     setPeso('');
+    setSelectedDoseIdx(0);
   };
 
   const resetAll = () => {
@@ -71,6 +74,7 @@ export default function Calculadora() {
           <ChevronLeft className="w-4 h-4" /> Voltar
         </button>
 
+        {/* Drug header */}
         <div className={`${colors.bg} ${colors.border} border rounded-2xl p-5 mb-6`}>
           <div className="flex items-center gap-3">
             <span className="text-3xl">{cat?.icon}</span>
@@ -81,8 +85,16 @@ export default function Calculadora() {
           </div>
         </div>
 
+        {/* Drug info (doses, presentations, indications, notes) */}
+        <DrugInfo
+          drug={selectedDrug}
+          colors={colors}
+          selectedDoseIdx={selectedDoseIdx}
+          onSelectDose={(idx) => { setSelectedDoseIdx(idx); setResultado(null); }}
+        />
+
         {/* Peso form */}
-        <form onSubmit={handleCalcular} className="flex gap-3 mb-6">
+        <form onSubmit={handleCalcular} className="flex gap-3 mt-6 mb-4">
           <div className="flex-1 relative">
             <input
               type="number"
@@ -111,7 +123,13 @@ export default function Calculadora() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
-              <DrugResult key={selectedDrug.id} drug={selectedDrug} peso={parseFloat(peso)} colors={colors} />
+              <DrugResult
+                key={`${selectedDrug.id}-${selectedDoseIdx}`}
+                drug={selectedDrug}
+                peso={parseFloat(peso)}
+                colors={colors}
+                selectedDoseIdx={selectedDoseIdx}
+              />
             </motion.div>
           )}
         </AnimatePresence>
