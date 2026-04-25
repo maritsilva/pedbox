@@ -1,8 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ALL_CATEGORIES } from '@/lib/drugData';
-import { Droplets, Calculator, ChevronRight, AlertTriangle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Droplets, Calculator, AlertTriangle, Search, Activity, Scale, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const TOOLS = [
+  { label: 'Calculadora de Doses', desc: 'Doses de medicamentos pediátricos por peso', path: '/calculadora', icon: <Calculator className="w-5 h-5" />, keywords: ['calculadora', 'doses', 'medicamentos', 'drogas', 'remédios'] },
+  { label: 'Hidratação Venosa', desc: 'Expansão volêmica e manutenção (Holliday-Segar)', path: '/hidratacao', icon: <Droplets className="w-5 h-5" />, keywords: ['hidratação', 'hidratacao', 'venosa', 'expansão', 'soro', 'manutencao', 'holliday'] },
+  { label: 'IMC Pediátrico', desc: 'Índice de massa corporal e curvas de crescimento', path: '/imc', icon: <Scale className="w-5 h-5" />, keywords: ['imc', 'índice', 'massa', 'corporal', 'crescimento', 'peso', 'altura'] },
+  { label: 'PA Pediátrica', desc: 'Pressão arterial e percentis por idade e sexo', path: '/pressao-arterial', icon: <Activity className="w-5 h-5" />, keywords: ['pressão', 'pressao', 'arterial', 'hipertensão', 'pa'] },
+];
 
 const categoryColorMap = {
   'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', grad: 'from-red-500' },
@@ -18,6 +25,21 @@ const categoryColorMap = {
 };
 
 export default function Home() {
+  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
+
+  const searchResults = search.trim().length > 0
+    ? [
+        ...TOOLS.filter(t =>
+          t.label.toLowerCase().includes(search.toLowerCase()) ||
+          t.keywords.some(k => k.includes(search.toLowerCase()))
+        ),
+        ...ALL_CATEGORIES
+          .filter(c => c.label.toLowerCase().includes(search.toLowerCase()))
+          .map(c => ({ label: c.label, desc: `${c.drugs.length} medicamentos`, path: `/calculadora?categoria=${c.id}`, icon: <span className="text-lg">{c.icon}</span>, keywords: [] })),
+      ]
+    : [];
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Hero */}
@@ -49,6 +71,53 @@ export default function Home() {
         <p>
           <strong>Uso profissional:</strong> Este conteúdo foi desenvolvido por estudantes de medicina, revisado por pediatras, baseado nas principais referências da área. Não deve ser utilizado por leigos.
         </p>
+      </motion.div>
+
+      {/* Search bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="relative mb-8"
+      >
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        <input
+          type="text"
+          placeholder="Buscar ferramenta... (ex: IMC, Hidratação, Pressão)"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="w-full border border-border rounded-2xl pl-11 pr-4 py-3 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+        />
+        <AnimatePresence>
+          {searchResults.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-2xl shadow-lg overflow-hidden z-30"
+            >
+              {searchResults.map((r, i) => (
+                <button
+                  key={i}
+                  onClick={() => { navigate(r.path); setSearch(''); }}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0"
+                >
+                  <div className="text-primary flex-shrink-0">{r.icon}</div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{r.label}</p>
+                    <p className="text-xs text-muted-foreground">{r.desc}</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground ml-auto" />
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {search.trim().length > 0 && searchResults.length === 0 && (
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-2xl shadow-lg px-4 py-3 z-30">
+            <p className="text-sm text-muted-foreground">Nenhum resultado para "<strong>{search}</strong>"</p>
+          </div>
+        )}
       </motion.div>
 
       {/* Quick access cards */}
