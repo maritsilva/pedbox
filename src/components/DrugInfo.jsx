@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, AlertTriangle, Pill, FlaskConical, Tag, ShieldAlert, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { AlertTriangle, FlaskConical, ShieldAlert, ChevronDown, ChevronUp, Info, Tag, Syringe, X } from 'lucide-react';
 
 export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }) {
   const [showSensitivity, setShowSensitivity] = useState(false);
@@ -8,113 +8,105 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
 
   if (!drug) return null;
 
+  const getDoseBadge = (d) => {
+    if (d.fixedNote) return d.fixedNote.split(',')[0];
+    if (d.mgPerKgPerDose) return `${d.mgPerKgPerDose} mg/kg/dose`;
+    if (d.mgPerKgPerDay) return `${d.mgPerKgPerDay} mg/kg/dia`;
+    if (d.mlPerKgPerDay) return `${d.mlPerKgPerDay} mL/kg/dia`;
+    return null;
+  };
+
   return (
     <div className="space-y-4">
 
       {/* Observações clínicas */}
       {drug.observations && (
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
-          <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-blue-800">{drug.observations}</p>
-          </div>
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-start gap-3">
+          <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-blue-800 leading-relaxed">{drug.observations}</p>
         </div>
       )}
 
-      {/* Doses disponíveis */}
-      <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-        <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-          <span className={`w-2 h-2 rounded-full ${colors.pill}`}></span>
-          Doses Recomendadas
-        </h3>
-        <div className="space-y-2">
-          {drug.doses.map((d, i) => {
-            const isSelected = selectedDoseIdx === i;
-            const doseDesc = d.fixedNote
-              ? d.fixedNote
-              : d.mgPerKgPerDose
-              ? `${d.mgPerKgPerDose} mg/kg/dose${d.maxMgPerDose ? ` (máx ${d.maxMgPerDose} mg)` : ''}`
-              : d.mgPerKgPerDay
-              ? `${d.mgPerKgPerDay} mg/kg/dia${d.maxMgPerDay ? ` (máx ${d.maxMgPerDay} mg/dia)` : ''}${d.interval ? ` ÷ ${d.interval}x/dia` : ''}`
-              : d.mlPerKgPerDay
-              ? `${d.mlPerKgPerDay} mL/kg/dia${d.maxMlPerDay ? ` (máx ${d.maxMlPerDay} mL)` : ''}`
-              : '—';
+      {/* Two-column: Apresentações | Indicações + Doses */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            return (
-              <button
-                key={i}
-                onClick={() => onSelectDose(i)}
-                className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${
-                  isSelected
-                    ? `${colors.bg} ${colors.border} border-2`
-                    : 'border-border hover:bg-secondary'
-                }`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex-1">
-                    <p className={`text-sm font-semibold ${isSelected ? colors.text : 'text-foreground'}`}>
-                      {d.label}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{doseDesc}</p>
-                    {d.via && <p className="text-xs text-muted-foreground">{d.via}</p>}
+        {/* LEFT – Apresentações */}
+        {drug.presentations && drug.presentations.length > 0 && (
+          <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
+            <h3 className="text-base font-semibold text-foreground text-center mb-4 flex items-center justify-center gap-2">
+              <FlaskConical className="w-4 h-4 text-blue-400" />
+              Apresentações Disponíveis
+            </h3>
+            <div className="space-y-3">
+              {drug.presentations.map((pres, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Syringe className="w-4 h-4 text-blue-400" />
                   </div>
-                  {isSelected && (
-                    <span className={`text-xs font-bold ${colors.text} mt-0.5 flex-shrink-0`}>✓ Selecionada</span>
-                  )}
+                  <p className="text-sm text-foreground leading-relaxed">{pres.label}</p>
                 </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Apresentações */}
-      {drug.presentations && drug.presentations.length > 0 && (
-        <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-          <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-            <FlaskConical className="w-4 h-4 text-blue-500" />
-            Apresentações Disponíveis
-          </h3>
-          <div className="space-y-2">
-            {drug.presentations.map((pres, i) => (
-              <div key={i} className="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-2.5">
-                <Pill className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
-                <p className="text-sm text-foreground">{pres.label}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Indicações */}
-      {drug.indications && drug.indications.length > 0 && (
+        {/* RIGHT – Doses (indicações) */}
         <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-          <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500"></span>
+          <h3 className="text-base font-semibold text-foreground text-center mb-4">
             Indicações Clínicas
           </h3>
-          <ul className="space-y-1.5">
-            {drug.indications.map((ind, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                <CheckCircle className="w-3.5 h-3.5 text-green-500 mt-0.5 flex-shrink-0" />
-                {ind}
-              </li>
-            ))}
-          </ul>
+          <div className="space-y-2">
+            {drug.doses.map((d, i) => {
+              const isSelected = selectedDoseIdx === i;
+              const badge = getDoseBadge(d);
+              return (
+                <button
+                  key={i}
+                  onClick={() => onSelectDose(i)}
+                  className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl transition-all text-left ${
+                    isSelected
+                      ? `${colors.bg} border-2 ${colors.border}`
+                      : 'hover:bg-secondary border border-transparent'
+                  }`}
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
+                      isSelected ? `${colors.border} ${colors.text}` : 'border-muted-foreground/40'
+                    }`}>
+                      {isSelected && <div className={`w-2 h-2 rounded-full ${colors.pill}`} />}
+                    </div>
+                    <span className={`text-sm font-medium truncate ${isSelected ? colors.text : 'text-foreground'}`}>
+                      {d.label}
+                    </span>
+                  </div>
+                  {badge && (
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 whitespace-nowrap ${
+                      isSelected
+                        ? `${colors.pill} text-white`
+                        : 'bg-secondary text-muted-foreground'
+                    }`}>
+                      {badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      )}
+      </div>
 
       {/* Orientações */}
       {drug.notes && drug.notes.length > 0 && (
         <div className="bg-white border border-border rounded-2xl p-5 shadow-sm">
-          <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+          <h3 className="text-base font-semibold text-foreground text-center mb-4 flex items-center justify-center gap-2">
             <AlertTriangle className="w-4 h-4 text-amber-500" />
             Orientações
           </h3>
-          <ul className="space-y-1.5">
+          <ul className="space-y-2">
             {drug.notes.map((note, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                <span className="text-amber-500 mt-0.5 flex-shrink-0">•</span> {note}
+              <li key={i} className="flex items-start gap-3 text-sm text-foreground">
+                <X className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
+                <span className="leading-relaxed">{note}</span>
               </li>
             ))}
           </ul>
@@ -126,9 +118,9 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
         <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => setShowSideEffects(v => !v)}
-            className="w-full flex items-center justify-between p-5 text-left hover:bg-secondary/50 transition-colors"
+            className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-secondary/50 transition-colors"
           >
-            <h3 className="font-bold text-foreground flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-orange-400"></span>
               Efeitos Colaterais
             </h3>
@@ -136,10 +128,11 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
           </button>
           {showSideEffects && (
             <div className="px-5 pb-5">
-              <ul className="space-y-1.5">
+              <ul className="space-y-2">
                 {drug.sideEffects.map((ef, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                    <span className="text-orange-400 mt-0.5 flex-shrink-0">•</span> {ef}
+                  <li key={i} className="flex items-start gap-3 text-sm text-foreground">
+                    <X className="w-3.5 h-3.5 text-orange-400 flex-shrink-0 mt-0.5" />
+                    <span className="leading-relaxed">{ef}</span>
                   </li>
                 ))}
               </ul>
@@ -153,9 +146,9 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
         <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => setShowSensitivity(v => !v)}
-            className="w-full flex items-center justify-between p-5 text-left hover:bg-secondary/50 transition-colors"
+            className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-secondary/50 transition-colors"
           >
-            <h3 className="font-bold text-foreground flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 text-red-500" />
               Sensibilidade / Resistências
             </h3>
@@ -165,11 +158,12 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
             <div className="px-5 pb-5 space-y-3">
               {drug.sensitivity.resistant && (
                 <div>
-                  <p className="text-xs font-semibold text-red-600 uppercase mb-1.5">Resistentes</p>
-                  <ul className="space-y-1">
+                  <p className="text-xs font-semibold text-red-600 uppercase mb-2">Resistentes</p>
+                  <ul className="space-y-1.5">
                     {drug.sensitivity.resistant.map((r, i) => (
                       <li key={i} className="text-sm text-foreground flex items-start gap-2">
-                        <span className="text-red-400 mt-0.5 flex-shrink-0">✗</span> {r}
+                        <X className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
+                        <span>{r}</span>
                       </li>
                     ))}
                   </ul>
@@ -177,7 +171,7 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
               )}
               {drug.sensitivity.warning && (
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
-                  <p className="text-xs text-amber-800">{drug.sensitivity.warning}</p>
+                  <p className="text-xs text-amber-800 leading-relaxed">{drug.sensitivity.warning}</p>
                 </div>
               )}
             </div>
@@ -190,9 +184,9 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
         <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
           <button
             onClick={() => setShowBrands(v => !v)}
-            className="w-full flex items-center justify-between p-5 text-left hover:bg-secondary/50 transition-colors"
+            className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-secondary/50 transition-colors"
           >
-            <h3 className="font-bold text-foreground flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <Tag className="w-4 h-4 text-purple-500" />
               Marcas Comerciais
             </h3>
@@ -203,7 +197,8 @@ export default function DrugInfo({ drug, colors, selectedDoseIdx, onSelectDose }
               <ul className="space-y-1.5">
                 {drug.brands.map((b, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                    <span className="text-purple-400 mt-0.5 flex-shrink-0">•</span> {b}
+                    <span className="text-purple-400 mt-0.5 flex-shrink-0">•</span>
+                    <span>{b}</span>
                   </li>
                 ))}
               </ul>
