@@ -50,7 +50,10 @@ export default function DrugResult({ drug, peso, colors }) {
   const [showCustom, setShowCustom] = useState(false);
   const [appliedCustom, setAppliedCustom] = useState(null);
 
-  const doseOption = drug.doses[selectedDoseIdx];
+  if (!drug || !drug.doses || drug.doses.length === 0) return null;
+
+  const safeIdx = selectedDoseIdx < drug.doses.length ? selectedDoseIdx : 0;
+  const doseOption = drug.doses[safeIdx];
   const computed = computeDose(doseOption, peso);
 
   // Effective mgPerDose to use for mL calculation

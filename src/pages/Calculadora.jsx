@@ -111,7 +111,7 @@ export default function Calculadora() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
-              <DrugResult drug={selectedDrug} peso={parseFloat(peso)} colors={colors} />
+              <DrugResult key={selectedDrug.id} drug={selectedDrug} peso={parseFloat(peso)} colors={colors} />
             </motion.div>
           )}
         </AnimatePresence>
