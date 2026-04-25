@@ -23,7 +23,7 @@ export default function Layout() {
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow">
               <Stethoscope className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-lg text-foreground tracking-tight">PedAjuda</span>
+            <span className="font-bold text-lg text-foreground tracking-tight">PedBox</span>
           </Link>
 
           {/* Desktop nav */}
@@ -76,7 +76,7 @@ export default function Layout() {
 
       <footer className="bg-white border-t border-border mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>© 2024 PedAjuda · Conteúdo revisado por pediatras · Para uso por profissionais de saúde</p>
+          <p>© 2025 PedBox · Conteúdo revisado por pediatras · Para uso por profissionais de saúde</p>
           <p className="mt-1 text-xs">Este conteúdo serve como orientação para tomadas de decisão médica. Sempre valide com protocolos institucionais.</p>
         </div>
       </footer>
