@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Calculadora from './pages/Calculadora';
 import Hidratacao from './pages/Hidratacao';
 import IMC from './pages/IMC';
+import PressaoArterial from './pages/PressaoArterial';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/calculadora" element={<Calculadora />} />
             <Route path="/hidratacao" element={<Hidratacao />} />
             <Route path="/imc" element={<IMC />} />
+            <Route path="/pressao-arterial" element={<PressaoArterial />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

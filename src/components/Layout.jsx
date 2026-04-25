@@ -7,6 +7,7 @@ const navLinks = [
   { to: '/calculadora', label: 'Calculadora' },
   { to: '/hidratacao', label: 'Hidratação Venosa' },
   { to: '/imc', label: 'IMC Pediátrico' },
+  { to: '/pressao-arterial', label: 'PA Pediátrica' },
 ];
 
 export default function Layout() {
