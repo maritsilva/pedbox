@@ -1,24 +1,48 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen } from 'lucide-react';
+import { ALL_CATEGORIES } from '@/lib/drugData';
+import { Droplets, Calculator, AlertTriangle, Search, Activity, Scale, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const TOOLS = [
-  { label: 'Guia de Doses', desc: 'Guia clínico de medicamentos pediátricos', path: '/guia', icon: <BookOpen className="w-5 h-5" />, keywords: ['guia', 'doses', 'medicamentos', 'drogas', 'remédios', 'antibióticos'] },
+  { label: 'Calculadora de Doses', desc: 'Doses de medicamentos pediátricos por peso', path: '/calculadora', icon: <Calculator className="w-5 h-5" />, keywords: ['calculadora', 'doses', 'medicamentos', 'drogas', 'remédios'] },
   { label: 'Hidratação Venosa', desc: 'Expansão volêmica e manutenção (Holliday-Segar)', path: '/hidratacao', icon: <Droplets className="w-5 h-5" />, keywords: ['hidratação', 'hidratacao', 'venosa', 'expansão', 'soro', 'manutencao', 'holliday'] },
   { label: 'IMC Pediátrico', desc: 'Índice de massa corporal e curvas de crescimento', path: '/imc', icon: <Scale className="w-5 h-5" />, keywords: ['imc', 'índice', 'massa', 'corporal', 'crescimento', 'peso', 'altura'] },
   { label: 'PA Pediátrica', desc: 'Pressão arterial e percentis por idade e sexo', path: '/pressao-arterial', icon: <Activity className="w-5 h-5" />, keywords: ['pressão', 'pressao', 'arterial', 'hipertensão', 'pa'] },
 ];
+
+const categoryColorMap = {
+  'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', grad: 'from-red-500' },
+  'purple-500': { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-500', grad: 'from-purple-500' },
+  'orange-500': { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-500', grad: 'from-orange-500' },
+  'green-500': { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-500', grad: 'from-green-500' },
+  'cyan-500': { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-500', grad: 'from-cyan-500' },
+  'lime-500': { bg: 'bg-lime-50', border: 'border-lime-200', text: 'text-lime-500', grad: 'from-lime-500' },
+  'yellow-500': { bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-500', grad: 'from-yellow-500' },
+  'red-400': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-400', grad: 'from-red-400' },
+  'teal-600': { bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-600', grad: 'from-teal-600' },
+  'blue-500': { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-500', grad: 'from-blue-500' },
+};
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
   const searchResults = search.trim().length > 0
-    ? TOOLS.filter(t =>
-        t.label.toLowerCase().includes(search.toLowerCase()) ||
-        t.keywords.some(k => k.includes(search.toLowerCase()))
-      )
+    ? [
+        ...TOOLS.filter(t =>
+          t.label.toLowerCase().includes(search.toLowerCase()) ||
+          t.keywords.some(k => k.includes(search.toLowerCase()))
+        ),
+        ...ALL_CATEGORIES
+          .filter(c => c.label.toLowerCase().includes(search.toLowerCase()))
+          .map(c => ({ label: c.label, desc: `${c.drugs.length} medicamentos`, path: `/calculadora?categoria=${c.id}`, icon: <span className="text-lg">{c.icon}</span>, keywords: [] })),
+        ...ALL_CATEGORIES.flatMap(cat =>
+          cat.drugs
+            .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
+            .map(d => ({ label: d.name, desc: cat.label, path: `/calculadora?categoria=${cat.id}&drug=${d.id}`, icon: <span className="text-lg">{cat.icon}</span>, keywords: [] }))
+        ).slice(0, 8),
+      ]
     : [];
 
   return (
@@ -30,15 +54,14 @@ export default function Home() {
         transition={{ duration: 0.4 }}
         className="text-center mb-10"
       >
-        <div className="flex justify-center mb-4">
-          <img
-            src="https://media.base44.com/images/public/69ecb71457668abac5516abd/2b024c3ad_Gemini_Generated_Image_curo51curo51curo1.png"
-            alt="PedBox"
-            className="h-20 w-auto"
-          />
+        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-600 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+          <span>👶</span> Pediátricas
         </div>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-3">
+          <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">PedBox</span>
+        </h1>
         <p className="text-muted-foreground max-w-xl mx-auto text-base">
-          Guia clínico de medicamentos, hidratação venosa, IMC e pressão arterial para profissionais de saúde.
+          Calculadora de doses pediátricas, hidratação venosa, IMC e pressão arterial para profissionais de saúde.
         </p>
       </motion.div>
 
@@ -104,7 +127,7 @@ export default function Home() {
 
       {/* Quick access cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <Link to="/guia">
+        <Link to="/calculadora">
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -112,11 +135,11 @@ export default function Home() {
           >
             <div>
               <p className="text-blue-100 text-sm font-medium mb-1">Ferramenta</p>
-              <h2 className="text-xl font-bold">Guia de Doses</h2>
-              <p className="text-blue-100 text-sm mt-1">Medicamentos e protocolos clínicos</p>
+              <h2 className="text-xl font-bold">Calculadora de Doses</h2>
+              <p className="text-blue-100 text-sm mt-1">{ALL_CATEGORIES.reduce((acc, c) => acc + c.drugs.length, 0)} medicamentos</p>
             </div>
             <div className="bg-white/20 rounded-xl p-3">
-              <BookOpen className="w-7 h-7 text-white" />
+              <Calculator className="w-7 h-7 text-white" />
             </div>
           </motion.div>
         </Link>
@@ -139,28 +162,28 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* Tools grid */}
-      <h2 className="text-lg font-bold text-foreground mb-4">Ferramentas Disponíveis</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {TOOLS.map((tool, i) => (
-          <motion.div
-            key={tool.path}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.06 }}
-          >
-            <Link to={tool.path}>
-              <div className="bg-white border border-border rounded-2xl p-4 flex items-center gap-3 hover:shadow-md hover:border-primary/30 transition-all group">
-                <div className="text-primary bg-primary/10 rounded-xl p-2 flex-shrink-0">{tool.icon}</div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{tool.label}</p>
-                  <p className="text-xs text-muted-foreground">{tool.desc}</p>
+      {/* Categories grid */}
+      <h2 className="text-lg font-bold text-foreground mb-4">Categorias de Medicamentos</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+        {ALL_CATEGORIES.map((cat, i) => {
+          const colors = categoryColorMap[cat.color] || categoryColorMap['blue-500'];
+          return (
+            <motion.div
+              key={cat.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.04 }}
+            >
+              <Link to={`/calculadora?categoria=${cat.id}`}>
+                <div className={`${colors.bg} ${colors.border} border rounded-2xl p-4 flex flex-col items-center gap-2 text-center cursor-pointer hover:shadow-md transition-all group`}>
+                  <span className="text-2xl">{cat.icon}</span>
+                  <p className={`text-xs font-semibold ${colors.text} leading-tight`}>{cat.label.toUpperCase()}</p>
+                  <span className="text-xs text-muted-foreground">{cat.drugs.length} med.</span>
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
-              </div>
-            </Link>
-          </motion.div>
-        ))}
+              </Link>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
