@@ -55,7 +55,28 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
         )}
       </div>
 
-      {/* Preparo / Diluição — primeiro */}
+      {/* Doses */}
+      {drug.doses && drug.doses.length > 0 && (
+        <Section title="Doses" icon={<Stethoscope className="w-4 h-4 text-green-500" />}>
+          <div className="space-y-5">
+            {drug.doses.map((group, gi) => (
+              <div key={gi}>
+                <p className={`text-xs font-bold ${colors.text} uppercase tracking-wide mb-2`}>{group.group}</p>
+                <div className="space-y-2">
+                  {group.items.map((item, ii) => (
+                    <div key={ii} className="rounded-xl border border-border bg-secondary/30 px-4 py-2.5">
+                      <p className="text-xs font-semibold text-muted-foreground mb-0.5">{item.label}</p>
+                      <p className="text-sm text-foreground leading-snug">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Preparo / Diluição */}
       {drug.preparation && (
         <Section title="Preparo e Diluição" icon={<Syringe className="w-4 h-4 text-cyan-500" />}>
           <p className="text-sm text-foreground leading-relaxed">{drug.preparation}</p>
@@ -92,27 +113,6 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
           </div>
         )}
       </Section>
-
-      {/* Doses */}
-      {drug.doses && drug.doses.length > 0 && (
-        <Section title="Doses" icon={<Stethoscope className="w-4 h-4 text-green-500" />}>
-          <div className="space-y-5">
-            {drug.doses.map((group, gi) => (
-              <div key={gi}>
-                <p className={`text-xs font-bold ${colors.text} uppercase tracking-wide mb-2`}>{group.group}</p>
-                <div className="space-y-2">
-                  {group.items.map((item, ii) => (
-                    <div key={ii} className="rounded-xl border border-border bg-secondary/30 px-4 py-2.5">
-                      <p className="text-xs font-semibold text-muted-foreground mb-0.5">{item.label}</p>
-                      <p className="text-sm text-foreground leading-snug">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
 
 
 
