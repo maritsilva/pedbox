@@ -30,12 +30,11 @@ export default function Home() {
         transition={{ duration: 0.4 }}
         className="text-center mb-10"
       >
-        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-600 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
-          <span>👶</span> Pediátricas
-        </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-3">
-          <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">PedBox</span>
-        </h1>
+        <img
+          src="https://media.base44.com/images/public/69ecb71457668abac5516abd/f3370f5fd_Gemini_Generated_Image_curo51curo51curo1.png"
+          alt="PedBox"
+          className="h-20 w-auto mx-auto mb-4"
+        />
         <p className="text-muted-foreground max-w-xl mx-auto text-base">
           Guia clínico de medicamentos, hidratação venosa, IMC e pressão arterial para profissionais de saúde.
         </p>
