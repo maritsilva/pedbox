@@ -55,6 +55,13 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
         )}
       </div>
 
+      {/* Preparo / Diluição — primeiro */}
+      {drug.preparation && (
+        <Section title="Preparo e Diluição" icon={<Syringe className="w-4 h-4 text-cyan-500" />}>
+          <p className="text-sm text-foreground leading-relaxed">{drug.preparation}</p>
+        </Section>
+      )}
+
       {/* Apresentações e marcas */}
       <Section title="Apresentações e Marcas" icon={<Package className="w-4 h-4 text-blue-500" />}>
         {drug.presentations && drug.presentations.length > 0 && (
@@ -107,12 +114,7 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
         </Section>
       )}
 
-      {/* Preparo / Diluição */}
-      {drug.preparation && (
-        <Section title="Preparo e Diluição" icon={<Syringe className="w-4 h-4 text-cyan-500" />} defaultOpen={false}>
-          <p className="text-sm text-foreground leading-relaxed">{drug.preparation}</p>
-        </Section>
-      )}
+
 
       {/* Ajuste renal */}
       {drug.renalAdjustment && drug.renalAdjustment.length > 0 && (
