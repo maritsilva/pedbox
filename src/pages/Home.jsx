@@ -127,23 +127,6 @@ export default function Home() {
 
       {/* Quick access cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <Link to="/calculadora">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-5 text-white shadow-lg shadow-blue-200 flex items-center justify-between cursor-pointer"
-          >
-            <div>
-              <p className="text-blue-100 text-sm font-medium mb-1">Ferramenta</p>
-              <h2 className="text-xl font-bold">Calculadora de Doses</h2>
-              <p className="text-blue-100 text-sm mt-1">{ALL_CATEGORIES.reduce((acc, c) => acc + c.drugs.length, 0)} medicamentos</p>
-            </div>
-            <div className="bg-white/20 rounded-xl p-3">
-              <Calculator className="w-7 h-7 text-white" />
-            </div>
-          </motion.div>
-        </Link>
-
         <Link to="/hidratacao">
           <motion.div
             whileHover={{ scale: 1.02 }}
