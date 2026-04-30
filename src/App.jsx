@@ -10,7 +10,7 @@ import Calculadora from './pages/Calculadora';
 import Hidratacao from './pages/Hidratacao';
 import IMC from './pages/IMC';
 import PressaoArterial from './pages/PressaoArterial';
-import Protocolos from './pages/Protocolos';
+import Protocolos from './pages/Protocolos.jsx';
 import Guia from './pages/Guia';
 
 function App() {
