@@ -10,6 +10,8 @@ import Calculadora from './pages/Calculadora';
 import Hidratacao from './pages/Hidratacao';
 import IMC from './pages/IMC';
 import PressaoArterial from './pages/PressaoArterial';
+import Protocolos from './pages/Protocolos';
+import Guia from './pages/Guia';
 
 function App() {
   return (
@@ -18,10 +20,12 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/guia" element={<Guia />} />
             <Route path="/calculadora" element={<Calculadora />} />
             <Route path="/hidratacao" element={<Hidratacao />} />
             <Route path="/imc" element={<IMC />} />
             <Route path="/pressao-arterial" element={<PressaoArterial />} />
+            <Route path="/protocolos" element={<Protocolos />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

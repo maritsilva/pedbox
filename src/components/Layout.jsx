@@ -4,7 +4,7 @@ import { Menu, X, Stethoscope } from 'lucide-react';
 
 const navLinks = [
   { to: '/', label: 'Início' },
-  { to: '/calculadora', label: 'Calculadora' },
+  { to: '/guia', label: 'Guia de Doses' },
   { to: '/hidratacao', label: 'Hidratação Venosa' },
   { to: '/imc', label: 'IMC Pediátrico' },
   { to: '/pressao-arterial', label: 'PA Pediátrica' },
