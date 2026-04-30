@@ -20,12 +20,11 @@ export default function Layout() {
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <img
-              src="https://media.base44.com/images/public/69ecb71457668abac5516abd/2b024c3ad_Gemini_Generated_Image_curo51curo51curo1.png"
-              alt="PedBox"
-              className="h-8 w-auto"
-            />
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow">
+              <Stethoscope className="w-4 h-4 text-white" />
+            </div>
+            <span className="font-bold text-lg text-foreground tracking-tight">PedBox</span>
           </Link>
 
           {/* Desktop nav */}
