@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAllGuideDrugs, GUIDE_CATEGORIES } from '@/lib/guideData';
 
 const TOOLS = [
   { label: 'Guia de Doses', desc: 'Guia clínico de medicamentos pediátricos', path: '/guia', icon: <BookOpen className="w-5 h-5" />, keywords: ['guia', 'doses', 'medicamentos', 'drogas', 'remédios', 'antibióticos'] },
@@ -14,11 +15,23 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
-  const searchResults = search.trim().length > 0
-    ? TOOLS.filter(t =>
-        t.label.toLowerCase().includes(search.toLowerCase()) ||
-        t.keywords.some(k => k.includes(search.toLowerCase()))
-      )
+  const searchResults = search.trim().length > 1
+    ? [
+        ...TOOLS.filter(t =>
+          t.label.toLowerCase().includes(search.toLowerCase()) ||
+          t.keywords.some(k => k.includes(search.toLowerCase()))
+        ).map(t => ({ ...t, type: 'tool' })),
+        ...getAllGuideDrugs()
+          .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
+          .slice(0, 8)
+          .map(d => ({
+            label: d.name,
+            desc: d.catLabel,
+            path: `/guia?drug=${d.id}`,
+            icon: <span className="text-lg">{d.catIcon}</span>,
+            type: 'drug',
+          })),
+      ]
     : [];
 
   return (
