@@ -785,6 +785,189 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
       },
+
+      {
+        id: 'tetraciclina',
+        name: 'Tetraciclina',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Bacteriostático de amplo espectro com boa disponibilidade oral. A absorção é melhor em jejum, mas a irritação gástrica é menor após as refeições. Alimentos e suplementos ricos em cálcio ou outros cátions divalentes pioram a absorção.',
+        brands: [
+          'Tetramed — cáps. 500 mg',
+          'Tetraciclina — cáps. 250 mg',
+          'MultiGran — cáps. 500 mg',
+          'Genérico (cloridrato de tetraciclina) — cáps. 500 mg',
+        ],
+        presentations: [
+          { label: 'Cápsula 250 mg' },
+          { label: 'Cápsula 500 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças ≥ 8 anos',
+            items: [
+              { label: 'Dose usual', value: '25–50 mg/kg/dia ÷ 4 doses' },
+              { label: 'Balanditose', value: '40 mg/kg/dia ÷ 4 doses. Máx: 2 g/dia por 10 dias' },
+              { label: 'Malária', value: '6,25 mg/kg/dose a cada 6 h por 7 dias. Máx: 250 mg/dose' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '250–500 mg/dose a cada 6 h. Máx: 2 g/dia' },
+              { label: 'Acne grau III', value: 'Iniciar 1 g/dia ÷ 4 doses; reduzir para 250–500 mg/dia por 2–4 meses' },
+              { label: 'Brucelose', value: '500 mg a cada 6 h por 3 semanas. Associar aminoglicosídeo' },
+              { label: 'Balanditose', value: '500 mg/dose a cada 6 h por 10 dias' },
+              { label: 'Cólera', value: '500 mg/dose a cada 6 h por 3 dias' },
+              { label: 'Malária (alternativa)', value: '25 mg/kg/dia ÷ 4 doses ou 250 mg a cada 6 h por 7 dias (junto com quinina)' },
+              { label: 'Dientamebíase', value: '10 mg/kg/dose a cada 6 h ou 500 mg a cada 6 h por 4 dias. Associar paromomicina ou iodoquinol' },
+              { label: 'Helicobacter pylori', value: '500 mg/dose a cada 6 h (associado ao esquema terapêutico)' },
+              { label: 'Colonização de delgado', value: '250–500 mg/dose a cada 6 h por 10 dias' },
+              { label: 'Sífilis', value: '500 mg/dose a cada 6 h por 14 dias (28 dias na sífilis tardia)' },
+              { label: 'Dermatites bolhosas', value: '500 mg/dose a cada 6 h' },
+            ],
+          },
+        ],
+        renalAdjustment: [
+          { label: 'ClCr > 50 mL/min', value: 'A cada 8–12 horas' },
+          { label: 'ClCr 10–50 mL/min', value: 'A cada 12–24 horas' },
+          { label: 'ClCr < 10 mL/min', value: 'A cada 24 horas' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Acinetobacter, Actinomyces, Bacillus anthracis, Bacteroides, Bartonella bacilliformis',
+            'B. pertussis, Borrelia, Brucella, Campylobacter fetus, Chlamydia trachomatis, Clostridium',
+            'D. fragilis, Enterobacter aerogenes, E. coli, Francisella tularensis, Fusobacterium fusiforme',
+            'H. influenzae, H. ducreyi, Klebsiella, Listeria monocytogenes, Mycoplasma pneumoniae, Moraxella',
+            'Shigella, Staphylococcus aureus, Streptococcus pneumoniae, Streptococcus pyogenes',
+            'T. pallidum, T. pertenue, Vibrio cholerae, Yersinia pestis',
+            'Riquetsioses, psitacose, sífilis, amebíase extraintestinal (associada ao metronidazol), malária',
+          ],
+          resistant: [
+            'Enterococcus, Proteus, Pseudomonas, Staphylococcus epidermidis, Serratia',
+            'Boa parte das cepas de: Enterobacter, Neisseria gonorrhoeae, Salmonella',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Descoloração de dentes em lactentes e crianças; descoloração no estômago durante gestação',
+          'Anorexia, náusea, vômitos, diarreia, pirose, secura na boca, glossite, pancreatite, disfagia',
+          'Enterocolite, proctite, hepatite, aumento de transaminases, rouquidão, melanoglossia pilosa',
+          'Fotossensibilização, erupção cutânea, urticária, febre, Síndrome de Stevens-Johnson',
+          'Hemólise, depressão medular, neutropenia, eosinofilia',
+          'Pseudotumor cerebral / hipertensão intracraniana benigna, candidíase oral',
+          'Medicamento vencido: nefrotoxicidade e síndrome similar à de Fanconi',
+        ],
+        contraindications: [
+          'Menores de 8 anos',
+          'Gestantes — provoca defeito permanente no esmalte dentário em formação',
+        ],
+      },
+
+      {
+        id: 'tianfenicol',
+        name: 'Tianfenicol',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Anfenicol, análogo do cloranfenicol. A depressão medular transitória é mais frequente do que com o cloranfenicol, porém a aplasia é mais rara. Menos propenso a causar síndrome cinzenta.',
+        brands: [
+          'Glitisol — cáps. 500 mg; env. granulado 8 g; apresentação 2,5 g',
+        ],
+        presentations: [
+          { label: 'Cápsula 500 mg' },
+          { label: 'Envelope granulado 2,5 g e 8 g' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'Dose usual', value: '30–100 mg/kg/dia ÷ 3 doses' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '500 mg/dose a cada 2–3 horas' },
+              { label: 'Casos graves', value: 'Até 3 g/dia ÷ 4 doses' },
+              { label: 'Gonorreia', value: '2,5 g/dia por 1–2 dias' },
+              { label: 'Gonorreia complicada', value: '2,5 g no 1º dia, seguido de 2 g/dia por 4 dias' },
+              { label: 'Clamídias', value: '2,5 g no 1º dia, seguido de 1 g/dia por 10 dias' },
+            ],
+          },
+        ],
+        renalAdjustment: [
+          { label: 'ClCr > 30 mL/min', value: '500 mg/dose 2×/dia' },
+          { label: 'ClCr 10–30 mL/min', value: '500 mg/dia' },
+          { label: 'ClCr < 10 mL/min', value: 'Melhor evitar' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Maior ação bactericida para: Haemophilus e Neisseria',
+            'Eficaz para: Mycoplasma, Chlamydia, Campylobacter, Legionella, Pasteurella, Vibrio cholerae',
+          ],
+          resistant: [],
+          warning: '',
+        },
+        sideEffects: [
+          'As mesmas do cloranfenicol',
+          'Depressão medular transitória mais frequente que o cloranfenicol',
+          'Aplasia mais rara que com o cloranfenicol',
+          'Menos propenso a causar síndrome cinzenta',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'tigeciclina',
+        name: 'Tigeciclina',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Tetraciclina da classe das glicilciclinas, com espectro bem mais amplo que as outras do grupo. Ativa contra diversas bactérias resistentes, inclusive Staphylococcus resistentes. Mais usada em infecções de pele e tecidos moles e infecções intra-abdominais. Boa penetração pulmonar, SNC, ossos, biofilme e intracelular. Evitar uso quando existem alternativas sensíveis, para preservar sensibilidade.',
+        brands: [
+          'Tygacil — Fr. amp. 50 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 50 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças ≥ 8 anos',
+            items: [
+              { label: 'Dose usual', value: '1,2 mg/kg/dose a cada 12 h. Máx: 50 mg/dose. Eficácia e segurança não totalmente estabelecidas.' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose inicial', value: '100 mg EV' },
+              { label: 'Manutenção', value: '50 mg a cada 12 h por 5–14 dias (mínimo 7 dias em pneumonias)' },
+              { label: 'Infusão', value: 'Em 30–60 min. Concentração máxima: 1 mg/mL' },
+              { label: 'Insuficiência renal', value: 'Não exige ajuste' },
+              { label: 'Insuficiência hepática grave', value: 'Manutenção com 25 mg/dose a cada 12 h' },
+            ],
+          },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Acinetobacter baumannii, Bacteroides (incluindo B. fragilis, B. thetaiotaomicron, B. uniformis, B. vulgatus)',
+            'C. perfringens, C. freundii, Chlamydia pneumoniae, E. coli, E. cloacae',
+            'Enterococcus faecalis (sensível à vancomicina), Haemophilus influenzae, K. oxytoca, K. pneumoniae',
+            'Legionella pneumophila, Mycoplasma pneumoniae, Peptostreptococcus micros',
+            'Staphylococcus aureus (incluindo SARM), Streptococcus agalactiae, S. anginosus, S. constellatus, S. pneumoniae, S. pyogenes',
+          ],
+          resistant: [
+            'Pseudomonas aeruginosa, cepas de Acinetobacter, Proteus',
+          ],
+          warning: 'Reduz o efeito de contraceptivos orais.',
+        },
+        sideEffects: [
+          'Tontura, cefaleia, insônia, calafrios, fraqueza muscular, pseudotumor cerebral',
+          'Erupção cutânea, prurido, fotossensibilização, anafilaxia',
+          'Tosse, dispneia, náusea, vômitos, diarreia, dor abdominal, anorexia, dispepsia, constipação, oclusão intestinal',
+          'Hipertensão, edema periférico, bradicardia',
+          'Coagulopatia, aumento de TP e TTPA, eosinofilia, plaquetopenia, anemia, leucocitose',
+          'Creatinina aumentada, bilirrubinas, hepatite colestática, transaminases aumentadas, pancreatite',
+          'Hipotireoidismo, hipocalcemia, hipoglicemia, hipomagnesemia',
+        ],
+        contraindications: [],
+      },
     ],
   },
 ];
