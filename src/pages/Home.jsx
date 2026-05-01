@@ -73,7 +73,7 @@ export default function Home() {
       >
         <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
         <p>
-          <strong>Uso profissional:</strong> Este conteúdo foi desenvolvido por estudantes de medicina, revisado por pediatras, baseado nas principais referências da área. Não deve ser utilizado por leigos.
+          <strong>De residentes para residentes:</strong> Conteúdo desenvolvido por médicos em formação, revisado por pediatras e baseado nas principais referências da área. Criado para agilizar decisões clínicas na correria do plantão.
         </p>
       </motion.div>
 
