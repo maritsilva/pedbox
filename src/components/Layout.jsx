@@ -13,6 +13,7 @@ const navLinks = [
   { to: '/alvo-parental', label: '📈 Alvo Parental' },
   { to: '/idade-gestacional-corrigida', label: '👶 IG Corrigida' },
   { to: '/centor-mcisaac', label: '🔬 Centor/McIsaac' },
+  { to: '/vacinas', label: '💉 Vacinas' },
 ];
 
 export default function Layout() {
