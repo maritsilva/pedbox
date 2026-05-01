@@ -161,7 +161,7 @@ export default function Layout() {
 
       <footer className="bg-white border-t border-border mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>© 2025 PedBox · Conteúdo revisado por pediatras · Para uso por profissionais de saúde</p>
+          <p>© 2025 PedBox · Para uso por profissionais de saúde</p>
           <p className="mt-1 text-xs">Este conteúdo serve como orientação para tomadas de decisão médica. Sempre valide com protocolos institucionais.</p>
         </div>
       </footer>

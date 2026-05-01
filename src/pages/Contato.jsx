@@ -39,9 +39,7 @@ export default function Contato() {
   };
 
   const handleCopyModel = () => {
-    const text = `PedBox — Modelo Conceitual Open Source\n\nConteúdo estruturado como calculadoras, protocolos, guias de medicamentos e ferramentas clínicas para educação pediátrica.\n\nTecnologia: React + Tailwind CSS + Base44 Backend\nLicença: Livre para estudar, copiar, adaptar e reutilizar\n\nMais informações: pedbox.app`;
-    navigator.clipboard.writeText(text);
-    alert('Modelo copiado para a área de transferência!');
+    window.open('https://app.base44.com/app-templates/69f4e81a840a3c93cee16789', '_blank');
   };
 
   return (
@@ -113,7 +111,7 @@ export default function Contato() {
             { icon: Share2, title: 'Compartilhe', desc: 'Distribua para sua liga, seu hospital, sua rede de ensino. Sem pedidos de autorização.' },
             { icon: Zap, title: 'Crie novas versões', desc: 'Melhore o design, adicione novas seções, integre com suas ferramentas. A criatividade é sua.' },
             { icon: Users, title: 'Melhore o conteúdo', desc: 'Encontrou um erro? Tem uma recomendação clínica melhor? Sugira melhorias que beneficiem todos.' },
-            { icon: Heart, title: 'Cite a fonte', desc: 'Se reutilizar, simplesmente mencione o PedBox. Assim mantemos a origem e inspiramos outros.' },
+
           ].map((card, i) => (
             <motion.div
               key={i}
@@ -342,12 +340,12 @@ export default function Contato() {
       >
         <div className="bg-white rounded-2xl p-8 shadow-md border-2 border-blue-100">
           <h3 className="text-xl font-bold text-gray-900 mb-3">Sobre a desenvolvedora</h3>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            O PedBox foi desenvolvido por uma médica pediatra em formação que acredita que barreiras de acesso ao conhecimento em saúde são barreiras à equidade. Este projeto é um convite: estudar, questionar, melhorar e construir juntos ferramentas que sirvam a toda comunidade médica.
-          </p>
-          <p className="text-gray-600 text-sm">
-            <strong>Licença:</strong> Livre para estudo, cópia, adaptação e melhoria. Cite sempre a origem.
-          </p>
+           <p className="text-gray-700 leading-relaxed mb-4">
+             O PedBox foi desenvolvido por uma médica residente em pediatria que acredita que barreiras de acesso ao conhecimento em saúde são barreiras à equidade. Este projeto é um convite: estudar, questionar, melhorar e construir juntos ferramentas que sirvam a toda comunidade médica.
+           </p>
+           <p className="text-gray-600 text-sm">
+             <strong>Licença:</strong> Livre para estudo, cópia, adaptação e melhoria.
+           </p>
         </div>
       </motion.section>
     </div>
