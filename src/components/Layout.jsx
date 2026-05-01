@@ -1,25 +1,67 @@
 import React, { useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, X, Stethoscope } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
-const navLinks = [
-  { to: '/', label: 'Início' },
-  { to: '/guia', label: 'Guia de Doses' },
-  { to: '/hidratacao', label: 'Hidratação Venosa' },
-  { to: '/imc', label: 'IMC Pediátrico' },
-  { to: '/pressao-arterial', label: 'PA Pediátrica' },
-  { to: '/pesquisa', label: '🔬 PedResearch' },
-  { to: '/perimetro-cefalico', label: '📏 Perímetro Cefálico' },
-  { to: '/alvo-parental', label: '📈 Alvo Parental' },
-  { to: '/idade-gestacional-corrigida', label: '👶 IG Corrigida' },
-  { to: '/centor-mcisaac', label: '🔬 Centor/McIsaac' },
-  { to: '/vacinas', label: '💉 Vacinas' },
-  { to: '/contato', label: '💬 Contato' },
+const menuCategories = [
+  {
+    id: 'inicio',
+    label: 'Menu',
+    items: [
+      { to: '/', label: 'Início' },
+    ],
+  },
+  {
+    id: 'referencias',
+    label: '📚 Referências',
+    items: [
+      { to: '/guia', label: 'Guia de Doses' },
+      { to: '/protocolos', label: 'Protocolos Clínicos' },
+      { to: '/pesquisa', label: '🔬 PedResearch' },
+    ],
+  },
+  {
+    id: 'calculadoras',
+    label: '🔢 Calculadoras',
+    items: [
+      { to: '/hidratacao', label: 'Hidratação Venosa' },
+      { to: '/imc', label: 'IMC Pediátrico' },
+      { to: '/pressao-arterial', label: 'PA Pediátrica' },
+      { to: '/perimetro-cefalico', label: 'Perímetro Cefálico' },
+      { to: '/alvo-parental', label: 'Alvo Parental' },
+      { to: '/idade-gestacional-corrigida', label: 'IG Corrigida' },
+      { to: '/centor-mcisaac', label: 'Centor/McIsaac' },
+    ],
+  },
+  {
+    id: 'saude-infantil',
+    label: '💉 Saúde Infantil',
+    items: [
+      { to: '/vacinas', label: 'Vacinas' },
+    ],
+  },
+  {
+    id: 'comunidade',
+    label: '💬 Comunidade',
+    items: [
+      { to: '/contato', label: 'Contato & Colaboração' },
+    ],
+  },
 ];
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState(new Set(['inicio', 'referencias', 'calculadoras']));
   const location = useLocation();
+
+  const toggleCategory = (id) => {
+    const newSet = new Set(expandedCategories);
+    if (newSet.has(id)) {
+      newSet.delete(id);
+    } else {
+      newSet.add(id);
+    }
+    setExpandedCategories(newSet);
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-inter">
@@ -35,19 +77,39 @@ export default function Layout() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map(l => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  location.pathname === l.to
-                    ? 'bg-primary text-white shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-                }`}
-              >
-                {l.label}
-              </Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link
+              to="/"
+              className={`text-sm font-semibold transition-all ${
+                location.pathname === '/'
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Início
+            </Link>
+            {menuCategories.slice(1).map(category => (
+              <div key={category.id} className="relative group">
+                <button className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-all flex items-center gap-1">
+                  {category.label}
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                <div className="absolute left-0 mt-0 w-48 bg-white border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-40 py-2">
+                  {category.items.map(item => (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      className={`block px-4 py-2 text-sm transition-all ${
+                        location.pathname === item.to
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             ))}
           </nav>
 
@@ -59,20 +121,35 @@ export default function Layout() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden border-t border-border bg-white px-4 py-3 flex flex-col gap-1">
-            {navLinks.map(l => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                  location.pathname === l.to
-                    ? 'bg-primary text-white'
-                    : 'text-muted-foreground hover:bg-secondary'
-                }`}
-              >
-                {l.label}
-              </Link>
+          <div className="md:hidden border-t border-border bg-white px-4 py-3 flex flex-col gap-2 max-h-96 overflow-y-auto">
+            {menuCategories.map(category => (
+              <div key={category.id}>
+                <button
+                  onClick={() => toggleCategory(category.id)}
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-secondary rounded-lg transition-all"
+                >
+                  {category.label}
+                  <ChevronDown className={`w-4 h-4 transition-transform ${expandedCategories.has(category.id) ? 'rotate-180' : ''}`} />
+                </button>
+                {expandedCategories.has(category.id) && (
+                  <div className="pl-2 space-y-1">
+                    {category.items.map(item => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        onClick={() => setOpen(false)}
+                        className={`block px-4 py-2 rounded-lg text-sm transition-all ${
+                          location.pathname === item.to
+                            ? 'bg-primary text-white font-semibold'
+                            : 'text-muted-foreground hover:bg-secondary'
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         )}
