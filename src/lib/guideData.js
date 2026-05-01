@@ -8,8 +8,9 @@ import { SULFONAMIDAS_CATEGORY, AMINOGLICOSIDEOS_CATEGORY } from './guideDataSul
 import { MACROLIDEOS_CATEGORY } from './guideDataMacrolideos.js';
 import { GLICOPEPTIDEOS_CATEGORY } from './guideDataGlicopeptideos.js';
 import { OUTROS_ANTIBACTERIANOS_CATEGORY } from './guideDataOutrosAntibacterianos.js';
-import { ANTIMICOBACTERIANOS_CATEGORY } from './guideDataAntimicobacterianos.js';
-import { ANTIFUNGICOS_AZOLICOS_CATEGORY } from './guideDataAntifungicosAzolicos.js';
+import { outrosBacterianos } from './guideDataOutrosBacterianos.js';
+import { antimicobacterianos } from './guideDataAntimicobacterianos.js';
+import { antifungicosAzolicos } from './guideDataAntifungicosAzolicos.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1596,7 +1597,32 @@ export const GUIDE_CATEGORIES = [
   },
 ];
 
-export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY, CARBAPENEMOS_CATEGORY, QUINOLONAS_CATEGORY, SULFONAMIDAS_CATEGORY, AMINOGLICOSIDEOS_CATEGORY, MACROLIDEOS_CATEGORY, GLICOPEPTIDEOS_CATEGORY, OUTROS_ANTIBACTERIANOS_CATEGORY, ANTIMICOBACTERIANOS_CATEGORY, ANTIFUNGICOS_AZOLICOS_CATEGORY];
+// Criar categorias dinâmicas para os novos antibacterianos
+const OUTROS_BACTARIANOS_DYNAMIC = {
+  id: 'outros-bacterianos',
+  label: 'Outros Antibacterianos',
+  color: 'purple-500',
+  icon: '💊',
+  drugs: outrosBacterianos
+};
+
+const ANTIMICOBACTERIANOS_DYNAMIC = {
+  id: 'antimicobacterianos',
+  label: 'Antimicobacterianos',
+  color: 'amber-500',
+  icon: '🧬',
+  drugs: antimicobacterianos
+};
+
+const ANTIFUNGICOS_DYNAMIC = {
+  id: 'antifungicos-azolicos',
+  label: 'Antifúngicos Azólicos',
+  color: 'pink-500',
+  icon: '🍄',
+  drugs: antifungicosAzolicos
+};
+
+export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY, CARBAPENEMOS_CATEGORY, QUINOLONAS_CATEGORY, SULFONAMIDAS_CATEGORY, AMINOGLICOSIDEOS_CATEGORY, MACROLIDEOS_CATEGORY, GLICOPEPTIDEOS_CATEGORY, OUTROS_ANTIBACTERIANOS_CATEGORY, OUTROS_BACTARIANOS_DYNAMIC, ANTIMICOBACTERIANOS_DYNAMIC, ANTIFUNGICOS_AZOLICOS_CATEGORY, ANTIFUNGICOS_DYNAMIC];
 
 export function getAllGuideDrugs() {
   return ALL_CATEGORIES.flatMap(cat => cat.drugs.map(d => ({ ...d, catLabel: cat.label, catColor: cat.color, catIcon: cat.icon })));
