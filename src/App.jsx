@@ -7,6 +7,7 @@ import PageNotFound from './lib/PageNotFound';
 import Layout from './components/Layout';
 // Add page imports here
 import Home from './pages/Home';
+import Calculadoras from './pages/Calculadoras';
 import Hidratacao from './pages/Hidratacao';
 import IMC from './pages/IMC';
 import PressaoArterial from './pages/PressaoArterial';
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/calculadoras" element={<Calculadoras />} />
             <Route path="/guia" element={<Guia />} />
             <Route path="/hidratacao" element={<Hidratacao />} />
             <Route path="/imc" element={<IMC />} />

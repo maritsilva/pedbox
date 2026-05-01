@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen, FlaskConical, Microscope, Star } from 'lucide-react';
+import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen, FlaskConical, Microscope, Star, Calculator } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs } from '@/lib/guideData';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
@@ -235,33 +235,21 @@ export default function Home() {
         );
       })()}
 
-      {/* Calculators */}
+      {/* Calculators Link */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>
-        <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Calculadoras</p>
-        <div className="space-y-2">
-          {CALCULATORS.map((tool, i) => (
-            <Link to={tool.path} key={tool.path}>
-              <div className="bg-white border border-border rounded-xl px-4 py-3.5 md:py-4 flex items-center gap-3 hover:shadow-sm hover:border-primary/30 transition-all group">
-                <div className="text-primary bg-primary/10 rounded-lg p-2 flex-shrink-0">
-                  <tool.Icon className="w-4 h-4 md:w-5 md:h-5" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm md:text-base font-semibold text-foreground">{tool.label}</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">{tool.desc}</p>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleFavorite(tool.path);
-                  }}
-                  className="flex-shrink-0 ml-2"
-                >
-                  <Star className={`w-4 h-4 md:w-5 md:h-5 transition-all ${isFavorite(tool.path) ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground group-hover:text-yellow-400'}`} />
-                </button>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <Link to="/calculadoras">
+          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl p-5 md:p-6 text-white shadow-lg shadow-blue-200 flex items-center gap-4 cursor-pointer">
+            <div className="bg-white/20 rounded-xl p-2.5 flex-shrink-0">
+              <Calculator className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-base md:text-lg leading-tight">Calculadoras Pediátricas</p>
+              <p className="text-blue-100 text-xs md:text-sm mt-1 leading-snug">Hidratação, IMC, Pressão Arterial e mais</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
+          </motion.div>
+        </Link>
       </motion.div>
 
     </div>
