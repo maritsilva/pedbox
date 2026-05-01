@@ -14,6 +14,7 @@ import Protocolos from './pages/Protocolos.jsx';
 import Guia from './pages/Guia';
 import Pesquisa from './pages/Pesquisa';
 import PerimetroCefalico from './pages/PerimetroCefalico';
+import AlvoParental from './pages/AlvoParental';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/protocolos" element={<Protocolos />} />
             <Route path="/pesquisa" element={<Pesquisa />} />
             <Route path="/perimetro-cefalico" element={<PerimetroCefalico />} />
+            <Route path="/alvo-parental" element={<AlvoParental />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

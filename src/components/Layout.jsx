@@ -10,6 +10,7 @@ const navLinks = [
   { to: '/pressao-arterial', label: 'PA Pediátrica' },
   { to: '/pesquisa', label: '🔬 PedResearch' },
   { to: '/perimetro-cefalico', label: '📏 Perímetro Cefálico' },
+  { to: '/alvo-parental', label: '📈 Alvo Parental' },
 ];
 
 export default function Layout() {
