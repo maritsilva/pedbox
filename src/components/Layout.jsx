@@ -36,6 +36,7 @@ const menuCategories = [
     id: 'saude-infantil',
     label: '💉 Saúde Infantil',
     items: [
+      { to: '/desenvolvimento', label: 'Marcos do Desenvolvimento' },
       { to: '/vacinas', label: 'Vacinas' },
     ],
   },
