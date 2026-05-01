@@ -169,39 +169,71 @@ export default function Home() {
       </motion.div>
 
       {/* Favoritos Section */}
-      {Object.values(CALCULATORS).some(c => isFavorite(c.path)) && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">⭐ Meus Favoritos</p>
-          <div className="space-y-2">
-            {CALCULATORS.filter(c => isFavorite(c.path)).map((tool, i) => (
-              <Link to={tool.path} key={tool.path}>
-                <motion.div
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.03 }}
-                  className="bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300 rounded-xl px-4 py-3.5 md:py-4 flex items-center gap-3 hover:shadow-md transition-all group">
-                  <div className="text-yellow-600 bg-yellow-100 rounded-lg p-2 flex-shrink-0">
-                    <tool.Icon className="w-4 h-4 md:w-5 md:h-5" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm md:text-base font-semibold text-foreground">{tool.label}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground">{tool.desc}</p>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleFavorite(tool.path);
-                    }}
-                    className="flex-shrink-0 ml-2"
-                  >
-                    <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400 transition-all" />
-                  </button>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-      )}
+      {(() => {
+        const favCalcs = CALCULATORS.filter(c => isFavorite(c.path));
+        const favDrugs = getAllGuideDrugs().filter(d => isFavorite(d.id));
+        const hasFavorites = favCalcs.length > 0 || favDrugs.length > 0;
+        
+        return hasFavorites && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">⭐ Meus Favoritos</p>
+            <div className="space-y-2">
+              {favCalcs.map((tool, i) => (
+                <Link to={tool.path} key={tool.path}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.03 }}
+                    className="bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300 rounded-xl px-4 py-3.5 md:py-4 flex items-center gap-3 hover:shadow-md transition-all group">
+                    <div className="text-yellow-600 bg-yellow-100 rounded-lg p-2 flex-shrink-0">
+                      <tool.Icon className="w-4 h-4 md:w-5 md:h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm md:text-base font-semibold text-foreground">{tool.label}</p>
+                      <p className="text-xs md:text-sm text-muted-foreground">{tool.desc}</p>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFavorite(tool.path);
+                      }}
+                      className="flex-shrink-0 ml-2"
+                    >
+                      <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400 transition-all" />
+                    </button>
+                  </motion.div>
+                </Link>
+              ))}
+              {favDrugs.map((drug, i) => (
+                <Link to={`/guia?drug=${drug.id}`} key={drug.id}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (favCalcs.length + i) * 0.03 }}
+                    className="bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300 rounded-xl px-4 py-3.5 md:py-4 flex items-center gap-3 hover:shadow-md transition-all group">
+                    <div className="text-yellow-600 bg-yellow-100 rounded-lg p-2 flex-shrink-0">
+                      <span className="text-lg">{drug.catIcon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm md:text-base font-semibold text-foreground">{drug.name}</p>
+                      <p className="text-xs md:text-sm text-muted-foreground">{drug.catLabel}</p>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFavorite(drug.id);
+                      }}
+                      className="flex-shrink-0 ml-2"
+                    >
+                      <Star className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400 transition-all" />
+                    </button>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        );
+      })()}
 
       {/* Calculators */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>
