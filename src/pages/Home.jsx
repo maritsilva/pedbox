@@ -22,7 +22,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const { toggleFavorite, isFavorite } = useFavorites();
-  const [showFavOnly, setShowFavOnly] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   const searchResults = search.trim().length > 1
     ? [
@@ -98,6 +98,29 @@ export default function Home() {
         )}
       </motion.div>
 
+      {/* Favoritos Tab */}
+      {(() => {
+        const favCalcs = CALCULATORS.filter(c => isFavorite(c.path));
+        const favDrugs = getAllGuideDrugs().filter(d => isFavorite(d.id));
+        const hasFavorites = favCalcs.length > 0 || favDrugs.length > 0;
+        
+        return hasFavorites && (
+          <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="flex gap-2 mb-6">
+            <button
+              onClick={() => setShowFavorites(!showFavorites)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+                showFavorites
+                  ? 'bg-yellow-400 text-yellow-900 shadow-md'
+                  : 'bg-white border border-border text-muted-foreground hover:border-yellow-300 hover:text-yellow-600'
+              }`}
+            >
+              <Star className={`w-4 h-4 ${showFavorites ? 'fill-yellow-900' : ''}`} />
+              Meus Favoritos ({favCalcs.length + favDrugs.length})
+            </button>
+          </motion.div>
+        );
+      })()}
+
       {/* Main References — destacadas */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }}>
         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Referências Clínicas</p>
@@ -168,15 +191,13 @@ export default function Home() {
         </Link>
       </motion.div>
 
-      {/* Favoritos Section */}
+      {/* Favoritos Section - Expandable */}
       {(() => {
         const favCalcs = CALCULATORS.filter(c => isFavorite(c.path));
         const favDrugs = getAllGuideDrugs().filter(d => isFavorite(d.id));
-        const hasFavorites = favCalcs.length > 0 || favDrugs.length > 0;
         
-        return hasFavorites && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">⭐ Meus Favoritos</p>
+        return showFavorites && (favCalcs.length > 0 || favDrugs.length > 0) && (
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-8">
             <div className="space-y-2">
               {favCalcs.map((tool, i) => (
                 <Link to={tool.path} key={tool.path}>
