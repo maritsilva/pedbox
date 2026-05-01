@@ -19,6 +19,7 @@ import IdadeGestacionalCorrigida from './pages/IdadeGestacionalCorrigida';
 import CentorMcIsaac from './pages/CentorMcIsaac';
 import Vacinas from './pages/Vacinas';
 import Contato from './pages/Contato';
+import CartilhaDesenvolvimento from './pages/CartilhaDesenvolvimento';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/centor-mcisaac" element={<CentorMcIsaac />} />
             <Route path="/vacinas" element={<Vacinas />} />
             <Route path="/contato" element={<Contato />} />
+            <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
