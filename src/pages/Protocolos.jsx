@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, FlaskConical, LogOut, ClipboardList, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
+import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
+import Faringoamigdalite from '@/components/protocols/Faringoamigdalite';
+import FebreSemSinais from '@/components/protocols/FebreSemSinais';
+import Bronquiolite from '@/components/protocols/Bronquiolite';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -13,7 +18,51 @@ const PROTOCOLS = [
     color: 'blue',
     tag: 'Respiratório',
     source: 'Albert Einstein · Revisado Jun/2024',
-    description: 'A exacerbação de asma é o agravamento agudo dos sintomas asmáticos (dispneia, sibilância, tosse, aperto no peito). Pode ser precipitada por infecções respiratórias, alérgenos, poluentes e estresse.',
+  },
+  {
+    id: 'bronquiolite',
+    title: 'Bronquiolite',
+    subtitle: 'em Crianças < 2 anos',
+    icon: '🫧',
+    color: 'blue',
+    tag: 'Respiratório',
+    source: 'Albert Einstein · Revisado Jul/2024',
+  },
+  {
+    id: 'convulsao-febril',
+    title: 'Convulsão Febril Benigna',
+    subtitle: '6 meses a 5 anos',
+    icon: '⚡',
+    color: 'purple',
+    tag: 'Neurologia',
+    source: 'Albert Einstein · Revisado Jun/2025',
+  },
+  {
+    id: 'diarreia-aguda',
+    title: 'Diarreia Aguda',
+    subtitle: 'em Crianças e Adolescentes',
+    icon: '💧',
+    color: 'teal',
+    tag: 'Gastroenterologia',
+    source: 'Albert Einstein · Revisado Jun/2025',
+  },
+  {
+    id: 'faringoamigdalite',
+    title: 'Faringoamigdalite',
+    subtitle: 'em Crianças e Adolescentes',
+    icon: '🦠',
+    color: 'orange',
+    tag: 'Infectologia',
+    source: 'Albert Einstein · Revisado Jun/2024',
+  },
+  {
+    id: 'febre-sem-sinais',
+    title: 'Febre sem Sinais Localizatórios',
+    subtitle: 'até 36 meses',
+    icon: '🌡️',
+    color: 'red',
+    tag: 'Infectologia',
+    source: 'Albert Einstein · Revisado Jun/2025',
   },
 ];
 
@@ -384,6 +433,10 @@ function ProtocolCard({ protocol, onClick }) {
   const colorMap = {
     blue: 'bg-blue-50 border-blue-200 text-blue-700',
     green: 'bg-green-50 border-green-200 text-green-700',
+    purple: 'bg-purple-50 border-purple-200 text-purple-700',
+    teal: 'bg-teal-50 border-teal-200 text-teal-700',
+    orange: 'bg-orange-50 border-orange-200 text-orange-700',
+    red: 'bg-red-50 border-red-200 text-red-700',
   };
   return (
     <motion.button
@@ -413,7 +466,16 @@ function ProtocolCard({ protocol, onClick }) {
 export default function Protocolos() {
   const [selected, setSelected] = useState(null);
 
-  if (selected === 'crise-asmatica') {
+  const detailMap = {
+    'crise-asmatica': <CriseAsmaticaDetail />,
+    'bronquiolite': <Bronquiolite />,
+    'convulsao-febril': <ConvulsaoFebril />,
+    'diarreia-aguda': <DiarreiaAguda />,
+    'faringoamigdalite': <Faringoamigdalite />,
+    'febre-sem-sinais': <FebreSemSinais />,
+  };
+
+  if (selected && detailMap[selected]) {
     return (
       <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
         <button
@@ -422,7 +484,7 @@ export default function Protocolos() {
         >
           <ChevronLeft className="w-4 h-4" /> Todos os Protocolos
         </button>
-        <CriseAsmaticaDetail onBack={() => setSelected(null)} />
+        {detailMap[selected]}
       </div>
     );
   }
