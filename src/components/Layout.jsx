@@ -11,6 +11,7 @@ const navLinks = [
   { to: '/pesquisa', label: '🔬 PedResearch' },
   { to: '/perimetro-cefalico', label: '📏 Perímetro Cefálico' },
   { to: '/alvo-parental', label: '📈 Alvo Parental' },
+  { to: '/idade-gestacional-corrigida', label: '👶 IG Corrigida' },
 ];
 
 export default function Layout() {
