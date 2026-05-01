@@ -2,6 +2,8 @@
 // GUIA DE DOSES PEDIÁTRICO — Estrutura rica por medicamento
 // ============================================================
 import { PENICILINAS_CATEGORY } from './guideDataPenicilinas.js';
+import { CARBAPENEMOS_CATEGORY } from './guideDataCarbapenemos.js';
+import { QUINOLONAS_CATEGORY } from './guideDataQuinolonas.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1588,7 +1590,7 @@ export const GUIDE_CATEGORIES = [
   },
 ];
 
-export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY];
+export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY, CARBAPENEMOS_CATEGORY, QUINOLONAS_CATEGORY];
 
 export function getAllGuideDrugs() {
   return ALL_CATEGORIES.flatMap(cat => cat.drugs.map(d => ({ ...d, catLabel: cat.label, catColor: cat.color, catIcon: cat.icon })));
