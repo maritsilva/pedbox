@@ -554,6 +554,239 @@ export const GUIDE_CATEGORIES = [
       },
     ],
   },
+  {
+    id: 'anfenicois-tetraciclinas',
+    label: 'Anfenicóis e Tetraciclinas',
+    color: 'green-500',
+    icon: '🧫',
+    drugs: [
+      {
+        id: 'cloranfenicol',
+        name: 'Cloranfenicol',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Anfenicol, inibidor de síntese de proteínas de amplo espectro. Bacteriostático para a maioria das bactérias sensíveis e bactericida contra H. influenzae, Neisseria meningitidis e S. pneumoniae. Pelo grande risco de toxicidade, o uso deve ser limitado a infecções para as quais os benefícios superem os riscos.',
+        brands: [
+          'Arifenicol — Fr. amp. 1.000 mg',
+          'Comprimidos/cápsulas 250 mg',
+          'Suspensão oral 25 mg/mL',
+          'Succinato sódico de cloranfenicol — Fr. amp. 1.000 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 1.000 mg' },
+          { label: 'Comprimido/cápsula 250 mg' },
+          { label: 'Suspensão oral 25 mg/mL' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'EV / oral (dose usual)', value: '50–75 mg/kg/dia ÷ 3–4 doses' },
+              { label: 'RN < 7 dias ou ≤ 2 kg ou metabolismo imaturo', value: '25 mg/kg/dia ÷ 1–4 doses' },
+              { label: 'RN > 7 dias e > 2 kg', value: '50 mg/kg/dia ÷ 1–2 doses' },
+              { label: 'Meningite', value: '75–100 mg/kg/dia ÷ 4 doses. Associar ampicilina.' },
+              { label: 'Tempo de tratamento usual', value: '10–14 dias' },
+            ],
+          },
+          {
+            group: 'Adultos — infecções graves',
+            items: [
+              { label: 'EV / oral', value: '50 mg/kg/dia ÷ 4 doses. Se necessário, iniciar com 75–100 mg/kg/dia e reduzir. Máx: 4 g/dia' },
+            ],
+          },
+        ],
+        preparation: 'EV: diluir 100 mg/mL ou mais e infundir em 5 minutos. NÃO usar por via intramuscular. Monitorar hemograma cerca de 2 × por semana. Nível sérico de pico (30 min após dose): neonatos 15–25 µg/mL; crianças/adolescentes 15–30 µg/mL; adultos 10–20 µg/mL. Basal (antes da próxima dose): 5–15 µg/mL.',
+        sensitivity: {
+          susceptible: [
+            'Anaeróbios, B. anthracis, Bacteroides, Bordetella pertussis, Burkholderia cepacia',
+            'Enterococcus resistentes à vancomicina, E. coli, Espiroqueta',
+            'Haemophilus influenzae, Klebsiella, Mycoplasma, Neisseria gonorrhoeae, Neisseria meningitidis',
+            'P. pseudomallei, Rickettsia, Salmonella typhi, Serratia',
+            'Staphylococcus aureus, S. epidermidis, Streptococcus A, B, C e G, Streptococcus pneumoniae',
+            'Vibrio cholerae, Yersinia pestis',
+          ],
+          resistant: [
+            'Cepas de Pseudomonas, Shigella, Salmonella',
+            'Streptococcus pneumoniae resistentes à penicilina',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Náusea, vômito, diarreia, estomatite, alergia, erupção cutânea, enterocolite, febre',
+          'Confusão, cefaleia, pesadelo, neurite óptica, cardiotoxicidade, depressão ventricular aguda',
+          'Depressão medular reversível dose-dependente, pior com nível sérico > 25 µg/mL',
+          'Aplasia fatal independente da dose — pode ocorrer 1 a 12 meses depois',
+          'Síndrome cinzenta em neonatos: colapso circulatório, cianose, hipotermia, acidose, coma e morte',
+          'Hepatite medicamentosa com pancitopenia, anafilaxia',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'doxiciclina',
+        name: 'Doxiciclina',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Tetraciclina bacteriostática de amplo espectro e ação longa. Menor toxicidade gastrointestinal que outras tetraciclinas. Útil para infecções do trato respiratório e tecidos moles. Primeira escolha para infecções por Chlamydia trachomatis.',
+        brands: [
+          'Vibramicina — comprimido solúvel 100 mg; comprimido revestido 100 mg',
+          'Clordox, Doxiclin — comprimido revestido 100 mg',
+          'Neo doxicillin, Protectina',
+          'Genérico (cloridrato de doxiciclina) — comprimido 100 mg; injetável 100 mg; comprimido revestido 100 mg',
+        ],
+        presentations: [
+          { label: 'Comprimido 100 mg' },
+          { label: 'Injetável 100 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças ≥ 8 anos',
+            items: [
+              { label: 'Dose usual', value: '5 mg/kg/dia no 1º dia, seguido de 2–5 mg/kg/dia ÷ 1–2 doses. Máx: 100 mg/dose' },
+              { label: 'Malária', value: '2,2 mg/kg/dose a cada 12 h por 7 dias' },
+              { label: 'Profilaxia malária', value: '2,2 mg/kg/dia, de 2 dias antes até 1 mês após o retorno' },
+              { label: 'Brucelose', value: '1–2 mg/kg/dia por 6 semanas. Associar rifampicina ou aminoglicosídeo' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '100–200 mg/dia ÷ 1–2 doses' },
+              { label: 'Acne grau III', value: '100 mg/dia ÷ 1–2 doses por 3–4 meses' },
+              { label: 'Rosácea', value: '50–100 mg/dose 2×/dia por 1–3 meses' },
+              { label: 'Pneumonia comunitária / exacerbação DPOC', value: '100 mg/dose 2×/dia' },
+              { label: 'Diarreia', value: '100 mg 2×/dia por 5–7 dias' },
+              { label: 'Cólera grave', value: '300 mg em dose única (adjunto)' },
+              { label: 'Doença de Lyme — tratamento', value: '100 mg/dose 2×/dia por 14–28 dias' },
+              { label: 'Doença de Lyme — profilaxia', value: '200 mg em dose única' },
+              { label: 'DST (Chlamydia, cancro mole, gonorreia não complicada)', value: '100 mg/dose 2×/dia por 10 dias. Associar ceftriaxona dose única' },
+              { label: 'DST — granuloma inguinal', value: '100 mg/dose 2×/dia por 3–4 semanas' },
+              { label: 'Sífilis / DIP', value: '100 mg/dose 2×/dia por 14 dias (28 dias na sífilis tardia)' },
+              { label: 'Malária por P. falciparum + cloroquina', value: '100 mg/dose 2×/dia por 7 dias' },
+              { label: 'Profilaxia malária', value: '100 mg/dia de 2 dias antes até 1 mês após a viagem' },
+              { label: 'Rinossinusite aguda / alternativa', value: '100 mg/dose 2×/dia por 5–7 dias' },
+              { label: 'Insuficiência renal', value: 'Não exige ajuste' },
+            ],
+          },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Acinetobacter, Actinomyces, Bacteroides, Bartonella, Borrelia, Brucella, Calymmatobacterium',
+            'Campylobacter fetus, Chlamydia, Clostridium, C. burnetii, D. fragilis, E. coli, F. tularensis',
+            'Haemophilus ducreyi, Legionella, L. buccalis, Listeria monocytogenes, Mycoplasma pneumoniae',
+            'Neisseria gonorrhoeae, Rickettsia, Staphylococcus resistente, Streptococcus pneumoniae',
+            'Treponema pallidum, Ureaplasma urealyticum, V. cholerae, Y. pestis',
+            'Malária por Plasmodium falciparum resistente',
+          ],
+          resistant: [
+            'Enterococcus, Proteus, Salmonella, Serratia, Staphylococcus epidermidis',
+            'Cepas de Bacillus anthracis, Enterobacter, H. influenzae, Klebsiella, Moraxella',
+            'Pneumococcus, Shigella, Streptococcus pyogenes',
+          ],
+          warning: 'Aumenta níveis séricos de digoxina e varfarina. Não associar com isotretinoína ou penicilinas.',
+        },
+        sideEffects: [
+          'Descoloração dos dentes e displasia do esmalte em < 8 anos',
+          'Anorexia, náusea, vômitos, diarreia, secura na boca, glossite',
+          'Fotossensibilização, erupção, urticária, Síndrome de Stevens-Johnson',
+          'Anemia hemolítica, depressão medular, eosinofilia, pericardite',
+          'Hipertensão intracraniana, hepatotoxicidade',
+        ],
+        contraindications: [
+          'Menores de 8 anos',
+        ],
+      },
+
+      {
+        id: 'limeciclina',
+        name: 'Limeciclina',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Tetraciclina bacteriostática de amplo espectro.',
+        brands: [
+          'Tetralysal',
+          'Meciclin — cápsulas 150 e 300 mg',
+        ],
+        presentations: [
+          { label: 'Cápsula 150 mg' },
+          { label: 'Cápsula 300 mg' },
+        ],
+        doses: [
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Acne grau III, rosácea ou erupção acneiforme', value: '300 mg/dia ÷ 1–2 doses por 8–12 semanas' },
+              { label: 'Outras infecções', value: '300 mg/dose, 1–2 vezes ao dia' },
+            ],
+          },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Brucella, Chlamydia, Haemophilus, Leptospira, M. pneumoniae, N. gonorrhoeae',
+            'Pasteurella, Propionibacterium acnes, Rickettsia, T. pallidum, U. urealyticum, V. cholerae',
+          ],
+          resistant: [],
+          warning: 'Não usar antes dos 8 anos de idade — risco de mancha no esmalte dentário.',
+        },
+        sideEffects: [
+          'Mancha no esmalte dentário (não usar < 8 anos), erupção cutânea, urticária, alergia',
+          'Anemia hemolítica, plaquetopenia, eosinofilia, neutropenia, disfunção renal',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'minociclina',
+        name: 'Minociclina',
+        category: 'anfenicois-tetraciclinas',
+        observations: 'Tetraciclina sintética com meia-vida mais longa. Bacteriostático.',
+        brands: [
+          'Minociclina — comprimido revestido 100 mg',
+          'Genérico — comprimido revestido 100 mg',
+        ],
+        presentations: [
+          { label: 'Comprimido revestido 100 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças ≥ 8 anos',
+            items: [
+              { label: 'Dose usual', value: '4 mg/kg/dia ÷ 2 doses. Primeira dose dobrada.' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose inicial', value: '200 mg/dia em dose única' },
+              { label: 'Manutenção', value: '100 mg/dose 2×/dia. Máx: 400 mg/dia' },
+              { label: 'Acne', value: '50–100 mg/dose 2×/dia' },
+              { label: 'Hanseníase — alternativa', value: '100 mg/dia + ofloxacino + rifampicina em dose diária' },
+              { label: 'Insuficiência renal (ClCr < 80 mL/min)', value: 'Máx 200 mg/dia' },
+              { label: 'Orientação', value: 'Não tomar com alimentos ou leite' },
+            ],
+          },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Acinetobacter, Actinomyces, B. anthracis, Bartonella, B. recurrentis, Brucella, C. fetus',
+            'Chlamydia, Clostridium, Cutibacterium, E. histolytica, E. aerogenes, E. coli, F. tularensis',
+            'F. fusiforme, Klebsiella, L. monocytogenes, Microbacterium, Neisseria, Nocardia, Rickettsia',
+            'Staphylococcus (incluindo SARM), S. pneumoniae, Shigella, Treponema, U. urealyticum',
+            'V. cholerae, Y. pestis',
+          ],
+          resistant: [
+            'Enterococcus, Proteus, Providencia, Pseudomonas, Serratia, S. agalactiae',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Náusea, vômitos, diarreia, esofagite, vertigem, ataxia',
+          'Alergia, erupção cutânea, fotossensibilização, anafilaxia',
+          'Descoloração de dentes em < 8 anos, Síndrome de Stevens-Johnson',
+          'Febre, insuficiência renal, disfunção hepática, eosinofilia, trombocitopenia',
+          'Pneumonite por hipersensibilidade',
+        ],
+        contraindications: [],
+      },
+    ],
+  },
 ];
 
 export function getAllGuideDrugs() {
