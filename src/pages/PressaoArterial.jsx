@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, RotateCcw, AlertTriangle, Info, Activity, Ruler } from 'lucide-react';
+import { Calculator, RotateCcw, AlertTriangle, Info, Activity, Ruler, Star } from 'lucide-react';
+import { useFavorites } from '@/hooks/useFavorites.jsx';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ReferenceLine, ReferenceDot, ResponsiveContainer, Legend,
@@ -132,16 +133,17 @@ function PercBar({ label, percentile, refValues }) {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function PressaoArterial() {
-  const [form, setForm] = useState({
-    birthDate: '',
-    measureDate: today(),
-    sex: 'M',
-    height: '',
-    systolic: '',
-    diastolic: '',
-  });
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState('');
+   const [form, setForm] = useState({
+     birthDate: '',
+     measureDate: today(),
+     sex: 'M',
+     height: '',
+     systolic: '',
+     diastolic: '',
+   });
+   const [result, setResult] = useState(null);
+   const [error, setError] = useState('');
+   const { toggleFavorite, isFavorite } = useFavorites();
 
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setResult(null); setError(''); };
 
@@ -192,11 +194,19 @@ export default function PressaoArterial() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-extrabold text-foreground mb-1">Pressão Arterial Pediátrica</h1>
-        <p className="text-sm text-muted-foreground">
-          Percentis de PA sistólica e diastólica ajustados por sexo, idade e estatura (AAP 2017 · Flynn et al.)
-        </p>
+      <div className="mb-6 flex items-start justify-between">
+        <div className="flex-1">
+          <h1 className="text-2xl font-extrabold text-foreground mb-1">Pressão Arterial Pediátrica</h1>
+          <p className="text-sm text-muted-foreground">
+            Percentis de PA sistólica e diastólica ajustados por sexo, idade e estatura (AAP 2017 · Flynn et al.)
+          </p>
+        </div>
+        <button
+          onClick={() => toggleFavorite('/pressao-arterial')}
+          className="p-2 hover:bg-secondary rounded-lg transition-colors flex-shrink-0"
+        >
+          <Star className={`w-5 h-5 ${isFavorite('/pressao-arterial') ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+        </button>
       </div>
 
       {/* Disclaimer */}

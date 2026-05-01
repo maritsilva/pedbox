@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, RotateCcw, AlertTriangle, Info, TrendingUp, Weight, Ruler } from 'lucide-react';
+import { Calculator, RotateCcw, AlertTriangle, Info, TrendingUp, Weight, Ruler, Star } from 'lucide-react';
+import { useFavorites } from '@/hooks/useFavorites.jsx';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
   ReferenceDot, ResponsiveContainer, Legend,
@@ -144,15 +145,16 @@ function ResultCard({ icon: Icon, title, z, percentile, category }) {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function IMC() {
-  const [form, setForm] = useState({
-    birthDate: '',
-    measureDate: today(),
-    sex: 'M',
-    height: '',
-    weight: '',
-  });
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState('');
+   const [form, setForm] = useState({
+     birthDate: '',
+     measureDate: today(),
+     sex: 'M',
+     height: '',
+     weight: '',
+   });
+   const [result, setResult] = useState(null);
+   const [error, setError] = useState('');
+   const { toggleFavorite, isFavorite } = useFavorites();
 
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setResult(null); setError(''); };
 
@@ -202,11 +204,19 @@ export default function IMC() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-extrabold text-foreground mb-1">IMC Pediátrico</h1>
-        <p className="text-sm text-muted-foreground">
-          Percentis de IMC, Estatura e Peso para crianças de 2–20 anos (referência CDC 2000)
-        </p>
+      <div className="mb-6 flex items-start justify-between">
+        <div className="flex-1">
+          <h1 className="text-2xl font-extrabold text-foreground mb-1">IMC Pediátrico</h1>
+          <p className="text-sm text-muted-foreground">
+            Percentis de IMC, Estatura e Peso para crianças de 2–20 anos (referência CDC 2000)
+          </p>
+        </div>
+        <button
+          onClick={() => toggleFavorite('/imc')}
+          className="p-2 hover:bg-secondary rounded-lg transition-colors flex-shrink-0"
+        >
+          <Star className={`w-5 h-5 ${isFavorite('/imc') ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+        </button>
       </div>
 
       {/* Disclaimer */}

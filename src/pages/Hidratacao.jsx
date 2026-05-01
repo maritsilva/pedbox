@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Droplets, RotateCcw, Calculator, AlertCircle, Info } from 'lucide-react';
+import { Droplets, RotateCcw, Calculator, AlertCircle, Info, Star } from 'lucide-react';
+import { useFavorites } from '@/hooks/useFavorites.jsx';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -77,11 +78,12 @@ function calcularManutencao(peso) {
 }
 
 export default function Hidratacao() {
-  const [peso, setPeso] = useState('');
-  const [fase, setFase] = useState(null);
-  const [resultado, setResultado] = useState(null);
-  const [showPerdas, setShowPerdas] = useState(false); // kept for compat
-  const resultRef = useRef(null);
+   const [peso, setPeso] = useState('');
+   const [fase, setFase] = useState(null);
+   const [resultado, setResultado] = useState(null);
+   const [showPerdas, setShowPerdas] = useState(false); // kept for compat
+   const resultRef = useRef(null);
+   const { toggleFavorite, isFavorite } = useFavorites();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -123,14 +125,22 @@ export default function Hidratacao() {
     <div className="max-w-2xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="bg-gradient-to-br from-cyan-500 to-teal-500 rounded-2xl p-6 text-white mb-8 shadow-lg shadow-cyan-200">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="bg-white/20 rounded-xl p-2">
-            <Droplets className="w-6 h-6" />
+        <div className="flex items-center gap-3 mb-2 justify-between">
+          <div className="flex items-center gap-3">
+            <div className="bg-white/20 rounded-xl p-2">
+              <Droplets className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="text-cyan-100 text-sm">Ferramenta Pediátrica</p>
+              <h1 className="text-2xl font-bold">Hidratação Venosa</h1>
+            </div>
           </div>
-          <div>
-            <p className="text-cyan-100 text-sm">Ferramenta Pediátrica</p>
-            <h1 className="text-2xl font-bold">Hidratação Venosa</h1>
-          </div>
+          <button
+            onClick={() => toggleFavorite('/hidratacao')}
+            className="p-2 hover:bg-white/20 rounded-lg transition-colors flex-shrink-0"
+          >
+            <Star className={`w-5 h-5 ${isFavorite('/hidratacao') ? 'fill-yellow-300 text-yellow-300' : 'text-white/80'}`} />
+          </button>
         </div>
         <p className="text-cyan-100 text-sm">Calcula expansão volêmica e manutenção pela Regra de Holliday-Segar</p>
       </div>
