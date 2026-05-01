@@ -1,536 +1,147 @@
 export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
-  id: "outros-antibacterianos",
-  label: "Outros Antibacterianos",
-  icon: "🧬",
-  color: "purple",
+  id: 'outros-antibacterianos',
+  name: 'Outros Antibacterianos',
+  icon: '💉',
   drugs: [
     {
-      id: "colistina",
-      name: "Colistina / Polimixina E",
-      category: "outros-antibacterianos",
-      catIcon: "🧬",
-      catLabel: "Outros Antibacterianos",
-      suffix: "Polimixina",
-      
-      presentations: [
-        "Colis-tek / Colomycin — Frasco-ampola 150 mg e 1.000.000 UI"
-      ],
-      
-      observation: "Polimixina usada na infecção por Gram-negativos multirresistentes. Não usar como monoterapia; associar carbapenêmicos para retardar resistência. Nos alérgicos a carbapenêmicos, associar rifampicina. Equivalência: 1 mg de colistina base ≈ 30.000 UI de colistimetato.",
-      
-      dosageByAge: {
-        children: {
-          title: "Crianças",
-          groups: [
-            {
-              condition: "Dose usual",
-              doses: ["2,5 a 5 mg/kg/dia, dividido em 2 a 4 doses"]
-            },
-            {
-              condition: "Intratecal na meningite",
-              doses: ["1 a 4,2 mg/dia"]
-            },
-            {
-              condition: "Fibrose cística EV",
-              doses: ["3 a 5 mg/kg/dia, dividido em 3 doses", "Máximo: 100 mg/dose"]
-            },
-            {
-              condition: "Pneumonia inalatória",
-              doses: ["30 a 150 mg ou 900.000 a 4,5 milhões UI/dose, 2 vezes ao dia"]
-            }
-          ]
-        },
-        adults: {
-          title: "Adultos",
-          groups: [
-            {
-              condition: "Dose usual EV ou IM",
-              doses: ["2,5 a 5 mg/kg/dia, dividido em 2 a 4 doses"]
-            },
-            {
-              condition: "Casos graves",
-              doses: ["EV: ataque de 300 mg", "Manutenção: 150 mg/dose, 2 vezes ao dia"]
-            },
-            {
-              condition: "Intratecal na meningite",
-              doses: ["4,2 mg/dia"]
-            },
-            {
-              condition: "Pneumonia por P. aeruginosa / Acinetobacter",
-              doses: ["EV: ataque de 5 mg/kg", "Após 24 h, iniciar manutenção", "Associar uso inalatório"]
-            }
-          ]
-        }
+      id: 'colistina',
+      name: 'Colistina / Polimixina E',
+      suffix: '(Colistimetato sódico)',
+      apresentacao: ['Frasco-ampola: 150 mg', 'Frasco-ampola: 1.000.000 UI'],
+      observacao: 'Polimixina para infecção Gram-negativos multirresistentes. Não usar como monoterapia; associar carbapenêmicos para retardar resistência. Equivalência: 1 mg colistina base ≈ 30.000 UI colistimetato',
+      dosePediatrica: {
+        descricao: '2,5 a 5 mg/kg/dia dividido em 2 a 4 doses',
+        detalhes: ['Intratecal meningite: 1 a 4,2 mg/dia', 'Fibrose cística EV: 3 a 5 mg/kg/dia dividido em 3 doses. Máximo: 100 mg/dose', 'Pneumonia inalatória: 30 a 150 mg ou 900.000 a 4,5 milhões UI/dose 2 vezes ao dia']
       },
-      
-      administration: "Para uso EV: reconstituir frasco em 2 mL de ABD, diluir em SF ou SGI, infundir em 30 minutos ou infuso em 3 h a cada 8 h. Evitar doses > 300 mg/dia em adultos.",
-      
-      renalAdjustment: [
-        "ClCr 50–80 mL/min: 2,5–3,5 mg/kg/dia, dividido em 2 doses",
-        "ClCr 30–50 mL/min: 2,5 mg/kg/dia, dividido em 1 a 2 doses",
-        "ClCr 10–29 mL/min: 1,5 mg/kg a cada 36 h"
+      doseAdulta: {
+        descricao: '2,5 a 5 mg/kg/dia dividido em 2 a 4 doses. Evitar > 300 mg/dia',
+        detalhes: ['Casos graves: ataque 300 mg EV, manutenção 150 mg/dose 2 vezes ao dia', 'Meningite intratecal: 4,2 mg/dia', 'Fibrose cística EV: 3 mg/kg/dia dividido em 3 doses', 'P. aeruginosa/Acinetobacter: ataque 5 mg/kg, após 24h manutenção + uso inalatório']
+      },
+      administracao: 'Reconstituir em 2 mL ABD, diluir em SF ou glicosado, infundir em 30 min ou 3 h a cada 8 h',
+      ajusteRenal: [
+        'ClCr 50–80 mL/min: 2,5–3,5 mg/kg/dia ÷ 2 doses',
+        'ClCr 30–50 mL/min: 2,5 mg/kg/dia ÷ 1 a 2 doses',
+        'ClCr 10–29 mL/min: 1,5 mg/kg a cada 36 h',
       ],
-      
-      sensible: [
-        "Cepas multirresistentes de P. aeruginosa",
-        "A. baumannii",
-        "Klebsiella",
-        "E. coli resistentes a todos os antimicrobianos",
-        "Enterobacter, Salmonella, Shigella",
-        "Haemophilus, B. pertussis, Pasteurella",
-        "Citrobacter, Acinetobacter"
-      ],
-      
-      resistant: [
-        "Proteus",
-        "Burkholderia",
-        "Serratia",
-        "Neisseria",
-        "Providencia",
-        "Moraxella",
-        "Morganella"
-      ],
-      
-      sideEffects: [
-        "Neurotoxicidade reversível: parestesia perioral, formigamentos, vertigem, ataxia, confusão, convulsão",
-        "Disartria, fala arrastada, sinais meníngeos, miastenia, paralisia, apneia",
-        "Prurido, exantema, urticária, eosinofilia, leucopenia, broncoespasmo, tosse",
-        "Nefrotoxicidade: insuficiência renal aguda (vigiar função renal)",
-        "Potencia efeito de curares, sobretudo se associada a aminoglicosídeo"
-      ]
+      sensibilidade: {
+        sensivel: ['P. aeruginosa multirresistente', 'A. baumannii', 'Klebsiella', 'E. coli resistentes', 'Haemophilus', 'B. pertussis', 'Citrobacter'],
+        resistente: ['Proteus', 'Burkholderia', 'Serratia', 'Neisseria'],
+      },
+      efeitosColaterais: ['Parestesia perioral', 'Formigamentos', 'Vertigem', 'Ataxia', 'Confusão', 'Convulsão', 'Nefrotoxicidade', 'Miastenia'],
     },
-    
     {
-      id: "daptomicina",
-      name: "Daptomicina",
-      category: "outros-antibacterianos",
-      catIcon: "🧬",
-      catLabel: "Outros Antibacterianos",
-      suffix: "Lipopeptídeo",
-      
-      presentations: [
-        "Cubicin — Frasco-ampola 500 mg"
-      ],
-      
-      observation: "Lipopeptídeo para Staphylococcus resistentes à oxacilina ou linezolida, enterococo ou Streptococcus resistentes à vancomicina. Usado em pacientes que não toleram vancomicina.",
-      
-      dosageByAge: {
-        children: {
-          title: "Crianças",
-          groups: [
-            {
-              condition: "Dose de referência",
-              doses: ["4 a 6 mg/kg/dia"]
-            },
-            {
-              condition: "Endocardite por estafilococos resistente",
-              doses: ["< 6 anos: 10 mg/kg/dia", "≥ 6 anos: 6 mg/kg/dia"]
-            },
-            {
-              condition: "Infecções de pele",
-              doses: ["7 a 10 mg/kg/dia por 14 dias"]
-            }
-          ]
-        },
-        adults: {
-          title: "Adultos",
-          groups: [
-            {
-              condition: "Infecções de pele, subcutâneo, queimadura, ferida cirúrgica",
-              doses: ["4 mg/kg/dia por 7 a 14 dias"]
-            },
-            {
-              condition: "Endocardite / bacteremia estafilocócica",
-              doses: ["8 a 10 mg/kg/dia por 1 a 6 semanas", "Dose máxima: 12 mg/kg/dia"]
-            },
-            {
-              condition: "Osteomielite",
-              doses: ["6 a 8 mg/kg/dia por 6 semanas"]
-            },
-            {
-              condition: "Artrite séptica",
-              doses: ["6 mg/kg/dia por 3 a 4 semanas"]
-            }
-          ]
-        }
+      id: 'daptomicina',
+      name: 'Daptomicina',
+      suffix: '(Cubicin)',
+      apresentacao: ['Frasco-ampola: 500 mg'],
+      observacao: 'Lipopeptídeo para Staphylococcus resistentes e enterococo/Streptococcus resistentes à vancomicina. Não usar em pneumonias (inativada por surfactante)',
+      dosePediatrica: {
+        descricao: '4 a 6 mg/kg/dia',
+        detalhes: ['Endocardite estafilococo resistente: < 6 anos: 10 mg/kg/dia; ≥ 6 anos: 6 mg/kg/dia', 'Infecções pele: 7 a 10 mg/kg/dia por 14 dias']
       },
-      
-      administration: "Infundir em 2 a 30 minutos. Interromper se surgirem sinais de miopatia ou CPK > 5x o normal. Armazenar sob refrigeração entre 2 e 8 ºC.",
-      
-      renalAdjustment: [
-        "ClCr < 30 mL/min ou diálise: 1 dose a cada 48 h"
-      ],
-      
-      sensible: "Todos os Gram-positivos, inclusive estafilococos e enterococos resistentes. Resistente à linezolida e vancomicina.",
-      
-      resistant: "Não usar em pneumonias (inativada por surfactante). Cepas de Staphylococcus e vancomicina podem se tornar resistentes, retornando sensibilidade a outros antimicrobianos.",
-      
-      sideEffects: [
-        "Cefaleia, ansiedade, fraqueza, tremor, tontura, cansaço",
-        "Diarreia, hipotensão, edema, arritmia, flebite",
-        "Dispneia, tosse, pneumonite",
-        "Náusea, vômito, anemia, trombocitose",
-        "Erupção cutânea, prurido, reação local, alergia grave",
-        "Eosinofilia pulmonar, aumento de CPK, disfunção renal, proteinúria"
-      ],
-      
-      interactions: "Suspender estatinas durante o uso."
+      doseAdulta: {
+        descricao: 'Infecções pele: 4 mg/kg/dia por 7 a 14 dias',
+        detalhes: ['Endocardite/bacteremia estafilocócica: 8 a 10 mg/kg/dia por 1 a 6 semanas. Máximo: 12 mg/kg/dia', 'Osteomielite: 6 a 8 mg/kg/dia por 6 semanas', 'Artrite séptica: 6 mg/kg/dia por 3 a 4 semanas']
+      },
+      administracao: 'Infundir em 2 a 30 min. Interromper se miopatia ou CPK > 5x normal. Refrigerar 2-8°C',
+      ajusteRenal: ['ClCr < 30 mL/min ou diálise: 1 dose a cada 48 h'],
+      efeitosColaterais: ['Cefaleia', 'Ansiedade', 'Tremor', 'Tontura', 'Diarreia', 'Hipotensão', 'Aumento CPK', 'Proteinúria'],
+      interacoes: 'Suspender estatinas durante uso',
     },
-    
     {
-      id: "fosfomicina",
-      name: "Fosfomicina",
-      category: "outros-antibacterianos",
-      catIcon: "🧬",
-      catLabel: "Outros Antibacterianos",
-      suffix: "Antifúngico",
-      
-      presentations: [
-        "Monuril — Sachê 3 g"
-      ],
-      
-      observation: "Único do grupo. Usado em infecção urinária de adultos.",
-      
-      dosageByAge: {
-        children: {
-          title: "Crianças",
-          groups: [
-            {
-              condition: "Dose parenteral em bactérias multirresistentes",
-              doses: ["100 a 400 mg/kg/dia, dividido em 2 a 4 doses"]
-            }
-          ]
-        },
-        adults: {
-          title: "Adultos",
-          groups: [
-            {
-              condition: "Infecção urinária — cistite, uretrite, pós-operatório",
-              doses: ["Mulher: 3 g em dose única", "Homem: 3 g/dose, a cada 2 a 3 dias, por 3 doses (21 dias na prostatite)"]
-            }
-          ]
-        }
+      id: 'fosfomicina',
+      name: 'Fosfomicina',
+      suffix: '(Monuril)',
+      apresentacao: ['Sachê: 3 g'],
+      observacao: 'Único do grupo. Usado em infecção urinária de adultos',
+      dosePediatrica: {
+        descricao: '100 a 400 mg/kg/dia dividido em 2 a 4 doses (parenteral em multirresistentes)'
       },
-      
-      sensible: [
-        "E. coli (inclusive resistente a alternativas habituais)",
-        "Outras enterobactérias",
-        "Pseudomonas",
-        "S. aureus",
-        "Pneumococo",
-        "Alguns estreptococos"
-      ],
-      
-      resistant: [
-        "Acinetobacter",
-        "B. fragilis",
-        "Anaeróbios"
-      ],
-      
-      sideEffects: [
-        "Cefaleia, tontura, fadiga",
-        "Diarreia, náusea, vômito, pirose, dor abdominal",
-        "Queimação anal, vaginite, dismenorreia",
-        "Erupção cutânea, neutropenia, hipopotassemia"
-      ],
-      
-      interactions: "Evitar associar com metoclopramida."
+      doseAdulta: {
+        descricao: 'Infecção urinária/cistite/uretrite',
+        detalhes: ['Mulher: 3 g dose única', 'Homem: 3 g/dose a cada 2 a 3 dias por 3 doses (21 dias prostatite)']
+      },
+      sensibilidade: {
+        sensivel: ['E. coli inclusive resistente', 'Enterobactérias', 'Pseudomonas', 'S. aureus', 'Pneumococo'],
+        resistente: ['Acinetobacter', 'B. fragilis', 'Anaeróbios'],
+      },
+      efeitosColaterais: ['Cefaleia', 'Tontura', 'Diarreia', 'Náusea', 'Vômito', 'Hipopotassemia'],
+      interacoes: 'Evitar com metoclopramida',
     },
-    
     {
-      id: "metronidazol",
-      name: "Metronidazol",
-      category: "outros-antibacterianos",
-      catIcon: "🧬",
-      catLabel: "Outros Antibacterianos",
-      suffix: "Imidazólico",
-      
-      presentations: [
-        "Flagyl / Metronidazol — Comprimido 250 mg e 400 mg, Suspensão 200 mg/5 mL, Solução injetável 5 mg/mL",
-        "Metronidazol genérico — Comprimido 250 e 400 mg, Solução oral 200 mg/5 mL, Solução injetável 5 mg/mL"
-      ],
-      
-      observation: "Imidazólico anaerobicida de primeira escolha. Amebicida, giardicida e tricomonocida. Boa concentração no líquor e em abscessos. Eficaz por via oral. Suspensão oral é de benzoilmetronidazol.",
-      
-      dosageByAge: {
-        children: {
-          title: "Crianças",
-          groups: [
-            {
-              condition: "Dose usual anaerobicida",
-              doses: ["Oral: 30 a 50 mg/kg/dia, dividido em 3 doses (máximo: 2250 mg/dia)", "EV: 22,5 a 40 mg/kg/dia, dividido em 3 doses (máximo: 1500 mg/dia)"]
-            },
-            {
-              condition: "Amebíase, balantidíase, blastocistose",
-              doses: ["35 a 50 mg/kg/dia, dividido em 3 doses, por 5 a 10 dias (máximo: 750 mg/dose)"]
-            },
-            {
-              condition: "Giardíase",
-              doses: ["Oral: 15 a 30 mg/kg/dia, dividido em 2 a 3 doses, por 7 a 10 dias (máximo: 250 mg/dose)"]
-            },
-            {
-              condition: "Helicobacter pylori",
-              doses: ["Oral: 20 mg/kg/dia, dividido em 2 doses, por 10 a 14 dias (associado ao esquema)"]
-            },
-            {
-              condition: "Diarreia por Clostridium difficile",
-              doses: ["30 mg/kg/dia, por 10 dias ou mais (máximo: 2 g/dia)"]
-            },
-            {
-              condition: "Tricomoníase",
-              doses: ["Oral: 45 mg/kg/dia, dividido em 2 a 3 doses, por 7 dias (máximo: 2 g/dia)"]
-            }
-          ]
-        },
-        adults: {
-          title: "Adultos",
-          groups: [
-            {
-              condition: "Dose usual anaerobicida",
-              doses: ["EV/oral: 7,5 mg/kg/dose a cada 4 h ou 500 mg/dose a cada 8 h", "Casos graves: ataque de 15 mg/kg/dose EV", "Dose máxima: 4000 mg/dia"]
-            },
-            {
-              condition: "Peritonite fecal e apendicite complicada",
-              doses: ["EV: 500 mg/dose a cada 6 h (primeira dose dobrada)"]
-            },
-            {
-              condition: "Doença inflamatória pélvica",
-              doses: ["500 mg/dose, 2 vezes ao dia, por 14 dias (associar ceftriaxona e doxiciclina)"]
-            },
-            {
-              condition: "Amebíase",
-              doses: ["Oral: 500 a 750 mg/dose, 3 vezes ao dia, por 10 dias"]
-            },
-            {
-              condition: "Colite pseudomembranosa por C. difficile",
-              doses: ["Oral: 500 mg/dose, 3 vezes ao dia, por 14 dias"]
-            },
-            {
-              condition: "Tricomoníase",
-              doses: ["Oral: 2 g em dose única ou 250 mg/dose, 3x ao dia, ou 500 mg/dose, 2x ao dia, por 7 dias"]
-            },
-            {
-              condition: "Vaginose bacteriana",
-              doses: ["500 mg/dose, 2 vezes ao dia, por 7 dias"]
-            }
-          ]
-        }
+      id: 'metronidazol',
+      name: 'Metronidazol',
+      suffix: '(Flagyl)',
+      apresentacao: ['Comprimido: 250 mg', 'Comprimido: 400 mg', 'Suspensão: 200 mg/5 mL', 'Solução injetável: 5 mg/mL'],
+      observacao: 'Imidazólico anaerobicida primeira escolha. Amebicida, giardicida, tricomonocida. Boa concentração em líquor e abscessos. Muito eficaz por via oral',
+      dosePediatrica: {
+        descricao: 'Anaerobicida: 30 a 50 mg/kg/dia ÷ 3 doses. Máximo: 2250 mg/dia',
+        detalhes: ['Amebíase/giardíase: 35 a 50 mg/kg/dia ÷ 3 por 5 a 10 dias. Máximo: 750 mg/dose', 'Giardíase: 15 a 30 mg/kg/dia ÷ 2 a 3 por 7 a 10 dias. Máximo: 250 mg/dose', 'H. pylori: 20 mg/kg/dia ÷ 2 por 10 a 14 dias em esquema']
       },
-      
-      preparation: "EV: diluição < 8 mg/mL em SF ou SGI. Velocidade máxima: 5 mL/minuto ou 0,25 mg/kg/hora.",
-      
-      renalAdjustment: [
-        "ClCr < 10 mL/min: 50% da dose, 4 vezes ao dia",
-        "Hemodialisável: 50 a 100%"
-      ],
-      
-      sensible: [
-        "Bacteroides spp., B. fragilis",
-        "Peptococcus, Peptostreptococcus",
-        "Veillonella, Clostridium spp.",
-        "Clostridium difficile",
-        "Prevotella melaninogenica",
-        "Fusobacterium, Gardnerella vaginalis",
-        "H. pylori, Campylobacter fetus"
-      ],
-      
-      resistant: [
-        "Todas as bactérias aeróbicas Gram-positivas e Gram-negativas",
-        "Anaeróbios: Eubacterium, Propionibacterium, Lactobacillus, Actinomyces",
-        "Raras cepas de Bacteroides"
-      ],
-      
-      sideEffects: [
-        "Cefaleia, tontura, ataxia, confusão, alucinação, insônia, parestesia, neuropatia",
-        "Náusea, vômito, anorexia, gosto metálico, estomatite, boca seca",
-        "Diarreia, dor abdominal, pancreatite",
-        "Flebite, tromboembolismo",
-        "Urina vermelho-escura, ardor uretral, dismenorreia, candidíase vaginal",
-        "Leucopenia, neutropenia",
-        "Efeito dissulfiram-like com álcool (vômitos intensos, congestão, confusão mental)",
-        "Dose alta prolongada: neuropatia periférica",
-        "Cada grama contém 28 mEq de sódio"
-      ],
-      
-      interactions: "Álcool. Aumenta níveis de ciclosporina, lítio, lidocaína, fenobarbital, carbamazepina, anticoagulantes orais."
+      doseAdulta: {
+        descricao: 'Anaerobicida: 7,5 mg/kg/dose a cada 4h ou 500 mg a cada 8h. Casos graves: ataque 15 mg/kg. Máximo: 4000 mg/dia',
+        detalhes: ['Amebíase: 500 a 750 mg/dose 3x ao dia por 10 dias', 'C. difficile: 500 mg/dose 3x ao dia por 14 dias', 'Giardíase: 250 a 500 mg/dose 3x ao dia por 5 a 10 dias', 'Tricomoníase: 2 g dose única ou 250 mg 3x ao dia por 7 dias', 'Vaginose: 500 mg/dose 2x ao dia por 7 dias']
+      },
+      administracao: 'EV: < 8 mg/mL em SF ou SGI. Máxima infusão: 5 mL/min. Não ingerir álcool até 4 dias após',
+      ajusteRenal: ['ClCr < 10 mL/min: 50% dose 4x ao dia'],
+      sensibilidade: {
+        sensivel: ['Bacteroides', 'Peptococcus', 'Peptostreptococcus', 'Clostridium difficile', 'Prevotella', 'Fusobacterium', 'H. pylori'],
+        resistente: ['Todas bactérias aeróbicas', 'Eubacterium', 'Propionibacterium'],
+      },
+      efeitosColaterais: ['Gosto metálico', 'Náusea', 'Vômito', 'Diarreia', 'Urina vermelho-escura', 'Neuropatia periférica em dose alta prolongada'],
+      interacoes: 'Álcool (efeito dissulfiram-like: vômitos intensos, convulsão)',
     },
-    
     {
-      id: "linezolida",
-      name: "Linezolida",
-      category: "outros-antibacterianos",
-      catIcon: "🧬",
-      catLabel: "Outros Antibacterianos",
-      suffix: "Oxazolidinona",
-      
-      presentations: [
-        "Zyvox / Linezolida — Comprimido revestido 600 mg, Solução injetável 2 mg/mL"
-      ],
-      
-      observation: "Oxazolidinona. Única opção oral para Staphylococcus resistentes à oxacilina. Boa equivalência entre via oral e venosa. Bacteriostático para Staphylococcus.",
-      
-      dosageByAge: {
-        children: {
-          title: "Crianças",
-          groups: [
-            {
-              condition: "Dose usual",
-              doses: ["30 mg/kg/dia, dividido em 3 doses (máximo: 600 mg/dose)"]
-            },
-            {
-              condition: "Fibrose cística",
-              doses: ["EV: 30 mg/kg/dia, dividido em 3 doses, por até 2 semanas"]
-            },
-            {
-              condition: "Endocardite por enterococo resistente",
-              doses: ["EV/oral: 30 mg/kg/dia, dividido em 3 doses, por 8 semanas"]
-            },
-            {
-              condition: "Tuberculose multirresistente (reforço)",
-              doses: ["Oral: 20 a 24 mg/kg/dia, dividido em 2 doses (máximo: 600 mg/dose)"]
-            }
-          ]
-        },
-        adults: {
-          title: "Adultos",
-          groups: [
-            {
-              condition: "Dose usual",
-              doses: ["EV/oral: 600 mg/dose, 2 vezes ao dia, por 10 a 14 dias"]
-            },
-            {
-              condition: "Pneumonia hospitalar e infecções graves",
-              doses: ["600 mg/dose, 2 vezes ao dia, por 7 a 21 dias"]
-            },
-            {
-              condition: "Tuberculose multirresistente (reforço)",
-              doses: ["600 mg/dose, 1 a 2 vezes ao dia, por até 4 meses", "Depois reduzir pela metade por até 18 meses"]
-            },
-            {
-              condition: "Endocardite por enterococo resistente",
-              doses: ["600 mg/dose, 2 vezes ao dia, por 6 semanas ou mais"]
-            }
-          ]
-        }
+      id: 'linezolida',
+      name: 'Linezolida',
+      suffix: '(Zyvox)',
+      apresentacao: ['Comprimido: 600 mg', 'Solução injetável: 2 mg/mL'],
+      observacao: 'Oxazolidinona. Única opção oral para Staphylococcus resistentes à oxacilina. Equivalência oral/venosa boa. Bacteriostático',
+      dosePediatrica: {
+        descricao: '30 mg/kg/dia ÷ 3. Máximo: 600 mg/dose',
+        detalhes: ['Fibrose cística EV: 30 mg/kg/dia ÷ 3 até 2 semanas', 'Endocardite enterococo resistente EV/oral: 30 mg/kg/dia ÷ 3 por 8 semanas', 'TB multirresistente: 20 a 24 mg/kg/dia ÷ 2']
       },
-      
-      administration: "Para uso EV, usar diluição de 2 mg/mL e correr em 30 a 120 minutos. Nível sérico > 20 mg/L aumenta risco de toxicidade.",
-      
-      renalAdjustment: "Não exige ajuste",
-      
-      sensible: [
-        "Staphylococcus resistentes à oxacilina",
-        "Streptococcus A, B, C, G",
-        "Pneumococo (inclusive resistentes à penicilina)",
-        "Enterococos resistentes à vancomicina",
-        "Clostridium (não difficile)",
-        "Peptostreptococcus"
-      ],
-      
-      resistant: [
-        "Todos os Gram-negativos, exceto ação fraca para:",
-        "Haemophilus, Moraxella"
-      ],
-      
-      sideEffects: [
-        "Tontura, insônia, parestesia, cefaleia",
-        "Náusea, diarreia, vômitos, dor abdominal, colite, constipação",
-        "Monilíase, descoloração da língua",
-        "Calafrios, febre, flebite, dermatite, erupção cutânea",
-        "Hipertensão, trombocitopenia, anemia, leucopenia",
-        "Monitorar hemograma cada semana",
-        "Neuropatia, neurite óptica",
-        "Aumento de transaminases, glicemia, lipase, amilase, bilirrubinas",
-        "Acidose lática, língua negra pilosa",
-        "Risco de mielossupressão maior em tratamentos > 14 dias ou insuficiência renal"
-      ],
-      
-      interactions: "Evitar com inibidor de recaptação de serotonina."
+      doseAdulta: {
+        descricao: '600 mg/dose 2x ao dia por 10 a 14 dias',
+        detalhes: ['Pneumonia/infecções graves: 600 mg/dose 2x ao dia por 7 a 21 dias', 'TB multirresistente: 600 mg/dose 1 a 2x ao dia até 4 meses']
+      },
+      administracao: 'EV: 2 mg/mL correr em 30 a 120 min. Nível sérico > 20 mg/L aumenta toxicidade',
+      sensibilidade: {
+        sensivel: ['Todos Gram-positivos', 'Staphylococcus resistentes', 'Streptococcus A,B,C,G', 'Pneumococo resistentes', 'Enterococo resistente vancomicina'],
+        resistente: ['Todos Gram-negativos'],
+      },
+      efeitosColaterais: ['Tontura', 'Insônia', 'Náusea', 'Diarreia', 'Colite', 'Neuropatia', 'Neurite óptica', 'Monitorar hemograma semanalmente'],
+      interacoes: 'Evitar com inibidor recaptação serotonina',
     },
-    
     {
-      id: "nitrofurantoina",
-      name: "Nitrofurantoína",
-      category: "outros-antibacterianos",
-      catIcon: "🧬",
-      catLabel: "Outros Antibacterianos",
-      suffix: "Nitrofurânico",
-      
-      presentations: [
-        "Macrodantina / Nitrofurantoína — Cápsulas 100 mg"
-      ],
-      
-      observation: "Derivado nitrofurânico. Antibacteriano de uso restrito às infecções urinárias. Não funciona com clearance de creatinina < 40 mL/min.",
-      
-      dosageByAge: {
-        children: {
-          title: "Crianças",
-          groups: [
-            {
-              condition: "Infecção urinária",
-              doses: [
-                "5 a 7 mg/kg/dia, dividido em 4 doses, por 3 a 7 dias (com refeições)",
-                "7-10 kg: 12,5 mg/dose x 4",
-                "11-20 kg: 25 mg/dose x 4",
-                "21-30 kg: 37,5 mg/dose x 4",
-                "31-40 kg: 50 mg/dose x 4",
-                "> 40 kg: 50 a 100 mg/dose x 4",
-                "Máximo: 100 mg/dose ou 400 mg/dia"
-              ]
-            },
-            {
-              condition: "Profilaxia de infecção urinária",
-              doses: ["1 a 2 mg/kg/dose, 1 vez ao dia (máximo: 100 mg/dia)"]
-            }
-          ]
+      id: 'nitrofurantoina',
+      name: 'Nitrofurantoína',
+      suffix: '(Macrodantina)',
+      apresentacao: ['Cápsula: 100 mg'],
+      observacao: 'Derivado nitrofurânico. Antibacteriano restrito às infecções urinárias, sobretudo ITU baixa',
+      dosePediatrica: {
+        descricao: '5 a 7 mg/kg/dia ÷ 4 doses por 3 a 7 dias',
+        tabela: {
+          '7 a 10 kg': '12,5 mg/dose x 4',
+          '11 a 20 kg': '25 mg/dose x 4',
+          '21 a 30 kg': '37,5 mg/dose x 4',
+          '31 a 40 kg': '50 mg/dose x 4',
+          '> 40 kg': '50 a 100 mg/dose x 4',
         },
-        adults: {
-          title: "Adultos",
-          groups: [
-            {
-              condition: "Infecção urinária baixa",
-              doses: ["50 a 100 mg/dose, 4 vezes ao dia, por 3 a 7 dias"]
-            },
-            {
-              condition: "Profilaxia de infecção urinária recorrente",
-              doses: ["50 a 100 mg/dose, 1 vez ao dia, ao deitar"]
-            }
-          ]
-        }
+        detalhes: ['Máximo: 100 mg/dose ou 400 mg/dia', 'Profilaxia: 1 a 2 mg/kg/dose 1x ao dia. Máximo: 100 mg/dia']
       },
-      
-      sensible: [
-        "E. coli",
-        "Shigella",
-        "Klebsiella",
-        "Enterobacter",
-        "Salmonella",
-        "Enterococcus",
-        "Proteus"
-      ],
-      
-      resistant: [
-        "S. aureus",
-        "Serratia",
-        "Proteus (maioria)",
-        "Pseudomonas"
-      ],
-      
-      sideEffects: [
-        "Tontura, cefaleia, calafrios, febre, vertigem, neuropatia",
-        "Alergia, erupção cutânea",
-        "Náusea, anorexia, pancreatite, colite, dor abdominal, colestase",
-        "Urina escura",
-        "Leucopenia, eosinofilia, anemia megaloblástica, trombocitopenia",
-        "Pneumonite, fibrose intersticial pulmonar"
-      ],
-      
-      contraindications: [
-        "Anúria, oligúria",
-        "Gestantes a termo",
-        "Menores de 38 semanas",
-        "Neonatos"
-      ]
+      doseAdulta: {
+        descricao: '50 a 100 mg/dose 4x ao dia por 3 a 7 dias',
+        detalhes: ['Profilaxia ITU recorrente: 50 a 100 mg/dose 1x ao deitar']
+      },
+      orientacoes: 'Para crianças pequenas formular suspensão 25 mg/5 mL. Não funciona com ClCr < 40 mL/min',
+      ajusteRenal: ['ClCr < 60 mL/min: uso contraindicado'],
+      sensibilidade: {
+        sensivel: ['E. coli', 'Klebsiella', 'Enterobacter', 'Enterococcus'],
+        resistente: ['S. aureus', 'Serratia', 'Pseudomonas'],
+      },
+      efeitosColaterais: ['Tontura', 'Cefaleia', 'Neuropatia', 'Náusea', 'Pneumonite', 'Fibrose pulmonar intersticial'],
+      contraindicacoes: ['Neonatos', 'Gestantes termo', 'Anúria/oligúria'],
     }
   ]
 };
