@@ -44,7 +44,6 @@ const menuCategories = [
     id: 'comunidade',
     label: '💬 Comunidade',
     items: [
-      { to: '/desenvolvimento', label: 'Desenvolvimento Infantil' },
       { to: '/contato', label: 'Contato & Colaboração' },
     ],
   },
