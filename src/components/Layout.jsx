@@ -14,6 +14,7 @@ const navLinks = [
   { to: '/idade-gestacional-corrigida', label: '👶 IG Corrigida' },
   { to: '/centor-mcisaac', label: '🔬 Centor/McIsaac' },
   { to: '/vacinas', label: '💉 Vacinas' },
+  { to: '/contato', label: '💬 Contato' },
 ];
 
 export default function Layout() {
