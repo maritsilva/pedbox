@@ -19,6 +19,7 @@ export default function Guia() {
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedDrug, setSelectedDrug] = useState(null);
   const [activeTab, setActiveTab] = useState('categorias'); // 'categorias' | 'favoritos'
+  const [filterCat, setFilterCat] = useState(null);
   const { favorites, isFavorite } = useFavorites();
 
   // Handle URL param ?drug=
@@ -34,8 +35,6 @@ export default function Guia() {
       }
     }
   }, []);
-
-  const [filterCat, setFilterCat] = useState(null);
 
   const allDrugs = getAllGuideDrugs();
   const searchResults = search.trim().length > 1 || filterCat
