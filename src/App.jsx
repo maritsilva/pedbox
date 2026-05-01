@@ -12,6 +12,7 @@ import IMC from './pages/IMC';
 import PressaoArterial from './pages/PressaoArterial';
 import Protocolos from './pages/Protocolos.jsx';
 import Guia from './pages/Guia';
+import Pesquisa from './pages/Pesquisa';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/imc" element={<IMC />} />
             <Route path="/pressao-arterial" element={<PressaoArterial />} />
             <Route path="/protocolos" element={<Protocolos />} />
+            <Route path="/pesquisa" element={<Pesquisa />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
