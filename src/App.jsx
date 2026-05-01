@@ -13,6 +13,7 @@ import PressaoArterial from './pages/PressaoArterial';
 import Protocolos from './pages/Protocolos.jsx';
 import Guia from './pages/Guia';
 import Pesquisa from './pages/Pesquisa';
+import PerimetroCefalico from './pages/PerimetroCefalico';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/pressao-arterial" element={<PressaoArterial />} />
             <Route path="/protocolos" element={<Protocolos />} />
             <Route path="/pesquisa" element={<Pesquisa />} />
+            <Route path="/perimetro-cefalico" element={<PerimetroCefalico />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

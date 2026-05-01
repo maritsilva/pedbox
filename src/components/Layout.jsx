@@ -9,6 +9,7 @@ const navLinks = [
   { to: '/imc', label: 'IMC Pediátrico' },
   { to: '/pressao-arterial', label: 'PA Pediátrica' },
   { to: '/pesquisa', label: '🔬 PedResearch' },
+  { to: '/perimetro-cefalico', label: '📏 Perímetro Cefálico' },
 ];
 
 export default function Layout() {
