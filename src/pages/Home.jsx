@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs, GUIDE_CATEGORIES } from '@/lib/guideData';
 
 const TOOLS = [
-  { label: 'Guia de Doses', desc: 'Guia clínico de medicamentos pediátricos', path: '/guia', icon: <BookOpen className="w-5 h-5" />, keywords: ['guia', 'doses', 'medicamentos', 'drogas', 'remédios', 'antibióticos'] },
-  { label: 'Hidratação Venosa', desc: 'Expansão volêmica e manutenção (Holliday-Segar)', path: '/hidratacao', icon: <Droplets className="w-5 h-5" />, keywords: ['hidratação', 'hidratacao', 'venosa', 'expansão', 'soro', 'manutencao', 'holliday'] },
-  { label: 'IMC Pediátrico', desc: 'Índice de massa corporal e curvas de crescimento', path: '/imc', icon: <Scale className="w-5 h-5" />, keywords: ['imc', 'índice', 'massa', 'corporal', 'crescimento', 'peso', 'altura'] },
-  { label: 'PA Pediátrica', desc: 'Pressão arterial e percentis por idade e sexo', path: '/pressao-arterial', icon: <Activity className="w-5 h-5" />, keywords: ['pressão', 'pressao', 'arterial', 'hipertensão', 'pa'] },
+  { label: 'Guia de Doses', desc: 'Guia clínico de medicamentos pediátricos', path: '/guia', Icon: BookOpen, keywords: ['guia', 'doses', 'medicamentos', 'drogas', 'remédios', 'antibióticos'] },
+  { label: 'Hidratação Venosa', desc: 'Expansão volêmica e manutenção (Holliday-Segar)', path: '/hidratacao', Icon: Droplets, keywords: ['hidratação', 'hidratacao', 'venosa', 'expansão', 'soro', 'manutencao', 'holliday'] },
+  { label: 'IMC Pediátrico', desc: 'Índice de massa corporal e curvas de crescimento', path: '/imc', Icon: Scale, keywords: ['imc', 'índice', 'massa', 'corporal', 'crescimento', 'peso', 'altura'] },
+  { label: 'PA Pediátrica', desc: 'Pressão arterial e percentis por idade e sexo', path: '/pressao-arterial', Icon: Activity, keywords: ['pressão', 'pressao', 'arterial', 'hipertensão', 'pa'] },
 ];
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
         ...TOOLS.filter(t =>
           t.label.toLowerCase().includes(search.toLowerCase()) ||
           t.keywords.some(k => k.includes(search.toLowerCase()))
-        ).map(t => ({ ...t, type: 'tool' })),
+        ).map(t => ({ ...t, icon: null, type: 'tool' })),
         ...getAllGuideDrugs()
           .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
           .slice(0, 8)
@@ -28,7 +28,7 @@ export default function Home() {
             label: d.name,
             desc: d.catLabel,
             path: `/guia?drug=${d.id}`,
-            icon: <span className="text-lg">{d.catIcon}</span>,
+            catIcon: d.catIcon,
             type: 'drug',
           })),
       ]
@@ -95,7 +95,9 @@ export default function Home() {
                   onClick={() => { navigate(r.path); setSearch(''); }}
                   className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0"
                 >
-                  <div className="text-primary flex-shrink-0">{r.icon}</div>
+                  <div className="text-primary flex-shrink-0">
+                    {r.type === 'drug' ? <span className="text-lg">{r.catIcon}</span> : r.Icon ? <r.Icon className="w-5 h-5" /> : null}
+                  </div>
                   <div>
                     <p className="text-sm font-semibold text-foreground">{r.label}</p>
                     <p className="text-xs text-muted-foreground">{r.desc}</p>
@@ -162,7 +164,7 @@ export default function Home() {
           >
             <Link to={tool.path}>
               <div className="bg-white border border-border rounded-2xl p-4 flex items-center gap-3 hover:shadow-md hover:border-primary/30 transition-all group">
-                <div className="text-primary bg-primary/10 rounded-xl p-2 flex-shrink-0">{tool.icon}</div>
+                <div className="text-primary bg-primary/10 rounded-xl p-2 flex-shrink-0"><tool.Icon className="w-5 h-5" /></div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">{tool.label}</p>
                   <p className="text-xs text-muted-foreground">{tool.desc}</p>
