@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs } from '@/lib/guideData';
 
 const CALCULATORS = [
-  { label: 'Hidratação Venosa', desc: 'Expansão volêmica e manutenção', path: '/hidratacao', Icon: Droplets, keywords: ['hidratação', 'venosa', 'soro', 'holliday'] },
-  { label: 'IMC Pediátrico', desc: 'Curvas de crescimento e percentis', path: '/imc', Icon: Scale, keywords: ['imc', 'massa', 'corporal', 'peso', 'altura'] },
-  { label: 'PA Pediátrica', desc: 'Pressão arterial por idade e sexo', path: '/pressao-arterial', Icon: Activity, keywords: ['pressão', 'arterial', 'hipertensão'] },
+  { label: 'Hidratação Venosa', desc: 'Cálculo rápido de volumes e velocidades', path: '/hidratacao', Icon: Droplets, keywords: ['hidratação', 'venosa', 'soro', 'holliday'] },
+  { label: 'IMC Pediátrico', desc: 'Avaliação de crescimento e percentis', path: '/imc', Icon: Scale, keywords: ['imc', 'massa', 'corporal', 'peso', 'altura'] },
+  { label: 'PA Pediátrica', desc: 'Classificação por idade, sexo e altura', path: '/pressao-arterial', Icon: Activity, keywords: ['pressão', 'arterial', 'hipertensão'] },
 ];
 
 const ALL_SEARCH = [
@@ -42,11 +42,12 @@ export default function Home() {
         <img
           src="https://media.base44.com/images/public/69ecb71457668abac5516abd/f3370f5fd_Gemini_Generated_Image_curo51curo51curo1.png"
           alt="PedBox"
-          className="h-16 w-auto mx-auto mb-3"
+          className="h-16 w-auto mx-auto mb-4"
         />
-        <p className="text-muted-foreground text-sm">Referência clínica rápida para o plantão pediátrico.</p>
-        <span className="mt-3 inline-flex items-center gap-1.5 bg-primary/8 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/20">
-          🩺 Feito de residente para residente
+        <h1 className="text-3xl font-extrabold text-foreground mb-2">PedBox</h1>
+        <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">Acesso imediato a doses, protocolos e cálculos pediátricos essenciais no plantão</p>
+        <span className="mt-4 inline-flex items-center gap-1.5 bg-primary/8 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/20">
+          🩺 Por médicos em formação, para médicos em plantão
         </span>
       </motion.div>
 
@@ -54,7 +55,7 @@ export default function Home() {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.08 }}
         className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
         <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
-        <p>Conteúdo desenvolvido por médicos em formação, revisado por pediatras e baseado nas principais referências da área.</p>
+        <p><strong>Ferramenta de apoio:</strong> Sempre valide informações com protocolos institucionais e supervisão. Destinado a profissionais de saúde.</p>
       </motion.div>
 
       {/* Search */}
@@ -106,7 +107,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="font-bold text-base leading-tight">Guia de Medicamentos</p>
-                <p className="text-blue-100 text-xs mt-1 leading-snug">Doses, preparo e apresentações por categoria</p>
+                <p className="text-blue-100 text-xs mt-1 leading-snug">Doses, administração e apresentações organizadas</p>
               </div>
               <div className="flex items-center gap-1 text-white/70 text-xs mt-auto">
                 Acessar <ChevronRight className="w-3 h-3" />
@@ -122,7 +123,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="font-bold text-base leading-tight">Protocolos Clínicos</p>
-                <p className="text-violet-100 text-xs mt-1 leading-snug">Diretrizes e fluxogramas por condição</p>
+                <p className="text-violet-100 text-xs mt-1 leading-snug">Fluxogramas passo a passo para situações urgentes</p>
               </div>
               <div className="flex items-center gap-1 text-white/70 text-xs mt-auto">
                 Acessar <ChevronRight className="w-3 h-3" />
@@ -139,7 +140,7 @@ export default function Home() {
             </div>
             <div className="flex-1">
               <p className="font-bold text-base leading-tight">PedResearch IA</p>
-              <p className="text-emerald-100 text-xs mt-0.5 leading-snug">Busque evidências, guidelines e estudos recentes</p>
+              <p className="text-emerald-100 text-xs mt-0.5 leading-snug">Pesquisa inteligente de evidências e diretrizes</p>
             </div>
             <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
           </motion.div>
