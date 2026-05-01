@@ -1,6 +1,7 @@
 // ============================================================
 // GUIA DE DOSES PEDIÁTRICO — Estrutura rica por medicamento
 // ============================================================
+import { PENICILINAS_CATEGORY } from './guideDataPenicilinas.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1587,6 +1588,8 @@ export const GUIDE_CATEGORIES = [
   },
 ];
 
+export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY];
+
 export function getAllGuideDrugs() {
-  return GUIDE_CATEGORIES.flatMap(cat => cat.drugs.map(d => ({ ...d, catLabel: cat.label, catColor: cat.color, catIcon: cat.icon })));
+  return ALL_CATEGORIES.flatMap(cat => cat.drugs.map(d => ({ ...d, catLabel: cat.label, catColor: cat.color, catIcon: cat.icon })));
 }

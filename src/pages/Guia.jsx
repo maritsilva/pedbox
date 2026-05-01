@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
+import { ALL_CATEGORIES as GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
 import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
