@@ -55,6 +55,17 @@ export default function Home() {
 
       {/* Aviso */}
       <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.08 }}
+        className="text-center mb-6"
+      >
+        <span className="inline-flex items-center gap-2 bg-primary/8 text-primary text-xs font-semibold px-4 py-2 rounded-full border border-primary/20">
+          <span>🩺</span> Feito de residente para residente
+        </span>
+      </motion.div>
+
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
