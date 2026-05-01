@@ -3,7 +3,7 @@ import { GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
 import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
-import { useFavorites } from '@/hooks/useFavorites';
+import { useFavorites } from '@/hooks/useFavorites.jsx';
 
 const colorMap = {
   'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', pill: 'bg-red-500' },

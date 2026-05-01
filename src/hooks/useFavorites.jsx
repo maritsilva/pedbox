@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 
 const KEY = 'pedbox_favorites';
 
-export function useFavorites() {
+const FavoritesContext = createContext(null);
+
+export function FavoritesProvider({ children }) {
   const [favorites, setFavorites] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem(KEY)) || [];
@@ -23,5 +25,13 @@ export function useFavorites() {
     );
   };
 
-  return { favorites, isFavorite, toggleFavorite };
+  return (
+    <FavoritesContext.Provider value={{ favorites, isFavorite, toggleFavorite }}>
+      {children}
+    </FavoritesContext.Provider>
+  );
+}
+
+export function useFavorites() {
+  return useContext(FavoritesContext);
 }

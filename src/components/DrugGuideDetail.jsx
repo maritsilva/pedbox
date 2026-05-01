@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFavorites } from '@/hooks/useFavorites';
+import { useFavorites } from '@/hooks/useFavorites.jsx';
 
 function Section({ title, icon, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);

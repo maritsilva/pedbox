@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { FavoritesProvider } from '@/hooks/useFavorites.jsx';
 import PageNotFound from './lib/PageNotFound';
 import Layout from './components/Layout';
 // Add page imports here
@@ -15,6 +16,7 @@ import Guia from './pages/Guia';
 function App() {
   return (
     <QueryClientProvider client={queryClientInstance}>
+      <FavoritesProvider>
       <Router>
         <Routes>
           <Route element={<Layout />}>
@@ -29,6 +31,7 @@ function App() {
         </Routes>
         <Toaster />
       </Router>
+      </FavoritesProvider>
     </QueryClientProvider>
   )
 }
