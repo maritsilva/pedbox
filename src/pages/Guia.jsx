@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
-import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
+import { useFavorites } from '@/hooks/useFavorites';
 
 const colorMap = {
   'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', pill: 'bg-red-500' },
@@ -17,6 +18,8 @@ export default function Guia() {
   const [search, setSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedDrug, setSelectedDrug] = useState(null);
+  const [activeTab, setActiveTab] = useState('categorias'); // 'categorias' | 'favoritos'
+  const { favorites, isFavorite } = useFavorites();
 
   // Handle URL param ?drug=
   useEffect(() => {
@@ -93,12 +96,77 @@ export default function Guia() {
     );
   }
 
+  const allDrugsMap = Object.fromEntries(getAllGuideDrugs().map(d => [d.id, d]));
+  const favoriteDrugs = favorites.map(id => allDrugsMap[id]).filter(Boolean);
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-7">
+      <div className="mb-5">
         <h1 className="text-2xl font-extrabold text-foreground mb-1">Guia de Doses</h1>
         <p className="text-muted-foreground text-sm">Referência clínica completa de medicamentos pediátricos e adultos</p>
       </div>
+
+      {/* Tabs */}
+      <div className="flex gap-2 mb-6">
+        <button
+          onClick={() => setActiveTab('categorias')}
+          className={`flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all ${activeTab === 'categorias' ? 'bg-primary text-white shadow' : 'bg-white border border-border text-muted-foreground hover:border-primary/40'}`}
+        >
+          Categorias
+        </button>
+        <button
+          onClick={() => setActiveTab('favoritos')}
+          className={`flex items-center justify-center gap-2 flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all ${activeTab === 'favoritos' ? 'bg-yellow-400 text-yellow-900 shadow' : 'bg-white border border-border text-muted-foreground hover:border-yellow-300'}`}
+        >
+          <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-yellow-900' : ''}`} />
+          Favoritos
+          {favorites.length > 0 && (
+            <span className={`text-xs rounded-full px-1.5 py-0.5 font-bold ${activeTab === 'favoritos' ? 'bg-yellow-900/20 text-yellow-900' : 'bg-yellow-100 text-yellow-700'}`}>
+              {favorites.length}
+            </span>
+          )}
+        </button>
+      </div>
+
+      {/* Favoritos tab */}
+      {activeTab === 'favoritos' && (
+        <div>
+          {favoriteDrugs.length === 0 ? (
+            <div className="text-center py-16 text-muted-foreground">
+              <Star className="w-10 h-10 mx-auto mb-3 text-yellow-300" />
+              <p className="font-semibold text-foreground">Nenhum favorito ainda</p>
+              <p className="text-sm mt-1">Abra um medicamento e toque na estrela ⭐ para salvá-lo aqui.</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {favoriteDrugs.map((drug, i) => {
+                const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category);
+                return (
+                  <motion.button
+                    key={drug.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); }}
+                    className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center gap-3 hover:border-yellow-300 hover:shadow-sm transition-all group"
+                  >
+                    <span className="text-xl">{cat?.icon}</span>
+                    <div className="flex-1">
+                      <span className="font-semibold text-sm text-foreground">{drug.name}</span>
+                      {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
+                      <p className="text-xs text-muted-foreground mt-0.5">{cat?.label}</p>
+                    </div>
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
+                  </motion.button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Categorias tab */}
+      {activeTab === 'categorias' && <>
 
       {/* Search */}
       <div className="relative mb-8">
@@ -164,6 +232,8 @@ export default function Guia() {
           );
         })}
       </div>
+
+      </>}
     </div>
   );
 }
