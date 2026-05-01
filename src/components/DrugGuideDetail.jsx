@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useFavorites } from '@/hooks/useFavorites';
 
 function Section({ title, icon, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -34,7 +35,10 @@ function Section({ title, icon, children, defaultOpen = true }) {
 }
 
 export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
+  const { isFavorite, toggleFavorite } = useFavorites();
   if (!drug) return null;
+
+  const fav = isFavorite(drug.id);
 
   return (
     <div className="space-y-4">
@@ -42,13 +46,20 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
       <div className={`${colors.bg} ${colors.border} border rounded-2xl p-5`}>
         <div className="flex items-start gap-3">
           <span className="text-3xl mt-0.5">{catIcon}</span>
-          <div>
+          <div className="flex-1">
             <p className={`text-xs font-semibold ${colors.text} mb-0.5`}>{catLabel}</p>
             <h1 className="text-2xl font-extrabold text-foreground leading-tight">
               {drug.name}
               {drug.suffix && <span className="ml-2 text-sm font-normal text-muted-foreground">({drug.suffix})</span>}
             </h1>
           </div>
+          <button
+            onClick={() => toggleFavorite(drug.id)}
+            className="p-2 rounded-xl hover:bg-black/5 transition-colors flex-shrink-0"
+            title={fav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+          >
+            <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+          </button>
         </div>
         {drug.observations && (
           <p className="mt-3 text-sm text-foreground/80 leading-relaxed border-t border-black/10 pt-3">{drug.observations}</p>
