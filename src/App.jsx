@@ -16,6 +16,7 @@ import Pesquisa from './pages/Pesquisa';
 import PerimetroCefalico from './pages/PerimetroCefalico';
 import AlvoParental from './pages/AlvoParental';
 import IdadeGestacionalCorrigida from './pages/IdadeGestacionalCorrigida';
+import CentorMcIsaac from './pages/CentorMcIsaac';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/perimetro-cefalico" element={<PerimetroCefalico />} />
             <Route path="/alvo-parental" element={<AlvoParental />} />
             <Route path="/idade-gestacional-corrigida" element={<IdadeGestacionalCorrigida />} />
+            <Route path="/centor-mcisaac" element={<CentorMcIsaac />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

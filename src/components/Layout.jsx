@@ -12,6 +12,7 @@ const navLinks = [
   { to: '/perimetro-cefalico', label: '📏 Perímetro Cefálico' },
   { to: '/alvo-parental', label: '📈 Alvo Parental' },
   { to: '/idade-gestacional-corrigida', label: '👶 IG Corrigida' },
+  { to: '/centor-mcisaac', label: '🔬 Centor/McIsaac' },
 ];
 
 export default function Layout() {
