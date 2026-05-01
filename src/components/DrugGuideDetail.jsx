@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle, Star } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle, Star, User, Baby } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
 
@@ -30,6 +30,67 @@ function Section({ title, icon, children, defaultOpen = true }) {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+}
+
+function DoseGroup({ group, items }) {
+  const isChild = /crian|lactente|rn |neonat|prematuro|bebê|pediátri/i.test(group);
+  const isAdult = /adulto/i.test(group);
+  const GroupIcon = isChild ? Baby : isAdult ? User : Stethoscope;
+  const groupBg = isChild ? 'bg-blue-50 border-blue-200' : isAdult ? 'bg-violet-50 border-violet-200' : 'bg-secondary/40 border-border';
+  const groupText = isChild ? 'text-blue-700' : isAdult ? 'text-violet-700' : 'text-foreground';
+  const iconColor = isChild ? 'text-blue-500' : isAdult ? 'text-violet-500' : 'text-muted-foreground';
+
+  return (
+    <div className="rounded-xl overflow-hidden border border-border">
+      <div className={`flex items-center gap-2 px-4 py-2.5 ${groupBg} border-b border-border`}>
+        <GroupIcon className={`w-3.5 h-3.5 ${iconColor} flex-shrink-0`} />
+        <span className={`text-xs font-bold uppercase tracking-wide ${groupText}`}>{group}</span>
+      </div>
+      <div className="divide-y divide-border">
+        {items.map((item, ii) => (
+          <div key={ii} className={`flex gap-3 px-4 py-2.5 transition-colors ${ii % 2 === 0 ? 'bg-white' : 'bg-secondary/20'}`}>
+            <span className="text-xs font-medium text-muted-foreground min-w-[130px] max-w-[180px] leading-snug pt-0.5 flex-shrink-0">{item.label}</span>
+            <span className="text-sm text-foreground font-medium leading-snug flex-1">{item.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PreparationSteps({ text }) {
+  const lines = text.split(/(?=\bEV:|IM:|Infusão|NÃO|Atenção)/g).filter(Boolean);
+
+  if (lines.length <= 1) {
+    return (
+      <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-4">
+        <p className="text-sm text-cyan-900 leading-relaxed">{text}</p>
+      </div>
+    );
+  }
+
+  const stepConfig = (line) => {
+    if (/^EV:/i.test(line.trim())) return { label: 'EV', color: 'bg-blue-500', textColor: 'text-blue-800', bg: 'bg-blue-50 border-blue-200' };
+    if (/^IM:/i.test(line.trim())) return { label: 'IM', color: 'bg-green-500', textColor: 'text-green-800', bg: 'bg-green-50 border-green-200' };
+    if (/^NÃO/i.test(line.trim())) return { label: '⚠️', color: 'bg-red-500', textColor: 'text-red-800', bg: 'bg-red-50 border-red-200' };
+    return { label: 'ℹ️', color: 'bg-cyan-500', textColor: 'text-cyan-800', bg: 'bg-cyan-50 border-cyan-200' };
+  };
+
+  return (
+    <div className="space-y-2">
+      {lines.map((line, i) => {
+        const cfg = stepConfig(line);
+        return (
+          <div key={i} className={`flex gap-3 rounded-xl px-4 py-3 border ${cfg.bg}`}>
+            <span className={`text-xs font-bold rounded-md px-1.5 py-0.5 text-white ${cfg.color} flex-shrink-0 h-fit mt-0.5`}>
+              {cfg.label}
+            </span>
+            <p className={`text-sm leading-relaxed ${cfg.textColor}`}>{line.trim()}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -69,19 +130,9 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
       {/* Doses */}
       {drug.doses && drug.doses.length > 0 && (
         <Section title="Doses" icon={<Stethoscope className="w-4 h-4 text-green-500" />}>
-          <div className="space-y-5">
+          <div className="space-y-3">
             {drug.doses.map((group, gi) => (
-              <div key={gi}>
-                <p className={`text-xs font-bold ${colors.text} uppercase tracking-wide mb-2`}>{group.group}</p>
-                <div className="space-y-2">
-                  {group.items.map((item, ii) => (
-                    <div key={ii} className="rounded-xl border border-border bg-secondary/30 px-4 py-2.5">
-                      <p className="text-xs font-semibold text-muted-foreground mb-0.5">{item.label}</p>
-                      <p className="text-sm text-foreground leading-snug">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <DoseGroup key={gi} group={group.group} items={group.items} />
             ))}
           </div>
         </Section>
@@ -90,12 +141,12 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
       {/* Preparo / Diluição */}
       {drug.preparation && (
         <Section title="Preparo e Diluição" icon={<Syringe className="w-4 h-4 text-cyan-500" />}>
-          <p className="text-sm text-foreground leading-relaxed">{drug.preparation}</p>
+          <PreparationSteps text={drug.preparation} />
         </Section>
       )}
 
       {/* Apresentações e marcas */}
-      <Section title="Apresentações e Marcas" icon={<Package className="w-4 h-4 text-blue-500" />}>
+      <Section title="Apresentações e Marcas" icon={<Package className="w-4 h-4 text-blue-500" />} defaultOpen={false}>
         {drug.presentations && drug.presentations.length > 0 && (
           <div className="mb-3 space-y-2">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Apresentações</p>
@@ -125,16 +176,14 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
         )}
       </Section>
 
-
-
       {/* Ajuste renal */}
       {drug.renalAdjustment && drug.renalAdjustment.length > 0 && (
         <Section title="Ajuste na Insuficiência Renal" icon={<Info className="w-4 h-4 text-amber-500" />} defaultOpen={false}>
-          <div className="space-y-2">
+          <div className="rounded-xl overflow-hidden border border-amber-200">
             {drug.renalAdjustment.map((r, i) => (
-              <div key={i} className="flex items-start justify-between gap-3 rounded-xl bg-amber-50 border border-amber-200 px-3 py-2.5">
-                <span className="text-xs font-semibold text-amber-700 min-w-fit">{r.label}</span>
-                <span className="text-sm text-amber-900 text-right">{r.value}</span>
+              <div key={i} className={`flex items-start gap-3 px-4 py-2.5 ${i % 2 === 0 ? 'bg-amber-50' : 'bg-white'} border-b border-amber-100 last:border-0`}>
+                <span className="text-xs font-bold text-amber-700 min-w-[120px] flex-shrink-0 pt-0.5">{r.label}</span>
+                <span className="text-sm text-amber-900">{r.value}</span>
               </div>
             ))}
           </div>
