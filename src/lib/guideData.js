@@ -9,6 +9,444 @@ export const GUIDE_CATEGORIES = [
     color: 'red-500',
     icon: '🦠',
     drugs: [
+      // ── 1ª Geração ──
+      {
+        id: 'cefadroxila',
+        name: 'Cefadroxila',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 1ª geração, mais bem absorvida por via oral e com meia-vida maior, permitindo uso em 2 doses ao dia.',
+        brands: [
+          'Cedroxil / Cefanaxil — cáps. 500 mg',
+          'Cefadroxila — cáps. 500 mg; susp. oral 250 mg/5 mL; susp. oral 500 mg/5 mL',
+        ],
+        presentations: [
+          { label: 'Cápsula 500 mg' },
+          { label: 'Suspensão oral 250 mg/5 mL' },
+          { label: 'Suspensão oral 500 mg/5 mL' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'Dose usual', value: '25–50 mg/kg/dia ÷ 2 doses. Máx: 2 g/dia. Susp: ≈ 0,5–1 mL/kg/dia ÷ 2 doses' },
+              { label: 'Impetigo / faringite / amigdalite', value: '30 mg/kg/dia ÷ 1–2 doses por 10 dias. Máx: 1000 mg/dia' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '250–500 mg/dose 2×/dia' },
+              { label: 'Infecções graves', value: '1 g/dose 2–3×/dia. Máx: 4 g/dia' },
+              { label: 'Faringites', value: '30 mg/kg/dia ÷ 1–2 doses por 10 dias. Máx: 1 g/dia' },
+              { label: 'Infecções de pele / amigdalite / ITU', value: '1 g/dia ÷ 1–2 doses (ITU por 10 dias)' },
+              { label: 'Após reconstituição', value: 'Ambiente por até 10 dias ou geladeira por até 14 dias' },
+            ],
+          },
+        ],
+        renalAdjustment: [
+          { label: 'ClCr 25–50 mL/min', value: '500 mg/dose 2×/dia' },
+          { label: 'ClCr 10–25 mL/min', value: '500 mg/dia' },
+          { label: 'ClCr < 10 mL/min', value: '500 mg a cada 36 h' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Bacteroides, Estafilococos, Estreptococos, Moraxella catarrhalis',
+            'Cepas comunitárias de: Bacilo diftérico, E. coli, H. influenzae, Klebsiella, Proteus mirabilis, Salmonella, Shigella',
+          ],
+          resistant: [
+            'Acinetobacter, Enterobacter, Enterococcus, Morganella morganii, Proteus vulgaris, Pseudomonas',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Alergia, hipersensibilidade, urticária, prurido',
+          'Náusea, vômito, anorexia, diarreia, dispepsia, colite pseudomembranosa',
+          'Tontura, cefaleia, febre, dor no local da injeção IM, flebite, tromboflebite',
+          'Risco de superinfecção por Candida, Pseudomonas e enterococos',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'cefalotina',
+        name: 'Cefalotina',
+        category: 'cefalosporinas',
+        observations: 'Carboximetil penicilina. Cefalosporina de 1ª geração com pouca penetração intratecal — não eficaz em meningites.',
+        brands: [
+          'Keflin / Kefalomax — Fr. amp. 1.000 mg',
+          'Cefalotil / Cefalotina sódica — Fr. amp. 1.000 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 1.000 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'Dose usual', value: '80–160 mg/kg/dia ÷ 4–6 doses' },
+              { label: 'RN < 1,2 kg / < 28 dias', value: '20 mg/kg/dose × 2' },
+              { label: 'RN 1,2–2 kg / ≤ 7 dias', value: '20 mg/kg/dose × 2' },
+              { label: 'RN 1,2–2 kg / > 7 dias', value: '20 mg/kg/dose × 3' },
+              { label: 'RN > 2 kg / ≤ 7 dias', value: '20 mg/kg/dose × 3' },
+              { label: 'RN > 2 kg / > 7 dias', value: '20 mg/kg/dose × 4' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'EV dose usual', value: '0,5–1 g/dose 4×/dia' },
+              { label: 'IM dose usual', value: '0,5–1 g/dose 4–6×/dia' },
+              { label: 'Infecção grave', value: '2 g/dose 4×/dia. Máx: 12 g/dia' },
+            ],
+          },
+        ],
+        preparation: 'EV: diluir para 100 mg/mL para evitar flebite; infundir em 5 min ou mais lento. Injeção IM é dolorosa.',
+        renalAdjustment: [
+          { label: 'ClCr 25–50 mL/min', value: 'Até 1,5 g/dose 4×/dia' },
+          { label: 'ClCr 10–25 mL/min', value: 'Até 1 g/dose 4×/dia' },
+          { label: 'ClCr 2–10 mL/min', value: 'Até 0,5 g/dose 4×/dia' },
+          { label: 'ClCr < 2 mL/min', value: 'Até 0,5 g/dose 3×/dia' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Estafilococos, Estreptococos',
+            'Cepas comunitárias de: E. coli, H. influenzae, Klebsiella, Proteus mirabilis, Salmonella, Shigella',
+          ],
+          resistant: [
+            'Acinetobacter, Bacteroides fragilis, Enterobacter, Enterococcus, Listeria',
+            'N. gonorrhoeae, Neisseria meningitidis, Morganella morganii, Pneumococcus resistente à penicilina',
+            'Proteus vulgaris, Providencia rettgeri, Pseudomonas aeruginosa, Serratia',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Anemia hemolítica, neutropenia, trombocitopenia, eosinofilia, anafilaxia, convulsões',
+          'Pode piorar função renal em urêmicos',
+          'Pode aumentar nefrotoxicidade de aminoglicosídeos',
+          'Contém sódio; falso positivo para substâncias redutoras na urina',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'cefazolina',
+        name: 'Cefazolina',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 1ª geração com melhor biodisponibilidade e meia-vida mais longa. Mais bem tolerada IM que a cefalotina. Não eficaz em meningites.',
+        brands: [
+          'Cezolin / Fazolon — Fr. amp. 1.000 mg',
+          'Cefazolina sódica — Fr. amp. 1.000 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 1.000 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'Dose usual', value: '25–50 mg/kg/dia ÷ 3 doses. Máx: 1 g/dose' },
+              { label: 'Infecções graves', value: '100–150 mg/kg/dia ÷ 3 doses. Máx: 6 g/dia e 2 g/dose' },
+              { label: 'Neonatos ≤ 2 kg', value: '20–25 mg/kg/dose' },
+              { label: 'Neonatos > 2 kg', value: '20–50 mg/kg/dose (a cada 12 h se < 7 dias; a cada 8 h se > 7 dias)' },
+              { label: 'Endocardite estafilocócica', value: 'EV: 100 mg/kg/dia ÷ 3 doses por 4–6 semanas. Máx: 12 g/dia' },
+              { label: 'Profilaxia endocardite', value: '50 mg/kg 30–60 min antes. Máx: 1 g/dose' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Infecções moderadas', value: '0,5–1 g/dose 3–4×/dia' },
+              { label: 'Infecções graves / intra-abdominais / osteomielite', value: '1–2 g/dose 3×/dia. Máx: 12 g/dia' },
+              { label: 'Infecções leves Gram+', value: '0,25–0,5 g/dose 3×/dia' },
+              { label: 'Endocardite estafilocócica', value: 'EV: 2 g/dose 3×/dia por 6 semanas' },
+              { label: 'Profilaxia cirúrgica', value: 'EV: 2 g/dose 1 h antes; repetir a cada 2–4 h; depois 0,5–1 g/dose 3–4×/dia por 24 h' },
+              { label: 'Pneumonia pneumocócica', value: '500 mg/dose 2×/dia' },
+            ],
+          },
+        ],
+        preparation: 'EV: diluir para 50–100 mg/mL em SF ou AD; infundir em 3–5 min. IM: diluir a 330 mg/mL (dolorosa).',
+        renalAdjustment: [
+          { label: 'ClCr 11–34 mL/min', value: '50% da dose a cada 12 h' },
+          { label: 'ClCr ≤ 10 mL/min', value: '50% da dose a cada 18–24 h' },
+          { label: 'Hemodiálise', value: 'Remove 20–50%' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Estafilococos sensíveis à meticilina, Estreptococos',
+            'Algumas cepas comunitárias de: Enterobacter aerogenes, E. coli, H. influenzae, Klebsiella, Proteus mirabilis, Salmonella, Shigella',
+          ],
+          resistant: [
+            'Acinetobacter, Enterobacter cloacae, Morganella morganii, Proteus vulgaris, Providencia rettgeri, Pseudomonas, Serratia',
+          ],
+          warning: 'Não penetra bem no SNC; não indicada em meningites.',
+        },
+        sideEffects: [
+          'Coombs direto positivo, prolongamento do TP, aumento transitório de transaminases',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'cefalexina',
+        name: 'Cefalexina',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 1ª geração bem absorvida por via oral, com meia-vida mais curta que o cefadroxil. Uso principal em piodermites e infecções de partes moles. Não deve ser usada em meningites.',
+        brands: [
+          'Keflex — drágeas 500 e 1000 mg; gotas 100 mg/mL; susp. 250 e 500 mg/5 mL',
+          'Cefalexina — cáps./comp. 500 mg; comp. revestido 1000 mg; susp. 250 e 500 mg/5 mL',
+        ],
+        presentations: [
+          { label: 'Cápsula / comprimido 500 mg' },
+          { label: 'Comprimido revestido 1.000 mg' },
+          { label: 'Gotas 100 mg/mL' },
+          { label: 'Suspensão oral 250 mg/5 mL e 500 mg/5 mL' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'Faringite / amigdalite', value: '25–50 mg/kg/dia ÷ 2 doses por 10 dias. Máx: 500 mg/dose' },
+              { label: 'Otite / infecções graves', value: '75–100 mg/kg/dia ÷ 4 doses (evitar empiricamente)' },
+              { label: 'Piodermites', value: '25–50 mg/kg/dia ÷ 3–4 doses por 5–10 dias. Máx: 500 mg/dose' },
+              { label: 'Celulite / erisipela', value: '25–50 mg/kg/dia ÷ 2–4 doses por 10 dias. Máx: 500 mg/dose' },
+              { label: 'Infecção urinária (2 m – 2 anos)', value: '50–100 mg/kg/dia ÷ 4 doses por 7–14 dias' },
+              { label: 'Infecções graves / osteoarticulares', value: '100 mg/kg/dia ÷ 3–4 doses. Máx: 4 g/dia' },
+              { label: 'Profilaxia endocardite', value: '50 mg/kg dose única 30–60 min antes. Máx: 2 g' },
+              { label: 'Pneumonia comunitária (> 3 m)', value: '75–100 mg/kg/dia ÷ 3–4 doses. Máx: 4 g/dia' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '250–500 mg/dose 4×/dia' },
+              { label: 'Infecções graves', value: '1000 mg/dose 4×/dia. Máx: 4 g/dia' },
+              { label: 'Piodermites / sinusite / faringite', value: '250–500 mg 4×/dia por 10 dias' },
+              { label: 'Mastite', value: '500 mg/dose 4×/dia por 7–14 dias (drenar se abscesso)' },
+              { label: 'Profilaxia endocardite', value: '2 g dose única 30–60 min antes' },
+              { label: 'Celulite / erisipela leve', value: '500 mg/dose 4×/dia por 5–10 dias' },
+              { label: 'Cistite não complicada', value: '500 mg/dose 2×/dia por 5–7 dias' },
+            ],
+          },
+        ],
+        preparation: 'Suspensão: reconstituir com água filtrada ou fervida. Após reconstituição: geladeira 2–8 ºC por até 14 dias.',
+        renalAdjustment: [
+          { label: 'ClCr 30–60 mL/min', value: 'Máx 1 g/dia' },
+          { label: 'ClCr 15–29 mL/min', value: '250 mg a cada 8–12 h' },
+          { label: 'ClCr 5–14 mL/min', value: '250 mg a cada 24 h' },
+          { label: 'ClCr < 4 mL/min', value: '250 mg a cada 48–60 h' },
+          { label: 'Diálise', value: 'Remove 20–50%' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Gram+: Estreptococos, Estafilococo sensível à oxacilina, Pneumococo (menos eficaz que penicilina/amoxicilina)',
+            'Actinomyces, Aeromonas, Bacilo diftérico, Bordetella pertussis, Leptospira, Listeria, Moraxella catarrhalis, T. pallidum',
+            'Cepas comunitárias de: Enterobacter, E. coli, H. influenzae, Klebsiella pneumoniae, Neisseria, Proteus mirabilis, Salmonella, Shigella, Staphylococcus aureus, Yersinia, Vibrio',
+          ],
+          resistant: [
+            'Estafilococos resistentes à oxacilina, Pneumococo resistente à penicilina, S. faecalis, Pseudomonas, Enterococcus, Haemophilus, Enterobacter, Proteus, Serratia, Providencia, Bacteroides, Acinetobacter',
+            'Número crescente de cepas de: E. coli, Proteus mirabilis, Klebsiella',
+          ],
+          warning: 'Aumenta nível de metformina — risco de hipoglicemia no início e hiperglicemia na retirada. Pode dar falso positivo para leucocitúria.',
+        },
+        sideEffects: [
+          'Cefaleia, fadiga, tontura, agitação, confusão, alucinações, encefalopatia, convulsão',
+          'Náusea, vômitos, diarreia, cólicas, colite pseudomembranosa, colestase, hepatite',
+          'Alergia, exantema, febre, urticária, eritema multiforme, anafilaxia',
+          'Nefrite intersticial, aumento de creatinina, neutropenia, anemia hemolítica, eosinofilia',
+          'Coombs falso positivo, proteinúria falso positiva, vaginite por superinfecção',
+        ],
+        contraindications: [],
+      },
+
+      // ── 2ª Geração ──
+      {
+        id: 'cefaclor',
+        name: 'Cefaclor',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 2ª geração. Segunda linha em otites e sinusites. Para pneumococo com resistência moderada, cefuroxima é preferida.',
+        brands: [
+          'Ceclor — susp. 250 mg/5 mL e 375 mg/5 mL',
+          'Ceclor BD — comp. liberação prolongada 500 mg e 750 mg',
+          'Cefaclor — cáps. 500 mg; susp. 250 e 375 mg/5 mL',
+        ],
+        presentations: [
+          { label: 'Cápsula 500 mg' },
+          { label: 'Suspensão 250 mg/5 mL e 375 mg/5 mL' },
+          { label: 'Comp. liberação prolongada 500 mg e 750 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças > 1 mês',
+            items: [
+              { label: 'Dose usual', value: '20–40 mg/kg/dia ÷ 2–3 doses. Máx: 1 g/dia' },
+              { label: 'Otite média — alternativa', value: '40 mg/kg/dia ÷ 2–3 doses por 10 dias' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '250–500 mg/dose 3×/dia ou 500 mg/dose 2×/dia (liberação prolongada). Máx: 2 g/dia' },
+              { label: 'Amigdalite / faringite / piodermite / sinusite', value: '250–500 mg/dose 3×/dia por 10 dias' },
+              { label: 'Bronquite / DPOC infectada', value: '500 mg/dose 2×/dia (LP) ou 3×/dia (cáps.) por 7 dias' },
+            ],
+          },
+        ],
+        renalAdjustment: [
+          { label: 'ClCr < 10 mL/min', value: '50% da dose' },
+          { label: 'Diálise', value: 'Remove 20–50%' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Gram+: Estreptococos, Pneumococos, S. aureus sensível à oxacilina, Streptococcus grupo B',
+            'Maioria das cepas de: H. influenzae, M. catarrhalis',
+            'Gram−: E. coli, Proteus mirabilis, Klebsiella, Enterobacter, Salmonella, Shigella, Yersinia, Citrobacter, Providencia, Morganella, Aeromonas, Vibrio',
+          ],
+          resistant: [
+            'Estafilococos resistentes à oxacilina, E. faecalis, algumas cepas de pneumococo, Pseudomonas, Acinetobacter, Enterococcus, Serratia, B. fragilis',
+            'Número crescente de: E. coli, Klebsiella ESBL, Proteus mirabilis',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Alergia, urticária, exantema, prurido, eosinofilia, colite pseudomembranosa',
+          'Diarreia, náusea, vômitos, neutropenia',
+          'Reação do tipo doença do soro com artralgia (especialmente com múltiplas exposições)',
+          'Falso positivo de glicose na urina; Coombs positivo',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'cefuroxima',
+        name: 'Cefuroxima',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 2ª geração com melhor biodisponibilidade e meia-vida mais longa. Mais bem tolerada IM que a cefalotina.',
+        brands: [
+          'Zinnat (axetilcefuroxima) — comp. 250 e 500 mg; sachê 250 mg; susp. 250 mg/5 mL',
+          'Zinacef / Monocef (cefuroxima sódica) — Fr. amp. 750 mg EV e IM',
+          'Cefuroxima — comp. 250 e 500 mg; susp. 250 mg/5 mL; Fr. amp. 750 mg',
+        ],
+        presentations: [
+          { label: 'Comprimido revestido 250 e 500 mg' },
+          { label: 'Suspensão oral 250 mg/5 mL' },
+          { label: 'Fr. amp. 750 mg (EV/IM)' },
+        ],
+        doses: [
+          {
+            group: 'Neonatos (EV/IM)',
+            items: [
+              { label: '≤ 7 dias / > 1 kg até 14 dias', value: '50 mg/kg/dose 2×/dia' },
+              { label: '8–28 dias', value: '50 mg/kg/dose 2–3×/dia' },
+            ],
+          },
+          {
+            group: 'Lactentes e Crianças',
+            items: [
+              { label: 'Otite / sinusite / piodermite — oral', value: '30 mg/kg/dia ÷ 2 doses por 10 dias. Máx: 1 g/dia' },
+              { label: 'Faringite / amigdalite — oral', value: '20 mg/kg/dia ÷ 2 doses por 10 dias' },
+              { label: 'Pneumonia — EV/IM', value: '35–50 mg/kg/dose 3×/dia. Máx: 2 g/dose' },
+              { label: 'Ossos e articulações — EV/IM', value: '50 mg/kg/dose 3×/dia. Máx: 1,5 g/dose' },
+              { label: 'Meningite — EV/IM', value: '200–240 mg/kg/dia ÷ 3–4 doses' },
+              { label: 'Profilaxia cirúrgica (> 1 ano)', value: '50 mg/kg 1 h antes; repetir a cada 4 h se necessário' },
+              { label: 'Infecção urinária — oral', value: '20–30 mg/kg/dose 2×/dia' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Infecções graves — EV', value: '1500 mg/dose 3–4×/dia' },
+              { label: 'Sinusite / bronquite / amigdalite — EV', value: '500–750 mg/dose 3×/dia' },
+              { label: 'Oral', value: '250–500 mg/dose 2×/dia' },
+              { label: 'Pneumonia — EV', value: '750–1500 mg/dose 3×/dia; oral sequencial: 500 mg/dose 2×/dia' },
+              { label: 'Doença de Lyme', value: 'Oral: 1 g/dia ÷ 2 doses por 20 dias' },
+              { label: 'Profilaxia cirúrgica', value: 'EV: 1,5 g/dose 1 h antes; repetir a cada 4–12 h se necessário' },
+              { label: 'Infecção urinária', value: 'EV: 750 mg/dose 3×/dia; Oral: 250 mg/dose 2×/dia por 7–10 dias' },
+            ],
+          },
+        ],
+        preparation: 'Via oral: melhor tomar com alimento. EV: diluir a 100 mg/mL; infundir em 5 min. Após reconstituição: geladeira por até 10 dias.',
+        renalAdjustment: [
+          { label: 'ClCr 10–29 mL/min', value: '1 dose a cada 24 h' },
+          { label: 'ClCr < 10 mL/min', value: '1 dose a cada 48 h' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Semelhante ao cefaclor, com maior ação contra H. influenzae e Pneumococo',
+          ],
+          resistant: [
+            'Enterococos, E. faecalis, Bacteroides, Serratia',
+            'Número crescente de: E. coli, Klebsiella ESBL, Proteus mirabilis',
+          ],
+          warning: 'Pode induzir produção de beta-lactamase.',
+        },
+        sideEffects: [
+          'Vertigem, tontura, convulsão, cefaleia, náusea, vômito, diarreia, cólicas, sangramento digestivo, estomatite, colite pseudomembranosa',
+          'Alergia, febre, erupção cutânea, prurido, urticária, eritema multiforme, anafilaxia, doença do soro',
+          'Anemia, eosinofilia, neutropenia, leucopenia, trombocitopenia, aumento de transaminases, hepatite, colestase',
+          'Dor local e flebite',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'cefoxitina',
+        name: 'Cefoxitina',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 2ª geração. Geralmente usada para cobertura de anaeróbios. Induz resistência bacteriana facilmente.',
+        brands: [
+          'Cefton / Kefox / Mefoxin — Fr. amp. 1.000 mg',
+          'Cefoxitina sódica — Fr. amp. 1.000 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 1.000 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças',
+            items: [
+              { label: 'Dose usual EV', value: '70–100 mg/kg/dia ÷ 3–4 doses. Máx: 4 g/dia' },
+              { label: 'Infecções graves', value: '160 mg/kg/dia ÷ 4 doses. Máx: 12 g/dia' },
+              { label: 'Profilaxia de peritonite', value: '30–40 mg/kg 1 h antes. Máx: 2 g/dose' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual EV', value: '1 g/dose 3–4×/dia' },
+              { label: 'Infecções graves', value: '2 g/dose 3–4×/dia' },
+              { label: 'Infecções complicadas', value: '2 g/dose 6×/dia. Máx: 12 g/dia' },
+              { label: 'Profilaxia cirurgia abdominal', value: '2 g/dose 2×/dia por até 24 h (iniciar 1 h antes)' },
+              { label: 'DIP (doença inflamatória pélvica)', value: 'EV: 2 g/dose 4×/dia + doxiciclina por 24–28 h; seguir com doxiciclina por 14 dias' },
+            ],
+          },
+        ],
+        preparation: 'Diluir a 100 mg/mL em ABD; infundir em 5 min.',
+        renalAdjustment: [
+          { label: 'ClCr 30–50 mL/min', value: 'A cada 8–12 h' },
+          { label: 'ClCr 10–29 mL/min', value: 'A cada 12–24 h' },
+          { label: 'ClCr < 10 mL/min', value: 'Máx 1 g/dia a cada 12–24 h' },
+          { label: 'Hemodiálise', value: 'Remove 20–50%' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Cefalosporina mais ativa contra Bacteroides fragilis e anaeróbios',
+            'E. coli, Klebsiella, Enterococcus faecalis sensível à vancomicina, Bacteroides, Proteus, Serratia, Salmonella, Shigella',
+          ],
+          resistant: [
+            'Pseudomonas, Enterococcus, Acinetobacter, alguns Enterobacter',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Cefaleia, flebite, eosinofilia, disfunção renal, náusea, vômito, diarreia, colite pseudomembranosa',
+          'Aumento de transaminases, trombocitopenia, leucopenia, anemia, mielotoxicidade',
+          'Tempo de sangramento aumentado, febre, prurido, vaginite',
+          'Aplicação IM muito dolorosa',
+        ],
+        contraindications: [],
+      },
+
+      // ── 3ª Geração ──
       {
         id: 'cefotaxima',
         name: 'Cefotaxima',
@@ -168,6 +606,183 @@ export const GUIDE_CATEGORIES = [
         contraindications: [
           'Neonato com icterícia grave — preferir cefotaxima',
         ],
+      },
+
+      // ── 3ª Geração (cont.) ──
+      {
+        id: 'ceftazidima',
+        name: 'Ceftazidima',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 3ª geração. A melhor do grupo para Pseudomonas aeruginosa e P. cepacea. Produz menor indução de resistência. Geralmente associada a aminoglicosídeo nos primeiros 5 dias. Reservar para infecções por Pseudomonas e neutropênico febril.',
+        brands: [
+          'Fortaz — Fr. amp. 1.000 mg',
+          'Ceftazima / Ceftazidona / Ceftazidima — Fr. amp. 1.000 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 1.000 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças (EV/IM)',
+            items: [
+              { label: '≤ 7 dias / > 1 kg até 14 dias', value: '50 mg/kg/dose 2×/dia' },
+              { label: '8–28 dias', value: '50 mg/kg/dose 2–3×/dia' },
+              { label: 'Lactentes e crianças — dose usual', value: '90–150 mg/kg/dia ÷ 3–4 doses. Máx: 3 g/dia' },
+              { label: 'Casos graves / meningites', value: '150–200 mg/kg/dia ÷ 3 doses. Máx: 6 g/dia' },
+              { label: 'Pseudomonas na fibrose cística', value: '150–200 mg/kg/dia ÷ 3–4 doses (até 400 mg/kg/dia se necessário). Máx: 12 g/dia' },
+              { label: 'Endocardite', value: 'EV: 100–150 mg/kg/dia ÷ 3 doses. Máx: 4 g/dia' },
+              { label: 'Peritonite intermitente', value: '20 mg/kg/dia ÷ 3 doses. Máx: 4 g/dia' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual', value: '1–2 g/dose 3×/dia' },
+              { label: 'Infecção urinária', value: 'EV/IM: 0,5–1 g/dose 2×/dia' },
+              { label: 'Osteomielite', value: 'EV: 6 g/dia ÷ 3 doses por 6 semanas' },
+              { label: 'Endoftalmite intravítrea', value: '1 mg em 0,1 mL' },
+            ],
+          },
+        ],
+        preparation: 'Bolus: diluir a 100 mg/mL, infundir em 3–5 min (se dor/febre: 40 mg/mL em 20 min). IM: diluir em ABD ou lidocaína 1% para 250 mg/mL. Incompatível com bicarbonato e aminoglicosídeo — não associar no mesmo equipo.',
+        renalAdjustment: [
+          { label: 'ClCr 31–50 mL/min', value: '1–1,5 g a cada 12 h' },
+          { label: 'ClCr 16–30 mL/min', value: '1–1,5 g a cada 24 h' },
+          { label: 'ClCr 6–15 mL/min', value: '0,5–1 g a cada 24 h' },
+          { label: 'ClCr < 5 mL/min', value: '0,5 g a cada 48 h' },
+          { label: 'Diálise', value: 'Remove 50–100%' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Melhor opção entre cefalosporinas de 3ª geração para: Pseudomonas aeruginosa, Stenotrophomonas maltophilia, Acinetobacter (mas muitas cepas hospitalares são resistentes)',
+          ],
+          resistant: [
+            'Bacteroides fragilis, S. faecalis, Enterococos, Listeria, C. difficile, Citrobacter freundii',
+            'E. coli e Klebsiella ESBL/KPC, muitas cepas de Pseudomonas e Acinetobacter',
+          ],
+          warning: 'Contra Pseudomonas, Enterobacter, Citrobacter e Serratia, associar aminoglicosídeo. Menos eficaz que ceftriaxona para Neisseria gonorrhoeae, meningococo e pneumococo.',
+        },
+        sideEffects: [
+          'Cefaleia, tontura, parestesias, mioclonias, febre, alergia, erupção cutânea, prurido, anafilaxia',
+          'Diarreia, náusea, vômitos, dor abdominal, colite pseudomembranosa',
+          'Dor local, flebite, aumento de transaminases, colestase, aumento de ureia e creatinina',
+          'Eosinofilia, leucopenia, trombocitose, Coombs positivo, hemólise, candidíase',
+          'Cada grama contém ≈ 54 mg / 2,3 mEq de sódio',
+        ],
+        contraindications: [],
+      },
+
+      // ── 4ª e 5ª Geração ──
+      {
+        id: 'cefepima',
+        name: 'Cefepima',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 4ª geração, mais resistente à beta-lactamase que as de 3ª geração. Eficaz para estafilococos sensíveis à oxacilina. Muito usada em infecções hospitalares por Pseudomonas e neutropenia febril. Alternativa para tratamento empírico da meningite em pediatria.',
+        brands: [
+          'Cefotax / Cemax / Unifepin — Fr. amp. 1.000 e 2.000 mg',
+          'Cloridrato de cefepima — Fr. amp. 1.000 e 2.000 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 1.000 mg' },
+          { label: 'Fr. amp. 2.000 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças (EV/IM)',
+            items: [
+              { label: 'Dose usual', value: '50 mg/dose 2×/dia. Máx: 2 g/dose' },
+              { label: 'Neonatos', value: '30 mg/kg/dose 2×/dia' },
+              { label: 'Casos graves (≤ 7 dias, > 1 kg)', value: '50 mg/kg/dose 2×/dia' },
+              { label: 'Lactentes e crianças — casos graves', value: '50 mg/kg/dose 2–3×/dia. Máx: 2 g/dose' },
+              { label: 'Neutropênico febril', value: '50 mg/kg/dose 3×/dia' },
+              { label: 'Pseudomonas na fibrose cística', value: '50 mg/kg/dose 3–4×/dia. Máx: 2 g/dose' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual EV', value: '1–2 g/dose 2–3×/dia' },
+              { label: 'Infecções por P. aeruginosa / neutropenia febril', value: '2 g/dose 3×/dia' },
+              { label: 'Infecção urinária', value: 'EV/IM: 0,5–1 g/dose 2×/dia (grave: 2 g/dose 2×/dia por 10 dias)' },
+              { label: 'Pneumonia', value: '1–2 g/dose 3×/dia por 10 dias' },
+              { label: 'Infecções intra-abdominais', value: '2 g/dose 2–3×/dia + metronidazol por 7–10 dias' },
+              { label: 'Otite externa maligna / osteomielite', value: '2 g/dose 2–3×/dia' },
+            ],
+          },
+        ],
+        preparation: 'Bolus: diluir a 40 mg/mL em SF ou SG; infundir em 20–30 min. IM: diluir a 280 mg/mL em SF, ABD ou lidocaína 0,5–1%.',
+        renalAdjustment: [
+          { label: 'ClCr 30–60 mL/min', value: '1 dose a cada 24 h' },
+          { label: 'ClCr 11–29 mL/min', value: '50% da dose a cada 24 h' },
+          { label: 'ClCr < 10 mL/min', value: '25% da dose a cada 24 h' },
+          { label: 'Hemodiálise', value: '1 dose a cada 24 h' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'E. coli, Klebsiella, Proteus, Enterobacter, Citrobacter, Pseudomonas (maioria), Neisseria meningitidis, Staphylococcus sensível à oxacilina, Serratia marcescens',
+            'Melhor que ceftazidima para Pseudomonas na fibrose cística',
+          ],
+          resistant: [
+            'Estafilococo oxacilina/meticilina resistente, Fusobacterium, Veillonella, E. coli e Klebsiella ESBL/KPC',
+            'Enterococcus, S. maltophilia, Listeria, Legionella, B. fragilis, Prevotella melaninogenica, C. difficile',
+            'Algumas cepas de: Acinetobacter, B. cepacea, Campylobacter, Citrobacter, Pseudomonas',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Cefaleia, tontura, febre, insônia, parestesia, ansiedade, encefalopatia, convulsões, status não convulsivo, EEG alterado, confusão, desorientação, coma',
+          'Náusea, vômitos, dispepsia, diarreia, dor abdominal, colite pseudomembranosa',
+          'Exantema, erupção cutânea, prurido, urticária, anafilaxia',
+          'Flebite, taquicardia, tosse, Coombs positivo, aumento de transaminases, aumento de ureia e creatinina, nefrite tóxica',
+          'Vaginite, leucopenia, trombocitopenia',
+        ],
+        contraindications: [],
+      },
+
+      {
+        id: 'ceftarolina',
+        name: 'Ceftarolina',
+        category: 'cefalosporinas',
+        observations: 'Cefalosporina de 5ª geração com modificações estruturais, reservada a microrganismos resistentes. Ativa contra MRSA, enterococo e estreptococo resistente à penicilina. Comparável à vancomicina para alguns Gram+. Menos eficaz para Pseudomonas.',
+        brands: [
+          'Zinforo — Fr. amp. 600 mg',
+        ],
+        presentations: [
+          { label: 'Fr. amp. 600 mg' },
+        ],
+        doses: [
+          {
+            group: 'Crianças ≥ 2 meses (EV)',
+            items: [
+              { label: 'Até 2 anos', value: '8 mg/kg/dose 3×/dia. Máx: 1200 mg/dia' },
+              { label: '≥ 2 anos', value: '12 mg/kg/dose 3×/dia. Máx: 1200 mg/dia' },
+            ],
+          },
+          {
+            group: 'Adultos',
+            items: [
+              { label: 'Dose usual EV', value: '600 mg/dose 2×/dia por 5–14 dias' },
+            ],
+          },
+        ],
+        renalAdjustment: [
+          { label: 'ClCr 30–50 mL/min', value: '400 mg/dose 2×/dia' },
+          { label: 'ClCr 15–29 mL/min', value: '300 mg/dose 2×/dia' },
+          { label: 'ClCr < 15 mL/min', value: '200 mg/dose 2×/dia' },
+        ],
+        sensitivity: {
+          susceptible: [
+            'Similar à cefepima, com ação adicional contra: MRSA, Enterococcus, Streptococcus resistente à penicilina',
+          ],
+          resistant: [
+            'Pseudomonas (menos eficaz)',
+          ],
+          warning: '',
+        },
+        sideEffects: [
+          'Similar às demais cefalosporinas parenterais',
+        ],
+        contraindications: [],
       },
     ],
   },
