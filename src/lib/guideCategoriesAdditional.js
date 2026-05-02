@@ -9,6 +9,7 @@ import { broncodilatadoresAdrenergicosLonga } from './guideDataBroncodilatadores
 import { anticolinergicos } from './guideDataAnticolinergicos.js';
 import { prevencaoConjuntiviteNeonatal, antiviraisOftalmologia, glaucomaOftalmologia, antiinflamatoriasAntialerogicasOftalmologia, antimicrobianoOftalmologia } from './guideDataOftalmologia.js';
 import { corticosteroideNasal, antialergicosNasais, descongestRinoNasais, antimicrobianosOtologicos, emolientesCerume } from './guideDataNasalOtologica.js';
+import { ansiolíticosHipnóticos } from './guideDataAnsiolíticosHipnóticos.js';
 
 export const ADDITIONAL_CATEGORIES = [
   {
@@ -157,5 +158,19 @@ export const ADDITIONAL_CATEGORIES = [
     color: 'yellow-500',
     icon: '💧',
     drugs: emolientesCerume,
+  },
+  {
+    id: 'ansiolíticos-hipnóticos-benzodiazepínicos',
+    label: 'Ansiolíticos e Hipnóticos — Benzodiazepínicos',
+    color: 'blue-500',
+    icon: '💊',
+    drugs: ansiolíticosHipnóticos.filter(d => ['alprazolam', 'bromazepam', 'clonazepam', 'diazepam', 'flunitrazepam', 'lorazepam'].includes(d.id)),
+  },
+  {
+    id: 'ansiolíticos-hipnóticos-outros',
+    label: 'Ansiolíticos e Hipnóticos — Outros',
+    color: 'purple-500',
+    icon: '🌙',
+    drugs: ansiolíticosHipnóticos.filter(d => ['zolpidem', 'buspirona', 'melatonina', 'valeriana'].includes(d.id)),
   },
 ];
