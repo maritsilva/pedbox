@@ -15,6 +15,8 @@ import { antifungicosPolienicos } from './guideDataAntifungicosPolienicos.js';
 import { equinocandinas } from './guideDataEquinocandinas.js';
 import { outrosAntifungicos } from './guideDataOutrosAntifungicos.js';
 import { antiviraisHerpes, antiviraisInfluenza } from './guideDataAntivirais.js';
+import { antiHepatite } from './guideDataAntiHepatite.js';
+import { antirretroviraisITRN, antirretroviraisITRNN, antirretroviraisIP, antirretroviraisOutros } from './guideDataAntirretrovirais.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1680,6 +1682,41 @@ export const ALL_CATEGORIES = [
   OUTROS_ANTIFUNGICOS_CATEGORY,
   ANTIVIRAIS_HERPES_CATEGORY,
   ANTIVIRAIS_INFLUENZA_CATEGORY,
+  {
+    id: 'anti-hepatite',
+    label: 'Antivirais Anti-Hepatite',
+    color: 'orange-500',
+    icon: '🫀',
+    drugs: antiHepatite,
+  },
+  {
+    id: 'antirretrovirais-itrn',
+    label: 'Antirretrovirais ITRN',
+    color: 'red-500',
+    icon: '💊',
+    drugs: antirretroviraisITRN,
+  },
+  {
+    id: 'antirretrovirais-itrnn',
+    label: 'Antirretrovirais ITRNN',
+    color: 'pink-500',
+    icon: '🔴',
+    drugs: antirretroviraisITRNN,
+  },
+  {
+    id: 'antirretrovirais-ip',
+    label: 'Antirretrovirais IP',
+    color: 'purple-500',
+    icon: '💉',
+    drugs: antirretroviraisIP,
+  },
+  {
+    id: 'antirretrovirais-outros',
+    label: 'Antirretrovirais Outros',
+    color: 'indigo-500',
+    icon: '🧬',
+    drugs: antirretroviraisOutros,
+  },
 ];
 
 export function getAllGuideDrugs() {
