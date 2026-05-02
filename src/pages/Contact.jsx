@@ -73,29 +73,7 @@ export default function Contact() {
         </div>
       </motion.section>
 
-      {/* E-mail direto */}
-      <motion.section
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 pb-8"
-      >
-        <motion.div variants={item} className="bg-white rounded-2xl p-6 shadow-md border border-blue-100 flex items-center gap-4">
-          <div className="bg-blue-100 p-3 rounded-xl">
-            <Mail className="w-6 h-6 text-blue-600" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-gray-500">E-mail direto</p>
-            <a
-              href="mailto:dramarinasilvaped@gmail.com"
-              className="text-blue-600 font-bold hover:underline text-lg"
-            >
-              dramarinasilvaped@gmail.com
-            </a>
-          </div>
-        </motion.div>
-      </motion.section>
+
 
       {/* Formulário de Contato */}
       <motion.section

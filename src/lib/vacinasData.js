@@ -113,6 +113,20 @@ export const vacinasData = [
     ondeEncontrar: 'Serviços privados'
   },
 
+  // 3 e 5 Meses
+  {
+    nome: 'Meningocócica C Conjugada',
+    idade: '3 Meses',
+    previne: 'Doenças causadas pelo meningococo C, incluindo meningite e meningococcemia',
+    composicao: 'Vacina inativada; antígeno da cápsula da bactéria (oligossacarídeo do sorogrupo C) conjugado a uma proteína transportadora (toxoide tetânico ou CRM-197); contém adjuvante (hidróxido de alumínio), manitol, fosfatos e água para injeção',
+    indicacao: 'Crianças e adolescentes; SBIm recomenda preferencialmente a ACWY, usando a C quando aquela não estiver disponível',
+    contraindicacao: 'Anafilaxia a qualquer componente ou dose anterior',
+    esquema: 'PNI: 3 doses (3, 5 meses) + reforço aos 12 meses. SBIm: inicia aos 3 meses, 2 doses no 1º ano, reforços entre 12–15 meses, 5–6 anos e 11 anos',
+    via: 'Intramuscular',
+    efeitosAdversos: 'Reações no local (vermelhidão, inchaço, dor intensa) em 1,5%; febre, dor de cabeça, mal-estar, náusea e vômito em 0,3–10%',
+    ondeEncontrar: 'UBS'
+  },
+
   // 6 Meses
   {
     nome: 'Influenza (Gripe) — Trivalente ou Quadrivalente',
@@ -191,6 +205,58 @@ export const vacinasData = [
     ondeEncontrar: 'UBS e serviços privados'
   },
 
+  // 15 Meses
+  {
+    nome: 'DTP (reforço)',
+    idade: '15 Meses',
+    previne: 'Difteria, tétano e coqueluche',
+    composicao: 'Mesma composição da Penta (DTPw-HBHib) — toxoides diftérico e tetânico, célula inteira purificada da coqueluche, antígeno hepatite B e Hib conjugado',
+    indicacao: 'Primeira dose de reforço após esquema primário em crianças até 7 anos',
+    contraindicacao: 'Maiores de 7 anos; encefalopatia, EHH ou convulsões nas primeiras 72h após dose anterior',
+    esquema: '1ª dose de reforço aos 15 meses',
+    via: 'Intramuscular',
+    efeitosAdversos: 'Febre, irritabilidade, dor e vermelhidão no local nas primeiras 48–72h; eventos adversos geralmente menores que nas doses primárias',
+    ondeEncontrar: 'UBS'
+  },
+  {
+    nome: 'Tetraviral (SCR-V)',
+    idade: '15 Meses',
+    previne: 'Sarampo, caxumba, rubéola e varicela',
+    composicao: 'Vacina atenuada com vírus vivos dos quatro agentes; contém lactose anidra, sorbitol, manitol, aminoácidos, traços de neomicina e proteína do ovo',
+    indicacao: 'Crianças menores de 12 anos, como substituta da aplicação simultânea de SCR + varicela; o PNI adota a SCR-V aos 15 meses',
+    contraindicacao: 'Gestantes; imunodeprimidos; anafilaxia a dose anterior ou componente',
+    esquema: '1 dose aos 15 meses (PNI). SBIm/SBP recomendam 2 doses totais com intervalo de 3 meses',
+    via: 'Subcutânea',
+    efeitosAdversos: 'Febre em 22% (vs. 15% com vacinas separadas); risco de convulsão febril ligeiramente maior com SCR-V vs. vacinas separadas (1 caso adicional para cada 2.500 crianças). Erupções cutâneas, meningite benigna e encefalite seguem o mesmo perfil da SCR isolada',
+    ondeEncontrar: 'UBS'
+  },
+
+  // 18 Meses
+  {
+    nome: 'Hepatite A (2ª dose)',
+    idade: '18 Meses',
+    previne: 'Hepatite A',
+    composicao: 'Mesma composição descrita para a 1ª dose — Vacina inativada composta por antígeno do vírus da hepatite A, sal de alumínio amorfo, estabilizante, cloreto de sódio',
+    indicacao: 'Todas as pessoas a partir de 12 meses — segunda dose do esquema de 2 doses',
+    contraindicacao: 'Anafilaxia a componente ou dose anterior',
+    esquema: '2ª dose 6 meses após a 1ª dose (aos 18 meses se iniciado aos 12 meses)',
+    via: 'Intramuscular',
+    efeitosAdversos: 'Semelhantes à 1ª dose — irritabilidade, dor de cabeça, cansaço, dor e vermelhidão no local em até 10%',
+    ondeEncontrar: 'UBS e serviços privados'
+  },
+  {
+    nome: 'Varicela (2ª dose)',
+    idade: '18 Meses',
+    previne: 'Varicela (catapora)',
+    composicao: 'Mesma composição descrita para a 1ª dose — Vacina atenuada com vírus vivos enfraquecidos da varicela; contém gelatina, traços de neomicina e água para injeção',
+    indicacao: 'Rotina para completar esquema de 2 doses; adolescentes e adultos suscetíveis',
+    contraindicacao: 'Anafilaxia a componente ou dose anterior; gestantes; imunodeprimidos (avaliar com médico)',
+    esquema: '2ª dose entre 15–24 meses; intervalo mínimo de 3 meses entre doses',
+    via: 'Subcutânea',
+    efeitosAdversos: 'Semelhantes à 1ª dose — dor no local, vermelhidão, vesículas próximas ao local, erupção semelhante à varicela (2–5 lesões) em 3–5% dos vacinados',
+    ondeEncontrar: 'UBS e serviços privados'
+  },
+
   // 24 Meses
   {
     nome: 'Dengue',
@@ -202,6 +268,70 @@ export const vacinasData = [
     esquema: '3 doses com intervalo de 6 meses',
     via: 'Subcutânea',
     efeitosAdversos: 'Dor de cabeça, dor no local, mal-estar e mialgia; reações leves a moderadas, de curta duração (até 3 dias); febre pode surgir até 14 dias após a vacinação',
+    ondeEncontrar: 'Serviços privados'
+  },
+
+  // 4 Anos
+  {
+    nome: 'DTP (2º reforço)',
+    idade: '4 Anos',
+    previne: 'Difteria, tétano e coqueluche',
+    composicao: 'Vacina inativada com toxoides diftérico e tetânico + células inteiras purificadas da Bordetella pertussis; contém fosfato de alumínio, cloreto de sódio e água para injeção',
+    indicacao: 'Crianças até 7 anos como segundo reforço da série',
+    contraindicacao: 'Maiores de 7 anos; encefalopatia, EHH ou convulsões nas primeiras 72h após dose anterior',
+    esquema: '2º reforço aos 4 anos',
+    via: 'Intramuscular',
+    efeitosAdversos: 'Febre, irritabilidade, dor e vermelhidão no local; geralmente menos intenso que nas doses primárias',
+    ondeEncontrar: 'UBS'
+  },
+  {
+    nome: 'Febre Amarela (2ª dose)',
+    idade: '4 Anos',
+    previne: 'Febre amarela',
+    composicao: 'Mesma composição descrita para a 1ª dose — Vacina atenuada com vírus vivo enfraquecido cultivado em ovo de galinha; contém gelatina bovina (Bio-Manguinhos) ou lactose e sorbitol (Sanofi Pasteur)',
+    indicacao: 'Segunda dose do esquema de crianças até 4 anos (com 1ª dose aos 9 meses)',
+    contraindicacao: 'Crianças abaixo de 6 meses; imunodeprimidos graves; gestantes (salvo risco epidemiológico); mulheres amamentando bebês até 6 meses',
+    esquema: '2ª dose aos 4 anos',
+    via: 'Subcutânea',
+    efeitosAdversos: 'Febre, dor de cabeça e muscular em ~4% dos vacinados; reações alérgicas e eventos graves são raríssimos',
+    ondeEncontrar: 'UBS'
+  },
+  {
+    nome: 'Varicela (2ª dose)',
+    idade: '4 Anos',
+    previne: 'Varicela (catapora)',
+    composicao: 'Mesma composição da varicela — Vacina atenuada com vírus vivos enfraquecidos da varicela; contém gelatina, traços de neomicina e água para injeção',
+    indicacao: 'Segunda dose do esquema de varicela (se não foi dada a tetraviral aos 15 meses)',
+    contraindicacao: 'Anafilaxia a componente ou dose anterior; gestantes; imunodeprimidos (avaliar com médico)',
+    esquema: '2ª dose aos 4 anos',
+    via: 'Subcutânea',
+    efeitosAdversos: 'Dor no local, vermelhidão, erupção semelhante à varicela em pequena porcentagem de vacinados',
+    ondeEncontrar: 'UBS e serviços privados'
+  },
+
+  // 5-6 Anos
+  {
+    nome: 'DTPa-VIP (privado, reforço)',
+    idade: '4–5 Anos',
+    previne: 'Difteria, tétano, coqueluche (acelular) e poliomielite',
+    composicao: 'Vacina inativada com toxoides diftérico e tetânico, componentes acelulares da Bordetella pertussis + poliovírus inativados tipos 1, 2, 3 e Hib. Contém lactose, 2-fenoxietanol, hidróxido de alumínio',
+    indicacao: 'Reforço dos 4–5 anos em crianças que usaram o esquema privado',
+    contraindicacao: 'Maiores de 7 anos; encefalopatia, EHH ou convulsões nas primeiras 72h após dose anterior',
+    esquema: 'Reforço aos 4–5 anos',
+    via: 'Intramuscular',
+    efeitosAdversos: 'Reações locais em até 21%; febre >38°C em até 22%; reações geralmente menos intensas que em doses primárias',
+    ondeEncontrar: 'Serviços privados'
+  },
+  {
+    nome: 'Meningocócica ACWY (reforço)',
+    idade: '5–6 Anos',
+    previne: 'Meningites e infecções generalizadas pelos meningococos A, C, W e Y',
+    composicao: 'Mesma composição descrita — Vacina inativada; oligossacarídeos dos sorogrupos A, C, W e Y conjugados a toxoide tetânico ou CRM-197',
+    indicacao: 'Reforço do esquema iniciado na infância (entre 5 e 6 anos, conforme SBIm/SBP)',
+    contraindicacao: 'Anafilaxia a componente ou dose anterior',
+    esquema: 'Reforço entre 5–6 anos',
+    via: 'Intramuscular profunda',
+    efeitosAdversos: 'Dor, inchaço, febre, irritabilidade em até 10%; sintomas geralmente desaparecem em até 72h',
     ondeEncontrar: 'Serviços privados'
   },
 
@@ -254,4 +384,4 @@ export const vacinasData = [
     efeitosAdversos: 'Dor, inchaço e vermelhidão no local; febre e mal-estar em menos de 10%; reações alérgicas raras',
     ondeEncontrar: 'UBS (para gestantes e profissionais de saúde) e serviços privados'
   },
-];
+  ];
