@@ -2,6 +2,107 @@
 
 export const ansiolíticosHipnóticos = [
   {
+    id: 'midazolam',
+    name: 'Midazolam (B1)',
+    category: 'ansiolíticos-hipnóticos',
+    observations: 'Benzodiazepínico de ação rápida para sedação, anestesia e emergências. Maior risco de depressão respiratória especialmente em doses altas, administração EV rápida e em lactentes pequenos. Pacientes devem permanecer em observação por pelo menos 3 horas com acompanhante responsável. Antídoto: Flumazenil (reverte sedação, apneia, obstrução — mas atenção ao risco de agitação paradoxal).',
+    brands: [
+      'Dormonid (Roche) — Compr. revestido: 15 mg; Ampolas: 3 mL e 5 mL — 5 mg/mL',
+      'Dormire (Cristália) — Compr. revestido: 15 mg; Ampolas — 5 mg/mL',
+      'Dormium (AbbVie/Quimidrol) — Compr.: 15 mg; Ampolas — 5 mg/mL',
+      'Induson — Ampolas: 10 mL — 5 mg/mL',
+      'Solução oral — 2 mg/mL',
+      'Maleato de Midazolam (genérico) — Compr. 15 mg; Ampolas 3, 5 e 10 mL — 5 mg/mL',
+    ],
+    presentations: [
+      { label: 'Comprimido revestido 15 mg' },
+      { label: 'Ampola 3 mL — 5 mg/mL (EV/IM)' },
+      { label: 'Ampola 5 mL — 5 mg/mL (EV/IM)' },
+      { label: 'Ampola 10 mL — 5 mg/mL (EV/IM)' },
+      { label: 'Solução oral 2 mg/mL' },
+    ],
+    doses: [
+      {
+        group: 'Crianças — Sedação para procedimentos',
+        items: [
+          { label: 'Via oral', value: '0,25–0,5 mg/kg/dose (máx: 20 mg)' },
+          { label: 'Via intranasal', value: '0,2–0,3 mg/kg/dose (máx: 10 mg)' },
+          { label: 'Via EV/IM', value: '0,05–0,1 mg/kg/dose (máx: 2 mg inicial)' },
+        ],
+      },
+      {
+        group: 'Adultos — Sedação para procedimentos',
+        items: [
+          { label: 'Via oral', value: '15 mg (15–30 min antes)' },
+          { label: 'Via intranasal', value: '0,2–0,3 mg/kg/dose (máx: 10 mg)' },
+          { label: 'Via EV/IM', value: 'Inicial: 2–5 mg EV lento, repetir a cada 2–3 min até máx de 10 mg' },
+        ],
+      },
+      {
+        group: 'Convulsão durando > 5 minutos',
+        items: [
+          { label: 'Via EV', value: '0,1–0,3 mg/kg/dose (máx: 10 mg) lento; pode repetir' },
+          { label: 'Via IM/intranasal/retal (buccal)', value: '0,2–0,3 mg/kg/dose (máx: 10 mg)' },
+        ],
+      },
+      {
+        group: 'Indução do sono — Insônia',
+        items: [
+          { label: 'Via oral', value: '15 mg ao deitar' },
+        ],
+      },
+      {
+        group: 'Sedação em UTI / adaptação à ventilação mecânica',
+        items: [
+          { label: 'Bolus inicial EV', value: '0,05–0,2 mg/kg' },
+          { label: 'Infusão contínua', value: '0,05–0,2 mg/kg/h, titular conforme resposta' },
+        ],
+      },
+      {
+        group: 'Sedação em sequência rápida para intubação',
+        items: [
+          { label: 'Via EV', value: '0,1–0,3 mg/kg em bolus' },
+        ],
+      },
+      {
+        group: 'Status convulsivo',
+        items: [
+          { label: 'Via EV/IM', value: '0,1–0,3 mg/kg/dose (máx: 10 mg); repetir a cada 5–10 min se necessário' },
+        ],
+      },
+      {
+        group: 'Indução anestésica',
+        items: [
+          { label: 'Adultos EV', value: '0,1–0,2 mg/kg (1,5–2,5 mg) a cada 2–3 seg até resposta' },
+          { label: 'Crianças EV/IM', value: '0,1–0,15 mg/kg' },
+        ],
+      },
+      {
+        group: 'Sedação pré-operatória',
+        items: [
+          { label: 'Via oral', value: '0,25–0,5 mg/kg (máx: 20 mg), 30 min antes' },
+          { label: 'Via EV/IM', value: '0,05–0,1 mg/kg (máx: 4 mg)' },
+        ],
+      },
+    ],
+    sideEffects: [
+      'Respiratórios: depressão respiratória, apneia (maior risco em doses altas, EV rápido e lactentes pequenos), parada cardíaca por apneia não assistida',
+      'Neurológicos: cefaleia, tontura, sedação exagerada, tremores, agitação paradoxal, ataxia, disartria, nistagmo, diplopia, sonolência, amnésia anterógrada, redução da atenção, delírio, alucinação',
+      'Cardiovasculares: bradicardia, flutuações de pressão arterial, taquicardia, contrações ventriculares prematuras',
+      'Respiratórios locais (via nasal): ardência e queimação, sabor amargo na faringe',
+      'Outros: náuseas, vômitos, salivação excessiva, erupção cutânea',
+    ],
+    contraindications: [
+      'Glaucoma de ângulo fechado',
+      'Choque',
+      'Depressão prévia do SNC grave',
+      'DPOC com disfunção respiratória grave',
+      'Apneia de sono não tratada',
+      'Insuficiência hepática grave',
+    ],
+  },
+
+  {
     id: 'alprazolam',
     name: 'Alprazolam',
     category: 'ansiolíticos-hipnóticos',
