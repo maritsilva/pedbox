@@ -55,6 +55,12 @@
     -ms-user-select: none;
     -webkit-touch-callout: none;
   }
+
+  /* Text content is selectable */
+  p, span, h1, h2, h3, h4, h5, h6, li, dt, dd {
+    user-select: text;
+    -webkit-user-select: text;
+  }
   
   body {
     @apply bg-background text-foreground font-inter;

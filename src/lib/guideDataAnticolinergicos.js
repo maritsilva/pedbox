@@ -117,11 +117,11 @@ export const anticolinergicos = [
     doses: [
       {
         group: 'Adultos — Asma (crises graves com tônus colinérgico aumentado)',
-        items: [{ label: 'Dose', value: '2,5 µg/dose, 1 jato, 1x/dia' }},
+        items: [{ label: 'Dose', value: '2,5 µg/dose, 1 jato, 1x/dia' }],
       },
       {
         group: 'Adultos — DPOC com exacerbações frequentes',
-        items: [{ label: 'Dose', value: '5 µg (2 jatos), 1x/dia' }},
+        items: [{ label: 'Dose', value: '5 µg (2 jatos), 1x/dia' }],
       },
     ],
     sideEffects: [
@@ -147,7 +147,7 @@ export const anticolinergicos = [
     doses: [
       {
         group: 'Adultos — DPOC',
-        items: [{ label: 'Dose', value: '62,5 µg, 1 jato, 1x/dia' }},
+        items: [{ label: 'Dose', value: '62,5 µg, 1 jato, 1x/dia' }],
       },
     ],
     preparation: 'NÃO usar em tratamentos agudos.',

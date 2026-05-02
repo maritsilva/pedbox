@@ -21,7 +21,7 @@ export const broncodilatadoresAdrenergicosLonga = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Reduzir a dose' }},
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Reduzir a dose' }],
     sideEffects: [
       'Tremor, cefaleia, cãibra, agitação, inquietação',
       'Náusea, alergia, arritmia, taquicardia, palpitação',
@@ -46,11 +46,11 @@ export const broncodilatadoresAdrenergicosLonga = [
     doses: [
       {
         group: 'Crianças (sobretudo > 5 anos)',
-        items: [{ label: 'Asma manutenção', value: '12 µg, 1 jato ou cápsula/dose, 2 vezes ao dia' }},
+        items: [{ label: 'Asma manutenção', value: '12 µg, 1 jato ou cápsula/dose, 2 vezes ao dia' }],
       },
       {
         group: 'Adultos',
-        items: [{ label: 'Asma e DPOC manutenção', value: '12-24 µg, 1-2 jatos ou cápsulas/dose, 2 vezes ao dia' }},
+        items: [{ label: 'Asma e DPOC manutenção', value: '12-24 µg, 1-2 jatos ou cápsulas/dose, 2 vezes ao dia' }],
       },
     ],
     preparation: 'Explicar que as cápsulas são para usar no dispositivo de inalação, não para ingerir. Inalador pode ser usado indefinidamente. Cápsulas semiabertas devem ser armazenadas em local fresco sem congelar. Alertar risco de confundir com β2 ação curta e usar várias doses (pode ser fatal). Orientar aspirar cápsula mais de uma vez pois pode ficar conteúdo no dispositivo.',
@@ -76,7 +76,7 @@ export const broncodilatadoresAdrenergicosLonga = [
     doses: [
       {
         group: 'Crianças',
-        items: [{ label: 'Uso', value: 'Não usar em menores de 18 anos' }},
+        items: [{ label: 'Uso', value: 'Não usar em menores de 18 anos' }],
       },
       {
         group: 'Adultos — DPOC',
@@ -105,7 +105,7 @@ export const broncodilatadoresAdrenergicosLonga = [
     doses: [
       {
         group: 'Adultos — DPOC',
-        items: [{ label: 'Dose', value: 'Dois jatos por dose, uma vez ao dia' }},
+        items: [{ label: 'Dose', value: 'Dois jatos por dose, uma vez ao dia' }],
       },
     ],
     preparation: 'Frasco na posição vertical. Abrir tampa amarela. Expirar. Colocar inalador na boca e apertar botão enquanto inspira.',
@@ -159,7 +159,7 @@ export const broncodilatadoresAdrenergicosLonga = [
     doses: [
       {
         group: 'Adultos — Asma e DPOC manutenção',
-        items: [{ label: 'Dose', value: '1 dose diária. Máx: 1 dose/dia' }},
+        items: [{ label: 'Dose', value: '1 dose diária. Máx: 1 dose/dia' }],
       },
     ],
     preparation: 'NÃO usar em crises agudas de broncoespasmo, apenas para manutenção a longo prazo.',

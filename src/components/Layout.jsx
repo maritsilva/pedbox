@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import MobileHeader from './MobileHeader';
+import PullToRefresh from './PullToRefresh';
 
 const menuCategories = [
   {
@@ -62,7 +64,15 @@ const MOBILE_NAV = [
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState(new Set(['inicio', 'referencias', 'calculadoras']));
+  const [tabStates, setTabStates] = useState({
+    '/': { scrollPos: 0 },
+    '/guia': { scrollPos: 0 },
+    '/calculadoras': { scrollPos: 0 },
+    '/pesquisa': { scrollPos: 0 },
+    '/settings': { scrollPos: 0 },
+  });
   const location = useLocation();
+  const mainRef = React.useRef(null);
 
   const toggleCategory = (id) => {
     const newSet = new Set(expandedCategories);
@@ -74,9 +84,30 @@ export default function Layout() {
     setExpandedCategories(newSet);
   };
 
+  // Save scroll position when navigating away
+  useEffect(() => {
+    return () => {
+      if (mainRef.current) {
+        setTabStates((prev) => ({
+          ...prev,
+          [location.pathname]: { scrollPos: mainRef.current.scrollTop },
+        }));
+      }
+    };
+  }, [location.pathname]);
+
+  // Restore scroll position when entering a route
+  useEffect(() => {
+    if (mainRef.current && tabStates[location.pathname]) {
+      mainRef.current.scrollTop = tabStates[location.pathname].scrollPos;
+    }
+  }, [location.pathname, tabStates]);
+
   return (
     <div className="min-h-screen bg-background flex flex-col font-inter overflow-hidden">
-      {/* DESKTOP NAVBAR */}
+      {/* Mobile Header */}
+      <MobileHeader menuOpen={open} setMenuOpen={setOpen} />
+      {/* DESKTOP NAVBAR (hidden on mobile) */}
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:block">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center">
@@ -165,18 +196,23 @@ export default function Layout() {
       </header>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 pb-20 md:pb-0 overflow-y-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.25 }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+      <main ref={mainRef} className="flex-1 pb-20 md:pb-0 overflow-y-auto">
+        <PullToRefresh onRefresh={async () => {
+          // Refresh logic can be added here
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.25 }}
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
+        </PullToRefresh>
       </main>
 
       {/* DESKTOP FOOTER */}
