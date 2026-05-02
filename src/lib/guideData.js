@@ -23,6 +23,7 @@ import { antiparasitarios } from './guideDataAntiparasitarios.js';
 import { opioides } from './guideDataOpioides.js';
 import { analgesicoEnxaqueca, ainesDrugs } from './guideDataEnxaquecaAINEs.js';
 import { corticosteroides } from './guideDataCorticosteroides.js';
+import { antihistaminicos, angioedemaHereditario, antihistDescongestionantes } from './guideDataAntihistaminicos.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1771,6 +1772,13 @@ export const ALL_CATEGORIES = [
     color: 'amber-500',
     icon: '🟡',
     drugs: corticosteroides,
+  },
+  {
+    id: 'antihistaminicos',
+    label: 'Anti-histamínicos',
+    color: 'cyan-500',
+    icon: '💊',
+    drugs: [...antihistaminicos, ...angioedemaHereditario, ...antihistDescongestionantes],
   },
 ];
 
