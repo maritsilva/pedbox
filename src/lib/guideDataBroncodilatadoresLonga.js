@@ -11,7 +11,7 @@ export const broncodilatadoresAdrenergicosLonga = [
     doses: [
       {
         group: 'Crianças 2-5 anos',
-        items: [{ label: 'Dose', value: '5-10 mg/dia, 1 vez ao dia' }},
+        items: [{ label: 'Dose', value: '5-10 mg/dia, 1 vez ao dia' }],
       },
       {
         group: 'Adultos e crianças > 6 anos',
