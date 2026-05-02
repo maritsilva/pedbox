@@ -30,6 +30,7 @@ import { antiacidos, antagonistasH2, ibp } from './guideDataGastro.js';
 import { antiflatulentes, laxantesFibras, laxantesCatarticos, antidiarreicos } from './guideDataGastro2.js';
 import { probioticos, proctologicos, outrasGastro } from './guideDataProbioticos.js';
 import { vitaminas, minerais } from './guideDataVitaminas.js';
+import { reidratacaoOral, estimulantesApetite, auxiliaresObesidade, antianemicos, imunoestimulantes } from './guideDataAntianemicosImuno.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1827,6 +1828,20 @@ export const ALL_CATEGORIES = [
     color: 'yellow-500',
     icon: '🌟',
     drugs: [...vitaminas, ...minerais],
+  },
+  {
+    id: 'reidratacao-apetite-obesidade',
+    label: 'Reidratação Oral, Apetite e Obesidade',
+    color: 'cyan-500',
+    icon: '💧',
+    drugs: [...reidratacaoOral, ...estimulantesApetite, ...auxiliaresObesidade],
+  },
+  {
+    id: 'antianemicos-imuno',
+    label: 'Antianêmicos e Imunoestimulantes',
+    color: 'red-500',
+    icon: '🩸',
+    drugs: [...antianemicos, ...imunoestimulantes],
   },
 ];
 
