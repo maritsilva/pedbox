@@ -23,7 +23,7 @@ export default function Guia() {
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedDrug, setSelectedDrug] = useState(null);
   const [activeTab, setActiveTab] = useState('categorias'); // 'categorias' | 'favoritos'
-  const [filterCat, setFilterCat] = useState(null);
+  const filterCat = null;
   const { favorites, isFavorite } = useFavorites();
 
   // Handle URL param ?drug=
@@ -218,54 +218,7 @@ export default function Guia() {
         </AnimatePresence>
       </div>
 
-      {/* Category filter chips */}
-      <div className="flex gap-2 flex-wrap mb-6 mt-1">
-        {GUIDE_CATEGORIES.map(cat => {
-          const colors = colorMap[cat.color] || colorMap['blue-500'];
-          const active = filterCat === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setFilterCat(active ? null : cat.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
-                active
-                  ? `${colors.pill} text-white border-transparent shadow-sm`
-                  : `bg-white ${colors.border} ${colors.text} hover:shadow-sm`
-              }`}
-            >
-              <span>{cat.icon}</span>
-              {cat.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Filtered results list (when a chip is active but no search text) */}
-      {filterCat && search.trim().length < 2 && (
-        <div className="space-y-2 mb-6">
-          {searchResults.map((drug, i) => {
-            const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category);
-            return (
-              <motion.button
-                key={drug.id}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.03 }}
-                onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); }}
-                className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm transition-all group"
-              >
-                <div>
-                  <span className="font-semibold text-sm text-foreground">{drug.name}</span>
-                  {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
-                </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </motion.button>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Categories grid — hide when a chip filter is active */}
+      {/* Categories grid */}
       {!filterCat && <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {GUIDE_CATEGORIES.map((cat, i) => {
           const colors = colorMap[cat.color] || colorMap['blue-500'];
