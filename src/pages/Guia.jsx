@@ -12,6 +12,10 @@ const colorMap = {
   'green-500': { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-500', pill: 'bg-green-500' },
   'cyan-500': { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-500', pill: 'bg-cyan-500' },
   'blue-500': { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-500', pill: 'bg-blue-500' },
+  'indigo-500': { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-500', pill: 'bg-indigo-500' },
+  'amber-500': { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-500', pill: 'bg-amber-500' },
+  'pink-500': { bg: 'bg-pink-50', border: 'border-pink-200', text: 'text-pink-500', pill: 'bg-pink-500' },
+  'teal-500': { bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-500', pill: 'bg-teal-500' },
 };
 
 export default function Guia() {

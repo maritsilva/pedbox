@@ -1597,11 +1597,11 @@ export const GUIDE_CATEGORIES = [
   },
 ];
 
-// Criar categorias dinâmicas para os novos antibacterianos
-const OUTROS_BACTARIANOS_DYNAMIC = {
+// Criar categorias dinâmicas para os novos grupos
+const OUTROS_BACTERIANOS_EXTRA_DYNAMIC = {
   id: 'outros-bacterianos',
-  label: 'Outros Antibacterianos',
-  color: 'purple-500',
+  label: 'Outros Antibacterianos (extra)',
+  color: 'indigo-500',
   icon: '💊',
   drugs: outrosBacterianos
 };
@@ -1622,7 +1622,7 @@ const ANTIFUNGICOS_DYNAMIC = {
   drugs: antifungicosAzolicos
 };
 
-export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY, CARBAPENEMOS_CATEGORY, QUINOLONAS_CATEGORY, SULFONAMIDAS_CATEGORY, AMINOGLICOSIDEOS_CATEGORY, MACROLIDEOS_CATEGORY, GLICOPEPTIDEOS_CATEGORY, OUTROS_ANTIBACTERIANOS_CATEGORY, OUTROS_BACTARIANOS_DYNAMIC, ANTIMICOBACTERIANOS_DYNAMIC, ANTIFUNGICOS_DYNAMIC];
+export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY, CARBAPENEMOS_CATEGORY, QUINOLONAS_CATEGORY, SULFONAMIDAS_CATEGORY, AMINOGLICOSIDEOS_CATEGORY, MACROLIDEOS_CATEGORY, GLICOPEPTIDEOS_CATEGORY, OUTROS_ANTIBACTERIANOS_CATEGORY, OUTROS_BACTERIANOS_EXTRA_DYNAMIC, ANTIMICOBACTERIANOS_DYNAMIC, ANTIFUNGICOS_DYNAMIC];
 
 export function getAllGuideDrugs() {
   return ALL_CATEGORIES.flatMap(cat => cat.drugs.map(d => ({ ...d, catLabel: cat.label, catColor: cat.color, catIcon: cat.icon })));
