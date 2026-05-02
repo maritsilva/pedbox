@@ -42,6 +42,7 @@ import { anestesicosLocais, curares } from './guideDataAnestesicosLocaisCurares.
 import { antiHipertensivosOutros, antiHipertensivosVasodilatadores, antiHipertensivosAlfaBloqueadores, antiHipertensivosAlfaAgonistas, antiHipertensivosBetaBloqueadores } from './guideDataAntiHipertensivos.js';
 import { diureticosTiazidicos, diureticosAlca, diureticosPoupadores, outrosDiureticos } from './guideDataDiureticos.js';
 import { antagonistasCalcio } from './guideDataAntagonistasCalcio.js';
+import { ADDITIONAL_CATEGORIES } from './guideCategoriesAdditional.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1692,6 +1693,7 @@ const OUTROS_ANTIBACTERIANOS_MERGED = {
 
 export const ALL_CATEGORIES = [
   ...GUIDE_CATEGORIES,
+  ...ADDITIONAL_CATEGORIES,
   PENICILINAS_CATEGORY,
   CARBAPENEMOS_CATEGORY,
   QUINOLONAS_CATEGORY,
