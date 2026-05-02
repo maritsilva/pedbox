@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope, Settings } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MobileHeader from './MobileHeader';
 import PullToRefresh from './PullToRefresh';
@@ -58,7 +58,6 @@ const MOBILE_NAV = [
   { to: '/guia', label: 'Guia', icon: BookOpen },
   { to: '/calculadoras', label: 'Calc.', icon: Calculator },
   { to: '/pesquisa', label: 'Pesq.', icon: Microscope },
-  { to: '/settings', label: 'Config.', icon: Settings },
 ];
 
 export default function Layout() {
@@ -108,7 +107,7 @@ export default function Layout() {
       {/* Mobile Header */}
       <MobileHeader menuOpen={open} setMenuOpen={setOpen} />
       {/* DESKTOP NAVBAR (hidden on mobile) */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:block">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:block">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
@@ -118,7 +117,7 @@ export default function Layout() {
             />
           </Link>
 
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-8">
             <Link
               to="/"
               className={`text-sm font-semibold transition-all ${
@@ -135,7 +134,7 @@ export default function Layout() {
                   {category.label}
                   <ChevronDown className="w-4 h-4" />
                 </button>
-                <div className="absolute left-0 mt-0 w-48 bg-white dark:bg-slate-800 border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-40 py-2">
+                <div className="absolute left-0 mt-0 w-48 bg-white border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-40 py-2">
                   {category.items.map(item => (
                     <Link
                       key={item.to}
@@ -153,10 +152,6 @@ export default function Layout() {
               </div>
             ))}
           </nav>
-
-          <Link to="/settings" className="p-2 rounded-lg hover:bg-secondary">
-            <Settings className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-          </Link>
         </div>
 
         {/* Mobile menu */}
@@ -224,9 +219,9 @@ export default function Layout() {
       </footer>
 
       {/* MOBILE BOTTOM TAB BAR */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-t border-border md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-border md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="flex items-center justify-around h-16">
-          {MOBILE_NAV.map((item) => {
+          {MOBILE_NAV.filter(item => item.to !== '/settings').map((item) => {
             const isActive = location.pathname === item.to;
             const Icon = item.icon;
             return (
