@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, BookOpen, Share2, Zap, Users, Heart, AlertCircle, Copy, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 
 const container = {
   hidden: { opacity: 0 },
@@ -27,10 +28,20 @@ export default function Contato() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Para agora, apenas mostra sucesso (integração com backend pode ser adicionada)
-    console.log('Mensagem enviada:', formData);
+    const reasonLabels = {
+      sugestao: 'Sugestão de melhoria',
+      erro: 'Reportar erro / conteúdo inadequado',
+      adaptacao: 'Interesse em adaptar / usar localmente',
+      colaboracao: 'Proposta de colaboração',
+      outro: 'Outro',
+    };
+    await base44.integrations.Core.SendEmail({
+      to: 'dramarinasilvaped@gmail.com',
+      subject: `[PedBox Contato] ${reasonLabels[formData.reason] || formData.reason} — ${formData.name}`,
+      body: `Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonLabels[formData.reason] || formData.reason}\n\nMensagem:\n${formData.message}`,
+    });
     setSubmitted(true);
     setTimeout(() => {
       setFormData({ name: '', email: '', institution: '', reason: '', message: '' });
