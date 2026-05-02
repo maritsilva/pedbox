@@ -36,6 +36,7 @@ import { antiHemorragicos } from './guideDataAntiHemorragicos.js';
 import { expansoresColoides } from './guideDataExpansoresColoides.js';
 import { hipotensao } from './guideDataHipotensao.js';
 import { antagonistasAntidotos } from './guideDataAntagonistasAntidotos.js';
+import { iecaDrugs } from './guideDataIECA.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1882,6 +1883,13 @@ export const ALL_CATEGORIES = [
     color: 'teal-500',
     icon: '🧫',
     drugs: antagonistasAntidotos,
+  },
+  {
+    id: 'anti-hipertensivos-ieca',
+    label: 'Anti-hipertensivos — IECAs',
+    color: 'indigo-500',
+    icon: '🫀',
+    drugs: iecaDrugs,
   },
 ];
 
