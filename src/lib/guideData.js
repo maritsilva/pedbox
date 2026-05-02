@@ -32,6 +32,10 @@ import { probioticos, proctologicos, outrasGastro } from './guideDataProbioticos
 import { vitaminas, minerais } from './guideDataVitaminas.js';
 import { reidratacaoOral, estimulantesApetite, auxiliaresObesidade, antianemicos, imunoestimulantes } from './guideDataAntianemicosImuno.js';
 import { emergenciaAnticolinergicos, emergenciaAlcalinizantes, emergenciaVasoativos } from './guideDataEmergencia.js';
+import { antiHemorragicos } from './guideDataAntiHemorragicos.js';
+import { expansoresColoides } from './guideDataExpansoresColoides.js';
+import { hipotensao } from './guideDataHipotensao.js';
+import { antagonistasAntidotos } from './guideDataAntagonistasAntidotos.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1850,6 +1854,34 @@ export const ALL_CATEGORIES = [
     color: 'red-500',
     icon: '🚨',
     drugs: [...emergenciaAnticolinergicos, ...emergenciaAlcalinizantes, ...emergenciaVasoativos],
+  },
+  {
+    id: 'anti-hemorragicos',
+    label: 'Anti-hemorrágicos',
+    color: 'red-500',
+    icon: '🩸',
+    drugs: antiHemorragicos,
+  },
+  {
+    id: 'expansores-coloides',
+    label: 'Expansores Plasmáticos Coloides',
+    color: 'blue-500',
+    icon: '💧',
+    drugs: expansoresColoides,
+  },
+  {
+    id: 'hipotensao',
+    label: 'Tratamento da Hipotensão Sintomática',
+    color: 'orange-500',
+    icon: '📉',
+    drugs: hipotensao,
+  },
+  {
+    id: 'antagonistas-antidotos',
+    label: 'Antagonistas e Antídotos',
+    color: 'teal-500',
+    icon: '🧫',
+    drugs: antagonistasAntidotos,
   },
 ];
 
