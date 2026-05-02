@@ -45,7 +45,6 @@ export default function Home() {
           alt="PedBox"
           className="h-16 w-auto mx-auto mb-4"
         />
-        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">PedBox</h1>
         <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Acesso imediato a doses, protocolos e cálculos pediátricos essenciais no plantão</p>
         <span className="mt-4 inline-flex items-center gap-1.5 bg-primary/8 text-primary text-xs md:text-sm font-semibold px-3 py-2 rounded-full border border-primary/20">
           🩺 Por médicos em formação, para médicos em plantão
