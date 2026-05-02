@@ -1,0 +1,51 @@
+{
+  "name": "Vacina",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string",
+      "description": "Nome da vacina"
+    },
+    "idade": {
+      "type": "string",
+      "description": "Faixa et\u00e1ria ou marco de vacina\u00e7\u00e3o (ex: Ao Nascer, 2 Meses, 12 Meses)"
+    },
+    "previne": {
+      "type": "string",
+      "description": "O que a vacina previne"
+    },
+    "composicao": {
+      "type": "string",
+      "description": "Do que \u00e9 feita - componentes da vacina"
+    },
+    "indicacao": {
+      "type": "string",
+      "description": "Para quem \u00e9 indicada"
+    },
+    "contraindicacao": {
+      "type": "string",
+      "description": "Quando n\u00e3o deve ser aplicada"
+    },
+    "esquema": {
+      "type": "string",
+      "description": "Esquema de doses"
+    },
+    "via": {
+      "type": "string",
+      "description": "Via de administra\u00e7\u00e3o (intramuscular, oral, subcut\u00e2nea, etc)"
+    },
+    "efeitosAdversos": {
+      "type": "string",
+      "description": "Efeitos adversos comuns e raros"
+    },
+    "ondeEncontrar": {
+      "type": "string",
+      "description": "Onde a vacina est\u00e1 dispon\u00edvel"
+    }
+  },
+  "required": [
+    "nome",
+    "idade",
+    "previne"
+  ]
+}

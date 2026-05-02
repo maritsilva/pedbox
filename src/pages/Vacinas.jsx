@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Syringe, Info, ChevronDown, Filter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import VacineDetailModal from '../components/VacineDetailModal';
+import { vacinasData } from '../lib/vacinasData';
 
 const AGES = [
   { label: 'Ao nascer', id: 'nascimento', color: 'indigo' },
@@ -120,7 +122,7 @@ const VACCINES = {
   ],
 };
 
-function VaccineCard({ vaccine, ageColor }) {
+function VaccineCard({ vaccine, ageColor, onCardClick }) {
   const bgColor = {
     indigo: 'bg-indigo-50',
     purple: 'bg-purple-50',
@@ -148,22 +150,27 @@ function VaccineCard({ vaccine, ageColor }) {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`${bgColor[ageColor]} border-2 ${borderColor[ageColor]} rounded-lg p-3`}>
+    <motion.button
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      onClick={() => onCardClick(vaccine.name)}
+      className={`w-full text-left ${bgColor[ageColor]} border-2 ${borderColor[ageColor]} rounded-lg p-3 hover:shadow-md transition-all cursor-pointer`}
+    >
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1">
           <p className="font-semibold text-gray-800 text-sm">{vaccine.name}</p>
           <p className="text-xs text-gray-600 mt-1">{vaccine.obs}</p>
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 flex-shrink-0">
           {vaccine.ms && <span className="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded-full font-semibold">MS</span>}
           {vaccine.sbim && <span className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full font-semibold">SBIm</span>}
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
-function AgeSection({ age, vaccines, color }) {
+function AgeSection({ age, vaccines, color, onCardClick }) {
   const [open, setOpen] = useState(true);
 
   const colorMap = {
@@ -193,7 +200,7 @@ function AgeSection({ age, vaccines, color }) {
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
             <div className="p-6 bg-white space-y-3">
               {vaccines.map((vaccine, i) => (
-                <VaccineCard key={i} vaccine={vaccine} ageColor={color} />
+                <VaccineCard key={i} vaccine={vaccine} ageColor={color} onCardClick={onCardClick} />
               ))}
             </div>
           </motion.div>
@@ -205,6 +212,8 @@ function AgeSection({ age, vaccines, color }) {
 
 export default function Vacinas() {
   const [filterType, setFilterType] = useState('all'); // 'all', 'ms', 'sbim'
+  const [selectedVaccine, setSelectedVaccine] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredAges = AGES.filter(age => {
     const vaccines = VACCINES[age.id] || [];
@@ -214,8 +223,17 @@ export default function Vacinas() {
     return false;
   });
 
+  const handleVaccineClick = (vaccineName) => {
+    const vaccine = vacinasData.find(v => v.nome === vaccineName);
+    if (vaccine) {
+      setSelectedVaccine(vaccine);
+      setIsModalOpen(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <VacineDetailModal vacina={selectedVaccine} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-10 text-center">
@@ -268,7 +286,7 @@ export default function Vacinas() {
         {/* Calendário */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="space-y-3 mb-12">
           {filteredAges.map((age, i) => (
-            <AgeSection key={age.id} age={age.label} vaccines={VACCINES[age.id] || []} color={age.color} />
+            <AgeSection key={age.id} age={age.label} vaccines={VACCINES[age.id] || []} color={age.color} onCardClick={handleVaccineClick} />
           ))}
         </motion.div>
 
