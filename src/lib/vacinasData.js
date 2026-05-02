@@ -113,20 +113,6 @@ export const vacinasData = [
     ondeEncontrar: 'Serviços privados'
   },
 
-  // 3 e 5 Meses
-  {
-    nome: 'Meningocócica C Conjugada',
-    idade: '3 Meses',
-    previne: 'Doenças causadas pelo meningococo C, incluindo meningite e meningococcemia',
-    composicao: 'Vacina inativada; antígeno da cápsula da bactéria (oligossacarídeo do sorogrupo C) conjugado a uma proteína transportadora (toxoide tetânico ou CRM-197); contém adjuvante (hidróxido de alumínio), manitol, fosfatos e água para injeção',
-    indicacao: 'Crianças e adolescentes; SBIm recomenda preferencialmente a ACWY, usando a C quando aquela não estiver disponível',
-    contraindicacao: 'Anafilaxia a qualquer componente ou dose anterior',
-    esquema: 'PNI: 3 doses (3, 5 meses) + reforço aos 12 meses. SBIm: inicia aos 3 meses, 2 doses no 1º ano, reforços entre 12–15 meses, 5–6 anos e 11 anos',
-    via: 'Intramuscular',
-    efeitosAdversos: 'Reações no local (vermelhidão, inchaço, dor intensa) em 1,5%; febre, dor de cabeça, mal-estar, náusea e vômito em 0,3–10%',
-    ondeEncontrar: 'UBS'
-  },
-
   // 6 Meses
   {
     nome: 'Influenza (Gripe) — Trivalente ou Quadrivalente',

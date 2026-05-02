@@ -26,99 +26,99 @@ const AGES = [
 const VACCINES = {
   nascimento: [
     { name: 'BCG', ms: true, obs: 'Dose única. Aplicar precocemente' },
-    { name: 'Hepatite B', ms: true, obs: '1ª dose ao nascer' },
+    { name: 'Hepatite B (dose ao nascer)', ms: true, obs: '1ª dose ao nascer' },
   ],
   mes1: [
-    { name: 'Hepatite B', ms: false, sbim: true, obs: 'Esquema 0, 1 e 6 meses' },
+    { name: 'Hepatite B (dose ao nascer)', ms: false, sbim: true, obs: 'Esquema 0, 1 e 6 meses' },
   ],
   mes2: [
-    { name: 'Penta (DTPw + Hib + Hepatite B)', ms: true, obs: '1ª dose' },
-    { name: 'VIP — poliomielite inativada', ms: true, obs: '1ª dose' },
-    { name: 'Pneumocócica conjugada (VPC10)', ms: true, obs: '1ª dose' },
-    { name: 'Rotavírus humano', ms: true, obs: 'Monovalente, 1ª dose' },
+    { name: 'Penta (DTPw-HBHib)', ms: true, obs: '1ª dose' },
+    { name: 'VIP (Vacina Inativada Poliomielite)', ms: true, obs: '1ª dose' },
+    { name: 'Pneumocócica Conjugada (VPC10 ou VPC13)', ms: true, obs: '1ª dose' },
+    { name: 'Rotavírus Humano (VRH1)', ms: true, obs: 'Monovalente, 1ª dose' },
     { name: 'DTPa / penta acelular', ms: false, sbim: true, obs: 'SBIm prefere acelular' },
     { name: 'Pneumocócica VPC15/VPC20', ms: false, sbim: true, obs: 'SBIm prefere ampliar sorotipos' },
     { name: 'Rotavírus pentavalente', ms: false, sbim: true, obs: 'Disponível no privado' },
   ],
   mes3: [
-    { name: 'Meningocócica C', ms: true, obs: '1ª dose' },
-    { name: 'Meningocócica ACWY', ms: false, sbim: true, obs: 'SBIm prefere pela cobertura ampla' },
+    { name: 'Meningocócica C Conjugada', ms: true, obs: '1ª dose' },
+    { name: 'Meningocócica ACWY Conjugada', ms: false, sbim: true, obs: 'SBIm prefere pela cobertura ampla' },
     { name: 'Meningocócica B', ms: false, sbim: true, obs: 'SBIm recomenda 1ª dose' },
   ],
   mes4: [
-    { name: 'Penta (DTPw + Hib + Hepatite B)', ms: true, obs: '2ª dose' },
-    { name: 'VIP — poliomielite inativada', ms: true, obs: '2ª dose' },
-    { name: 'Pneumocócica conjugada (VPC10)', ms: true, obs: '2ª dose' },
-    { name: 'Rotavírus humano', ms: true, obs: '2ª dose' },
+    { name: 'Penta (DTPw-HBHib)', ms: true, obs: '2ª dose' },
+    { name: 'VIP (Vacina Inativada Poliomielite)', ms: true, obs: '2ª dose' },
+    { name: 'Pneumocócica Conjugada (VPC10 ou VPC13)', ms: true, obs: '2ª dose' },
+    { name: 'Rotavírus Humano (VRH1)', ms: true, obs: '2ª dose' },
     { name: 'DTPa / penta acelular', ms: false, sbim: true, obs: 'Alternativa SBIm/privado' },
     { name: 'Pneumocócica VPC15/VPC20', ms: false, sbim: true, obs: 'Alternativa ampliada' },
     { name: 'Rotavírus pentavalente', ms: false, sbim: true, obs: '2ª dose' },
   ],
   mes5: [
-    { name: 'Meningocócica C', ms: true, obs: '2ª dose' },
-    { name: 'Meningocócica ACWY', ms: false, sbim: true, obs: 'SBIm recomenda como preferencial' },
+    { name: 'Meningocócica C Conjugada', ms: true, obs: '2ª dose' },
+    { name: 'Meningocócica ACWY Conjugada', ms: false, sbim: true, obs: 'SBIm recomenda como preferencial' },
     { name: 'Meningocócica B', ms: false, sbim: true, obs: 'SBIm recomenda 2ª dose' },
   ],
   mes6: [
-    { name: 'Penta (DTPw + Hib + Hepatite B)', ms: true, obs: '3ª dose' },
-    { name: 'VIP — poliomielite inativada', ms: true, obs: '3ª dose' },
-    { name: 'Influenza', ms: true, obs: '1ª dose (primovacinação: 2 doses)' },
+    { name: 'Penta (DTPw-HBHib)', ms: true, obs: '3ª dose' },
+    { name: 'VIP (Vacina Inativada Poliomielite)', ms: true, obs: '3ª dose' },
+    { name: 'Influenza (Gripe) — Trivalente ou Quadrivalente', ms: true, obs: '1ª dose (primovacinação: 2 doses)' },
     { name: 'Covid-19', ms: true, obs: 'Início do esquema' },
     { name: 'Rotavírus pentavalente', ms: false, sbim: true, obs: '3ª dose se pentavalente' },
     { name: 'Pneumocócica VPC15/VPC20', ms: false, sbim: true, obs: 'Esquema 3+1' },
-    { name: 'Influenza quadrivalente', ms: false, sbim: true, obs: 'SBIm inclui 4V' },
+    { name: 'Influenza (Gripe) — Trivalente ou Quadrivalente', ms: false, sbim: true, obs: 'SBIm inclui 4V' },
   ],
   mes7: [
     { name: 'Covid-19', ms: true, obs: '2ª dose' },
-    { name: 'Influenza', ms: true, obs: '2ª dose (primovacinação)' },
+    { name: 'Influenza (Gripe) — Trivalente ou Quadrivalente', ms: true, obs: '2ª dose (primovacinação)' },
   ],
   mes9: [
-    { name: 'Febre amarela', ms: true, obs: '1ª dose de rotina' },
+    { name: 'Febre Amarela', ms: true, obs: '1ª dose de rotina' },
     { name: 'Covid-19', ms: true, obs: '3ª dose' },
   ],
   mes12: [
-    { name: 'Pneumocócica conjugada (VPC10)', ms: true, obs: 'Reforço' },
-    { name: 'Meningocócica ACWY', ms: true, obs: 'Reforço' },
-    { name: 'Tríplice viral — SCR', ms: true, obs: '1ª dose' },
+    { name: 'Pneumocócica Conjugada (VPC10 ou VPC13)', ms: true, obs: 'Reforço' },
+    { name: 'Meningocócica ACWY Conjugada', ms: true, obs: 'Reforço' },
+    { name: 'Tríplice Viral (SCR)', ms: true, obs: '1ª dose' },
     { name: 'Hepatite A', ms: false, sbim: true, obs: 'SBIm recomenda 1ª dose (MS aos 15m)' },
-    { name: 'Varicela', ms: false, sbim: true, obs: 'SBIm recomenda 1ª dose (MS aos 15m)' },
+    { name: 'Varicela (Catapora)', ms: false, sbim: true, obs: 'SBIm recomenda 1ª dose (MS aos 15m)' },
     { name: 'Meningocócica B', ms: false, sbim: true, obs: 'Reforço SBIm' },
     { name: 'Pneumocócica VPC15/VPC20', ms: false, sbim: true, obs: 'Reforço SBIm' },
   ],
   mes15: [
-    { name: 'DTP', ms: true, obs: '1º reforço' },
-    { name: 'VIP', ms: true, obs: 'Reforço' },
-    { name: 'Tríplice viral — SCR', ms: true, obs: '2ª dose' },
-    { name: 'Varicela', ms: true, obs: '1ª dose' },
+    { name: 'DTP (reforço)', ms: true, obs: '1º reforço' },
+    { name: 'VIP (Vacina Inativada Poliomielite)', ms: true, obs: 'Reforço' },
+    { name: 'Tríplice Viral (SCR)', ms: true, obs: '2ª dose' },
+    { name: 'Varicela (Catapora)', ms: true, obs: '1ª dose' },
     { name: 'Hepatite A', ms: true, obs: 'Dose única' },
-    { name: 'DTPa / DTPa-VIP', ms: false, sbim: true, obs: 'SBIm prefere acelular' },
-    { name: 'Tetraviral — SCRV', ms: false, sbim: true, obs: 'Substitui SCR + varicela' },
+    { name: 'DTPa-VIP (privado, reforço)', ms: false, sbim: true, obs: 'SBIm prefere acelular' },
+    { name: 'Tetraviral (SCR-V)', ms: false, sbim: true, obs: 'Substitui SCR + varicela' },
   ],
   mes18: [
-    { name: 'Hepatite A', ms: false, sbim: true, obs: 'SBIm recomenda 2ª dose' },
-    { name: 'Varicela', ms: false, sbim: true, obs: 'SBIm pode considerar 2ª dose' },
+    { name: 'Hepatite A (2ª dose)', ms: false, sbim: true, obs: 'SBIm recomenda 2ª dose' },
+    { name: 'Varicela (2ª dose)', ms: false, sbim: true, obs: 'SBIm pode considerar 2ª dose' },
   ],
   mes24: [
     { name: 'Revisão de atrasados', ms: true, obs: 'Conferir pendências' },
-    { name: 'Dengue — Qdenga', ms: false, sbim: true, obs: 'SBIm recomenda a partir de 4 anos' },
+    { name: 'Dengue', ms: false, sbim: true, obs: 'SBIm recomenda a partir de 4 anos' },
   ],
   anos4: [
-    { name: 'DTP', ms: true, obs: '2º reforço' },
-    { name: 'Febre amarela', ms: true, obs: 'Reforço' },
-    { name: 'Varicela', ms: true, obs: '2ª dose' },
-    { name: 'DTPa-VIP', ms: false, sbim: true, obs: 'MS não inclui reforço de VIP' },
-    { name: 'Dengue — Qdenga', ms: false, sbim: true, obs: '2 doses (0 e 3 meses)' },
+    { name: 'DTP (2º reforço)', ms: true, obs: '2º reforço' },
+    { name: 'Febre Amarela', ms: true, obs: 'Reforço' },
+    { name: 'Varicela (2ª dose)', ms: true, obs: '2ª dose' },
+    { name: 'DTPa-VIP (privado, reforço)', ms: false, sbim: true, obs: 'MS não inclui reforço de VIP' },
+    { name: 'Dengue', ms: false, sbim: true, obs: '2 doses (0 e 3 meses)' },
   ],
   'anos5-6': [
     { name: 'Revisão vacinal', ms: true, obs: 'Conferir atrasos' },
-    { name: 'Meningocócica ACWY', ms: false, sbim: true, obs: 'Reforço SBIm' },
-    { name: 'DTPa-VIP / dTpa-VIP', ms: false, sbim: true, obs: 'Reforço SBIm' },
+    { name: 'Meningocócica ACWY (reforço)', ms: false, sbim: true, obs: 'Reforço SBIm' },
+    { name: 'DTPa-VIP (privado, reforço)', ms: false, sbim: true, obs: 'Reforço SBIm' },
   ],
   'anos9+': [
-    { name: 'HPV4', ms: true, obs: 'Dose única para 9-14 anos' },
-    { name: 'HPV9', ms: false, sbim: true, obs: 'SBIm prefere, 2 doses (0 e 6m)' },
-    { name: 'dTpa', ms: false, sbim: true, obs: 'Reforço SBIm 9-11 anos' },
-    { name: 'Dengue — Qdenga', ms: false, sbim: true, obs: 'Já pode ter iniciado aos 4 anos' },
+    { name: 'HPV4 (Quadrivalente)', ms: true, obs: 'Dose única para 9-14 anos' },
+    { name: 'HPV9 (Nonavalente)', ms: false, sbim: true, obs: 'SBIm prefere, 2 doses (0 e 6m)' },
+    { name: 'dTpa (Tríplice Bacteriana Acelular do Tipo Adulto)', ms: false, sbim: true, obs: 'Reforço SBIm 9-11 anos' },
+    { name: 'Dengue', ms: false, sbim: true, obs: 'Já pode ter iniciado aos 4 anos' },
   ],
 };
 
@@ -224,7 +224,17 @@ export default function Vacinas() {
   });
 
   const handleVaccineClick = (vaccineName) => {
-    const vaccine = vacinasData.find(v => v.nome === vaccineName);
+    // Busca flexível: remove hífens, parênteses e procura por correspondência parcial
+    const normalize = (str) => str.toLowerCase().replace(/[—–\-\(\)]/g, '').trim();
+    const normalizedSearch = normalize(vaccineName);
+    
+    let vaccine = vacinasData.find(v => normalize(v.nome) === normalizedSearch);
+    
+    // Se não encontrou exatamente, tenta encontrar por substring
+    if (!vaccine) {
+      vaccine = vacinasData.find(v => normalize(v.nome).includes(normalizedSearch) || normalizedSearch.includes(normalize(v.nome)));
+    }
+    
     if (vaccine) {
       setSelectedVaccine(vaccine);
       setIsModalOpen(true);
