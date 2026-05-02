@@ -22,6 +22,7 @@ import { antimalaricos } from './guideDataAntimalaricos.js';
 import { antiparasitarios } from './guideDataAntiparasitarios.js';
 import { opioides } from './guideDataOpioides.js';
 import { analgesicoEnxaqueca, ainesDrugs } from './guideDataEnxaquecaAINEs.js';
+import { corticosteroides } from './guideDataCorticosteroides.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1763,6 +1764,13 @@ export const ALL_CATEGORIES = [
     color: 'orange-500',
     icon: '🔥',
     drugs: ainesDrugs,
+  },
+  {
+    id: 'corticosteroides',
+    label: 'Corticosteroides Sistêmicos',
+    color: 'amber-500',
+    icon: '🟡',
+    drugs: corticosteroides,
   },
 ];
 
