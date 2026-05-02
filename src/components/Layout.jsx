@@ -44,7 +44,8 @@ const menuCategories = [
     id: 'comunidade',
     label: '💬 Comunidade',
     items: [
-      { to: '/contato', label: 'Contato & Colaboração' },
+      { to: '/about', label: 'Sobre o PedBox' },
+      { to: '/contact', label: 'Contato & Colaboração' },
     ],
   },
 ];
