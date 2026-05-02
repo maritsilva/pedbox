@@ -26,6 +26,7 @@ import { corticosteroides } from './guideDataCorticosteroides.js';
 import { antihistaminicos, angioedemaHereditario, antihistDescongestionantes } from './guideDataAntihistaminicos.js';
 import { antitussigenos, mucoliticos, colutoriosTopicos } from './guideDataAntitussigenosMucoliticos.js';
 import { antiespasmódicos, antieméticos } from './guideDataAntiespasmAdicos.js';
+import { antiacidos, antagonistasH2, ibp } from './guideDataGastro.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1795,6 +1796,13 @@ export const ALL_CATEGORIES = [
     color: 'lime-500',
     icon: '🫃',
     drugs: [...antiespasmódicos, ...antieméticos],
+  },
+  {
+    id: 'gastro',
+    label: 'Antiácidos, Antagonistas H2 e IBP',
+    color: 'amber-500',
+    icon: '🫀',
+    drugs: [...antiacidos, ...antagonistasH2, ...ibp],
   },
 ];
 
