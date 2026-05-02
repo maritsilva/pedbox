@@ -37,6 +37,8 @@ import { expansoresColoides } from './guideDataExpansoresColoides.js';
 import { hipotensao } from './guideDataHipotensao.js';
 import { antagonistasAntidotos } from './guideDataAntagonistasAntidotos.js';
 import { iecaDrugs } from './guideDataIECA.js';
+import { anestesicosSistemicos } from './guideDataAnestesicosSistemicos.js';
+import { anestesicosLocais, curares } from './guideDataAnestesicosLocaisCurares.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1890,6 +1892,27 @@ export const ALL_CATEGORIES = [
     color: 'indigo-500',
     icon: '🫀',
     drugs: iecaDrugs,
+  },
+  {
+    id: 'anestesicos-sistemicos',
+    label: 'Anestésicos Sistêmicos',
+    color: 'purple-500',
+    icon: '💉',
+    drugs: anestesicosSistemicos,
+  },
+  {
+    id: 'anestesicos-locais',
+    label: 'Anestésicos Locais',
+    color: 'teal-500',
+    icon: '🩹',
+    drugs: anestesicosLocais,
+  },
+  {
+    id: 'curares-bloqueadores-neuromusculares',
+    label: 'Curares — Bloqueadores Neuromusculares',
+    color: 'amber-500',
+    icon: '🧬',
+    drugs: curares,
   },
 ];
 
