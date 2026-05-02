@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Copy, Share2, Zap, Users, AlertCircle, Heart } from 'lucide-react';
+import { BookOpen, Copy, Share2, Zap, Users, AlertCircle, Heart, ExternalLink, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const container = {
@@ -129,6 +129,41 @@ export default function About() {
             </motion.div>
           ))}
         </motion.div>
+      </motion.section>
+
+      {/* Copiar Modelo */}
+      <motion.section
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto px-4 py-8"
+      >
+        <motion.h2 variants={item} className="text-2xl font-bold text-gray-900 text-center mb-6">
+          Copie ou adapte o modelo do PedBox
+        </motion.h2>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a
+            href="https://app.base44.com/app-templates/69f4e81a840a3c93cee16789"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-gradient-to-r from-orange-400 to-amber-400 text-white font-bold py-4 rounded-2xl hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3"
+          >
+            <Copy className="w-5 h-5" />
+            Adaptar no Base44
+            <ExternalLink className="w-4 h-4" />
+          </a>
+          <a
+            href="https://github.com/maritsilva/pedbox"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-gray-900 text-white font-bold py-4 rounded-2xl hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3"
+          >
+            <Github className="w-5 h-5" />
+            Repositório GitHub
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        </div>
       </motion.section>
 
       {/* Aviso Ético */}
