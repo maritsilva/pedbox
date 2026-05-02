@@ -31,6 +31,7 @@ import { antiflatulentes, laxantesFibras, laxantesCatarticos, antidiarreicos } f
 import { probioticos, proctologicos, outrasGastro } from './guideDataProbioticos.js';
 import { vitaminas, minerais } from './guideDataVitaminas.js';
 import { reidratacaoOral, estimulantesApetite, auxiliaresObesidade, antianemicos, imunoestimulantes } from './guideDataAntianemicosImuno.js';
+import { emergenciaAnticolinergicos, emergenciaAlcalinizantes, emergenciaVasoativos } from './guideDataEmergencia.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1842,6 +1843,13 @@ export const ALL_CATEGORIES = [
     color: 'red-500',
     icon: '🩸',
     drugs: [...antianemicos, ...imunoestimulantes],
+  },
+  {
+    id: 'emergencia',
+    label: 'Drogas de Emergência',
+    color: 'red-500',
+    icon: '🚨',
+    drugs: [...emergenciaAnticolinergicos, ...emergenciaAlcalinizantes, ...emergenciaVasoativos],
   },
 ];
 
