@@ -55,7 +55,7 @@ export default function Home() {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.08 }}
         className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl p-3 md:p-4 text-xs md:text-sm text-amber-800">
         <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-        <p><strong>Ferramenta de apoio:</strong> Sempre valide informações com protocolos institucionais e supervisão. Destinado a profissionais de saúde.</p>
+        <p><strong>⚠️ Versão Beta — em desenvolvimento:</strong> Esta ferramenta está em fase beta e erros podem ocorrer. Sempre valide todas as informações com protocolos institucionais, literatura oficial e supervisão médica antes de qualquer decisão clínica. <strong>Destinada exclusivamente a profissionais de saúde habilitados.</strong></p>
       </motion.div>
 
       {/* Search */}

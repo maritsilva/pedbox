@@ -177,9 +177,12 @@ export default function About() {
         <div className="bg-amber-50 border-l-4 border-amber-500 rounded-2xl p-6 sm:p-8 flex gap-4">
           <AlertCircle className="w-7 h-7 text-amber-600 flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-bold text-amber-900 text-lg mb-3">Responsabilidade ética</h3>
+            <h3 className="font-bold text-amber-900 text-lg mb-3">⚠️ Versão Beta — em desenvolvimento</h3>
+            <p className="text-amber-800 text-sm leading-relaxed mb-3">
+              O PedBox está em <strong>fase beta e desenvolvimento ativo</strong>. Erros, imprecisões ou informações desatualizadas podem ocorrer. Toda informação deve ser <strong>sempre validada</strong> com diretrizes oficiais, protocolos institucionais, literatura médica vigente e supervisão de especialistas antes de qualquer decisão clínica.
+            </p>
             <p className="text-amber-800 text-sm leading-relaxed">
-              O PedBox é uma <strong>ferramenta educacional</strong>. Não substitui diretrizes oficiais, protocolos locais, avaliação clínica direta ou supervisão profissional. Recomendações clínicas devem sempre ser validadas com protocolos institucionais e orientação de especialistas.
+              Esta plataforma é uma <strong>ferramenta de apoio educacional destinada exclusivamente a profissionais de saúde habilitados</strong> — médicos, estudantes de medicina em supervisão, residentes e outros profissionais com formação clínica. Não substitui avaliação clínica direta nem a responsabilidade do profissional assistente.
             </p>
           </div>
         </div>
