@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ALL_CATEGORIES as GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
+import { searchDrugs } from '@/lib/searchDrugs';
 import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
@@ -40,13 +41,8 @@ export default function Guia() {
     }
   }, []);
 
-  const allDrugs = getAllGuideDrugs();
-  const searchResults = search.trim().length > 1 || filterCat
-    ? allDrugs.filter(d => {
-        const matchSearch = search.trim().length < 2 || d.name.toLowerCase().includes(search.toLowerCase());
-        const matchCat = !filterCat || d.category === filterCat;
-        return matchSearch && matchCat;
-      })
+  const searchResults = search.trim().length > 1
+    ? searchDrugs(search, 12)
     : [];
 
   const resetAll = () => {
@@ -105,7 +101,9 @@ export default function Guia() {
     );
   }
 
-  const allDrugsMap = Object.fromEntries(getAllGuideDrugs().map(d => [d.id, d]));
+  const allDrugsMap = Object.fromEntries(
+    GUIDE_CATEGORIES.flatMap(c => c.drugs.map(d => [d.id, { ...d, catLabel: c.label, catColor: c.color, catIcon: c.icon }]))
+  );
   const favoriteDrugs = favorites.map(id => allDrugsMap[id]).filter(Boolean);
 
   return (
@@ -205,9 +203,10 @@ export default function Guia() {
                     className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0"
                   >
                     <span className="text-xl">{cat?.icon}</span>
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold">{drug.name}</p>
-                      <p className={`text-xs ${colors.text}`}>{cat?.label}</p>
+                      {drug.suffix && <span className="text-xs text-muted-foreground">({drug.suffix}) · </span>}
+                      <span className={`text-xs ${colors.text}`}>{cat?.label}</span>
                     </div>
                     <ChevronRight className="w-4 h-4 text-muted-foreground ml-auto" />
                   </button>

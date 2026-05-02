@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen, FlaskConical, Microscope, Star, Calculator } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs } from '@/lib/guideData';
+import { searchDrugs } from '@/lib/searchDrugs';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
 
 const CALCULATORS = [
@@ -29,9 +30,7 @@ export default function Home() {
           t.label.toLowerCase().includes(search.toLowerCase()) ||
           t.keywords.some(k => k.includes(search.toLowerCase()))
         ).map(t => ({ ...t, type: 'tool' })),
-        ...getAllGuideDrugs()
-          .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
-          .slice(0, 6)
+        ...searchDrugs(search, 6)
           .map(d => ({ label: d.name, desc: d.catLabel, path: `/guia?drug=${d.id}`, catIcon: d.catIcon, type: 'drug' })),
       ]
     : [];
