@@ -27,6 +27,7 @@ import { antihistaminicos, angioedemaHereditario, antihistDescongestionantes } f
 import { antitussigenos, mucoliticos, colutoriosTopicos } from './guideDataAntitussigenosMucoliticos.js';
 import { antiespasmódicos, antieméticos } from './guideDataAntiespasmAdicos.js';
 import { antiacidos, antagonistasH2, ibp } from './guideDataGastro.js';
+import { antiflatulentos, laxantesFibras, laxantesCatarticos, antidiarreicos } from './guideDataLaxantes.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1803,6 +1804,13 @@ export const ALL_CATEGORIES = [
     color: 'amber-500',
     icon: '🫀',
     drugs: [...antiacidos, ...antagonistasH2, ...ibp],
+  },
+  {
+    id: 'laxantes-antidiarreicos',
+    label: 'Laxantes e Antidiarreicos',
+    color: 'green-500',
+    icon: '🌿',
+    drugs: [...antiflatulentos, ...laxantesFibras, ...laxantesCatarticos, ...antidiarreicos],
   },
 ];
 
