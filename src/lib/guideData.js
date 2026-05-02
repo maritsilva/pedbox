@@ -11,6 +11,10 @@ import { OUTROS_ANTIBACTERIANOS_CATEGORY } from './guideDataOutrosAntibacteriano
 import { outrosBacterianos } from './guideDataOutrosBacterianos.js';
 import { antimicobacterianos } from './guideDataAntimicobacterianos.js';
 import { antifungicosAzolicos } from './guideDataAntifungicosAzolicos.js';
+import { antifungicosPolienicos } from './guideDataAntifungicosPolienicos.js';
+import { equinocandinas } from './guideDataEquinocandinas.js';
+import { outrosAntifungicos } from './guideDataOutrosAntifungicos.js';
+import { antiviraisHerpes, antiviraisInfluenza } from './guideDataAntivirais.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1613,6 +1617,46 @@ const ANTIFUNGICOS_AZOLICOS_CATEGORY = {
   drugs: antifungicosAzolicos
 };
 
+const ANTIFUNGICOS_POLIENICOS_CATEGORY = {
+  id: 'antifungicos-polienicos',
+  label: 'Antifúngicos Poliênicos',
+  color: 'teal-500',
+  icon: '🧪',
+  drugs: antifungicosPolienicos,
+};
+
+const EQUINOCANDINAS_CATEGORY = {
+  id: 'equinocandinas',
+  label: 'Equinocandinas',
+  color: 'indigo-500',
+  icon: '💉',
+  drugs: equinocandinas,
+};
+
+const OUTROS_ANTIFUNGICOS_CATEGORY = {
+  id: 'outros-antifungicos',
+  label: 'Outros Antifúngicos',
+  color: 'amber-500',
+  icon: '🔬',
+  drugs: outrosAntifungicos,
+};
+
+const ANTIVIRAIS_HERPES_CATEGORY = {
+  id: 'antivirais-herpes',
+  label: 'Antivirais Anti-Herpes',
+  color: 'purple-500',
+  icon: '🦠',
+  drugs: antiviraisHerpes,
+};
+
+const ANTIVIRAIS_INFLUENZA_CATEGORY = {
+  id: 'antivirais-influenza',
+  label: 'Antivirais Anti-Influenza',
+  color: 'cyan-500',
+  icon: '🤧',
+  drugs: antiviraisInfluenza,
+};
+
 // Mescla Nifuroxazida e Polimixina B com a categoria principal de Outros Antibacterianos
 const OUTROS_ANTIBACTERIANOS_MERGED = {
   ...OUTROS_ANTIBACTERIANOS_CATEGORY,
@@ -1631,6 +1675,11 @@ export const ALL_CATEGORIES = [
   OUTROS_ANTIBACTERIANOS_MERGED,
   ANTIMICOBACTERIANOS_CATEGORY,
   ANTIFUNGICOS_AZOLICOS_CATEGORY,
+  ANTIFUNGICOS_POLIENICOS_CATEGORY,
+  EQUINOCANDINAS_CATEGORY,
+  OUTROS_ANTIFUNGICOS_CATEGORY,
+  ANTIVIRAIS_HERPES_CATEGORY,
+  ANTIVIRAIS_INFLUENZA_CATEGORY,
 ];
 
 export function getAllGuideDrugs() {
