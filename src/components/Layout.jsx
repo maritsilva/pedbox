@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope, Settings } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const menuCategories = [
   {
@@ -50,6 +51,14 @@ const menuCategories = [
   },
 ];
 
+const MOBILE_NAV = [
+  { to: '/', label: 'Home', icon: Home },
+  { to: '/guia', label: 'Guia', icon: BookOpen },
+  { to: '/calculadoras', label: 'Calc.', icon: Calculator },
+  { to: '/pesquisa', label: 'Pesq.', icon: Microscope },
+  { to: '/settings', label: 'Config.', icon: Settings },
+];
+
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState(new Set(['inicio', 'referencias', 'calculadoras']));
@@ -66,9 +75,9 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-inter">
-      {/* NAVBAR */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <div className="min-h-screen bg-background flex flex-col font-inter overflow-hidden">
+      {/* DESKTOP NAVBAR */}
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:block">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
@@ -78,8 +87,7 @@ export default function Layout() {
             />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
             <Link
               to="/"
               className={`text-sm font-semibold transition-all ${
@@ -96,7 +104,7 @@ export default function Layout() {
                   {category.label}
                   <ChevronDown className="w-4 h-4" />
                 </button>
-                <div className="absolute left-0 mt-0 w-48 bg-white border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-40 py-2">
+                <div className="absolute left-0 mt-0 w-48 bg-white dark:bg-slate-800 border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-40 py-2">
                   {category.items.map(item => (
                     <Link
                       key={item.to}
@@ -115,20 +123,19 @@ export default function Layout() {
             ))}
           </nav>
 
-          {/* Mobile burger */}
-          <button className="md:hidden p-2 rounded-lg hover:bg-secondary" onClick={() => setOpen(o => !o)}>
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <Link to="/settings" className="p-2 rounded-lg hover:bg-secondary">
+            <Settings className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
+          </Link>
         </div>
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden border-t border-border bg-white px-4 py-3 flex flex-col gap-2 max-h-96 overflow-y-auto">
+          <div className="md:hidden border-t border-border bg-white dark:bg-slate-800 px-4 py-3 flex flex-col gap-2 max-h-96 overflow-y-auto">
             {menuCategories.map(category => (
               <div key={category.id}>
                 <button
                   onClick={() => toggleCategory(category.id)}
-                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-secondary rounded-lg transition-all"
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-secondary rounded-lg transition-all select-none"
                 >
                   {category.label}
                   <ChevronDown className={`w-4 h-4 transition-transform ${expandedCategories.has(category.id) ? 'rotate-180' : ''}`} />
@@ -140,7 +147,7 @@ export default function Layout() {
                         key={item.to}
                         to={item.to}
                         onClick={() => setOpen(false)}
-                        className={`block px-4 py-2 rounded-lg text-sm transition-all ${
+                        className={`block px-4 py-2 rounded-lg text-sm transition-all select-none ${
                           location.pathname === item.to
                             ? 'bg-primary text-white font-semibold'
                             : 'text-muted-foreground hover:bg-secondary'
@@ -157,16 +164,56 @@ export default function Layout() {
         )}
       </header>
 
-      <main className="flex-1">
-        <Outlet />
+      {/* MAIN CONTENT */}
+      <main className="flex-1 pb-20 md:pb-0 overflow-y-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.25 }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
-      <footer className="bg-white border-t border-border mt-12">
+      {/* DESKTOP FOOTER */}
+      <footer className="hidden md:block bg-white dark:bg-slate-900 border-t border-border mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
           <p>© 2025 PedBox · Para uso por profissionais de saúde</p>
           <p className="mt-1 text-xs">Este conteúdo serve como orientação para tomadas de decisão médica. Sempre valide com protocolos institucionais.</p>
         </div>
       </footer>
+
+      {/* MOBILE BOTTOM TAB BAR */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-t border-border md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <div className="flex items-center justify-around h-16">
+          {MOBILE_NAV.map((item) => {
+            const isActive = location.pathname === item.to;
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`flex flex-col items-center justify-center w-full h-16 transition-all select-none touch-none ${
+                  isActive
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                style={{
+                  WebkitTouchCallout: 'none',
+                  userSelect: 'none',
+                }}
+              >
+                <Icon className="w-6 h-6" />
+                <span className="text-xs mt-1 font-semibold">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 }

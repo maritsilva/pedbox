@@ -23,6 +23,7 @@ import Contato from './pages/Contato';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import CartilhaDesenvolvimento from './pages/CartilhaDesenvolvimento';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
