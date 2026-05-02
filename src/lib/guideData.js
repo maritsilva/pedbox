@@ -1597,16 +1597,7 @@ export const GUIDE_CATEGORIES = [
   },
 ];
 
-// Criar categorias dinâmicas para os novos grupos
-const OUTROS_BACTERIANOS_EXTRA_DYNAMIC = {
-  id: 'outros-bacterianos',
-  label: 'Outros Antibacterianos (extra)',
-  color: 'indigo-500',
-  icon: '💊',
-  drugs: outrosBacterianos
-};
-
-const ANTIMICOBACTERIANOS_DYNAMIC = {
+const ANTIMICOBACTERIANOS_CATEGORY = {
   id: 'antimicobacterianos',
   label: 'Antimicobacterianos',
   color: 'amber-500',
@@ -1614,7 +1605,7 @@ const ANTIMICOBACTERIANOS_DYNAMIC = {
   drugs: antimicobacterianos
 };
 
-const ANTIFUNGICOS_DYNAMIC = {
+const ANTIFUNGICOS_AZOLICOS_CATEGORY = {
   id: 'antifungicos-azolicos',
   label: 'Antifúngicos Azólicos',
   color: 'pink-500',
@@ -1622,7 +1613,25 @@ const ANTIFUNGICOS_DYNAMIC = {
   drugs: antifungicosAzolicos
 };
 
-export const ALL_CATEGORIES = [...GUIDE_CATEGORIES, PENICILINAS_CATEGORY, CARBAPENEMOS_CATEGORY, QUINOLONAS_CATEGORY, SULFONAMIDAS_CATEGORY, AMINOGLICOSIDEOS_CATEGORY, MACROLIDEOS_CATEGORY, GLICOPEPTIDEOS_CATEGORY, OUTROS_ANTIBACTERIANOS_CATEGORY, OUTROS_BACTERIANOS_EXTRA_DYNAMIC, ANTIMICOBACTERIANOS_DYNAMIC, ANTIFUNGICOS_DYNAMIC];
+// Mescla Nifuroxazida e Polimixina B com a categoria principal de Outros Antibacterianos
+const OUTROS_ANTIBACTERIANOS_MERGED = {
+  ...OUTROS_ANTIBACTERIANOS_CATEGORY,
+  drugs: [...OUTROS_ANTIBACTERIANOS_CATEGORY.drugs, ...outrosBacterianos],
+};
+
+export const ALL_CATEGORIES = [
+  ...GUIDE_CATEGORIES,
+  PENICILINAS_CATEGORY,
+  CARBAPENEMOS_CATEGORY,
+  QUINOLONAS_CATEGORY,
+  SULFONAMIDAS_CATEGORY,
+  AMINOGLICOSIDEOS_CATEGORY,
+  MACROLIDEOS_CATEGORY,
+  GLICOPEPTIDEOS_CATEGORY,
+  OUTROS_ANTIBACTERIANOS_MERGED,
+  ANTIMICOBACTERIANOS_CATEGORY,
+  ANTIFUNGICOS_AZOLICOS_CATEGORY,
+];
 
 export function getAllGuideDrugs() {
   return ALL_CATEGORIES.flatMap(cat => cat.drugs.map(d => ({ ...d, catLabel: cat.label, catColor: cat.color, catIcon: cat.icon })));
