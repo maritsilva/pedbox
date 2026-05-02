@@ -25,6 +25,7 @@ import { analgesicoEnxaqueca, ainesDrugs } from './guideDataEnxaquecaAINEs.js';
 import { corticosteroides } from './guideDataCorticosteroides.js';
 import { antihistaminicos, angioedemaHereditario, antihistDescongestionantes } from './guideDataAntihistaminicos.js';
 import { antitussigenos, mucoliticos, colutoriosTopicos } from './guideDataAntitussigenosMucoliticos.js';
+import { antiespasmódicos, antieméticos } from './guideDataAntiespasmAdicos.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1787,6 +1788,13 @@ export const ALL_CATEGORIES = [
     color: 'teal-500',
     icon: '🫁',
     drugs: [...antitussigenos, ...mucoliticos, ...colutoriosTopicos],
+  },
+  {
+    id: 'antiespasmadicos-antieméticos',
+    label: 'Antiespasmódicos e Antieméticos',
+    color: 'lime-500',
+    icon: '🫃',
+    drugs: [...antiespasmódicos, ...antieméticos],
   },
 ];
 
