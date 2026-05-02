@@ -39,6 +39,7 @@ import { antagonistasAntidotos } from './guideDataAntagonistasAntidotos.js';
 import { iecaDrugs } from './guideDataIECA.js';
 import { anestesicosSistemicos } from './guideDataAnestesicosSistemicos.js';
 import { anestesicosLocais, curares } from './guideDataAnestesicosLocaisCurares.js';
+import { antiHipertensivosOutros, antiHipertensivosVasodilatadores, antiHipertensivosAlfaBloqueadores, antiHipertensivosAlfaAgonistas, antiHipertensivosBetaBloqueadores } from './guideDataAntiHipertensivos.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1913,6 +1914,41 @@ export const ALL_CATEGORIES = [
     color: 'amber-500',
     icon: '🧬',
     drugs: curares,
+  },
+  {
+    id: 'anti-hipertensivos-outros',
+    label: 'Anti-hipertensivos — Outros (Alisquireno, Diazóxido, Fenoldopam, Fentolamina)',
+    color: 'red-500',
+    icon: '🫀',
+    drugs: antiHipertensivosOutros,
+  },
+  {
+    id: 'anti-hipertensivos-vasodilatadores',
+    label: 'Anti-hipertensivos — Vasodilatadores',
+    color: 'orange-500',
+    icon: '🩺',
+    drugs: antiHipertensivosVasodilatadores,
+  },
+  {
+    id: 'anti-hipertensivos-alfa-bloqueadores',
+    label: 'Anti-hipertensivos — Alfa-bloqueadores',
+    color: 'purple-500',
+    icon: '⚕️',
+    drugs: antiHipertensivosAlfaBloqueadores,
+  },
+  {
+    id: 'anti-hipertensivos-alfa-agonistas',
+    label: 'Anti-hipertensivos — Alfa-agonistas Centrais',
+    color: 'teal-500',
+    icon: '🧠',
+    drugs: antiHipertensivosAlfaAgonistas,
+  },
+  {
+    id: 'anti-hipertensivos-betabloqueadores',
+    label: 'Anti-hipertensivos — Betabloqueadores',
+    color: 'indigo-500',
+    icon: '❤️',
+    drugs: antiHipertensivosBetaBloqueadores,
   },
 ];
 
