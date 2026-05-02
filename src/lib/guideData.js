@@ -29,6 +29,7 @@ import { antiespasmódicos, antieméticos } from './guideDataAntiespasmAdicos.js
 import { antiacidos, antagonistasH2, ibp } from './guideDataGastro.js';
 import { antiflatulentes, laxantesFibras, laxantesCatarticos, antidiarreicos } from './guideDataGastro2.js';
 import { probioticos, proctologicos, outrasGastro } from './guideDataProbioticos.js';
+import { vitaminas, minerais } from './guideDataVitaminas.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1819,6 +1820,13 @@ export const ALL_CATEGORIES = [
     color: 'pink-500',
     icon: '🦠',
     drugs: [...probioticos, ...proctologicos, ...outrasGastro],
+  },
+  {
+    id: 'vitaminas-minerais',
+    label: 'Vitaminas e Suplementos Minerais',
+    color: 'yellow-500',
+    icon: '🌟',
+    drugs: [...vitaminas, ...minerais],
   },
 ];
 
