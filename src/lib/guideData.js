@@ -40,6 +40,8 @@ import { iecaDrugs } from './guideDataIECA.js';
 import { anestesicosSistemicos } from './guideDataAnestesicosSistemicos.js';
 import { anestesicosLocais, curares } from './guideDataAnestesicosLocaisCurares.js';
 import { antiHipertensivosOutros, antiHipertensivosVasodilatadores, antiHipertensivosAlfaBloqueadores, antiHipertensivosAlfaAgonistas, antiHipertensivosBetaBloqueadores } from './guideDataAntiHipertensivos.js';
+import { diureticosTiazidicos, diureticosAlca, diureticosPoupadores, outrosDiureticos } from './guideDataDiureticos.js';
+import { antagonistasCalcio } from './guideDataAntagonistasCalcio.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1949,6 +1951,41 @@ export const ALL_CATEGORIES = [
     color: 'indigo-500',
     icon: '❤️',
     drugs: antiHipertensivosBetaBloqueadores,
+  },
+  {
+    id: 'antagonistas-calcio',
+    label: 'Anti-hipertensivos — Antagonistas do Cálcio',
+    color: 'cyan-500',
+    icon: '🫀',
+    drugs: antagonistasCalcio,
+  },
+  {
+    id: 'diureticos-tiazidicos',
+    label: 'Diuréticos Tiazídicos',
+    color: 'blue-500',
+    icon: '💧',
+    drugs: diureticosTiazidicos,
+  },
+  {
+    id: 'diureticos-alca',
+    label: 'Diuréticos de Alça',
+    color: 'teal-500',
+    icon: '🌊',
+    drugs: diureticosAlca,
+  },
+  {
+    id: 'diureticos-poupadores',
+    label: 'Diuréticos Poupadores de Potássio',
+    color: 'green-500',
+    icon: '🧪',
+    drugs: diureticosPoupadores,
+  },
+  {
+    id: 'outros-diureticos',
+    label: 'Outros Diuréticos (Acetazolamida, Manitol, Metolazona)',
+    color: 'indigo-500',
+    icon: '⚗️',
+    drugs: outrosDiureticos,
   },
 ];
 
