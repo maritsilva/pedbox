@@ -1,0 +1,775 @@
+export const antimalaricosDrugs = [
+  {
+    id: 'artemeter-lumefantrina',
+    name: 'Arteméter + Lumefantrina',
+    category: 'antimaláricos',
+    observations: 'Derivado de artemisinina associado a quinolinometanol, ambos esquizonticidas. Dar 8 horas de intervalo entre a primeira e a segunda dose. As doses restantes são administradas de manhã e à noite, com 12 horas de intervalo. Para crianças, esmagar o comprimido e misturar com água.',
+    brands: ['Coartem — comp. 20 + 120 mg'],
+    presentations: [{ label: 'Comprimido 20 + 120 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças > 6 meses — Malária por P. falciparum não complicada',
+        items: [
+          { label: '5–14 kg', value: '1 comprimido (20 + 120 mg), 2×/dia por 3 dias' },
+          { label: '15–24 kg', value: '2 comprimidos (40 + 240 mg), 2×/dia por 3 dias' },
+          { label: '25–34 kg', value: '3 comprimidos (60 + 360 mg), 2×/dia por 3 dias' },
+          { label: '≥ 35 kg', value: '4 comprimidos (80 + 480 mg), 2×/dia por 3 dias' },
+        ],
+      },
+    ],
+    preparation: 'Melhor tomar durante ou após refeição.',
+    sensitivity: { susceptible: ['Plasmodium falciparum'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cefaleia', 'Insônia', 'Fadiga', 'Tontura', 'Astenia',
+      'Náusea', 'Vômito', 'Diarreia', 'Perda de apetite', 'Dispepsia', 'Dor abdominal',
+      'Artralgia', 'Mialgia', 'Erupção cutânea', 'Palpitação', 'Prolongamento do intervalo QT',
+      'Esplenomegalia', 'Hepatomegalia', 'Tosse', 'Febre',
+    ],
+    contraindications: ['Primeiro trimestre de gestação'],
+  },
+  {
+    id: 'artesunato',
+    name: 'Artesunato',
+    category: 'antimaláricos',
+    observations: 'Esquizonticida e gametocitocida derivado de artemisinina, potente e com rápida ação nas formas assexuadas. Reconstituir em 1 mL de bicarbonato 5% e diluir com 5 mL (EV) ou 2 mL (IM) de SGI 5% ou SF 0,9%. Usar imediatamente. Para EV, administrar em 3–4 mL/minuto.',
+    brands: ['Frasco-ampola 60 mg'],
+    presentations: [{ label: 'Frasco-ampola 60 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças — Malária grave por P. falciparum',
+        items: [
+          { label: '< 20 kg', value: '3 mg/kg/dose' },
+          { label: '≥ 20 kg', value: '2,4 mg/kg/dose' },
+          { label: 'Esquema', value: '4 doses EV (ou IM): 1ª dose de ataque, + 2 doses com 12 h de intervalo, + 4ª dose após o 3º dia. Passar para oral ou continuar 1 dose/dia por no máximo 7 dias.' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Plasmodium falciparum — formas graves'], resistant: [], warning: '' },
+    sideEffects: [
+      'Neurotoxicidade', 'Tontura', 'BAV', 'Taquicardia', 'Agranulocitose',
+      'Náusea', 'Vômitos', 'Diarreia', 'Aumento de transaminases', 'Redução transitória de reticulócitos',
+    ],
+    contraindications: [],
+  },
+  {
+    id: 'artesunato-mefloquina',
+    name: 'Artesunato + Mefloquina',
+    category: 'antimaláricos',
+    observations: 'Derivado de artemisinina associado a quinolinometanol, ambos esquizonticidas. Para crianças, esmagar o comprimido e misturar com água. Melhor tomar durante ou após refeição.',
+    brands: [
+      'Comprimido revestido adulto 100 + 200 mg',
+      'Comprimido revestido infantil 25 + 50 mg',
+    ],
+    presentations: [
+      { label: 'Comprimido adulto 100 + 200 mg' },
+      { label: 'Comprimido infantil 25 + 50 mg' },
+    ],
+    doses: [
+      {
+        group: 'Adultos e crianças > 6 meses — Malária por P. falciparum não complicada',
+        items: [
+          { label: '5–8 kg', value: '25 + 55 mg — 1 comp. infantil ao dia por 3 dias' },
+          { label: '9–17 kg', value: '50 + 110 mg — 2 comp. infantis ao dia por 3 dias' },
+          { label: '18–29 kg', value: '100 + 220 mg — 1 comp. adulto ao dia por 3 dias' },
+          { label: '≥ 30 kg', value: '200 + 440 mg — 2 comp. adultos ao dia por 3 dias' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Plasmodium falciparum não complicada'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cefaleia', 'Insônia', 'Fadiga', 'Tontura', 'Disforia', 'Pode aumentar risco de suicídio',
+      'Palpitação', 'Náusea', 'Vômitos', 'Anorexia', 'Dispepsia', 'Dor abdominal', 'Erupção cutânea',
+    ],
+    contraindications: ['Primeiro trimestre de gestação'],
+  },
+  {
+    id: 'atovaquona-proguanil',
+    name: 'Atovaquona + Proguanil',
+    category: 'antimaláricos',
+    observations: 'Antimalárico usado para profilaxia e tratamento da malária, principalmente em áreas de P. falciparum resistente. Como profilático em viagem de alto risco, iniciar 1 dia antes e manter até 7 dias após retorno.',
+    brands: [
+      'Malarone — comp. 250 + 100 mg; comp. pediátrico 62,5 + 25 mg',
+    ],
+    presentations: [
+      { label: 'Comprimido 250 + 100 mg' },
+      { label: 'Comprimido pediátrico 62,5 + 25 mg' },
+    ],
+    doses: [
+      {
+        group: 'Adultos e crianças — Malária por P. falciparum resistente',
+        items: [
+          { label: '5–8 kg — Profilaxia', value: '31,25 + 12,5 mg' },
+          { label: '5–8 kg — Tratamento (3 dias)', value: '125 + 50 mg' },
+          { label: '9–10 kg — Profilaxia', value: '46,8 + 18,75 mg' },
+          { label: '9–10 kg — Tratamento (3 dias)', value: '187,5 + 75 mg' },
+          { label: '11–20 kg — Profilaxia', value: '62,5 + 25 mg' },
+          { label: '11–20 kg — Tratamento (3 dias)', value: '250 + 100 mg' },
+          { label: '21–30 kg — Profilaxia', value: '125 + 50 mg' },
+          { label: '21–30 kg — Tratamento (3 dias)', value: '500 + 200 mg' },
+          { label: '31–40 kg — Profilaxia', value: '187,5 + 75 mg' },
+          { label: '31–40 kg — Tratamento (3 dias)', value: '750 + 300 mg' },
+          { label: '> 40 kg — Profilaxia', value: '250 + 100 mg' },
+          { label: '> 40 kg — Tratamento (3 dias)', value: '1000 + 400 mg' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Plasmodium falciparum resistente'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cefaleia', 'Distúrbios do sono', 'Fadiga', 'Febre', 'Tontura',
+      'Diarreia', 'Dispepsia', 'Náusea', 'Vômitos', 'Dor abdominal', 'Anorexia',
+      'Aumento de transaminases', 'Exantema', 'Prurido', 'Angioedema', 'Fotossensibilidade',
+      'Neutropenia', 'Pancitopenia', 'Hepatite', 'Palpitações', 'Tosse',
+    ],
+    contraindications: ['Gestação', 'Insuficiência renal grave'],
+  },
+  {
+    id: 'cloroquina',
+    name: 'Cloroquina',
+    category: 'antimaláricos',
+    observations: '4-aminoquinolina esquizonticida de ação rápida. Tratamento da malária não complicada por P. vivax e P. malariae isolado. Para P. falciparum, só se a região for sensível. Efeito antipirético. Usada também em artrite reumatoide, lúpus e osteoartrites. Cada 250 mg de difosfato de cloroquina equivalem a 150 mg de cloroquina base.',
+    brands: ['Cloroquina — comp. 150 mg'],
+    presentations: [{ label: 'Comprimido 150 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças — Malária não complicada por P. vivax, P. ovale e P. malariae',
+        items: [
+          { label: 'Cloroquina por 3 dias', value: '10 mg/kg/dia no 1º dia; 7,5 mg/kg/dia nos dias 2 e 3. Ou 10 mg/kg + 5 mg/kg após 6 h (total 25 mg/kg em 3 dias). Associar primaquina.' },
+          { label: 'Profilaxia de P. vivax ou P. ovale', value: '5 mg/kg/dose semanal — iniciar 1–2 semanas antes e manter até 4–8 semanas após retorno' },
+          { label: 'Evitar recaída frequente (P. vivax/ovale)', value: '5 mg/kg/dose mensal por 12 semanas' },
+          { label: 'Amebíase extraintestinal', value: '600 mg/dia por 2 dias; depois 300 mg/dia por 2–3 semanas' },
+        ],
+      },
+    ],
+    preparation: 'Melhor tomar durante ou após refeição. Para crianças: esmagar e dissolver em 10 mL de água, administrar com seringa. Tomar primaquina e cloroquina separadamente.',
+    renalAdjustment: [{ label: 'ClCr < 10 mL/min', value: '50% da dose' }],
+    sensitivity: { susceptible: ['P. vivax, P. malariae, P. ovale, cepas sensíveis de P. falciparum'], resistant: [], warning: '' },
+    sideEffects: [
+      'Náusea', 'Vômitos', 'Diarreia', 'Irritação gástrica', 'Estomatite',
+      'Fadiga', 'Lassidão', 'Cefaleia', 'Vertigem', 'Confusão', 'Psicose',
+      'Visão turva', 'Diplopia', 'Neuromiopatia', 'Mialgia', 'Retinopatia',
+      'Prurido (às vezes intenso — palmas e plantas)', 'Exantema',
+      'Coloração azulada no palato e unhas', 'Exacerbação de psoríase', 'Porfiria',
+      'Anemia aplásica', 'Depressão medular (muito raro)',
+      'EV: risco de hipotensão e colapso vascular (pode ser fatal)',
+    ],
+    contraindications: ['Retinopatia'],
+  },
+  {
+    id: 'halofantrina',
+    name: 'Halofantrina',
+    category: 'antimaláricos',
+    observations: '4-aminoquinolina esquizonticida sanguíneo. Reservado para casos de resistência à cloroquina. Usar apenas para cepas resistentes. Melhor tomar em jejum (1 h antes ou 2 h após refeição).',
+    brands: ['Halfan — comp. revestido 250 mg'],
+    presentations: [{ label: 'Comprimido revestido 250 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças > 10 anos — Malária resistente à cloroquina',
+        items: [
+          { label: 'Dose', value: '3 doses de 8 mg/kg/dose (máx 500 mg/dose) com intervalo de 6 h. Total: 24 mg/kg. Repetir as 3 doses 7 dias depois.' },
+          { label: 'P. vivax', value: 'Associar primaquina para eliminar parasitas exoeritrocíticos.' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['P. falciparum e P. vivax resistentes à cloroquina'], resistant: [], warning: '' },
+    sideEffects: [
+      'Aumento do intervalo QTc', 'Arritmias ventriculares graves', 'Palpitações', 'Hipotensão postural',
+      'Diarreia', 'Náusea', 'Vômito', 'Dor abdominal', 'Anorexia', 'Estomatite',
+      'Tosse', 'Erupção cutânea', 'Prurido', 'Angioedema',
+      'Cefaleia', 'Tontura', 'Convulsões', 'Febre', 'Fadiga', 'Astenia',
+      'Elevação de transaminases',
+    ],
+    contraindications: [
+      'Gestantes', 'Crianças < 10 anos', 'Cardiopatas', 'QT prolongado',
+      'Uso com drogas que prolongam QT', 'Menores de 40 kg',
+      'Não associar com mefloquina',
+    ],
+  },
+  {
+    id: 'mefloquina',
+    name: 'Mefloquina',
+    category: 'antimaláricos',
+    observations: '4-aminoquinolina esquizonticida sanguíneo. Usada para todas as espécies resistentes de P. falciparum. Melhor tomar junto com alimentos.',
+    brands: ['Mefoquin — comp. 250 mg'],
+    presentations: [{ label: 'Comprimido 250 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças — Malária falciparum resistente ou P. vivax resistente à cloroquina',
+        items: [
+          { label: 'Tratamento (> 20 mg/kg)', value: '1250 mg divididos em: 1ª dose 750 mg; 2ª dose 500 mg, 6–12 h depois. P. vivax: associar primaquina.' },
+          { label: 'Profilaxia', value: '250 mg ou 5 mg/kg/dose semanal — iniciar 1 semana antes até 4 semanas após a volta' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Plasmodium falciparum resistente', 'P. vivax resistente à cloroquina'], resistant: [], warning: '' },
+    sideEffects: [
+      'Convulsões', 'Psicose', 'Obnubilação', 'Confusão', 'Pesadelos', 'Mialgia',
+      'Cefaleia', 'Vertigem', 'Náusea', 'Vômito', 'Anorexia', 'Dor abdominal',
+      'Exantema', 'Leucopenia', 'Trombocitopenia', 'Aumento de TGO/TGP',
+      'Arritmia', 'Cardiotoxicidade',
+    ],
+    contraindications: ['Neuropatia', 'Convulsão', 'Miocardiopatia', 'Arritmia', 'Primeiro trimestre de gestação'],
+  },
+  {
+    id: 'primaquina',
+    name: 'Primaquina',
+    category: 'antimaláricos',
+    observations: '8-aminoquinolina gametocitocida e hipnozoiticida. Bloqueia transmissão e é esquizonticida da forma hepática. Útil para profilaxia radical de infecções recidivantes. Tomar primaquina e cloroquina separadamente. Interromper se aparecer icterícia. 26,3 mg de fosfato de primaquina equivalem a 15 mg de primaquina base.',
+    brands: ['Primaquina — comp. 5 e 15 mg'],
+    presentations: [{ label: 'Comprimido 5 mg' }, { label: 'Comprimido 15 mg' }],
+    doses: [
+      {
+        group: 'Crianças',
+        items: [
+          { label: 'Esquema 7 dias', value: '0,5 mg/kg/dia por 7 dias' },
+          { label: 'Esquema 14 dias', value: '0,25 mg/kg/dia por 14 dias' },
+          { label: '5–9 kg (7 dias)', value: '1 comp. no 1º dia, depois 1/2 comp./dia' },
+          { label: '5–9 kg (14 dias)', value: '1/4 comp./dia' },
+          { label: '10–14 kg (7 dias)', value: '1 comp./dia' },
+          { label: '10–14 kg (14 dias)', value: '1/2 comp./dia' },
+          { label: '15–24 kg (7 dias)', value: '2 comp./dia' },
+          { label: '15–24 kg (14 dias)', value: '1 comp./dia' },
+          { label: '25–34 kg (7 dias)', value: '3 comp./dia' },
+          { label: '25–34 kg (14 dias)', value: '1 e 1/2 comp./dia' },
+          { label: '35–50 kg (7 dias)', value: '4 comp./dia' },
+          { label: '35–50 kg (14 dias)', value: '2 comp./dia' },
+        ],
+      },
+      {
+        group: 'Adultos',
+        items: [
+          { label: 'Malária aguda P. ovale ou P. vivax — esquema curto', value: '30 mg/dia por 7 dias, associada à cloroquina' },
+          { label: 'Malária aguda P. ovale ou P. vivax — esquema longo', value: '15 mg/dia por 14 dias, associada à cloroquina' },
+          { label: 'Infecção mista com P. falciparum', value: 'Iniciar arteméter + lumefantrina ou artesunato + mefloquina por 3 dias; depois introduzir primaquina por 7 dias' },
+          { label: 'Deficiência de G6PD', value: '0,75 mg/kg/dose (máx 45 mg/dose) semanal por 8 semanas' },
+          { label: 'Gametocitocida / bloqueio de transmissão', value: '0,75 mg/kg, dose única, no 2º dia de arteméter ou artesunato' },
+        ],
+      },
+    ],
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+    sensitivity: { susceptible: ['Formas hepáticas e gametócitos de P. vivax e P. ovale'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cefaleia', 'Arritmia', 'Hipertensão', 'Vômito', 'Dor abdominal', 'Diarreia',
+      'Fraqueza', 'Mal-estar', 'Coriza',
+      'Colapso se associado a drogas com efeito hemolítico',
+      'Meta-hemoglobinemia', 'Hemólise grave na deficiência de G6PD',
+    ],
+    contraindications: [
+      'Gestantes', 'Crianças < 6 meses', 'Risco de hemólise',
+      'Granulocitopenia', 'Lúpus', 'Artrite reumatoide ativa',
+    ],
+  },
+  {
+    id: 'quinina',
+    name: 'Quinina',
+    category: 'antimaláricos',
+    observations: '4-aminoquinolina. Primeira escolha para malária não complicada por P. falciparum. Esquizonticida sanguíneo. Gametocida para P. vivax, mas não para P. falciparum. Sempre associar com antibiótico (clindamicina, doxiciclina ou tetraciclina). EV: diluir em 10 mL/kg de SGI 5% e correr em 4 horas.',
+    brands: ['Sulfato de quinina — comp. 500 mg (600 mg de sulfato ≡ 500 mg de quinina base)'],
+    presentations: [{ label: 'Comprimido 500 mg' }],
+    doses: [
+      {
+        group: 'Crianças — Malária resistente à cloroquina',
+        items: [
+          { label: 'Oral', value: '8 mg/kg/dose, 3×/dia, associada à clindamicina ou doxiciclina' },
+        ],
+      },
+      {
+        group: 'Adultos — Malária resistente à cloroquina',
+        items: [
+          { label: 'Oral', value: '500 mg/dose, 3×/dia, associada à clindamicina, doxiciclina ou tetraciclina' },
+          { label: 'EV', value: '600 mg/dose ou 10 mg/kg/dose em 4 h. Se repetir a cada 8 h, fazer metade da dose em infusão contínua 0,02 mg/kg/min por 72 h. Passar para oral assim que possível.' },
+          { label: 'Malária grave por falciparum', value: 'EV: 20 mg/kg/dia em 3 doses, associar clindamicina' },
+          { label: 'Malária grave em < 6 meses e gestantes + clindamicina', value: 'EV: ataque 20 mg/kg, depois a cada 8 h (cada dose em 4 h). Diluir para 2 mg/mL em SGI 5%. Passar para oral 10 mg/kg/dose 3×/dia para completar 7 dias. Associar clindamicina 20 mg/kg/dia em 4 doses por 7 dias.' },
+        ],
+      },
+    ],
+    renalAdjustment: [
+      { label: 'ClCr 10–50 mL/min', value: '1 dose a cada 12 h' },
+      { label: 'ClCr < 10 mL/min', value: '1 dose a cada 24 h' },
+    ],
+    sensitivity: { susceptible: ['Plasmodium falciparum — primeira escolha'], resistant: [], warning: 'Atenção para cepas resistentes de P. falciparum.' },
+    sideEffects: [
+      'Tontura', 'Zumbido', 'Visão embaçada', 'Tremores', 'Cefaleia', 'Febre',
+      'Inquietação', 'Delírio', 'Síncope', 'Excitação', 'Perda da audição', 'Vertigem',
+      'Cinchonismo', 'Neuropatia periférica',
+      'Cardiotoxicidade EV', 'Arritmia', 'Angina', 'BAV',
+      'Angioedema', 'Erupção cutânea', 'Mialgia',
+      'Náusea', 'Vômitos', 'Diarreia', 'Boca amarga', 'Dor abdominal',
+      'Hipoglicemia por hiperinsulinemia', 'Hematúria', 'Anemia',
+      'Púrpura', 'Plaquetopenia', 'Protrombina reduzida', 'Agranulocitose',
+    ],
+    contraindications: [],
+  },
+];
+
+export const antiparasitariosDrugs = [
+  {
+    id: 'albendazol',
+    name: 'Albendazol',
+    category: 'antiparasitários',
+    observations: 'Anti-helmíntico benzimidazol de amplo espectro, principalmente contra nematódeos. Melhor tomar com alimentos gordurosos. Controlar parasitológico após 3–4 semanas. Evitar em < 2 anos.',
+    brands: [
+      'Albendazol — comp. mastigável 400 mg; suspensão oral 400 mg/10 mL',
+    ],
+    presentations: [
+      { label: 'Comprimido mastigável 400 mg' },
+      { label: 'Suspensão oral 400 mg/10 mL' },
+    ],
+    doses: [
+      {
+        group: 'Adultos e crianças > 2 anos',
+        items: [
+          { label: 'Ancilostomíase, necatoríase, ascaridíase, enterobíase', value: '400 mg em dose única. Repetir em 14 dias. Casos graves: 3–5 dias.' },
+          { label: 'Estrongiloidíase, teníase, tricuríase', value: '400 mg/dia por 3 dias' },
+          { label: 'Larva migrans cutânea', value: '400 mg/dia por 3 dias (maior eficácia com tiabendazol pomada local)' },
+          { label: 'Larva migrans visceral / toxocaríase', value: '15 mg/kg/dia ÷ 2 doses (máx 400 mg/dose) por 5 dias' },
+          { label: 'Cisticercose', value: '15 mg/kg/dia ÷ 2 (máx 400 mg/dose) por 8–30 dias + dexametasona 6 mg/dia ou prednisona 40–60 mg/dia' },
+          { label: 'Neurocisticercose', value: '15 mg/kg/dia ÷ 2 (máx 800 mg/dia) por 8–21 dias + corticoide + anticonvulsivante (1ª semana)' },
+          { label: 'Equinococose / hidatidose', value: '15 mg/kg/dia ÷ 2 (máx 800 mg/dia) por 1–6 meses' },
+          { label: 'Triquinelose', value: '15 mg/kg/dia ÷ 2 (máx 800 mg/dia) por 8–14 dias' },
+          { label: 'Microsporidíase na AIDS', value: '400 mg/dose 2×/dia por 3 semanas' },
+          { label: 'Giardíase', value: '10–15 mg/kg/dia (máx 400 mg/dia) por 5 dias. Maior eficácia com metronidazol.' },
+        ],
+      },
+    ],
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+    sensitivity: { susceptible: ['Nematódeos intestinais, Giardia, Taenia, larvas de cestódeos'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cefaleia', 'Tontura', 'Vertigem', 'Aumento de pressão intracraniana', 'Febre', 'Convulsões',
+      'Diarreia', 'Náusea', 'Vômito', 'Dor abdominal', 'Boca seca',
+      'Prurido', 'Erupção cutânea', 'Urticária', 'Alopecia reversível',
+      'Leucopenia', 'Pancitopenia', 'Depressão medular',
+      'Aumento de transaminases', 'Hepatotoxicidade', 'Disfunção renal aguda',
+      'Pode provocar migração de áscaris pela boca e nariz',
+      'Tratamentos prolongados: monitorar transaminases e hemograma',
+    ],
+    contraindications: ['Gravidez (teratogênico)', 'Menores de 2 anos'],
+  },
+  {
+    id: 'antimoniato-meglumina',
+    name: 'Antimoniato de Meglumina',
+    category: 'antiparasitários',
+    observations: 'Antimonial pentavalente usado em leishmaniose. 300 mg de antimoniato de meglumina correspondem a 81 mg de antimônio pentavalente. Por EV: diluir em 50–100 mL de SF ou SGI e infundir em 5–15 min. IM profunda se plaquetas > 50.000/mm³. Monitorar semanalmente: hemograma, transaminases, FA, creatinina, eletrólitos, amilase, ureia e ondas T.',
+    brands: ['Glucantime — ampola 300 mg/mL'],
+    presentations: [{ label: 'Ampola 300 mg/mL' }],
+    doses: [
+      {
+        group: 'Adultos e crianças — Leishmaniose',
+        items: [
+          { label: 'Visceral ou tegumentar (EV ou IM)', value: '10–20 mg/kg/dia (máx 3 ampolas = 15 mL/dia). > 50 kg: dose fixa de 5 ampolas.' },
+          { label: 'Cutânea', value: '20 dias' },
+          { label: 'Mucocutânea', value: '30 dias' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Leishmania spp.'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cardiotoxicidade', 'Alargamento do QT', 'Depressão de ST', 'Inversão de T',
+      'Distúrbios de condução', 'Arritmias',
+      'Artralgia', 'Mialgia', 'Febre', 'Erupção cutânea',
+      'Irritação gástrica', 'Náusea', 'Vômitos', 'Anorexia', 'Epigastralgia', 'Empachamento',
+      'Trombose venosa', 'Distúrbio renal', 'Pancreatite',
+    ],
+    contraindications: [
+      'QTc > 450', 'Uso de drogas que prolongam QT', 'Transaminases elevadas',
+      'Transplantados', 'Gestantes', 'Distúrbio renal ou hepático grave',
+    ],
+  },
+  {
+    id: 'dietilcarbamazina',
+    name: 'Dietilcarbamazina',
+    category: 'antiparasitários',
+    observations: 'Anti-helmíntico derivado da piperazina com rápido efeito por via oral. A maior parte dos efeitos adversos é devida à eliminação dos vermes no sistema linfático. Melhor tomar logo após as refeições.',
+    brands: ['Dietilcarbamazina — comp. 50 mg'],
+    presentations: [{ label: 'Comprimido 50 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças > 2 anos',
+        items: [
+          { label: 'Filariose', value: '6 mg/kg/dia ÷ 1–3 doses por 12–21 dias. Pode iniciar com 1 mg/kg/dia e aumentar progressivamente.' },
+          { label: 'Loíase', value: '8–10 mg/kg/dia ÷ 1–3 doses por 14–21 dias. Repetir se necessário.' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Wuchereria bancrofti', 'Loa loa', 'Brugia spp.'], resistant: [], warning: '' },
+    sideEffects: [
+      'Sonolência', 'Cefaleia', 'Mialgia', 'Astenia', 'Tontura',
+      'Desconforto gástrico', 'Náusea', 'Febre', 'Dor', 'Edema',
+      'Hiperemia', 'Hematúria', 'Linfangites', 'Linfadenites',
+    ],
+    contraindications: ['Hipertensão não controlada', 'Doença renal'],
+  },
+  {
+    id: 'ivermectina',
+    name: 'Ivermectina',
+    category: 'antiparasitários',
+    observations: 'Antiparasitário de amplo espectro, eficaz em baixas doses. Primeira escolha para Ancylostoma caninum, Onchocerca volvulus, Strongyloides stercoralis e Sarcoptes scabiei. Melhor tomar com água, com ou sem alimentos. Controlar parasitológico após 2–4 semanas.',
+    brands: ['Ivermectina — comp. 6 mg'],
+    presentations: [{ label: 'Comprimido 6 mg' }],
+    doses: [
+      {
+        group: 'Adultos e crianças > 15 kg',
+        items: [
+          { label: 'Ascaridíase', value: '150–200 µg/kg, dose única' },
+          { label: 'Estrongiloidíase, larva migrans cutânea', value: '200 µg/kg/dia por 1–2 dias' },
+          { label: 'Enterobíase / tricuríase', value: '200 µg/kg/dia por 1–3 dias' },
+          { label: 'Oncocercose', value: '150 µg/kg dose única + doxiciclina 200 mg/dia por 6 semanas. Repetir a cada 3–6 meses se necessário.' },
+          { label: 'Filariose', value: '200–400 µg/kg, dose única. Mais eficaz associada à dietilcarbamazina.' },
+          { label: 'Escabiose / sarna e pediculose', value: '200 µg/kg, dose única. Repetir após 7–14 dias.' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Strongyloides, Onchocerca, Sarcoptes, Ancylostoma caninum, Wuchereria, Pediculosis'], resistant: [], warning: '' },
+    sideEffects: [
+      'Fadiga', 'Fraqueza', 'Cefaleia', 'Febre', 'Insônia', 'Sonolência', 'Vertigem', 'Tontura',
+      'Conjuntivite', 'Visão borrada', 'Náusea', 'Diarreia', 'Dor abdominal', 'Anorexia', 'Constipação',
+      'Hipotensão', 'Taquicardia', 'Edema',
+      'Reações às larvas mortas nas microfilarioses (Mazzotti)', 'Reações oftalmológicas',
+      'Artralgia', 'Sinovite', 'Linfadenomegalia',
+      'Urticária', 'Prurido', 'Erupção cutânea', 'Leucopenia', 'Eosinofilia',
+    ],
+    contraindications: ['Primeiro trimestre de gravidez', 'Lactação', 'Crianças < 15 kg'],
+  },
+  {
+    id: 'levamisol',
+    name: 'Levamisol',
+    category: 'antiparasitários',
+    observations: 'Anti-helmíntico específico para ascaridíase quando a parasitose for isolada. Alternativa na ancilostomíase. Imunomodulador. Melhor tomar meia hora antes das refeições.',
+    brands: ['Ascaridil — comp. 80 e 150 mg'],
+    presentations: [{ label: 'Comprimido 80 mg' }, { label: 'Comprimido 150 mg' }],
+    doses: [
+      {
+        group: 'Crianças',
+        items: [
+          { label: '< 1 ano', value: '40 mg em dose única' },
+          { label: '1–7 anos', value: '80 mg em dose única' },
+          { label: '> 7 anos', value: '150 mg em dose única' },
+        ],
+      },
+      {
+        group: 'Adultos — Ascaridíase / Ancilostomíase',
+        items: [
+          { label: 'Dose', value: '150 mg em dose única' },
+        ],
+      },
+    ],
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+    sensitivity: { susceptible: ['Ascaris lumbricoides', 'Ancylostoma duodenale', 'Necator americanus'], resistant: [], warning: '' },
+    sideEffects: ['Cefaleia', 'Vertigem', 'Tontura', 'Sonolência', 'Depressão', 'Náusea', 'Vômitos', 'Diarreia', 'Dor abdominal', 'Gosto metálico'],
+    contraindications: ['1º e 2º trimestre de gravidez', 'Lactação', 'Hepatopatia', 'Nefropatia grave'],
+  },
+  {
+    id: 'mebendazol',
+    name: 'Mebendazol',
+    category: 'antiparasitários',
+    observations: 'Anti-helmíntico benzimidazol de amplo espectro contra helmintíases intestinais. Mais seletivo que albendazol contra nematódeos. Melhor tomar com alimentos.',
+    brands: [
+      'Mebendazol — comp. 100 e 500 mg; suspensão oral 100 mg/5 mL',
+      'Mebendazol + Tiabendazol — comp. 100 + 166 mg; suspensão 100 + 166 mg/5 mL; creme 200 + 332 mg/g',
+    ],
+    presentations: [
+      { label: 'Comprimido 100 mg' },
+      { label: 'Comprimido 500 mg' },
+      { label: 'Suspensão oral 100 mg/5 mL' },
+    ],
+    doses: [
+      {
+        group: 'Adultos e crianças > 2 anos',
+        items: [
+          { label: 'Ancilostomíase, ascaridíase, estrongiloidíase, necatoríase, tricuríase', value: '100 mg/dose 2×/dia por 3 dias; ou 500 mg em dose única' },
+          { label: 'Capilaríase', value: '200 mg/dose 2×/dia por 20 dias' },
+          { label: 'Enterobíase', value: '100 mg em dose única; repetir após 2 semanas' },
+          { label: 'Equinococose / hidatidose', value: '40–50 mg/kg/dia ÷ 3 doses por 3–6 meses (preferir albendazol)' },
+          { label: 'Teníase', value: '200 mg/dose 2×/dia por 3 dias' },
+          { label: 'Larva migrans visceral / toxocaríase', value: '100–200 mg/dose 2×/dia por 5 dias' },
+          { label: 'Giardíase', value: '200 mg/dose 3×/dia por 5 dias' },
+        ],
+      },
+    ],
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+    sensitivity: { susceptible: ['Nematódeos intestinais', 'Giardia', 'Taenia'], resistant: [], warning: '' },
+    sideEffects: [
+      'Tontura', 'Cefaleia', 'Febre', 'Convulsão',
+      'Dor abdominal', 'Diarreia', 'Náusea', 'Vômitos',
+      'Prurido', 'Erupção cutânea', 'Exantema', 'Angioedema', 'Queda de cabelos',
+      'Neutropenia', 'Anemia', 'Leucopenia', 'Aumento de transaminases', 'Hematúria',
+    ],
+    contraindications: ['Gestação (teratogênico)'],
+  },
+  {
+    id: 'miltefosina',
+    name: 'Miltefosina',
+    category: 'antiparasitários',
+    observations: 'Análogo da aquifosfocolina. Única opção via oral para tratamento da leishmaniose. Não produzido no Brasil. Monitorar função renal e hepática durante o uso.',
+    brands: ['Impavido'],
+    presentations: [{ label: 'Cápsulas (não disponíveis no Brasil)' }],
+    doses: [
+      {
+        group: 'Adultos — Leishmaniose resistente',
+        items: [
+          { label: 'Dose', value: '2,5 mg/kg/dia (máx 150 mg/dia) por 28 dias' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Leishmania spp. resistente'], resistant: [], warning: '' },
+    sideEffects: ['Erupção cutânea', 'Prurido', 'Náusea', 'Vômito', 'Anorexia', 'Dor abdominal', 'Leucocitose', 'Trombocitose'],
+    contraindications: ['Gravidez', 'Disfunção renal ou hepática'],
+  },
+  {
+    id: 'nitazoxanida',
+    name: 'Nitazoxanida',
+    category: 'antiparasitários',
+    observations: 'Nitrotiazol antimicrobiano de amplo espectro, ativo contra bactérias anaeróbias, protozoários e vírus intestinais. Mais eficaz tomada com alimentos.',
+    brands: [
+      'Annita / Nitazoxanida — comp. revestido 500 mg; suspensão oral 100 mg/5 mL',
+    ],
+    presentations: [
+      { label: 'Comprimido revestido 500 mg' },
+      { label: 'Suspensão oral 100 mg/5 mL' },
+    ],
+    doses: [
+      {
+        group: 'Crianças',
+        items: [
+          { label: 'Dose geral', value: '7,5 mg/kg/dose 2×/dia por 3 dias' },
+          { label: '1–3 anos', value: '100 mg/dose 2×/dia por 3 dias' },
+          { label: '4–11 anos', value: '200 mg/dose 2×/dia por 3 dias' },
+        ],
+      },
+      {
+        group: 'Adultos e > 12 anos',
+        items: [
+          { label: 'Parasitoses / diarreias virais', value: '500 mg/dose 2×/dia por 3 dias' },
+          { label: 'Amebíase', value: '500 mg/dose 2×/dia por 10 dias' },
+          { label: 'Criptosporidíase na AIDS', value: '500–1000 mg/dose 2×/dia por até 6 dias' },
+          { label: 'Colite por Clostridium difficile', value: '500 mg/dose 2×/dia por 7–10 dias' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Protozoários, vírus intestinais, anaeróbios, Giardia, Cryptosporidium, C. difficile'], resistant: [], warning: '' },
+    sideEffects: [
+      'Náusea', 'Vômitos', 'Dor ou desconforto abdominal', 'Diarreia', 'Cefaleia',
+      'Anorexia ou aumento do apetite', 'Febre', 'Prurido', 'Tontura',
+      'Cor amarela ou esverdeada da urina', 'Aumento discreto de transaminases',
+    ],
+    contraindications: [],
+  },
+  {
+    id: 'oxamniquina',
+    name: 'Oxamniquina',
+    category: 'antiparasitários',
+    observations: 'Tratamento de Schistosoma mansoni. Pode ser difícil de encontrar mesmo na rede pública. Melhor tomar após refeição. Recomendar repouso de 3 horas após o uso.',
+    brands: ['Oxamniquina — suspensão oral 50 mg/mL'],
+    presentations: [{ label: 'Suspensão oral 50 mg/mL' }],
+    doses: [
+      {
+        group: 'Crianças > 2 anos',
+        items: [
+          { label: 'Esquistossomose', value: '20 mg/kg em dose única ou 2 tomadas com 3 h de intervalo' },
+        ],
+      },
+      {
+        group: 'Adultos — Esquistossomose',
+        items: [
+          { label: 'Dose', value: '15 mg/kg em dose única (máx 1500 mg)' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Schistosoma mansoni'], resistant: [], warning: '' },
+    sideEffects: [
+      'Tontura', 'Cefaleia', 'Sonolência', 'Excitação', 'Alucinação', 'Irritabilidade',
+      'Febre', 'Convulsão (raro)', 'Náusea', 'Vômito', 'Dor abdominal', 'Anorexia', 'Diarreia',
+      'Urticária', 'Erupção cutânea', 'Broncoespasmo', 'Sudorese',
+      'Aumento de transaminases', 'Hematúria', 'Urina avermelhada',
+    ],
+    contraindications: ['Gravidez', 'Lactação', 'Insuficiência hepática', 'Insuficiência renal', 'ICC descompensada', 'Epilepsia'],
+  },
+  {
+    id: 'pirimetamina',
+    name: 'Pirimetamina',
+    category: 'antiparasitários',
+    observations: 'Usada em associação na malária, toxoplasmose ou pneumocistose. Sempre associar ácido folínico (15 mg/dia adulto; 5–10 mg/dia criança), até 1 semana após descontinuar. Não usar ácido fólico.',
+    brands: ['Daraprim — comp. 25 mg'],
+    presentations: [{ label: 'Comprimido 25 mg' }],
+    doses: [
+      {
+        group: 'Crianças — Toxoplasmose congênita',
+        items: [
+          { label: 'Ataque', value: '2 mg/kg/dia (máx 50 mg/dia) por 2 dias' },
+          { label: 'Manutenção', value: '1 mg/kg/dia (máx 25 mg/dia) por 2–6 meses' },
+          { label: 'Continuação', value: '1 mg/kg 3×/semana por até 1 ano. Associar sulfadiazina e ácido folínico.' },
+          { label: 'Pneumocistose', value: '1 mg/kg/dia + dapsona + ácido folínico' },
+        ],
+      },
+      {
+        group: 'Adultos',
+        items: [
+          { label: 'Toxoplasmose — ataque', value: '200 mg/dia no 1º dia' },
+          { label: 'Toxoplasmose — manutenção', value: '50–75 mg/dia até 2 semanas após melhora. Associar sulfadiazina e ácido folínico.' },
+          { label: 'Isosporíase', value: '50–75 mg/dose por semana + ácido folínico' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Toxoplasma gondii', 'Plasmodium spp.', 'Pneumocystis jirovecii'], resistant: [], warning: '' },
+    sideEffects: [
+      'Anemia hemolítica se deficiência de G6PD', 'Anemia megaloblástica (evitar com ácido folínico)',
+      'Leucopenia', 'Neutropenia', 'Trombocitopenia',
+      'Exantema', 'Fotossensibilização', 'Convulsão', 'Ataxia', 'Nistagmo',
+      'Anorexia', 'Náusea', 'Vômitos', 'Choque', 'Hematúria',
+    ],
+    contraindications: ['Primeiro trimestre da gravidez (teratogênico — trocar por espiramicina)'],
+  },
+  {
+    id: 'pirvinio',
+    name: 'Pirvínio',
+    category: 'antiparasitários',
+    observations: 'Usado na enterobíase / oxiuríase. Não é primeira escolha. Dose única em jejum. Tratar todos os familiares e repetir após 1–2 semanas. Cora as fezes em vermelho.',
+    brands: ['Pyr-pam — drágea 100 mg; suspensão oral 10 mg/mL (40 mL)'],
+    presentations: [
+      { label: 'Drágea 100 mg' },
+      { label: 'Suspensão oral 10 mg/mL' },
+    ],
+    doses: [
+      {
+        group: 'Crianças e adultos — Enterobíase',
+        items: [
+          { label: 'Dose', value: '10 mg/kg em dose única em jejum (máx 600 mg/dose). Repetir após 1–2 semanas.' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Enterobius vermicularis'], resistant: [], warning: '' },
+    sideEffects: ['Cefaleia', 'Náusea', 'Vômito', 'Dor abdominal', 'Diarreia', 'Cora as fezes em vermelho', 'Fotossensibilização'],
+    contraindications: ['Insuficiência hepática', 'Insuficiência renal', 'Doença inflamatória intestinal'],
+  },
+  {
+    id: 'praziquantel',
+    name: 'Praziquantel',
+    category: 'antiparasitários',
+    observations: 'Antiparasitário de primeira escolha contra esquistossomose, cisticercose e neurocisticercose. Tomar junto ou após refeição, sem mastigar.',
+    brands: ['Cisticid — comp. 500 mg', 'Praziquantel — comp. 600 mg'],
+    presentations: [
+      { label: 'Comprimido 500 mg' },
+      { label: 'Comprimido 600 mg' },
+    ],
+    doses: [
+      {
+        group: 'Adultos e crianças > 4 anos',
+        items: [
+          { label: 'Esquistossomose', value: '50–60 mg/kg/dose única, dividido em 3 doses' },
+          { label: 'Teníase, difilobotríase', value: '10 mg/kg, dose única' },
+          { label: 'Himenolepíase', value: '15–25 mg/kg, dose única ou dividida em 2 dias. Repetir após 10 dias.' },
+          { label: 'Cisticercose', value: '50 mg/kg/dia ÷ 3 doses por 14 dias' },
+          { label: 'Neurocisticercose', value: '50 mg/kg/dia ÷ 3 doses por 15 dias + dexametasona 6 mg/dia ou prednisona 40–60 mg/dia. Repetir após 3 meses se necessário.' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Schistosoma mansoni', 'Taenia spp.', 'Hymenolepis', 'Cysticercus cellulosae', 'Diphyllobothrium latum'], resistant: [], warning: '' },
+    sideEffects: [
+      'Cefaleia', 'Tontura', 'Vertigem', 'Mal-estar', 'Febre', 'Sonolência', 'Sedação',
+      'Distúrbios visuais e de audição transitórios', 'Convulsão', 'Hipertensão intracraniana', 'Hiperproteinorraquia',
+      'Anorexia', 'Náusea', 'Vômito', 'Dor abdominal',
+      'Urticária', 'Erupção cutânea', 'Prurido', 'Sudorese', 'Mialgia', 'Eosinofilia',
+      'Broncopneumonia por imunocomplexos',
+    ],
+    contraindications: ['Gravidez', 'Lactação', 'Cisticercose ocular', 'Insuficiência renal ou hepática'],
+  },
+  {
+    id: 'secnidazol',
+    name: 'Secnidazol',
+    category: 'antiparasitários',
+    observations: 'Imidazólico com atividade antiparasitária. Melhor tomar à noite, após refeição. Não associar com bebidas alcoólicas (efeito dissulfiram).',
+    brands: ['Secnidazol — comp. revestido 1000 mg; suspensão oral 30 mg/mL'],
+    presentations: [
+      { label: 'Comprimido revestido 1000 mg' },
+      { label: 'Suspensão oral 30 mg/mL' },
+    ],
+    doses: [
+      {
+        group: 'Crianças',
+        items: [
+          { label: 'Amebíase intestinal, giardíase e tricomoníase', value: '30 mg/kg/dia (máx 2 g) — 1 mL/kg/dia em dose única' },
+          { label: 'Amebíase hepática', value: '10 mg/kg/dose por 5–7 dias' },
+        ],
+      },
+      {
+        group: 'Adultos',
+        items: [
+          { label: 'Amebíase intestinal, giardíase', value: '2 g em dose única à noite' },
+          { label: 'Amebíase hepática', value: '500 mg/dose 3×/dia por 5–7 dias' },
+          { label: 'Tricomoníase vaginal', value: '2 g em dose única. Tratar parceiros sexuais.' },
+        ],
+      },
+    ],
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+    sensitivity: { susceptible: ['Entamoeba histolytica', 'Giardia lamblia', 'Trichomonas vaginalis'], resistant: [], warning: 'Não associar com álcool (efeito dissulfiram).' },
+    sideEffects: ['Cefaleia', 'Náusea', 'Vômito', 'Cólica', 'Gosto metálico', 'Dor abdominal', 'Erupção cutânea', 'Leucopenia', 'Depressão medular (raro)'],
+    contraindications: ['Gravidez (especialmente 1º trimestre)', 'Doença neurológica ativa', 'Discrasias sanguíneas'],
+  },
+  {
+    id: 'tiabendazol',
+    name: 'Tiabendazol',
+    category: 'antiparasitários',
+    observations: 'Anti-helmíntico benzimidazólico potente, porém com alta frequência de efeitos colaterais. Melhor tomar após refeição.',
+    brands: ['Tiabendazol — comp. 500 mg; suspensão 250 mg/5 mL; pomada 5%; loção 5%'],
+    presentations: [
+      { label: 'Comprimido 500 mg' },
+      { label: 'Suspensão oral 250 mg/5 mL' },
+      { label: 'Pomada 5%' },
+      { label: 'Loção 5%' },
+    ],
+    doses: [
+      {
+        group: 'Adultos e crianças',
+        items: [
+          { label: 'Estrongiloidíase, tricuríase, ascaridíase resistentes', value: '50 mg/kg/dia ÷ 2 doses por 2–3 dias (máx 3000 mg/dia). Repetir 1–2 semanas depois.' },
+          { label: 'Imunodeprimidos', value: 'Usar por até 28 dias' },
+          { label: 'Estrongiloidíase disseminada', value: '50 mg/kg/dia ÷ 2 doses por 7 dias; depois 500 mg/dia por 30 dias' },
+          { label: 'Larva migrans visceral / toxocaríase', value: '25 mg/kg/dia ÷ 2–3 doses por 5 dias' },
+          { label: 'Larva migrans cutânea', value: '25 mg/kg/dia ÷ 2–3 doses por 2–5 dias' },
+          { label: 'Tratamento tópico', value: 'Pomada/loção 4–6×/dia por 5 dias' },
+          { label: 'Triquinose', value: '25 mg/kg/dia ÷ 2–4 doses por 5 dias' },
+          { label: 'Amebíase intestinal', value: '50 mg/kg/dia (máx 2 g/dia) por 3 dias; 5 dias nas formas hepáticas/extraintestinais' },
+        ],
+      },
+    ],
+    sensitivity: { susceptible: ['Strongyloides', 'Trichuris', 'Ascaris resistentes', 'Larva migrans', 'Trichinella'], resistant: [], warning: '' },
+    sideEffects: [
+      'Anorexia', 'Náusea', 'Vômitos', 'Diarreia', 'Dor abdominal', 'Aumento de aminotransferases',
+      'Tontura', 'Cefaleia', 'Sonolência', 'Zumbido', 'Formigamento', 'Alucinações', 'Parestesias',
+      'Erupção cutânea', 'Prurido', 'Stevens-Johnson', 'Anafilaxia',
+      'Edema conjuntival', 'Linfadenopatia', 'Hipotensão', 'Bradicardia',
+      'Hematúria', 'Mau cheiro da urina', 'Hipoglicemia', 'Leucopenia',
+    ],
+    contraindications: ['Gravidez', 'Lactação', 'Insuficiência hepática', 'Insuficiência renal', 'Úlcera gástrica'],
+  },
+  {
+    id: 'tinidazol',
+    name: 'Tinidazol',
+    category: 'antiparasitários',
+    observations: 'Imidazólico de segunda geração com atividade antiprotozoária e antibacteriana. Melhor tomar após refeição. Não associar com bebidas alcoólicas (efeito dissulfiram). Tratar parceiro nas infecções por tricomonas.',
+    brands: ['Tinidazol — comp. revestido 500 mg'],
+    presentations: [{ label: 'Comprimido revestido 500 mg' }],
+    doses: [
+      {
+        group: 'Crianças > 3 anos',
+        items: [
+          { label: 'Amebíase extraintestinal', value: '50 mg/kg/dia (máx 2 g/dia) por 3–5 dias' },
+          { label: 'Giardíase / tricomoníase', value: '50 mg/kg (máx 2 g) em dose única' },
+        ],
+      },
+      {
+        group: 'Adultos',
+        items: [
+          { label: 'Amebíase sintomática não complicada', value: '2 g 1×/dia por 3 dias' },
+          { label: 'Amebíase intestinal grave ou extraintestinal', value: '2 g 1×/dia por 5 dias' },
+          { label: 'Giardíase, tricomoníase simples', value: '2 g em dose única. Tratar parceiro.' },
+          { label: 'Tricomoníase resistente', value: '2 g/dia por 5–7 dias. Tratar parceiro.' },
+          { label: 'Vaginose bacteriana / Gardnerella / Mobiluncus', value: '2 g/dia por 2 dias; ou 1 g/dia por 5 dias' },
+        ],
+      },
+    ],
+    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+    sensitivity: { susceptible: ['Entamoeba histolytica', 'Giardia lamblia', 'Trichomonas vaginalis', 'Gardnerella vaginalis'], resistant: [], warning: 'Não associar com álcool (efeito dissulfiram).' },
+    sideEffects: ['Náusea', 'Vômito', 'Cólica', 'Gosto metálico', 'Erupção cutânea', 'Convulsões', 'Ataxia', 'Leucopenia', 'Depressão medular'],
+    contraindications: ['Gestação', 'Lactação'],
+  },
+];

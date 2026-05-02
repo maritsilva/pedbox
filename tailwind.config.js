@@ -75,8 +75,9 @@ module.exports = {
                 'bg-indigo-50', 'bg-amber-50', 'bg-pink-50',
                 'border-indigo-200', 'border-amber-200', 'border-pink-200',
                 'text-indigo-500', 'text-amber-500', 'text-pink-500', 'text-teal-500',
-                'bg-indigo-500', 'bg-amber-500', 'bg-pink-500', 'bg-teal-500',
-                'from-indigo-500', 'from-amber-500', 'from-pink-500', 'from-teal-500',
+                'bg-indigo-500', 'bg-amber-500', 'bg-pink-500', 'bg-teal-500', 'bg-lime-500',
+                'from-indigo-500', 'from-amber-500', 'from-pink-500', 'from-teal-500', 'from-lime-500',
+                'text-lime-500', 'border-lime-200', 'bg-lime-50',
             ]
         }
     },

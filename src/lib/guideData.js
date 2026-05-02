@@ -17,6 +17,8 @@ import { outrosAntifungicos } from './guideDataOutrosAntifungicos.js';
 import { antiviraisHerpes, antiviraisInfluenza } from './guideDataAntivirais.js';
 import { antiHepatite } from './guideDataAntiHepatite.js';
 import { antirretroviraisITRN, antirretroviraisITRNN, antirretroviraisIP, antirretroviraisOutros } from './guideDataAntirretrovirais.js';
+import { antirretroviraisAssoc } from './guideDataAntirretroviraisAssoc.js';
+import { antimalaricosDrugs, antiparasitariosDrugs } from './guideDataAntimalaricosAntiparasitarios.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1716,6 +1718,27 @@ export const ALL_CATEGORIES = [
     color: 'indigo-500',
     icon: '🧬',
     drugs: antirretroviraisOutros,
+  },
+  {
+    id: 'antirretrovirais-assoc',
+    label: 'Antirretrovirais — Associações',
+    color: 'teal-500',
+    icon: '🔗',
+    drugs: antirretroviraisAssoc,
+  },
+  {
+    id: 'antimaláricos',
+    label: 'Antimaláricos',
+    color: 'lime-500',
+    icon: '🦟',
+    drugs: antimalaricosDrugs,
+  },
+  {
+    id: 'antiparasitários',
+    label: 'Antiparasitários',
+    color: 'amber-500',
+    icon: '🪱',
+    drugs: antiparasitariosDrugs,
   },
 ];
 
