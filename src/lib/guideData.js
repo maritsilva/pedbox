@@ -28,6 +28,7 @@ import { antitussigenos, mucoliticos, colutoriosTopicos } from './guideDataAntit
 import { antiespasmódicos, antieméticos } from './guideDataAntiespasmAdicos.js';
 import { antiacidos, antagonistasH2, ibp } from './guideDataGastro.js';
 import { antiflatulentes, laxantesFibras, laxantesCatarticos, antidiarreicos } from './guideDataGastro2.js';
+import { probioticos, proctologicos, outrasGastro } from './guideDataProbioticos.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1811,6 +1812,13 @@ export const ALL_CATEGORIES = [
     color: 'green-500',
     icon: '🌿',
     drugs: [...antiflatulentes, ...laxantesFibras, ...laxantesCatarticos, ...antidiarreicos],
+  },
+  {
+    id: 'probioticos-proctologicos-gastro',
+    label: 'Probióticos, Proctológicos e Outras Drogas em Gastroenterologia',
+    color: 'pink-500',
+    icon: '🦠',
+    drugs: [...probioticos, ...proctologicos, ...outrasGastro],
   },
 ];
 
