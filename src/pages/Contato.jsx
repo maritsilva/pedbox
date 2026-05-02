@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, BookOpen, Share2, Zap, Users, Heart, AlertCircle, Copy, ExternalLink } from 'lucide-react';
+// Email is intentionally not displayed publicly
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 

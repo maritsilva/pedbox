@@ -56,6 +56,9 @@ export default function About() {
             <p>
               O PedBox nasceu da frustração com a <strong>fragmentação de conteúdo</strong>, o <strong>acesso restrito</strong> e a <strong>duplicação desnecessária de esforço</strong> na educação médica. Sabemos que estudantes, residentes, professores e profissionais de saúde precisam de ferramentas rápidas e confiáveis — mas muitas vezes enfrentam custos proibitivos, plataformas fechadas ou conhecimento disperso.
             </p>
+            <p>
+              A plataforma está <strong>em constante atualização</strong>, com novas funcionalidades, medicamentos e conteúdos clínicos sendo adicionados regularmente para atender às necessidades da comunidade médica.
+            </p>
             <p className="text-lg font-semibold text-blue-700">
               Na saúde, democratizar conhecimento também é uma forma de cuidado.
             </p>
