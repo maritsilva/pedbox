@@ -20,6 +20,8 @@ import { antirretroviraisITRN, antirretroviraisITRNN, antirretroviraisIP, antirr
 import { antirretroviraisAssociacoes } from './guideDataAntirretroviraisAssociacoes.js';
 import { antimalaricos } from './guideDataAntimalaricos.js';
 import { antiparasitarios } from './guideDataAntiparasitarios.js';
+import { opioides } from './guideDataOpioides.js';
+import { analgesicoEnxaqueca, ainesDrugs } from './guideDataEnxaquecaAINEs.js';
 
 export const GUIDE_CATEGORIES = [
   {
@@ -1740,6 +1742,27 @@ export const ALL_CATEGORIES = [
     color: 'green-500',
     icon: '🪱',
     drugs: antiparasitarios,
+  },
+  {
+    id: 'opioides',
+    label: 'Analgésicos Opioides',
+    color: 'red-500',
+    icon: '💉',
+    drugs: opioides,
+  },
+  {
+    id: 'enxaqueca',
+    label: 'Analgésicos para Enxaqueca',
+    color: 'purple-500',
+    icon: '🧠',
+    drugs: analgesicoEnxaqueca,
+  },
+  {
+    id: 'aines',
+    label: 'Anti-inflamatórios (AINEs)',
+    color: 'orange-500',
+    icon: '🔥',
+    drugs: ainesDrugs,
   },
 ];
 
