@@ -10,6 +10,7 @@ import { anticolinergicos } from './guideDataAnticolinergicos.js';
 import { prevencaoConjuntiviteNeonatal, antiviraisOftalmologia, glaucomaOftalmologia, antiinflamatoriasAntialerogicasOftalmologia, antimicrobianoOftalmologia } from './guideDataOftalmologia.js';
 import { corticosteroideNasal, antialergicosNasais, descongestRinoNasais, antimicrobianosOtologicos, emolientesCerume } from './guideDataNasalOtologica.js';
 import { ansiolíticosHipnóticos } from './guideDataAnsiolíticosHipnóticos.js';
+import { anticonvulsivantes } from './guideDataAnticonvulsivantes.js';
 
 export const ADDITIONAL_CATEGORIES = [
   {
@@ -172,5 +173,26 @@ export const ADDITIONAL_CATEGORIES = [
     color: 'purple-500',
     icon: '🌙',
     drugs: ansiolíticosHipnóticos.filter(d => ['zolpidem', 'buspirona', 'melatonina', 'valeriana'].includes(d.id)),
+  },
+  {
+    id: 'anticonvulsivantes-geracao1',
+    label: 'Anticonvulsivantes — Geração 1 (Clássicos)',
+    color: 'blue-500',
+    icon: '⚡',
+    drugs: anticonvulsivantes.filter(d => ['valproato', 'fenobarbital', 'fenitoina', 'carbamazepina', 'primidona'].includes(d.id)),
+  },
+  {
+    id: 'anticonvulsivantes-geracao2',
+    label: 'Anticonvulsivantes — Geração 2 (Modernas)',
+    color: 'cyan-500',
+    icon: '🧠',
+    drugs: anticonvulsivantes.filter(d => ['lamotrigina', 'oxcarbazepina', 'levetiracetam', 'topiramato', 'gabapentina', 'pregabalina', 'lacosamida'].includes(d.id)),
+  },
+  {
+    id: 'anticonvulsivantes-outros',
+    label: 'Anticonvulsivantes — Outros / Especiais',
+    color: 'indigo-500',
+    icon: '💊',
+    drugs: anticonvulsivantes.filter(d => ['vigabatrina', 'rufinamida', 'clobazam'].includes(d.id)),
   },
 ];
