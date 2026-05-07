@@ -33,6 +33,7 @@ const menuCategories = [
       { to: '/alvo-parental', label: 'Alvo Parental' },
       { to: '/idade-gestacional-corrigida', label: 'IG Corrigida' },
       { to: '/centor-mcisaac', label: 'Centor/McIsaac' },
+      { to: '/wood-downes', label: 'Wood-Downes (Bronquiolite)' },
     ],
   },
   {

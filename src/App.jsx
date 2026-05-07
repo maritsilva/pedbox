@@ -24,6 +24,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import CartilhaDesenvolvimento from './pages/CartilhaDesenvolvimento';
 import Settings from './pages/Settings';
+import WoodDownes from './pages/WoodDownes';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/wood-downes" element={<WoodDownes />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
