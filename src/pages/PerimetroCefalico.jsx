@@ -1,235 +1,211 @@
-import React, { useState, useMemo } from 'react';
-import { Calculator, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { Ruler, RefreshCw, CheckCircle2, AlertTriangle, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// WHO/CDC head circumference percentiles by age and sex (in cm)
-const HEAD_CIRCUMFERENCE_DATA = {
+const HEAD_DATA = {
   male: {
-    0: { p3: 32.0, p5: 32.4, p10: 33.2, p25: 34.5, p50: 35.6, p75: 36.7, p90: 37.6, p95: 38.2, p97: 38.6 },
-    1: { p3: 34.8, p5: 35.2, p10: 36.1, p25: 37.5, p50: 38.7, p75: 39.9, p90: 40.9, p95: 41.5, p97: 42.0 },
-    2: { p3: 36.7, p5: 37.1, p10: 38.1, p25: 39.6, p50: 40.8, p75: 42.0, p90: 43.1, p95: 43.7, p97: 44.1 },
-    3: { p3: 37.9, p5: 38.3, p10: 39.3, p25: 40.8, p50: 42.0, p75: 43.2, p90: 44.3, p95: 44.9, p97: 45.3 },
-    4: { p3: 38.8, p5: 39.2, p10: 40.2, p25: 41.7, p50: 42.9, p75: 44.1, p90: 45.2, p95: 45.8, p97: 46.2 },
-    5: { p3: 39.4, p5: 39.8, p10: 40.9, p25: 42.3, p50: 43.5, p75: 44.7, p90: 45.8, p95: 46.4, p97: 46.8 },
-    6: { p3: 39.9, p5: 40.3, p10: 41.4, p25: 42.8, p50: 44.0, p75: 45.2, p90: 46.3, p95: 46.9, p97: 47.3 },
-    12: { p3: 42.2, p5: 42.6, p10: 43.8, p25: 45.3, p50: 46.6, p75: 48.0, p90: 49.2, p95: 49.8, p97: 50.2 },
-    24: { p3: 43.8, p5: 44.2, p10: 45.4, p25: 47.0, p50: 48.3, p75: 49.7, p90: 50.9, p95: 51.5, p97: 52.0 },
-    36: { p3: 44.4, p5: 44.8, p10: 46.0, p25: 47.6, p50: 49.0, p75: 50.4, p90: 51.6, p95: 52.2, p97: 52.7 },
+    0:  { p3: 32.0, p10: 33.2, p50: 35.6, p90: 37.6, p97: 38.6 },
+    1:  { p3: 34.8, p10: 36.1, p50: 38.7, p90: 40.9, p97: 42.0 },
+    2:  { p3: 36.7, p10: 38.1, p50: 40.8, p90: 43.1, p97: 44.1 },
+    3:  { p3: 37.9, p10: 39.3, p50: 42.0, p90: 44.3, p97: 45.3 },
+    4:  { p3: 38.8, p10: 40.2, p50: 42.9, p90: 45.2, p97: 46.2 },
+    5:  { p3: 39.4, p10: 40.9, p50: 43.5, p90: 45.8, p97: 46.8 },
+    6:  { p3: 39.9, p10: 41.4, p50: 44.0, p90: 46.3, p97: 47.3 },
+    12: { p3: 42.2, p10: 43.8, p50: 46.6, p90: 49.2, p97: 50.2 },
+    24: { p3: 43.8, p10: 45.4, p50: 48.3, p90: 50.9, p97: 52.0 },
+    36: { p3: 44.4, p10: 46.0, p50: 49.0, p90: 51.6, p97: 52.7 },
   },
   female: {
-    0: { p3: 31.2, p5: 31.6, p10: 32.4, p25: 33.7, p50: 34.7, p75: 35.8, p90: 36.6, p95: 37.2, p97: 37.6 },
-    1: { p3: 33.9, p5: 34.3, p10: 35.1, p25: 36.5, p50: 37.6, p75: 38.7, p90: 39.6, p95: 40.2, p97: 40.6 },
-    2: { p3: 35.7, p5: 36.1, p10: 37.0, p25: 38.4, p50: 39.5, p75: 40.6, p90: 41.5, p95: 42.1, p97: 42.5 },
-    3: { p3: 36.9, p5: 37.3, p10: 38.2, p25: 39.6, p50: 40.7, p75: 41.8, p90: 42.7, p95: 43.3, p97: 43.7 },
-    4: { p3: 37.7, p5: 38.1, p10: 39.0, p25: 40.4, p50: 41.5, p75: 42.6, p90: 43.5, p95: 44.1, p97: 44.5 },
-    5: { p3: 38.2, p5: 38.6, p10: 39.5, p25: 40.9, p50: 42.0, p75: 43.1, p90: 44.0, p95: 44.6, p97: 45.0 },
-    6: { p3: 38.6, p5: 39.0, p10: 39.9, p25: 41.3, p50: 42.4, p75: 43.5, p90: 44.4, p95: 45.0, p97: 45.4 },
-    12: { p3: 40.6, p5: 41.0, p10: 42.0, p25: 43.4, p50: 44.5, p75: 45.7, p90: 46.6, p95: 47.2, p97: 47.6 },
-    24: { p3: 42.0, p5: 42.4, p10: 43.4, p25: 44.8, p50: 46.0, p75: 47.2, p90: 48.1, p95: 48.7, p97: 49.1 },
-    36: { p3: 42.6, p5: 43.0, p10: 44.0, p25: 45.4, p50: 46.6, p75: 47.8, p90: 48.7, p95: 49.3, p97: 49.7 },
-  }
+    0:  { p3: 31.2, p10: 32.4, p50: 34.7, p90: 36.6, p97: 37.6 },
+    1:  { p3: 33.9, p10: 35.1, p50: 37.6, p90: 39.6, p97: 40.6 },
+    2:  { p3: 35.7, p10: 37.0, p50: 39.5, p90: 41.5, p97: 42.5 },
+    3:  { p3: 36.9, p10: 38.2, p50: 40.7, p90: 42.7, p97: 43.7 },
+    4:  { p3: 37.7, p10: 39.0, p50: 41.5, p90: 43.5, p97: 44.5 },
+    5:  { p3: 38.2, p10: 39.5, p50: 42.0, p90: 44.0, p97: 45.0 },
+    6:  { p3: 38.6, p10: 39.9, p50: 42.4, p90: 44.4, p97: 45.4 },
+    12: { p3: 40.6, p10: 42.0, p50: 44.5, p90: 46.6, p97: 47.6 },
+    24: { p3: 42.0, p10: 43.4, p50: 46.0, p90: 48.1, p97: 49.1 },
+    36: { p3: 42.6, p10: 44.0, p50: 46.6, p90: 48.7, p97: 49.7 },
+  },
 };
+
+function getClosestKey(months) {
+  const keys = [0,1,2,3,4,5,6,12,24,36];
+  if (months <= 0) return 0;
+  if (months >= 36) return 36;
+  return keys.reduce((prev, curr) =>
+    Math.abs(curr - months) < Math.abs(prev - months) ? curr : prev
+  );
+}
+
+function getClassify(val, refs) {
+  if (val < refs.p3)  return { label: 'Microcefalia',  emoji: '🔴', bg: 'bg-red-50',    border: 'border-red-400',    text: 'text-red-700',    badge: 'bg-red-100 text-red-800',    bar: 'bg-red-500' };
+  if (val > refs.p97) return { label: 'Macrocefalia',  emoji: '🟠', bg: 'bg-orange-50', border: 'border-orange-400', text: 'text-orange-700', badge: 'bg-orange-100 text-orange-800', bar: 'bg-orange-400' };
+  return              { label: 'Normal',        emoji: '🟢', bg: 'bg-emerald-50', border: 'border-emerald-400', text: 'text-emerald-700', badge: 'bg-emerald-100 text-emerald-800', bar: 'bg-emerald-400' };
+}
+
+function getPercBand(val, refs) {
+  const entries = [['P3',refs.p3],['P10',refs.p10],['P50',refs.p50],['P90',refs.p90],['P97',refs.p97]];
+  for (let i = 0; i < entries.length; i++) {
+    if (val <= entries[i][1]) {
+      if (i === 0) return `< ${entries[0][0]}`;
+      return `${entries[i-1][0]} – ${entries[i][0]}`;
+    }
+  }
+  return `> P97`;
+}
 
 export default function PerimetroCefalico() {
   const [pc, setPc] = useState('');
   const [birthDate, setBirthDate] = useState('');
-  const [sex, setSex] = useState('');
+  const [sex, setSex] = useState('male');
   const [result, setResult] = useState(null);
 
-  const calculateAge = (birth) => {
-    const today = new Date();
-    const birthObj = new Date(birth);
-    let months = (today.getFullYear() - birthObj.getFullYear()) * 12;
-    months += today.getMonth() - birthObj.getMonth();
-    return months;
-  };
-
-  const getClosestAgeKey = (months) => {
-    const keys = [0, 1, 2, 3, 4, 5, 6, 12, 24, 36].sort((a, b) => a - b);
-    if (months <= 0) return 0;
-    if (months >= 36) return 36;
-    for (let i = 0; i < keys.length - 1; i++) {
-      if (months >= keys[i] && months < keys[i + 1]) {
-        const dist1 = Math.abs(months - keys[i]);
-        const dist2 = Math.abs(months - keys[i + 1]);
-        return dist1 < dist2 ? keys[i] : keys[i + 1];
-      }
-    }
-    return keys[keys.length - 1];
-  };
-
-  const getPercentile = (value, percentiles) => {
-    const vals = Object.entries(percentiles).sort((a, b) => {
-      const numA = parseInt(a[0].replace('p', ''));
-      const numB = parseInt(b[0].replace('p', ''));
-      return numA - numB;
-    });
-
-    for (let i = 0; i < vals.length; i++) {
-      if (value <= vals[i][1]) {
-        if (i === 0 && value < vals[i][1]) return `< P${parseInt(vals[i][0].replace('p', ''))}`;
-        if (i === 0) return `P${parseInt(vals[i][0].replace('p', ''))}`;
-        return `P${parseInt(vals[i - 1][0].replace('p', ''))}-P${parseInt(vals[i][0].replace('p', ''))}`;
-      }
-    }
-    return `> P${parseInt(vals[vals.length - 1][0].replace('p', ''))}`;
-  };
-
-  const getClassification = (value, percentiles) => {
-    if (value < percentiles.p3) return { type: 'Microcefalia', color: 'text-red-600', bg: 'bg-red-50' };
-    if (value > percentiles.p97) return { type: 'Macrocefalia', color: 'text-orange-600', bg: 'bg-orange-50' };
-    return { type: 'Normal', color: 'text-green-600', bg: 'bg-green-50' };
-  };
-
-  const handleCalculate = () => {
-    if (!pc || !birthDate || !sex) {
-      alert('Por favor, preencha todos os campos');
-      return;
-    }
-
-    const months = calculateAge(birthDate);
-    if (months < 0) {
-      alert('Data de nascimento inválida');
-      return;
-    }
-
-    const ageKey = getClosestAgeKey(months);
-    const percentiles = HEAD_CIRCUMFERENCE_DATA[sex][ageKey];
-    const percentile = getPercentile(parseFloat(pc), percentiles);
-    const classification = getClassification(parseFloat(pc), percentiles);
-
+  const handleCalc = () => {
+    const val = parseFloat(pc);
+    if (!val || !birthDate) return;
+    const birth = new Date(birthDate);
+    const now = new Date();
+    const months = Math.floor((now - birth) / (1000*60*60*24*30.4375));
+    if (months < 0 || months > 36) return;
+    const key = getClosestKey(months);
+    const refs = HEAD_DATA[sex][key];
+    const classify = getClassify(val, refs);
+    const band = getPercBand(val, refs);
     const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
-    let ageText = '';
-    if (years > 0) ageText += `${years} ano${years > 1 ? 's' : ''} `;
-    if (remainingMonths > 0) ageText += `${remainingMonths} mês${remainingMonths > 1 ? 'es' : ''}`;
-
-    setResult({
-      pc: parseFloat(pc),
-      months,
-      ageText: ageText || '0 meses',
-      percentile,
-      classification,
-      percentiles,
-      ageKey
-    });
+    const rem = months % 12;
+    const ageText = years > 0 ? `${years}a ${rem}m` : `${months} mês${months !== 1 ? 'es' : ''}`;
+    setResult({ val, months, ageText, refs, classify, band });
   };
+
+  const handleReset = () => { setPc(''); setBirthDate(''); setResult(null); };
+
+  const pct = result ? Math.min(((result.val - result.refs.p3) / (result.refs.p97 - result.refs.p3)) * 100, 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="max-w-2xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Calculator className="w-8 h-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-800">Perímetro Cefálico</h1>
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 pb-16">
+      <div className="max-w-2xl mx-auto px-4 py-8">
+
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl shadow-lg mb-4">
+            <Ruler className="w-8 h-8 text-white" />
           </div>
-          <p className="text-gray-600">Avalie o perímetro cefálico por idade e sexo</p>
+          <h1 className="text-3xl font-extrabold text-gray-900">Perímetro Cefálico</h1>
+          <p className="text-gray-500 mt-1 text-sm">Avaliação do crescimento craniano · 0–36 meses · OMS/CDC</p>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-          <div className="space-y-5">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Perímetro Cefálico (cm)</label>
-              <input
-                type="number"
-                step="0.1"
-                value={pc}
-                onChange={(e) => setPc(e.target.value)}
-                placeholder="Ex: 35.5"
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 transition"
-              />
-            </div>
+        {/* Form */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+          className="bg-white rounded-2xl border-2 border-gray-100 shadow-sm p-6 mb-6 space-y-4">
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Data de Nascimento</label>
-              <input
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 transition"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Sexo</label>
-              <select
-                value={sex}
-                onChange={(e) => setSex(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 transition bg-white"
-              >
-                <option value="">Selecione</option>
-                <option value="male">Masculino</option>
-                <option value="female">Feminino</option>
-              </select>
-            </div>
-
-            <button
-              onClick={handleCalculate}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition mt-6"
-            >
-              Calcular
-            </button>
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Perímetro Cefálico (cm)</label>
+            <input type="number" step="0.1" value={pc} onChange={e => setResult(null) || setPc(e.target.value)}
+              placeholder="Ex: 35.5"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-teal-400 transition text-sm" />
           </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Data de Nascimento</label>
+            <input type="date" value={birthDate} onChange={e => { setResult(null); setBirthDate(e.target.value); }}
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-teal-400 transition text-sm" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Sexo</label>
+            <div className="flex gap-2">
+              {[{ v: 'male', l: 'Masculino' }, { v: 'female', l: 'Feminino' }].map(({ v, l }) => (
+                <button key={v} onClick={() => { setSex(v); setResult(null); }}
+                  className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-all ${sex === v ? 'bg-teal-500 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-teal-50'}`}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button onClick={handleCalc} disabled={!pc || !birthDate}
+            className="w-full bg-teal-500 hover:bg-teal-600 disabled:opacity-40 text-white font-bold py-3.5 rounded-xl transition-all shadow-sm">
+            Calcular
+          </button>
         </motion.div>
 
+        {/* Result */}
         <AnimatePresence>
           {result && (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className={`${result.classification.bg} rounded-2xl p-8 mb-6 border-2 border-current`}>
-              <div className="mb-6">
-                <p className="text-gray-600 text-sm mb-1">Idade</p>
-                <p className="text-2xl font-bold text-gray-800">{result.ageText}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 mb-6">
+            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0 }}
+              className={`rounded-2xl border-2 ${result.classify.border} ${result.classify.bg} overflow-hidden mb-5`}>
+              {/* Score header */}
+              <div className={`px-6 py-5 flex items-center justify-between border-b ${result.classify.border}`}>
                 <div>
-                  <p className="text-gray-600 text-sm">Perímetro Cefálico</p>
-                  <p className="text-xl font-bold text-gray-800">{result.pc} cm</p>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Perímetro Cefálico</p>
+                  <p className={`text-5xl font-extrabold ${result.classify.text}`}>
+                    {result.val}
+                    <span className="text-xl font-medium ml-1 opacity-60">cm</span>
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">Idade: {result.ageText}</p>
                 </div>
-                <div>
-                  <p className="text-gray-600 text-sm">Percentil</p>
-                  <p className="text-xl font-bold text-gray-800">{result.percentile}</p>
+                <div className="text-right">
+                  <span className="text-4xl">{result.classify.emoji}</span>
+                  <p className={`text-xl font-extrabold mt-1 ${result.classify.text}`}>{result.classify.label}</p>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full mt-1 inline-block ${result.classify.badge}`}>
+                    {result.band}
+                  </span>
                 </div>
               </div>
-
-              <div className="bg-white rounded-xl p-4 mb-6">
-                <p className={`text-lg font-bold ${result.classification.color}`}>{result.classification.type}</p>
-              </div>
-
-              <div className="bg-white rounded-xl p-4">
-                <p className="text-xs font-semibold text-gray-600 mb-3 uppercase">Referência (P3 a P97)</p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">P3:</span>
-                    <span className="font-semibold text-gray-800">{result.percentiles.p3} cm</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">P50 (Mediana):</span>
-                    <span className="font-semibold text-gray-800">{result.percentiles.p50} cm</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">P97:</span>
-                    <span className="font-semibold text-gray-800">{result.percentiles.p97} cm</span>
-                  </div>
+              {/* Bar */}
+              <div className="px-6 py-4">
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Posição no canal de percentis</p>
+                <div className="w-full bg-gray-200 rounded-full h-3 mb-1">
+                  <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.5 }}
+                    className={`h-3 rounded-full ${result.classify.bar}`} />
+                </div>
+                <div className="flex justify-between text-xs text-gray-400 mt-1">
+                  <span>P3 — {result.refs.p3}</span>
+                  <span>P50 — {result.refs.p50}</span>
+                  <span>P97 — {result.refs.p97}</span>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
-          <div className="flex gap-3">
-            <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-blue-900">
-              <p className="font-semibold mb-1">Sobre esta calculadora:</p>
-              <ul className="list-disc list-inside space-y-1 text-xs">
-                <li>Baseada em curvas de crescimento OMS/CDC</li>
-                <li>Microcefalia: PC &lt; P3</li>
-                <li>Normal: PC entre P3 e P97</li>
-                <li>Macrocefalia: PC &gt; P97</li>
-              </ul>
-            </div>
+        {/* Reset */}
+        {result && (
+          <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={handleReset}
+            className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2 mb-8">
+            <RefreshCw className="w-4 h-4" /> Nova avaliação
+          </motion.button>
+        )}
+
+        {/* Reference table */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+          className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="px-5 py-4 bg-gray-50 border-b border-gray-200">
+            <p className="font-bold text-gray-700 text-sm">Interpretação</p>
           </div>
+          <table className="w-full text-sm">
+            <tbody>
+              {[
+                { label: 'Microcefalia', range: '< P3', badge: 'bg-red-100 text-red-800', emoji: '🔴' },
+                { label: 'Normal', range: 'P3 – P97', badge: 'bg-emerald-100 text-emerald-800', emoji: '🟢' },
+                { label: 'Macrocefalia', range: '> P97', badge: 'bg-orange-100 text-orange-800', emoji: '🟠' },
+              ].map((row, i) => (
+                <tr key={i} className="border-b border-gray-50 last:border-0">
+                  <td className="px-5 py-3 font-mono font-bold text-gray-700">{row.range}</td>
+                  <td className="px-5 py-3">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.emoji} {row.label}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </motion.div>
+
+        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-2xl p-4 flex gap-3">
+          <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+          <p className="text-xs text-blue-800">Baseado em curvas OMS/CDC. Faixa etária suportada: 0–36 meses. Microcefalia congênita requer avaliação clínica e por imagem.</p>
+        </div>
       </div>
     </div>
   );

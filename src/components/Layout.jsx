@@ -35,6 +35,7 @@ const menuCategories = [
       { to: '/centor-mcisaac', label: 'Centor/McIsaac' },
       { to: '/wood-downes', label: 'Wood-Downes (Bronquiolite)' },
       { to: '/pram', label: 'PRAM (Asma)' },
+      { to: '/calculadoras-hub', label: '🧮 Calculadoras Clínicas' },
       { to: '/drogas-emergencia', label: '🚨 Drogas na Emergência' },
     ],
   },
