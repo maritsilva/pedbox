@@ -113,7 +113,7 @@ export default function Layout() {
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
-              src="https://media.base44.com/images/public/69ecb71457668abac5516abd/5237c8a2e_ChatGPTImage17demai-remove-bg-io3.png"
+              src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png"
               alt="PedBox"
               className="h-8 w-auto"
             />
