@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, FlaskConical, LogOut, ClipboardList, Info } from 'lucide-react';
+import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, FlaskConical, LogOut, ClipboardList, Info, GitBranch } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
 import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
 import Faringoamigdalite from '@/components/protocols/Faringoamigdalite';
 import FebreSemSinais from '@/components/protocols/FebreSemSinais';
 import Bronquiolite from '@/components/protocols/Bronquiolite';
+import FluxogramaModal from '@/components/protocols/FluxogramaModal';
+import FluxogramaCriseAsmatica from '@/components/protocols/fluxogramas/FluxogramaCriseAsmatica';
+import FluxogramaBronquiolite from '@/components/protocols/fluxogramas/FluxogramaBronquiolite';
+import FluxogramaConvulsao from '@/components/protocols/fluxogramas/FluxogramaConvulsao';
+import FluxogramaDiarreia from '@/components/protocols/fluxogramas/FluxogramaDiarreia';
+import FluxogramaFaringoamigdalite from '@/components/protocols/fluxogramas/FluxogramaFaringoamigdalite';
+import FluxogramaFebre from '@/components/protocols/fluxogramas/FluxogramaFebre';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -445,7 +452,7 @@ function ProtocolCard({ protocol, onClick }) {
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
       onClick={onClick}
-      className="w-full text-left bg-white border border-border rounded-2xl p-4 flex items-center gap-4 hover:shadow-md hover:border-primary/30 transition-all group"
+      className="w-full text-left bg-white border border-border rounded-2xl p-4 pr-32 flex items-center gap-4 hover:shadow-md hover:border-primary/30 transition-all group"
     >
       <span className="text-3xl flex-shrink-0">{protocol.icon}</span>
       <div className="flex-1">
@@ -463,8 +470,18 @@ function ProtocolCard({ protocol, onClick }) {
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
+const FLUXOGRAMAS = {
+  'crise-asmatica': { title: 'Crise Asmática — Fluxograma', component: <FluxogramaCriseAsmatica /> },
+  'bronquiolite': { title: 'Bronquiolite — Fluxograma', component: <FluxogramaBronquiolite /> },
+  'convulsao-febril': { title: 'Convulsão Febril — Fluxograma', component: <FluxogramaConvulsao /> },
+  'diarreia-aguda': { title: 'Diarreia Aguda — Fluxograma', component: <FluxogramaDiarreia /> },
+  'faringoamigdalite': { title: 'Faringoamigdalite — Fluxograma', component: <FluxogramaFaringoamigdalite /> },
+  'febre-sem-sinais': { title: 'Febre sem Sinais — Fluxograma', component: <FluxogramaFebre /> },
+};
+
 export default function Protocolos() {
   const [selected, setSelected] = useState(null);
+  const [fluxogramaOpen, setFluxogramaOpen] = useState(null);
 
   const detailMap = {
     'crise-asmatica': <CriseAsmaticaDetail />,
@@ -475,15 +492,39 @@ export default function Protocolos() {
     'febre-sem-sinais': <FebreSemSinais />,
   };
 
+  const activeFluxograma = fluxogramaOpen ? FLUXOGRAMAS[fluxogramaOpen] : null;
+
   if (selected && detailMap[selected]) {
     return (
       <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
-        <button
-          onClick={() => setSelected(null)}
-          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4" /> Todos os Protocolos
-        </button>
+        {/* Fluxograma modal */}
+        {activeFluxograma && (
+          <FluxogramaModal
+            title={activeFluxograma.title}
+            isOpen={!!fluxogramaOpen}
+            onClose={() => setFluxogramaOpen(null)}
+          >
+            {activeFluxograma.component}
+          </FluxogramaModal>
+        )}
+
+        <div className="flex items-center justify-between mb-5">
+          <button
+            onClick={() => setSelected(null)}
+            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" /> Todos os Protocolos
+          </button>
+          {FLUXOGRAMAS[selected] && (
+            <button
+              onClick={() => setFluxogramaOpen(selected)}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all shadow-sm"
+            >
+              <GitBranch className="w-4 h-4" />
+              Ver Fluxograma
+            </button>
+          )}
+        </div>
         {detailMap[selected]}
       </div>
     );
@@ -491,6 +532,17 @@ export default function Protocolos() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
+      {/* Fluxograma modal from list */}
+      {activeFluxograma && (
+        <FluxogramaModal
+          title={activeFluxograma.title}
+          isOpen={!!fluxogramaOpen}
+          onClose={() => setFluxogramaOpen(null)}
+        >
+          {activeFluxograma.component}
+        </FluxogramaModal>
+      )}
+
       <div className="mb-6">
         <h1 className="text-2xl font-extrabold text-foreground mb-1">Protocolos Clínicos</h1>
         <p className="text-muted-foreground text-sm">Diretrizes e guias de cuidado baseados em evidências</p>
@@ -498,7 +550,18 @@ export default function Protocolos() {
 
       <div className="space-y-3">
         {PROTOCOLS.map(p => (
-          <ProtocolCard key={p.id} protocol={p} onClick={() => setSelected(p.id)} />
+          <div key={p.id} className="relative">
+            <ProtocolCard protocol={p} onClick={() => setSelected(p.id)} />
+            {FLUXOGRAMAS[p.id] && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setFluxogramaOpen(p.id); }}
+                className="absolute right-14 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 text-xs font-semibold rounded-xl transition-all"
+              >
+                <GitBranch className="w-3.5 h-3.5" />
+                Fluxograma
+              </button>
+            )}
+          </div>
         ))}
       </div>
 
