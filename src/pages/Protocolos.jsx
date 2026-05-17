@@ -1,12 +1,11 @@
 import React, { useState, useMemo } from 'react';
-import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X } from 'lucide-react';
+import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
 import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
 import Faringoamigdalite from '@/components/protocols/Faringoamigdalite';
 import FebreSemSinais from '@/components/protocols/FebreSemSinais';
 import Bronquiolite from '@/components/protocols/Bronquiolite';
-import FluxogramaModal from '@/components/protocols/FluxogramaModal';
 import FluxogramaCriseAsmatica from '@/components/protocols/fluxogramas/FluxogramaCriseAsmatica';
 import FluxogramaBronquiolite from '@/components/protocols/fluxogramas/FluxogramaBronquiolite';
 import FluxogramaConvulsao from '@/components/protocols/fluxogramas/FluxogramaConvulsao';
@@ -453,54 +452,54 @@ function CriseAsmaticaDetail({ onBack }) {
   );
 }
 
-// ── Protocol Card ─────────────────────────────────────────────────────────────
-
-function ProtocolCard({ protocol, onClick }) {
-  const colorMap = {
-    blue: 'bg-blue-50 border-blue-200 text-blue-700',
-    green: 'bg-green-50 border-green-200 text-green-700',
-    purple: 'bg-purple-50 border-purple-200 text-purple-700',
-    teal: 'bg-teal-50 border-teal-200 text-teal-700',
-    orange: 'bg-orange-50 border-orange-200 text-orange-700',
-    red: 'bg-red-50 border-red-200 text-red-700',
-  };
-  return (
-    <motion.button
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      onClick={onClick}
-      className="w-full text-left bg-white border border-border rounded-2xl p-4 pr-32 flex items-center gap-4 hover:shadow-md hover:border-primary/30 transition-all group"
-    >
-      <span className="text-3xl flex-shrink-0">{protocol.icon}</span>
-      <div className="flex-1">
-        <div className="flex items-center gap-2 mb-0.5">
-          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${colorMap[protocol.color] || colorMap.blue}`}>{protocol.tag}</span>
-        </div>
-        <p className="font-bold text-foreground text-sm">{protocol.title}</p>
-        <p className="text-xs text-muted-foreground">{protocol.subtitle}</p>
-        <p className="text-xs text-muted-foreground/70 mt-1">{protocol.source}</p>
-      </div>
-      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-    </motion.button>
-  );
-}
-
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
 const FLUXOGRAMAS = {
-  'crise-asmatica': { title: 'Crise Asmática — Fluxograma', component: <FluxogramaCriseAsmatica /> },
-  'bronquiolite': { title: 'Bronquiolite — Fluxograma', component: <FluxogramaBronquiolite /> },
-  'convulsao-febril': { title: 'Convulsão Febril — Fluxograma', component: <FluxogramaConvulsao /> },
-  'diarreia-aguda': { title: 'Diarreia Aguda — Fluxograma', component: <FluxogramaDiarreia /> },
-  'faringoamigdalite': { title: 'Faringoamigdalite — Fluxograma', component: <FluxogramaFaringoamigdalite /> },
-  'febre-sem-sinais': { title: 'Febre sem Sinais — Fluxograma', component: <FluxogramaFebre /> },
+  'crise-asmatica': { title: 'Fluxograma — Crise Asmática', component: <FluxogramaCriseAsmatica /> },
+  'bronquiolite': { title: 'Fluxograma — Bronquiolite', component: <FluxogramaBronquiolite /> },
+  'convulsao-febril': { title: 'Fluxograma — Convulsão Febril', component: <FluxogramaConvulsao /> },
+  'diarreia-aguda': { title: 'Fluxograma — Diarreia Aguda', component: <FluxogramaDiarreia /> },
+  'faringoamigdalite': { title: 'Fluxograma — Faringoamigdalite', component: <FluxogramaFaringoamigdalite /> },
+  'febre-sem-sinais': { title: 'Fluxograma — Febre sem Sinais', component: <FluxogramaFebre /> },
 };
+
+// ── Inline Flowchart Panel ─────────────────────────────────────────────────────
+function FluxogramaPanel({ id }) {
+  const [open, setOpen] = useState(true);
+  const data = FLUXOGRAMAS[id];
+  if (!data) return null;
+  return (
+    <div className="bg-white border-2 border-primary/20 rounded-2xl shadow-sm overflow-hidden">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center gap-3 px-5 py-4 bg-primary/5 hover:bg-primary/10 transition-colors"
+      >
+        <GitBranch className="w-5 h-5 text-primary flex-shrink-0" />
+        <span className="font-bold text-primary text-sm flex-1 text-left">{data.title}</span>
+        <ChevronDown className={`w-4 h-4 text-primary transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div className="p-5 overflow-x-auto">
+              {data.component}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Protocolos() {
   const [selected, setSelected] = useState(null);
-  const [fluxogramaOpen, setFluxogramaOpen] = useState(null);
+  const [expandedFlux, setExpandedFlux] = useState(null);
   const [search, setSearch] = useState('');
   const [activeEsp, setActiveEsp] = useState(null);
 
@@ -512,8 +511,6 @@ export default function Protocolos() {
     'faringoamigdalite': <Faringoamigdalite />,
     'febre-sem-sinais': <FebreSemSinais />,
   };
-
-  const activeFluxograma = fluxogramaOpen ? FLUXOGRAMAS[fluxogramaOpen] : null;
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -539,33 +536,18 @@ export default function Protocolos() {
   if (selected && detailMap[selected]) {
     return (
       <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
-        {activeFluxograma && (
-          <FluxogramaModal
-            title={activeFluxograma.title}
-            isOpen={!!fluxogramaOpen}
-            onClose={() => setFluxogramaOpen(null)}
-          >
-            {activeFluxograma.component}
-          </FluxogramaModal>
-        )}
-        <div className="flex items-center justify-between mb-5">
-          <button
-            onClick={() => setSelected(null)}
-            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" /> Todos os Protocolos
-          </button>
-          {FLUXOGRAMAS[selected] && (
-            <button
-              onClick={() => setFluxogramaOpen(selected)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all shadow-sm"
-            >
-              <GitBranch className="w-4 h-4" />
-              Ver Fluxograma
-            </button>
-          )}
-        </div>
+        <button
+          onClick={() => setSelected(null)}
+          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-5"
+        >
+          <ChevronLeft className="w-4 h-4" /> Todos os Protocolos
+        </button>
         {detailMap[selected]}
+        {FLUXOGRAMAS[selected] && (
+          <div className="mt-6">
+            <FluxogramaPanel id={selected} />
+          </div>
+        )}
       </div>
     );
   }
@@ -573,16 +555,6 @@ export default function Protocolos() {
   // ── List view ──
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      {activeFluxograma && (
-        <FluxogramaModal
-          title={activeFluxograma.title}
-          isOpen={!!fluxogramaOpen}
-          onClose={() => setFluxogramaOpen(null)}
-        >
-          {activeFluxograma.component}
-        </FluxogramaModal>
-      )}
-
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-extrabold text-foreground mb-1">Protocolos Clínicos</h1>
@@ -658,17 +630,49 @@ export default function Protocolos() {
 
                 <div className="space-y-2">
                   {protocols.map(p => (
-                    <div key={p.id} className="relative">
-                      <ProtocolCard protocol={p} onClick={() => setSelected(p.id)} />
-                      {FLUXOGRAMAS[p.id] && (
+                    <div key={p.id} className="rounded-2xl border border-border overflow-hidden bg-white shadow-sm">
+                      <div className="flex items-stretch">
                         <button
-                          onClick={(e) => { e.stopPropagation(); setFluxogramaOpen(p.id); }}
-                          className="absolute right-14 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 text-xs font-semibold rounded-xl transition-all"
+                          onClick={() => setSelected(p.id)}
+                          className="flex-1 text-left p-4 flex items-center gap-4 hover:bg-secondary/40 transition-all group"
                         >
-                          <GitBranch className="w-3.5 h-3.5" />
-                          <span className="hidden sm:inline">Fluxograma</span>
+                          <span className="text-3xl flex-shrink-0">{p.icon}</span>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-bold text-foreground text-sm">{p.title}</p>
+                            <p className="text-xs text-muted-foreground">{p.subtitle}</p>
+                            <p className="text-xs text-muted-foreground/60 mt-0.5">{p.source}</p>
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                         </button>
-                      )}
+                        {FLUXOGRAMAS[p.id] && (
+                          <button
+                            onClick={() => setExpandedFlux(expandedFlux === p.id ? null : p.id)}
+                            className={`flex flex-col items-center justify-center gap-1 px-3 border-l border-border text-xs font-semibold transition-all min-w-[60px] ${expandedFlux === p.id ? 'bg-primary text-white' : 'bg-secondary/60 text-primary hover:bg-primary/10'}`}
+                          >
+                            <GitBranch className="w-4 h-4" />
+                            <span className="hidden sm:block">Fluxo</span>
+                            <ChevronDown className={`w-3 h-3 transition-transform ${expandedFlux === p.id ? 'rotate-180' : ''}`} />
+                          </button>
+                        )}
+                      </div>
+                      <AnimatePresence initial={false}>
+                        {expandedFlux === p.id && FLUXOGRAMAS[p.id] && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="border-t border-border bg-secondary/20 px-4 py-5 overflow-x-auto">
+                              <p className="text-xs font-bold text-primary mb-3 flex items-center gap-1.5">
+                                <GitBranch className="w-3.5 h-3.5" /> {FLUXOGRAMAS[p.id].title}
+                              </p>
+                              {FLUXOGRAMAS[p.id].component}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   ))}
                 </div>
