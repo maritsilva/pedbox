@@ -40,7 +40,7 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
           <>
             <Link to="/" className="flex items-center">
               <img
-                src="https://media.base44.com/images/public/69ecb71457668abac5516abd/f3370f5fd_Gemini_Generated_Image_curo51curo51curo1.png"
+                src="https://media.base44.com/images/public/69ecb71457668abac5516abd/5237c8a2e_ChatGPTImage17demai-remove-bg-io3.png"
                 alt="PedBox"
                 className="h-8 w-auto"
               />
