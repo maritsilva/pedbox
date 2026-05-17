@@ -18,6 +18,7 @@ import AnemiaFerropriva from '@/components/protocols/AnemiaFerropriva';
 import FluxogramaPneumonia from '@/components/protocols/fluxogramas/FluxogramaPneumonia';
 import FluxogramaAnemiaFerropriva from '@/components/protocols/fluxogramas/FluxogramaAnemiaFerropriva';
 import MeningiteBacteriana from '@/components/protocols/MeningiteBacteriana.jsx';
+import InfeccaoTratoUrinario from '@/components/protocols/InfeccaoTratoUrinario.jsx';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -120,6 +121,17 @@ const PROTOCOLS = [
     especialidade: 'Infectologia',
     source: 'Sociedade de Infecciologia Pediátrica + SCIP · SPP',
     keywords: ['meningite', 'meningococo', 'pneumococo', 'haemophilus', 'lcr', 'punção lombar', 'antibiótico', 'cefotaxima', 'ceftriaxone', 'vancomicina'],
+  },
+  {
+    id: 'itu',
+    title: 'Infecção do Trato Urinário',
+    subtitle: 'em Crianças e Adolescentes',
+    icon: '💧',
+    color: 'cyan',
+    tag: 'Infectologia',
+    especialidade: 'Infectologia',
+    source: 'Hospital Israelita Albert Einstein · Versão 3 · Set/2025',
+    keywords: ['itu', 'disúria', 'urocultura', 'urina tipo i', 'pielonefrite', 'uretrite', 'antibiótico', 'cefuroxima', 'cefalexina', 'ceftriaxone'],
   },
 ];
 
@@ -737,6 +749,7 @@ export default function Protocolos() {
     'pneumonia-complicada': <PneumoniaComplicada />,
     'anemia-ferropriva': <AnemiaFerropriva />,
     'meningite-bacteriana': <MeningiteBacteriana />,
+    'itu': <InfeccaoTratoUrinario />,
   };
 
   const filtered = useMemo(() => {
