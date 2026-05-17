@@ -240,3 +240,5 @@ export const antifungicosAzolicos = [
     contraindications: [],
   },
 ];
+
+export default antifungicosAzolicos;
