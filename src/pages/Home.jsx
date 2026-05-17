@@ -43,7 +43,7 @@ export default function Home() {
         <img
           src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png"
           alt="PedBox"
-          className="h-16 w-auto mx-auto mb-4"
+          className="h-28 w-auto mx-auto mb-4"
         />
         <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Acesso imediato a doses, protocolos e cálculos pediátricos essenciais no plantão</p>
         <span className="mt-4 inline-flex items-center gap-1.5 bg-primary/8 text-primary text-xs md:text-sm font-semibold px-3 py-2 rounded-full border border-primary/20">
