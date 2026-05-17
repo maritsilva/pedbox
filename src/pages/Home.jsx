@@ -269,22 +269,7 @@ export default function Home() {
         </Link>
       </motion.div>
 
-      {/* Calculators Link */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>
-        <Link to="/calculadoras">
-          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
-            className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl p-5 md:p-6 text-white shadow-lg shadow-blue-200 flex items-center gap-4 cursor-pointer">
-            <div className="bg-white/20 rounded-xl p-2.5 flex-shrink-0">
-              <Calculator className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex-1">
-              <p className="font-bold text-base md:text-lg leading-tight">Calculadoras Pediátricas</p>
-              <p className="text-blue-100 text-xs md:text-sm mt-1 leading-snug">Hidratação, IMC, Pressão Arterial e mais</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
-          </motion.div>
-        </Link>
-      </motion.div>
+
 
     </div>
   );
