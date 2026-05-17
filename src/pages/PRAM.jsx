@@ -324,19 +324,17 @@ export default function PRAM() {
               <tr className="border-b border-gray-100 bg-gray-50/50">
                 <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Score</th>
                 <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Gravidade</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              {CLASSIFICATIONS.map((row, i) => (
-                <tr key={i} className="border-b border-gray-50 last:border-0">
-                  <td className="px-5 py-3 font-mono font-bold text-gray-700">{row.range}</td>
-                  <td className="px-5 py-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.emoji} {row.label}</span>
-                  </td>
-
                 </tr>
-              ))}
+                </thead>
+                <tbody>
+                  {CLASSIFICATIONS.map((row, i) => (
+                    <tr key={i} className="border-b border-gray-50 last:border-0">
+                      <td className="px-5 py-3 font-mono font-bold text-gray-700">{row.range}</td>
+                      <td className="px-5 py-3">
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.emoji} {row.label}</span>
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         </motion.div>

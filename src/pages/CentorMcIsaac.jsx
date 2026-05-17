@@ -227,7 +227,7 @@ export default function CentorMcIsaac() {
               <tr className="border-b border-gray-100 bg-gray-50/50">
                 <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Score</th>
                 <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Risco</th>
-                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Prob. SBHGA</th>
+                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Probabilidade SBHGA</th>
               </tr>
             </thead>
             <tbody>

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X, ChevronDown } from 'lucide-react';
+import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X, ChevronDown, Calculator } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
 import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
@@ -417,6 +418,20 @@ function CriseAsmaticaDetail({ onBack }) {
         <p className="text-blue-100 text-sm mt-0.5">em Crianças e Adolescentes</p>
         <p className="text-blue-200 text-xs mt-3 border-t border-blue-400/40 pt-2">Albert Einstein (SBIBAE) · Atualizado Mai/2026 · <strong className="text-white">GINA 2026</strong></p>
       </div>
+
+      {/* PRAM shortcut */}
+      <Link to="/pram">
+        <div className="flex items-center gap-3 bg-sky-50 border-2 border-sky-300 rounded-2xl px-4 py-3 hover:bg-sky-100 transition-colors cursor-pointer">
+          <div className="w-9 h-9 bg-sky-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Calculator className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-sky-800">Calculadora PRAM</p>
+            <p className="text-xs text-sky-600">Score de gravidade para asma · 2–17 anos</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-sky-400" />
+        </div>
+      </Link>
 
       {/* Definition */}
       <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-900 leading-relaxed">

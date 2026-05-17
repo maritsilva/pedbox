@@ -279,7 +279,7 @@ export default function WoodDownes() {
               <span>10 — Muito grave</span>
             </div>
 
-
+            <p className={`text-sm font-semibold ${classification.text}`}>{classification.description}</p>
           </motion.div>
         )}
 
