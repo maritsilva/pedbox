@@ -257,6 +257,19 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
           </ul>
         </div>
       )}
+
+      {/* Referências */}
+      <div className="mt-2 px-1 pb-2">
+        <p className="text-xs font-semibold text-gray-500 mb-1">Referências</p>
+        <ul className="space-y-1 text-xs text-gray-400">
+          <li>Lexicomp® / Lexi-Drugs Pediatric & Neonatal. Wolters Kluwer Health; 2024.</li>
+          <li>Micromedex® Solutions (DrugDex). IBM Watson Health; 2024.</li>
+          <li>UpToDate®. Wolters Kluwer; 2024. Disponível em: uptodate.com</li>
+          <li>ANVISA. Bula profissional registrada no Brasil. Disponível em: bulario.anvisa.gov.br</li>
+          <li>Taketomo CK, et al. <em>Pediatric & Neonatal Dosage Handbook</em>. 30ª ed. Hudson: Lexicomp; 2023.</li>
+          <li>Sociedade Brasileira de Pediatria (SBP). <em>Guia Prático de Atualização — Farmacologia Pediátrica</em>. Rio de Janeiro: SBP; 2023.</li>
+        </ul>
+      </div>
     </div>
   );
 }
