@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen, FlaskConical, Microscope, Star, Calculator } from 'lucide-react';
+import { Droplets, AlertTriangle, Search, Activity, Scale, ChevronRight, BookOpen, FlaskConical, Microscope, Star, Calculator, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs } from '@/lib/guideData';
 import { searchDrugs } from '@/lib/searchDrugs';
@@ -236,6 +236,23 @@ export default function Home() {
       </motion.div>
 
 
+
+      {/* Drogas na Emergência */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
+        <Link to="/drogas-emergencia">
+          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-red-500 to-rose-600 rounded-2xl p-5 md:p-6 text-white shadow-lg shadow-red-200 flex items-center gap-4 cursor-pointer">
+            <div className="bg-white/20 rounded-xl p-2.5 flex-shrink-0">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-base md:text-lg leading-tight">Drogas na Emergência</p>
+              <p className="text-red-100 text-xs md:text-sm mt-1 leading-snug">Doses em bolus, infusão contínua e equipamentos — Fita de Broselow</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
+          </motion.div>
+        </Link>
+      </motion.div>
 
       {/* Calculators Link */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>

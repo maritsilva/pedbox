@@ -26,6 +26,7 @@ import CartilhaDesenvolvimento from './pages/CartilhaDesenvolvimento';
 import Settings from './pages/Settings';
 import WoodDownes from './pages/WoodDownes';
 import PRAM from './pages/PRAM';
+import DrogasEmergencia from './pages/DrogasEmergencia';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/wood-downes" element={<WoodDownes />} />
             <Route path="/pram" element={<PRAM />} />
+            <Route path="/drogas-emergencia" element={<DrogasEmergencia />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

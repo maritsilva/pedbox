@@ -122,16 +122,15 @@ const ESPECIALIDADE_META = {
 
 function SeverityTable() {
   const rows = [
-    { param: 'Falta de ar', leve: 'Andando', moderada: 'Falando / dificuldade de se alimentar (lactente)', grave: 'Em repouso / para de se alimentar' },
-    { param: 'Fala', leve: 'Frases completas', moderada: 'Frases intercortadas', grave: 'Palavras' },
-    { param: 'Estado mental', leve: 'Normal', moderada: 'Normal / alterado', grave: 'Alterado' },
-    { param: 'Frequência respiratória', leve: 'Normal / aumentada', moderada: 'Aumentada', grave: 'Aumentada' },
-    { param: 'Sibilos', leve: 'Moderado, final da expiração', moderada: 'Intenso, durante expiração', grave: 'Intenso, inspiratório e expiratório' },
-    { param: 'Dispneia', leve: 'Leve / ausente', moderada: 'Moderada', grave: 'Intensa' },
-    { param: 'Frequência cardíaca', leve: 'Normal', moderada: 'Aumentada', grave: 'Muito aumentada' },
-    { param: 'SatO₂ (ar ambiente)', leve: '> 95%', moderada: '91 – 95%', grave: '≤ 90%' },
-    { param: 'PaO₂', leve: 'Normal', moderada: '≥ 60 mmHg', grave: '< 60 mmHg' },
-    { param: 'PaCO₂', leve: 'Normal', moderada: '< 42 mmHg', grave: '≥ 42 mmHg' },
+    { param: 'Fala', leve: 'Frases completas', moderada: 'Frases curtas', grave: 'Não consegue falar / alimentar-se' },
+    { param: 'Posição', leve: 'Consegue deitar-se', moderada: 'Prefere sentada', grave: 'Inclinada para frente / agitada' },
+    { param: 'Estado mental', leve: 'Normal', moderada: 'Normal / levemente alterado', grave: 'Confusão / sonolência' },
+    { param: 'Frequência respiratória', leve: 'Próxima do normal', moderada: 'Aumentada, ≤ 30/min', grave: '> 30/min' },
+    { param: 'Musculatura acessória', leve: 'Ausente ou mínima', moderada: 'Moderada', grave: 'Retrações torácicas importantes' },
+    { param: 'Sibilos', leve: 'Ausente ou leve', moderada: 'Expiratório', grave: 'Inspir + expir / tórax silencioso' },
+    { param: 'SatO₂ (ar ambiente)', leve: '≥ 94%', moderada: '92–94%', grave: '< 92% (ameaça à vida)' },
+    { param: 'PEF / VEF1', leve: '> 70% do previsto', moderada: '50–70% do previsto', grave: '< 50% do previsto' },
+    { param: 'PaCO₂', leve: 'Normal', moderada: '< 42 mmHg', grave: '≥ 42 mmHg (fadiga)' },
   ];
 
   return (
@@ -193,33 +192,86 @@ function NormalValuesTable() {
   );
 }
 
+// ── PRAM Score Table ───────────────────────────────────────────────────────────
+
+function PRAMTable() {
+  const rows = [
+    { item: 'Cianose', options: ['Ausente (0)', 'Com ar ambiente (1)', 'Em repouso (2)'] },
+    { item: 'Retração supraesternal', options: ['Ausente (0)', '—', 'Presente (2)'] },
+    { item: 'Contração músculo escaleno', options: ['Ausente (0)', '—', 'Presente (2)'] },
+    { item: 'Ar movido', options: ['Normal (0)', 'Diminuído na base (1)', 'Muito diminuído/ausente (2)'] },
+    { item: 'Chiado respiratório', options: ['Ausente (0)', 'Expiratório (1)', 'Inspir + expir / tórax silencioso (2)'] },
+  ];
+  return (
+    <div className="space-y-2">
+      <div className="overflow-x-auto rounded-xl border border-border shadow-sm">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="bg-purple-600">
+              <th className="px-3 py-2 text-left font-bold text-white">Parâmetro</th>
+              <th className="px-3 py-2 text-center font-bold text-white">0</th>
+              <th className="px-3 py-2 text-center font-bold text-white">1</th>
+              <th className="px-3 py-2 text-center font-bold text-white">2</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {rows.map((r, i) => (
+              <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-purple-50/40'}>
+                <td className="px-3 py-2 font-semibold text-foreground">{r.item}</td>
+                {r.options.map((o, j) => (
+                  <td key={j} className="px-3 py-2 text-center text-muted-foreground">{o}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="grid grid-cols-3 gap-2 text-xs">
+        <div className="bg-green-50 border border-green-200 rounded-xl p-2 text-center text-green-800">
+          <p className="font-bold">0–3 pontos</p><p>Leve</p>
+        </div>
+        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-2 text-center text-yellow-800">
+          <p className="font-bold">4–7 pontos</p><p>Moderada</p>
+        </div>
+        <div className="bg-red-50 border border-red-200 rounded-xl p-2 text-center text-red-800">
+          <p className="font-bold">8–12 pontos</p><p>Grave</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Medications Table ─────────────────────────────────────────────────────────
 
 function MedicationsTable() {
   const meds = [
     {
-      drug: 'Salbutamol aerossol (100 mcg/dose)',
-      dose: '4–10 jatos a cada 20 min, 3 vezes (inicial). Repetir conforme necessidade.',
+      drug: 'Salbutamol MDI + espaçador\n(100 µg/puff)',
+      dose: 'Leve: 4 jatos; repetir após 30–60 min se necessário\nModerada: 4–8 jatos a cada 20–30 min × 3\nGrave: 6–10 jatos a cada 20 min (emergência)\nNebulização: 2,5 mg (< 5 anos) / 5 mg (≥ 6 anos)',
     },
     {
-      drug: 'Brometo de Ipratrópio aerossol (20 mcg/dose)',
-      dose: '< 12 anos: 4 jatos a cada 20 min, 3 vezes\n> 12 anos: 8 jatos a cada 20 min, 3 vezes',
+      drug: 'ICS-Formoterol\n(Budesonida 160 µg + Formoterol 4,5 µg)\n[Track 1 — ≥ 6 anos, GINA 2026]',
+      dose: 'Na crise: 2 jatos como broncodilatador (alternativa ao SABA na crise leve)\nManutenção MART: 1 jato 2×/dia\nAlívio extra conforme necessidade\nMáx: 8 jatos/dia (6–11 anos) / 12 jatos/dia (adolescentes)',
     },
     {
-      drug: 'Prednisona / Prednisolona VO\n(opção: Metilprednisolona EV)',
-      dose: '1–2 mg/kg/dia\n• Máx 20 mg/dia (0–2 anos)\n• Máx 30 mg/dia (3–5 anos)\n• Máx 40 mg/dia (5–12 anos)\n• Máx 50 mg/dia (12–17 anos)\nA cada 12 ou 24 h · Manter 3 a 5 dias',
+      drug: 'Brometo de Ipratrópio MDI + espaçador\n(20 µg/puff)',
+      dose: 'Moderada/grave: 4 jatos (< 5 anos) / 4–8 jatos (≥ 6 anos)\nNebulização: 0,25 mg (< 5 anos) / 0,5 mg (≥ 6 anos)\nRepetir nas 3 primeiras doses de SABA (a cada 20–30 min)',
     },
     {
-      drug: 'Dexametasona',
-      dose: '0,6 mg/kg VO, IM ou EV – Máx 10 mg\n1× ao dia por 1–2 dias\nSe falha ou recaída: considerar mudança para prednisolona',
+      drug: 'Prednisolona / Prednisona VO\n(Metilprednisolona EV se vômito / VO impossível)',
+      dose: '1–2 mg/kg/dia\n• Até 11 anos: máx 40 mg/dia\n• Adolescentes: máx 50 mg/dia\nDuração: 3–5 dias (crianças) · 5–7 dias (adolescentes)',
     },
     {
-      drug: 'Sulfato de Magnésio EV',
-      dose: 'Dose inicial: 50 mg/kg EV em 20 min\nSe necessário: completar para 75 mg/kg (máx 2 g)',
+      drug: 'Dexametasona VO/IM/EV',
+      dose: '0,6 mg/kg · máx 10–12 mg\n1× ao dia por 1–2 dias\nAlternativa quando adesão ao esquema curto é problema',
     },
     {
-      drug: 'Salbutamol EV (0,5 mg/mL)',
-      dose: 'Ataque: 10 mcg/kg EV\nManutenção: 0,1–1 mcg/kg/min (máx 5 mcg/kg/min)',
+      drug: 'Sulfato de Magnésio EV\n(crise grave sem resposta)',
+      dose: '50 mg/kg em 20 min · máx 2 g\nIndicado quando Sat < 92% persiste após SABA + corticoide\n⚠️ Monitorar PA e ritmo cardíaco',
+    },
+    {
+      drug: 'Salbutamol EV\n(somente UTI)',
+      dose: 'Ataque: 10 µg/kg EV lento\nManutenção: 0,1–1 µg/kg/min (máx 5 µg/kg/min)\n⚠️ Risco de arritmia — uso exclusivo em cuidados intensivos',
     },
   ];
   return (
@@ -228,13 +280,13 @@ function MedicationsTable() {
         <thead>
           <tr className="bg-blue-600">
             <th className="px-4 py-3 text-left text-xs font-bold text-white">Medicação</th>
-            <th className="px-4 py-3 text-left text-xs font-bold text-white">Dose</th>
+            <th className="px-4 py-3 text-left text-xs font-bold text-white">Dose (GINA 2026)</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
           {meds.map((m, i) => (
             <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-blue-50/40'}>
-              <td className="px-4 py-3 text-xs font-semibold text-blue-900 whitespace-pre-line align-top w-52">{m.drug}</td>
+              <td className="px-4 py-3 text-xs font-semibold text-blue-900 whitespace-pre-line align-top w-56">{m.drug}</td>
               <td className="px-4 py-3 text-xs text-foreground whitespace-pre-line leading-relaxed">{m.dose}</td>
             </tr>
           ))}
@@ -363,26 +415,26 @@ function CriseAsmaticaDetail({ onBack }) {
         <p className="text-blue-200 text-xs font-semibold mb-0.5">Protocolo Clínico · Respiratório</p>
         <h1 className="text-2xl font-extrabold leading-tight">🫁 Crise Asmática</h1>
         <p className="text-blue-100 text-sm mt-0.5">em Crianças e Adolescentes</p>
-        <p className="text-blue-200 text-xs mt-3 border-t border-blue-400/40 pt-2">Albert Einstein (SBIBAE) · Revisado Jun/2024 · GINA 2024</p>
+        <p className="text-blue-200 text-xs mt-3 border-t border-blue-400/40 pt-2">Albert Einstein (SBIBAE) · Atualizado Mai/2026 · <strong className="text-white">GINA 2026</strong></p>
       </div>
 
       {/* Definition */}
       <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-900 leading-relaxed">
-        A exacerbação de asma é o agravamento agudo dos sintomas asmáticos (dispneia, sibilância, tosse, aperto no peito). Pode ser precipitada por infecções respiratórias, alérgenos, poluentes e estresse. Pode ocorrer em pacientes com asma prévia ou como primeira apresentação da doença.
+        A exacerbação asmática é o agravamento agudo de dispneia, sibilância, tosse e aperto torácico com declínio da função pulmonar. Pode ser precipitada por infecções virais, alérgenos, poluentes ou falta de adesão ao controlador. Crises graves podem ser fatais — a avaliação da gravidade deve ser imediata. <strong>Atualização baseada no GINA 2026</strong>, com ênfase no uso conservador de SABA, oxigenoterapia criteriosa e introdução precoce de ICS.
       </div>
 
       {/* 1. Diagnosis */}
       <Section icon={<ClipboardList className="w-4 h-4" />} title="1. Diagnóstico e Exames Adicionais" color="blue">
-        <p className="text-sm text-foreground mb-3">O diagnóstico é <strong>eminentemente clínico</strong>: sintomas respiratórios + broncoespasmo.</p>
-        <p className="text-xs font-semibold text-muted-foreground mb-2">Avaliação inicial deve incluir:</p>
+        <p className="text-sm text-foreground mb-3">O diagnóstico é <strong>eminentemente clínico</strong>. Iniciar o tratamento antes dos resultados laboratoriais.</p>
+        <p className="text-xs font-semibold text-muted-foreground mb-2">Anamnese — perguntar sobre:</p>
         <ul className="space-y-1 mb-4">
           {[
-            'Início dos sintomas e causa (se conhecida)',
-            'Histórico de hospitalização, IOT e ventilação mecânica',
-            'Uso atual ou recente de corticoesteroides e medicações de resgate',
-            'Sinais vitais, nível de consciência, uso de musculatura acessória',
-            'Fatores complicadores (anafilaxia, pneumonia, atelectasias)',
-            'Diagnósticos diferenciais (aspiração, obstrução laríngea, IC)',
+            'Início e causa da crise (viral, alérgeno, poluente, suspensão do controlador)',
+            'Histórico de hospitalização, IOT ou ventilação mecânica prévia',
+            'Uso de SABA (≥ 1 frasco/mês = alto risco), corticoide sistêmico no último ano',
+            'Sinais vitais, consciência, uso de musculatura acessória, cianose',
+            'Fatores complicadores: anafilaxia, pneumonia, atelectasia, pneumotórax',
+            'Diagnósticos diferenciais: bronquiolite, aspiração de corpo estranho, insuficiência cardíaca',
           ].map((item, i) => (
             <li key={i} className="flex gap-2 text-sm text-foreground">
               <span className="text-blue-400 flex-shrink-0 mt-0.5">•</span>{item}
@@ -392,10 +444,12 @@ function CriseAsmaticaDetail({ onBack }) {
         <p className="text-xs font-semibold text-muted-foreground mb-2">Exames complementares:</p>
         <ul className="space-y-1.5">
           {[
-            { exam: 'Oximetria de pulso', note: 'Medidas seriadas para avaliar gravidade e resposta.' },
-            { exam: 'Exames laboratoriais', note: 'Não necessários na maioria; não devem atrasar o tratamento.' },
-            { exam: 'Rx de tórax', note: 'Não recomendado rotineiramente — indicar se não houver resposta ao tratamento inicial ou suspeita de complicações (pneumotórax, pneumonia, atelectasia).' },
-            { exam: 'Gasometria arterial', note: 'Considerar nas crises graves sem resposta. PaO₂ < 60 mmHg ou PaCO₂ ≥ 45 mmHg indica insuficiência respiratória.' },
+            { exam: 'Oximetria de pulso', note: 'Medida contínua. Sat < 92% = gravidade e indicação de O₂. Atenção: pode superestimar em pele escura.' },
+            { exam: 'PEF / VEF1', note: 'Quando possível, medir antes da 1ª dose e após tratamento. < 50% = gravidade; > 70% = critério de alta.' },
+            { exam: 'PRAM (< 5 anos)', note: 'Escore clínico recomendado pelo GINA 2026: cianose, retrações, escaleno, ar movido, chiado. 0–3: leve; 4–7: moderado; 8–12: grave.' },
+            { exam: 'Rx de tórax', note: 'Não recomendado rotineiramente. Indicar se sem resposta ao tratamento ou suspeita de pneumotórax, pneumonia, atelectasia.' },
+            { exam: 'Gasometria arterial', note: 'Reservar para crises graves. PaCO₂ ≥ 42 mmHg sugere fadiga respiratória iminente.' },
+            { exam: 'Laboratório geral', note: 'Não necessário na maioria dos casos. Monitorar hipocalemia e acidose láctica se uso intensivo de SABA.' },
           ].map((item, i) => (
             <li key={i} className="flex gap-2 text-sm">
               <span className="text-blue-400 flex-shrink-0 mt-0.5">•</span>
@@ -406,10 +460,13 @@ function CriseAsmaticaDetail({ onBack }) {
       </Section>
 
       {/* 2. Severity Score */}
-      <Section icon={<Activity className="w-4 h-4" />} title="2. Escore de Gravidade" color="amber">
+      <Section icon={<Activity className="w-4 h-4" />} title="2. Classificação de Gravidade (GINA 2026)" color="amber">
+        <p className="text-xs text-muted-foreground mb-3">Para crianças ≥ 6 anos — adaptado de GINA 2026 Box 9-4</p>
         <SeverityTable />
         <p className="text-xs font-semibold text-muted-foreground mt-4 mb-1">Valores normais de FR e FC por idade:</p>
         <NormalValuesTable />
+        <p className="text-xs font-semibold text-muted-foreground mt-4 mb-2">Para crianças &lt; 5 anos — Escore PRAM (GINA 2026 Box 12-1):</p>
+        <PRAMTable />
       </Section>
 
       {/* 3. Flowchart */}
@@ -421,10 +478,26 @@ function CriseAsmaticaDetail({ onBack }) {
       <Section icon={<LogOut className="w-4 h-4" />} title="4. Indicação de Internação e Critérios de Alta" color="red">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           {[
-            { title: 'Critérios para internação', text: 'Presença de sinais de insuficiência respiratória mantida após tratamento inicial (dispneia, uso de musculatura acessória, hipoxemia).', color: 'border-red-300 bg-red-50 text-red-900' },
-            { title: 'Critérios para UTI', text: 'Crises moderadas ou graves que evoluem sem resposta às medidas iniciais e/ou com deterioração clínica.', color: 'border-red-400 bg-red-100 text-red-900' },
-            { title: 'Conversão para terapia oral', text: 'Assim que o paciente tolerar VO. Prednisona VO tem efeito equivalente à Metilprednisolona EV.', color: 'border-green-300 bg-green-50 text-green-900' },
-            { title: 'Critérios de alta', text: 'Boa resposta ao tratamento, sem desconforto respiratório e SatO₂ > 94% em ar ambiente.', color: 'border-green-400 bg-green-100 text-green-900' },
+            {
+              title: 'Critérios para internação',
+              text: 'Sinais de insuficiência respiratória persistente após tratamento inicial · Necessidade contínua de O₂ ou suporte ventilatório · Múltiplas doses de broncodilatador para manter Sat adequada · Comorbidades ou fatores de risco de morte por asma · Situação social que dificulte manejo domiciliar.',
+              color: 'border-red-300 bg-red-50 text-red-900',
+            },
+            {
+              title: 'Critérios para UTI',
+              text: 'Agitação, confusão ou sonolência · Tórax silencioso · Cianose · Sat < 92% persistente apesar de O₂ e broncodilatadores · Fadiga respiratória / hipercapnia crescente · Falência do tratamento — considerar VNI ou IOT com SRI.',
+              color: 'border-red-400 bg-red-100 text-red-900',
+            },
+            {
+              title: 'Critérios de alta hospitalar',
+              text: 'Clinicamente estável por ≥ 4–6h · Sat ≥ 95% sem O₂ · PEF > 60–80% do melhor pessoal ou PRAM ≤ 3 · Doses de SABA espaçadas (> 4h entre doses).',
+              color: 'border-green-300 bg-green-50 text-green-900',
+            },
+            {
+              title: 'Obrigatório antes da alta (GINA 2026)',
+              text: 'Prescrever ou otimizar ICS (ou ICS-formoterol MART) · Revisar técnica do inalador com espaçador · Fornecer plano de ação escrito · Agendar reavaliação em 2–3 dias (< 6 anos) ou 2–7 dias (maiores).',
+              color: 'border-green-400 bg-green-100 text-green-900',
+            },
           ].map((c, i) => (
             <div key={i} className={`rounded-xl border p-3 ${c.color}`}>
               <p className="font-bold text-xs mb-1 underline">{c.title}</p>
@@ -435,29 +508,74 @@ function CriseAsmaticaDetail({ onBack }) {
       </Section>
 
       {/* 5. Treatment */}
-      <Section icon={<Pill className="w-4 h-4" />} title="5. Tratamento — Medicações" color="blue">
+      <Section icon={<Pill className="w-4 h-4" />} title="5. Tratamento — Medicações (GINA 2026)" color="blue">
         <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2">
+            <div className="bg-violet-50 border border-violet-200 rounded-xl p-3 text-xs text-violet-900">
+              <p className="font-bold mb-1">Track 1 — ICS-Formoterol MART (≥ 6 anos)</p>
+              <p>Preferencial pelo GINA 2026. Budesonida-formoterol como broncodilatador <em>e</em> controlador simultaneamente. Pode ser iniciado já na crise, inclusive em pacientes sem tratamento prévio.</p>
+            </div>
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-900">
+              <p className="font-bold mb-1">Track 2 — ICS + SABA conforme necessidade</p>
+              <p>Para pacientes que usam salbutamol como resgate habitual ou que não toleram formoterol. Adicionar ICS imediatamente após doses de SABA e continuar 7–10 dias após a alta.</p>
+            </div>
+          </div>
           <div>
-            <p className="text-xs font-semibold text-muted-foreground mb-2">Tratamento inicial:</p>
+            <p className="text-xs font-semibold text-muted-foreground mb-2">Princípios do tratamento (GINA 2026):</p>
             <ul className="space-y-1">
               {[
-                'Inalação com broncodilatadores de ação rápida (MDI com máscara e espaçador).',
-                'Início precoce de corticosteroides na crise grave e na crise leve em > 6 anos.',
-                'Suplementação de oxigênio conforme gravidade.',
+                'SABA via MDI + espaçador é preferível à nebulização (eficácia equivalente, menos contaminação).',
+                'Usar SABA de forma conservadora — doses excessivas causam taquicardia, hipocalemia, arritmias e acidose láctica.',
+                'Oxigênio: iniciar apenas quando Sat < 92%; titular para 92–95% (≥ 6 anos) ou ≥ 92% (< 5 anos); evitar > 95%.',
+                'Corticoide sistêmico em crises moderadas/graves ou leves sem melhora após SABA.',
+                'ICS obrigatório na alta — iniciar ou otimizar em todos os pacientes.',
+                'Aminofilina e β₂-agonista EV: reservados à UTI; não recomendados em atenção primária.',
               ].map((item, i) => (
-                <li key={i} className="flex gap-2 text-sm"><span className="text-blue-400">•</span>{item}</li>
+                <li key={i} className="flex gap-2 text-sm"><span className="text-blue-400 flex-shrink-0">•</span>{item}</li>
               ))}
             </ul>
           </div>
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground mb-2">Duração do tratamento:</p>
-            <ul className="space-y-1">
-              <li className="flex gap-2 text-sm"><span className="text-blue-400">•</span>Salbutamol inalatório 4–6×/dia por 5 dias</li>
-              <li className="flex gap-2 text-sm"><span className="text-blue-400">•</span>Prednisolona 3–5 dias ou Dexametasona 1–2 dias</li>
-              <li className="flex gap-2 text-sm"><span className="text-blue-400">•</span>Reavaliação ambulatorial com pediatra após 48 horas</li>
-            </ul>
-          </div>
           <MedicationsTable />
+        </div>
+      </Section>
+
+      {/* 6. ICS at discharge */}
+      <Section icon={<Pill className="w-4 h-4" />} title="6. ICS na Alta — Terapia Controladora (GINA 2026)" color="purple">
+        <div className="space-y-3 text-sm">
+          <p className="text-xs text-muted-foreground">Introduzir precocemente na emergência para tratar a inflamação e reduzir risco de nova exacerbação.</p>
+          <div className="space-y-2">
+            {[
+              {
+                label: 'Sem tratamento controlador prévio',
+                text: 'Iniciar budesonida 200 µg 2×/dia (ou equivalente). Reavaliar em 2–7 dias.',
+                color: 'bg-violet-50 border-violet-200 text-violet-900',
+              },
+              {
+                label: 'Já em dose baixa de ICS',
+                text: 'Duplicar a dose por 7–14 dias, depois retornar à dose habitual.',
+                color: 'bg-blue-50 border-blue-200 text-blue-900',
+              },
+              {
+                label: '≥ 6 anos — opção MART (Track 1)',
+                text: 'Budesonida 160 µg + formoterol 4,5 µg: 1 jato 2×/dia (manutenção) + doses extras conforme necessidade. Máx 8 jatos/dia (6–11 anos) ou 12 jatos/dia (adolescentes).',
+                color: 'bg-purple-50 border-purple-200 text-purple-900',
+              },
+              {
+                label: 'Track 2 — ICS + SABA conforme necessidade',
+                text: 'Budesonida 200–400 µg (2–4 jatos) após cada sessão de salbutamol durante a crise. Continuar por 7–10 dias após a alta.',
+                color: 'bg-indigo-50 border-indigo-200 text-indigo-900',
+              },
+            ].map((item, i) => (
+              <div key={i} className={`rounded-xl border p-3 ${item.color}`}>
+                <p className="font-bold text-xs mb-1">{item.label}</p>
+                <p className="text-xs leading-relaxed">{item.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
+            <p className="font-bold mb-1">⚠️ Corticoide sistêmico — uso racional (GINA 2026)</p>
+            <p>Limitar o número de cursos anuais. ≥ 4 cursos/ano associado a osteoporose, diabetes e catarata. Implementar <em>stewardship</em> de OCS: otimizar ICS, considerar imunobiológicos em asma grave, evitar corticoide oral de manutenção.</p>
+          </div>
         </div>
       </Section>
 
@@ -465,11 +583,12 @@ function CriseAsmaticaDetail({ onBack }) {
       <Section icon={<Info className="w-4 h-4" />} title="Referências" color="purple">
         <ul className="space-y-1 text-xs text-muted-foreground">
           {[
-            'Global Initiative for Asthma (GINA) 2024.',
+            'Global Initiative for Asthma (GINA) 2026 Strategy Report. ginasthma.org.',
             'Schvartsman C et al. Pronto-Socorro do ICr-HCFMUSP. 4ª ed. Manole; 2023.',
-            'Scottish Intercollegiate Guideline Network and British Thoracic Society.',
+            'Scottish Intercollegiate Guideline Network and British Thoracic Society (SIGN/BTS).',
             'J Bras Pneumol 2006; 32 Suppl 7:S447-74.',
             'Stenson EK, Tchou MJ, Wheeler DS. Curr Opin Pediatr. 2017;29(3):305-310.',
+            'Einstein SBIBAE — Pathway: Crise Asmática em Crianças e Adolescentes v.3.',
           ].map((ref, i) => (
             <li key={i} className="flex gap-2"><span className="font-bold">[{i + 1}]</span>{ref}</li>
           ))}

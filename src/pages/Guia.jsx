@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ALL_CATEGORIES as GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
 import { searchDrugs } from '@/lib/searchDrugs';
-import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
 import { useFavorites } from '@/hooks/useFavorites.jsx';

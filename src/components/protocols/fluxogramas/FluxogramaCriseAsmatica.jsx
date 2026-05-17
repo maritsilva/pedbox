@@ -30,8 +30,8 @@ export default function FluxogramaCriseAsmatica() {
   return (
     <div className="space-y-1 text-xs min-w-[340px]">
       <Box color="blue" className="text-sm font-bold">
-        🫁 Crise Asmática — Avaliação Inicial<br />
-        <span className="font-normal text-blue-100">Sinais vitais · Oximetria · Exame físico</span>
+        🫁 Crise Asmática — Avaliação Inicial (GINA 2026)<br />
+        <span className="font-normal text-blue-100">Sinais vitais · Oximetria · PRAM (&lt; 5 anos) · Exame físico</span>
       </Box>
 
       <Arrow />
@@ -39,9 +39,40 @@ export default function FluxogramaCriseAsmatica() {
       {/* Severity grid */}
       <div className="grid grid-cols-3 gap-2">
         {[
-          { label: 'LEVE', color: 'green', sat: 'Sat > 95%', items: ['Salbutamol 4–10 jatos MDI × 3 (a cada 20\')', 'Corticoide VO se > 6 anos'] },
-          { label: 'MODERADA', color: 'yellow', sat: 'Sat 91–95%', items: ['O₂ para Sat > 94%', 'Salbutamol 4–10 jatos × 3 (a cada 20\')', 'Ipratrópio 4 jatos × 3 (a cada 20\')', 'Corticoide VO'] },
-          { label: 'GRAVE', color: 'red', sat: 'Sat ≤ 90%', items: ['O₂ alto fluxo / CNAF', 'Salbutamol 4–10 jatos × 3 (a cada 20\')', 'Ipratrópio × 3', 'Corticoide VO/EV/IM', 'MgSO₄ 50–75 mg/kg EV'] },
+          {
+            label: 'LEVE',
+            color: 'green',
+            sat: 'Sat ≥ 94%',
+            items: [
+              'Salbutamol 4 jatos MDI + espaçador',
+              'Repetir após 30–60 min se necessário',
+              '≥ 6 anos: opção ICS-formoterol (budesonida 160 µg + formoterol 4,5 µg) × 2 jatos em vez de SABA',
+              'Corticoide VO se sem melhora após SABA',
+            ],
+          },
+          {
+            label: 'MODERADA',
+            color: 'yellow',
+            sat: 'Sat 92–94%',
+            items: [
+              'O₂ alvo 92–95% (≥ 92% se < 5 anos)',
+              'Salbutamol 4–8 jatos MDI + espaçador ou 2,5 mg nebulizado, a cada 20–30 min × 3',
+              'Ipratrópio 4 jatos (20 µg/puff) ou 0,25 mg neb, a cada 20–30 min × 3',
+              'Corticoide VO: Prednisolona 1–2 mg/kg (máx 40 mg)',
+            ],
+          },
+          {
+            label: 'GRAVE / RISCO DE VIDA',
+            color: 'red',
+            sat: 'Sat < 92%',
+            items: [
+              'O₂ imediato — alvo 92–95%',
+              'Salbutamol 6–10 jatos MDI + espaçador ou 5 mg neb, a cada 20 min',
+              'Ipratrópio 4–8 jatos ou 0,5 mg neb, nas 3 primeiras doses de SABA',
+              'Corticoide sistêmico: Prednisolona VO ou Metilprednisolona EV',
+              'MgSO₄ EV 50 mg/kg (máx 2 g) em 20 min',
+            ],
+          },
         ].map((col) => (
           <div key={col.label} className={`rounded-xl border-2 overflow-hidden ${
             col.color === 'green' ? 'border-emerald-300 bg-emerald-50' :
@@ -61,7 +92,7 @@ export default function FluxogramaCriseAsmatica() {
                   col.color === 'green' ? 'text-emerald-800' :
                   col.color === 'yellow' ? 'text-amber-800' : 'text-red-800'
                 }`}>
-                  <span className="mt-0.5">•</span><span>{item}</span>
+                  <span className="mt-0.5 flex-shrink-0">•</span><span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -69,20 +100,35 @@ export default function FluxogramaCriseAsmatica() {
         ))}
       </div>
 
-      <Arrow label="Reavaliação após tratamento inicial" />
+      <Arrow label="Reavaliação 1h — sinais vitais, Sat, PEF/PRAM" />
 
       {/* Response grid */}
       <div className="grid grid-cols-3 gap-2">
         {[
-          { label: '✅ BOA RESPOSTA', bg: 'bg-emerald-50 border-emerald-200', hd: 'bg-emerald-100 text-emerald-800', items: ['Sat > 94%', 'Sem desconforto', '→ ALTA com plano de ação'] },
-          { label: '⚠️ RESP. INCOMPLETA', bg: 'bg-amber-50 border-amber-200', hd: 'bg-amber-100 text-amber-800', items: ['Observação 4h', 'Salbutamol a cada 30–60\'', 'Corticoide se não feito', 'Considerar MgSO₄'] },
-          { label: '🚨 SEM RESPOSTA', bg: 'bg-red-50 border-red-200', hd: 'bg-red-100 text-red-800', items: ['Confusão / sonolência', 'Sat < 90%', '→ UTI / EMERGÊNCIA'] },
+          {
+            label: '✅ BOA RESPOSTA',
+            bg: 'bg-emerald-50 border-emerald-200',
+            hd: 'bg-emerald-100 text-emerald-800',
+            items: ['Sat ≥ 95% (≥ 94% se < 5 anos)', 'Sem desconforto / musculatura acessória', 'PEF > 70% ou PRAM ≤ 3', 'Última dose SABA > 60 min', '→ ALTA com plano de ação + ICS'],
+          },
+          {
+            label: '⚠️ RESP. INCOMPLETA',
+            bg: 'bg-amber-50 border-amber-200',
+            hd: 'bg-amber-100 text-amber-800',
+            items: ['Observação 4–6h', 'Salbutamol a cada 30–60 min', 'Corticoide se não feito', 'Considerar MgSO₄', 'Reavaliar internação'],
+          },
+          {
+            label: '🚨 SEM RESPOSTA',
+            bg: 'bg-red-50 border-red-200',
+            hd: 'bg-red-100 text-red-800',
+            items: ['Confusão / sonolência / cianose', 'Sat < 92% persistente', 'Silêncio torácico', '→ UTI / SALA DE EMERGÊNCIA'],
+          },
         ].map((col) => (
           <div key={col.label} className={`rounded-xl border-2 overflow-hidden ${col.bg}`}>
             <div className={`text-center text-xs font-bold py-1.5 ${col.hd}`}>{col.label}</div>
             <ul className="p-2.5 space-y-1">
               {col.items.map((item, i) => (
-                <li key={i} className="flex gap-1 text-xs text-gray-700"><span>•</span><span>{item}</span></li>
+                <li key={i} className="flex gap-1 text-xs text-gray-700"><span className="flex-shrink-0">•</span><span>{item}</span></li>
               ))}
             </ul>
           </div>
@@ -93,8 +139,18 @@ export default function FluxogramaCriseAsmatica() {
 
       <Box color="red-dark" className="font-bold">
         🏥 UTI / SALA DE EMERGÊNCIA<br />
-        <span className="font-normal text-red-200 text-xs">Salbutamol EV · MgSO₄ · Heliox · CNAF · VNI / IOT</span>
+        <span className="font-normal text-red-200 text-xs">Salbutamol EV · MgSO₄ · Heliox · CNAF · VNI / IOT se deterioração</span>
       </Box>
+
+      {/* ICS note */}
+      <div className="bg-violet-50 border border-violet-200 rounded-xl p-3 mt-2">
+        <p className="font-bold text-violet-700 text-xs mb-1">📋 GINA 2026 — ICS na alta (obrigatório)</p>
+        <ul className="space-y-1 text-xs text-violet-900">
+          <li>• <strong>Track 1 (≥ 6 anos):</strong> ICS-formoterol MART — budesonida 160 µg + formoterol 4,5 µg: 1 jato 2×/dia + doses extra conforme necessidade (máx 8 jatos/dia em 6–11 anos; 12 jatos/dia em adolescentes)</li>
+          <li>• <strong>Track 2:</strong> ICS + SABA conforme necessidade — budesonida 200–400 µg após cada sessão de salbutamol; continuar 7–10 dias após alta</li>
+          <li>• <strong>Reavaliação:</strong> 2–3 dias (crianças &lt; 6 anos) · 2–7 dias (maiores)</li>
+        </ul>
+      </div>
     </div>
   );
 }
