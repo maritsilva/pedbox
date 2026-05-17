@@ -34,6 +34,7 @@ const menuCategories = [
       { to: '/idade-gestacional-corrigida', label: 'IG Corrigida' },
       { to: '/centor-mcisaac', label: 'Centor/McIsaac' },
       { to: '/wood-downes', label: 'Wood-Downes (Bronquiolite)' },
+      { to: '/pram', label: 'PRAM (Asma)' },
     ],
   },
   {
