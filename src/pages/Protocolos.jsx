@@ -17,6 +17,7 @@ import PneumoniaComplicada from '@/components/protocols/PneumoniaComplicada';
 import AnemiaFerropriva from '@/components/protocols/AnemiaFerropriva';
 import FluxogramaPneumonia from '@/components/protocols/fluxogramas/FluxogramaPneumonia';
 import FluxogramaAnemiaFerropriva from '@/components/protocols/fluxogramas/FluxogramaAnemiaFerropriva';
+import MeningiteBacteriana from '@/components/protocols/MeningiteBacteriana.jsx';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -108,6 +109,17 @@ const PROTOCOLS = [
     especialidade: 'Hematologia',
     source: 'SBP — Hematologia / Nutrologia · Diretriz Nº 32 · 2026',
     keywords: ['anemia', 'ferro', 'ferropriva', 'ferritina', 'hemoglobina', 'suplementação'],
+  },
+  {
+    id: 'meningite-bacteriana',
+    title: 'Meningite Aguda Bacteriana',
+    subtitle: 'em Lactentes, Crianças e Adolescentes',
+    icon: '🧠',
+    color: 'red',
+    tag: 'Infectologia',
+    especialidade: 'Infectologia',
+    source: 'Sociedade de Infecciologia Pediátrica + SCIP · SPP',
+    keywords: ['meningite', 'meningococo', 'pneumococo', 'haemophilus', 'lcr', 'punção lombar', 'antibiótico', 'cefotaxima', 'ceftriaxone', 'vancomicina'],
   },
 ];
 
@@ -724,6 +736,7 @@ export default function Protocolos() {
     'febre-sem-sinais': <FebreSemSinais />,
     'pneumonia-complicada': <PneumoniaComplicada />,
     'anemia-ferropriva': <AnemiaFerropriva />,
+    'meningite-bacteriana': <MeningiteBacteriana />,
   };
 
   const filtered = useMemo(() => {
