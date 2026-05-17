@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, Info, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Info, AlertTriangle, Ruler } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AlvoParental() {
@@ -34,23 +34,22 @@ export default function AlvoParental() {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 pb-12">
     <div className="max-w-2xl mx-auto px-4 py-8">
       {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-        <h1 className="text-2xl font-extrabold text-foreground mb-1">Alvo Parental</h1>
-        <p className="text-sm text-muted-foreground">Estimativa de estatura-alvo com base na altura dos pais</p>
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <Ruler className="w-7 h-7 text-white" />
+          </div>
+          <h1 className="text-3xl font-extrabold text-gray-900">Alvo Parental</h1>
+        </div>
+        <p className="text-gray-600 text-base">Estimativa de estatura-alvo genética</p>
+        <p className="text-xs text-gray-400 mt-1">Baseada na altura dos pais biológicos</p>
       </motion.div>
 
-      {/* Disclaimer */}
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3 mb-6">
-        <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
-        <p className="text-xs text-amber-800 leading-relaxed">
-          Esta ferramenta é de uso exclusivo para profissionais de saúde. O cálculo é uma estimativa e não substitui avaliação clínica individualizada.
-        </p>
-      </div>
-
       {/* Form */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-2xl shadow-sm p-6 mb-6">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white border-2 border-gray-100 rounded-2xl shadow-sm p-6 mb-6">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-foreground mb-1.5">Altura do Pai (cm)</label>
@@ -144,19 +143,20 @@ export default function AlvoParental() {
       </AnimatePresence>
 
       {/* Formula */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="bg-secondary/60 border border-border rounded-2xl p-5">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-5">
         <div className="flex gap-3">
-          <Info className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-foreground">
+          <Info className="w-4 h-4 text-indigo-500 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-gray-700">
             <p className="font-semibold mb-2">Fórmula Utilizada</p>
-            <div className="space-y-1.5 text-xs font-mono bg-card rounded-xl p-3 border border-border">
+            <div className="space-y-1.5 text-xs font-mono bg-gray-50 rounded-xl p-3 border border-gray-200">
               <p><strong>Meninos:</strong> (Pai + Mãe + 13) ÷ 2</p>
               <p><strong>Meninas:</strong> (Pai + Mãe − 13) ÷ 2</p>
-              <p className="pt-1 text-muted-foreground">Intervalo de confiança: ±8,5 cm</p>
+              <p className="pt-1 text-gray-400">Intervalo de confiança: ±8,5 cm</p>
             </div>
           </div>
         </div>
       </motion.div>
+    </div>
     </div>
   );
 }

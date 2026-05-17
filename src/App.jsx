@@ -27,6 +27,7 @@ import Settings from './pages/Settings';
 import WoodDownes from './pages/WoodDownes';
 import PRAM from './pages/PRAM';
 import DrogasEmergencia from './pages/DrogasEmergencia';
+import CalculadorasHub from './pages/CalculadorasHub';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path="/wood-downes" element={<WoodDownes />} />
             <Route path="/pram" element={<PRAM />} />
             <Route path="/drogas-emergencia" element={<DrogasEmergencia />} />
+            <Route path="/calculadoras-hub" element={<CalculadorasHub />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
