@@ -393,6 +393,13 @@ export default function PressaoArterial() {
               <p className="text-xs text-muted-foreground mt-1">Os gráficos de PA aparecerão aqui</p>
             </div>
           )}
+          {/* Referências */}
+          <div className="mt-4 text-xs text-gray-400 space-y-1 px-1">
+            <p className="font-semibold text-gray-500">Referências</p>
+            <p>Flynn JT, et al. Clinical Practice Guideline for Screening and Management of High Blood Pressure in Children and Adolescents. <em>Pediatrics</em> 2017;140(3):e20171904.</p>
+            <p>National High Blood Pressure Education Program Working Group on High Blood Pressure in Children and Adolescents. <em>Pediatrics</em> 2004;114(2 Suppl):555-76.</p>
+            <p>Lurbe E, et al. 2016 European Society of Hypertension guidelines for the management of high blood pressure in children and adolescents. <em>J Hypertens</em> 2016;34(10):1887-920.</p>
+          </div>
         </div>
       </div>
     </div>

@@ -264,6 +264,14 @@ export default function Hidratacao() {
           <li>• Taxa contínua = Volume diário ÷ 24h — Holliday MA, Segar WE. Pediatrics, 1957</li>
         </ul>
       </div>
+
+      {/* Referências */}
+      <div className="mt-4 text-xs text-gray-400 space-y-1 px-1">
+        <p className="font-semibold text-gray-500">Referências</p>
+        <p>Holliday MA, Segar WE. The maintenance need for water in parenteral fluid therapy. <em>Pediatrics</em> 1957;19(5):823-32.</p>
+        <p>Sociedade Brasileira de Pediatria (SBP). <em>Manual de Terapia de Reidratação Oral</em>. Rio de Janeiro: SBP; 2020.</p>
+        <p>Hospital Israelita Albert Einstein (SBIBAE). <em>Protocolo de Hidratação Venosa em Pediatria</em>. São Paulo; 2023.</p>
+      </div>
     </div>
   );
 }

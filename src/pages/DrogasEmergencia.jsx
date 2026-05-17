@@ -292,6 +292,14 @@ export default function DrogasEmergencia() {
           )}
         </>
       )}
+      {/* Referências */}
+      <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
+        <p className="font-semibold text-gray-500">Referências</p>
+        <p>Curso Iterativo de Emergência Pediátrica. <em>Fita de Broselow Adaptada — Equipamentos e Drogas na Emergência Pediátrica</em>. Brasil; 2024.</p>
+        <p>Broselow J, Luten R. <em>The Broselow Pediatric Emergency Tape</em>. 2nd ed. Armstrong Medical; 2011.</p>
+        <p>Sociedade Brasileira de Pediatria (SBP). <em>Manual de Emergências em Pediatria</em>. Rio de Janeiro: SBP; 2020.</p>
+        <p>Schvartsman C, et al. <em>Pronto-Socorro do ICr-HCFMUSP</em>. 4ª ed. Barueri: Manole; 2023.</p>
+      </div>
     </div>
   );
 }

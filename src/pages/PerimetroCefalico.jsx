@@ -206,6 +206,14 @@ export default function PerimetroCefalico() {
           <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
           <p className="text-xs text-blue-800">Baseado em curvas OMS/CDC. Faixa etária suportada: 0–36 meses. Microcefalia congênita requer avaliação clínica e por imagem.</p>
         </div>
+
+        {/* Referências */}
+        <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
+          <p className="font-semibold text-gray-500">Referências</p>
+          <p>World Health Organization. <em>WHO Child Growth Standards: Head circumference-for-age</em>. Geneva: WHO Press; 2006.</p>
+          <p>Centers for Disease Control and Prevention (CDC). <em>2000 CDC Growth Charts for the United States</em>. Hyattsville: NCHS; 2002.</p>
+          <p>Nellhaus G. Head circumference from birth to eighteen years. <em>Pediatrics</em> 1968;41(1):106-14.</p>
+        </div>
       </div>
     </div>
   );

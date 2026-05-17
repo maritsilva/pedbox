@@ -199,6 +199,14 @@ export default function IdadeGestacionalCorrigida() {
             <p><strong>Fórmula:</strong> IC = Idade cronológica − semanas de prematuridade (semanas faltantes para 40 semanas)</p>
           </div>
         </motion.div>
+
+        {/* Referências */}
+        <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
+          <p className="font-semibold text-gray-500">Referências</p>
+          <p>American Academy of Pediatrics (AAP). <em>Age Terminology During the Perinatal Period</em>. <em>Pediatrics</em> 2004;114(5):1362-4.</p>
+          <p>Engle WA; AAP Committee on Fetus and Newborn. <em>Age terminology during the perinatal period</em>. <em>Pediatrics</em> 2004;114(5):1362–4.</p>
+          <p>Sociedade Brasileira de Pediatria (SBP). <em>Manual de Neonatologia</em>. Rio de Janeiro: SBP; 2021.</p>
+        </div>
       </div>
     </div>
   );

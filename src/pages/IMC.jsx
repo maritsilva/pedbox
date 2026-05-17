@@ -471,6 +471,14 @@ export default function IMC() {
         </div>
       </div>
       </>}
+
+      {/* Referências */}
+      <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
+        <p className="font-semibold text-gray-500">Referências</p>
+        <p>Kuczmarski RJ, et al. 2000 CDC Growth Charts for the United States. <em>Vital Health Stat</em> 2002;11(246):1-190.</p>
+        <p>Centers for Disease Control and Prevention (CDC). <em>Clinical Growth Charts</em>. Hyattsville: NCHS; 2000.</p>
+        <p>Sociedade Brasileira de Pediatria (SBP). <em>Manual de Avaliação Nutricional — Curvas de Crescimento CDC 2000</em>. Rio de Janeiro: SBP; 2021.</p>
+      </div>
     </div>
   );
 }

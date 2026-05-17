@@ -156,6 +156,14 @@ export default function AlvoParental() {
           </div>
         </div>
       </motion.div>
+
+      {/* Referências */}
+      <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
+        <p className="font-semibold text-gray-500">Referências</p>
+        <p>Tanner JM, Goldstein H, Whitehouse RH. Standards for children's heights at ages 2–9 years allowing for height of parents. <em>Arch Dis Child</em> 1970;45(244):755-62.</p>
+        <p>Sociedade Brasileira de Pediatria (SBP). <em>Avaliação do Crescimento e Desenvolvimento</em>. Rio de Janeiro: SBP; 2021.</p>
+        <p>Linhares MBM, et al. Alvo parental como referência de crescimento estatural. <em>J Pediatr (Rio J)</em> 2004;80(4):265-72.</p>
+      </div>
     </div>
     </div>
   );

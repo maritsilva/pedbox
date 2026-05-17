@@ -333,6 +333,14 @@ export default function WoodDownes() {
             Limpar e recalcular
           </button>
         )}
+
+        {/* Referências */}
+        <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
+          <p className="font-semibold text-gray-500">Referências</p>
+          <p>Wood DW, Downes JJ, Lecks HI. A clinical scoring system for the diagnosis of respiratory failure. <em>Am J Dis Child</em> 1972;123(3):227-8.</p>
+          <p>Ferrés J. Modificación de la escala de Wood-Downes. In: <em>Protocolos diagnóstico-terapéuticos de Urgencias Pediátricas SEUP-AEP</em>. 2ª ed. Madrid; 2010.</p>
+          <p>Sociedade Brasileira de Pediatria (SBP). <em>Protocolo de Bronquiolite Viral Aguda</em>. Rio de Janeiro: SBP; 2020.</p>
+        </div>
       </div>
     </div>
   );
