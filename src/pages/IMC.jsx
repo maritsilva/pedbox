@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, RotateCcw, AlertTriangle, Info, TrendingUp, Weight, Ruler, Star } from 'lucide-react';
+import { Calculator, RotateCcw, AlertTriangle, Info, TrendingUp, Weight, Ruler, Star, Baby } from 'lucide-react';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
+import IMCInfante from './IMCInfante';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
   ReferenceDot, ResponsiveContainer, Legend,
@@ -145,6 +146,7 @@ function ResultCard({ icon: Icon, title, z, percentile, category }) {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function IMC() {
+  const [tab, setTab] = useState('child'); // 'infant' | 'child'
    const [form, setForm] = useState({
      birthDate: '',
      measureDate: today(),
@@ -206,9 +208,9 @@ export default function IMC() {
       {/* Header */}
       <div className="mb-6 flex items-start justify-between">
         <div className="flex-1">
-          <h1 className="text-2xl font-extrabold text-foreground mb-1">IMC Pediátrico</h1>
+          <h1 className="text-2xl font-extrabold text-foreground mb-1">Crescimento Pediátrico</h1>
           <p className="text-sm text-muted-foreground">
-            Percentis de IMC, Estatura e Peso para crianças de 2–20 anos (referência CDC 2000)
+            Curvas de crescimento por faixa etária — referência CDC 2000
           </p>
         </div>
         <button
@@ -219,6 +221,29 @@ export default function IMC() {
         </button>
       </div>
 
+      {/* Tab switcher */}
+      <div className="flex gap-2 mb-6 bg-secondary rounded-2xl p-1.5">
+        <button
+          onClick={() => setTab('infant')}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === 'infant' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+        >
+          <Baby className="w-4 h-4" />
+          0–36 meses
+        </button>
+        <button
+          onClick={() => setTab('child')}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === 'child' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+        >
+          <TrendingUp className="w-4 h-4" />
+          2–20 anos (IMC)
+        </button>
+      </div>
+
+      {/* Infant tab */}
+      {tab === 'infant' && <IMCInfante />}
+
+      {/* Child tab */}
+      {tab === 'child' && <>
       {/* Disclaimer */}
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3 mb-6">
         <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
@@ -445,6 +470,7 @@ export default function IMC() {
           )}
         </div>
       </div>
+      </>}
     </div>
   );
 }
