@@ -64,7 +64,7 @@ const CRITERIA = [
 ];
 
 function getClassification(score) {
-  if (score <= 3) return {
+  if (score <= 3) return { // 0–3 Leve
     label: 'Leve',
     color: 'green',
     bg: 'bg-green-50',
@@ -81,7 +81,7 @@ function getClassification(score) {
       'Retorno se piora dos sintomas',
     ],
   };
-  if (score <= 6) return {
+  if (score <= 6) return { // 4–6 Moderada
     label: 'Moderada',
     color: 'yellow',
     bg: 'bg-yellow-50',
@@ -99,7 +99,7 @@ function getClassification(score) {
       'Monitorização contínua de SpO₂ e FC',
     ],
   };
-  if (score <= 9) return {
+  if (score <= 9) return { // 7–9 Grave
     label: 'Grave',
     color: 'orange',
     bg: 'bg-orange-50',
@@ -139,24 +139,16 @@ function getClassification(score) {
 
 export default function WoodDownes() {
   const [scores, setScores] = useState({});
-  const [total, setTotal] = useState(null);
 
-  const allAnswered = CRITERIA.every(c => scores[c.id] !== undefined);
-
-  useEffect(() => {
-    if (allAnswered) {
-      const sum = Object.values(scores).reduce((a, b) => a + b, 0);
-      setTotal(sum);
-    } else {
-      setTotal(null);
-    }
-  }, [scores, allAnswered]);
+  const answeredCount = CRITERIA.filter(c => scores[c.id] !== undefined).length;
+  const allAnswered = answeredCount === CRITERIA.length;
+  const partialScore = Object.values(scores).reduce((a, b) => a + b, 0);
+  const total = allAnswered ? partialScore : null;
 
   const classification = total !== null ? getClassification(total) : null;
 
   const handleReset = () => {
     setScores({});
-    setTotal(null);
   };
 
   const colorBar = (score) => {
@@ -185,6 +177,22 @@ export default function WoodDownes() {
           <p className="text-gray-600 text-base">Escala de gravidade para bronquiolite</p>
           <p className="text-xs text-gray-400 mt-1">Lactentes com suspeita de bronquiolite viral aguda</p>
         </motion.div>
+
+        {/* Progress */}
+        {answeredCount > 0 && !allAnswered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-white rounded-2xl border border-gray-200 px-5 py-3 mb-4 flex items-center justify-between"
+          >
+            <span className="text-sm text-gray-500 font-medium">
+              {answeredCount} de {CRITERIA.length} critérios respondidos
+            </span>
+            <span className="text-sm font-bold text-blue-600">
+              Parcial: {partialScore} pts
+            </span>
+          </motion.div>
+        )}
 
         {/* Criteria Cards */}
         <div className="space-y-4 mb-6">
