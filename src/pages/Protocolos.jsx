@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, FlaskConical, LogOut, ClipboardList, Info, GitBranch } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
 import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
@@ -24,7 +24,9 @@ const PROTOCOLS = [
     icon: '🫁',
     color: 'blue',
     tag: 'Respiratório',
+    especialidade: 'Respiratório',
     source: 'Albert Einstein · Revisado Jun/2024',
+    keywords: ['asma', 'broncoespasmo', 'salbutamol', 'sibilância', 'dispneia'],
   },
   {
     id: 'bronquiolite',
@@ -33,7 +35,9 @@ const PROTOCOLS = [
     icon: '🫧',
     color: 'blue',
     tag: 'Respiratório',
+    especialidade: 'Respiratório',
     source: 'Albert Einstein · Revisado Jul/2024',
+    keywords: ['vsr', 'lactente', 'sibilância', 'wood downes', 'hipoxemia'],
   },
   {
     id: 'convulsao-febril',
@@ -42,7 +46,9 @@ const PROTOCOLS = [
     icon: '⚡',
     color: 'purple',
     tag: 'Neurologia',
+    especialidade: 'Neurologia',
     source: 'Albert Einstein · Revisado Jun/2025',
+    keywords: ['crise', 'epilepsia', 'febre', 'diazepam', 'anticonvulsivante'],
   },
   {
     id: 'diarreia-aguda',
@@ -51,7 +57,9 @@ const PROTOCOLS = [
     icon: '💧',
     color: 'teal',
     tag: 'Gastroenterologia',
+    especialidade: 'Gastroenterologia',
     source: 'Albert Einstein · Revisado Jun/2025',
+    keywords: ['desidratação', 'sro', 'gastroenterite', 'ors', 'vômito'],
   },
   {
     id: 'faringoamigdalite',
@@ -60,7 +68,9 @@ const PROTOCOLS = [
     icon: '🦠',
     color: 'orange',
     tag: 'Infectologia',
+    especialidade: 'Infectologia',
     source: 'Albert Einstein · Revisado Jun/2024',
+    keywords: ['amigdalite', 'streptococo', 'centor', 'amoxicilina', 'garganta'],
   },
   {
     id: 'febre-sem-sinais',
@@ -69,9 +79,18 @@ const PROTOCOLS = [
     icon: '🌡️',
     color: 'red',
     tag: 'Infectologia',
+    especialidade: 'Infectologia',
     source: 'Albert Einstein · Revisado Jun/2025',
+    keywords: ['febre', 'lactente', 'sepse', 'urina', 'itu'],
   },
 ];
+
+const ESPECIALIDADE_META = {
+  'Respiratório':      { color: 'blue',   bg: 'bg-blue-50',   border: 'border-blue-200',   text: 'text-blue-700',   dot: 'bg-blue-500' },
+  'Neurologia':        { color: 'purple', bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', dot: 'bg-purple-500' },
+  'Gastroenterologia': { color: 'teal',   bg: 'bg-teal-50',   border: 'border-teal-200',   text: 'text-teal-700',   dot: 'bg-teal-500' },
+  'Infectologia':      { color: 'orange', bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500' },
+};
 
 // ── Severity Table ─────────────────────────────────────────────────────────────
 
@@ -482,6 +501,8 @@ const FLUXOGRAMAS = {
 export default function Protocolos() {
   const [selected, setSelected] = useState(null);
   const [fluxogramaOpen, setFluxogramaOpen] = useState(null);
+  const [search, setSearch] = useState('');
+  const [activeEsp, setActiveEsp] = useState(null);
 
   const detailMap = {
     'crise-asmatica': <CriseAsmaticaDetail />,
@@ -494,10 +515,30 @@ export default function Protocolos() {
 
   const activeFluxograma = fluxogramaOpen ? FLUXOGRAMAS[fluxogramaOpen] : null;
 
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    return PROTOCOLS.filter(p => {
+      const matchesSearch = !q || [p.title, p.subtitle, p.tag, ...(p.keywords || [])].some(s => s.toLowerCase().includes(q));
+      const matchesEsp = !activeEsp || p.especialidade === activeEsp;
+      return matchesSearch && matchesEsp;
+    });
+  }, [search, activeEsp]);
+
+  const especialidades = [...new Set(PROTOCOLS.map(p => p.especialidade))];
+
+  const grouped = useMemo(() => {
+    const groups = {};
+    filtered.forEach(p => {
+      if (!groups[p.especialidade]) groups[p.especialidade] = [];
+      groups[p.especialidade].push(p);
+    });
+    return groups;
+  }, [filtered]);
+
+  // ── Detail view ──
   if (selected && detailMap[selected]) {
     return (
       <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
-        {/* Fluxograma modal */}
         {activeFluxograma && (
           <FluxogramaModal
             title={activeFluxograma.title}
@@ -507,7 +548,6 @@ export default function Protocolos() {
             {activeFluxograma.component}
           </FluxogramaModal>
         )}
-
         <div className="flex items-center justify-between mb-5">
           <button
             onClick={() => setSelected(null)}
@@ -530,9 +570,9 @@ export default function Protocolos() {
     );
   }
 
+  // ── List view ──
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      {/* Fluxograma modal from list */}
       {activeFluxograma && (
         <FluxogramaModal
           title={activeFluxograma.title}
@@ -543,33 +583,109 @@ export default function Protocolos() {
         </FluxogramaModal>
       )}
 
+      {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-extrabold text-foreground mb-1">Protocolos Clínicos</h1>
-        <p className="text-muted-foreground text-sm">Diretrizes e guias de cuidado baseados em evidências</p>
+        <p className="text-muted-foreground text-sm">Diretrizes baseadas em evidências · Albert Einstein</p>
       </div>
 
-      <div className="space-y-3">
-        {PROTOCOLS.map(p => (
-          <div key={p.id} className="relative">
-            <ProtocolCard protocol={p} onClick={() => setSelected(p.id)} />
-            {FLUXOGRAMAS[p.id] && (
-              <button
-                onClick={(e) => { e.stopPropagation(); setFluxogramaOpen(p.id); }}
-                className="absolute right-14 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 text-xs font-semibold rounded-xl transition-all"
-              >
-                <GitBranch className="w-3.5 h-3.5" />
-                Fluxograma
-              </button>
-            )}
-          </div>
-        ))}
+      {/* Search */}
+      <div className="relative mb-4">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <input
+          type="text"
+          placeholder="Buscar protocolo (ex: asma, febre, diarreia…)"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="w-full pl-10 pr-10 py-3 bg-white border border-border rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+        />
+        {search && (
+          <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+            <X className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
-      <div className="mt-8 bg-secondary/60 border border-border rounded-2xl p-5 text-center">
-        <BookOpen className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-        <p className="text-sm font-semibold text-foreground">Mais protocolos em breve</p>
-        <p className="text-xs text-muted-foreground mt-1">Sepse neonatal, convulsão febril, cetoacidose diabética e outros.</p>
+      {/* Specialty filters */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <button
+          onClick={() => setActiveEsp(null)}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${!activeEsp ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:border-primary/50'}`}
+        >
+          Todas
+        </button>
+        {especialidades.map(esp => {
+          const meta = ESPECIALIDADE_META[esp] || {};
+          const isActive = activeEsp === esp;
+          return (
+            <button
+              key={esp}
+              onClick={() => setActiveEsp(isActive ? null : esp)}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${isActive ? `${meta.bg} ${meta.text} ${meta.border}` : 'bg-white text-muted-foreground border-border hover:border-primary/50'}`}
+            >
+              {esp}
+            </button>
+          );
+        })}
       </div>
+
+      {/* Results count when searching */}
+      {(search || activeEsp) && (
+        <p className="text-xs text-muted-foreground mb-4">
+          {filtered.length === 0 ? 'Nenhum protocolo encontrado' : `${filtered.length} protocolo${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`}
+        </p>
+      )}
+
+      {/* Grouped protocols */}
+      {filtered.length === 0 ? (
+        <div className="text-center py-16">
+          <p className="text-4xl mb-3">🔍</p>
+          <p className="font-semibold text-foreground">Nenhum resultado para "{search}"</p>
+          <p className="text-sm text-muted-foreground mt-1">Tente outros termos como "febre", "asma" ou "diarreia".</p>
+        </div>
+      ) : (
+        <div className="space-y-8">
+          {Object.entries(grouped).map(([esp, protocols]) => {
+            const meta = ESPECIALIDADE_META[esp] || { bg: 'bg-secondary', border: 'border-border', text: 'text-foreground', dot: 'bg-primary' };
+            return (
+              <div key={esp}>
+                {/* Specialty header */}
+                <div className={`flex items-center gap-2 mb-3 px-4 py-2 rounded-xl ${meta.bg} border ${meta.border}`}>
+                  <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${meta.dot}`} />
+                  <span className={`text-sm font-bold ${meta.text}`}>{esp}</span>
+                  <span className={`ml-auto text-xs font-semibold ${meta.text} opacity-70`}>{protocols.length} protocolo{protocols.length !== 1 ? 's' : ''}</span>
+                </div>
+
+                <div className="space-y-2">
+                  {protocols.map(p => (
+                    <div key={p.id} className="relative">
+                      <ProtocolCard protocol={p} onClick={() => setSelected(p.id)} />
+                      {FLUXOGRAMAS[p.id] && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setFluxogramaOpen(p.id); }}
+                          className="absolute right-14 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 text-xs font-semibold rounded-xl transition-all"
+                        >
+                          <GitBranch className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">Fluxograma</span>
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Coming soon */}
+      {!search && !activeEsp && (
+        <div className="mt-10 bg-secondary/60 border border-border rounded-2xl p-5 text-center">
+          <BookOpen className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+          <p className="text-sm font-semibold text-foreground">Mais protocolos em breve</p>
+          <p className="text-xs text-muted-foreground mt-1">Sepse neonatal, cetoacidose diabética, anafilaxia e outros.</p>
+        </div>
+      )}
     </div>
   );
 }
