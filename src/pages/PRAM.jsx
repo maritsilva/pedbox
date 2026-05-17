@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { Wind } from 'lucide-react';
+import { Wind, CheckCircle2, Circle, RefreshCw, AlertTriangle, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CRITERIA = [
   {
     id: 'o2sat',
     label: 'Saturação de O₂',
+    hint: 'Em ar ambiente, sem O₂ suplementar',
+    icon: '🫁',
     options: [
       { label: '≥ 95%', value: 0 },
-      { label: '92–94%', value: 1 },
+      { label: '92 – 94%', value: 1 },
       { label: '< 92%', value: 3 },
     ],
   },
   {
     id: 'suprasternal',
     label: 'Retração supraesternal',
+    hint: 'Depressão visível na fúrcula esternal durante inspiração',
+    icon: '🔍',
     options: [
       { label: 'Ausente', value: 0 },
       { label: 'Presente', value: 2 },
@@ -23,6 +27,8 @@ const CRITERIA = [
   {
     id: 'scalene',
     label: 'Contração do músculo escaleno',
+    hint: 'Palpação ou visibilização do escaleno durante respiração',
+    icon: '💪',
     options: [
       { label: 'Ausente', value: 0 },
       { label: 'Presente', value: 2 },
@@ -30,7 +36,9 @@ const CRITERIA = [
   },
   {
     id: 'airentry',
-    label: 'Entrada de ar (pulmão mais afetado)',
+    label: 'Entrada de ar',
+    hint: 'Avaliar no pulmão mais afetado à ausculta',
+    icon: '👂',
     options: [
       { label: 'Normal', value: 0 },
       { label: 'Diminuída', value: 1 },
@@ -39,7 +47,9 @@ const CRITERIA = [
   },
   {
     id: 'wheezing',
-    label: 'Sibilância (pulmão mais afetado)',
+    label: 'Sibilância',
+    hint: 'Avaliar no pulmão mais afetado à ausculta',
+    icon: '🌬️',
     options: [
       { label: 'Ausente', value: 0 },
       { label: 'Expiratória apenas', value: 1 },
@@ -49,34 +59,99 @@ const CRITERIA = [
   },
 ];
 
-function getClassification(score) {
-  if (score <= 3) return {
+const CLASSIFICATIONS = [
+  {
     label: 'Leve',
-    color: 'green',
-    bg: 'bg-green-50',
-    border: 'border-green-400',
-    text: 'text-green-700',
-    badge: 'bg-green-100 text-green-800',
-    conduta: 'Broncodilatador de curta duração (salbutamol) conforme necessário. Reavaliação clínica. Alta com plano de ação.',
-  };
-  if (score <= 7) return {
+    range: '0 – 3',
+    min: 0, max: 3,
+    bg: 'bg-emerald-50',
+    border: 'border-emerald-400',
+    text: 'text-emerald-700',
+    badge: 'bg-emerald-100 text-emerald-800',
+    bar: 'bg-emerald-400',
+    emoji: '🟢',
+    conduta: [
+      'Salbutamol inalatório (2–4 puffs) conforme necessário',
+      'Observação por 1–2h no PS',
+      'Alta com plano de ação por escrito',
+      'Corticosteroide oral se histórico de crise grave',
+    ],
+  },
+  {
     label: 'Moderada',
-    color: 'yellow',
-    bg: 'bg-yellow-50',
-    border: 'border-yellow-400',
-    text: 'text-yellow-700',
-    badge: 'bg-yellow-100 text-yellow-800',
-    conduta: 'Broncodilatador a cada 20 min × 3 doses. Corticosteroide sistêmico. Monitorização contínua. Considerar internação se sem melhora.',
-  };
-  return {
+    range: '4 – 7',
+    min: 4, max: 7,
+    bg: 'bg-amber-50',
+    border: 'border-amber-400',
+    text: 'text-amber-700',
+    badge: 'bg-amber-100 text-amber-800',
+    bar: 'bg-amber-400',
+    emoji: '🟡',
+    conduta: [
+      'Salbutamol 2,5–5 mg a cada 20 min × 3 doses (nebulização ou MDI)',
+      'Corticosteroide sistêmico: prednisolona 1–2 mg/kg/dia VO',
+      'Oxigênio se SpO₂ < 94%',
+      'Reavaliação com score após tratamento',
+      'Internar se sem melhora após 1–2h',
+    ],
+  },
+  {
     label: 'Grave',
-    color: 'red',
+    range: '8 – 12',
+    min: 8, max: 12,
     bg: 'bg-red-50',
     border: 'border-red-400',
     text: 'text-red-700',
     badge: 'bg-red-100 text-red-800',
-    conduta: 'Oxigênio suplementar. Broncodilatador contínuo. Corticosteroide sistêmico IV/VO. Considerar ipratrópio, sulfato de magnésio. Internação / UTI.',
-  };
+    bar: 'bg-red-500',
+    emoji: '🔴',
+    conduta: [
+      'Oxigênio suplementar para SpO₂ ≥ 95%',
+      'Salbutamol contínuo (nebulização contínua 0,5 mg/kg/h)',
+      'Ipratrópio 250–500 mcg a cada 20 min × 3 doses',
+      'Prednisolona/metilprednisolona IV/VO imediata',
+      'Considerar sulfato de magnésio IV (50 mg/kg)',
+      'Internação em UTI pediátrica',
+    ],
+  },
+];
+
+function getClassification(score) {
+  return CLASSIFICATIONS.find(c => score >= c.min && score <= c.max) || CLASSIFICATIONS[2];
+}
+
+function ScoreGauge({ score, max = 12 }) {
+  const pct = Math.min((score / max) * 100, 100);
+  const color = score <= 3 ? 'bg-emerald-400' : score <= 7 ? 'bg-amber-400' : 'bg-red-500';
+
+  return (
+    <div className="w-full">
+      <div className="flex justify-between text-xs text-gray-400 mb-1 font-medium">
+        <span>0</span>
+        <span>3</span>
+        <span>7</span>
+        <span>12</span>
+      </div>
+      <div className="relative h-3 bg-gray-100 rounded-full overflow-hidden">
+        {/* Zone markers */}
+        <div className="absolute inset-y-0 left-0 w-[25%] bg-emerald-100 rounded-l-full" />
+        <div className="absolute inset-y-0 left-[25%] w-[33.3%] bg-amber-100" />
+        <div className="absolute inset-y-0 left-[58.3%] right-0 bg-red-100 rounded-r-full" />
+        {/* Progress */}
+        <motion.div
+          className={`absolute inset-y-0 left-0 rounded-full ${color}`}
+          initial={{ width: 0 }}
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        />
+      </div>
+      <div className="flex justify-between text-xs mt-1 font-semibold">
+        <span className="text-emerald-600">Leve</span>
+        <span className="text-amber-600">Moderada</span>
+        <span className="text-red-600">Grave</span>
+      </div>
+    </div>
+  );
 }
 
 export default function PRAM() {
@@ -93,9 +168,10 @@ export default function PRAM() {
   const partialScore = Object.values(scores).reduce((a, b) => a + b, 0);
   const total = allAnswered ? partialScore : null;
   const classification = total !== null ? getClassification(total) : null;
+  const progressPct = (answeredCount / CRITERIA.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 pb-12">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50 pb-16">
       <div className="max-w-2xl mx-auto px-4 py-8">
 
         {/* Header */}
@@ -104,54 +180,96 @@ export default function PRAM() {
             <Wind className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-extrabold text-gray-900">Score PRAM</h1>
-          <p className="text-gray-500 mt-1 text-sm">Gravidade da crise asmática pediátrica · 2–17 anos</p>
+          <p className="text-gray-500 mt-1 text-sm">Pediatric Respiratory Assessment Measure · 2–17 anos</p>
         </motion.div>
 
-        {/* Progress bar */}
-        {answeredCount > 0 && !allAnswered && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-white rounded-2xl border border-gray-200 px-5 py-3 mb-5 flex items-center justify-between">
-            <span className="text-sm text-gray-500 font-medium">{answeredCount} de {CRITERIA.length} critérios respondidos</span>
-            <span className="text-sm font-bold text-blue-600">Parcial: {partialScore} pts</span>
-          </motion.div>
-        )}
+        {/* Progress header card */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-2xl border border-gray-200 shadow-sm px-5 py-4 mb-6"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Activity className="w-4 h-4 text-blue-500" />
+              <span className="text-sm font-semibold text-gray-700">
+                {allAnswered ? 'Avaliação completa' : `${answeredCount} / ${CRITERIA.length} critérios`}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-extrabold text-blue-600">{partialScore}</span>
+              <span className="text-sm text-gray-400 font-medium">/ 12 pts</span>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-3">
+            <motion.div
+              className="h-full bg-blue-400 rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${progressPct}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+
+          {/* Score gauge — always visible */}
+          <ScoreGauge score={partialScore} />
+        </motion.div>
 
         {/* Criteria */}
-        <div className="space-y-4 mb-6">
-          {CRITERIA.map((criterion, idx) => (
-            <motion.div
-              key={criterion.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.07 }}
-              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden"
-            >
-              <div className="px-5 py-4 bg-gradient-to-r from-sky-50 to-blue-50 border-b border-gray-100">
-                <span className="text-xs font-bold text-sky-600 uppercase tracking-wider">Critério {idx + 1}</span>
-                <p className="font-semibold text-gray-800 mt-0.5">{criterion.label}</p>
-              </div>
-              <div className="p-4 space-y-2">
-                {criterion.options.map((opt) => {
-                  const selected = scores[criterion.id] === opt.value;
-                  return (
-                    <button
-                      key={opt.value}
-                      onClick={() => handleSelect(criterion.id, opt.value)}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border-2 transition-all font-medium text-sm ${
-                        selected
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50/50'
-                      }`}
-                    >
-                      <span>{opt.label}</span>
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${selected ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-500'}`}>
-                        {opt.value} pt{opt.value !== 1 ? 's' : ''}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          ))}
+        <div className="space-y-3 mb-6">
+          {CRITERIA.map((criterion, idx) => {
+            const answered = scores[criterion.id] !== undefined;
+            return (
+              <motion.div
+                key={criterion.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.07 }}
+                className={`bg-white rounded-2xl shadow-sm border-2 overflow-hidden transition-all ${
+                  answered ? 'border-blue-200' : 'border-gray-200'
+                }`}
+              >
+                <div className={`px-5 py-3 flex items-center justify-between border-b ${answered ? 'bg-blue-50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">{criterion.icon}</span>
+                    <div>
+                      <p className="font-bold text-gray-800 text-sm">{criterion.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{criterion.hint}</p>
+                    </div>
+                  </div>
+                  {answered
+                    ? <CheckCircle2 className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                    : <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />
+                  }
+                </div>
+                <div className="p-3 grid gap-2">
+                  {criterion.options.map((opt) => {
+                    const selected = scores[criterion.id] === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => handleSelect(criterion.id, opt.value)}
+                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border-2 transition-all text-sm font-medium ${
+                          selected
+                            ? 'border-blue-500 bg-blue-500 text-white shadow-md'
+                            : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50/60'
+                        }`}
+                      >
+                        <span>{opt.label}</span>
+                        <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                          selected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'
+                        }`}>
+                          {opt.value} {opt.value === 1 ? 'pt' : 'pts'}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Result */}
@@ -161,20 +279,37 @@ export default function PRAM() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-6 mb-6`}
+              className={`rounded-2xl border-2 ${classification.border} ${classification.bg} overflow-hidden mb-5`}
             >
-              <div className="flex items-center justify-between mb-4">
+              {/* Score header */}
+              <div className={`px-6 py-5 flex items-center justify-between border-b ${classification.border}`}>
                 <div>
-                  <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Score total</p>
-                  <p className={`text-5xl font-extrabold ${classification.text}`}>{total}<span className="text-lg font-medium ml-1">/ 12</span></p>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Score PRAM</p>
+                  <p className={`text-6xl font-extrabold ${classification.text}`}>
+                    {total}
+                    <span className="text-xl font-medium ml-1 opacity-60">/ 12</span>
+                  </p>
                 </div>
-                <span className={`px-4 py-2 rounded-full text-base font-bold ${classification.badge}`}>
-                  {classification.label}
-                </span>
+                <div className="text-right">
+                  <span className="text-4xl">{classification.emoji}</span>
+                  <p className={`text-xl font-extrabold mt-1 ${classification.text}`}>{classification.label}</p>
+                </div>
               </div>
-              <div className="border-t border-gray-200 pt-4">
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Conduta sugerida</p>
-                <p className={`text-sm font-medium ${classification.text}`}>{classification.conduta}</p>
+
+              {/* Conduta */}
+              <div className="px-6 py-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertTriangle className={`w-4 h-4 ${classification.text}`} />
+                  <p className="text-xs font-bold text-gray-600 uppercase tracking-wider">Conduta sugerida</p>
+                </div>
+                <ul className="space-y-2">
+                  {classification.conduta.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm">
+                      <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${classification.bar}`} />
+                      <span className="text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           )}
@@ -186,35 +321,34 @@ export default function PRAM() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={handleReset}
-            className="w-full py-3 rounded-xl border-2 border-gray-300 text-gray-600 font-semibold hover:bg-gray-100 transition-all"
+            className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2 mb-8"
           >
-            Limpar / Nova avaliação
+            <RefreshCw className="w-4 h-4" />
+            Nova avaliação
           </motion.button>
         )}
 
         {/* Reference table */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-8 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="px-5 py-4 bg-gray-50 border-b border-gray-200">
-            <p className="font-bold text-gray-700 text-sm">Interpretação do Score PRAM</p>
+            <p className="font-bold text-gray-700 text-sm">Classificação de Gravidade</p>
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left px-5 py-3 text-gray-500 font-semibold">Score</th>
-                <th className="text-left px-5 py-3 text-gray-500 font-semibold">Gravidade</th>
+              <tr className="border-b border-gray-100 bg-gray-50/50">
+                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Score</th>
+                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Gravidade</th>
+                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Conduta inicial</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { range: '0 – 3', label: 'Leve', badge: 'bg-green-100 text-green-800' },
-                { range: '4 – 7', label: 'Moderada', badge: 'bg-yellow-100 text-yellow-800' },
-                { range: '8 – 12', label: 'Grave', badge: 'bg-red-100 text-red-800' },
-              ].map((row, i) => (
+              {CLASSIFICATIONS.map((row, i) => (
                 <tr key={i} className="border-b border-gray-50 last:border-0">
                   <td className="px-5 py-3 font-mono font-bold text-gray-700">{row.range}</td>
                   <td className="px-5 py-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.label}</span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.emoji} {row.label}</span>
                   </td>
+                  <td className="px-5 py-3 text-gray-500 text-xs">{row.conduta[0]}</td>
                 </tr>
               ))}
             </tbody>
