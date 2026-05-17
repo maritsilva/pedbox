@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wind, CheckCircle2, Circle, RefreshCw, AlertTriangle, Activity } from 'lucide-react';
+import { Wind, CheckCircle2, Circle, RefreshCw, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CRITERIA = [
@@ -296,21 +296,7 @@ export default function PRAM() {
                 </div>
               </div>
 
-              {/* Conduta */}
-              <div className="px-6 py-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className={`w-4 h-4 ${classification.text}`} />
-                  <p className="text-xs font-bold text-gray-600 uppercase tracking-wider">Conduta sugerida</p>
-                </div>
-                <ul className="space-y-2">
-                  {classification.conduta.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm">
-                      <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${classification.bar}`} />
-                      <span className="text-gray-700">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+
             </motion.div>
           )}
         </AnimatePresence>
@@ -338,7 +324,7 @@ export default function PRAM() {
               <tr className="border-b border-gray-100 bg-gray-50/50">
                 <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Score</th>
                 <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Gravidade</th>
-                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Conduta inicial</th>
+
               </tr>
             </thead>
             <tbody>
@@ -348,7 +334,7 @@ export default function PRAM() {
                   <td className="px-5 py-3">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.emoji} {row.label}</span>
                   </td>
-                  <td className="px-5 py-3 text-gray-500 text-xs">{row.conduta[0]}</td>
+
                 </tr>
               ))}
             </tbody>

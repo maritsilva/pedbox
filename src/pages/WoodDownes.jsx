@@ -279,19 +279,7 @@ export default function WoodDownes() {
               <span>10 — Muito grave</span>
             </div>
 
-            <p className={`text-sm font-semibold ${classification.text} mb-3`}>{classification.description}</p>
 
-            <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Conduta sugerida</p>
-              <ul className="space-y-1">
-                {classification.conduct.map((c, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                    <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${colorBar(total).replace('bg-', 'bg-')}`} />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </motion.div>
         )}
 

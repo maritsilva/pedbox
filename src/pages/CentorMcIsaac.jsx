@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Microscope, RefreshCw, AlertTriangle, CheckCircle2, Circle } from 'lucide-react';
+import { Microscope, RefreshCw, CheckCircle2, Circle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CRITERIA = [
@@ -203,13 +203,7 @@ export default function CentorMcIsaac() {
                   <p className="text-xs text-gray-500 mt-0.5">Prob. SBHGA: {classification.prob}</p>
                 </div>
               </div>
-              <div className="px-6 py-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className={`w-4 h-4 ${classification.text}`} />
-                  <p className="text-xs font-bold text-gray-600 uppercase tracking-wider">Conduta sugerida</p>
-                </div>
-                <p className="text-sm text-gray-700 leading-relaxed">{classification.conduta}</p>
-              </div>
+
             </motion.div>
           )}
         </AnimatePresence>
