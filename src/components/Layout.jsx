@@ -19,6 +19,7 @@ const menuCategories = [
     items: [
       { to: '/guia', label: 'Guia de Doses' },
       { to: '/protocolos', label: 'Protocolos Clínicos' },
+      { to: '/resumos', label: 'Resumos Clínicos' },
       { to: '/pesquisa', label: '🔬 PedResearch' },
     ],
   },

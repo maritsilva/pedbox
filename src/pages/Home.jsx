@@ -15,6 +15,7 @@ const CALCULATORS = [
 const ALL_SEARCH = [
   { label: 'Guia de Medicamentos', desc: 'Doses, preparo e apresentações', path: '/guia', Icon: BookOpen, keywords: ['guia', 'doses', 'medicamentos', 'antibióticos', 'drogas'] },
   { label: 'Protocolos Clínicos', desc: 'Diretrizes por condição', path: '/protocolos', Icon: FlaskConical, keywords: ['protocolo', 'asma', 'bronquiolite', 'febre', 'diarreia', 'faringoamigdalite'] },
+  { label: 'Resumos Clínicos', desc: 'Sínteses de tópicos pediátricos essenciais', path: '/resumos', Icon: BookOpen, keywords: ['resumo', 'varicela', 'sarampo', 'diarreia', 'aleitamento', 'desenvolvimento', 'puberdade'] },
   { label: 'PedResearch', desc: 'Pesquisa e evidências científicas', path: '/pesquisa', Icon: Microscope, keywords: ['pesquisa', 'evidência', 'estudo', 'guideline', 'publicação', 'artigo'] },
   ...CALCULATORS,
 ];
@@ -194,6 +195,22 @@ export default function Home() {
               <div>
                 <p className="font-bold text-base md:text-lg leading-tight">Protocolos Clínicos</p>
                 <p className="text-violet-100 text-xs md:text-sm mt-1 leading-snug">Fluxogramas passo a passo para situações urgentes</p>
+              </div>
+              <div className="flex items-center gap-1 text-white/70 text-xs mt-auto">
+                Acessar <ChevronRight className="w-3 h-3" />
+              </div>
+            </motion.div>
+          </Link>
+
+          <Link to="/resumos">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl p-5 md:p-6 text-white shadow-lg shadow-cyan-200 flex flex-col gap-3 h-full cursor-pointer">
+              <div className="bg-white/20 rounded-xl p-2.5 w-fit">
+                <BookOpen className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="font-bold text-base md:text-lg leading-tight">Resumos Clínicos</p>
+                <p className="text-cyan-100 text-xs md:text-sm mt-1 leading-snug">Sínteses baseadas em evidências de 25+ tópicos</p>
               </div>
               <div className="flex items-center gap-1 text-white/70 text-xs mt-auto">
                 Acessar <ChevronRight className="w-3 h-3" />
