@@ -114,6 +114,20 @@ export default function Guia() {
         <p className="text-muted-foreground text-sm">Referência clínica completa de medicamentos pediátricos e adultos</p>
       </div>
 
+      {/* Drogas Emergência shortcut */}
+      <Link to="/drogas-emergencia">
+        <div className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl px-4 py-3.5 mb-5 shadow-sm hover:shadow-md transition-all group">
+          <div className="bg-white/20 rounded-lg p-1.5 flex-shrink-0">
+            <Zap className="w-4 h-4" />
+          </div>
+          <div className="flex-1">
+            <p className="font-bold text-sm">Drogas na Emergência</p>
+            <p className="text-red-100 text-xs">Bolus · Infusão Contínua · Equipamentos</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
+        </div>
+      </Link>
+
       {/* Tabs */}
       <div className="flex gap-2 mb-6">
         <button
