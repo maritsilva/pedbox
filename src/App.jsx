@@ -28,6 +28,7 @@ import WoodDownes from './pages/WoodDownes';
 import PRAM from './pages/PRAM';
 import DrogasEmergencia from './pages/DrogasEmergencia';
 import CalculadorasHub from './pages/CalculadorasHub';
+import Resumos from './pages/Resumos';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
             <Route path="/pram" element={<PRAM />} />
             <Route path="/drogas-emergencia" element={<DrogasEmergencia />} />
             <Route path="/calculadoras-hub" element={<CalculadorasHub />} />
+            <Route path="/resumos" element={<Resumos />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
