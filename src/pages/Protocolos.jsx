@@ -12,6 +12,10 @@ import FluxogramaConvulsao from '@/components/protocols/fluxogramas/FluxogramaCo
 import FluxogramaDiarreia from '@/components/protocols/fluxogramas/FluxogramaDiarreia';
 import FluxogramaFaringoamigdalite from '@/components/protocols/fluxogramas/FluxogramaFaringoamigdalite';
 import FluxogramaFebre from '@/components/protocols/fluxogramas/FluxogramaFebre';
+import PneumoniaComplicada from '@/components/protocols/PneumoniaComplicada';
+import AnemiaFerropriva from '@/components/protocols/AnemiaFerropriva';
+import FluxogramaPneumonia from '@/components/protocols/fluxogramas/FluxogramaPneumonia';
+import FluxogramaAnemiaFerropriva from '@/components/protocols/fluxogramas/FluxogramaAnemiaFerropriva';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -82,6 +86,28 @@ const PROTOCOLS = [
     source: 'Albert Einstein · Revisado Jun/2025',
     keywords: ['febre', 'lactente', 'sepse', 'urina', 'itu'],
   },
+  {
+    id: 'pneumonia-complicada',
+    title: 'PAC Complicada',
+    subtitle: 'Pneumonia Adquirida na Comunidade',
+    icon: '🫁',
+    color: 'blue',
+    tag: 'Respiratório',
+    especialidade: 'Respiratório',
+    source: 'SBP — Pneumologia / Infectologia · Atualização 2024',
+    keywords: ['pneumonia', 'empiema', 'derrame pleural', 'necrosante', 'abscesso pulmonar', 'pacc'],
+  },
+  {
+    id: 'anemia-ferropriva',
+    title: 'Anemia Ferropriva',
+    subtitle: 'Deficiência de Ferro em Lactentes',
+    icon: '🩸',
+    color: 'red',
+    tag: 'Hematologia',
+    especialidade: 'Hematologia',
+    source: 'SBP — Hematologia / Nutrologia · Diretriz Nº 32 · 2026',
+    keywords: ['anemia', 'ferro', 'ferropriva', 'ferritina', 'hemoglobina', 'suplementação'],
+  },
 ];
 
 const ESPECIALIDADE_META = {
@@ -89,6 +115,7 @@ const ESPECIALIDADE_META = {
   'Neurologia':        { color: 'purple', bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', dot: 'bg-purple-500' },
   'Gastroenterologia': { color: 'teal',   bg: 'bg-teal-50',   border: 'border-teal-200',   text: 'text-teal-700',   dot: 'bg-teal-500' },
   'Infectologia':      { color: 'orange', bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500' },
+  'Hematologia':       { color: 'red',    bg: 'bg-red-50',    border: 'border-red-200',    text: 'text-red-700',    dot: 'bg-red-500' },
 };
 
 // ── Severity Table ─────────────────────────────────────────────────────────────
@@ -461,6 +488,8 @@ const FLUXOGRAMAS = {
   'diarreia-aguda': { title: 'Fluxograma — Diarreia Aguda', component: <FluxogramaDiarreia /> },
   'faringoamigdalite': { title: 'Fluxograma — Faringoamigdalite', component: <FluxogramaFaringoamigdalite /> },
   'febre-sem-sinais': { title: 'Fluxograma — Febre sem Sinais', component: <FluxogramaFebre /> },
+  'pneumonia-complicada': { title: 'Fluxograma — PAC Complicada', component: <FluxogramaPneumonia /> },
+  'anemia-ferropriva': { title: 'Fluxograma — Anemia Ferropriva', component: <FluxogramaAnemiaFerropriva /> },
 };
 
 // ── Inline Flowchart Panel ─────────────────────────────────────────────────────
@@ -510,6 +539,8 @@ export default function Protocolos() {
     'diarreia-aguda': <DiarreiaAguda />,
     'faringoamigdalite': <Faringoamigdalite />,
     'febre-sem-sinais': <FebreSemSinais />,
+    'pneumonia-complicada': <PneumoniaComplicada />,
+    'anemia-ferropriva': <AnemiaFerropriva />,
   };
 
   const filtered = useMemo(() => {
