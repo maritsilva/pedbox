@@ -47,39 +47,41 @@ export default function ResumoDetalhe({ resumo, onBack }) {
   const catMeta = CATEGORIA_COLORS[resumo.categoria] || CATEGORIA_COLORS['Infectologia'];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 pb-12 pt-4">
+    <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
       {/* Back button */}
       <button
         onClick={onBack}
-        className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4 group"
+        className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-6 group"
       >
-        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-        Todos os Resumos
+        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+        Voltar
       </button>
 
       {/* Hero header */}
       <motion.div
-        initial={{ opacity: 0, y: -12 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`bg-gradient-to-br ${catMeta.bg} rounded-2xl p-6 text-white mb-6 shadow-lg`}
+        className={`bg-gradient-to-br ${catMeta.bg} rounded-3xl p-8 text-white mb-10 shadow-xl`}
       >
-        <div className="flex items-start gap-4">
-          <span className="text-5xl">{resumo.emoji}</span>
+        <div className="flex items-start gap-6">
+          <div className="text-6xl">{resumo.emoji}</div>
           <div className="flex-1 min-w-0">
-            <span className="inline-block text-xs font-bold px-2.5 py-1 rounded-full bg-white/20 mb-2">
+            <span className="inline-block text-xs font-bold px-3 py-1.5 rounded-full bg-white/25 backdrop-blur-sm mb-3">
               {resumo.categoria}
             </span>
-            <h1 className="text-2xl font-extrabold leading-tight">{resumo.titulo}</h1>
-            <p className="text-white/80 text-sm mt-1">{resumo.subtitulo}</p>
-            <p className="text-white/60 text-xs mt-3 border-t border-white/20 pt-3">
-              {resumo.seções.length} {resumo.seções.length === 1 ? 'seção' : 'seções'}
-            </p>
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight">{resumo.titulo}</h1>
+            <p className="text-white/85 text-base mt-2">{resumo.subtitulo}</p>
+            <div className="flex items-center gap-2 mt-4 text-white/70 text-xs border-t border-white/20 pt-4">
+              <span className="font-semibold">{resumo.seções.length} seções</span>
+              <span>•</span>
+              <span>Leitura ~{Math.ceil(resumo.seções.length * 2)} min</span>
+            </div>
           </div>
         </div>
       </motion.div>
 
       {/* Sections */}
-      <div className="space-y-4">
+      <div className="space-y-5">
         {resumo.seções.map((seção, idx) => {
           const headerClass = SECTION_HEADER_COLORS[seção.color] || SECTION_HEADER_COLORS.blue;
           const bodyClass = SECTION_BODY_COLORS[seção.color] || SECTION_BODY_COLORS.blue;
@@ -93,11 +95,11 @@ export default function ResumoDetalhe({ resumo, onBack }) {
               className="rounded-2xl overflow-hidden shadow-sm border border-gray-100"
             >
               {/* Section header */}
-              <div className={`px-4 py-3 ${headerClass}`}>
-                <p className="font-bold text-sm">{seção.nome}</p>
+              <div className={`px-5 py-4 ${headerClass}`}>
+                <p className="font-bold text-sm leading-tight">{seção.nome}</p>
               </div>
               {/* Section body */}
-              <div className={`px-4 py-4 ${bodyClass} border-t`}>
+              <div className={`px-5 py-5 ${bodyClass} border-t`}>
                 <p className="text-sm text-gray-800 leading-relaxed">{seção.conteudo}</p>
               </div>
             </motion.div>
@@ -111,13 +113,15 @@ export default function ResumoDetalhe({ resumo, onBack }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-4"
+          className="mt-10 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-2xl p-6 shadow-sm"
         >
-          <div className="flex items-start gap-2">
-            <BookMarked className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="text-xs font-semibold text-gray-600 mb-1">Referências</p>
-              <p className="text-xs text-muted-foreground italic leading-relaxed">{resumo.referencia}</p>
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-slate-200 rounded-lg flex-shrink-0 mt-0.5">
+              <BookMarked className="w-4 h-4 text-slate-700" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Referências</p>
+              <p className="text-sm text-slate-700 leading-relaxed">{resumo.referencia}</p>
             </div>
           </div>
         </motion.div>

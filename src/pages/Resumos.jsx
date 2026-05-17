@@ -94,26 +94,28 @@ export default function Resumos() {
       key="lista"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="max-w-3xl mx-auto px-4 py-8"
+      className="max-w-4xl mx-auto px-4 py-12"
     >
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-1">
-          <BookOpen className="w-6 h-6 text-primary" />
-          <h1 className="text-2xl font-extrabold text-foreground">Resumos Clínicos</h1>
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <BookOpen className="w-6 h-6 text-primary" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-foreground">Resumos Clínicos</h1>
         </div>
-        <p className="text-muted-foreground text-sm">Sínteses baseadas em evidências · {RESUMOS.length} resumos disponíveis</p>
+        <p className="text-muted-foreground text-base ml-11">Sínteses baseadas em evidências · <span className="font-semibold text-foreground">{RESUMOS.length} resumos</span></p>
       </div>
 
       {/* Search */}
-      <div className="relative mb-4">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <div className="relative mb-6">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Buscar resumo (ex: varicela, diarreia, puberdade…)"
+          placeholder="Buscar resumo (ex: varicela, diarreia, aleitamento…)"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full pl-10 pr-10 py-3 bg-white border border-border rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+          className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
         />
         {search && (
           <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
@@ -123,7 +125,7 @@ export default function Resumos() {
       </div>
 
       {/* Category filters */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-8">
         <button
           onClick={() => setActiveCategoria(null)}
           className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${!activeCategoria ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`}
@@ -145,35 +147,28 @@ export default function Resumos() {
         })}
       </div>
 
-      {/* Results count when filtering */}
-      {(search || activeCategoria) && (
-        <p className="text-xs text-muted-foreground mb-4">
-          {filtered.length === 0 ? 'Nenhum resumo encontrado' : `${filtered.length} resumo${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`}
-        </p>
-      )}
-
       {/* Cards */}
       {filtered.length === 0 ? (
-        <div className="text-center py-14">
-          <p className="text-4xl mb-3">🔍</p>
-          <p className="font-semibold text-foreground">Nenhum resumo encontrado</p>
-          <p className="text-sm text-muted-foreground mt-1">Tente outros termos de busca</p>
+        <div className="text-center py-20">
+          <p className="text-5xl mb-4">🔍</p>
+          <p className="font-bold text-foreground text-lg">Nenhum resumo encontrado</p>
+          <p className="text-muted-foreground mt-2">Tente outros termos de busca ou ajuste os filtros</p>
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-10">
           {Object.entries(grouped).map(([categoria, resumos]) => {
             const meta = CATEGORIA_COLORS[categoria] || {};
             return (
               <div key={categoria}>
                 {/* Category header */}
-                <div className={`flex items-center gap-2 mb-3 px-3 py-2 rounded-xl ${meta.bg} border ${meta.border}`}>
-                  <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${meta.dot}`} />
+                <div className={`flex items-center gap-3 mb-4 px-4 py-3 rounded-xl border-2 ${meta.bg} ${meta.border} sticky top-0 backdrop-blur-sm`}>
+                  <span className={`w-3 h-3 rounded-full flex-shrink-0 ${meta.dot}`} />
                   <span className={`text-sm font-bold ${meta.text}`}>{categoria}</span>
-                  <span className={`ml-auto text-xs font-semibold ${meta.text} opacity-70`}>
-                    {resumos.length} resumo{resumos.length !== 1 ? 's' : ''}
+                  <span className={`ml-auto text-xs font-bold px-2.5 py-1 rounded-full ${meta.bg} ${meta.border} border ${meta.text}`}>
+                    {resumos.length}
                   </span>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {resumos.map(resumo => (
                     <ResumoCard key={resumo.id} resumo={resumo} onClick={setSelectedResumo} />
                   ))}
