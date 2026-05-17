@@ -555,42 +555,91 @@ function CriseAsmaticaDetail({ onBack }) {
       </Section>
 
       {/* 6. ICS at discharge */}
-      <Section icon={<Pill className="w-4 h-4" />} title="6. ICS na Alta — Terapia Controladora (GINA 2026)" color="purple">
-        <div className="space-y-3 text-sm">
-          <p className="text-xs text-muted-foreground">Introduzir precocemente na emergência para tratar a inflamação e reduzir risco de nova exacerbação.</p>
+      <Section icon={<Pill className="w-4 h-4" />} title="6. ICS na Alta — Quando e Como Iniciar (GINA 2026)" color="purple">
+        <div className="space-y-4">
+
+          {/* Indicações por faixa etária */}
           <div className="space-y-2">
             {[
               {
-                label: 'Sem tratamento controlador prévio',
-                text: 'Iniciar budesonida 200 µg 2×/dia (ou equivalente). Reavaliar em 2–7 dias.',
+                label: '≥ 12 anos e crianças 6–11 anos',
+                text: 'Todos devem receber ICS antes da alta. Se sem controlador prévio, iniciar MART com ICS-formoterol (budesonida-formoterol) — reduz risco de novas crises e de corticoide oral. Para quem já usa ICS + SABA, aumentar dose do ICS por 2–4 semanas e revisar adesão e técnica.',
                 color: 'bg-violet-50 border-violet-200 text-violet-900',
+                badge: '≥ 6 anos',
               },
               {
-                label: 'Já em dose baixa de ICS',
-                text: 'Duplicar a dose por 7–14 dias, depois retornar à dose habitual.',
-                color: 'bg-blue-50 border-blue-200 text-blue-900',
+                label: 'Crianças ≤ 5 anos',
+                text: 'Iniciar ou intensificar ICS se a crise foi moderada/grave ou se há sintomas entre episódios (≥ 2 dias/semana). Usar o dobro da dose baixa inicial no primeiro mês e ajustar conforme resposta. Iniciar antes da alta.',
+                color: 'bg-sky-50 border-sky-200 text-sky-900',
+                badge: '≤ 5 anos',
               },
               {
-                label: '≥ 6 anos — opção MART (Track 1)',
-                text: 'Budesonida 160 µg + formoterol 4,5 µg: 1 jato 2×/dia (manutenção) + doses extras conforme necessidade. Máx 8 jatos/dia (6–11 anos) ou 12 jatos/dia (adolescentes).',
-                color: 'bg-purple-50 border-purple-200 text-purple-900',
-              },
-              {
-                label: 'Track 2 — ICS + SABA conforme necessidade',
-                text: 'Budesonida 200–400 µg (2–4 jatos) após cada sessão de salbutamol durante a crise. Continuar por 7–10 dias após a alta.',
-                color: 'bg-indigo-50 border-indigo-200 text-indigo-900',
+                label: 'Revisão pós-alta e seguimento',
+                text: 'Consulta em 2–7 dias (1–3 dias para < 6 anos). Avaliar resposta, técnica do inalador e ajustar plano de ação. Sintomas frequentes ou uso excessivo de SABA = intensificar controlador. Após 2–3 meses de controle, reduzir gradualmente para a menor dose eficaz.',
+                color: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+                badge: 'Seguimento',
               },
             ].map((item, i) => (
               <div key={i} className={`rounded-xl border p-3 ${item.color}`}>
-                <p className="font-bold text-xs mb-1">{item.label}</p>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/70 border border-current">{item.badge}</span>
+                  <p className="font-bold text-xs">{item.label}</p>
+                </div>
                 <p className="text-xs leading-relaxed">{item.text}</p>
               </div>
             ))}
           </div>
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
-            <p className="font-bold mb-1">⚠️ Corticoide sistêmico — uso racional (GINA 2026)</p>
-            <p>Limitar o número de cursos anuais. ≥ 4 cursos/ano associado a osteoporose, diabetes e catarata. Implementar <em>stewardship</em> de OCS: otimizar ICS, considerar imunobiológicos em asma grave, evitar corticoide oral de manutenção.</p>
+
+          {/* Tabela de doses */}
+          <div>
+            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide mb-2">Doses diárias baixas de ICS (dose inicial na alta) — GINA 2026</p>
+            <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+              <table className="min-w-full text-xs border-collapse">
+                <thead>
+                  <tr className="bg-violet-700 text-white">
+                    <th className="px-3 py-2.5 text-left font-bold min-w-[160px]">ICS (tipo de inalador)</th>
+                    <th className="px-3 py-2.5 text-center font-bold min-w-[100px]">≥ 12 anos (mcg/dia)</th>
+                    <th className="px-3 py-2.5 text-center font-bold min-w-[100px]">6–11 anos (mcg/dia)</th>
+                    <th className="px-3 py-2.5 text-center font-bold min-w-[100px]">≤ 5 anos (mcg/dia)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['Beclometasona dipropionato (pMDI HFA padrão)', '200–500', '100–200', '100 (≥ 5 anos)'],
+                    ['Beclometasona dipropionato (pMDI/DPI extrafina HFA)', '100–200', '50–100', '50 (≥ 5 anos)'],
+                    ['Budesonida (DPI ou pMDI HFA)', '200–400', '100–200', '—'],
+                    ['Budesonida (nebulização)', 'n.a.', '250–500', '500 (≥ 1 ano)'],
+                    ['Ciclesonida (pMDI extrafina HFA)', '80–160', '80', '—'],
+                    ['Fluticasona furoato (DPI)', '100', '50', '—'],
+                    ['Fluticasona propionato (DPI)', '100–250', '50–100', '—'],
+                    ['Fluticasona propionato (pMDI HFA padrão)', '100–250', '50–100', '50 (≥ 4 anos)'],
+                    ['Mometasona furoato (pMDI ou DPI)', '200–400', '100', '100 (≥ 5 anos)'],
+                  ].map((row, i) => (
+                    <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-violet-50/40'}>
+                      <td className="px-3 py-2 font-medium text-gray-800 border-r border-gray-100">{row[0]}</td>
+                      <td className="px-3 py-2 text-center font-bold text-violet-700">{row[1]}</td>
+                      <td className="px-3 py-2 text-center font-bold text-sky-700">{row[2]}</td>
+                      <td className="px-3 py-2 text-center font-bold text-emerald-700">{row[3]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[10px] text-gray-400 mt-1.5 leading-relaxed">* pMDI = inalador pressurizado de dose medida; DPI = inalador de pó seco; HFA = hidrofluoroalcano. Em crianças, pMDI sempre com espaçador. Doses não são equipotentes — ajustar se trocar de medicamento.</p>
           </div>
+
+          {/* MART destaque */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="bg-purple-50 border border-purple-200 rounded-xl p-3 text-xs text-purple-900">
+              <p className="font-bold mb-1">✅ MART — preferencial em ≥ 6 anos (GINA 2026)</p>
+              <p>Budesonida-formoterol como controlador <em>e</em> resgate (passo 4). Iniciar antes da alta mesmo sem controlador prévio. Máx 8 jatos/dia (6–11 anos) ou 12 jatos/dia (adolescentes/adultos).</p>
+            </div>
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
+              <p className="font-bold mb-1">⚠️ Corticoide oral — uso racional</p>
+              <p>Limitar cursos anuais. ≥ 4 cursos/ano → osteoporose, diabetes, catarata. Otimizar ICS, considerar imunobiológicos em asma grave, evitar OCS de manutenção.</p>
+            </div>
+          </div>
+
         </div>
       </Section>
 
