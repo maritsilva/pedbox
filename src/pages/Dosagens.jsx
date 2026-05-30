@@ -17,6 +17,7 @@ const COLOR_MAP = {
   pink:   { bg: 'bg-pink-50',   border: 'border-pink-200',   text: 'text-pink-700',   dot: 'bg-pink-500',   header: 'bg-pink-600',   badge: 'bg-pink-100 text-pink-800' },
   lime:   { bg: 'bg-lime-50',   border: 'border-lime-200',   text: 'text-lime-700',   dot: 'bg-lime-500',   header: 'bg-lime-600',   badge: 'bg-lime-100 text-lime-800' },
   orange: { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500', header: 'bg-orange-500', badge: 'bg-orange-100 text-orange-800' },
+  indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-700', dot: 'bg-indigo-500', header: 'bg-indigo-600', badge: 'bg-indigo-100 text-indigo-800' },
 };
 
 function DrugCard({ drug, catColor, onClick }) {

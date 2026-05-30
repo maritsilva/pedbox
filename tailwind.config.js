@@ -78,6 +78,7 @@ module.exports = {
                 'bg-indigo-500', 'bg-amber-500', 'bg-pink-500', 'bg-teal-500', 'bg-lime-500',
                 'from-indigo-500', 'from-amber-500', 'from-pink-500', 'from-teal-500', 'from-lime-500',
                 'text-lime-500', 'border-lime-200', 'bg-lime-50',
+                'bg-indigo-600', 'from-indigo-500', 'border-indigo-200', 'bg-indigo-50', 'text-indigo-700', 'bg-indigo-100', 'bg-indigo-500',
             ]
         }
     },

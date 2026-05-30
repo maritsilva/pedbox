@@ -15,6 +15,7 @@ const COLOR_MAP = {
   amber:  { bg: 'bg-amber-50',  border: 'border-amber-200',  text: 'text-amber-700',  header: 'from-amber-500 to-orange-500', badge: 'bg-amber-100 text-amber-800', dot: 'bg-amber-500',  result: 'bg-amber-50 border-amber-200 text-amber-900' },
   pink:   { bg: 'bg-pink-50',   border: 'border-pink-200',   text: 'text-pink-700',   header: 'from-pink-500 to-rose-500',    badge: 'bg-pink-100 text-pink-800',   dot: 'bg-pink-500',   result: 'bg-pink-50 border-pink-200 text-pink-900' },
   lime:   { bg: 'bg-lime-50',   border: 'border-lime-200',   text: 'text-lime-700',   header: 'from-lime-500 to-green-500',   badge: 'bg-lime-100 text-lime-800',   dot: 'bg-lime-500',   result: 'bg-lime-50 border-lime-200 text-lime-900' },
+  indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-700', header: 'from-indigo-500 to-purple-500', badge: 'bg-indigo-100 text-indigo-800', dot: 'bg-indigo-500', result: 'bg-indigo-50 border-indigo-200 text-indigo-900' },
 };
 
 // ─── Formatting helpers ───────────────────────────────────────────────────────

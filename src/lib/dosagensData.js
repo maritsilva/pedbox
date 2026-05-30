@@ -6,11 +6,13 @@
 import { PART1_CATEGORIAS } from './dosagensData_part1.js';
 import { PART2_CATEGORIAS } from './dosagensData_part2.js';
 import { PART3_CATEGORIAS } from './dosagensData_part3.js';
+import { PART4_CATEGORIAS } from './dosagensData_part4.js';
 
 export const DOSAGENS_CATEGORIAS = [
   ...PART1_CATEGORIAS,
   ...PART2_CATEGORIAS,
   ...PART3_CATEGORIAS,
+  ...PART4_CATEGORIAS,
 ];
 
 export function getAllDosagens() {
