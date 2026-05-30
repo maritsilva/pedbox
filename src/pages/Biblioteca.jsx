@@ -162,17 +162,29 @@ export default function Biblioteca() {
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState('todos');
   const [selectedResumo, setSelectedResumo] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('Todas');
 
   const q = search.toLowerCase().trim();
+  
+  // Get all categories from resumos and protocolos
+  const allCategories = useMemo(() => {
+    const resumosCats = [...new Set(RESUMOS.map(r => r.categoria).filter(Boolean))];
+    const protocolsCats = [...new Set(PROTOCOLS.map(p => p.tag).filter(Boolean))];
+    return ['Todas', ...new Set([...resumosCats, ...protocolsCats])].sort();
+  }, []);
 
-  const filteredResumos = useMemo(() => RESUMOS.filter(r =>
-    !q || r.titulo.toLowerCase().includes(q) || r.subtitulo?.toLowerCase().includes(q) ||
-    r.categoria?.toLowerCase().includes(q) || r.seções?.some(s => s.nome.toLowerCase().includes(q) || s.conteudo.toLowerCase().includes(q))
-  ), [q]);
+  const filteredResumos = useMemo(() => RESUMOS.filter(r => {
+    const matchSearch = !q || r.titulo.toLowerCase().includes(q) || r.subtitulo?.toLowerCase().includes(q) ||
+      r.categoria?.toLowerCase().includes(q) || r.seções?.some(s => s.nome.toLowerCase().includes(q) || s.conteudo.toLowerCase().includes(q));
+    const matchCat = activeCategory === 'Todas' || r.categoria === activeCategory;
+    return matchSearch && matchCat;
+  }), [q, activeCategory]);
 
-  const filteredProtocols = useMemo(() => PROTOCOLS.filter(p =>
-    !q || p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q)
-  ), [q]);
+  const filteredProtocols = useMemo(() => PROTOCOLS.filter(p => {
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q);
+    const matchCat = activeCategory === 'Todas' || p.tag === activeCategory;
+    return matchSearch && matchCat;
+  }), [q, activeCategory]);
 
   const showResumos = activeTab === 'todos' || activeTab === 'resumos';
   const showProtocols = activeTab === 'todos' || activeTab === 'protocolos';
@@ -215,7 +227,7 @@ export default function Biblioteca() {
       </div>
 
       {/* ── TABS ── */}
-      <div className="flex gap-2 mb-8 flex-wrap">
+      <div className="flex gap-2 mb-6 flex-wrap">
         {TABS.map(tab => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -229,6 +241,23 @@ export default function Biblioteca() {
             </button>
           );
         })}
+      </div>
+
+      {/* ── CATEGORY FILTERS ── */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {allCategories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+              activeCategory === cat
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white text-muted-foreground border-border hover:border-primary/40'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 items-start">
