@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle, Star, User, Baby, BookOpen } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, ChevronDown, ChevronUp, Info, Package, Tag, FlaskConical, Stethoscope, Syringe, AlertCircle, Star, User, Baby } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
-import { DOSAGENS_CATEGORIAS } from '@/lib/dosagensData';
 
 function Section({ title, icon, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -102,28 +101,6 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
 
   const fav = isFavorite(drug.id);
 
-  // Helper: buscar indicações das dosagens
-  const getDosagemIndicacoes = () => {
-    try {
-      for (const cat of DOSAGENS_CATEGORIAS) {
-        const found = cat.drugs?.find(d => d.id === drug.id || d.name?.toLowerCase() === drug.name?.toLowerCase());
-        if (found?.indicacoes && found.indicacoes.length > 0) {
-          return found.indicacoes.map(ind => ({
-            nome: ind.indicacao || ind.nome || '',
-            dosagem: ind.dose_min && ind.dose_max 
-              ? `${ind.dose_min}–${ind.dose_max} ${ind.unidade}`
-              : ind.dose_usual || ''
-          })).filter(d => d.nome);
-        }
-      }
-    } catch (e) {
-      console.log('Erro ao buscar indicações:', e);
-    }
-    return [];
-  };
-
-  const dosagemIndicacoes = getDosagemIndicacoes();
-
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -137,46 +114,18 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
               {drug.suffix && <span className="ml-2 text-sm font-normal text-muted-foreground">({drug.suffix})</span>}
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-           <a
-             href={`/guia?drug=${drug.id}`}
-             target="_blank"
-             rel="noopener noreferrer"
-             className="p-2 rounded-xl hover:bg-black/5 transition-colors flex-shrink-0"
-             title="Abrir bula completa"
-           >
-             <BookOpen className="w-5 h-5 text-blue-500 hover:text-blue-600" />
-           </a>
-           <button
-             onClick={() => toggleFavorite(drug.id)}
-             className="p-2 rounded-xl hover:bg-black/5 transition-colors flex-shrink-0"
-             title={fav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-           >
-             <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
-           </button>
-          </div>
+          <button
+            onClick={() => toggleFavorite(drug.id)}
+            className="p-2 rounded-xl hover:bg-black/5 transition-colors flex-shrink-0"
+            title={fav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+          >
+            <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+          </button>
         </div>
         {drug.observations && (
           <p className="mt-3 text-sm text-foreground/80 leading-relaxed border-t border-black/10 pt-3">{drug.observations}</p>
         )}
       </div>
-
-      {/* Indicações (das dosagens) */}
-      {dosagemIndicacoes.length > 0 && (
-        <Section title="Indicações Pediátricas" icon={<BookOpen className="w-4 h-4 text-cyan-500" />}>
-          <div className="space-y-2">
-            {dosagemIndicacoes.map((ind, i) => (
-              <div key={i} className="flex items-start gap-3 p-3 bg-cyan-50 border border-cyan-200 rounded-xl">
-                <span className="text-cyan-500 font-bold text-sm mt-0.5">→</span>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-cyan-900">{ind.nome}</p>
-                  {ind.dosagem && <p className="text-xs text-cyan-700 mt-0.5">({ind.dosagem})</p>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
 
       {/* Doses */}
       {drug.doses && drug.doses.length > 0 && (
