@@ -98,6 +98,9 @@ export default function DosagemDetalhe({ drug, onBack }) {
   // dose_min / dose_max may be in mg/kg or fixed mg (large numbers = fixed)
   // We treat values >= 100 with unidade containing 'mg —' as fixed doses
   const isFixedDose = indicacao?.unidade?.includes('mg —') || indicacao?.unidade?.includes('UI/dia') || indicacao?.unidade?.includes('mg/dia');
+  
+  // Check if unidade contains '/dia' or '/day' (daily dose)
+  const isDailyDose = indicacao?.unidade?.toLowerCase().includes('/dia') || indicacao?.unidade?.toLowerCase().includes('/day');
 
   let doseMinMg = null, doseMedMg = null, doseMaxMg = null;
   let doseMinKg = null, doseMaxKg = null; // per kg values
@@ -118,6 +121,28 @@ export default function DosagemDetalhe({ drug, onBack }) {
       doseMedMg = (doseMinMg + doseMaxMg) / 2;
     }
   }
+  
+  // Parse frequency to determine doses per day
+  const getDoesPerDay = (freq) => {
+    if (!freq) return 1;
+    const freqLower = freq.toLowerCase();
+    if (freqLower.includes('8h') || freqLower.includes('8 h')) return 3;
+    if (freqLower.includes('6h') || freqLower.includes('6 h')) return 4;
+    if (freqLower.includes('4h') || freqLower.includes('4 h')) return 6;
+    if (freqLower.includes('12h') || freqLower.includes('12 h')) return 2;
+    if (freqLower.includes('24h') || freqLower.includes('24 h') || freqLower.includes('1x') || freqLower.includes('1 vez')) return 1;
+    if (freqLower.includes('2x') || freqLower.includes('2 vez')) return 2;
+    if (freqLower.includes('3x') || freqLower.includes('3 vez')) return 3;
+    if (freqLower.includes('4x') || freqLower.includes('4 vez')) return 4;
+    return 1;
+  };
+  
+  const dosesPerDay = isDailyDose ? getDoesPerDay(indicacao?.freq) : 1;
+  
+  // Dose per administration (divide by frequency if daily dose)
+  const dosePerAdminMin = isDailyDose && doseMinMg ? doseMinMg / dosesPerDay : doseMinMg;
+  const dosePerAdminMed = isDailyDose && doseMedMg ? doseMedMg / dosesPerDay : doseMedMg;
+  const dosePerAdminMax = isDailyDose && doseMaxMg ? doseMaxMg / dosesPerDay : doseMaxMg;
 
   return (
     <motion.div
@@ -269,12 +294,38 @@ export default function DosagemDetalhe({ drug, onBack }) {
               <div className={`grid ${doseMinMg !== doseMaxMg ? 'grid-cols-3' : 'grid-cols-1'} gap-3 mb-4`}>
                 {doseMinMg !== doseMaxMg ? (
                   <>
-                    <DoseCard label="Dose Mínima" doseMg={doseMinMg} doseKg={isFixedDose ? null : doseMinKg} color="text-blue-600" />
-                    <DoseCard label="Dose Média" doseMg={doseMedMg} doseKg={isFixedDose ? null : (doseMinKg + doseMaxKg) / 2} color="text-primary" highlight />
-                    <DoseCard label="Dose Máxima" doseMg={doseMaxMg} doseKg={isFixedDose ? null : doseMaxKg} color="text-orange-600" />
+                    <DoseCard 
+                      label={`Dose Mínima${isDailyDose ? '/dia' : ''}`} 
+                      doseMg={doseMinMg} 
+                      dosePerAdmin={isDailyDose ? dosePerAdminMin : null}
+                      doseKg={isFixedDose ? null : doseMinKg} 
+                      color="text-blue-600" 
+                    />
+                    <DoseCard 
+                      label={`Dose Média${isDailyDose ? '/dia' : ''}`} 
+                      doseMg={doseMedMg} 
+                      dosePerAdmin={isDailyDose ? dosePerAdminMed : null}
+                      doseKg={isFixedDose ? null : (doseMinKg + doseMaxKg) / 2} 
+                      color="text-primary" 
+                      highlight 
+                    />
+                    <DoseCard 
+                      label={`Dose Máxima${isDailyDose ? '/dia' : ''}`} 
+                      doseMg={doseMaxMg} 
+                      dosePerAdmin={isDailyDose ? dosePerAdminMax : null}
+                      doseKg={isFixedDose ? null : doseMaxKg} 
+                      color="text-orange-600" 
+                    />
                   </>
                 ) : (
-                  <DoseCard label="Dose" doseMg={doseMinMg} doseKg={isFixedDose ? null : doseMinKg} color="text-primary" highlight />
+                  <DoseCard 
+                    label={`Dose${isDailyDose ? '/dia' : ''}`} 
+                    doseMg={doseMinMg} 
+                    dosePerAdmin={isDailyDose ? dosePerAdminMin : null}
+                    doseKg={isFixedDose ? null : doseMinKg} 
+                    color="text-primary" 
+                    highlight 
+                  />
                 )}
               </div>
 
@@ -292,9 +343,11 @@ export default function DosagemDetalhe({ drug, onBack }) {
             {/* Section 4: Apresentação */}
             {(() => {
                const ap = indicacao.apresentacoes[apIndex];
-               const calcMin = calcApresentacao(ap, doseMinMg);
-               const calcMed = calcApresentacao(ap, doseMedMg);
-               const calcMax = doseMinMg !== doseMaxMg ? calcApresentacao(ap, doseMaxMg) : null;
+               // Use dose per administration for presentation if it's a daily dose
+               const doseForCalc = isDailyDose ? [dosePerAdminMin, dosePerAdminMed, dosePerAdminMax] : [doseMinMg, doseMedMg, doseMaxMg];
+               const calcMin = calcApresentacao(ap, doseForCalc[0]);
+               const calcMed = calcApresentacao(ap, doseForCalc[1]);
+               const calcMax = doseMinMg !== doseMaxMg ? calcApresentacao(ap, doseForCalc[2]) : null;
                const hasAgeMin = ap?.idade_min && !isNaN(ap.idade_min);
                const hasPesoMin = ap?.peso_min && !isNaN(ap.peso_min);
                const isRestricted = hasAgeMin || hasPesoMin;
@@ -404,12 +457,15 @@ export default function DosagemDetalhe({ drug, onBack }) {
 }
 
 // ─── Dose card sub-component ─────────────────────────────────────────────────
-function DoseCard({ label, doseMg, doseKg, color, highlight }) {
+function DoseCard({ label, doseMg, dosePerAdmin, doseKg, color, highlight }) {
   return (
     <div className={`rounded-xl p-3 text-center ${highlight ? 'bg-white border-2 border-primary/20 shadow-sm' : 'bg-white/60 border border-border/40'}`}>
       <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">{label}</p>
       <p className={`text-base font-extrabold ${color || 'text-foreground'} leading-tight`}>{fmtDose(doseMg)}</p>
-      {doseKg !== null && doseKg !== undefined && (
+      {dosePerAdmin && (
+        <p className="text-[10px] text-muted-foreground mt-0.5">{fmtDose(dosePerAdmin)}/dose</p>
+      )}
+      {doseKg !== null && doseKg !== undefined && !dosePerAdmin && (
         <p className="text-[10px] text-muted-foreground mt-0.5">{fmt(doseKg, 2)} mg/kg</p>
       )}
     </div>
