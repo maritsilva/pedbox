@@ -40,6 +40,8 @@ import SilvermanAnderson from './pages/calculadoras/SilvermanAnderson';
 import EscoreRodwell from './pages/calculadoras/EscoreRodwell';
 import PASAsma from './pages/calculadoras/PASAsma';
 import Favoritos from './pages/Favoritos';
+import FavoritosPage from './pages/FavoritosPage';
+import ExplorarFerramentas from './pages/ExplorarFerramentas';
 
 function App() {
   return (
@@ -81,7 +83,8 @@ function App() {
             <Route path="/silverman-anderson" element={<SilvermanAnderson />} />
             <Route path="/rodwell" element={<EscoreRodwell />} />
             <Route path="/pas-asma" element={<PASAsma />} />
-            <Route path="/favoritos" element={<Favoritos />} />
+            <Route path="/favoritos" element={<FavoritosPage />} />
+            <Route path="/ferramentas" element={<ExplorarFerramentas />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

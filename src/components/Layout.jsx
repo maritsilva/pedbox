@@ -1,83 +1,56 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope, Star } from 'lucide-react';
+import { Menu, Home, BookOpen, Calculator, Microscope, Star, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MobileHeader from './MobileHeader';
 import PullToRefresh from './PullToRefresh';
 
-const menuCategories = [
-  {
-    id: 'inicio',
-    label: 'Menu',
-    items: [
-      { to: '/', label: 'Início' },
-      { to: '/favoritos', label: '⭐ Meus Favoritos' },
-    ],
-  },
-  {
-    id: 'referencias',
-    label: '📚 Referências',
-    items: [
-      { to: '/guia', label: 'Guia de Doses' },
-      { to: '/dosagens', label: '⚡ Dosagens — Cálculo Rápido' },
-      { to: '/protocolos', label: 'Protocolos Clínicos' },
-      { to: '/resumos', label: 'Resumos Clínicos' },
-      { to: '/pesquisa', label: '🔬 PedResearch' },
-    ],
-  },
-  {
-    id: 'calculadoras',
-    label: '🔢 Calculadoras',
-    items: [
-      { to: '/hidratacao', label: 'Hidratação Venosa' },
-      { to: '/imc', label: 'IMC Pediátrico' },
-      { to: '/pressao-arterial', label: 'PA Pediátrica' },
-      { to: '/perimetro-cefalico', label: 'Perímetro Cefálico' },
-      { to: '/alvo-parental', label: 'Alvo Parental' },
-      { to: '/idade-gestacional-corrigida', label: 'IG Corrigida' },
-      { to: '/centor-mcisaac', label: 'Centor/McIsaac' },
-      { to: '/wood-downes', label: 'Wood-Downes (Bronquiolite)' },
-      { to: '/pram', label: 'PRAM (Asma)' },
-      { to: '/calculadoras-hub', label: '🧮 Calculadoras Clínicas' },
-      { to: '/drogas-emergencia', label: '🚨 Drogas na Emergência' },
-      { to: '/apgar', label: 'APGAR' },
-      { to: '/glasgow-pediatrico', label: 'Glasgow Pediátrica' },
-      { to: '/pews', label: 'PEWS' },
-      { to: '/sipa', label: 'SIPA' },
-      { to: '/silverman-anderson', label: 'Silverman-Anderson' },
-      { to: '/rodwell', label: 'Rodwell (Sepse Neonatal)' },
-      { to: '/pas-asma', label: 'PAS — Asma' },
-    ],
-  },
-  {
-    id: 'saude-infantil',
-    label: '💉 Saúde Infantil',
-    items: [
-      { to: '/desenvolvimento', label: 'Marcos do Desenvolvimento' },
-      { to: '/vacinas', label: 'Vacinas' },
-    ],
-  },
-  {
-    id: 'comunidade',
-    label: '💬 Comunidade',
-    items: [
-      { to: '/about', label: 'Sobre o PedBox' },
-      { to: '/contact', label: 'Contato & Colaboração' },
-    ],
-  },
+// Desktop nav items
+const DESKTOP_NAV = [
+  { to: '/',            label: 'Início' },
+  { to: '/ferramentas', label: 'Ferramentas' },
+  { to: '/protocolos',  label: 'Protocolos' },
+  { to: '/guia',        label: 'Biblioteca' },
+  { to: '/favoritos',   label: 'Favoritos' },
+  { to: '/about',       label: 'Sobre o Pedbox' },
+];
+
+// Mobile drawer categories (for hamburger)
+const DRAWER_CATS = [
+  { label: 'Principal', items: [
+    { to: '/',            label: '🏠 Início' },
+    { to: '/ferramentas', label: '🧰 Explorar Ferramentas' },
+    { to: '/favoritos',   label: '⭐ Favoritos' },
+  ]},
+  { label: 'Referências', items: [
+    { to: '/guia',      label: '📖 Guia de Medicamentos' },
+    { to: '/dosagens',  label: '⚡ Dosagens — Cálculo Rápido' },
+    { to: '/protocolos',label: '🧪 Protocolos Clínicos' },
+    { to: '/resumos',   label: '📝 Resumos Clínicos' },
+    { to: '/pesquisa',  label: '🔬 PedResearch IA' },
+  ]},
+  { label: 'Ferramentas', items: [
+    { to: '/hidratacao',          label: '💧 Hidratação Venosa' },
+    { to: '/drogas-emergencia',   label: '🚨 Drogas na Emergência' },
+    { to: '/calculadoras-hub',    label: '🧮 Calculadoras Clínicas' },
+    { to: '/desenvolvimento',     label: '🌱 Desenvolvimento Infantil' },
+    { to: '/vacinas',             label: '💉 Vacinas' },
+  ]},
+  { label: 'Sobre', items: [
+    { to: '/about',   label: 'Sobre o Pedbox' },
+    { to: '/contact', label: 'Contato & Colaboração' },
+  ]},
 ];
 
 const MOBILE_NAV = [
-  { to: '/', label: 'Home', icon: Home },
-  { to: '/guia', label: 'Guia', icon: BookOpen },
-  { to: '/calculadoras', label: 'Calc.', icon: Calculator },
-  { to: '/pesquisa', label: 'Pesq.', icon: Microscope },
-  { to: '/favoritos', label: 'Favoritos', icon: Star },
+  { to: '/',            label: 'Home',      icon: Home },
+  { to: '/ferramentas', label: 'Ferramentas', icon: Calculator },
+  { to: '/protocolos',  label: 'Protocolos', icon: BookOpen },
+  { to: '/favoritos',   label: 'Favoritos', icon: Star },
 ];
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
-  const [expandedCategories, setExpandedCategories] = useState(new Set(['inicio', 'referencias', 'calculadoras']));
   const [tabStates, setTabStates] = useState({
     '/': { scrollPos: 0 },
     '/guia': { scrollPos: 0 },
@@ -87,16 +60,6 @@ export default function Layout() {
   });
   const location = useLocation();
   const mainRef = React.useRef(null);
-
-  const toggleCategory = (id) => {
-    const newSet = new Set(expandedCategories);
-    if (newSet.has(id)) {
-      newSet.delete(id);
-    } else {
-      newSet.add(id);
-    }
-    setExpandedCategories(newSet);
-  };
 
   // Save scroll position when navigating away
   useEffect(() => {
@@ -121,89 +84,84 @@ export default function Layout() {
     <div className="min-h-screen bg-background flex flex-col font-inter overflow-hidden">
       {/* Mobile Header */}
       <MobileHeader menuOpen={open} setMenuOpen={setOpen} />
-      {/* DESKTOP NAVBAR (hidden on mobile) */}
+      {/* DESKTOP NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:block">
-        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
+        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between gap-8">
+          <Link to="/" className="flex items-center flex-shrink-0">
             <img
               src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png"
               alt="PedBox"
               className="h-8 w-auto"
             />
           </Link>
-
-          <nav className="flex items-center gap-8">
-            <Link
-              to="/"
-              className={`text-sm font-semibold transition-all ${
-                location.pathname === '/'
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Início
-            </Link>
-            {menuCategories.slice(1).map(category => (
-              <div key={category.id} className="relative group">
-                <button className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-all flex items-center gap-1">
-                  {category.label}
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                <div className="absolute left-0 mt-0 w-48 bg-white border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-40 py-2">
-                  {category.items.map(item => (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      className={`block px-4 py-2 text-sm transition-all ${
-                        location.pathname === item.to
-                          ? 'bg-primary/10 text-primary font-semibold'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          <nav className="flex items-center gap-6 flex-1">
+            {DESKTOP_NAV.map(item => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`text-sm font-semibold whitespace-nowrap transition-all ${
+                  location.pathname === item.to
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {item.label}
+              </Link>
             ))}
           </nav>
+          <Link to="/about" title="Sobre o Pedbox" className="flex-shrink-0 text-muted-foreground hover:text-primary transition-colors">
+            <Info className="w-4 h-4" />
+          </Link>
         </div>
-
-        {/* Mobile menu */}
-        {open && (
-          <div className="md:hidden border-t border-border bg-white dark:bg-slate-800 px-4 py-3 flex flex-col gap-2 max-h-96 overflow-y-auto">
-            {menuCategories.map(category => (
-              <div key={category.id}>
-                <button
-                  onClick={() => toggleCategory(category.id)}
-                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-secondary rounded-lg transition-all select-none"
-                >
-                  {category.label}
-                  <ChevronDown className={`w-4 h-4 transition-transform ${expandedCategories.has(category.id) ? 'rotate-180' : ''}`} />
-                </button>
-                {expandedCategories.has(category.id) && (
-                  <div className="pl-2 space-y-1">
-                    {category.items.map(item => (
-                      <Link
-                        key={item.to}
-                        to={item.to}
-                        onClick={() => setOpen(false)}
-                        className={`block px-4 py-2 rounded-lg text-sm transition-all select-none ${
-                          location.pathname === item.to
-                            ? 'bg-primary text-white font-semibold'
-                            : 'text-muted-foreground hover:bg-secondary'
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
       </header>
+
+      {/* MOBILE DRAWER */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/30 z-40 md:hidden"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.22 }}
+              className="fixed top-0 right-0 bottom-0 w-72 bg-white z-50 md:hidden shadow-2xl overflow-y-auto"
+            >
+              <div className="px-5 pt-5 pb-8 space-y-6">
+                <div className="flex items-center justify-between mb-2">
+                  <img src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png" alt="PedBox" className="h-7 w-auto" />
+                  <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-secondary transition-colors">
+                    <span className="text-xl leading-none">✕</span>
+                  </button>
+                </div>
+                {DRAWER_CATS.map(cat => (
+                  <div key={cat.label}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2 px-1">{cat.label}</p>
+                    <div className="space-y-0.5">
+                      {cat.items.map(item => (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          onClick={() => setOpen(false)}
+                          className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition-all select-none ${
+                            location.pathname === item.to
+                              ? 'bg-primary text-white font-semibold'
+                              : 'text-foreground hover:bg-secondary'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* MAIN CONTENT */}
       <main ref={mainRef} className="flex-1 pb-20 md:pb-0 overflow-y-auto">
@@ -236,7 +194,7 @@ export default function Layout() {
       {/* MOBILE BOTTOM TAB BAR */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-border md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="flex items-center justify-around h-16">
-          {MOBILE_NAV.filter(item => item.to !== '/settings').map((item) => {
+          {MOBILE_NAV.map((item) => {
             const isActive = location.pathname === item.to;
             const Icon = item.icon;
             return (
@@ -244,20 +202,22 @@ export default function Layout() {
                 key={item.to}
                 to={item.to}
                 className={`flex flex-col items-center justify-center w-full h-16 transition-all select-none touch-none ${
-                  isActive
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
+                  isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
                 }`}
-                style={{
-                  WebkitTouchCallout: 'none',
-                  userSelect: 'none',
-                }}
+                style={{ WebkitTouchCallout: 'none', userSelect: 'none' }}
               >
-                <Icon className="w-6 h-6" />
+                <Icon className={`w-6 h-6 ${isActive && item.to === '/favoritos' ? 'fill-primary' : ''}`} />
                 <span className="text-xs mt-1 font-semibold">{item.label}</span>
               </Link>
             );
           })}
+          <button
+            onClick={() => setOpen(true)}
+            className="flex flex-col items-center justify-center w-full h-16 text-muted-foreground select-none"
+          >
+            <Menu className="w-6 h-6" />
+            <span className="text-xs mt-1 font-semibold">Mais</span>
+          </button>
         </div>
       </nav>
     </div>
