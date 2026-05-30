@@ -69,13 +69,35 @@ const QUICK_ACCESS = [
 ];
 
 const ALL_SEARCH_TOOLS = [
-  { label: 'Dosagens — Cálculo Rápido', desc: 'Calcule doses por peso instantaneamente', path: '/dosagens', keywords: ['dosagem', 'dose', 'calculo', 'peso', 'paracetamol', 'ibuprofeno', 'amoxicilina', 'dipirona'] },
-  { label: 'Guia de Medicamentos', desc: 'Doses, preparo e apresentações', path: '/guia', keywords: ['guia', 'doses', 'medicamentos', 'antibióticos'] },
-  { label: 'Protocolos Clínicos', desc: 'Diretrizes por condição', path: '/protocolos', keywords: ['protocolo', 'asma', 'bronquiolite', 'febre', 'diarreia'] },
-  { label: 'Resumos Clínicos', desc: 'Sínteses de tópicos pediátricos', path: '/resumos', keywords: ['resumo', 'varicela', 'sarampo', 'diarreia'] },
-  { label: 'SophIA — IA Pediátrica', desc: 'Inteligência artificial do Pedbox', path: '/pesquisa', keywords: ['pesquisa', 'evidência', 'guideline', 'sophia', 'ia', 'inteligência'] },
-  { label: 'Hidratação Venosa', desc: 'Volumes e velocidades', path: '/hidratacao', keywords: ['hidratação', 'venosa', 'soro', 'holliday'] },
-  { label: 'Drogas na Emergência', desc: 'Bolus e infusão contínua', path: '/drogas-emergencia', keywords: ['emergência', 'drogas', 'broselow'] },
+  // Main sections
+  { label: 'Dosagens — Cálculo Rápido', desc: 'Calcule doses por peso instantaneamente · 30+ medicamentos', path: '/dosagens', keywords: ['dosagem', 'dose', 'calculo', 'peso', 'paracetamol', 'ibuprofeno', 'amoxicilina', 'dipirona', 'cetirizina', 'omeprazol', 'salbutamol'] },
+  { label: 'Guia de Medicamentos', desc: 'Doses, preparo e apresentações · 100+ fármacos', path: '/guia', keywords: ['guia', 'doses', 'medicamentos', 'antibióticos', 'bula', 'fármaco', 'princípio ativo'] },
+  { label: 'Protocolos Clínicos', desc: 'Diretrizes passo a passo · Fluxogramas', path: '/protocolos', keywords: ['protocolo', 'asma', 'bronquiolite', 'febre', 'diarreia', 'meningite', 'convulsão', 'pneumonia', 'faringoamigdalite', 'anemia', 'itu'] },
+  { label: 'Resumos Clínicos', desc: 'Sínteses baseadas em evidências · 25+ tópicos', path: '/resumos', keywords: ['resumo', 'varicela', 'sarampo', 'diarreia', 'exantema', 'coqueluche', 'covid', 'aleitamento'] },
+  { label: 'Biblioteca', desc: 'Resumos e protocolos em um só lugar', path: '/biblioteca', keywords: ['biblioteca', 'conteúdo', 'busca'] },
+  { label: 'Explorar Ferramentas', desc: 'Descobra todas as 25+ ferramentas disponíveis', path: '/ferramentas', keywords: ['ferramentas', 'explorar', 'ver tudo', 'todas'] },
+  { label: 'SophIA — IA Pediátrica', desc: 'Inteligência artificial · Busca inteligente de evidências', path: '/pesquisa', keywords: ['pesquisa', 'evidência', 'guideline', 'sophia', 'ia', 'inteligência', 'artificial'] },
+  
+  // Calculadoras & Escores
+  { label: 'Calculadoras', desc: 'IMC, superfície corporal e cálculos pediátricos', path: '/calculadoras-hub', keywords: ['calculadora', 'imc', 'superfície', 'corporal', 'cálculo'] },
+  { label: 'APGAR', desc: 'Avaliação da vitalidade neonatal', path: '/apgar', keywords: ['apgar', 'recém-nascido', 'rn', 'neonatal', 'score', 'vitalidade'] },
+  { label: 'Escore de Rodwell', desc: 'Probabilidade de sepse neonatal', path: '/rodwell', keywords: ['rodwell', 'sepse', 'neonatal', 'hemograma', 'score'] },
+  { label: 'Glasgow Pediátrica', desc: 'Nível de consciência em crianças', path: '/glasgow-pediatrico', keywords: ['glasgow', 'consciência', 'coma', 'neurológico', 'score'] },
+  { label: 'PEWS', desc: 'Alerta precoce de deterioração pediátrica', path: '/pews', keywords: ['pews', 'alerta', 'deterioração', 'enfermaria', 'score'] },
+  { label: 'SIPA', desc: 'Shock Index pediatric age-adjusted', path: '/sipa', keywords: ['sipa', 'choque', 'shock', 'índice', 'emergência'] },
+  { label: 'Silverman-Anderson', desc: 'Desconforto respiratório neonatal', path: '/silverman-anderson', keywords: ['silverman', 'anderson', 'desconforto', 'respiratório', 'rn'] },
+  { label: 'Centor/McIsaac', desc: 'Probabilidade de faringoamigdalite estreptocócica', path: '/centor-mcisaac', keywords: ['centor', 'mcisaac', 'faringoamigdalite', 'garganta', 'streptococo'] },
+  
+  // Tools & References
+  { label: 'Hidratação Venosa', desc: 'Volumes, soluções e velocidades', path: '/hidratacao', keywords: ['hidratação', 'venosa', 'soro', 'holliday', 'fluidos', 'iv'] },
+  { label: 'Drogas na Emergência', desc: 'Bolus e infusão contínua com Broselow', path: '/drogas-emergencia', keywords: ['emergência', 'drogas', 'broselow', 'infusão', 'bolus', 'reanimação'] },
+  { label: 'Vacinas', desc: 'Calendário vacinal e informações detalhadas', path: '/vacinas', keywords: ['vacina', 'imunização', 'calendário', 'doses'] },
+  { label: 'Pressão Arterial Pediátrica', desc: 'Valores de referência por percentil', path: '/pressao-arterial', keywords: ['pressão', 'pa', 'arterial', 'hipertensão', 'valores'] },
+  { label: 'Perímetro Cefálico', desc: 'Percentis e avaliação do crescimento', path: '/perimetro-cefalico', keywords: ['perímetro', 'cefálico', 'cabeça', 'crescimento', 'percentil'] },
+  { label: 'IMC Pediátrico', desc: 'Índice de massa corporal para crianças', path: '/imc', keywords: ['imc', 'índice', 'massa', 'corporal', 'peso'] },
+  { label: 'Alvo Parental', desc: 'Estimativa da altura adulta esperada', path: '/alvo-parental', keywords: ['alvo', 'parental', 'altura', 'genética', 'crescimento'] },
+  { label: 'Idade Gestacional Corrigida', desc: 'Cálculo para prematuros', path: '/idade-gestacional-corrigida', keywords: ['idade', 'gestacional', 'corrigida', 'prematuro', 'ajuste'] },
+  { label: 'Desenvolvimento Infantil', desc: 'Marcos dos 2 meses aos 5 anos', path: '/desenvolvimento', keywords: ['desenvolvimento', 'marco', 'neurodesenvolvimento', 'infância'] },
 ];
 
 export default function Home() {
