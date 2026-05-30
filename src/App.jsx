@@ -3,6 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { FavoritesProvider } from '@/hooks/useFavorites.jsx';
+import { DosagemFavoritesProvider } from '@/hooks/useDosagemFavorites.jsx';
 import PageNotFound from './lib/PageNotFound';
 import Layout from './components/Layout';
 // Add page imports here
@@ -42,6 +43,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClientInstance}>
       <FavoritesProvider>
+      <DosagemFavoritesProvider>
       <Router>
         <Routes>
           <Route element={<Layout />}>
@@ -81,6 +83,7 @@ function App() {
         </Routes>
         <Toaster />
       </Router>
+      </DosagemFavoritesProvider>
       </FavoritesProvider>
     </QueryClientProvider>
   )

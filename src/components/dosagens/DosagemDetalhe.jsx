@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, ChevronDown, AlertTriangle, Info, Pill } from 'lucide-react';
+import { ArrowLeft, ChevronDown, AlertTriangle, Info, Pill, Star } from 'lucide-react';
+import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ─── Color palette ────────────────────────────────────────────────────────────
@@ -68,6 +69,8 @@ function calcApresentacao(ap, doseMg) {
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function DosagemDetalhe({ drug, onBack }) {
   const meta = COLOR_MAP[drug.catColor] || COLOR_MAP.blue;
+  const { isFavorite, toggleFavorite } = useDosagemFavorites();
+  const fav = isFavorite(drug.id);
 
   const [peso, setPeso] = useState('');
   const [indicacaoId, setIndicacaoId] = useState(drug.indicacoes[0]?.id ?? '');
@@ -122,14 +125,24 @@ export default function DosagemDetalhe({ drug, onBack }) {
       animate={{ opacity: 1, x: 0 }}
       className="max-w-2xl mx-auto px-4 py-6"
     >
-      {/* Back button */}
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors group"
-      >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-        Voltar
-      </button>
+      {/* Back button + favorite */}
+      <div className="flex items-center justify-between mb-5">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+          Voltar
+        </button>
+        <button
+          onClick={() => toggleFavorite(drug.id)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all text-xs font-semibold"
+          style={fav ? { background: '#fef9c3', borderColor: '#fbbf24', color: '#92400e' } : { background: 'white', borderColor: '#e5e7eb', color: '#6b7280' }}
+        >
+          <Star className={`w-3.5 h-3.5 ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'}`} />
+          {fav ? 'Favorito' : 'Favoritar'}
+        </button>
+      </div>
 
       {/* Header card */}
       <div className={`bg-gradient-to-br ${meta.header} rounded-2xl p-5 text-white mb-5 shadow-lg`}>

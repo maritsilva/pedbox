@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Search, X, ChevronRight } from 'lucide-react';
+import { Search, X, ChevronRight, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DOSAGENS_CATEGORIAS, getAllDosagens } from '@/lib/dosagensData';
 import DosagemDetalhe from '@/components/dosagens/DosagemDetalhe';
+import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';
 
 const COLOR_MAP = {
   orange: { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500', header: 'bg-orange-500', badge: 'bg-orange-100 text-orange-800' },
@@ -20,13 +21,13 @@ const COLOR_MAP = {
   indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-700', dot: 'bg-indigo-500', header: 'bg-indigo-600', badge: 'bg-indigo-100 text-indigo-800' },
 };
 
-function DrugCard({ drug, catColor, onClick }) {
+function DrugCard({ drug, catColor, onClick, favorite }) {
   const meta = COLOR_MAP[catColor] || COLOR_MAP.blue;
   return (
     <motion.button
       onClick={() => onClick(drug)}
       whileTap={{ scale: 0.98 }}
-      className="w-full text-left bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md hover:border-gray-300 transition-all overflow-hidden group"
+      className={`w-full text-left bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden group ${favorite ? 'border-yellow-300 bg-yellow-50/40' : 'border-gray-200 hover:border-gray-300'}`}
     >
       <div className={`h-1 ${meta.header}`} />
       <div className="p-4 flex items-center gap-3">
@@ -34,7 +35,10 @@ function DrugCard({ drug, catColor, onClick }) {
           <span className="text-xl">{drug.catIcon}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-sm text-foreground leading-snug">{drug.name}</p>
+          <div className="flex items-center gap-1.5">
+            <p className="font-bold text-sm text-foreground leading-snug">{drug.name}</p>
+            {favorite && <Star className="w-3 h-3 fill-yellow-400 text-yellow-400 flex-shrink-0" />}
+          </div>
           {drug.sinonimo && <p className="text-xs text-muted-foreground">{drug.sinonimo}</p>}
           <div className="flex items-center gap-1.5 mt-1 flex-wrap">
             {drug.via && <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${meta.badge} border-transparent`}>{drug.via}</span>}
@@ -51,6 +55,8 @@ function DrugCard({ drug, catColor, onClick }) {
 
 export default function Dosagens() {
   const allDrugs = useMemo(() => getAllDosagens(), []);
+  const { favorites, isFavorite } = useDosagemFavorites();
+  const favDrugs = useMemo(() => favorites.map(id => allDrugs.find(d => d.id === id)).filter(Boolean), [favorites, allDrugs]);
 
   // Support ?drug=id deep link from search
   const initialDrug = useMemo(() => {
@@ -110,6 +116,28 @@ export default function Dosagens() {
           Insira o peso do paciente e calcule a dose automaticamente · <span className="font-semibold text-foreground">{allDrugs.length} medicamentos</span>
         </p>
       </div>
+
+      {/* Favoritos */}
+      <AnimatePresence>
+        {favDrugs.length > 0 && !search && !activeCategoria && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="mb-7"
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Meus Favoritos ({favDrugs.length})</p>
+            </div>
+            <div className="space-y-2">
+              {favDrugs.map(drug => (
+                <DrugCard key={drug.id} drug={drug} catColor={drug.catColor} onClick={setSelected} favorite />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Search */}
       <div className="relative mb-5">
