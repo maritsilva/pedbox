@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, Home, BookOpen, Calculator, Microscope, Star, Info } from 'lucide-react';
+import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
+import { Menu, Home, LayoutGrid, BookOpen, Star, Info, Search, X, ChevronRight, User, LogIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 import MobileHeader from './MobileHeader';
 import PullToRefresh from './PullToRefresh';
 
-// Desktop nav items
 const DESKTOP_NAV = [
-  { to: '/',            label: 'Início' },
-  { to: '/ferramentas', label: 'Ferramentas' },
-  { to: '/protocolos',  label: 'Protocolos' },
-  { to: '/guia',        label: 'Biblioteca' },
-  { to: '/favoritos',   label: 'Favoritos' },
-  { to: '/about',       label: 'Sobre o Pedbox' },
+  { to: '/',            label: 'Início',        Icon: Home },
+  { to: '/ferramentas', label: 'Ferramentas',   Icon: LayoutGrid },
+  { to: '/protocolos',  label: 'Protocolos',    Icon: BookOpen },
+  { to: '/guia',        label: 'Biblioteca',    Icon: BookOpen },
+  { to: '/favoritos',   label: 'Favoritos',     Icon: Star },
+  { to: '/about',       label: 'Sobre o Pedbox',Icon: Info },
 ];
 
-// Mobile drawer categories (for hamburger)
 const DRAWER_CATS = [
   { label: 'Principal', items: [
     { to: '/',            label: '🏠 Início' },
@@ -23,18 +22,18 @@ const DRAWER_CATS = [
     { to: '/favoritos',   label: '⭐ Favoritos' },
   ]},
   { label: 'Referências', items: [
-    { to: '/guia',      label: '📖 Guia de Medicamentos' },
-    { to: '/dosagens',  label: '⚡ Dosagens — Cálculo Rápido' },
-    { to: '/protocolos',label: '🧪 Protocolos Clínicos' },
-    { to: '/resumos',   label: '📝 Resumos Clínicos' },
-    { to: '/pesquisa',  label: '🔬 PedResearch IA' },
+    { to: '/guia',       label: '📖 Guia de Medicamentos' },
+    { to: '/dosagens',   label: '⚡ Dosagens — Cálculo Rápido' },
+    { to: '/protocolos', label: '🧪 Protocolos Clínicos' },
+    { to: '/resumos',    label: '📝 Resumos Clínicos' },
+    { to: '/pesquisa',   label: '🔬 PedResearch IA' },
   ]},
   { label: 'Ferramentas', items: [
-    { to: '/hidratacao',          label: '💧 Hidratação Venosa' },
-    { to: '/drogas-emergencia',   label: '🚨 Drogas na Emergência' },
-    { to: '/calculadoras-hub',    label: '🧮 Calculadoras Clínicas' },
-    { to: '/desenvolvimento',     label: '🌱 Desenvolvimento Infantil' },
-    { to: '/vacinas',             label: '💉 Vacinas' },
+    { to: '/hidratacao',        label: '💧 Hidratação Venosa' },
+    { to: '/drogas-emergencia', label: '🚨 Drogas na Emergência' },
+    { to: '/calculadoras-hub',  label: '🧮 Calculadoras Clínicas' },
+    { to: '/desenvolvimento',   label: '🌱 Desenvolvimento Infantil' },
+    { to: '/vacinas',           label: '💉 Vacinas' },
   ]},
   { label: 'Sobre', items: [
     { to: '/about',   label: 'Sobre o Pedbox' },
@@ -43,50 +42,194 @@ const DRAWER_CATS = [
 ];
 
 const MOBILE_NAV = [
-  { to: '/',            label: 'Home',      icon: Home },
-  { to: '/ferramentas', label: 'Ferramentas', icon: Calculator },
-  { to: '/protocolos',  label: 'Protocolos', icon: BookOpen },
-  { to: '/favoritos',   label: 'Favoritos', icon: Star },
+  { to: '/',            label: 'Home',        icon: Home },
+  { to: '/ferramentas', label: 'Ferramentas', icon: LayoutGrid },
+  { to: '/protocolos',  label: 'Protocolos',  icon: BookOpen },
+  { to: '/favoritos',   label: 'Favoritos',   icon: Star },
 ];
+
+const ALL_SEARCH_TOOLS = [
+  { label: 'Dosagens',           path: '/dosagens',          icon: '⚡' },
+  { label: 'Guia de Medicamentos', path: '/guia',            icon: '📖' },
+  { label: 'Protocolos Clínicos', path: '/protocolos',       icon: '🧪' },
+  { label: 'Resumos Clínicos',   path: '/resumos',           icon: '📝' },
+  { label: 'PedResearch IA',     path: '/pesquisa',          icon: '🔬' },
+  { label: 'Hidratação Venosa',  path: '/hidratacao',        icon: '💧' },
+  { label: 'Drogas na Emergência', path: '/drogas-emergencia', icon: '🚨' },
+  { label: 'Calculadoras Clínicas', path: '/calculadoras-hub', icon: '🧮' },
+  { label: 'Vacinas',            path: '/vacinas',           icon: '💉' },
+  { label: 'IMC Pediátrico',     path: '/imc',               icon: '📊' },
+  { label: 'PA Pediátrica',      path: '/pressao-arterial',  icon: '❤️' },
+  { label: 'APGAR',              path: '/apgar',             icon: '👶' },
+  { label: 'Glasgow Pediátrico', path: '/glasgow-pediatrico', icon: '🧠' },
+  { label: 'PEWS',               path: '/pews',              icon: '⚠️' },
+  { label: 'SIPA',               path: '/sipa',              icon: '💓' },
+  { label: 'PRAM',               path: '/pram',              icon: '💨' },
+  { label: 'Wood-Downes',        path: '/wood-downes',       icon: '🫁' },
+  { label: 'Silverman-Anderson', path: '/silverman-anderson', icon: '🫂' },
+  { label: 'Escore de Rodwell',  path: '/rodwell',           icon: '🧬' },
+  { label: 'Centor / McIsaac',   path: '/centor-mcisaac',    icon: '🦠' },
+  { label: 'Desenvolvimento Infantil', path: '/desenvolvimento', icon: '🌱' },
+];
+
+function NavSearch() {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  const results = query.trim().length > 1
+    ? ALL_SEARCH_TOOLS.filter(t => t.label.toLowerCase().includes(query.toLowerCase())).slice(0, 8)
+    : [];
+
+  const handleSelect = (path) => {
+    navigate(path);
+    setQuery('');
+    setOpen(false);
+  };
+
+  return (
+    <div className="relative">
+      {!open ? (
+        <button
+          onClick={() => { setOpen(true); setTimeout(() => inputRef.current?.focus(), 50); }}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/60 border border-border text-sm text-muted-foreground hover:bg-secondary transition-all"
+        >
+          <Search className="w-4 h-4" />
+          <span className="hidden lg:block text-xs">Buscar...</span>
+          <kbd className="hidden lg:block text-[10px] bg-white border border-border rounded px-1 py-0.5 font-mono">⌘K</kbd>
+        </button>
+      ) : (
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Buscar medicamento, protocolo ou ferramenta..."
+              className="w-72 pl-9 pr-4 py-1.5 rounded-lg bg-white border border-primary/40 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+              onBlur={() => { if (!query) { setOpen(false); } }}
+            />
+          </div>
+          <button onClick={() => { setOpen(false); setQuery(''); }}>
+            <X className="w-4 h-4 text-muted-foreground" />
+          </button>
+        </div>
+      )}
+      <AnimatePresence>
+        {results.length > 0 && open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+            className="absolute top-full right-0 mt-2 w-80 bg-white border border-border rounded-xl shadow-xl overflow-hidden z-50"
+          >
+            {results.map(r => (
+              <button key={r.path} onClick={() => handleSelect(r.path)}
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
+                <span className="text-lg">{r.icon}</span>
+                <span className="text-sm font-medium text-foreground">{r.label}</span>
+                <ChevronRight className="w-3 h-3 text-muted-foreground ml-auto" />
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function UserMenu() {
+  const [user, setUser] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+  const [dropOpen, setDropOpen] = useState(false);
+
+  useEffect(() => {
+    base44.auth.me().then(u => { setUser(u); setLoaded(true); }).catch(() => setLoaded(true));
+  }, []);
+
+  if (!loaded) return <div className="w-8 h-8 rounded-full bg-secondary animate-pulse" />;
+
+  if (!user) {
+    return (
+      <button
+        onClick={() => base44.auth.redirectToLogin()}
+        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-all"
+      >
+        <LogIn className="w-4 h-4" />
+        <span>Entrar</span>
+      </button>
+    );
+  }
+
+  const initials = user.full_name?.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'U';
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setDropOpen(v => !v)}
+        className="flex items-center gap-2 rounded-full border border-border bg-white shadow-sm hover:shadow-md transition-all px-2 py-1"
+      >
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-blue-700 flex items-center justify-center text-white text-xs font-bold">
+          {initials}
+        </div>
+        <ChevronRight className="w-3 h-3 text-muted-foreground rotate-90" />
+      </button>
+      <AnimatePresence>
+        {dropOpen && (
+          <>
+            <div className="fixed inset-0 z-40" onClick={() => setDropOpen(false)} />
+            <motion.div
+              initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="absolute right-0 top-full mt-2 w-48 bg-white border border-border rounded-xl shadow-xl z-50 overflow-hidden"
+            >
+              <div className="px-4 py-3 border-b border-border">
+                <p className="text-sm font-bold text-foreground truncate">{user.full_name}</p>
+                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+              </div>
+              <button
+                onClick={() => { base44.auth.logout(); setDropOpen(false); }}
+                className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+              >
+                Sair
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
-  const [tabStates, setTabStates] = useState({
-    '/': { scrollPos: 0 },
-    '/guia': { scrollPos: 0 },
-    '/calculadoras': { scrollPos: 0 },
-    '/pesquisa': { scrollPos: 0 },
-    '/settings': { scrollPos: 0 },
-  });
+  const [tabStates, setTabStates] = useState({});
   const location = useLocation();
-  const mainRef = React.useRef(null);
+  const mainRef = useRef(null);
 
-  // Save scroll position when navigating away
   useEffect(() => {
     return () => {
       if (mainRef.current) {
-        setTabStates((prev) => ({
-          ...prev,
-          [location.pathname]: { scrollPos: mainRef.current.scrollTop },
-        }));
+        setTabStates(prev => ({ ...prev, [location.pathname]: { scrollPos: mainRef.current.scrollTop } }));
       }
     };
   }, [location.pathname]);
 
-  // Restore scroll position when entering a route
   useEffect(() => {
     if (mainRef.current && tabStates[location.pathname]) {
       mainRef.current.scrollTop = tabStates[location.pathname].scrollPos;
     }
-  }, [location.pathname, tabStates]);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-inter overflow-hidden">
       {/* Mobile Header */}
       <MobileHeader menuOpen={open} setMenuOpen={setOpen} />
+
       {/* DESKTOP NAVBAR */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:block">
-        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between gap-8">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:flex items-center">
+        <div className="max-w-7xl mx-auto w-full px-6 h-14 flex items-center gap-6">
+          {/* Logo */}
           <Link to="/" className="flex items-center flex-shrink-0">
             <img
               src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png"
@@ -94,24 +237,35 @@ export default function Layout() {
               className="h-8 w-auto"
             />
           </Link>
-          <nav className="flex items-center gap-6 flex-1">
-            {DESKTOP_NAV.map(item => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className={`text-sm font-semibold whitespace-nowrap transition-all ${
-                  location.pathname === item.to
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+
+          {/* Nav - centered */}
+          <nav className="flex items-center gap-1 flex-1 justify-center">
+            {DESKTOP_NAV.map(item => {
+              const Icon = item.Icon;
+              const isActive = location.pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all relative group ${
+                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
-          <Link to="/about" title="Sobre o Pedbox" className="flex-shrink-0 text-muted-foreground hover:text-primary transition-colors">
-            <Info className="w-4 h-4" />
-          </Link>
+
+          {/* Right side: search + user */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <NavSearch />
+            <UserMenu />
+          </div>
         </div>
       </header>
 
@@ -133,7 +287,7 @@ export default function Layout() {
                 <div className="flex items-center justify-between mb-2">
                   <img src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png" alt="PedBox" className="h-7 w-auto" />
                   <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-secondary transition-colors">
-                    <span className="text-xl leading-none">✕</span>
+                    <X className="w-5 h-5 text-foreground" />
                   </button>
                 </div>
                 {DRAWER_CATS.map(cat => (
@@ -165,17 +319,14 @@ export default function Layout() {
 
       {/* MAIN CONTENT */}
       <main ref={mainRef} className="flex-1 pb-20 md:pb-0 overflow-y-auto">
-        <PullToRefresh onRefresh={async () => {
-          // Refresh logic can be added here
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        }}>
+        <PullToRefresh onRefresh={async () => { await new Promise(r => setTimeout(r, 500)); }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.25 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
               <Outlet />
             </motion.div>
@@ -184,10 +335,10 @@ export default function Layout() {
       </main>
 
       {/* DESKTOP FOOTER */}
-      <footer className="hidden md:block bg-white dark:bg-slate-900 border-t border-border mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>© 2025 PedBox · Para uso por profissionais de saúde</p>
-          <p className="mt-1 text-xs">Este conteúdo serve como orientação para tomadas de decisão médica. Sempre valide com protocolos institucionais.</p>
+      <footer className="hidden md:block bg-white border-t border-border">
+        <div className="max-w-6xl mx-auto px-4 py-5 text-center text-xs text-muted-foreground">
+          <p>© 2025 PedBox · Para uso por profissionais de saúde habilitados</p>
+          <p className="mt-1">Este conteúdo serve como orientação clínica. Sempre valide com protocolos institucionais.</p>
         </div>
       </footer>
 
@@ -201,8 +352,8 @@ export default function Layout() {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex flex-col items-center justify-center w-full h-16 transition-all select-none touch-none ${
-                  isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                className={`flex flex-col items-center justify-center w-full h-16 transition-all select-none ${
+                  isActive ? 'text-primary' : 'text-muted-foreground'
                 }`}
                 style={{ WebkitTouchCallout: 'none', userSelect: 'none' }}
               >
