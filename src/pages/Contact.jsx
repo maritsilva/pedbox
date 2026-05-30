@@ -54,21 +54,21 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 via-white to-cyan-50 min-h-screen">
+    <div className="bg-white min-h-screen">
 
       {/* Hero */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="py-16 px-4 text-center"
+        className="py-16 px-4 text-center bg-gradient-to-b from-slate-50 to-white"
       >
         <div className="max-w-3xl mx-auto">
           <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
-            Entre em <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">contato</span>
+            Vamos conversar?
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            Sugestões, erros, colaborações ou qualquer dúvida — ficaremos felizes em ouvir você.
+          <p className="text-lg text-gray-600 leading-relaxed">
+            Tem sugestões, encontrou algum erro ou quer colaborar? Adoramos ouvir de você.
           </p>
         </div>
       </motion.section>
@@ -81,10 +81,10 @@ export default function Contact() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 py-8"
+        className="max-w-3xl mx-auto px-4 py-12"
       >
-        <motion.h2 variants={item} className="text-3xl font-bold text-gray-900 text-center mb-10">
-          Envie uma mensagem
+        <motion.h2 variants={item} className="text-2xl font-bold text-gray-900 mb-8">
+          Seu feedback é importante
         </motion.h2>
 
         {submitted ? (
@@ -103,7 +103,7 @@ export default function Contact() {
           <motion.form
             variants={item}
             onSubmit={handleSubmit}
-            className="bg-white rounded-3xl shadow-lg p-8 sm:p-10 space-y-6"
+            className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 sm:p-10 space-y-6"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
@@ -186,38 +186,17 @@ export default function Contact() {
         )}
       </motion.section>
 
-      {/* Copiar Modelo */}
-      <motion.section
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 py-12"
-      >
-        <button
-          onClick={handleCopyModel}
-          className="w-full bg-gradient-to-r from-orange-400 to-amber-400 text-white font-bold py-4 rounded-2xl hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3"
-        >
-          <Copy className="w-6 h-6" />
-          Copiar ou adaptar o modelo do PedBox
-          <ExternalLink className="w-5 h-5" />
-        </button>
-      </motion.section>
-
-      {/* Encerramento */}
+      {/* CTA Final */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-16 px-4"
+        className="bg-slate-900 text-white text-center py-12 px-4"
       >
         <div className="max-w-2xl mx-auto">
-          <Heart className="w-12 h-12 mx-auto mb-4 opacity-80" />
-          <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight">
-            Conhecimento livre também é cuidado.
-          </h2>
-          <p className="mt-4 text-blue-100 text-lg">
-            Obrigado por fazer parte desta comunidade de aprendizado compartilhado.
+          <p className="text-sm text-slate-300">
+            O PedBox é um projeto de código aberto. <br/>
+            Construído pela comunidade médica, para a comunidade médica.
           </p>
         </div>
       </motion.section>

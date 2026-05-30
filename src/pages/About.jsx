@@ -14,22 +14,38 @@ const item = {
 
 export default function About() {
   return (
-    <div className="bg-gradient-to-b from-blue-50 via-white to-cyan-50 min-h-screen">
+    <div className="bg-white min-h-screen">
 
       {/* Hero */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="py-16 px-4 text-center"
+        className="py-16 px-4 text-center bg-gradient-to-b from-slate-50 to-white"
       >
         <div className="max-w-3xl mx-auto">
           <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
-            Sobre o <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">PedBox</span>
+            Sobre o <span className="text-blue-600">PedBox</span>
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed">
+          <p className="text-lg text-gray-600 leading-relaxed">
             Um projeto educacional construído com a convicção de que barreiras de acesso ao conhecimento em saúde reforçam desigualdades.
           </p>
+        </div>
+
+        {/* Quick features */}
+        <div className="max-w-4xl mx-auto mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          {[
+            { icon: '🆓', title: 'Gratuito e aberto', desc: 'Acesso livre para todos' },
+            { icon: '✓', title: 'Baseado em evidências', desc: 'Conteúdo confiável e atualizado' },
+            { icon: '⚡', title: 'Feito para o dia a dia', desc: 'Ferramentas rápidas e práticas' },
+            { icon: '❤️', title: 'Focado em pediatria', desc: 'Cuidado centrado na criança' },
+          ].map((item, i) => (
+            <div key={i} className="text-sm">
+              <div className="text-3xl mb-2">{item.icon}</div>
+              <p className="font-bold text-gray-900 text-sm">{item.title}</p>
+              <p className="text-xs text-gray-600 mt-0.5">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </motion.section>
 
@@ -41,64 +57,36 @@ export default function About() {
         viewport={{ once: true }}
         className="max-w-4xl mx-auto px-4 py-12"
       >
-        <motion.div
-          variants={item}
-          className="bg-white rounded-3xl p-8 sm:p-12 shadow-lg border-l-4 border-blue-500"
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">O que é o PedBox?</h2>
-          <div className="space-y-4 text-gray-700 leading-relaxed">
-            <p>
-              O <strong>PedBox</strong> é uma plataforma educacional pediátrica, totalmente gratuita e de código aberto, desenvolvida para apoiar estudantes de medicina, médicos residentes, pediatras e profissionais de saúde no dia a dia clínico.
-            </p>
-            <p>
-              A plataforma reúne em um único lugar um <strong>Guia de Doses Pediátricas</strong> com centenas de medicamentos organizados por categoria, <strong>Calculadoras Clínicas</strong> (hidratação venosa, IMC pediátrico, pressão arterial, perímetro cefálico, alvo parental, idade gestacional corrigida, escore de Centor/McIsaac), <strong>Protocolos Clínicos</strong> baseados em evidências, <strong>Vacinas</strong>, <strong>Marcos do Desenvolvimento</strong> infantil e ferramentas de pesquisa como o PedResearch.
-            </p>
-            <p>
-              O PedBox nasceu da frustração com a <strong>fragmentação de conteúdo</strong>, o <strong>acesso restrito</strong> e a <strong>duplicação desnecessária de esforço</strong> na educação médica. Sabemos que estudantes, residentes, professores e profissionais de saúde precisam de ferramentas rápidas e confiáveis — mas muitas vezes enfrentam custos proibitivos, plataformas fechadas ou conhecimento disperso.
-            </p>
-            <p>
-              A plataforma está <strong>em constante atualização</strong>, com novas funcionalidades, medicamentos e conteúdos clínicos sendo adicionados regularmente para atender às necessidades da comunidade médica.
-            </p>
-            <p className="text-lg font-semibold text-blue-700">
-              Na saúde, democratizar conhecimento também é uma forma de cuidado.
-            </p>
-          </div>
-        </motion.div>
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          {/* Left: Text */}
+          <motion.div variants={item}>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 pb-4 border-b-2 border-blue-600 inline-block">O que é o PedBox?</h2>
+            <div className="space-y-4 text-gray-700 leading-relaxed text-sm">
+              <p>
+                O <strong>PedBox</strong> é uma plataforma educacional pediátrica, totalmente gratuita e de código aberto, desenvolvida para apoiar estudantes de medicina, médicos residentes, pediatras e profissionais de saúde.
+              </p>
+              <p>
+                A plataforma reúne em um único lugar um <strong>Guia de Doses Pediátricas</strong>, <strong>Calculadoras Clínicas</strong>, <strong>Protocolos Clínicos</strong> baseados em evidências, <strong>Vacinas</strong>, <strong>Marcos do Desenvolvimento</strong> infantil e ferramentas de pesquisa.
+              </p>
+              <p>
+                O PedBox nasceu da frustração com a <strong>fragmentação de conteúdo</strong> e o <strong>acesso restrito</strong> na educação médica. Sabemos que profissionais precisam de ferramentas rápidas e confiáveis sem custos proibitivos.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right: Visual */}
+          <motion.div variants={item} className="flex justify-center">
+            <div className="text-center">
+              <div className="text-6xl mb-4">💊</div>
+              <p className="text-gray-600 font-medium">Conhecimento livre e acessível</p>
+            </div>
+          </motion.div>
+        </div>
       </motion.section>
 
-      {/* Para quem é */}
-      <motion.section
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="max-w-4xl mx-auto px-4 py-8"
-      >
-        <motion.div
-          variants={item}
-          className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 sm:p-12 border-2 border-blue-200"
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Para quem é o PedBox?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
-            {[
-              { emoji: '🎓', title: 'Estudantes de medicina', desc: 'Que precisam de referências rápidas durante o internato e estágios.' },
-              { emoji: '🏥', title: 'Médicos residentes', desc: 'Que buscam agilidade nas decisões clínicas do dia a dia.' },
-              { emoji: '👩‍⚕️', title: 'Pediatras e clínicos', desc: 'Que desejam manter-se atualizados com conteúdo confiável e gratuito.' },
-              { emoji: '🔬', title: 'Ligas e grupos acadêmicos', desc: 'Que querem adaptar o conteúdo para sua realidade institucional.' },
-            ].map((p, i) => (
-              <div key={i} className="bg-white rounded-2xl p-5 shadow-sm flex gap-3">
-                <span className="text-3xl flex-shrink-0">{p.emoji}</span>
-                <div>
-                  <p className="font-bold text-gray-900">{p.title}</p>
-                  <p className="text-sm text-gray-600 mt-1">{p.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </motion.section>
 
-      {/* Livre para usar */}
+
+      {/* Nossos pilares */}
       <motion.section
         variants={container}
         initial="hidden"
@@ -106,129 +94,101 @@ export default function About() {
         viewport={{ once: true }}
         className="max-w-6xl mx-auto px-4 py-16"
       >
-        <motion.h2 variants={item} className="text-4xl font-bold text-gray-900 text-center mb-12">
-          Livre para estudar, copiar, adaptar e melhorar.
-        </motion.h2>
-        <motion.div variants={container} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="text-3xl font-bold text-gray-900 text-center mb-4 pb-4">Nossos pilares</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { icon: BookOpen, title: 'Estude livremente', desc: 'Explore o código, a lógica e o design sem restrições. Aprenda como foi construído.' },
-            { icon: Copy, title: 'Copie e adapte', desc: 'Pegue o modelo, ajuste para sua realidade local, seus protocolos e suas necessidades institucionais.' },
-            { icon: Share2, title: 'Compartilhe', desc: 'Distribua para sua liga, seu hospital, sua rede de ensino. Sem pedidos de autorização.' },
-            { icon: Zap, title: 'Crie novas versões', desc: 'Melhore o design, adicione novas seções, integre com suas ferramentas. A criatividade é sua.' },
-            { icon: Users, title: 'Melhore o conteúdo', desc: 'Encontrou um erro? Tem uma recomendação clínica melhor? Sugira melhorias que beneficiem todos.' },
-          ].map((card, i) => (
-            <motion.div
-              key={i}
-              variants={item}
-              whileHover={{ scale: 1.05, translateY: -5 }}
-              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all border-t-4 border-blue-400"
-            >
-              <card.icon className="w-10 h-10 text-cyan-600 mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">{card.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{card.desc}</p>
+            { icon: '🛡️', title: 'Acesso democrático', desc: 'Amortized que conhecimento a todos, em qualquer lugar.' },
+            { icon: '✓', title: 'Rigor e confiabilidade', desc: 'Alicerçado em evidências necessárias e melhores estudos disponíveis.' },
+            { icon: '👥', title: 'Comunidade', desc: 'Feito por profissionais de saúde para profissionais de saúde.' },
+            { icon: '🔄', title: 'Evolução contínua', desc: 'Estamos sempre aprimorando a plataforma com base no feedback.' },
+          ].map((pillar, i) => (
+            <motion.div key={i} variants={item} className="text-center">
+              <div className="text-4xl mb-3">{pillar.icon}</div>
+              <h3 className="font-bold text-gray-900 mb-2">{pillar.title}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">{pillar.desc}</p>
             </motion.div>
           ))}
-        </motion.div>
-      </motion.section>
-
-      {/* Copiar Modelo */}
-      <motion.section
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 py-8"
-      >
-        <motion.h2 variants={item} className="text-2xl font-bold text-gray-900 text-center mb-6">
-          Copie ou adapte o modelo do PedBox
-        </motion.h2>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="https://app.base44.com/app-templates/69f4e81a840a3c93cee16789"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 bg-gradient-to-r from-orange-400 to-amber-400 text-white font-bold py-4 rounded-2xl hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3"
-          >
-            <Copy className="w-5 h-5" />
-            Adaptar no Base44
-            <ExternalLink className="w-4 h-4" />
-          </a>
-          <a
-            href="https://github.com/maritsilva/pedbox"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 bg-gray-900 text-white font-bold py-4 rounded-2xl hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3"
-          >
-            <Github className="w-5 h-5" />
-            Repositório GitHub
-            <ExternalLink className="w-4 h-4" />
-          </a>
         </div>
       </motion.section>
 
-      {/* Aviso Ético */}
+      {/* Impacto */}
       <motion.section
-        variants={item}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="bg-slate-50 py-16 px-4"
+      >
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-12 pb-4 text-center">Impacto que queremos gerar</h2>
+          <p className="text-gray-700 text-center mb-8 max-w-2xl mx-auto">
+            Nosso objetivo é contribuir para uma formação médica mais justa, prática e baseada em evidências, ajudando quem cuida de quem mais importa: nossas crianças.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            {[
+              { num: '+10 mil', desc: 'Profissionais e estudantes' },
+              { num: '+500', desc: 'Conteúdos e ferramentas' },
+              { num: '100%', desc: 'Gratuito e aberto' },
+            ].map((stat, i) => (
+              <div key={i}>
+                <p className="text-4xl font-bold text-blue-600 mb-2">{stat.num}</p>
+                <p className="text-gray-600">{stat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Participe */}
+      <motion.section
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="max-w-4xl mx-auto px-4 py-16 bg-white rounded-2xl shadow-sm"
+      >
+        <h2 className="text-3xl font-bold text-gray-900 mb-4 pb-4">Participe do PedBox</h2>
+        <p className="text-gray-700 text-base mb-8">
+          Tem sugestões, encontrou algum conteúdo que pode ser melhorado ou quer contribuir com o projeto? Sua participação faz toda a diferença!
+        </p>
+        <a
+          href="mailto:pedboxapp@gmail.com"
+          className="inline-block bg-blue-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-blue-700 transition-all"
+        >
+          Entrar em contato
+        </a>
+      </motion.section>
+
+      {/* Aviso */}
+      <motion.section
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         className="max-w-4xl mx-auto px-4 py-12"
       >
-        <div className="bg-amber-50 border-l-4 border-amber-500 rounded-2xl p-6 sm:p-8 flex gap-4">
-          <AlertCircle className="w-7 h-7 text-amber-600 flex-shrink-0 mt-1" />
-          <div>
-            <h3 className="font-bold text-amber-900 text-lg mb-3">⚠️ Versão Beta — em desenvolvimento</h3>
-            <p className="text-amber-800 text-sm leading-relaxed mb-3">
-              O PedBox está em <strong>fase beta e desenvolvimento ativo</strong>. Erros, imprecisões ou informações desatualizadas podem ocorrer. Toda informação deve ser <strong>sempre validada</strong> com diretrizes oficiais, protocolos institucionais, literatura médica vigente e supervisão de especialistas antes de qualquer decisão clínica.
-            </p>
-            <p className="text-amber-800 text-sm leading-relaxed">
-              Esta plataforma é uma <strong>ferramenta de apoio educacional destinada exclusivamente a profissionais de saúde habilitados</strong> — médicos, estudantes de medicina em supervisão, residentes e outros profissionais com formação clínica. Não substitui avaliação clínica direta nem a responsabilidade do profissional assistente.
-            </p>
-          </div>
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center">
+          <p className="text-sm text-amber-900">
+            <strong>⚠️ Versão Beta:</strong> O PedBox está em desenvolvimento. Toda informação deve ser validada com diretrizes oficiais e supervisão médica antes de qualquer decisão clínica.
+          </p>
         </div>
       </motion.section>
 
-      {/* Sobre a desenvolvedora */}
+      {/* Footer */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="max-w-4xl mx-auto px-4 py-12 text-center"
+        className="bg-slate-900 text-white text-center py-12 px-4"
       >
-        <div className="bg-white rounded-2xl p-8 shadow-md border-2 border-blue-100">
-          <h3 className="text-xl font-bold text-gray-900 mb-3">Sobre a desenvolvedora</h3>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            O PedBox foi desenvolvido por uma médica residente em pediatria que acredita que barreiras de acesso ao conhecimento em saúde são barreiras à equidade. Este projeto é um convite: estudar, questionar, melhorar e construir juntos ferramentas que sirvam a toda comunidade médica.
-          </p>
-          <p className="text-gray-600 text-sm mb-5">
-            <strong>Licença:</strong> Livre para estudo, cópia, adaptação e melhoria.
+        <div className="max-w-2xl mx-auto">
+          <p className="text-sm text-slate-300 mb-4">
+            O PedBox é um projeto de código aberto. <br/>
+            Inspirado pela colaboração. Movido pelo cuidado. Construído para transformar.
           </p>
           <a
             href="mailto:pedboxapp@gmail.com"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all hover:shadow-lg"
+            className="text-blue-400 hover:text-blue-300 font-semibold"
           >
-            <Mail className="w-5 h-5" />
-            Entrar em contato por e-mail
+            Tem dúvidas? Entre em contato →
           </a>
-          <p className="text-xs text-gray-400 mt-2">pedboxapp@gmail.com</p>
-        </div>
-      </motion.section>
-
-      {/* Encerramento */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-16 px-4"
-      >
-        <div className="max-w-2xl mx-auto">
-          <Heart className="w-12 h-12 mx-auto mb-4 opacity-80" />
-          <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight">
-            Conhecimento livre também é cuidado.
-          </h2>
-          <p className="mt-4 text-blue-100 text-lg">
-            Obrigado por fazer parte desta comunidade de aprendizado compartilhado.
-          </p>
         </div>
       </motion.section>
     </div>
