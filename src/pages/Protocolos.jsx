@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X, ChevronDown, Calculator } from 'lucide-react';
+import { BookOpen, ChevronRight, ChevronLeft, AlertTriangle, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, Search, X, ChevronDown, Calculator, Star, TrendingUp, LayoutGrid } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
@@ -794,143 +794,204 @@ export default function Protocolos() {
   }
 
   // ── List view ──
+  const MAIS_USADOS = ['crise-asmatica', 'bronquiolite', 'convulsao-febril', 'diarreia-aguda', 'febre-sem-sinais', 'pneumonia-complicada'];
+  const maisUsados = MAIS_USADOS.map(id => PROTOCOLS.find(p => p.id === id)).filter(Boolean);
+  const maisAcessados = PROTOCOLS.slice(0, 5);
+
+  const ESP_ICONS = {
+    'Respiratório': '🫁', 'Neurologia': '🧠', 'Gastroenterologia': '🥗',
+    'Infectologia': '🦠', 'Hematologia': '🩸',
+  };
+
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      {/* Header */}
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* ── HEADER ── */}
       <div className="mb-6">
-        <h1 className="text-2xl font-extrabold text-foreground mb-1">Protocolos Clínicos</h1>
-        <p className="text-muted-foreground text-sm">Diretrizes baseadas em evidências · Albert Einstein</p>
+        <h1 className="text-3xl font-extrabold text-foreground mb-1">Protocolos Clínicos</h1>
+        <p className="text-muted-foreground text-sm">Fluxogramas e condutas pediátricas para consulta rápida.</p>
       </div>
 
-      {/* Search */}
-      <div className="relative mb-4">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      {/* ── SEARCH ── */}
+      <div className="relative mb-5">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Buscar protocolo (ex: asma, febre, diarreia…)"
+          placeholder="Buscar protocolo, sintoma, diagnóstico ou conduta..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full pl-10 pr-10 py-3 bg-white border border-border rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+          className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all shadow-sm"
         />
         {search && (
-          <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+          <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
             <X className="w-4 h-4" />
           </button>
         )}
       </div>
 
-      {/* Specialty filters */}
+      {/* ── SPECIALTY FILTER CHIPS ── */}
       <div className="flex flex-wrap gap-2 mb-6">
-        <button
-          onClick={() => setActiveEsp(null)}
-          className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${!activeEsp ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:border-primary/50'}`}
-        >
-          Todas
+        <button onClick={() => setActiveEsp(null)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${!activeEsp ? 'bg-primary text-white border-primary shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`}>
+          <LayoutGrid className="w-3.5 h-3.5" /> Todas
         </button>
         {especialidades.map(esp => {
           const meta = ESPECIALIDADE_META[esp] || {};
           const isActive = activeEsp === esp;
           return (
-            <button
-              key={esp}
-              onClick={() => setActiveEsp(isActive ? null : esp)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${isActive ? `${meta.bg} ${meta.text} ${meta.border}` : 'bg-white text-muted-foreground border-border hover:border-primary/50'}`}
-            >
-              {esp}
+            <button key={esp} onClick={() => setActiveEsp(isActive ? null : esp)}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${isActive ? `${meta.bg} ${meta.text} ${meta.border}` : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`}>
+              <span>{ESP_ICONS[esp] || '📋'}</span> {esp}
             </button>
           );
         })}
       </div>
 
-      {/* Results count when searching */}
-      {(search || activeEsp) && (
-        <p className="text-xs text-muted-foreground mb-4">
-          {filtered.length === 0 ? 'Nenhum protocolo encontrado' : `${filtered.length} protocolo${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`}
-        </p>
-      )}
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
+        {/* ── LEFT: Main content ── */}
+        <div className="flex-1 min-w-0 space-y-6">
 
-      {/* Grouped protocols */}
-      {filtered.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-4xl mb-3">🔍</p>
-          <p className="font-semibold text-foreground">Nenhum resultado para "{search}"</p>
-          <p className="text-sm text-muted-foreground mt-1">Tente outros termos como "febre", "asma" ou "diarreia".</p>
-        </div>
-      ) : (
-        <div className="space-y-8">
-          {Object.entries(grouped).map(([esp, protocols]) => {
-            const meta = ESPECIALIDADE_META[esp] || { bg: 'bg-secondary', border: 'border-border', text: 'text-foreground', dot: 'bg-primary' };
-            return (
-              <div key={esp}>
-                {/* Specialty header */}
-                <div className={`flex items-center gap-2 mb-3 px-4 py-2 rounded-xl ${meta.bg} border ${meta.border}`}>
-                  <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${meta.dot}`} />
-                  <span className={`text-sm font-bold ${meta.text}`}>{esp}</span>
-                  <span className={`ml-auto text-xs font-semibold ${meta.text} opacity-70`}>{protocols.length} protocolo{protocols.length !== 1 ? 's' : ''}</span>
-                </div>
-
-                <div className="space-y-2">
-                  {protocols.map(p => (
-                    <div key={p.id} className="rounded-2xl border border-border overflow-hidden bg-white shadow-sm">
-                      <div className="flex items-stretch">
-                        <button
-                          onClick={() => setSelected(p.id)}
-                          className="flex-1 text-left p-4 flex items-center gap-4 hover:bg-secondary/40 transition-all group"
-                        >
-                          <span className="text-3xl flex-shrink-0">{p.icon}</span>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-bold text-foreground text-sm">{p.title}</p>
-                            <p className="text-xs text-muted-foreground">{p.subtitle}</p>
-                            <p className="text-xs text-muted-foreground/60 mt-0.5">{p.source}</p>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                        </button>
-                        {FLUXOGRAMAS[p.id] && (
-                          <button
-                            onClick={() => setExpandedFlux(expandedFlux === p.id ? null : p.id)}
-                            className={`flex flex-col items-center justify-center gap-1 px-3 border-l border-border text-xs font-semibold transition-all min-w-[60px] ${expandedFlux === p.id ? 'bg-primary text-white' : 'bg-secondary/60 text-primary hover:bg-primary/10'}`}
-                          >
-                            <GitBranch className="w-4 h-4" />
-                            <span className="hidden sm:block">Fluxo</span>
-                            <ChevronDown className={`w-3 h-3 transition-transform ${expandedFlux === p.id ? 'rotate-180' : ''}`} />
-                          </button>
-                        )}
-                      </div>
-                      <AnimatePresence initial={false}>
-                        {expandedFlux === p.id && FLUXOGRAMAS[p.id] && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.25 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="border-t border-border bg-secondary/20 px-4 py-5 overflow-x-auto">
-                              <p className="text-xs font-bold text-primary mb-3 flex items-center gap-1.5">
-                                <GitBranch className="w-3.5 h-3.5" /> {FLUXOGRAMAS[p.id].title}
-                              </p>
-                              {FLUXOGRAMAS[p.id].component}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ))}
-                </div>
+          {/* Mais usados strip */}
+          {!search && !activeEsp && (
+            <div className="bg-white border border-border rounded-2xl p-4 shadow-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <TrendingUp className="w-4 h-4 text-orange-500" />
+                <p className="font-bold text-sm text-foreground">Mais usados no plantão</p>
               </div>
-            );
-          })}
-        </div>
-      )}
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                {maisUsados.map(p => (
+                  <button key={p.id} onClick={() => setSelected(p.id)}
+                    className="flex items-center gap-2 px-3 py-2 bg-secondary/60 hover:bg-secondary border border-border rounded-xl text-xs font-semibold text-foreground whitespace-nowrap transition-all flex-shrink-0">
+                    <span>{p.icon}</span> {p.title} <ChevronRight className="w-3 h-3 text-muted-foreground" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
-      {/* Coming soon */}
-      {!search && !activeEsp && (
-        <div className="mt-10 bg-secondary/60 border border-border rounded-2xl p-5 text-center">
-          <BookOpen className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-          <p className="text-sm font-semibold text-foreground">Mais protocolos em breve</p>
-          <p className="text-xs text-muted-foreground mt-1">Sepse neonatal, cetoacidose diabética, anafilaxia e outros.</p>
+          {/* Results count */}
+          {(search || activeEsp) && (
+            <p className="text-xs text-muted-foreground">
+              {filtered.length === 0 ? 'Nenhum protocolo encontrado' : `${filtered.length} protocolo${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`}
+            </p>
+          )}
+
+          {/* Grouped protocols */}
+          {filtered.length === 0 ? (
+            <div className="text-center py-16 bg-white border border-border rounded-2xl">
+              <p className="text-4xl mb-3">🔍</p>
+              <p className="font-semibold text-foreground">Nenhum resultado encontrado</p>
+              <p className="text-sm text-muted-foreground mt-1">Tente outros termos como "febre", "asma" ou "diarreia".</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {Object.entries(grouped).map(([esp, protocols]) => {
+                const meta = ESPECIALIDADE_META[esp] || { bg: 'bg-secondary', border: 'border-border', text: 'text-foreground', dot: 'bg-primary' };
+                return (
+                  <div key={esp} className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
+                    {/* Specialty header */}
+                    <div className={`flex items-center gap-2.5 px-5 py-3.5 border-b border-border`}>
+                      <span className="text-xl">{ESP_ICONS[esp] || '📋'}</span>
+                      <span className={`text-base font-extrabold ${meta.text}`}>{esp}</span>
+                      <span className={`ml-auto text-xs font-semibold px-2.5 py-1 rounded-full ${meta.bg} ${meta.text} border ${meta.border}`}>
+                        {protocols.length} protocolo{protocols.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+
+                    <div className="divide-y divide-border/60">
+                      {protocols.map(p => (
+                        <div key={p.id}>
+                          <div className="flex items-stretch">
+                            <button onClick={() => setSelected(p.id)}
+                              className="flex-1 text-left px-5 py-4 flex items-center gap-4 hover:bg-secondary/30 transition-all group">
+                              <div className={`w-12 h-12 rounded-xl ${meta.bg} flex items-center justify-center text-2xl flex-shrink-0`}>
+                                {p.icon}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-bold text-foreground text-sm">{p.title}</p>
+                                <p className="text-xs text-muted-foreground">{p.subtitle}</p>
+                                <p className="text-xs text-muted-foreground/50 mt-0.5">{p.source}</p>
+                              </div>
+                              {/* Tags */}
+                              <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
+                                {FLUXOGRAMAS[p.id] && (
+                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Fluxograma</span>
+                                )}
+                                {(p.especialidade === 'Infectologia' || p.tag === 'Emergência') && (
+                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">Emergência</span>
+                                )}
+                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${meta.bg} ${meta.text}`}>{p.tag}</span>
+                              </div>
+                              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 ml-2" />
+                            </button>
+                            {FLUXOGRAMAS[p.id] && (
+                              <button onClick={() => setExpandedFlux(expandedFlux === p.id ? null : p.id)}
+                                className={`flex flex-col items-center justify-center gap-1 px-3 border-l border-border text-xs font-semibold transition-all min-w-[56px] ${expandedFlux === p.id ? 'bg-primary text-white' : 'bg-secondary/40 text-primary hover:bg-primary/10'}`}>
+                                <GitBranch className="w-4 h-4" />
+                                <ChevronDown className={`w-3 h-3 transition-transform ${expandedFlux === p.id ? 'rotate-180' : ''}`} />
+                              </button>
+                            )}
+                          </div>
+                          <AnimatePresence initial={false}>
+                            {expandedFlux === p.id && FLUXOGRAMAS[p.id] && (
+                              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
+                                <div className="border-t border-border bg-secondary/20 px-5 py-5 overflow-x-auto">
+                                  <p className="text-xs font-bold text-primary mb-3 flex items-center gap-1.5">
+                                    <GitBranch className="w-3.5 h-3.5" /> {FLUXOGRAMAS[p.id].title}
+                                  </p>
+                                  {FLUXOGRAMAS[p.id].component}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Coming soon */}
+              {!search && !activeEsp && (
+                <div className="bg-secondary/60 border border-border rounded-2xl p-5 text-center">
+                  <BookOpen className="w-7 h-7 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-sm font-semibold text-foreground">Mais protocolos em breve</p>
+                  <p className="text-xs text-muted-foreground mt-1">Sepse neonatal, cetoacidose diabética, anafilaxia e outros.</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      )}
+
+        {/* ── RIGHT: Sidebar ── */}
+        <div className="lg:w-72 xl:w-80 flex-shrink-0 space-y-4 lg:sticky lg:top-20">
+          {/* Mais acessados */}
+          <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
+            <div className="flex items-center gap-2 px-5 py-4 border-b border-border">
+              <TrendingUp className="w-4 h-4 text-orange-500" />
+              <p className="font-bold text-sm text-foreground">Mais acessados</p>
+            </div>
+            <div className="divide-y divide-border/60">
+              {maisAcessados.map((p, i) => (
+                <button key={p.id} onClick={() => setSelected(p.id)}
+                  className="w-full flex items-center gap-3 px-5 py-3.5 hover:bg-secondary/40 transition-colors group text-left">
+                  <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[11px] font-bold text-primary flex-shrink-0">{i + 1}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-foreground truncate">{p.title}</p>
+                    <p className="text-xs text-muted-foreground truncate">{p.especialidade}</p>
+                  </div>
+                  <span className="text-lg flex-shrink-0">{p.icon}</span>
+                </button>
+              ))}
+            </div>
+            <div className="px-5 py-3 border-t border-border">
+              <button onClick={() => setActiveEsp(null)}
+                className="w-full flex items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+                Ver todos os protocolos <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
