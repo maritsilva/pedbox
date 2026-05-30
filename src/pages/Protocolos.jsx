@@ -734,7 +734,8 @@ function FluxogramaPanel({ id }) {
 }
 
 export default function Protocolos() {
-  const [selected, setSelected] = useState(null);
+  const urlParams = new URLSearchParams(window.location.search);
+  const [selected, setSelected] = useState(urlParams.get('id') || null);
   const [expandedFlux, setExpandedFlux] = useState(null);
   const [search, setSearch] = useState('');
   const [activeEsp, setActiveEsp] = useState(null);
