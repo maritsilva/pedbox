@@ -23,9 +23,9 @@ const QUICK_CATS = [
 // Main feature cards
 const MAIN_CARDS = [
 {
-  label: 'Guia de Medicamentos',
-  desc: 'Doses, administração e apresentações organizadas por princípio ativo.',
-  path: '/guia',
+  label: 'Calculadora de Doses',
+  desc: 'Calculadora pediátrica com doses precisas, conversões e apresentações medicamentosas.',
+  path: '/dosagens',
   icon: BookOpen,
   gradient: 'from-blue-500 to-blue-700',
   shadow: 'shadow-blue-200'
@@ -58,8 +58,8 @@ const MAIN_CARDS = [
 
 // Quick access shortcuts
 const QUICK_ACCESS = [
-{ label: 'Calculadoras', desc: 'IMC, superfície corporal, medicações e mais.', icon: '🧮', path: '/calculadoras-hub' },
-{ label: 'Cálculos', desc: 'Fórmulas e cálculos pediátricos essenciais.', icon: '➕', path: '/dosagens' },
+{ label: 'Calculadoras', desc: 'Ferramentas clínicas: escores, crescimento, hidratação e mais.', icon: '🧮', path: '/calculadoras-hub' },
+{ label: 'Doses', desc: 'Calculadora pediátrica de doses com conversões e apresentações.', icon: '💊', path: '/dosagens' },
 { label: 'Escalas e Escores', desc: 'Avaliações clínicas validadas.', icon: '⭐', path: '/calculadoras-hub' },
 { label: 'Hidratação', desc: 'Volumes, soluções e velocidades.', icon: '💧', path: '/hidratacao' },
 { label: 'Sinais Vitais', desc: 'Valores de referência e parâmetros.', icon: '📋', path: '/sinais-vitais' },
@@ -91,7 +91,7 @@ export default function Home() {
               Essenciais no Plantão
             </span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">Acesso imediato a doses, protocolos e cálculos, essenciais no plantão
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">Calculadoras pediátricas de doses, protocolos e cálculos clínicos para o seu plantão
 
           </p>
         </div>
