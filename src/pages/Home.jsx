@@ -19,7 +19,7 @@ const QUICK_CATS = [
   { label: 'Escores',    icon: '📊', path: '/calculadoras-hub' },
   { label: 'Vacinas',    icon: '💉', path: '/vacinas' },
   { label: 'Crescimento',icon: '📈', path: '/imc' },
-  { label: 'Neonatal',   icon: '🍼', path: '/rodwell' },
+  { label: 'Curvas',     icon: '📈', path: '/crescimento' },
 ];
 
 // Main feature cards

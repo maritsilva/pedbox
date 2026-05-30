@@ -29,6 +29,7 @@ import Settings from './pages/Settings';
 import WoodDownes from './pages/WoodDownes';
 import PRAM from './pages/PRAM';
 import DrogasEmergencia from './pages/DrogasEmergencia';
+import CurvasCrescimento from './pages/CurvasCrescimento';
 import CalculadorasHub from './pages/CalculadorasHub.jsx';
 import Resumos from './pages/Resumos';
 import Dosagens from './pages/Dosagens';
@@ -84,6 +85,7 @@ function App() {
             <Route path="/silverman-anderson" element={<SilvermanAnderson />} />
             <Route path="/rodwell" element={<EscoreRodwell />} />
             <Route path="/pas-asma" element={<PASAsma />} />
+            <Route path="/crescimento" element={<CurvasCrescimento />} />
             <Route path="/favoritos" element={<FavoritosPage />} />
             <Route path="/ferramentas" element={<ExplorarFerramentas />} />
             <Route path="/biblioteca" element={<Biblioteca />} />
