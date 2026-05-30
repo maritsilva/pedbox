@@ -140,9 +140,16 @@ export default function DosagemDetalhe({ drug, onBack }) {
   const dosesPerDay = isDailyDose ? getDoesPerDay(indicacao?.freq) : 1;
   
   // Dose per administration (divide by frequency if daily dose)
-  const dosePerAdminMin = isDailyDose && doseMinMg ? doseMinMg / dosesPerDay : doseMinMg;
-  const dosePerAdminMed = isDailyDose && doseMedMg ? doseMedMg / dosesPerDay : doseMedMg;
-  const dosePerAdminMax = isDailyDose && doseMaxMg ? doseMaxMg / dosesPerDay : doseMaxMg;
+  let dosePerAdminMin = isDailyDose && doseMinMg ? doseMinMg / dosesPerDay : doseMinMg;
+  let dosePerAdminMed = isDailyDose && doseMedMg ? doseMedMg / dosesPerDay : doseMedMg;
+  let dosePerAdminMax = isDailyDose && doseMaxMg ? doseMaxMg / dosesPerDay : doseMaxMg;
+  
+  // Apply dose_max_abs ceiling to per-administration dose (not daily)
+  if (indicacao?.dose_max_abs) {
+    if (dosePerAdminMin !== null) dosePerAdminMin = Math.min(dosePerAdminMin, indicacao.dose_max_abs);
+    if (dosePerAdminMed !== null) dosePerAdminMed = Math.min(dosePerAdminMed, indicacao.dose_max_abs);
+    if (dosePerAdminMax !== null) dosePerAdminMax = Math.min(dosePerAdminMax, indicacao.dose_max_abs);
+  }
 
   return (
     <motion.div
@@ -334,7 +341,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
                 <div className="flex items-start gap-2.5 bg-blue-50 border border-blue-200 rounded-xl px-3 py-2.5 text-xs text-blue-800">
                   <Info className="w-3.5 h-3.5 flex-shrink-0 text-blue-500 mt-0.5" />
                   <span>Dose máxima: <strong className="text-blue-900">{fmtDose(indicacao.dose_max_abs)}/dose</strong>
-                  {doseMaxMg >= indicacao.dose_max_abs && <span className="text-amber-600 font-semibold ml-1">(teto aplicado)</span>}
+                  {dosePerAdminMax >= indicacao.dose_max_abs && <span className="text-amber-600 font-semibold ml-1">(teto aplicado)</span>}
                   </span>
                 </div>
               )}
