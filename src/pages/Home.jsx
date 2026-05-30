@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs } from '@/lib/guideData';
 import { searchDrugs } from '@/lib/searchDrugs';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
+import { getAllDosagens } from '@/lib/dosagensData';
 
 const CALCULATORS = [
   { label: 'Hidratação Venosa', desc: 'Cálculo rápido de volumes e velocidades', path: '/hidratacao', Icon: Droplets, keywords: ['hidratação', 'venosa', 'soro', 'holliday'] },
@@ -32,7 +33,20 @@ export default function Home() {
           t.label.toLowerCase().includes(search.toLowerCase()) ||
           t.keywords.some(k => k.includes(search.toLowerCase()))
         ).map(t => ({ ...t, type: 'tool' })),
-        ...searchDrugs(search, 6)
+        ...getAllDosagens().filter(d => {
+          const q = search.toLowerCase();
+          return d.name.toLowerCase().includes(q) ||
+            (d.sinonimo && d.sinonimo.toLowerCase().includes(q)) ||
+            (d.marcas && d.marcas.toLowerCase().includes(q));
+        }).slice(0, 5).map(d => ({
+          label: `Cálculo dose — ${d.name}`,
+          desc: `${d.catLabel} · ${d.dose_min}–${d.dose_max} ${d.unidade}`,
+          path: `/dosagens?drug=${d.id}`,
+          catIcon: '⚡',
+          type: 'dosagem',
+          Icon: Zap,
+        })),
+        ...searchDrugs(search, 4)
           .map(d => ({ label: d.name, desc: d.catLabel, path: `/guia?drug=${d.id}`, catIcon: d.catIcon, type: 'drug' })),
       ]
     : [];

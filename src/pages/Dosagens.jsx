@@ -12,6 +12,10 @@ const COLOR_MAP = {
   yellow: { bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-700', dot: 'bg-yellow-500', header: 'bg-yellow-500', badge: 'bg-yellow-100 text-yellow-800' },
   green:  { bg: 'bg-green-50',  border: 'border-green-200',  text: 'text-green-700',  dot: 'bg-green-500',  header: 'bg-green-600',  badge: 'bg-green-100 text-green-800' },
   teal:   { bg: 'bg-teal-50',   border: 'border-teal-200',   text: 'text-teal-700',   dot: 'bg-teal-500',   header: 'bg-teal-600',   badge: 'bg-teal-100 text-teal-800' },
+  cyan:   { bg: 'bg-cyan-50',   border: 'border-cyan-200',   text: 'text-cyan-700',   dot: 'bg-cyan-500',   header: 'bg-cyan-600',   badge: 'bg-cyan-100 text-cyan-800' },
+  amber:  { bg: 'bg-amber-50',  border: 'border-amber-200',  text: 'text-amber-700',  dot: 'bg-amber-500',  header: 'bg-amber-500',  badge: 'bg-amber-100 text-amber-800' },
+  pink:   { bg: 'bg-pink-50',   border: 'border-pink-200',   text: 'text-pink-700',   dot: 'bg-pink-500',   header: 'bg-pink-600',   badge: 'bg-pink-100 text-pink-800' },
+  lime:   { bg: 'bg-lime-50',   border: 'border-lime-200',   text: 'text-lime-700',   dot: 'bg-lime-500',   header: 'bg-lime-600',   badge: 'bg-lime-100 text-lime-800' },
 };
 
 function DrugCard({ drug, catColor, onClick }) {
@@ -42,11 +46,18 @@ function DrugCard({ drug, catColor, onClick }) {
 }
 
 export default function Dosagens() {
-  const [selected, setSelected] = useState(null);
+  const allDrugs = useMemo(() => getAllDosagens(), []);
+
+  // Support ?drug=id deep link from search
+  const initialDrug = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const drugId = params.get('drug');
+    return drugId ? allDrugs.find(d => d.id === drugId) || null : null;
+  }, [allDrugs]);
+
+  const [selected, setSelected] = useState(initialDrug);
   const [search, setSearch] = useState('');
   const [activeCategoria, setActiveCategoria] = useState(null);
-
-  const allDrugs = useMemo(() => getAllDosagens(), []);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
