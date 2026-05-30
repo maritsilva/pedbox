@@ -110,7 +110,7 @@ export default function Guia() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-5">
-        <h1 className="text-2xl font-extrabold text-foreground mb-1">Guia de Doses</h1>
+        <h1 className="text-2xl font-extrabold text-foreground mb-1">Bulas</h1>
         <p className="text-muted-foreground text-sm">Referência clínica completa de medicamentos pediátricos e adultos</p>
       </div>
 
