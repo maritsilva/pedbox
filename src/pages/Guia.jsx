@@ -139,24 +139,23 @@ export default function Guia() {
     <div className="max-w-7xl mx-auto px-4 py-8">
 
       {/* ── HEADER ── */}
-      <div className="mb-6">
+      <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-foreground mb-1">Bulas</h1>
         <p className="text-muted-foreground text-sm">Referência clínica completa de medicamentos pediátricos e adultos</p>
       </div>
 
       {/* ── GLOBAL SEARCH ── */}
-      <div className="relative mb-6">
+      <div className="relative mb-8">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
           placeholder="Buscar medicamento, classe ou princípio ativo..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full border border-border rounded-2xl pl-11 pr-16 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white shadow-sm"
+          className="w-full border border-border rounded-2xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
         />
-        <kbd className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] bg-secondary border border-border rounded px-1.5 py-0.5 font-mono text-muted-foreground hidden md:block pointer-events-none">⌘K</kbd>
         {search && (
-          <button onClick={() => setSearch('')} className="absolute right-4 md:right-16 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+          <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
             <X className="w-4 h-4" />
           </button>
         )}
@@ -188,17 +187,17 @@ export default function Guia() {
       </div>
 
       {/* ── TABS ── */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-3 mb-8 flex-wrap">
         <button onClick={() => setActiveTab('categorias')}
-          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${activeTab === 'categorias' ? 'bg-primary text-white border-primary shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`}>
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${activeTab === 'categorias' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
           <LayoutGrid className="w-4 h-4" /> Categorias
         </button>
         <button onClick={() => setActiveTab('favoritos')}
-          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${activeTab === 'favoritos' ? 'bg-yellow-400 text-yellow-900 border-yellow-400 shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-yellow-300'}`}>
-          <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-yellow-900' : ''}`} />
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${activeTab === 'favoritos' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
+          <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-white' : ''}`} />
           Favoritos
           {favorites.length > 0 && (
-            <span className={`text-xs rounded-full px-1.5 font-bold ${activeTab === 'favoritos' ? 'bg-yellow-900/20 text-yellow-900' : 'bg-yellow-100 text-yellow-700'}`}>
+            <span className={`text-xs rounded-full px-1.5 font-bold ${activeTab === 'favoritos' ? 'bg-white/20' : 'bg-secondary text-foreground'}`}>
               {favorites.length}
             </span>
           )}
@@ -239,100 +238,136 @@ export default function Guia() {
 
       {/* ── CATEGORIAS TAB ── */}
       {activeTab === 'categorias' && (
-        <div className="flex flex-col gap-6 items-start">
+        <div className="flex flex-col lg:flex-row gap-6">
 
-          {/* LEFT — Category grid or All drugs */}
-           <div className="w-full">
+          {/* LEFT — Main content area */}
+          <div className="flex-1 min-w-0">
 
             {/* Category search + sort */}
-             <div className="flex items-center gap-3 mb-4">
-               <div className="relative flex-1">
-                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                 <input
-                   type="text"
-                   placeholder="Filtrar categorias..."
-                   value={catSearch}
-                   onChange={e => setCatSearch(e.target.value)}
-                   className="w-full pl-10 pr-4 py-2.5 bg-white border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                 />
-                 {catSearch && (
-                   <button onClick={() => setCatSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                     <X className="w-3.5 h-3.5" />
-                   </button>
-                 )}
-               </div>
-               <button onClick={() => setSortAZ(!sortAZ)} className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold border transition-all whitespace-nowrap ${sortAZ ? 'bg-primary text-white border-primary' : 'bg-white border-border text-muted-foreground hover:border-primary/40'}`}>
-                 Ordenar: A–Z
-               </button>
-             </div>
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
+              <div className="relative flex-1 min-w-xs">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Filtrar categorias..."
+                  value={catSearch}
+                  onChange={e => setCatSearch(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+                {catSearch && (
+                  <button onClick={() => setCatSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+              <button onClick={() => setSortAZ(!sortAZ)} className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-semibold border transition-all whitespace-nowrap ${sortAZ ? 'bg-primary text-white border-primary' : 'bg-white border-border text-foreground hover:bg-secondary/50'}`}>
+                Ordenar: A–Z
+              </button>
+            </div>
 
             {/* Classes filter */}
-             <div className="mb-4">
-               <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase">Filtrar por classe</p>
-               <div className="flex flex-wrap gap-2">
-                 {GUIDE_CATEGORIES.map(cat => (
-                   <button key={cat.id} onClick={() => setSelectedClasses(selectedClasses.includes(cat.id) ? selectedClasses.filter(id => id !== cat.id) : [...selectedClasses, cat.id])}
-                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${selectedClasses.includes(cat.id) ? 'bg-primary text-white border-primary' : 'bg-white border-border text-muted-foreground hover:border-primary/40'}`}>
-                     {cat.label}
-                   </button>
-                 ))}
-               </div>
-             </div>
+            <div className="mb-6">
+              <p className="text-xs font-semibold text-muted-foreground mb-2.5 uppercase">Filtrar por classe</p>
+              <div className="flex flex-wrap gap-2">
+                {GUIDE_CATEGORIES.map(cat => (
+                  <button key={cat.id} onClick={() => setSelectedClasses(selectedClasses.includes(cat.id) ? selectedClasses.filter(id => id !== cat.id) : [...selectedClasses, cat.id])}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${selectedClasses.includes(cat.id) ? 'bg-primary text-white border-primary' : 'bg-white border-border text-foreground hover:bg-secondary/50'}`}>
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-            {/* All drugs list */}
-             {selectedClasses.length > 0 ? (
-               <div className="space-y-2">
-                 {allDrugsFlat.filter(d => selectedClasses.includes(d.catId)).map((drug, i) => (
-                   <motion.button key={drug.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }}
-                     onClick={() => { const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category); setSelectedCat(cat); setSelectedDrug(drug); }}
-                     className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm transition-all group">
-                     <div>
-                       <span className="font-semibold text-sm text-foreground">{drug.name}</span>
-                       {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
-                       <p className="text-xs text-muted-foreground mt-0.5">{drug.catLabel}</p>
-                     </div>
-                     <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                   </motion.button>
-                 ))}
-               </div>
-             ) : (
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                 {filteredCats.map((cat, i) => {
-                   const colors = colorMap[cat.color] || colorMap['blue-500'];
-                   return (
-                     <motion.button key={cat.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
-                       onClick={() => setSelectedCat(cat)}
-                       className="w-full bg-white border border-border rounded-2xl px-4 py-4 flex items-center gap-4 text-left hover:border-primary/30 hover:shadow-md transition-all group">
-                       <div className={`w-12 h-12 rounded-xl ${colors.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
-                         {cat.icon}
-                       </div>
-                       <div className="flex-1 min-w-0">
-                         <p className="font-bold text-sm text-foreground leading-snug">{cat.label}</p>
-                         <p className="text-xs text-muted-foreground mt-0.5">{cat.drugs.length} medicamento{cat.drugs.length !== 1 ? 's' : ''}</p>
-                       </div>
-                       <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                     </motion.button>
-                   );
-                 })}
-               </div>
-             )}
+            {/* All drugs or filtered list */}
+            {selectedClasses.length > 0 ? (
+              <div className="space-y-2">
+                {allDrugsFlat.filter(d => selectedClasses.includes(d.catId)).map((drug, i) => (
+                  <motion.button key={drug.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }}
+                    onClick={() => { const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category); setSelectedCat(cat); setSelectedDrug(drug); }}
+                    className="w-full text-left bg-white border border-border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-secondary/50 transition-all group">
+                    <div>
+                      <span className="font-semibold text-sm text-foreground">{drug.name}</span>
+                      {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
+                      <p className="text-xs text-muted-foreground mt-0.5">{drug.catLabel}</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {filteredCats.map((cat, i) => {
+                  const colors = colorMap[cat.color] || colorMap['blue-500'];
+                  return (
+                    <motion.button key={cat.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
+                      onClick={() => setSelectedCat(cat)}
+                      className="w-full bg-white border border-border rounded-lg px-4 py-4 flex items-center gap-3 text-left hover:bg-secondary/50 transition-all group">
+                      <div className={`w-10 h-10 rounded-lg ${colors.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                        {cat.icon}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-sm text-foreground leading-snug">{cat.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{cat.drugs.length} medicamento{cat.drugs.length !== 1 ? 's' : ''}</p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                    </motion.button>
+                  );
+                })}
+              </div>
+            )}
 
-             {selectedClasses.length > 0 && allDrugsFlat.filter(d => selectedClasses.includes(d.catId)).length === 0 && (
-               <div className="text-center py-16 bg-white border border-border rounded-2xl">
-                 <p className="text-3xl mb-2">🔍</p>
-                 <p className="font-semibold text-foreground text-sm">Nenhum medicamento encontrado</p>
-               </div>
-             )}
+            {selectedClasses.length > 0 && allDrugsFlat.filter(d => selectedClasses.includes(d.catId)).length === 0 && (
+              <div className="text-center py-16 bg-white border border-border rounded-lg">
+                <p className="text-3xl mb-2">🔍</p>
+                <p className="font-semibold text-foreground text-sm">Nenhum medicamento encontrado</p>
+              </div>
+            )}
 
-             {selectedClasses.length === 0 && filteredCats.length === 0 && (
-               <div className="text-center py-16 bg-white border border-border rounded-2xl">
-                 <p className="text-3xl mb-2">🔍</p>
-                 <p className="font-semibold text-foreground text-sm">Nenhuma categoria encontrada</p>
-               </div>
-             )}
-             </div>
-             </div>
-             )}
+            {selectedClasses.length === 0 && filteredCats.length === 0 && (
+              <div className="text-center py-16 bg-white border border-border rounded-lg">
+                <p className="text-3xl mb-2">🔍</p>
+                <p className="font-semibold text-foreground text-sm">Nenhuma categoria encontrada</p>
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT — Sidebar */}
+          <div className="lg:w-64 xl:w-72 flex-shrink-0">
+            <div className="bg-white border border-border rounded-lg p-4 sticky top-20 shadow-sm">
+              <p className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
+                <Star className="w-4 h-4 text-yellow-400" />
+                Mais consultados
+              </p>
+              <div className="space-y-2 text-sm">
+                {MAIS_CONSULTADOS.map((drug, i) => (
+                  <button
+                    key={drug.drugId}
+                    onClick={() => {
+                      const found = getAllGuideDrugs().find(d => d.id === drug.drugId);
+                      if (found) {
+                        const cat = GUIDE_CATEGORIES.find(c => c.id === found.category);
+                        setSelectedCat(cat);
+                        setSelectedDrug(found);
+                      }
+                    }}
+                    className="w-full text-left flex items-start gap-2 px-3 py-2 rounded-lg hover:bg-secondary/50 transition-colors group"
+                  >
+                    <span className="font-bold text-primary text-xs flex-shrink-0 w-5">{i + 1}.</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-foreground text-xs leading-snug">{drug.name}</p>
+                      <p className="text-[11px] text-muted-foreground leading-tight">{drug.catLabel}</p>
+                    </div>
+                    <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:translate-x-0.5 transition-transform flex-shrink-0 mt-0.5" />
+                  </button>
+                ))}
+              </div>
+              <button className="mt-3 w-full text-center text-xs text-primary font-semibold hover:underline">
+                Ver todos →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
              </div>
              );
              }
