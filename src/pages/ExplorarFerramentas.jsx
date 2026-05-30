@@ -55,40 +55,42 @@ function ToolCard({ tool }) {
   const fav = isFavorite(tool.path);
 
   return (
-    <motion.div
-      whileTap={{ scale: 0.97 }}
-      className={`bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col p-5 gap-3 ${fav ? 'border-yellow-300' : 'border-border'}`}
-    >
-      {/* Header: icon + star */}
-      <div className="flex items-start justify-between">
-        <div className={`w-12 h-12 rounded-xl ${tool.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
-          {tool.icon}
+    <Link to={tool.path} className="block">
+      <motion.div
+        whileTap={{ scale: 0.97 }}
+        className={`bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col p-5 gap-3 cursor-pointer ${fav ? 'border-yellow-300' : 'border-border'}`}
+      >
+        {/* Header: icon + star */}
+        <div className="flex items-start justify-between">
+          <div className={`w-12 h-12 rounded-xl ${tool.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
+            {tool.icon}
+          </div>
+          <button
+            onClick={e => { e.preventDefault(); toggleFavorite(tool.path); }}
+            className="p-1 -mr-1 -mt-1"
+            title={fav ? 'Remover dos favoritos' : 'Favoritar'}
+          >
+            <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 hover:text-yellow-300'}`} />
+          </button>
         </div>
-        <button
-          onClick={() => toggleFavorite(tool.path)}
-          className="p-1 -mr-1 -mt-1"
-          title={fav ? 'Remover dos favoritos' : 'Favoritar'}
-        >
-          <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 hover:text-yellow-300'}`} />
-        </button>
-      </div>
 
-      {/* Content */}
-      <div className="flex-1">
-        <p className="font-bold text-sm text-foreground leading-snug">{tool.label}</p>
-        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{tool.desc}</p>
-      </div>
+        {/* Content */}
+        <div className="flex-1">
+          <p className="font-bold text-sm text-foreground leading-snug">{tool.label}</p>
+          <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{tool.desc}</p>
+        </div>
 
-      {/* Footer: badge + link */}
-      <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/50">
-        <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${CAT_COLORS[tool.cat] || 'bg-gray-100 text-gray-600 border-gray-200'}`}>
-          {tool.cat}
-        </span>
-        <Link to={tool.path} className="text-xs font-bold text-primary hover:text-primary/80 transition-colors flex items-center gap-0.5">
-          Abrir →
-        </Link>
-      </div>
-    </motion.div>
+        {/* Footer: badge */}
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/50">
+          <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${CAT_COLORS[tool.cat] || 'bg-gray-100 text-gray-600 border-gray-200'}`}>
+            {tool.cat}
+          </span>
+          <span className="text-xs font-bold text-primary flex items-center gap-0.5">
+            Abrir →
+          </span>
+        </div>
+      </motion.div>
+    </Link>
   );
 }
 
