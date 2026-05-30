@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { RESUMOS } from '@/lib/resumosData';
 
 // ── Protocols list (duplicated metadata only) ──────────────────────────────
@@ -61,6 +62,27 @@ function estimateTime(resumo) {
 function ResumoDetail({ resumo, onBack }) {
   const badge = CAT_BADGE[resumo.categoria] || { bg: 'bg-gray-100', text: 'text-gray-700', label: resumo.categoria };
   const mins = estimateTime(resumo);
+  const [selectedSection, setSelectedSection] = useState(0);
+  const [readingMode, setReadingMode] = useState(false);
+  const { isFavorite, toggleFavorite } = usePageFavorites();
+  const sectionRefs = React.useRef({});
+  
+  const handleSectionClick = (index) => {
+    setSelectedSection(index);
+    sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleCopy = () => {
+    const text = resumo.seções?.map((s, i) => `${i + 1}. ${s.nome}\n${s.conteudo}`).join('\n\n') || '';
+    navigator.clipboard.writeText(text);
+  };
+
+  const pontosChaave = [
+    'Identificar características clínicas principais da condição',
+    'Reconhecer sinais de alerta e gravidade',
+    'Aplicar critérios diagnósticos padronizados',
+    'Conhecer opções terapêuticas baseadas em evidências',
+  ];
   
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="max-w-7xl mx-auto px-4 py-8">
@@ -75,23 +97,36 @@ function ResumoDetail({ resumo, onBack }) {
         <div className="lg:w-72 flex-shrink-0 hidden lg:block">
           <div className="bg-white border border-border rounded-2xl p-4 shadow-sm sticky top-20">
             <p className="font-bold text-sm text-foreground mb-3">Neste resumo</p>
-            <div className="space-y-1.5">
-              <button className="w-full text-left flex items-center gap-2 px-3 py-2 bg-blue-50 border-l-2 border-primary text-primary text-sm font-semibold rounded-lg transition-colors">
+            <div className="space-y-1.5 max-h-96 overflow-y-auto">
+              <button 
+                onClick={() => setSelectedSection(-1)}
+                className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                  selectedSection === -1 
+                    ? 'bg-blue-50 border-l-2 border-primary text-primary text-sm font-semibold' 
+                    : 'text-muted-foreground text-xs font-medium hover:bg-secondary/60 hover:text-foreground'
+                }`}>
                 <BookOpen className="w-4 h-4" />
                 Visão geral
               </button>
               {resumo.seções?.map((sec, i) => (
-                <button key={i} className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 rounded-lg transition-colors group">
-                  <span className="text-[10px] font-bold">{i + 1}</span>
-                  <span className="truncate group-hover:text-foreground">{sec.nome}</span>
+                <button 
+                  key={i} 
+                  onClick={() => handleSectionClick(i)}
+                  className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                    selectedSection === i 
+                      ? 'bg-blue-50 border-l-2 border-primary text-primary text-xs font-semibold' 
+                      : 'text-muted-foreground text-xs font-medium hover:bg-secondary/60 hover:text-foreground'
+                  }`}>
+                  <span className="text-[10px] font-bold flex-shrink-0">{i + 1}</span>
+                  <span className="truncate">{sec.nome}</span>
                 </button>
               ))}
               <div className="pt-2 mt-2 border-t border-border">
-                <button className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 rounded-lg transition-colors">
+                <button className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 hover:text-foreground rounded-lg transition-colors">
                   <LayoutGrid className="w-4 h-4" />
                   Tabela comparativa
                 </button>
-                <button className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 rounded-lg transition-colors">
+                <button className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 hover:text-foreground rounded-lg transition-colors">
                   <GitBranch className="w-4 h-4" />
                   Referências
                 </button>
@@ -110,11 +145,19 @@ function ResumoDetail({ resumo, onBack }) {
         <div className="flex-1 min-w-0">
           {/* Action buttons */}
           <div className="flex items-center gap-2 mb-6 flex-wrap justify-end">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
-              <Star className="w-4 h-4" />
+            <button 
+              onClick={() => toggleFavorite(`resumo-${resumo.id}`)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border rounded-lg transition-colors ${
+                isFavorite(`resumo-${resumo.id}`)
+                  ? 'bg-yellow-50 border-yellow-300 text-yellow-700'
+                  : 'text-foreground border-border hover:bg-secondary'
+              }`}>
+              <Star className={`w-4 h-4 ${isFavorite(`resumo-${resumo.id}`) ? 'fill-yellow-400' : ''}`} />
               Favoritar
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
+            <button 
+              onClick={handleCopy}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
               <Copy className="w-4 h-4" />
               Copiar
             </button>
@@ -122,7 +165,13 @@ function ResumoDetail({ resumo, onBack }) {
               <BookOpen className="w-4 h-4" />
               PDF
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
+            <button 
+              onClick={() => setReadingMode(!readingMode)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border rounded-lg transition-colors ${
+                readingMode
+                  ? 'bg-primary/10 border-primary text-primary'
+                  : 'text-foreground border-border hover:bg-secondary'
+              }`}>
               <LayoutGrid className="w-4 h-4" />
               Modo leitura
             </button>
@@ -148,45 +197,43 @@ function ResumoDetail({ resumo, onBack }) {
           </div>
 
           {/* Pontos-chave section */}
-          {resumo.seções?.[0] && (
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
-              <h2 className="text-base font-extrabold text-blue-900 mb-4 flex items-center gap-2">
-                <span className="text-lg">📍</span>
-                Pontos-chave
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {[
-                  'Exantema com febre alta e pródromos intensos sugere sarampo ou rubéola',
-                  'Exantema vesicular sugere varicela ou mão-pé-boca.',
-                  'Exantema após resolução da febre sugere exantema súbito.',
-                  'Avaliar sinais de gravidade, necessidade de notificação e medidas de isolamento.',
-                ].map((point, i) => (
-                  <div key={i} className="flex gap-3">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">✓</div>
-                    <p className="text-sm text-blue-900">{point}</p>
-                  </div>
-                ))}
-              </div>
-              <button className="mt-4 px-4 py-2 bg-white border border-blue-300 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-50 transition-colors">
-                🏥 Modo plantão
-              </button>
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
+            <h2 className="text-base font-extrabold text-blue-900 mb-4 flex items-center gap-2">
+              <span className="text-lg">📍</span>
+              Pontos-chave
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              {pontosChaave.map((point, i) => (
+                <div key={i} className="flex gap-3">
+                  <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">✓</div>
+                  <p className="text-sm text-blue-900">{point}</p>
+                </div>
+              ))}
             </div>
-          )}
+            <button className="mt-4 px-4 py-2 bg-white border border-blue-300 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+              🏥 Modo plantão
+            </button>
+          </div>
 
           {/* Seções */}
-          <div className="space-y-4">
+          <div className={`space-y-4 ${readingMode ? 'max-w-2xl mx-auto text-lg leading-relaxed' : ''}`}>
             {resumo.seções?.map((sec, i) => {
               const colorClass = SECTION_COLORS[sec.color] || SECTION_COLORS.blue;
               return (
-                <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+                <motion.div 
+                  key={i} 
+                  ref={el => { sectionRefs.current[i] = el; }}
+                  initial={{ opacity: 0, y: 10 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: i * 0.06 }}
                   className={`rounded-2xl border p-5 ${colorClass}`}>
                   <div className="flex items-start gap-3 mb-3">
                     <div className="w-6 h-6 rounded-full bg-white/60 flex items-center justify-center text-xs font-bold flex-shrink-0">
                       {i + 1}
                     </div>
-                    <p className="font-bold text-sm flex-1">{sec.nome}</p>
+                    <p className={`flex-1 ${readingMode ? 'text-lg font-bold' : 'font-bold text-sm'}`}>{sec.nome}</p>
                   </div>
-                  <p className="text-xs leading-relaxed whitespace-pre-line">{sec.conteudo}</p>
+                  <p className={`leading-relaxed whitespace-pre-line ${readingMode ? 'text-base' : 'text-xs'}`}>{sec.conteudo}</p>
                 </motion.div>
               );
             })}
