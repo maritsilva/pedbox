@@ -488,7 +488,12 @@ function DoseCard({ label, doseMg, dosePerAdmin, doseKg, color, highlight }) {
       <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">{label}</p>
       <p className={`text-base font-extrabold ${color || 'text-foreground'} leading-tight`}>{fmtDose(doseMg)}</p>
       {dosePerAdmin && (
-        <p className="text-[10px] text-muted-foreground mt-0.5">{fmtDose(dosePerAdmin)}/dose</p>
+        <>
+          <p className="text-[10px] text-muted-foreground mt-0.5">{fmtDose(dosePerAdmin)}/dose</p>
+          {doseKg && (
+            <p className="text-[10px] text-muted-foreground mt-1">{fmt(doseKg, 2)} mg/kg/dia</p>
+          )}
+        </>
       )}
       {doseKg !== null && doseKg !== undefined && !dosePerAdmin && (
         <p className="text-[10px] text-muted-foreground mt-0.5">{fmt(doseKg, 2)} mg/kg / {fmtDose(doseMg)}/dose</p>
