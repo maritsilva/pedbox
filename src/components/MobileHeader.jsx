@@ -14,12 +14,12 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
 
   // Map routes to readable titles
   const routeTitles = {
-    '/guia': 'Guia de Doses',
+    '/guia': 'Biblioteca',
     '/calculadoras': 'Calculadoras',
     '/pesquisa': 'PedResearch',
     '/settings': 'Configurações',
     '/protocolos': 'Protocolos',
-    '/hidratacao': 'Hidratação',
+    '/hidratacao': 'Hidratação Venosa',
     '/imc': 'IMC Pediátrico',
     '/pressao-arterial': 'PA Pediátrica',
     '/perimetro-cefalico': 'Perímetro Cefálico',
@@ -28,8 +28,23 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
     '/centor-mcisaac': 'Centor/McIsaac',
     '/desenvolvimento': 'Desenvolvimento',
     '/vacinas': 'Vacinas',
-    '/about': 'Sobre',
+    '/about': 'Sobre o Pedbox',
     '/contact': 'Contato',
+    '/ferramentas': 'Explorar Ferramentas',
+    '/favoritos': 'Favoritos',
+    '/dosagens': 'Dosagens',
+    '/resumos': 'Resumos Clínicos',
+    '/drogas-emergencia': 'Drogas na Emergência',
+    '/calculadoras-hub': 'Calculadoras Clínicas',
+    '/wood-downes': 'Wood-Downes',
+    '/pram': 'PRAM — Asma',
+    '/apgar': 'APGAR',
+    '/glasgow-pediatrico': 'Glasgow Pediátrico',
+    '/pews': 'PEWS',
+    '/sipa': 'SIPA',
+    '/silverman-anderson': 'Silverman-Anderson',
+    '/rodwell': 'Escore de Rodwell',
+    '/pas-asma': 'PAS — Asma',
   };
 
   const currentTitle = routeTitles[location.pathname] || 'PedBox';
