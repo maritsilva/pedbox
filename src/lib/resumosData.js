@@ -628,5 +628,430 @@ export const RESUMOS = [
         color: 'amber'
       }
     ]
+  },
+  {
+   id: 'covid',
+   titulo: 'COVID-19 em Pediatria',
+   emoji: '🦠',
+   subtitulo: 'SARS-CoV-2, SIM-P e manejo pediátrico',
+   categoria: 'Infectologia',
+   referencia: 'OMS. SIM-P Guidelines, 2020. CDC. MIS-C criteria, 2023. SBP — COVID-19 na Pediatria.',
+   seções: [
+     {
+       nome: 'Características Gerais',
+       conteudo: 'Transmissão: gotículas respiratórias (aerossolização possível, inclusive por assintomáticos). Incubação: 3-6 dias (até 14 dias). Crianças geralmente apresentam quadro mais leve que adultos — maioria oligo ou assintomática. Maior mortalidade pediátrica em <1 ano e 10-19 anos. Diagnóstico: RT-PCR nasofaringe (3-7 dias), antígeno (5-7 dias), sorologia (>14 dias).',
+       color: 'blue'
+     },
+     {
+       nome: 'Classificação e Tratamento',
+       conteudo: 'Assintomático/Leve: acompanhamento ambulatorial. Moderado: avaliar internação, Paxlovid ou Remdesivir. Grave: internação + Remdesivir + corticoide (metilprednisolona 1mg/kg/dia ou dexametasona 0,15mg/kg/dia) + enoxaparina. SIM-P (2-6 sem após): Imunoglobulina 2g/kg + AAS + corticoide.',
+       color: 'red'
+     },
+     {
+       nome: 'SIM-P — Síndrome Inflamatória Multissistêmica Pediátrica',
+       conteudo: 'Ocorre 2-6 semanas após infecção aguda. Critérios CDC: <21 anos, febre ≥38°C, inflamação (PCR ≥3mg/dL), envolvimento multissistêmico (≥2 categorias), evidência COVID-19, sem diagnóstico alternativo. Diferença Kawasaki: D-dímero ↑, trombocitopenia ↓, disfunção miocárdica 80%, acometimento GI 92%. Notificação compulsória.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'crescimento-baixa-estatura',
+   titulo: 'Crescimento e Baixa Estatura',
+   emoji: '📏',
+   subtitulo: 'Parâmetros de crescimento, velocidade e investigação',
+   categoria: 'Endocrinologia',
+   referencia: 'OMS. Child Growth Standards. SBP — Baixa Estatura. Greulich & Pyle.',
+   seções: [
+     {
+       nome: 'Definição de Baixa Estatura',
+       conteudo: 'Baixa estatura: Z-escore <-2 para sexo/idade OU <-2DP do alvo familiar. Estatura alvo: menina = média pais − 6,5cm; menino = média pais + 6,5cm (±8,5cm). VC normal + EA baixa + IO normal → Baixa estatura familiar (variante). VC normal + EA normal + IO atrasada → Atraso constitucional (variante).',
+       color: 'blue'
+     },
+     {
+       nome: 'Investigação de Velocidade Baixa',
+       conteudo: 'VC BAIXA (<5cm/ano) → patológico: sistêmicas (celíaca, DRC), genéticas (Turner), endócrinas (GH ↓, hipotireoidismo). Investigar: hemograma, PCR, anti-transglutaminase, U, Cr, eletrólitos, TSH, T4L, IGF-1, IGFBP-3, cariótipo. Obesidade + baixa estatura = endócrina! Marcos: 50cm ao nascer; +25cm 1º ano; +12cm 1-2a; +7-8cm 2-4a; +6cm/a 4-6a.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'desenvolvimento-infantil',
+   titulo: 'Desenvolvimento Infantil',
+   emoji: '👶',
+   subtitulo: 'Marcos do DNPM, reflexos primitivos e linguagem',
+   categoria: 'Neurologia',
+   referencia: 'Caderneta Saúde Criança, 2022. Denver II. SBP.',
+   seções: [
+     {
+       nome: 'Marcos por Faixa Etária',
+       conteudo: 'RN: observa rosto, reage som. 1M: sorri, vocaliza. 2-3M: responde contato, segura. 4-5M: rola. 6-8M: senta sem apoio. 9-11M: anda com apoio. 12-14M: anda, 1 palavra. 18-23M: tira roupa, chuta bola. 24-29M: veste, 2 palavras. 30-36M: brinca, arremessa. Áreas: Social, Adaptativo, Linguagem, Motor.',
+       color: 'blue'
+     },
+     {
+       nome: 'Reflexos Primitivos e Interpretação',
+       conteudo: 'Desaparecem: marcha (1-2m), procura (3-4m), tônico cervical (3-4m), preensão (4-6m), Moro (4-6m), cutâneo-plantar (15-18m). Atraso provável: ausência marco faixa anterior, PC alterado, alterações fenotípicas. Alerta: ausência marco faixa atual → estimulação, retorno 30d. Prematuros: idade corrigida até 2a.',
+       color: 'green'
+     },
+     {
+       nome: 'Linguagem e Estimulação',
+       conteudo: '0-3m: choro; 2-3m: sorriso; 6-9m: balbucios; 9-12m: jargão; ~12m: palavras; 18m: ~50 palavras; 24m: 2 palavras, ~200 palavras; 3a: compreensível; 4-5a: frases. Prejudicam: telas, chupeta, estresse. Estimular: colo, brincadeira, leitura, conversa, canções.',
+       color: 'purple'
+     }
+   ]
+  },
+  {
+   id: 'desnutricao-vitaminas',
+   titulo: 'Desnutrição e Vitaminas',
+   emoji: '🩺',
+   subtitulo: 'Classificação, síndromes e deficiências vitamínicas',
+   categoria: 'Nutrição',
+   referencia: 'OMS — Desnutrição Aguda, 2013. SBP — Hipovitaminose D.',
+   seções: [
+     {
+       nome: 'Classificação da Desnutrição',
+       conteudo: 'Gomez (≤2a): peso/p50 → eutrófico 91-110%, leve 76-90%, moderada 61-75%, grave ≤61% ou edema. Waterlow (2-10a): E/I + P/E. Marasmo: baixa energético-proteica, sem edema. Kwashiorkor: baixa proteica com calorias, edema periférico, apatia, hepatomegalia.',
+       color: 'red'
+     },
+     {
+       nome: 'Manejo da Desnutrição Grave',
+       conteudo: '10 passos: hipoglicemia, hipotermia, reidratação, eletrólitos, ATB, micronutrientes, realimentação cautelosa, catch-up, DNPM, seguimento. NÃO ferro inicialmente. Síndrome realimentação: hipofosfatemia (principal).',
+       color: 'amber'
+     },
+     {
+       nome: 'Vitaminas Essenciais',
+       conteudo: 'B1: beribéri. B3: pelagra. B6: convulsões. B9: tubo neural. B12: anemia + desmielinização. A: cegueira noturna, manchas Bitot. D: raquitismo (400-600 UI/dia). C: escorbuto. K: 1mg IM ao nascer.',
+       color: 'blue'
+     }
+   ]
+  },
+  {
+   id: 'diarreia-aguda',
+   titulo: 'Diarreia Aguda',
+   emoji: '💧',
+   subtitulo: 'Avaliação hidratação, planos terapêuticos e antibióticos',
+   categoria: 'Gastroenterologia',
+   referencia: 'Ministério Saúde e SBP — Doença Diarreica, 2023.',
+   seções: [
+     {
+       nome: 'Avaliação do Estado de Hidratação',
+       conteudo: 'Sem: alerta, olhos normais, lágrimas, boca úmida, prega rápida. Com desidratação: irritado, olhos fundos, sem lágrimas, prega lenta, <10%. Grave: letárgico, muito fundos, prega muito lenta, pulso fraco, >10%.',
+       color: 'blue'
+     },
+     {
+       nome: 'Planos de Tratamento',
+       conteudo: 'Plano A: SRO + líquidos + alimentação habitual + zinco ≤5a. Plano B: SRO 50-100mL/kg VO 4-6h. Plano C: expansão SF/RL 30mL/kg + 2ª 70mL/kg + manutenção. Antibiótico: disenteria com toxemia → azitromicina.',
+       color: 'teal'
+     }
+   ]
+  },
+  {
+   id: 'diarreia-cronica',
+   titulo: 'Diarreia Crônica e Doenças Funcionais',
+   emoji: '🔄',
+   subtitulo: 'Celíaca, DII, intolerância lactose e distúrbios funcionais',
+   categoria: 'Gastroenterologia',
+   referencia: 'SBP — Celíaca, 2022. ESPGHAN — DII em Crianças.',
+   seções: [
+     {
+       nome: 'Doença Celíaca',
+       conteudo: 'Diagnóstico: anti-transglutaminase IgA + IgA total; padrão-ouro: biópsia (infiltrado >25). Tratamento: glúten exclusão definitiva. Atraso crescimento, anemia, dermatite herpetiforme.',
+       color: 'amber'
+     },
+     {
+       nome: 'Doença Inflamatória Intestinal',
+       conteudo: 'Crohn: todo TGI, transmural, granuloma; massa, dor, parada crescimento. RCU: reto ± colo, mucosa; sangramento, tenesmo. Indução: nutrição enteral exclusiva ou corticoide.',
+       color: 'red'
+     },
+     {
+       nome: 'Intolerância e Distúrbios Funcionais',
+       conteudo: 'Lactose: diarreia explosiva ácida. Diarreia funcional: 6m-5a, ≥4x/dia. SII: dor ≥4 dias/mês. Disquesia: <9m, esforço prolongado. Cólica: <5m, choro recorrente.',
+       color: 'teal'
+     }
+   ]
+  },
+  {
+   id: 'drc-lra',
+   titulo: 'Doença Renal Crônica e Lesão Renal Aguda',
+   emoji: '🫘',
+   subtitulo: 'Critérios pRIFLE, KDIGO e manejo em pediatria',
+   categoria: 'Nefrologia',
+   referencia: 'KDIGO — AKI, 2012. pRIFLE. SBP — Nefropediatria.',
+   seções: [
+     {
+       nome: 'Lesão Renal Aguda',
+       conteudo: 'Deterioração súbita função renal. Critérios KDIGO: Cr ≥0,3mg/dL 48h OU ≥1,5x 7 dias OU diurese ≤0,5mL/kg/h ≥6h. Etiologias: pré-renal, renal, pós-renal. Urgência dialítica: sobrecarga, hipercalemia, acidose, uremia.',
+       color: 'blue'
+     },
+     {
+       nome: 'Doença Renal Crônica',
+       conteudo: 'Dano renal ≥3 meses, classificada eTFG. <5a: CAKUT (malformações). >12a: glomerulopatias. Complicações: cardiovascular, anemia, ósseas, retardo crescimento. Tratamento: conservador → diálise → transplante.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'fssl',
+   titulo: 'Febre sem Sinais Localizatórios',
+   emoji: '🌡️',
+   subtitulo: 'Estratificação risco e conduta por faixa etária',
+   categoria: 'Infectologia',
+   referencia: 'SBP — FSSL, 2025. Rochester. AAP.',
+   seções: [
+     {
+       nome: 'Definição e Abordagem Geral',
+       conteudo: 'FSSL: febre <7 dias sem causa. Febre: ≥37,8°C. FOI: >1 semana ambulatorial. Principal bacteriana: ITU. Discriminar bacteriana grave de viral benigna.',
+       color: 'blue'
+     },
+     {
+       nome: 'Conduta por Faixa Etária',
+       conteudo: '<1m: TOLERÂNCIA ZERO → hospitalização + culturas + ATB. 1-3m: Rochester. 3-36m vacinado: PVR ± EAS. Não vacinado: <39°C reavaliar; >39°C depende EAS. RN: sempre tratar.',
+       color: 'red'
+     }
+   ]
+  },
+  {
+   id: 'hepatologia-emergencia',
+   titulo: 'Hepatologia na Emergência',
+   emoji: '🫁',
+   subtitulo: 'Cirrose, insuficiência hepática aguda e hemorragia digestiva',
+   categoria: 'Gastroenterologia',
+   referencia: 'EASL — Guidelines. SBP — Hepatologia.',
+   seções: [
+     {
+       nome: 'Peritonite Bacteriana Espontânea',
+       conteudo: 'Paracentese todo cirrótico internado. Diagnóstico: ≥250 PMN/mm³. Agentes: E.coli, Klebsiella, Streptococcus. Tratamento: cefalosporina 3ª 5 dias + albumina.',
+       color: 'amber'
+     },
+     {
+       nome: 'Hemorragia e Insuficiência Hepática',
+       conteudo: 'HDA: octreotide + vitamina K + ATB 3ª + endoscopia 24h. IHA: sem cirrose + coagulopatia → transplante. Wilson: ATP7B gene, cobre urinário ↑, ceruloplasmina ↓.',
+       color: 'red'
+     }
+   ]
+  },
+  {
+   id: 'ivas',
+   titulo: 'Infecções de Vias Aéreas Superiores',
+   emoji: '👃',
+   subtitulo: 'Resfriado, gripe, crupe, OMA, sinusite e amigdalite',
+   categoria: 'Respiratório',
+   referencia: 'SBP — IVAS. AAP — OMA. Protocolo Albert Einstein.',
+   seções: [
+     {
+       nome: 'Resfriado, Gripe e SRAG',
+       conteudo: 'Resfriado: rinovírus, 10-14 dias. Síndrome gripal: influenza + sintomas sistêmicos. SRAG: gripal + gravidade → oseltamivir. Crupe: parainfluenza, estridor, tosse ladrante. Dexametasona; adrenalina inalatória moderado-grave.',
+       color: 'blue'
+     },
+     {
+       nome: 'OMA, Sinusite e Amigdalite',
+       conteudo: 'OMA: efusão + inflamação. Tratar se: <6m, otorreia, bilateral <24m, grave. Sinusite: >5 dias dupla piora ou >10 dias. Amigdalite SBGA: amoxicilina 10 dias.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'nefro-misce',
+   titulo: 'Miscelânea em Nefropediatria',
+   emoji: '🚽',
+   subtitulo: 'Hidronefrose, refluxo vesicoureteral e enurese',
+   categoria: 'Nefrologia',
+   referencia: 'SBP — Uropatias. SFU. NICE — Enurese.',
+   seções: [
+     {
+       nome: 'Hidronefrose e RVU',
+       conteudo: 'Hidronefrose fetal: DPR >4mm (18-22 sem) ou >7-10mm (3º tri). Etiologia comum: transitória (41-88%). CAKUT: JUP obstrução → RVU. Diagnóstico: UCM. Tratamento: antibioticoprofilaxia.',
+       color: 'blue'
+     },
+     {
+       nome: 'Enurese Noturna',
+       conteudo: 'Perda involuntária urina sono ≥5a. Histórico familiar +. Primária/Secundária; Monossintomática. Avaliação: anamnese + diário + urina. Manejo: tratar constipação, alarme ou desmopressina.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'morte-encefalica',
+   titulo: 'Morte Encefálica',
+   emoji: '🧠',
+   subtitulo: 'Diagnóstico, critérios e testes confirmatórios',
+   categoria: 'Neurologia',
+   referencia: 'CFM — Resolução 2.173/2017. Protocolo Brasil.',
+   seções: [
+     {
+       nome: 'Diagnóstico de Morte Encefálica',
+       conteudo: 'Pré-requisito: lesão encefálica irreversível + excluir confundidores (hipotermia <35°C, sedação). Observação: 6h (24h HIE). 2 testes clínicos + 1 apneia + 1 confirmatório (fluxo zero).',
+       color: 'blue'
+     },
+     {
+       nome: 'Intervalo Entre Testes',
+       conteudo: '7d-2m: 24h. 2m-2a: 12h. >2a: 1h. Temp >35°C, Sat >94%, PAS >60 (<5m), >80 (5m-2a), >85 (2-7a), >90 (≥7a).',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'nefrologia-pediatrica',
+   titulo: 'Síndrome Nefrítica, Nefrótica e SHU',
+   emoji: '🫘',
+   subtitulo: 'GNPE, síndrome nefrótica e síndrome hemolítico-urêmica',
+   categoria: 'Nefrologia',
+   referencia: 'SBP — Nefropediatria. KDIGO. ISKDC.',
+   seções: [
+     {
+       nome: 'Síndrome Nefrítica',
+       conteudo: 'Mais comum: GNDA pós-estreptocócica. Clínica: oligúria + edema + HAS + hematúria + ↓C3. Após SBGA amigdalite/impetigo. Repouso, restrição hídrica-salina, penicilina. Biópsia se: LRA, macro-hematúria, HAS >4 sem.',
+       color: 'red'
+     },
+     {
+       nome: 'Síndrome Nefrótica',
+       conteudo: 'Proteinúria nefrótica + edema + hipoalbuminemia + dislipidemia. Risco: peritonite pneumococo. Sal baixo + corticoide. Albumina EV se: choque, genital, oligúria.',
+       color: 'blue'
+     },
+     {
+       nome: 'Síndrome Hemolítico-Urêmica',
+       conteudo: 'Tríade: anemia microangiopática + plaquetopenia + LRA. STEC-SHU pós-disenteria. Suporte: transfusão, controle volêmico, TRS. EVITAR plaquetas. Pneumococo: ATB.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'obesidade',
+   titulo: 'Obesidade e Síndrome Metabólica',
+   emoji: '⚖️',
+   subtitulo: 'Classificação, etiologias e dislipidemia',
+   categoria: 'Endocrinologia',
+   referencia: 'OMS. SBP — Obesidade. SBP — Dislipidemia.',
+   seções: [
+     {
+       nome: 'Classificação e Etiologia',
+       conteudo: 'IMC/idade (>5a): sobrepeso Z +1-+2, obesidade Z +2-+3, grave Z>+3. <5a: peso/estatura. Exógena (95%): multifatorial, familiar, >5a. Endógena (5%): Prader-Willi, Cushing, GH ↓, hipotireoidismo. Alerta: <5a, sem familiar, IO ↓, dismorfismo, baixa estatura.',
+       color: 'amber'
+     },
+     {
+       nome: 'Dislipidemia e Tratamento',
+       conteudo: 'Rastreio: 9-11 e 17-21a. 2-8 e 12-16: risco. Medicamentoso (estatin) se 6 meses MEV falha: LDL >190, >160 risco, >130 DM. Liraglutida (>12a).',
+       color: 'blue'
+     }
+   ]
+  },
+  {
+   id: 'politrauma-afogamento',
+   titulo: 'Politrauma e Afogamento',
+   emoji: '🏥',
+   subtitulo: 'ATLS pediátrico, lesões e manejo do afogamento',
+   categoria: 'Emergência',
+   referencia: 'ATLS 10ª. Szpilman. SBP — Emergências.',
+   seções: [
+     {
+       nome: 'Politrauma — Atendimento Inicial',
+       conteudo: '1ª causa morte. ATLS: A → B → C → D → E. Lesões: contusão, pneumotórax, hemotórax, tamponamento. Choque: cristaloide normotenso; RBC hipotenso. Transfusão >60mL/kg.',
+       color: 'red'
+     },
+     {
+       nome: 'Afogamento',
+       conteudo: 'Sequência: socorrista → reconhecer → flutuação → retirar → RCP (5 ventilações antes ABC) → aquecer. Classificação: Resgate → I-VI (PCR). Temp <32°C aquecer antes confirmar óbito.',
+       color: 'blue'
+     }
+   ]
+  },
+  {
+   id: 'puberdade',
+   titulo: 'Puberdade',
+   emoji: '🌱',
+   subtitulo: 'Estadiamento de Tanner, puberdade precoce e atrasada',
+   categoria: 'Endocrinologia',
+   referencia: 'SBP — Puberdade. Marshall & Tanner (1969).',
+   seções: [
+     {
+       nome: 'Puberdade Normal e Estadiamento',
+       conteudo: 'Meninas: 8-13a, telarca (M2). Meninos: 9-14a, testículo ≥4mL (G2). Tanner: M1-M5 (mama), G1-G5 (genital). Estirão: meninas M3 (8-10cm/a), meninos G4 (10-14cm/a).',
+       color: 'purple'
+     },
+     {
+       nome: 'Puberdade Precoce e Atrasada',
+       conteudo: 'Precoce: <8a (meninas) ou <9a (meninos). Central: aGnRH. Periférica: hormônios independentes. Atrasada: Hipergonadotrófico ou Hipogonadotrófico. Atraso constitucional: VC normal + EA + IO ↓ + familiar.',
+       color: 'blue'
+     }
+   ]
+  },
+  {
+   id: 'queimaduras',
+   titulo: 'Queimaduras',
+   emoji: '🔥',
+   subtitulo: 'Classificação, extensão e manejo inicial',
+   categoria: 'Emergência',
+   referencia: 'SBP — Queimaduras. ABA. Parkland.',
+   seções: [
+     {
+       nome: 'Classificação e Avaliação',
+       conteudo: 'Fontes: calor, química, elétrica, radiação. Extensão: leves (<2%), risco (>10%), grande (>20%), graves (>30%). Avaliação: Lund-Browder, 9, palma. IOT se: VA, estridor, >15%, rebaixamento.',
+       color: 'red'
+     },
+     {
+       nome: 'Manejo Inicial',
+       conteudo: 'Remover roupas. Analgesia. Parkland: 4mL/kg/% (50% 8h + 50% 16h) se 2º-3º >15%. Curativo. UTI: nutrição, sedação.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'tce-hic',
+   titulo: 'TCE e Hipertensão Intracraniana',
+   emoji: '💥',
+   subtitulo: 'Escala de Glasgow, lesões e manejo da PIC',
+   categoria: 'Neurologia',
+   referencia: 'SBP — TCE. BTF. ATLS 10ª.',
+   seções: [
+     {
+       nome: 'TCE — Classificação',
+       conteudo: 'Glasgow: leve 14-15, moderado 9-13, grave <9. ABCDE. TC: epidural, subdural, subaracnoidea, contusão, LAD, herniação.',
+       color: 'red'
+     },
+     {
+       nome: 'Hipertensão Intracraniana',
+       conteudo: 'PPC = PAM – PIC. Normal <20mmHg. Sinais: rebaixamento (1º), abaulamento, cefaleia/vômitos. Tratamento: causa, decúbito 30°, sedação, convulsões, salina hipertônica/manitol, normotermia, craniectomia.',
+       color: 'blue'
+     }
+   ]
+  },
+  {
+   id: 'violencia-crianca',
+   titulo: 'Violência Contra a Criança e o Adolescente',
+   emoji: '🛡️',
+   subtitulo: 'Maus-tratos, shaken baby e síndrome de Munchausen',
+   categoria: 'Social',
+   referencia: 'SBP — Maus-Tratos. ECA Lei 8.069/90. SINAN.',
+   seções: [
+     {
+       nome: 'Sinais Físicos e Síndromes',
+       conteudo: 'Fraturas sugestivas: metafisárias (alça balde), diafisárias espiral, costelas <2a, crânio, múltiplas. Shaken Baby: encefalopatia + subdural + hemorragia retina. Munchausen: doenças variadas, exames solicitados.',
+       color: 'red'
+     },
+     {
+       nome: 'Conduta e Notificação',
+       conteudo: 'Acolhimento multidisciplinar. Exame físico com documentação. Esqueleto lactentes; TC crânio + fundoscopia. NOTIFICAÇÃO COMPULSÓRIA → Conselho Tutelar + MP.',
+       color: 'amber'
+     }
+   ]
+  },
+  {
+   id: 'violencia-sexual',
+   titulo: 'Violência Sexual',
+   emoji: '⚖️',
+   subtitulo: 'Atendimento de emergência, profilaxias e contracepção',
+   categoria: 'Social',
+   referencia: 'MS — Atenção Humanizada. SBP — Violência Sexual.',
+   seções: [
+     {
+       nome: 'Atendimento de Emergência',
+       conteudo: 'EMERGÊNCIA — até 72h. Acolhimento → notificação → anamnese + exame + coleta → exames → profilaxias → contracepção. Sorologias, β-HCG, hemograma, renal/hepática.',
+       color: 'red'
+     },
+     {
+       nome: 'Profilaxias e Contracepção',
+       conteudo: 'Tétano: histórico. ISTs: penicilina (sífilis), ceftriaxona (gonorreia), azitromicina (clamídia), metronidazol (tricomoníase). Hepatite B: vacina + IGHAHB. HIV: TDF/3TC+Dolutegravir 28d. Levonorgestrel 1,5mg VO.',
+       color: 'amber'
+     }
+   ]
   }
-];
+  ];
