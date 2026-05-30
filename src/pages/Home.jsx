@@ -7,10 +7,7 @@ import {
   Syringe, Baby, Shield, RefreshCw, Heart, X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getAllGuideDrugs } from '@/lib/guideData';
-import { searchDrugs } from '@/lib/searchDrugs';
-import { getAllDosagens } from '@/lib/dosagensData';
-import { ALL_SEARCH_TOOLS } from '@/components/Layout';
+import { universalSearch, TYPE_BADGE } from '@/lib/universalSearch';
 
 // Quick category shortcuts
 const QUICK_CATS = [
@@ -75,29 +72,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
-  const toolResults = ALL_SEARCH_TOOLS.filter(t =>
-    t.label.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const searchResults = search.trim().length > 1
-    ? [
-        ...toolResults.map(t => ({ ...t, type: 'tool' })),
-        ...getAllDosagens().filter(d => {
-          const q = search.toLowerCase();
-          return d.name.toLowerCase().includes(q) ||
-            (d.sinonimo && d.sinonimo.toLowerCase().includes(q)) ||
-            (d.marcas && d.marcas.toLowerCase().includes(q));
-        }).slice(0, 5).map(d => ({
-          label: `Cálculo dose — ${d.name}`,
-          desc: `${d.catLabel} · ${d.indicacoes?.length ?? 1} indicação`,
-          path: `/dosagens?drug=${d.id}`,
-          type: 'dosagem',
-        })),
-        ...searchDrugs(search, 4).map(d => ({
-          label: d.name, desc: d.catLabel, path: `/guia?drug=${d.id}`, catIcon: d.catIcon, type: 'drug'
-        })),
-      ]
-    : [];
+  const searchResults = universalSearch(search, 14);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
@@ -141,19 +116,23 @@ export default function Home() {
           {searchResults.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-xl shadow-lg overflow-hidden z-30">
-              {searchResults.map((r, i) => (
-                <button key={i} onClick={() => { navigate(r.path); setSearch(''); }}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
-                  <div className="text-primary flex-shrink-0 text-lg">
-                    {r.type === 'drug' ? r.catIcon : r.type === 'dosagem' ? '⚡' : r.icon || '🔍'}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-foreground truncate">{r.label}</p>
-                    <p className="text-xs text-muted-foreground truncate">{r.desc}</p>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                </button>
-              ))}
+              {searchResults.map((r, i) => {
+                const badge = TYPE_BADGE[r.type] || TYPE_BADGE.tool;
+                return (
+                  <button key={i} onClick={() => { navigate(r.path); setSearch(''); }}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
+                    <div className="text-lg flex-shrink-0 w-7 text-center">{r.icon || '🔍'}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-sm font-semibold text-foreground truncate">{r.label}</p>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${badge.color} flex-shrink-0`}>{badge.label}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground truncate mt-0.5">{r.desc}</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  </button>
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>

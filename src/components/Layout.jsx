@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { Menu, Home, LayoutGrid, BookOpen, Star, Info, Search, X, ChevronRight, User, LogIn } from 'lucide-react';
+import { universalSearch as doUniversalSearch } from '@/lib/universalSearch';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import MobileHeader from './MobileHeader';
@@ -76,9 +77,8 @@ export function NavSearch() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const inputRef = useRef(null);
-
   const results = query.trim().length > 1
-    ? ALL_SEARCH_TOOLS.filter(t => t.label.toLowerCase().includes(query.toLowerCase())).slice(0, 10)
+    ? doUniversalSearch(query, 10)
     : [];
 
   const handleSelect = (path) => {
@@ -123,12 +123,15 @@ export function NavSearch() {
             initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="absolute top-full right-0 mt-2 w-80 bg-white border border-border rounded-xl shadow-xl overflow-hidden z-50"
           >
-            {results.map(r => (
-              <button key={r.path} onClick={() => handleSelect(r.path)}
+            {results.map((r, i) => (
+              <button key={i} onClick={() => handleSelect(r.path)}
                 className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
-                <span className="text-lg">{r.icon}</span>
-                <span className="text-sm font-medium text-foreground">{r.label}</span>
-                <ChevronRight className="w-3 h-3 text-muted-foreground ml-auto" />
+                <span className="text-lg w-6 text-center flex-shrink-0">{r.icon || '🔍'}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-foreground truncate">{r.label}</p>
+                  {r.desc && <p className="text-xs text-muted-foreground truncate">{r.desc}</p>}
+                </div>
+                <ChevronRight className="w-3 h-3 text-muted-foreground ml-auto flex-shrink-0" />
               </button>
             ))}
           </motion.div>
