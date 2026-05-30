@@ -337,8 +337,8 @@ export default function Biblioteca() {
     return matchSearch && matchCat;
   }), [q, activeCategory]);
 
-  const showResumos = activeTab === 'todos' || activeTab === 'resumos';
-  const showProtocols = activeTab === 'todos' || activeTab === 'protocolos';
+  const showResumos = false; // Resumos sempre ocultos
+  const showProtocols = true; // Sempre mostrar protocolos
 
   if (selectedResumo) {
     return <ResumoDetail resumo={selectedResumo} onBack={() => setSelectedResumo(null)} />;
@@ -346,7 +346,7 @@ export default function Biblioteca() {
 
   const totalResults = (showResumos ? filteredResumos.length : 0) + (showProtocols ? filteredProtocols.length : 0);
 
-  const maisAcessados = [...filteredResumos.slice(0, 2), ...filteredProtocols.slice(0, 3)].slice(0, 5);
+  const maisAcessados = [...filteredProtocols.slice(0, 5)];
   const totalContent = filteredResumos.length + filteredProtocols.length;
 
   return (
@@ -379,16 +379,18 @@ export default function Biblioteca() {
 
       {/* ── TABS ── */}
       <div className="flex gap-2 mb-6 flex-wrap">
-        {TABS.map(tab => {
+        {TABS.filter(tab => tab.id !== 'resumos').map(tab => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
           return (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+            <button key={tab.id} onClick={() => { setActiveTab(tab.id === 'todos' ? 'protocolos' : tab.id); }}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                isActive ? 'bg-primary text-white border-primary shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
+                (tab.id === 'todos' && activeTab !== 'resumos') || (tab.id === activeTab) 
+                  ? 'bg-primary text-white border-primary shadow-sm' 
+                  : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
               }`}>
               <Icon className="w-4 h-4" />
-              {tab.label}
+              {tab.label === 'Todos' ? 'Protocolos' : tab.label}
             </button>
           );
         })}
