@@ -10,7 +10,7 @@ const DESKTOP_NAV = [
   { to: '/',            label: 'Início',        Icon: Home },
   { to: '/ferramentas', label: 'Ferramentas',   Icon: LayoutGrid },
   { to: '/protocolos',  label: 'Protocolos',    Icon: BookOpen },
-  { to: '/guia',        label: 'Biblioteca',    Icon: BookOpen },
+  { to: '/biblioteca',  label: 'Biblioteca',    Icon: BookOpen },
   { to: '/favoritos',   label: 'Favoritos',     Icon: Star },
   { to: '/about',       label: 'Sobre o Pedbox',Icon: Info },
 ];
