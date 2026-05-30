@@ -424,15 +424,15 @@ export default function DosagemDetalhe({ drug, onBack }) {
                            <>
                              <div className="bg-white border border-border rounded-xl p-3 text-center">
                                <p className="text-base font-bold text-foreground">{calcMin?.vol}</p>
-                               <p className="text-[10px] text-muted-foreground mt-1">mín (5 mg/kg)</p>
+                               <p className="text-[10px] text-muted-foreground mt-1">Mínima</p>
                              </div>
                              <div className="bg-white border border-border rounded-xl p-3 text-center">
                                <p className="text-base font-bold text-foreground">{calcMed?.vol}</p>
-                               <p className="text-[10px] text-muted-foreground mt-1">médio</p>
+                               <p className="text-[10px] text-muted-foreground mt-1">Média</p>
                              </div>
                              <div className="bg-white border border-border rounded-xl p-3 text-center">
                                <p className="text-base font-bold text-orange-600">{calcMax?.vol}</p>
-                               <p className="text-[10px] text-muted-foreground mt-1">máx (10 mg/kg)</p>
+                               <p className="text-[10px] text-muted-foreground mt-1">Máxima</p>
                              </div>
                            </>
                          ) : (
@@ -491,7 +491,7 @@ function DoseCard({ label, doseMg, dosePerAdmin, doseKg, color, highlight }) {
         <p className="text-[10px] text-muted-foreground mt-0.5">{fmtDose(dosePerAdmin)}/dose</p>
       )}
       {doseKg !== null && doseKg !== undefined && !dosePerAdmin && (
-        <p className="text-[10px] text-muted-foreground mt-0.5">{fmt(doseKg, 2)} mg/kg</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">{fmt(doseKg, 2)} mg/kg / {fmtDose(doseMg)}/dose</p>
       )}
     </div>
   );
