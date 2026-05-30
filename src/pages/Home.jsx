@@ -33,17 +33,17 @@ const MAIN_CARDS = [
     shadow: 'shadow-blue-200',
   },
   {
-    label: 'Protocolos Clínicos',
-    desc: 'Fluxogramas passo a passo para situações urgentes e condições frequentes.',
-    path: '/protocolos',
+    label: 'Favoritos',
+    desc: 'Ferramentas e medicamentos que você marcou como favoritos.',
+    path: '/favoritos',
     icon: FlaskConical,
     gradient: 'from-violet-500 to-purple-700',
     shadow: 'shadow-purple-200',
   },
   {
-    label: 'Resumos Clínicos',
-    desc: 'Sínteses baseadas em evidências de 25+ tópicos pediátricos.',
-    path: '/resumos',
+    label: 'Biblioteca',
+    desc: 'Resumos clínicos e protocolos em um só lugar.',
+    path: '/biblioteca',
     icon: BookOpen,
     gradient: 'from-cyan-500 to-blue-600',
     shadow: 'shadow-cyan-200',
@@ -65,7 +65,7 @@ const QUICK_ACCESS = [
   { label: 'Escalas e Escores', desc: 'Avaliações clínicas validadas.', icon: '⭐', path: '/calculadoras-hub' },
   { label: 'Hidratação',   desc: 'Volumes, soluções e velocidades.', icon: '💧', path: '/hidratacao' },
   { label: 'Sinais Vitais', desc: 'Valores de referência e parâmetros.', icon: '📋', path: '/sinais-vitais' },
-  { label: 'Drug Drip',    desc: 'Diluições e infusões passo a passo.', icon: '💊', path: '/drogas-emergencia' },
+  { label: 'Entrar em Contato', desc: 'Fale conosco e compartilhe feedback.', icon: '📧', path: '/contato' },
 ];
 
 const ALL_SEARCH_TOOLS = [

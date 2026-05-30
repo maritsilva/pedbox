@@ -44,9 +44,7 @@ import Favoritos from './pages/Favoritos';
 import FavoritosPage from './pages/FavoritosPage';
 import ExplorarFerramentas from './pages/ExplorarFerramentas';
 import Biblioteca from './pages/Biblioteca';
-import CurvasCrescimento from './pages/CurvasCrescimento';
 import SinaisVitais from './pages/SinaisVitais';
-import PageNotFound from './lib/PageNotFound';
 
 function App() {
   return (
