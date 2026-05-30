@@ -131,18 +131,23 @@ export default function Home() {
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
 
       {/* ── HERO ── */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center space-y-3">
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center space-y-4">
         <img
           src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png"
           alt="PedBox"
-          className="h-24 w-auto mx-auto"
+          className="h-28 w-auto mx-auto"
         />
-        <h1 className="text-2xl md:text-3xl font-extrabold text-foreground leading-tight">
-          Acesso rápido a doses, protocolos e cálculos pediátricos essenciais no plantão
-        </h1>
-        <p className="text-muted-foreground text-sm md:text-base">
-          Informação confiável para apoiar decisões clínicas seguras.
-        </p>
+        <div className="space-y-3">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-foreground leading-tight tracking-tight">
+            Doses, Protocolos e Cálculos<br />
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              Essenciais no Plantão
+            </span>
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Acesso rápido, confiável e baseado em evidências para decisões clínicas seguras em pediatria.
+          </p>
+        </div>
       </motion.div>
 
       {/* ── SEARCH ── */}

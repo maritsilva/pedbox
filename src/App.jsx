@@ -44,6 +44,7 @@ import Favoritos from './pages/Favoritos';
 import FavoritosPage from './pages/FavoritosPage';
 import ExplorarFerramentas from './pages/ExplorarFerramentas';
 import Biblioteca from './pages/Biblioteca';
+import CurvasCrescimento from './pages/CurvasCrescimento';
 
 function App() {
   return (
@@ -85,10 +86,10 @@ function App() {
             <Route path="/silverman-anderson" element={<SilvermanAnderson />} />
             <Route path="/rodwell" element={<EscoreRodwell />} />
             <Route path="/pas-asma" element={<PASAsma />} />
-            <Route path="/crescimento" element={<CurvasCrescimento />} />
             <Route path="/favoritos" element={<FavoritosPage />} />
             <Route path="/ferramentas" element={<ExplorarFerramentas />} />
             <Route path="/biblioteca" element={<Biblioteca />} />
+            <Route path="/curvas-crescimento" element={<CurvasCrescimento />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
