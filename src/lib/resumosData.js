@@ -635,21 +635,26 @@ export const RESUMOS = [
    emoji: '🦠',
    subtitulo: 'SARS-CoV-2, SIM-P e manejo pediátrico',
    categoria: 'Infectologia',
-   referencia: 'OMS. SIM-P Guidelines, 2020. CDC. MIS-C criteria, 2023. SBP — COVID-19 na Pediatria.',
+   referencia: 'OMS. SIM-P Guidelines, 2020. CDC. MIS-C criteria, 2023. SBP — COVID-19 na Pediatria. Ministério da Saúde — Guia de Manejo COVID-19.',
    seções: [
      {
-       nome: 'Características Gerais',
-       conteudo: 'Transmissão: gotículas respiratórias (aerossolização possível, inclusive por assintomáticos). Incubação: 3-6 dias (até 14 dias). Crianças geralmente apresentam quadro mais leve que adultos — maioria oligo ou assintomática. Maior mortalidade pediátrica em <1 ano e 10-19 anos. Diagnóstico: RT-PCR nasofaringe (3-7 dias), antígeno (5-7 dias), sorologia (>14 dias).',
+       nome: 'Etiologia e Epidemiologia',
+       conteudo: 'Vírus RNA endêmicos (SARS-CoV-2 — China). Transmissão: gotículas respiratórias, podem formar aerossóis, inclusive por assintomáticos. Incubação: 2-6 dias (até 14 dias). Crianças geralmente apresentam quadro mais leve que adultos — maioria oligo ou assintomática. Maior mortalidade pediátrica em <1 ano e 10-19 anos.',
+       color: 'blue'
+     },
+     {
+       nome: 'Diagnóstico e Apresentação Clínica',
+       conteudo: 'Diagnóstico: RT-PCR nasofaringe (3-7 dias — escolha); teste de detecção de antígeno (5-7 dias); sorologia (>14 dias). Quadro clínico: febre, tosse, dispneia, mialgia, dor abdominal, diarreia. Crianças frequentemente assintomáticas ou oligossintomáticas. Complicações: pneumonia, hipóxia, SDRA, disfunção múltiplos órgãos.',
        color: 'blue'
      },
      {
        nome: 'Classificação e Tratamento',
-       conteudo: 'Assintomático/Leve: acompanhamento ambulatorial. Moderado: avaliar internação, Paxlovid ou Remdesivir. Grave: internação + Remdesivir + corticoide (metilprednisolona 1mg/kg/dia ou dexametasona 0,15mg/kg/dia) + enoxaparina. SIM-P (2-6 sem após): Imunoglobulina 2g/kg + AAS + corticoide.',
+       conteudo: 'Leve: sintomas leves, sem hipóxia; acompanhamento ambulatorial, sintomáticos. Moderado: febre persistente, sintomas respiratórios ou GI; avaliar internação, considerar Paxlovid ou Remdesivir em grupos de risco. Grave: hipóxia, comprometimento sistêmico; internação obrigatória + Remdesivir + corticoide (metilprednisolona 1mg/kg/dia até 10 dias OU dexametasona 0,15mg/kg/dia) + enoxaparina (avaliar risco tromboembólico).',
        color: 'red'
      },
      {
        nome: 'SIM-P — Síndrome Inflamatória Multissistêmica Pediátrica',
-       conteudo: 'Ocorre 2-6 semanas após infecção aguda. Critérios CDC: <21 anos, febre ≥38°C, inflamação (PCR ≥3mg/dL), envolvimento multissistêmico (≥2 categorias), evidência COVID-19, sem diagnóstico alternativo. Diferença Kawasaki: D-dímero ↑, trombocitopenia ↓, disfunção miocárdica 80%, acometimento GI 92%. Notificação compulsória.',
+       conteudo: 'Ocorre 2-6 semanas após infecção aguda COVID-19. Critérios CDC: idade <21 anos, febre ≥38°C por ≥24h, evidência de inflamação laboratorial (PCR ≥3mg/dL ou equivalente), envolvimento multissistêmico (≥2 categorias: cardiovascular, hematológico, renal, respiratório, gastrointestinal, dermatológico, neurológico), evidência de infecção por SARS-CoV-2 (RT-PCR, antígeno, sorologia), sem diagnóstico alternativo. Manifestações: febre prolongada, exantema, conjuntivite, edema extremidades, diareia, vômitos, dor abdominal, sintomas respiratórios, choque. Diferenças com Kawasaki: SIM-P tem D-dímero frequentemente ↑↑, trombocitopenia ↓, disfunção miocárdica (80%), acometimento GI (92%), faixa etária >5 anos (Kawasaki geralmente <5a). Investigação: hemograma, PCR, procalcitonina, D-dímero, transaminases, função renal, mioglobina, ferritina, ecocardiograma. Tratamento: Imunoglobulina humana 2g/kg (todos os critérios) + AAS (anti-agregante 3-5mg/kg/dia) + corticoide em casos moderados/graves (metilprednisolona 1mg/kg/dia ou pulsoterapia). Notificação compulsória obrigatória. Acompanhamento cardíaco de longo prazo essencial.',
        color: 'amber'
      }
    ]
@@ -660,16 +665,21 @@ export const RESUMOS = [
    emoji: '📏',
    subtitulo: 'Parâmetros de crescimento, velocidade e investigação',
    categoria: 'Endocrinologia',
-   referencia: 'OMS. Child Growth Standards. SBP — Baixa Estatura. Greulich & Pyle.',
+   referencia: 'OMS. Child Growth Standards, 2025. SBP — Baixa Estatura. Greulich & Pyle Atlas de Maturação Óssea.',
    seções: [
      {
-       nome: 'Definição de Baixa Estatura',
-       conteudo: 'Baixa estatura: Z-escore <-2 para sexo/idade OU <-2DP do alvo familiar. Estatura alvo: menina = média pais − 6,5cm; menino = média pais + 6,5cm (±8,5cm). VC normal + EA baixa + IO normal → Baixa estatura familiar (variante). VC normal + EA normal + IO atrasada → Atraso constitucional (variante).',
+       nome: 'Marcos de Crescimento por Faixa Etária',
+       conteudo: 'Peso ao nascer: 3-3,5kg. Perde 5-10% na 1ª semana (retorna em 10-14 dias). Ganho ponderal: ~700g/mês (1º trimestre), 600g (2º trimestre), 500g (3º trimestre), 400g (4º trimestre). Dobra o peso com 4 meses; triplica com 1 ano. Ganho após: ~2kg/ano entre 2 anos e puberdade. Estatura: nasce ~50cm; +25cm no 1º ano; +12cm entre 1-2 anos; +7-8cm entre 2-4 anos; +6cm/ano entre 4-6 anos; +5-7cm/ano até puberdade. Estirão puberal: meninas durante M3 (8-10cm/ano), meninos durante G4 (10-14cm/ano). Velocidade mínima de crescimento: 5cm/ano. Perímetro cefálico: ~35cm ao nascer; +2cm/mês no 1º trimestre; +1cm/mês no 2º trimestre; +0,5cm/mês no 2º semestre. Com 2 anos: ~85% do PC do adulto. Comprimento para estatura: transição aos 2 anos (reduz ~0,5cm).',
        color: 'blue'
      },
      {
-       nome: 'Investigação de Velocidade Baixa',
-       conteudo: 'VC BAIXA (<5cm/ano) → patológico: sistêmicas (celíaca, DRC), genéticas (Turner), endócrinas (GH ↓, hipotireoidismo). Investigar: hemograma, PCR, anti-transglutaminase, U, Cr, eletrólitos, TSH, T4L, IGF-1, IGFBP-3, cariótipo. Obesidade + baixa estatura = endócrina! Marcos: 50cm ao nascer; +25cm 1º ano; +12cm 1-2a; +7-8cm 2-4a; +6cm/a 4-6a.',
+       nome: 'Definição e Classificação de Baixa Estatura',
+       conteudo: 'Baixa estatura: Z-escore <-2 para sexo/idade OU estatura <-2DP do alvo familiar. Estatura alvo (EA): menina = [(altura pai + altura mãe)/2] − 6,5cm; menino = [(altura pai + altura mãe)/2] + 6,5cm (intervalo de confiança ±8,5cm). Baixa estatura familiar: estatura <-2 DP para a idade MAS próxima ao EA, velocidade de crescimento normal, idade óssea normal. Atraso constitucional do crescimento e puberdade (ACCP): estatura <-2 DP para idade, EA normal, velocidade de crescimento normal, idade óssea atrasada, história familiar de atraso. Ambas são variantes normais.',
+       color: 'blue'
+     },
+     {
+       nome: 'Investigação da Velocidade de Crescimento Baixa',
+       conteudo: 'Velocidade de crescimento BAIXA (<5cm/ano) indica patologia. Classificação de Waterlow e Gomez úteis. Etiologias sistêmicas: doença celíaca, doença renal crônica (DRC), doenças digestivas crônicas, doenças pulmonares, desnutrição. Etiologias genéticas/cromossômicas: síndrome de Turner, outras cromossomeropatias. Etiologias endócrinas: deficiência de hormônio do crescimento (GH), hipotireoidismo, síndrome de Cushing, puberdade atrasada, diabetes mellitus. Investigação inicial: anamnese completa (alimentação, evacuações, vômitos, infecções), exame físico (sinais dismórficos, estatura dos pais), hemograma, velocidade hemossedimentação (PCR), anti-transglutaminase (celíaca), análise de urina, creatinina, eletrólitos, TSH, T4L, IGF-1, IGFBP-3 (marcadores GH), cariótipo (meninas). Obesidade + baixa estatura = SEMPRE investigar etiologia endócrina!',
        color: 'amber'
      }
    ]
@@ -680,21 +690,26 @@ export const RESUMOS = [
    emoji: '👶',
    subtitulo: 'Marcos do DNPM, reflexos primitivos e linguagem',
    categoria: 'Neurologia',
-   referencia: 'Caderneta Saúde Criança, 2022. Denver II. SBP.',
+   referencia: 'Caderneta de Saúde da Criança, Ministério da Saúde, 2022. Denver II. SBP — Desenvolvimento Neuropsicomotor.',
    seções: [
      {
-       nome: 'Marcos por Faixa Etária',
-       conteudo: 'RN: observa rosto, reage som. 1M: sorri, vocaliza. 2-3M: responde contato, segura. 4-5M: rola. 6-8M: senta sem apoio. 9-11M: anda com apoio. 12-14M: anda, 1 palavra. 18-23M: tira roupa, chuta bola. 24-29M: veste, 2 palavras. 30-36M: brinca, arremessa. Áreas: Social, Adaptativo, Linguagem, Motor.',
+       nome: 'Conceitos e Janelas de Oportunidade',
+       conteudo: 'Desenvolvimento infantil: processo de aquisição de habilidades motoras, cognitivas, sociais e emocionais. Primeiros Mil Dias (gestação + 2 anos): janela crítica de oportunidades que impacta toda a vida adulta. Áreas do desenvolvimento: Social (S), Adaptativo (A), Linguagem (L), Motor (M). Marcos progridem do simples para o complexo. Interpretação: ausência de 1 marco da faixa etária ANTERIOR + perímetro cefálico alterado + alterações fenotípicas = atraso provável → encaminhar para avaliação multidisciplinar.',
        color: 'blue'
      },
      {
-       nome: 'Reflexos Primitivos e Interpretação',
-       conteudo: 'Desaparecem: marcha (1-2m), procura (3-4m), tônico cervical (3-4m), preensão (4-6m), Moro (4-6m), cutâneo-plantar (15-18m). Atraso provável: ausência marco faixa anterior, PC alterado, alterações fenotípicas. Alerta: ausência marco faixa atual → estimulação, retorno 30d. Prematuros: idade corrigida até 2a.',
+       nome: 'Marcos do Desenvolvimento por Faixa Etária',
+       conteudo: 'RN: observa rosto, eleva cabeça em decúbito ventral, reage ao som, reflexos primitivos presentes. 1 mês: sorri, abre as mãos, vocaliza, movimenta membros. 2-3 meses: responde ao contato social, segura objetos, ri alto, levanta a cabeça com apoio nos antebraços. 4-5 meses: busca ativa de objetos, leva à boca, localiza o som, ROLA. 6-8 meses: faz esconde-achou, transfere objetos de mão, duplica sílabas, SENTA sem apoio. 9-11 meses: imita gestos, faz pinça, jargão, ANDA com apoio. 12-14 meses: mostra o que quer, coloca bloco na caneca, fala 1 palavra clara, ANDA sem apoio. 15-17 meses: começa usar colher, constrói torre de 2 cubos, fala ~3 palavras, anda para trás. 18-23 meses: tira roupa, constrói torre de 3 cubos, aponta 2 figuras em livro, chuta bola. 24-29 meses: veste com supervisão, constrói torre de 6 cubos, fala frases de 2 palavras, pula com 2 pés. 30-36 meses: brinca com outras crianças, imita linha, reconhece ações em figuras, arremessa bola para cima.',
+       color: 'blue'
+     },
+     {
+       nome: 'Reflexos Primitivos e Desenvolvimento Motor',
+       conteudo: 'Reflexos que desaparecem progressivamente: marcha reflexa (1-2 meses), busca/procura (3-4 meses), tônico cervical (3-4 meses), preensão palmar (4-6 meses), reflexo de Moro (4-6 meses), cutâneo-plantar em extensão (máximo 15-18 meses). Interpretação de atraso: Atraso PROVÁVEL = ausência de 1 ou mais marcos da faixa ANTERIOR + perímetro cefálico (PC) alterado OU alterações fenotípicas específicas → encaminhar para avaliação multidisciplinar especializada. Alerta para desenvolvimento = ausência de marco da faixa ATUAL OU fator de risco (pré-natal, perinatal, pós-natal) → iniciar estimulação e retorno em 30 dias. Prematuros: SEMPRE avaliar por IDADE CORRIGIDA até 2 anos de vida.',
        color: 'green'
      },
      {
-       nome: 'Linguagem e Estimulação',
-       conteudo: '0-3m: choro; 2-3m: sorriso; 6-9m: balbucios; 9-12m: jargão; ~12m: palavras; 18m: ~50 palavras; 24m: 2 palavras, ~200 palavras; 3a: compreensível; 4-5a: frases. Prejudicam: telas, chupeta, estresse. Estimular: colo, brincadeira, leitura, conversa, canções.',
+       nome: 'Linguagem e Estimulação para o Desenvolvimento',
+       conteudo: 'Desenvolvimento da linguagem receptiva e expressiva: 0-3 meses = choro diferenciado; 2-3 meses = sorriso social; 6-9 meses = balbucios; 9-12 meses = jargão; ~12 meses = primeiras palavras compreensíveis; 18 meses = ~50 palavras; 24 meses = frases de 2 palavras, ~200 palavras; 3 anos = fala compreensível por estranhos; 4-5 anos = frases completas e complexas. Fatores prejudiciais ao desenvolvimento: telas (ZERO até 2 anos — RECOMENDAÇÃO FORTE), chupeta prolongada (reduz estimulação oral), estresse tóxico, falta de estímulo. Estratégias de estimulação: colo seguro e afetivo, brincar livre, leitura compartilhada, conversação (mamanhês — fala com prosódia exagerada), cantar juntos, contar histórias. Importância da ligação mãe-bebê para desenvolvimento socioafetivo e linguagem.',
        color: 'purple'
      }
    ]
@@ -705,21 +720,21 @@ export const RESUMOS = [
    emoji: '🩺',
    subtitulo: 'Classificação, síndromes e deficiências vitamínicas',
    categoria: 'Nutrição',
-   referencia: 'OMS — Desnutrição Aguda, 2013. SBP — Hipovitaminose D.',
+   referencia: 'OMS — Gestão da Desnutrição Aguda Grave, 2013. SBP — Hipovitaminose D em Pediatria. CDC — Global Nutrition Guidelines.',
    seções: [
      {
-       nome: 'Classificação da Desnutrição',
-       conteudo: 'Gomez (≤2a): peso/p50 → eutrófico 91-110%, leve 76-90%, moderada 61-75%, grave ≤61% ou edema. Waterlow (2-10a): E/I + P/E. Marasmo: baixa energético-proteica, sem edema. Kwashiorkor: baixa proteica com calorias, edema periférico, apatia, hepatomegalia.',
+       nome: 'Principais Conceitos e Classificação',
+       conteudo: 'Desnutrição: estado de desequilíbrio entre ingestão e absorção de nutrientes e demandas do organismo. Classificação por Gomez (≤2 anos): peso para percentil 50 → eutrófico (91-110%), desnutrição leve (76-90%), moderada (61-75%), grave (≤61% ou com edema). Classificação por Waterlow (2-10 anos): combina E/I (estatura/idade — crescimento linear) com P/E (peso/estatura — estado nutricional): eutrófico E/I ≥95% + P/E ≥90%, desnutrido agudo E/I ≥95% + P/E <90%, desnutrido crônico E/I <95% + P/E <90%, desnutrido pregresso E/I <95% + P/E ≥90%. Síndromes específicas: Marasmo (baixa ingestão energético-proteica, criança "esquelética", sem edema significativo), Kwashiorkor (baixa ingestão proteica com calorias preservadas, edema periférico, apatia, hepatomegalia, alterações capilares — "cabelo de milho").',
        color: 'red'
      },
      {
        nome: 'Manejo da Desnutrição Grave',
-       conteudo: '10 passos: hipoglicemia, hipotermia, reidratação, eletrólitos, ATB, micronutrientes, realimentação cautelosa, catch-up, DNPM, seguimento. NÃO ferro inicialmente. Síndrome realimentação: hipofosfatemia (principal).',
+       conteudo: '10 passos para recuperação: (1) Tratar/prevenir hipoglicemia (glicose 10% EV/VO); (2) Tratar/prevenir hipotermia (aquecer gradualmente); (3) Reidratar cautelosamente (evitar sobrecarga); (4) Corrigir desequilíbrios eletrolíticos (especialmente K, Mg, P — ANTES de alimentar); (5) Iniciar antibiótico de amplo espectro (presuntivo); (6) Corrigir deficiências de micronutrientes (vitaminas, minerais); (7) Realimentação cautelosa e gradual (previne síndrome de realimentação); (8) Nutrição hipercalórica para recuperação/catch-up; (9) Estimulação do DNPM; (10) Acompanhamento ambulatorial. EVITAR ferro na fase de estabilização (aumenta estresse oxidativo). Síndrome de realimentação: complicação potencialmente letal caracterizada por hipofosfatemia (PRINCIPAL marcador), hipomagnesemia, hipocalemia, rabdomiólise, arritmias cardíacas. Monitoramento rigoroso de fosfato, magnésio, potássio essencial.',
        color: 'amber'
      },
      {
-       nome: 'Vitaminas Essenciais',
-       conteudo: 'B1: beribéri. B3: pelagra. B6: convulsões. B9: tubo neural. B12: anemia + desmielinização. A: cegueira noturna, manchas Bitot. D: raquitismo (400-600 UI/dia). C: escorbuto. K: 1mg IM ao nascer.',
+       nome: 'Vitaminas Essenciais e Deficiências',
+       conteudo: 'Vitamina B1/Tiamina: deficiência causa beribéri (sintomas neurológicos e cardiovasculares) e encefalopatia de Wernicke (confusão, ataxia, oftalmoplegía). B2: deficiência causa queilite e glossite. B3/Niacina: pelagra (tétrade: dermatite, diarreia, demência, morte). B6: convulsões em neonatos e lactentes com deficiência. B9/Ácido Fólico: defeito do tubo neural (especialmente anencefalia e espinha bífida), anemia megaloblástica. B12/Cobalamina: anemia megaloblástica + desmielinização medular (especialmente risco em vegetarianos e veganos). Vitamina C/Ácido Ascórbico: escorbuto (fragilidade vascular, pseudoparalisia). Vitamina A: deficiência → alterações oftalmológicas progressivas (cegueira noturna → manchas de Bitot → opacidade corneal → destruição do globo ocular e cegueira irreversível); suplementação em regiões de risco aumentado. Intoxicação = hipertensão intracraniana. Vitamina D: 400 UI/dia (<1 ano), 600 UI/dia (1-18 anos); deficiência → raquitismo (deformidade óssea, atraso motor, tetania); intoxicação → hipercalcemia e nefrolitíase. Vitamina K: 1mg IM ao nascer para prevenir doença hemorrágica do RN (previne sangramento GI, cerebral, cutâneo).',
        color: 'blue'
      }
    ]
@@ -728,18 +743,18 @@ export const RESUMOS = [
    id: 'diarreia-aguda',
    titulo: 'Diarreia Aguda',
    emoji: '💧',
-   subtitulo: 'Avaliação hidratação, planos terapêuticos e antibióticos',
+   subtitulo: 'Avaliação da hidratação, planos terapêuticos e antibióticos',
    categoria: 'Gastroenterologia',
-   referencia: 'Ministério Saúde e SBP — Doença Diarreica, 2023.',
+   referencia: 'Ministério da Saúde e SBP — Doença Diarreica Aguda, 2023. OMS — Plano de Reidratação Oral.',
    seções: [
      {
        nome: 'Avaliação do Estado de Hidratação',
-       conteudo: 'Sem: alerta, olhos normais, lágrimas, boca úmida, prega rápida. Com desidratação: irritado, olhos fundos, sem lágrimas, prega lenta, <10%. Grave: letárgico, muito fundos, prega muito lenta, pulso fraco, >10%.',
+       conteudo: 'Sem desidratação (Plano A): estado geral alerta/ativo, olhos normais, lágrimas presentes, mucosa oral úmida, prega da pele desaparece rapidamente (<2 seg), pulso cheio e regular. Com desidratação (Plano B): estado geral irritado/inquieto, olhos fundos, ausência de lágrimas, boca com ressecamento, prega da pele volta lentamente (2-3 seg), perda até 10% do peso corporal. Desidratação grave (Plano C): estado geral letárgico/comatoso, olhos muito fundos, incapaz de beber, prega da pele volta muito lentamente (>3 seg), pulso fino/imperceptível, perda >10% do peso corporal. Disenteria: presença de sangue nas fezes (indicativo de lesão da mucosa — investigar etiologia bacteriana).',
        color: 'blue'
      },
      {
-       nome: 'Planos de Tratamento',
-       conteudo: 'Plano A: SRO + líquidos + alimentação habitual + zinco ≤5a. Plano B: SRO 50-100mL/kg VO 4-6h. Plano C: expansão SF/RL 30mL/kg + 2ª 70mL/kg + manutenção. Antibiótico: disenteria com toxemia → azitromicina.',
+       nome: 'Planos de Tratamento Terapêutico',
+       conteudo: 'PLANO A (sem desidratação): SRO ofertado livremente + líquidos caseiros (chás, sucos diluídos, caldo) + manutenção de alimentação habitual + Zinco (≤5 anos: 10mg/dia se <6 meses, 20mg/dia se ≥6 meses, por 10-14 dias). Educação dos cuidadores. PLANO B (com desidratação): SRO 50-100mL/kg VO em 4-6 horas, oferecido em pequenas quantidades frequentes + reavaliação (melhora → Plano A; sem melhora → considerar gavagem; piora → Plano C). Ondansetrona para vômitos se necessário. PLANO C (desidratação grave): 1ª expansão volêmica com SF 0,9% ou RL 30mL/kg (infundidos em 1 hora se <1 ano, 30 minutos se ≥1 ano) + 2ª expansão com SF ou RL 70mL/kg (infundidos em 5 horas se <1 ano, 2h30min se ≥1 ano) + manutenção conforme Holliday-Segar. Monitoramento contínuo. Antibiótico (EXCEÇÃO): indicado em disenteria com comprometimento sistêmico (toxemia) e/ou febre alta → Azitromicina (≤10 anos ou ≤30kg) OU Ciprofloxacino (>10 anos). Etiologias: viral (Rotavírus, Norovírus, Adenovírus), bacteriana (E. coli, Salmonella, Campylobacter, Shigella), parasitária (Giardia lamblia, Entamoeba histolytica).',
        color: 'teal'
      }
    ]
@@ -748,23 +763,23 @@ export const RESUMOS = [
    id: 'diarreia-cronica',
    titulo: 'Diarreia Crônica e Doenças Funcionais',
    emoji: '🔄',
-   subtitulo: 'Celíaca, DII, intolerância lactose e distúrbios funcionais',
+   subtitulo: 'Celíaca, DII, intolerância à lactose e distúrbios funcionais',
    categoria: 'Gastroenterologia',
-   referencia: 'SBP — Celíaca, 2022. ESPGHAN — DII em Crianças.',
+   referencia: 'SBP — Doença Celíaca, 2022. ESPGHAN — Doença Inflamatória Intestinal em Crianças. Critérios de Roma IV.',
    seções: [
      {
-       nome: 'Doença Celíaca',
-       conteudo: 'Diagnóstico: anti-transglutaminase IgA + IgA total; padrão-ouro: biópsia (infiltrado >25). Tratamento: glúten exclusão definitiva. Atraso crescimento, anemia, dermatite herpetiforme.',
+       nome: 'Doença Celíaca e Intolerância à Lactose',
+       conteudo: 'Doença Celíaca: enteropatia autoimune desencadeada pelo glúten (proteína do trigo, cevada, centeio). Diagnóstico inicial: Antitransglutaminase (anti-tTG) IgA + medição de IgA total; padrão-ouro diagnóstico: biópsia duodenal endoscópica (mostra infiltrado linfocitário intraepitelial >25 por 100 enterócitos — classificação de Marsh). Apresentação: anemia refratária, atraso crescimento, diarreia crônica, dermatite herpetiforme, neuropatia. Tratamento: exclusão definitiva e permanente de glúten. Intolerância à Lactose: deficiência (congênita ou adquirida) de lactase intestinal. Quadro clínico: diarreia líquida, explosiva, ácida, borborigmos, flatulência, dermatite perineal. Diagnóstico: clínico (melhora com restrição láctea), teste do hidrogênio expirado. Tratamento: redução da ingestão de lactose, repositores de lactase, reposição de cálcio e vitamina D.',
        color: 'amber'
      },
      {
-       nome: 'Doença Inflamatória Intestinal',
-       conteudo: 'Crohn: todo TGI, transmural, granuloma; massa, dor, parada crescimento. RCU: reto ± colo, mucosa; sangramento, tenesmo. Indução: nutrição enteral exclusiva ou corticoide.',
+       nome: 'Doença Inflamatória Intestinal (DII)',
+       conteudo: 'Doença de Crohn: acomete todo o TGI (boca até ânus), lesões saltatórias e transmurais com granuloma não caseoso. Apresentação: massa em QID, dor abdominal, parada do crescimento, fístulas e abscessos. Retocolite Ulcerativa (RCU): inflamação contínua e ascendente limitada a reto e colo, lesões restritas a mucosa e submucosa. Apresentação: sangramento retal, tenesmo, urgência evacuatória, toxemia sistêmica. Complicações: megacólon tóxico, perfuração. Tratamento indução Crohn: nutrição enteral exclusiva (primeira linha) → corticoide. Tratamento indução RCU: 5-ASA → corticoide. Ambas: anti-TNF para corticorresistência.',
        color: 'red'
      },
      {
-       nome: 'Intolerância e Distúrbios Funcionais',
-       conteudo: 'Lactose: diarreia explosiva ácida. Diarreia funcional: 6m-5a, ≥4x/dia. SII: dor ≥4 dias/mês. Disquesia: <9m, esforço prolongado. Cólica: <5m, choro recorrente.',
+       nome: 'Distúrbios Funcionais Gastrointestinais',
+       conteudo: 'Diarreia Funcional (Critérios Roma IV): 6 meses a 5 anos, duração ≥4 semanas, ≥4 evacuações/dia, fezes indolores e malformadas (moles/líquidas). Síndrome do Intestino Irritável (SII): dor abdominal recorrente ≥4 dias/mês por ≥2 meses, relacionada à evacuação, sem resolução com tratamento da constipação. Disquesia do Lactente: <9 meses, esforço persistente e estressante por ≥10 minutos antes de defecar (com sucesso), sem alterações estruturais. Cólica Infantil: <5 meses, períodos prolongados e recorrentes de choro/irritabilidade inconsolável, sem causa evidente, ausência de perda de peso ou sinais de doença.'  ,
        color: 'teal'
      }
    ]
@@ -775,16 +790,16 @@ export const RESUMOS = [
    emoji: '🫘',
    subtitulo: 'Critérios pRIFLE, KDIGO e manejo em pediatria',
    categoria: 'Nefrologia',
-   referencia: 'KDIGO — AKI, 2012. pRIFLE. SBP — Nefropediatria.',
+   referencia: 'KDIGO — AKI Guidelines, 2012. pRIFLE Pediatric. SBP — Nefropediatria.',
    seções: [
      {
-       nome: 'Lesão Renal Aguda',
-       conteudo: 'Deterioração súbita função renal. Critérios KDIGO: Cr ≥0,3mg/dL 48h OU ≥1,5x 7 dias OU diurese ≤0,5mL/kg/h ≥6h. Etiologias: pré-renal, renal, pós-renal. Urgência dialítica: sobrecarga, hipercalemia, acidose, uremia.',
+       nome: 'Lesão Renal Aguda (LRA)',
+       conteudo: 'Definição: deterioração súbita e potencialmente reversível da função renal. Critérios KDIGO (2012): aumento de creatinina sérica ≥0,3mg/dL em 48 horas OU aumento de creatinina ≥1,5x valor basal em 7 dias OU diurese ≤0,5mL/kg/h por ≥6 horas. Classificação pRIFLE (pediátrica — Pediatric Modified RIFLE): Risk (↓eTFG 25%, diurese <0,5mL/kg/h por 8 horas), Injury (↓eTFG 50%, diurese <0,5mL/kg/h por 16 horas), Failure (↓eTFG 75% OU eTFG <35mL/min/1,73m², diurese <0,3mL/kg/h por 24 horas OU anúria por 12 horas), Loss (perda de função renal >4 semanas), ESRD (End-Stage Renal Disease — >3 meses). Etiologias: Pré-renal (hipoperfusão — desidratação, choque, sepse), Renal/Intrínseca (hipoperfusão prolongada, nefrotoxicidade, sepse, glomerulopatias), Pós-renal (obstrução anatômica — cálculos, tumores, anomalias). Indicações de urgência dialítica: sobrecarga volêmica refratária, hipercalemia >7mEq/L, acidose metabólica refratária, uremia sintomática, intoxicação (drogas dialisa báveis).',
        color: 'blue'
      },
      {
-       nome: 'Doença Renal Crônica',
-       conteudo: 'Dano renal ≥3 meses, classificada eTFG. <5a: CAKUT (malformações). >12a: glomerulopatias. Complicações: cardiovascular, anemia, ósseas, retardo crescimento. Tratamento: conservador → diálise → transplante.',
+       nome: 'Doença Renal Crônica (DRC)',
+       conteudo: 'Definição: dano renal estrutural ou funcional presente por ≥3 meses, diagnosticado clinicamente ou histopatologicamente. Classificação: por eTFG (equação de Schwartz em pediatria) e albuminúria (A1: normal-levemente aumentada, A2: moderadamente aumentada, A3: muito aumentada). Etiologias pediátricas: <5 anos predominam malformações congênitas do trato urinário (CAKUT — displasia renal, agenesia, refluxo vesicoureteral), >12 anos predominam glomerulopatias primárias e secundárias. Manifestações clínicas: alterações cardiovasculares (hipertensão), anemia (deficiência de eritropoetina endógena), distúrbios osteometabólicos (hipocalcemia, hiperfosfatemia, osteodistrofia renal), anorexia, retardo do crescimento linear, fadiga. Tratamento: Conservador (estágios 2-4): controle PA, restrição proteica, suplementação de cálcio/vitamina D, tratamento da anemia; Terapia de Substituição Renal (estágio 5): diálise peritoneal, hemodiálise; Transplante: opção ideal (preemptivo quando possível).',
        color: 'amber'
      }
    ]
@@ -793,18 +808,18 @@ export const RESUMOS = [
    id: 'fssl',
    titulo: 'Febre sem Sinais Localizatórios',
    emoji: '🌡️',
-   subtitulo: 'Estratificação risco e conduta por faixa etária',
+   subtitulo: 'Estratificação de risco e conduta por faixa etária',
    categoria: 'Infectologia',
-   referencia: 'SBP — FSSL, 2025. Rochester. AAP.',
+   referencia: 'SBP — Febre sem Sinais Localizatórios, 2025. Rochester Criteria. AAP Guidelines.',
    seções: [
      {
        nome: 'Definição e Abordagem Geral',
-       conteudo: 'FSSL: febre <7 dias sem causa. Febre: ≥37,8°C. FOI: >1 semana ambulatorial. Principal bacteriana: ITU. Discriminar bacteriana grave de viral benigna.',
+       conteudo: 'FSSL: febre com duração <7 dias sem causa evidente após anamnese e exame físico completo. Febre: temperatura axilar ≥37,8°C (ou ≥37,5°C — novo documento SBP 2025). FOI (Febre de Origem Indeterminada): febre >1 semana em nível ambulatorial OU >3 dias em ambiente de cuidados intensivos sem causa identificada. Principal causa bacteriana identificada: ITU (infecção de trato urinário). Desafio clínico: discriminar infecção bacteriana grave (bacteremia oculta, pneumonia, meningite) de doença viral benigna autolimitada. Estratificação de risco essencial para evitar subestimar infecções graves e sobrediagnosticar em crianças com doença viral.',
        color: 'blue'
      },
      {
        nome: 'Conduta por Faixa Etária',
-       conteudo: '<1m: TOLERÂNCIA ZERO → hospitalização + culturas + ATB. 1-3m: Rochester. 3-36m vacinado: PVR ± EAS. Não vacinado: <39°C reavaliar; >39°C depende EAS. RN: sempre tratar.',
+       conteudo: '<1 mês: TOLERÂNCIA ZERO — recomendação de hospitalização obrigatória + hemograma + hemocultura + ureia/creatinina + análise de urina + urocultura + líquido cefalorraquidiano + raio-X de tórax + pesquisa de vírus (painel viral molecular) + ATB empírico (ceftriaxona + ampicilina OU cefotaxima + ampicilina). 1-3 meses: considerar Pediatric Risk of Bacteremia (ProB) ou Rochester Criteria para classificação (Baixo risco → acompanhamento; Alto risco → hospitalização + ATB). 3-36 meses vacinado (pneumococo + H. influenzae B): Procalcitonina, Velocidade Hemossedimentação ± Análise de Urina e Urocultura conforme idade e sexo. Não vacinado: Temperatura Axilar <39°C → reavaliar em 24-48 horas; TAX ≥39°C → depende do estado geral e Exame de Urina (se alterado = investigar/tratar ITU; se normal + leucócitos sangue >20.000/mm³ ou neutrófilos imaturos >10.000 → investigar focos). Recém-nascido com qualquer febre: SEMPRE hospitalizar e tratar com ATB empírico. Educação parental: não intercalar nem associar antipiréticos; se febre acompanhada de toxemia, rebaixamento do nível de consciência ou deterioração rápida → procurar emergência.',
        color: 'red'
      }
    ]
@@ -815,36 +830,36 @@ export const RESUMOS = [
    emoji: '🫁',
    subtitulo: 'Cirrose, insuficiência hepática aguda e hemorragia digestiva',
    categoria: 'Gastroenterologia',
-   referencia: 'EASL — Guidelines. SBP — Hepatologia.',
+   referencia: 'EASL — Clinical Practice Guidelines on Liver Cirrhosis. SBP — Hepatologia Pediátrica.',
    seções: [
      {
-       nome: 'Peritonite Bacteriana Espontânea',
-       conteudo: 'Paracentese todo cirrótico internado. Diagnóstico: ≥250 PMN/mm³. Agentes: E.coli, Klebsiella, Streptococcus. Tratamento: cefalosporina 3ª 5 dias + albumina.',
+       nome: 'Peritonite Bacteriana Espontânea e Síndrome Hepatorrenal',
+       conteudo: 'PBE: indicação de paracentese em TODO cirrótico com ascite admitido em hospital OU grau de ascite ≥2. Diagnóstico: contagem de polimorfonucleares (PMN) ≥250/mm³ com ou sem cultura positiva; bacteracidemia (sangue positivo + ascite negativa). Agentes frequentes: E. coli, Klebsiella pneumoniae, Streptococcus pneumoniae, Staphylococcus aureus. Tratamento: cefalosporina de 3ª geração (ceftriaxona ou cefotaxima) OU piperacilina-tazobactam por 5 dias + albumina (volume expansion) + suspensão de diuréticos e beta-bloqueadores. Síndrome Hepatorrenal: ascite + oligúria progressiva + creatinina sérica crescente + excreção de sódio urinário reduzida. Tratamento: vasoconstritor (terlipressina preferido, octreotide, noradrenalina) + albumina IV + transplante hepático urgente.',
        color: 'amber'
      },
      {
-       nome: 'Hemorragia e Insuficiência Hepática',
-       conteudo: 'HDA: octreotide + vitamina K + ATB 3ª + endoscopia 24h. IHA: sem cirrose + coagulopatia → transplante. Wilson: ATP7B gene, cobre urinário ↑, ceruloplasmina ↓.',
+       nome: 'Hemorragia Digestiva Alta e Insuficiência Hepática Aguda',
+       conteudo: "HDA (Hemorragia Digestiva Alta): estabilização inicial (via aérea com proteção, dois acessos periféricos, expansão volêmica, transfusão conforme necessidade) → octreotide 1mg/kg/h + vitamina K 10mg IM + cefalosporina 3ª geração + endoscopia digestiva alta em 24 horas (emergência se instabilidade hemodinâmica não responsiva a transfusões). IHA (Insuficiência Hepática Aguda): ausência de evidências de doença hepática crônica preexistente + lesão hepatocelular (AST/ALT/GGT >100 ou bilirrubinas elevadas progressivas) + coagulopatia não corrigida (INR ≥2 OU INR ≥1,5 com encefalopatia). Causas pediátricas: drogas (acetaminofeno, isoniazida), hepatites virais (A, B, C, E), doença de Wilson, erro inato do metabolismo, sepse, falência múltiplos órgãos. Critério King's College (IHA prognóstico): encaminhar para centro com transplante hepático disponível. Cirrose pediátrica: Atresia biliar (mais comum <5a), Hepatites B e C, Deficiência de alfa-1-antitripsina, Galactosemia, Doença de Wilson (gene ATP7B, cobre urinário 24h, ceruloplasmina sérica baixa, anéis de Kayser-Fleischer, sintomas neuropsiquiátricos).",
        color: 'red'
      }
    ]
   },
   {
    id: 'ivas',
-   titulo: 'Infecções de Vias Aéreas Superiores',
+   titulo: 'Infecções de Vias Aéreas Superiores (IVAS)',
    emoji: '👃',
    subtitulo: 'Resfriado, gripe, crupe, OMA, sinusite e amigdalite',
    categoria: 'Respiratório',
-   referencia: 'SBP — IVAS. AAP — OMA. Protocolo Albert Einstein.',
+   referencia: 'SBP — IVAS em Pediatria. AAP — Otite Média Aguda. Protocolo Albert Einstein — Crupe.',
    seções: [
      {
-       nome: 'Resfriado, Gripe e SRAG',
-       conteudo: 'Resfriado: rinovírus, 10-14 dias. Síndrome gripal: influenza + sintomas sistêmicos. SRAG: gripal + gravidade → oseltamivir. Crupe: parainfluenza, estridor, tosse ladrante. Dexametasona; adrenalina inalatória moderado-grave.',
+       nome: 'Resfriado, Síndrome Gripal e SRAG',
+       conteudo: 'Resfriado comum: agentes causadores rinovírus (50%), duração típica 10-14 dias, tratamento apenas sintomático (repouso, hidratação, analgesia/antipiresia conforme necessário). Síndrome gripal: infecção por vírus influenza (A ou B) acompanhada de comprometimento sistêmico (mialgia, cefaleia, artralgia, fadiga, fraqueza). SRAG (Síndrome Respiratória Aguda Grave): síndrome gripal + presença de critérios de gravidade (dispneia, hipóxia, alterações radiológicas pulmonares) → oseltamivir indicado para grupos de risco ou SRAG. Crupe viral (laringotraqueobronquite): vírus parainfluenza (tipo 1, 2, 3), apresentação: febre, rouquidão, tosse seca ladrante tipo "foca", estridor inspiratório. Tratamento: dexametasona 0,6mg/kg VO/IM dose única (todos os casos com diagnóstico clínico); adrenalina inalatória (epinefrina 1:1000) para casos moderados a graves.',
        color: 'blue'
      },
      {
-       nome: 'OMA, Sinusite e Amigdalite',
-       conteudo: 'OMA: efusão + inflamação. Tratar se: <6m, otorreia, bilateral <24m, grave. Sinusite: >5 dias dupla piora ou >10 dias. Amigdalite SBGA: amoxicilina 10 dias.',
+       nome: 'OMA, Sinusite Bacteriana e Amigdalite Bacteriana',
+       conteudo: 'OMA (Otite Média Aguda): efusão líquida + inflamação da orelha média + presença de sintomas (otalgia, febre). Agentes mais frequentes: Streptococcus pneumoniae, Haemophilus influenzae (não-tipável). Indicações para tratamento com Amoxicilina: <6 meses, otorreia, OMA bilateral <24 meses, sintomas graves (otalgia >48 horas, temperatura >39°C, toxemia, incerteza da reavaliação em 48 horas). Sinusite Bacteriana: diagnóstico é clínico (não requer imageologia de rotina). Critérios: dupla piora dos sintomas após 5º dia OU sintomas/sinais nasossinusais >10 dias sem melhora OU rinorreia purulenta + febre. Tratamento: amoxicilina ou amoxicilina-clavulanato. Amigdalite Bacteriana (SBGA — Streptococcus pyogenes): padrão-ouro diagnóstico = cultura de orofaringe; teste rápido (detecção de antígeno) auxilia na decisão clínica. Tratamento: penicilina benzatina dose única OU amoxicilina VO por 10 dias. Centor/McIsaac score ajuda a orientar probabilidade de infecção estreptocócica (ver calculadora específica).',
        color: 'amber'
      }
    ]
@@ -855,16 +870,16 @@ export const RESUMOS = [
    emoji: '🚽',
    subtitulo: 'Hidronefrose, refluxo vesicoureteral e enurese',
    categoria: 'Nefrologia',
-   referencia: 'SBP — Uropatias. SFU. NICE — Enurese.',
+   referencia: 'SBP — Uropatias Obstrutivas. Sociedade de Urologia Fetal (SFU). NICE — Enurese Noturna.',
    seções: [
      {
-       nome: 'Hidronefrose e RVU',
-       conteudo: 'Hidronefrose fetal: DPR >4mm (18-22 sem) ou >7-10mm (3º tri). Etiologia comum: transitória (41-88%). CAKUT: JUP obstrução → RVU. Diagnóstico: UCM. Tratamento: antibioticoprofilaxia.',
+       nome: 'Hidronefrose e Refluxo Vesicoureteral (RVU)',
+       conteudo: 'Hidronefrose fetal: avaliação ultrassonográfica com medida do diâmetro anteroposterior (DPR) do sistema piélico — DPR >4mm entre 18-22 semanas de gestação OU DPR >7-10mm no 3º trimestre indica achado significativo. Etiologia mais frequente: hidronefrose transitória ou não-significativa (41-88% dos casos). CAKUT (Congenital Anomalies of the Kidney and Urinary Tract): obstrução de junção ureteropiélica (JUP) (etiologia mais comum dentre anomalias estruturais) → Refluxo Vesicoureteral (RVU) (2ª anomalia mais comum). Diagnóstico e classificação: Uretrocistografia Miccional (UCM) — padrão-ouro para diagnóstico e classificação de RVU (Graus I-V). Tratamento: antibioticoprofilaxia contínua guiada pela classificação (graus I-II considerados baixo risco; III-V alto risco com necessidade seguimento rigoroso e possível intervenção cirúrgica).',
        color: 'blue'
      },
      {
        nome: 'Enurese Noturna',
-       conteudo: 'Perda involuntária urina sono ≥5a. Histórico familiar +. Primária/Secundária; Monossintomática. Avaliação: anamnese + diário + urina. Manejo: tratar constipação, alarme ou desmopressina.',
+       conteudo: 'Definição: perda involuntária de urina durante o sono em crianças ≥5 anos. Histórico familiar positivo é frequente (até 80% dos casos). Classificação: Primária (não teve continência >6 meses) vs Secundária (regressão após período de continência). Monossintomática (apenas enurese noturna) vs Não-monossintomática (associada com sintomas diurnos — urgência, frequência, hesitância). Avaliação: anamnese detalhada (antecedentes familiares, sintomas diurnos, constipação), exame físico completo (buscar déficits neurológicos, anomalias columna), diário miccional (registrar frequência, volume, episódios de enurese), análise de urina. Manejo inicial: educação paciente e família (reduzir expectativas perfeccionistas, evitar constrangimento), tratar constipação se presente (FUNDAMENTAL), reduzir ingestão hídrica à noite. Terapia adicional: Alarme de enurese (eficácia alta, sem efeitos colaterais, maior custo inicial) OU Desmopressina (análogo ADH — eficácia moderada, especialmente em enurese com poliúria noturna). Se refratário: referenciar ao especialista (urologia/nefrologia pediatrica).',
        color: 'amber'
      }
    ]
@@ -875,16 +890,16 @@ export const RESUMOS = [
    emoji: '🧠',
    subtitulo: 'Diagnóstico, critérios e testes confirmatórios',
    categoria: 'Neurologia',
-   referencia: 'CFM — Resolução 2.173/2017. Protocolo Brasil.',
+   referencia: 'CFM — Resolução 2.173/2017. Protocolo Morte Encefálica Brasil.',
    seções: [
      {
-       nome: 'Diagnóstico de Morte Encefálica',
-       conteudo: 'Pré-requisito: lesão encefálica irreversível + excluir confundidores (hipotermia <35°C, sedação). Observação: 6h (24h HIE). 2 testes clínicos + 1 apneia + 1 confirmatório (fluxo zero).',
+       nome: 'Critérios e Pré-requisitos para Diagnóstico',
+       conteudo: 'Pré-requisitos obrigatórios: (1) Lesão encefálica de causa conhecida (traumatismo cranioencefálico, hemorragia, isquemia, infecção) com comprovação por neuroimagem (TC ou RM); (2) Lesão encefálica irreversível e incompatível com vida; (3) Exclusão rigorosa de fatores confundidores: hipotermia (<35°C) — aquecer para ≥35°C, hipotensão, hipoglicemia, intoxicações (incluindo sedativos/hipnóticos), medicações neurodepressoras, distúrbios eletrolíticos graves (hiponatremia, hipercalcemia, hipomagnesemia). Período de observação: 6 horas (padrão geral), 24 horas em encefalopatia hipóxico-isquêmica (HIE) ou lesões por hipoxia secundária.',
        color: 'blue'
      },
      {
-       nome: 'Intervalo Entre Testes',
-       conteudo: '7d-2m: 24h. 2m-2a: 12h. >2a: 1h. Temp >35°C, Sat >94%, PAS >60 (<5m), >80 (5m-2a), >85 (2-7a), >90 (≥7a).',
+       nome: 'Procedimentos Diagnósticos e Intervalo por Faixa Etária',
+       conteudo: 'Testes clínicos (≥2 avaliações): (1) Reflexo fotomotor (luz nos olhos), (2) Reflexo corneopalpebral (toque na córnea), (3) Reflexo oculomotor (manobra calórica — água morna então fria no meato auditivo), (4) Reflexo vestibulo-calórico (mesma manobra), (5) Reflexo de tosse (estimulação da traqueia). Teste de apneia: desconexão do ventilador, observação de apneia durante 5-10 minutos com oxigenação contínua. Exame confirmatório: ausência de fluxo sanguíneo cerebral (angiografia digital, RM), ausência de atividade elétrica (eletroencefalograma), ausência de metabolismo (espectroscopia). Intervalo entre testes por faixa etária: 7 dias a 2 meses de vida = 24 horas entre testes. 2 meses a 2 anos = 12 horas. Acima de 2 anos = 1 hora. Parâmetros mínimos para todos: temperatura >35°C, SatO₂ >94%, PAS >60mmHg (<5 meses), >80mmHg (5 meses a 2 anos), >85mmHg (2 a 7 anos), >90mmHg (≥7 anos). Atestado de óbito: assinado no momento da conclusão de TODOS os testes diagnósticos.',
        color: 'amber'
      }
    ]
@@ -895,21 +910,21 @@ export const RESUMOS = [
    emoji: '🫘',
    subtitulo: 'GNPE, síndrome nefrótica e síndrome hemolítico-urêmica',
    categoria: 'Nefrologia',
-   referencia: 'SBP — Nefropediatria. KDIGO. ISKDC.',
+   referencia: 'SBP — Nefrologia Pediátrica. KDIGO — Glomerulonephritis Guidelines. ISKDC — Nephrotic Syndrome.',
    seções: [
      {
-       nome: 'Síndrome Nefrítica',
-       conteudo: 'Mais comum: GNDA pós-estreptocócica. Clínica: oligúria + edema + HAS + hematúria + ↓C3. Após SBGA amigdalite/impetigo. Repouso, restrição hídrica-salina, penicilina. Biópsia se: LRA, macro-hematúria, HAS >4 sem.',
+       nome: 'Síndrome Nefrítica (GNDA Pós-Estreptocócica)',
+       conteudo: 'Causa mais frequente de síndrome nefrítica na infância: GNDA (Glomerulonefrite Difusa Aguda) pós-estreptocócica (seguindo faringite ou impetigo por SBGA — Streptococcus pyogenes). Manifestações clínicas: oligúria (fluxo urinário reduzido), edema (geralmente periorbital e generalizado), hipertensão arterial sistêmica, hematúria glomerular (demonstrada por microscopia: dismorfismo eritrocitário, cilindros hemáticos), redução de complemento C3 sérico. Mecanismo fisiopatológico: formação de imunocomplexos (antígeno-anticorpo) que se depositam na membrana basal glomerular. Quadro típico: 1-2 semanas após amigdalite bacteriana ou impetigo. Tratamento: repouso, restrição hídrica e salina (reduz sobrecarga volêmica), penicilina benzatina para erradicar streptococo, furosemida se oligúria/edema/HAS. Biópsia glomerular indicada se: presença de LRA, macro-hematúria persistente, HAS >4 semanas, complemento C3 reduzido >8 semanas, suspeita de glomerulonefrite rapidamente progressiva.',
        color: 'red'
      },
      {
        nome: 'Síndrome Nefrótica',
-       conteudo: 'Proteinúria nefrótica + edema + hipoalbuminemia + dislipidemia. Risco: peritonite pneumococo. Sal baixo + corticoide. Albumina EV se: choque, genital, oligúria.',
+       conteudo: 'Tétrade clássica: proteinúria nefrótica (>3,5g/24h ou >40mg/kg/dia) + edema (especialmente facial e periférico) + hipoalbuminemia (<2,5g/dL) + dislipidemia (colesterol total elevado, LDL elevado). Complicação grave: infecção bacterial (peritonite bacteriana espontânea por Streptococcus pneumoniae — perda de imunoglobulinas predispõe). Tratamento: restrição de sal (reduz edema), corticoide (prednisolona ou metilprednisolona — 1ª linha para síndrome nefrótica corticossensível). Albumina EV indicada em casos de: hemoconcentração ou choque (contração volêmica desproporcionada), edema genital severo (risco de necrose), oligúria com deterioração renal. Biópsia glomerular indicada se: idade <1 ano, >10 anos, hematúria macroscópica ou microscópica persistente, hipertensão arterial, disfunção renal, redução de complemento sérico, comorbidades extrarrenais associadas, corticorresistência (não resposta ao corticoide).',
        color: 'blue'
      },
      {
-       nome: 'Síndrome Hemolítico-Urêmica',
-       conteudo: 'Tríade: anemia microangiopática + plaquetopenia + LRA. STEC-SHU pós-disenteria. Suporte: transfusão, controle volêmico, TRS. EVITAR plaquetas. Pneumococo: ATB.',
+       nome: 'Síndrome Hemolítico-Urêmica (SHU)',
+       conteudo: 'Tríade patognomônica: anemia hemolítica microangiopática (esquizócitos periféricos, LDH↑↑, bilirrubina indireta ↑, haptoglobina ↓) + trombocitopenia (plaquetas frequentemente <100.000/mm³) + Lesão Renal Aguda (creatinina ↑, oligúria). Desencadeante mais frequente: infecção entérica prévia por STEC (Shiga Toxin-Producing E. coli — cepa O157:H7 clássica) com apresentação de disenteria (sangue nas fezes) — STEC-SHU (90% dos casos). Outras etiologias: SHU atípica (mutações genéticas em genes de complemento), SHU secundária (fármacos, malignidade, DIC). Diagnóstico diferencial importante: TTP (Púrpura Trombótica Trombocitopênica) com critério clínico pentáda (anemia hemolítica, trombocitopenia, LRA, febre, sintomas neurológicos) — mas raramente ocorre em crianças. Tratamento: SUPORTE (pilar do manejo — não existe tratamento específico) com transfusão de hemácias concentradas conforme necessário, transfusão de plaquetas EVITADA SE POSSÍVEL (em STEC-SHU piora a doença), controle rigoroso do equilíbrio volêmico, correção de distúrbios ácido-base e eletrólitos, terapia substitutiva renal (diálise) se insuficiência renal grave. Se agente identificado = S. pneumoniae → ATB com penicilina ou cefalosporina.',
        color: 'amber'
      }
    ]
@@ -920,16 +935,16 @@ export const RESUMOS = [
    emoji: '⚖️',
    subtitulo: 'Classificação, etiologias e dislipidemia',
    categoria: 'Endocrinologia',
-   referencia: 'OMS. SBP — Obesidade. SBP — Dislipidemia.',
+   referencia: 'OMS — Child Growth Standards. SBP — Obesidade Infantil. SBP — Dislipidemia em Pediatria.',
    seções: [
      {
-       nome: 'Classificação e Etiologia',
-       conteudo: 'IMC/idade (>5a): sobrepeso Z +1-+2, obesidade Z +2-+3, grave Z>+3. <5a: peso/estatura. Exógena (95%): multifatorial, familiar, >5a. Endógena (5%): Prader-Willi, Cushing, GH ↓, hipotireoidismo. Alerta: <5a, sem familiar, IO ↓, dismorfismo, baixa estatura.',
+       nome: 'Classificação e Etiologia da Obesidade',
+       conteudo: 'Classificação por IMC/idade (OMS — para >5 anos): Sobrepeso Z +1 a +2 (percentil 85-97), Obesidade Z +2 a +3 (percentil 97-99,9), Obesidade Grave Z>+3 (percentil >99,9). <5 anos: classificação por Peso/Estatura. Etiologia exógena (95%): multifatorial (desequilíbrio energético, sedentarismo, genética, fatores socioeconômicos e ambientais), histórico familiar positivo, início >5 anos, idade óssea normal ou avançada, estatura normal ou alta. Etiologia endógena (5%): Síndrome de Prader-Willi, Síndrome de Cushing, deficiência de GH, hipotireoidismo. Sinais de alerta para causas ENDÓCRINAS: início <5 anos, sem histórico familiar de obesidade, comprometimento cognitivo associado, idade óssea ATRASADA, dismorfismos fenotípicos, BAIXA ESTATURA. Regra OURO: Obesidade + BAIXA ESTATURA = SEMPRE investigar etiologia endócrina!',
        color: 'amber'
      },
      {
-       nome: 'Dislipidemia e Tratamento',
-       conteudo: 'Rastreio: 9-11 e 17-21a. 2-8 e 12-16: risco. Medicamentoso (estatin) se 6 meses MEV falha: LDL >190, >160 risco, >130 DM. Liraglutida (>12a).',
+       nome: 'Dislipidemia em Pediatria e Tratamento',
+       conteudo: 'Rastreio lipídico universal: 9-11 anos e 17-21 anos. Rastreio seletivo (apenas com fatores de risco — história familiar de lipídemia, SM, DM): 2-8 anos e 12-16 anos. Fatores de risco incluem: história familiar de doença coronariana precoce, diabetes mellitus, hipertensão, obesidade. Tratamento não-farmacológico: Mudanças de Estilo de Vida (MEV) — restrição de gordura saturada, aumento de fibras, atividade física 1h/dia, redução de telas. Medicamentoso (estatinas): após 6 meses de MEV sem sucesso, indicado se LDL >190mg/dL (sem fatores de risco), >160mg/dL (com ≥1 fator de risco), >130mg/dL (diabetes mellitus). Liraglutida (análogo GLP-1): para obesidade >12 anos, após 6 meses de MEV sem sucesso. Tratamento da obesidade em si: MEV como primeira linha (terapia comportamental, atividade física, restrição alimentar supervisionada, apoio familiar). Farmacológico: liraglutida (>12 anos) se falha de MEV após período adequado.',
        color: 'blue'
      }
    ]
@@ -940,16 +955,16 @@ export const RESUMOS = [
    emoji: '🏥',
    subtitulo: 'ATLS pediátrico, lesões e manejo do afogamento',
    categoria: 'Emergência',
-   referencia: 'ATLS 10ª. Szpilman. SBP — Emergências.',
+   referencia: 'ATLS — Advanced Trauma Life Support, 10ª ed. Szpilman D — Classificação do Afogamento. SBP — Emergências Pediátricas.',
    seções: [
      {
-       nome: 'Politrauma — Atendimento Inicial',
-       conteudo: '1ª causa morte. ATLS: A → B → C → D → E. Lesões: contusão, pneumotórax, hemotórax, tamponamento. Choque: cristaloide normotenso; RBC hipotenso. Transfusão >60mL/kg.',
+       nome: 'Politrauma — Atendimento Inicial (ATLS)',
+       conteudo: '1ª causa de óbito e sequelas em pediatria. Protocolo ATLS: A (vias aéreas com proteção da coluna cervical) → B (respiração com oximetria/EtCO2) → C (hemodinâmica com contenção de sangramento + eFAST) → D (avaliação neurológica: Glasgow, pupilas, reflexos, dextro) → E (exposição total com limpeza e remoção de prancha cervical). Principais lesões torácicas: contusão pulmonar, pneumotórax hipertensivo (emergência — descompressão com agulha 14G), pneumotórax aberto (ocluir com dressing de 3 lados), hemotórax maciço (transfusão), tamponamento cardíaco (reposição volêmica, pericardiocentese). Manejo do choque hemorrágico: expansão com cristaloides (SF ou RL) se paciente normotenso; concentrado de hemácias se hipotenso + sem resposta a fluidoterapia. Protocolo de transfusão maciça: considerar após 60mL/kg de cristaloide. Tríade letal: hipotermia + coagulopatia + acidose → monitoramento agressivo. Abdominal: eFAST (+) = parar fluidos se normotenso e fazer TC em estabilidade, ou CC se instável; eFAST (−) = buscar outros focos de sangramento. Complicação: síndrome compartimental — monitorar diurese (meta 1mL/kg/h).',
        color: 'red'
      },
      {
        nome: 'Afogamento',
-       conteudo: 'Sequência: socorrista → reconhecer → flutuação → retirar → RCP (5 ventilações antes ABC) → aquecer. Classificação: Resgate → I-VI (PCR). Temp <32°C aquecer antes confirmar óbito.',
+       conteudo: 'Sequência de resgate: proteger socorrista → reconhecer vítima → flutuação → retirada da água com técnica apropriada → iniciação de RCP precoce (IMPORTANTE: 5 ventilações de resgate ANTES de iniciar compressões — diferente do protocolo PALS padrão) → aquecer passivamente (remover roupas molhadas, secar) se T >32-34°C com pulsos presentes, ou aquecer ativamente se T <32°C. Classificação de Szpilman (prognóstico baseado em apresentação clínica): Resgate (sem sinais aparentes de desconforto — prognóstico excelente) → Categoria I (espuma nas vias aéreas) → II (acúmulo de líquido nos pulmões — alterado ao auscultar) → III (muita espuma — edema pulmonar grave) → IV (coma profundo) → V (parada respiratória) → VI (parada cardiorrespiratória). Reaquecimento extracorpóreo (ECMO) pode ser considerado em hipotermia profunda (<32°C) com PCR → objetivo é "não pronunciar morte até estar quente e morto" ("não está morto até estar quente e morto").',
        color: 'blue'
      }
    ]
@@ -960,16 +975,16 @@ export const RESUMOS = [
    emoji: '🌱',
    subtitulo: 'Estadiamento de Tanner, puberdade precoce e atrasada',
    categoria: 'Endocrinologia',
-   referencia: 'SBP — Puberdade. Marshall & Tanner (1969).',
+   referencia: 'SBP — Puberdade Normal e Distúrbios Puberais. Marshall & Tanner (1969/1970) — Estadiamento Puberal.',
    seções: [
      {
-       nome: 'Puberdade Normal e Estadiamento',
-       conteudo: 'Meninas: 8-13a, telarca (M2). Meninos: 9-14a, testículo ≥4mL (G2). Tanner: M1-M5 (mama), G1-G5 (genital). Estirão: meninas M3 (8-10cm/a), meninos G4 (10-14cm/a).',
+       nome: 'Puberdade Normal e Estadiamento de Tanner',
+       conteudo: 'Puberdade normal: fenômeno que ocorre entre 8-13 anos em meninas (idade média 10-11a) e 9-14 anos em meninos (idade média 11-12a). Meninas: ativação do eixo hipotálamo-hipófise-gonadal inicia com telarca (M2 — broto mamário palpável ≥4mm). Meninos: ativação do eixo inicia com aumento testicular ≥4mL (G2). Estadiamento de Tanner (Marshall e Tanner, 1969-1970): Mama (M1 = mamilo infantil; M2 = broto mamário; M3 = tecido mamário ao redor da aréola; M4 = sinal do duplo contorno com papila elevada; M5 = mama adulta). Genital (G1 = testículos infantis <4mL; G2 = testículos >4mL; G3 = crescimento do pênis em comprimento; G4 = aumento de espessura e complexidade; G5 = adulto). Estirão puberal (peak height velocity — maior velocidade de crescimento): meninas durante M3 (~8-10cm/ano), meninos durante G4 (~10-14cm/ano).',
        color: 'purple'
      },
      {
        nome: 'Puberdade Precoce e Atrasada',
-       conteudo: 'Precoce: <8a (meninas) ou <9a (meninos). Central: aGnRH. Periférica: hormônios independentes. Atrasada: Hipergonadotrófico ou Hipogonadotrófico. Atraso constitucional: VC normal + EA + IO ↓ + familiar.',
+       conteudo: 'Puberdade Precoce: telarca ou desenvolvimento genital ANTES de 8 anos em meninas OU antes de 9 anos em meninos. Central (gonadotrofina-dependente): eixo hipotálamo-hipófise ativado precocemente (LH/FSH elevado). Tratamento: análogo de GnRH (aGnRH) para frear progressão. Periférica (gonadotrofina-independente): fonte de hormônios sexuais não dependente do eixo central (LH/FSH suprimido/normal). Investigar: gônadas, adrenal, fonte exógena (exposição a hormônios). Puberdade Atrasada/Hipogonadismo: ausência de sinais de puberdade após 13 anos em meninas OU 14 anos em meninos. Hipergonadotrófico (falência gonadal): testículos pequenos/firmes, LH/FSH elevado, testosterona baixa (ex: Klinefelter). Hipogonadotrófico (falência central): testículos pequenos/moles, LH/FSH baixo, testosterona baixa (ex: síndrome de Kallmann). Atraso Constitucional do Crescimento e Puberdade (ACCP): forma benigna e variante normal — VC normal + EA normal + IO atrasada (compatível com VC atual) + história familiar de atraso puberal. Tratamento: suporte psicológico, acompanhamento, reposição hormonal se necessário para indução puberal após confirmação diagnóstica.',
        color: 'blue'
      }
    ]
@@ -980,16 +995,16 @@ export const RESUMOS = [
    emoji: '🔥',
    subtitulo: 'Classificação, extensão e manejo inicial',
    categoria: 'Emergência',
-   referencia: 'SBP — Queimaduras. ABA. Parkland.',
+   referencia: 'SBP — Queimaduras em Pediatria. American Burn Association. Parkland Formula.',
    seções: [
      {
-       nome: 'Classificação e Avaliação',
-       conteudo: 'Fontes: calor, química, elétrica, radiação. Extensão: leves (<2%), risco (>10%), grande (>20%), graves (>30%). Avaliação: Lund-Browder, 9, palma. IOT se: VA, estridor, >15%, rebaixamento.',
+       nome: 'Classificação e Avaliação da Extensão',
+       conteudo: 'Fontes de queimadura: calor (chamas, escalda, contato), química (ácidos/bases), elétrica (lesão intrínseca grave com rabdomiólise), radiação. Classificação por profundidade: 1º grau (eritema — epiderme), 2º grau/superficial (bolhas — derme superficial, cicatriza espontaneamente), 2º grau/profundo (branca/hiperemia profunda — derme profunda, risco de cicatriz), 3º grau (necrose espessa — todos os estratos da pele). Classificação por extensão: Leve (<2% SC 2º-3º grau) — manejo ambulatorial, Potencial risco (>10%) — encaminhar centro especializado, Grande queimado (>20%) — transferência imediata, Graves (>30%) — prognóstico grave, alta taxa de complicações. Avaliação da superfície corporal: Lund-Browder (mais precisa em pediatria), regra dos 9 (menos precisa em <15 anos), palma da mão da criança (~1% da sua SCQ). Indicações para intubação orotraqueal: suspeita de queimadura de vias aéreas (face queimada, pelos nasais chamuscados, fuligem nas vias aéreas, historicamente em ambiente fechado), alterações de ausculta (estridor, broncoespasmo), extensão >15% da SCQ, necessidade de anestesia para cirurgias frequentes, rebaixamento de nível de consciência (sedação/analgesia excessiva). Indicações de internação em UTI: queimadura >20% SCQ em <10 anos, queimadura >30% em maiores, suspeita queimadura vias aéreas, lesão por corrente elétrica (risco rabdomiólise), queimadura de mãos/pés/genitália (funcional importante), necessidade transfusão/cirurgias frequentes.',
        color: 'red'
      },
      {
-       nome: 'Manejo Inicial',
-       conteudo: 'Remover roupas. Analgesia. Parkland: 4mL/kg/% (50% 8h + 50% 16h) se 2º-3º >15%. Curativo. UTI: nutrição, sedação.',
+       nome: 'Manejo Inicial e Reposição Volêmica',
+       conteudo: 'Passos iniciais: remover a roupa (interromper combustão); verificar extensão queimada e profundidade; avaliar risco de queimadura de vias aéreas; necessidade de analgesia. Reposição volêmica para queimadura 2º e 3º grau >15% da SC: Fórmula de Parkland = 4mL/kg/% queimado, sendo metade infundida nas primeiras 8 horas e metade nas 16 horas subsequentes (exemplo: criança 20kg com 20% queimado = 4×20×20 = 1.600mL total; 800mL em 8h = 100mL/h, depois 800mL em 16h = 50mL/h). Cristaloide de escolha: ringer lactato (mais fisiológico que SF). Monitoramento: diurese-alvo 0,5mL/kg/h (0,3mL/kg/h se > 20kg), pressão arterial, frequência cardíaca, gasometria. Curativo: conforme tipo (hidrogel para 1º-2º grau, gaze estéril para 3º grau), trocar frequente, evitar infecção. UTI para queimados: suporte nutricional (hipercatabolismo, altos requerimentos calóricos), sedação e analgesia, monitoramento rigoroso, prevenção infecção, reabilitação precoce.',
        color: 'amber'
      }
    ]
@@ -1000,16 +1015,16 @@ export const RESUMOS = [
    emoji: '💥',
    subtitulo: 'Escala de Glasgow, lesões e manejo da PIC',
    categoria: 'Neurologia',
-   referencia: 'SBP — TCE. BTF. ATLS 10ª.',
+   referencia: 'SBP — TCE em Pediatria. Brain Trauma Foundation Guidelines. ATLS 10ª ed.',
    seções: [
      {
-       nome: 'TCE — Classificação',
-       conteudo: 'Glasgow: leve 14-15, moderado 9-13, grave <9. ABCDE. TC: epidural, subdural, subaracnoidea, contusão, LAD, herniação.',
+       nome: 'TCE — Classificação e Avaliação',
+       conteudo: 'Classificação pela Escala de Coma de Glasgow: Leve (GCS 14-15) — animado, alerta a chamado; Moderado (GCS 9-13) — responde a dor ou estímulo; Grave (<GCS 9) — coma profundo. Atendimento: ABCDE + D (pupilas reativas? GCS? reflexos presentes? toque retal? sem contraindicações de C-spine). Neuroimagem por TC: espectro de lesões — hemorragia epidural (coleção entre calvária e dura-máter — rápida, dura em forma de lente), hemorragia subdural aguda (entre dura e aracnoide — crua), hemorragia subaracnoidea (entre aracnoide e pia), contusão cerebral (dano do parênquima), lesão axonal difusa (LAD — ruptura de axônios por forças de cisalhamento), edema cerebral (aumento volume parenquimatoso), desvio de linha média, colapso ventrículos, sinais de herniação (subfalcina — compressão acima da falce; uncal — abaixo do uncus). Lesão primária (no momento do trauma) vs Lesão secundária (potencialmente reversível — deterioração neurológica por hipóxia, hipotensão, inflamação, edema — monitorizar e intervir!).',
        color: 'red'
      },
      {
-       nome: 'Hipertensão Intracraniana',
-       conteudo: 'PPC = PAM – PIC. Normal <20mmHg. Sinais: rebaixamento (1º), abaulamento, cefaleia/vômitos. Tratamento: causa, decúbito 30°, sedação, convulsões, salina hipertônica/manitol, normotermia, craniectomia.',
+       nome: 'Hipertensão Intracraniana (HIC)',
+       conteudo: 'Pressão de Perfusão Cerebral (PPC) = PAM − PIC; normal PIC <20mmHg, PPC alvo >60mmHg pediátrico. Sinais de HIC (progressivos): 1º sinal (MAIS PRECOCE) = rebaixamento de consciência/confusão/letargia; abaulamento de fontanela (lactentes); cefaleia progressiva + vômitos sem relação com alimentação; alterações visuais (diplopia, perda visual); tríade de Cushing (hipertensão + bradicardia + alterações respiratórias — sinal tardio de herniação). Diagnóstico: monitorização invasiva da PIC (cateter ventricular intraparenquimatoso, sensor de fibra óptica); ultrassom nervo óptico (expansão bainha); EEG (atividade anormal); RM (maior sensibilidade que TC para LAD). Tratamento de HIC: (1) Tratar/identificar causa (hematoma expansivo que requer drenagem/evacuação); (2) Posicionamento — decúbito elevado 30°, cabeça em linha média (melhora retorno venoso); (3) Sedação e analgesia (propofol, midazolam + opioides); (4) Tratamento de convulsões (fenitoína ou levetiracetam); (5) Correção de hipoglicemia/hiponatremia; (6) Manutenção PAM >60mmHg (cristaloide, noradrenalina se necessário); (7) Normocapnia (PCO2 35-40mmHg — hiperventilação transitória pode reduzir PIC acutamente); (8) Normotermia (hipotermia terapêutica controversa); (9) Osmolares — salina hipertônica (3% ou 7,5%) OU manitol (ambas reduzem edema); (10) Hiperventilação: APENAS transitória (reduz PIC por redução PCO2, mas efeito transitório); (11) Corticoide (dexametasona): para tumor ou infecção, NÃO para TCE puro; (12) Craniectomia descompressiva: em última instância para HIC refratária com risco herniação.',
        color: 'blue'
      }
    ]
@@ -1020,16 +1035,16 @@ export const RESUMOS = [
    emoji: '🛡️',
    subtitulo: 'Maus-tratos, shaken baby e síndrome de Munchausen',
    categoria: 'Social',
-   referencia: 'SBP — Maus-Tratos. ECA Lei 8.069/90. SINAN.',
+   referencia: 'SBP — Maus-Tratos na Infância. ECA — Lei 8.069/90. SINAN — Sistema de Informação de Agravos de Notificação.',
    seções: [
      {
-       nome: 'Sinais Físicos e Síndromes',
-       conteudo: 'Fraturas sugestivas: metafisárias (alça balde), diafisárias espiral, costelas <2a, crânio, múltiplas. Shaken Baby: encefalopatia + subdural + hemorragia retina. Munchausen: doenças variadas, exames solicitados.',
+       nome: 'Sinais Específicos para Violência Física e Síndromes Características',
+       conteudo: 'Fraturas sugestivas de violência: Metafisárias por arrancamento (alça de balde ou canto) — causadas por tração força extrema, Diafisárias em espiral — indicam torção, Costelas em crianças <2 anos — qualquer fratura de costela é suspeita (trauma mínimo geralmente não causa), Crânio com diástase de sutura (afastamento septos), Múltiplas ou bilaterais — aumentam suspeita. Síndrome do Bebê Sacudido (Shaken Baby Syndrome): tríade: (1) Encefalopatia/alteração nível de consciência; (2) Hematoma subdural (geralmente bilateral e nos espaços corticais); (3) Hemorragia de retina (presença patognomônica — ausência não afasta diagnóstico). Lesões associadas: fraturas metafisárias, edema cerebral, lesão axonal difusa. Síndrome de Munchausen por Procuração (Factitious Disorder Imposed on Another — FDIOA): doenças e sintomas variados/inconsistentes, não responsivos ao tratamento apropriado, não correspondem aos achados em exames auxiliares, responsável solicita sempre mais exames/procedimentos/hospitalizações, utiliza linguagem/conhecimento médico, melhora quando responsável afastado da criança.',
        color: 'red'
      },
      {
-       nome: 'Conduta e Notificação',
-       conteudo: 'Acolhimento multidisciplinar. Exame físico com documentação. Esqueleto lactentes; TC crânio + fundoscopia. NOTIFICAÇÃO COMPULSÓRIA → Conselho Tutelar + MP.',
+       nome: 'Conduta Clínica e Notificação Compulsória',
+       conteudo: 'Acolhimento interdisciplinar da criança e família (assistência social, psicologia, pediatria, cirurgia, pediatria forense conforme necessário). Exame físico COMPLETO com documentação meticulosa e fotografias (com consentimento; se recusa → documentar). Registro em prontuário de forma objetiva e factual (descrever achados, não interpretações). Exames: radiografia de esqueleto COMPLETO em lactentes/crianças <3 anos; TC de crânio + ultrassom/RM orbitária + fundo de olho (suspeita Shaken Baby); toxicologia; genotipagem (se morte). NOTIFICAÇÃO COMPULSÓRIA obrigatória à suspeita de violência → Conselho Tutelar (órgão responsável) E/OU Ministério Público (MP) E/OU Delegacia de Polícia. Documentar notificação em prontuário. Apoio à criança/adolescente com acompanhamento contínuo pós-alta.',
        color: 'amber'
      }
    ]
@@ -1040,16 +1055,16 @@ export const RESUMOS = [
    emoji: '⚖️',
    subtitulo: 'Atendimento de emergência, profilaxias e contracepção',
    categoria: 'Social',
-   referencia: 'MS — Atenção Humanizada. SBP — Violência Sexual.',
+   referencia: 'MS — Atenção Humanizada à Mulher em Situação de Violência Sexual. SBP — Violência Sexual em Crianças e Adolescentes. Protocolo ISTs — MS, 2022.',
    seções: [
      {
        nome: 'Atendimento de Emergência',
-       conteudo: 'EMERGÊNCIA — até 72h. Acolhimento → notificação → anamnese + exame + coleta → exames → profilaxias → contracepção. Sorologias, β-HCG, hemograma, renal/hepática.',
+       conteudo: 'O atendimento é uma EMERGÊNCIA MÉDICA — realizar em até 72 horas da agressão para garantir eficácia das medidas contraceptivas e profiláticas. Etapas: (1) Acolhimento humanizado (ambiente privado, profissional treinado, sem julgamento); (2) Notificação compulsória (conforme ECA Lei 8069/90); (3) Anamnese detalhada (data/hora, tipo de abuso, número de agressores, lesões, último ato sexual consensual, histórico menstrual); (4) Exame físico completo (inspeções e buscas de lesões, presença/localização de sêmen); (5) Coleta de vestígios (suabes genitais/anorretais, cabelos, unhas — em kit específico com preservação); (6) Exames complementares: sorologias (HIV, hepatites B e C, sífilis), β-HCG (meninas em idade reprodutiva), hemograma, função renal/hepática (para avaliar necessidade medicações); conteúdo vaginal (Clamídia, Gonococo, Trichomonas — não demoram para fazer diagnóstico); (7) Profilaxias ISTs; (8) Contracepção de emergência; (9) Acompanhamento psicossocial.',
        color: 'red'
      },
      {
-       nome: 'Profilaxias e Contracepção',
-       conteudo: 'Tétano: histórico. ISTs: penicilina (sífilis), ceftriaxona (gonorreia), azitromicina (clamídia), metronidazol (tricomoníase). Hepatite B: vacina + IGHAHB. HIV: TDF/3TC+Dolutegravir 28d. Levonorgestrel 1,5mg VO.',
+       nome: 'Profilaxias e Contracepção de Emergência',
+       conteudo: 'Tétano: atualizar conforme histórico vacinal + situação da ferida (se traumática). ISTs não virais (indicadas em até 72h, preferível início <24h): Penicilina Benzatina 50.000 UI/kg IM dose única (máx 2.4 Mi UI) para sífilis; Ceftriaxona 125mg IM dose única para gonorreia; Azitromicina 20mg/kg VO dose única (máx 1g) para clamídia; Metronidazol 15mg/kg/dia dividido em 3 doses por 7 dias (máx 2g/dia) para tricomoníase. Hepatite B (idealmente <48h, até 14 dias): Vacina recombinante (dose apropriada por idade) + IGHAHB 0,06mL/kg IM (máx 5mL). HPV: completar esquema vacinal se incompleto. HIV profilaxia (até 72h — idealmente <2h): 3 drogas (TDF 300mg VO/dia + 3TC 300mg VO/dia + Dolutegravir 50mg VO/dia OU ABC 300mg/dia + 3TC 300mg + Lopinavir/ritonavir) por 28 dias total. Contracepção de emergência (levonorgestrel 1,5mg VO dose única OU mifepristona 600mg VO dose única — ambas até 72h idealmente, máx até 120h). Levonorgestrel é 1ª linha em meninas adolescentes em menacme.',
        color: 'amber'
      }
    ]
