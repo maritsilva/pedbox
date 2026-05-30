@@ -66,8 +66,8 @@ export default function Pesquisa() {
     return (
       <div className="max-w-xl mx-auto px-4 py-16 text-center">
         <FlaskConical className="w-12 h-12 text-primary mx-auto mb-4" />
-        <h2 className="text-xl font-bold mb-2">Pesquisa Pediátrica</h2>
-        <p className="text-muted-foreground text-sm mb-6">Faça login para acessar o assistente de pesquisa.</p>
+        <h2 className="text-xl font-bold mb-2">SophIA — IA do Pedbox</h2>
+        <p className="text-muted-foreground text-sm mb-6">Faça login para acessar a SophIA, a inteligência artificial do Pedbox.</p>
         <button
           onClick={() => base44.auth.redirectToLogin()}
           className="bg-primary text-white px-6 py-2.5 rounded-xl font-semibold text-sm"
@@ -90,8 +90,8 @@ export default function Pesquisa() {
             <FlaskConical className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <p className="font-bold text-sm text-foreground">PedResearch</p>
-            <p className="text-xs text-muted-foreground">Pesquisa e evidências pediátricas</p>
+            <p className="font-bold text-sm text-foreground">SophIA</p>
+            <p className="text-xs text-muted-foreground">Inteligência Artificial do Pedbox</p>
           </div>
         </div>
         <button
@@ -119,7 +119,7 @@ export default function Pesquisa() {
           <div className="space-y-6 py-4">
             <div className="text-center">
               <div className="text-4xl mb-3">🔬</div>
-              <h3 className="font-bold text-foreground mb-1">Pesquisa baseada em evidências</h3>
+              <h3 className="font-bold text-foreground mb-1">SophIA — sua IA clínica pediátrica</h3>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto">
                 Busco nas principais fontes científicas — PubMed, AAP, SBP, WHO — e resumo o que é relevante para sua prática clínica.
               </p>

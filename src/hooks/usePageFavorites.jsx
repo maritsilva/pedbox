@@ -8,7 +8,7 @@ export const ALL_PAGES = [
   { path: '/guia',                label: 'Guia de Medicamentos',             icon: '📖', desc: 'Doses, preparo e apresentações' },
   { path: '/protocolos',          label: 'Protocolos Clínicos',             icon: '🧪', desc: 'Fluxogramas passo a passo' },
   { path: '/resumos',             label: 'Resumos Clínicos',                icon: '📝', desc: 'Sínteses de tópicos essenciais' },
-  { path: '/pesquisa',            label: 'PedResearch IA',                  icon: '🔬', desc: 'Pesquisa inteligente de evidências' },
+  { path: '/pesquisa',            label: 'SophIA — IA Pediátrica',          icon: '🔬', desc: 'Inteligência artificial do Pedbox' },
   { path: '/drogas-emergencia',   label: 'Drogas na Emergência',            icon: '🚨', desc: 'Bolus, infusão e Broselow' },
   { path: '/calculadoras-hub',    label: 'Calculadoras Clínicas',           icon: '🧮', desc: 'Scores e cálculos pediátricos' },
   { path: '/hidratacao',          label: 'Hidratação Venosa',               icon: '💧', desc: 'Volumes e velocidades' },

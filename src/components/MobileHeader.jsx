@@ -16,7 +16,7 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
   const routeTitles = {
     '/guia': 'Biblioteca',
     '/calculadoras': 'Calculadoras',
-    '/pesquisa': 'PedResearch',
+    '/pesquisa': 'SophIA — IA Pediátrica',
     '/settings': 'Configurações',
     '/protocolos': 'Protocolos',
     '/hidratacao': 'Hidratação Venosa',

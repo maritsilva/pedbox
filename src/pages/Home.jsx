@@ -49,8 +49,8 @@ const MAIN_CARDS = [
     shadow: 'shadow-cyan-200',
   },
   {
-    label: 'PedResearch IA',
-    desc: 'Pesquisa inteligente de evidências e diretrizes clínicas.',
+    label: 'SophIA — IA Pediátrica',
+    desc: 'Inteligência artificial — evidências e diretrizes clínicas.',
     path: '/pesquisa',
     icon: Microscope,
     gradient: 'from-emerald-500 to-teal-600',
@@ -73,7 +73,7 @@ const ALL_SEARCH_TOOLS = [
   { label: 'Guia de Medicamentos', desc: 'Doses, preparo e apresentações', path: '/guia', keywords: ['guia', 'doses', 'medicamentos', 'antibióticos'] },
   { label: 'Protocolos Clínicos', desc: 'Diretrizes por condição', path: '/protocolos', keywords: ['protocolo', 'asma', 'bronquiolite', 'febre', 'diarreia'] },
   { label: 'Resumos Clínicos', desc: 'Sínteses de tópicos pediátricos', path: '/resumos', keywords: ['resumo', 'varicela', 'sarampo', 'diarreia'] },
-  { label: 'PedResearch', desc: 'Pesquisa e evidências científicas', path: '/pesquisa', keywords: ['pesquisa', 'evidência', 'guideline'] },
+  { label: 'SophIA — IA Pediátrica', desc: 'Inteligência artificial do Pedbox', path: '/pesquisa', keywords: ['pesquisa', 'evidência', 'guideline', 'sophia', 'ia', 'inteligência'] },
   { label: 'Hidratação Venosa', desc: 'Volumes e velocidades', path: '/hidratacao', keywords: ['hidratação', 'venosa', 'soro', 'holliday'] },
   { label: 'Drogas na Emergência', desc: 'Bolus e infusão contínua', path: '/drogas-emergencia', keywords: ['emergência', 'drogas', 'broselow'] },
 ];

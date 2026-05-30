@@ -26,7 +26,7 @@ const DRAWER_CATS = [
     { to: '/dosagens',   label: '⚡ Dosagens — Cálculo Rápido' },
     { to: '/protocolos', label: '🧪 Protocolos Clínicos' },
     { to: '/resumos',    label: '📝 Resumos Clínicos' },
-    { to: '/pesquisa',   label: '🔬 PedResearch IA' },
+    { to: '/pesquisa',   label: '🔬 SophIA — IA Pediátrica' },
   ]},
   { label: 'Ferramentas', items: [
     { to: '/hidratacao',        label: '💧 Hidratação Venosa' },
@@ -53,7 +53,7 @@ const ALL_SEARCH_TOOLS = [
   { label: 'Guia de Medicamentos', path: '/guia',            icon: '📖' },
   { label: 'Protocolos Clínicos', path: '/protocolos',       icon: '🧪' },
   { label: 'Resumos Clínicos',   path: '/resumos',           icon: '📝' },
-  { label: 'PedResearch IA',     path: '/pesquisa',          icon: '🔬' },
+  { label: 'SophIA — IA Pediátrica',  path: '/pesquisa',     icon: '🔬' },
   { label: 'Hidratação Venosa',  path: '/hidratacao',        icon: '💧' },
   { label: 'Drogas na Emergência', path: '/drogas-emergencia', icon: '🚨' },
   { label: 'Calculadoras Clínicas', path: '/calculadoras-hub', icon: '🧮' },
