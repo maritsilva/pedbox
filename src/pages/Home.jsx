@@ -82,15 +82,15 @@ export default function Home() {
         <img
           src="https://media.base44.com/images/public/69ecb71457668abac5516abd/349814975_ChatGPTImage17demai-remove-bg-io3.png"
           alt="PedBox"
-          className="h-28 w-auto mx-auto" />
+          className="h-48 w-auto mx-auto" />
         
         <div className="space-y-3">
-          
-
-
-
-
-          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-foreground leading-tight tracking-tight hidden">
+            Doses, Protocolos e Cálculos<br />
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent hidden">
+              Essenciais no Plantão
+            </span>
+          </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">Acesso imediato a doses, protocolos e cálculos, essenciais no plantão
 
           </p>
