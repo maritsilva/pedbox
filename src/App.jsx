@@ -4,6 +4,7 @@ import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { FavoritesProvider } from '@/hooks/useFavorites.jsx';
 import { DosagemFavoritesProvider } from '@/hooks/useDosagemFavorites.jsx';
+import { PageFavoritesProvider } from '@/hooks/usePageFavorites.jsx';
 import PageNotFound from './lib/PageNotFound';
 import Layout from './components/Layout';
 // Add page imports here
@@ -38,12 +39,14 @@ import SIPA from './pages/calculadoras/SIPA';
 import SilvermanAnderson from './pages/calculadoras/SilvermanAnderson';
 import EscoreRodwell from './pages/calculadoras/EscoreRodwell';
 import PASAsma from './pages/calculadoras/PASAsma';
+import Favoritos from './pages/Favoritos';
 
 function App() {
   return (
     <QueryClientProvider client={queryClientInstance}>
       <FavoritesProvider>
       <DosagemFavoritesProvider>
+      <PageFavoritesProvider>
       <Router>
         <Routes>
           <Route element={<Layout />}>
@@ -78,11 +81,13 @@ function App() {
             <Route path="/silverman-anderson" element={<SilvermanAnderson />} />
             <Route path="/rodwell" element={<EscoreRodwell />} />
             <Route path="/pas-asma" element={<PASAsma />} />
+            <Route path="/favoritos" element={<Favoritos />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Toaster />
       </Router>
+      </PageFavoritesProvider>
       </DosagemFavoritesProvider>
       </FavoritesProvider>
     </QueryClientProvider>

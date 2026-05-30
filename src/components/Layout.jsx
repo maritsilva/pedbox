@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, BookOpen, Calculator, Microscope, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MobileHeader from './MobileHeader';
 import PullToRefresh from './PullToRefresh';
@@ -11,6 +11,7 @@ const menuCategories = [
     label: 'Menu',
     items: [
       { to: '/', label: 'Início' },
+      { to: '/favoritos', label: '⭐ Meus Favoritos' },
     ],
   },
   {
@@ -71,6 +72,7 @@ const MOBILE_NAV = [
   { to: '/guia', label: 'Guia', icon: BookOpen },
   { to: '/calculadoras', label: 'Calc.', icon: Calculator },
   { to: '/pesquisa', label: 'Pesq.', icon: Microscope },
+  { to: '/favoritos', label: 'Favoritos', icon: Star },
 ];
 
 export default function Layout() {

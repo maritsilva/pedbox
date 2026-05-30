@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronLeft, Menu } from 'lucide-react';
+import { ChevronLeft, Menu, Star } from 'lucide-react';
+import { usePageFavorites, ALL_PAGES } from '@/hooks/usePageFavorites.jsx';
 
 export default function MobileHeader({ menuOpen, setMenuOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
   const isRoot = location.pathname === '/';
+  const { isFavorite, toggleFavorite } = usePageFavorites();
+  const currentPath = location.pathname;
+  const isFavoritablePage = ALL_PAGES.some(p => p.path === currentPath);
+  const fav = isFavorite(currentPath);
 
   // Map routes to readable titles
   const routeTitles = {
@@ -45,13 +50,18 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
                 className="h-8 w-auto"
               />
             </Link>
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="p-2 hover:bg-secondary rounded-lg transition-colors"
-              aria-label="Toggle menu"
-            >
-              <Menu className="w-6 h-6 text-foreground" />
-            </button>
+            <div className="flex items-center gap-1">
+              <Link to="/favoritos" className="p-2 hover:bg-secondary rounded-lg transition-colors" aria-label="Favoritos">
+                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+              </Link>
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                aria-label="Toggle menu"
+              >
+                <Menu className="w-6 h-6 text-foreground" />
+              </button>
+            </div>
           </>
         ) : (
           <>
@@ -65,7 +75,17 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
             <h1 className="flex-1 text-center text-sm font-bold text-foreground truncate px-4">
               {currentTitle}
             </h1>
-            <div className="w-10" />
+            {isFavoritablePage ? (
+              <button
+                onClick={() => toggleFavorite(currentPath)}
+                className="w-10 flex items-center justify-center"
+                title={fav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+              >
+                <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
+              </button>
+            ) : (
+              <div className="w-10" />
+            )}
           </>
         )}
       </div>
