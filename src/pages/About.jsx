@@ -84,8 +84,6 @@ export default function About() {
         </div>
       </motion.section>
 
-
-
       {/* Nossos pilares */}
       <motion.section
         variants={container}
@@ -97,8 +95,8 @@ export default function About() {
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-4 pb-4">Nossos pilares</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { icon: '🛡️', title: 'Acesso democrático', desc: 'Amortized que conhecimento a todos, em qualquer lugar.' },
-            { icon: '✓', title: 'Rigor e confiabilidade', desc: 'Alicerçado em evidências necessárias e melhores estudos disponíveis.' },
+            { icon: '🛡️', title: 'Acesso democrático', desc: 'Acesso que conhecimento a todos, em qualquer lugar.' },
+            { icon: '✓', title: 'Rigor e confiabilidade', desc: 'Alicerçado em evidências científicas e melhores estudos disponíveis.' },
             { icon: '👥', title: 'Comunidade', desc: 'Feito por profissionais de saúde para profissionais de saúde.' },
             { icon: '🔄', title: 'Evolução contínua', desc: 'Estamos sempre aprimorando a plataforma com base no feedback.' },
           ].map((pillar, i) => (
@@ -157,38 +155,69 @@ export default function About() {
         </a>
       </motion.section>
 
-      {/* Aviso */}
+      {/* Aviso Ético */}
       <motion.section
+        variants={item}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         className="max-w-4xl mx-auto px-4 py-12"
       >
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center">
-          <p className="text-sm text-amber-900">
-            <strong>⚠️ Versão Beta:</strong> O PedBox está em desenvolvimento. Toda informação deve ser validada com diretrizes oficiais e supervisão médica antes de qualquer decisão clínica.
-          </p>
+        <div className="bg-amber-50 border-l-4 border-amber-500 rounded-2xl p-6 sm:p-8 flex gap-4">
+          <AlertCircle className="w-7 h-7 text-amber-600 flex-shrink-0 mt-1" />
+          <div>
+            <h3 className="font-bold text-amber-900 text-lg mb-3">⚠️ Versão Beta — em desenvolvimento</h3>
+            <p className="text-amber-800 text-sm leading-relaxed mb-3">
+              O PedBox está em <strong>fase beta e desenvolvimento ativo</strong>. Erros, imprecisões ou informações desatualizadas podem ocorrer. Toda informação deve ser <strong>sempre validada</strong> com diretrizes oficiais, protocolos institucionais, literatura médica vigente e supervisão de especialistas antes de qualquer decisão clínica.
+            </p>
+            <p className="text-amber-800 text-sm leading-relaxed">
+              Esta plataforma é uma <strong>ferramenta de apoio educacional destinada exclusivamente a profissionais de saúde habilitados</strong> — médicos, estudantes de medicina em supervisão, residentes e outros profissionais com formação clínica. Não substitui avaliação clínica direta nem a responsabilidade do profissional assistente.
+            </p>
+          </div>
         </div>
       </motion.section>
 
-      {/* Footer */}
+      {/* Sobre a desenvolvedora */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="bg-slate-900 text-white text-center py-12 px-4"
+        className="max-w-4xl mx-auto px-4 py-12 text-center"
       >
-        <div className="max-w-2xl mx-auto">
-          <p className="text-sm text-slate-300 mb-4">
-            O PedBox é um projeto de código aberto. <br/>
-            Inspirado pela colaboração. Movido pelo cuidado. Construído para transformar.
+        <div className="bg-white rounded-2xl p-8 shadow-md border-2 border-blue-100">
+          <h3 className="text-xl font-bold text-gray-900 mb-3">Sobre a desenvolvedora</h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            O PedBox foi desenvolvido por uma médica residente em pediatria que acredita que barreiras de acesso ao conhecimento em saúde são barreiras à equidade. Este projeto é um convite: estudar, questionar, melhorar e construir juntos ferramentas que sirvam a toda comunidade médica.
+          </p>
+          <p className="text-gray-600 text-sm mb-5">
+            <strong>Licença:</strong> Livre para estudo, cópia, adaptação e melhoria.
           </p>
           <a
             href="mailto:pedboxapp@gmail.com"
-            className="text-blue-400 hover:text-blue-300 font-semibold"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all hover:shadow-lg"
           >
-            Tem dúvidas? Entre em contato →
+            <Mail className="w-5 h-5" />
+            Entrar em contato por e-mail
           </a>
+          <p className="text-xs text-gray-400 mt-2">pedboxapp@gmail.com</p>
+        </div>
+      </motion.section>
+
+      {/* Encerramento */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-16 px-4"
+      >
+        <div className="max-w-2xl mx-auto">
+          <Heart className="w-12 h-12 mx-auto mb-4 opacity-80" />
+          <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+            Conhecimento livre também é cuidado.
+          </h2>
+          <p className="mt-4 text-blue-100 text-lg">
+            Obrigado por fazer parte desta comunidade de aprendizado compartilhado.
+          </p>
         </div>
       </motion.section>
     </div>
