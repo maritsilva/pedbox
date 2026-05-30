@@ -37,10 +37,11 @@ export default function Home() {
           const q = search.toLowerCase();
           return d.name.toLowerCase().includes(q) ||
             (d.sinonimo && d.sinonimo.toLowerCase().includes(q)) ||
-            (d.marcas && d.marcas.toLowerCase().includes(q));
+            (d.marcas && d.marcas.toLowerCase().includes(q)) ||
+            (d.indicacoes && d.indicacoes.some(i => i.label.toLowerCase().includes(q)));
         }).slice(0, 5).map(d => ({
           label: `Cálculo dose — ${d.name}`,
-          desc: `${d.catLabel} · ${d.dose_min}–${d.dose_max} ${d.unidade}`,
+          desc: `${d.catLabel} · ${d.indicacoes?.length ?? 1} indicaç${(d.indicacoes?.length ?? 1) === 1 ? 'ão' : 'ões'}`,
           path: `/dosagens?drug=${d.id}`,
           catIcon: '⚡',
           type: 'dosagem',

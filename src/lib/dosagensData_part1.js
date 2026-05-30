@@ -1,0 +1,511 @@
+// PARTE 1: Analgésicos, Antiácidos, Antidiarreicos, Antieméticos, Antiflatulentes, Anti-histamínicos
+
+export const PART1_CATEGORIAS = [
+  {
+    id: 'antitermicos',
+    label: 'Analgésicos / Antitérmicos',
+    icon: '🌡️',
+    color: 'orange',
+    drugs: [
+      {
+        id: 'paracetamol',
+        name: 'Paracetamol',
+        sinonimo: 'Acetaminofeno',
+        marcas: 'Tylenol, Tyflen, Alivian',
+        descricao: 'Analgésico e antipirético indicado para alívio da dor leve a moderada e redução da febre.',
+        indicacoes: [
+          {
+            id: 'analgesia',
+            label: 'Analgesia / Antitérmico',
+            dose_min: 10, dose_max: 15, dose_max_abs: 1000,
+            unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            obs: 'Máx 75 mg/kg/dia. Dose máxima por tomada: 1.000 mg.',
+            apresentacoes: [
+              { label: 'Gotas 200 mg/mL (1 gota ≈ 10 mg)', conc: 200, tipo: 'gotas', mL_por_gota: 0.05 },
+              { label: 'Suspensão 32 mg/mL', conc: 32, tipo: 'mL' },
+              { label: 'Suspensão 100 mg/mL (Bebê)', conc: 100, tipo: 'mL' },
+              { label: 'Comprimido 500 mg (≥12 anos)', conc: 500, tipo: 'comprimido', idade_min: 12 },
+              { label: 'Comprimido 750 mg (≥12 anos)', conc: 750, tipo: 'comprimido', idade_min: 12 },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'ibuprofeno',
+        name: 'Ibuprofeno',
+        sinonimo: null,
+        marcas: 'Alivium, Dalsy, Advil, Buscofem',
+        descricao: 'Anti-inflamatório não esteroide (AINE) com propriedades analgésicas e antipiréticas, indicado para redução da febre e alívio de dores e inflamações.',
+        indicacoes: [
+          {
+            id: 'febre-dor',
+            label: 'Febre e Dor',
+            dose_min: 5, dose_max: 10, dose_max_abs: 400,
+            unidade: 'mg/kg/dose', freq: '6/6h ou 8/8h',
+            obs: 'Máx 40 mg/kg/dia. Febre alta: 10 mg/kg; febre baixa: 5 mg/kg.',
+            apresentacoes: [
+              { label: 'Gotas 50 mg/mL (1 gota = 2,5 mg)', conc: 50, tipo: 'gotas', mL_por_gota: 0.05 },
+              { label: 'Gotas 100 mg/mL (1 gota = 5 mg)', conc: 100, tipo: 'gotas', mL_por_gota: 0.05 },
+              { label: 'Xarope 30 mg/mL', conc: 30, tipo: 'mL' },
+              { label: 'Comprimido 200 mg', conc: 200, tipo: 'comprimido' },
+              { label: 'Comprimido 400 mg', conc: 400, tipo: 'comprimido' },
+              { label: 'Comprimido 600 mg (≥12 anos)', conc: 600, tipo: 'comprimido', idade_min: 12 },
+            ],
+          },
+          {
+            id: 'antiinflamatorio',
+            label: 'Anti-inflamatório (Artrite Juvenil)',
+            dose_min: 20, dose_max: 40, dose_max_abs: 800,
+            unidade: 'mg/kg/dia ÷ 3–4', freq: '8/8h',
+            obs: 'Artrite juvenil: 30–50 mg/kg/dia ÷ 4. Máx 2.400 mg/dia.',
+            apresentacoes: [
+              { label: 'Gotas 50 mg/mL (1 gota = 2,5 mg)', conc: 50, tipo: 'gotas', mL_por_gota: 0.05 },
+              { label: 'Xarope 30 mg/mL', conc: 30, tipo: 'mL' },
+              { label: 'Comprimido 400 mg', conc: 400, tipo: 'comprimido' },
+            ],
+          },
+        ],
+        alerta: '⚠️ Contraindicado na suspeita de dengue. Evitar em < 6 meses.',
+      },
+      {
+        id: 'dipirona',
+        name: 'Dipirona',
+        sinonimo: 'Metamizol Sódico',
+        marcas: 'Novalgina, Anador, Alivdip',
+        descricao: 'Analgésico e antitérmico indicado para o tratamento da dor e febre.',
+        indicacoes: [
+          {
+            id: 'analgesia-antitermico',
+            label: 'Analgesia / Antitérmico',
+            dose_min: 10, dose_max: 15, dose_max_abs: 1000,
+            unidade: 'mg/kg/dose', freq: '6/6h',
+            obs: 'Máx 4 doses/dia. Via IV: infundir lentamente 15–30 min. ≈ 0,5 gota/kg (gotas 500 mg/mL).',
+            apresentacoes: [
+              { label: 'Gotas 500 mg/mL (25 mg/gota)', conc: 500, tipo: 'gotas', mL_por_gota: 0.05 },
+              { label: 'Xarope 50 mg/mL', conc: 50, tipo: 'mL' },
+              { label: 'Ampola 500 mg/mL (IM/EV)', conc: 500, tipo: 'mL' },
+              { label: 'Supositório 300 mg (≥4 anos)', conc: 300, tipo: 'comprimido', idade_min: 4 },
+              { label: 'Comprimido 500 mg (≥15 anos)', conc: 500, tipo: 'comprimido', idade_min: 15 },
+            ],
+          },
+        ],
+        alerta: '⚠️ Contraindicado em < 3 meses ou < 5 kg. Via IV deve ser lenta para evitar hipotensão.',
+      },
+      {
+        id: 'morfina',
+        name: 'Sulfato de Morfina',
+        sinonimo: null,
+        marcas: 'Dimorf',
+        descricao: 'Opioide indicado para dor aguda moderada a intensa.',
+        indicacoes: [
+          {
+            id: 'dor-aguda',
+            label: 'Dor Aguda Moderada a Intensa',
+            dose_min: 0.05, dose_max: 0.1, dose_max_abs: 5,
+            unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            obs: 'Via IV preferencial. Infundir lentamente (4–5 min). Monitorar FR e sedação.',
+            apresentacoes: [
+              { label: 'Ampola 10 mg/mL (IV/IM/SC)', conc: 10, tipo: 'mL' },
+              { label: 'Ampola 1 mg/mL (IV diluída)', conc: 1, tipo: 'mL' },
+            ],
+          },
+        ],
+        alerta: '⚠️ Monitorar respiração. Ter naloxona disponível.',
+      },
+      {
+        id: 'codeina',
+        name: 'Fosfato de Codeína',
+        sinonimo: null,
+        marcas: 'Tylex, Codein',
+        descricao: 'Opioide de ação fraca indicado para dor moderada.',
+        indicacoes: [
+          {
+            id: 'dor-moderada',
+            label: 'Dor Moderada (≥ 12 anos)',
+            dose_min: 0.5, dose_max: 1, dose_max_abs: 60,
+            unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            obs: 'Evitar em < 12 anos. Máx 60 mg/dose.',
+            apresentacoes: [
+              { label: 'Comprimido 30 mg (≥12 anos)', conc: 30, tipo: 'comprimido', idade_min: 12 },
+              { label: 'Solução oral 3 mg/mL', conc: 3, tipo: 'mL' },
+            ],
+          },
+        ],
+        alerta: '⚠️ Risco de depressão respiratória. Contraindicado < 12 anos.',
+      },
+    ],
+  },
+
+  {
+    id: 'antiacidos',
+    label: 'Antiácidos',
+    icon: '🫄',
+    color: 'teal',
+    drugs: [
+      {
+        id: 'omeprazol',
+        name: 'Omeprazol',
+        sinonimo: null,
+        marcas: 'Losec, Peprazol',
+        descricao: 'Inibidor da bomba de prótons indicado para refluxo gastroesofágico e úlceras.',
+        indicacoes: [
+          {
+            id: 'drge',
+            label: 'Refluxo Gastroesofágico / Esofagite Erosiva',
+            dose_min: 0.7, dose_max: 1, dose_max_abs: 20,
+            unidade: 'mg/kg/dia', freq: '1x ao dia',
+            obs: 'Tomar 30 min antes do café da manhã. Máx 20 mg/dia.',
+            apresentacoes: [
+              { label: 'Cápsula 10 mg', conc: 10, tipo: 'comprimido' },
+              { label: 'Cápsula 20 mg', conc: 20, tipo: 'comprimido' },
+              { label: 'Fr. amp. 40 mg (EV)', conc: 40, tipo: 'frasco' },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'ranitidina',
+        name: 'Ranitidina',
+        sinonimo: null,
+        marcas: 'Antak, Label',
+        descricao: 'Antagonista H2 indicado para úlceras e refluxo gastroesofágico.',
+        indicacoes: [
+          {
+            id: 'ulcera-refluxo',
+            label: 'Úlcera / Refluxo',
+            dose_min: 2, dose_max: 4, dose_max_abs: 150,
+            unidade: 'mg/kg/dia ÷ 2', freq: '12/12h',
+            obs: 'EV: 1–2 mg/kg/dose × 3–4/dia. Máx 300 mg/dia.',
+            apresentacoes: [
+              { label: 'Xarope 15 mg/mL', conc: 15, tipo: 'mL' },
+              { label: 'Comprimido 150 mg', conc: 150, tipo: 'comprimido' },
+              { label: 'Ampola 25 mg/mL (EV)', conc: 25, tipo: 'mL' },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+    ],
+  },
+
+  {
+    id: 'antidiarreico',
+    label: 'Antidiarreico',
+    icon: '💧',
+    color: 'cyan',
+    drugs: [
+      {
+        id: 'zinco-diarreia',
+        name: 'Sulfato de Zinco',
+        sinonimo: null,
+        marcas: 'Zincovit',
+        descricao: 'Suplementação de zinco recomendada pela OMS no tratamento adjuvante da diarreia aguda infantil.',
+        indicacoes: [
+          {
+            id: 'diarreia-aguda',
+            label: 'Diarreia Aguda (OMS)',
+            dose_min: 10, dose_max: 20, dose_max_abs: 20,
+            unidade: 'mg/dia (elemento zinco)', freq: '1x ao dia por 10–14 dias',
+            obs: '< 6 meses: 10 mg/dia. ≥ 6 meses: 20 mg/dia.',
+            apresentacoes: [
+              { label: 'Comprimido 20 mg (elemento Zn)', conc: 20, tipo: 'comprimido' },
+              { label: 'Solução 2 mg/mL', conc: 2, tipo: 'mL' },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'loperamida',
+        name: 'Loperamida',
+        sinonimo: null,
+        marcas: 'Imosec',
+        descricao: 'Antidiarreico opioide periférico indicado para diarreia não complicada em > 2 anos.',
+        indicacoes: [
+          {
+            id: 'diarreia',
+            label: 'Diarreia (> 2 anos)',
+            dose_min: 0.05, dose_max: 0.1, dose_max_abs: 2,
+            unidade: 'mg/kg/dose', freq: '8/8h',
+            obs: 'Máx 2 mg/dose. Evitar em < 2 anos, diarreia com sangue ou febre alta.',
+            apresentacoes: [
+              { label: 'Cápsula 2 mg (> 2 anos)', conc: 2, tipo: 'comprimido', idade_min: 2 },
+              { label: 'Solução 0,2 mg/mL (> 2 anos)', conc: 0.2, tipo: 'mL', idade_min: 2 },
+            ],
+          },
+        ],
+        alerta: '⚠️ Evitar em < 2 anos, diarreia com sangue ou febre alta.',
+      },
+    ],
+  },
+
+  {
+    id: 'antieméticos',
+    label: 'Antieméticos',
+    icon: '🤢',
+    color: 'green',
+    drugs: [
+      {
+        id: 'ondansetrona',
+        name: 'Ondansetrona',
+        sinonimo: null,
+        marcas: 'Vonau, Zofran',
+        descricao: 'Antiemético antagonista 5-HT3 indicado para prevenção e tratamento de náuseas e vômitos.',
+        indicacoes: [
+          {
+            id: 'nauseas-vomitos',
+            label: 'Náuseas / Vômitos em Geral',
+            dose_min: 0.1, dose_max: 0.15, dose_max_abs: 4,
+            unidade: 'mg/kg/dose', freq: '8/8h',
+            obs: 'Máx 4 mg/dose. EV em 15 min. Máx 3 doses/dia.',
+            apresentacoes: [
+              { label: 'Solução oral 0,8 mg/mL', conc: 0.8, tipo: 'mL' },
+              { label: 'Comprimido 4 mg (ODT/sublingual)', conc: 4, tipo: 'comprimido' },
+              { label: 'Comprimido 8 mg (≥12 anos)', conc: 8, tipo: 'comprimido', idade_min: 12 },
+              { label: 'Ampola 2 mg/mL (EV)', conc: 2, tipo: 'mL' },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'metoclopramida',
+        name: 'Metoclopramida',
+        sinonimo: null,
+        marcas: 'Plasil',
+        descricao: 'Procinético e antiemético. Não é primeira escolha de tratamento.',
+        indicacoes: [
+          {
+            id: 'drge-procinetico',
+            label: 'DRGE / Procinético',
+            dose_min: 0.1, dose_max: 0.15, dose_max_abs: 5,
+            unidade: 'mg/kg/dose', freq: '6/6h ou 8/8h',
+            obs: 'Não é primeira escolha. Máx 5 mg/dose em crianças.',
+            apresentacoes: [
+              { label: 'Solução oral 4 mg/mL', conc: 4, tipo: 'mL' },
+              { label: 'Ampola 5 mg/mL (IM/IV)', conc: 5, tipo: 'mL' },
+              { label: 'Comprimido 10 mg (≥14 anos)', conc: 10, tipo: 'comprimido', idade_min: 14 },
+            ],
+          },
+        ],
+        alerta: '⚠️ Risco de reações extrapiramidais. Evitar uso prolongado em crianças.',
+      },
+      {
+        id: 'domperidona',
+        name: 'Domperidona',
+        sinonimo: null,
+        marcas: 'Motilium',
+        descricao: 'Procinético e antiemético de ação periférica.',
+        indicacoes: [
+          {
+            id: 'nauseas-refluxo',
+            label: 'Náuseas / Refluxo',
+            dose_min: 0.2, dose_max: 0.3, dose_max_abs: 10,
+            unidade: 'mg/kg/dose', freq: '8/8h',
+            obs: 'Máx 10 mg/dose. Usar menor dose e duração possível.',
+            apresentacoes: [
+              { label: 'Suspensão 1 mg/mL', conc: 1, tipo: 'mL' },
+              { label: 'Comprimido 10 mg', conc: 10, tipo: 'comprimido' },
+            ],
+          },
+        ],
+        alerta: '⚠️ Risco de prolongamento QT.',
+      },
+    ],
+  },
+
+  {
+    id: 'antiflatulentes',
+    label: 'Antiflatulentes',
+    icon: '💨',
+    color: 'amber',
+    drugs: [
+      {
+        id: 'simeticona',
+        name: 'Simeticona',
+        sinonimo: null,
+        marcas: 'Luftal, Mylicon',
+        descricao: 'Agente antiflatulente que reduz a tensão superficial das bolhas de gás no TGI, facilitando sua eliminação.',
+        indicacoes: [
+          {
+            id: 'gases',
+            label: 'Alívio de Gases / Distensão / Flatulência',
+            dose_min: 20, dose_max: 40, dose_max_abs: 125,
+            unidade: 'mg/dose', freq: '6/6h ou após mamadas',
+            obs: 'Lactentes: 20 mg após cada mamada. Crianças: 40 mg × 3–4/dia.',
+            apresentacoes: [
+              { label: 'Gotas 75 mg/mL', conc: 75, tipo: 'mL' },
+              { label: 'Comprimido mastigável 40 mg', conc: 40, tipo: 'comprimido' },
+              { label: 'Cápsula 125 mg', conc: 125, tipo: 'comprimido' },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+    ],
+  },
+
+  {
+    id: 'antialergicos',
+    label: 'Anti-histamínicos',
+    icon: '🌿',
+    color: 'green',
+    drugs: [
+      {
+        id: 'cetirizina',
+        name: 'Cetirizina',
+        sinonimo: null,
+        marcas: 'Zyrtec, Cetrizin',
+        descricao: 'Anti-histamínico de segunda geração, não sedante, indicado para rinite alérgica e urticária.',
+        indicacoes: [
+          {
+            id: 'rinite-urticaria',
+            label: 'Rinite Alérgica / Urticária',
+            dose_min: 0.25, dose_max: 0.25, dose_max_abs: 10,
+            unidade: 'mg/kg/dia', freq: '1x ao dia',
+            obs: '< 15 kg: 2,5 mg/dia. 15–30 kg: 5 mg/dia. > 30 kg: 10 mg/dia.',
+            apresentacoes: [
+              { label: 'Solução oral 1 mg/mL', conc: 1, tipo: 'mL' },
+              { label: 'Comprimido 10 mg (≥6 anos)', conc: 10, tipo: 'comprimido', idade_min: 6 },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'loratadina',
+        name: 'Loratadina',
+        sinonimo: null,
+        marcas: 'Claritin, Loratadina',
+        descricao: 'Anti-histamínico de segunda geração, não sedante.',
+        indicacoes: [
+          {
+            id: 'anti-histaminico',
+            label: 'Anti-histamínico',
+            dose_min: 0.2, dose_max: 0.2, dose_max_abs: 10,
+            unidade: 'mg/kg/dia', freq: '1x ao dia',
+            obs: '< 30 kg: 5 mg/dia. ≥ 30 kg: 10 mg/dia.',
+            apresentacoes: [
+              { label: 'Xarope 1 mg/mL', conc: 1, tipo: 'mL' },
+              { label: 'Comprimido 10 mg (≥6 anos)', conc: 10, tipo: 'comprimido', idade_min: 6 },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'desloratadina',
+        name: 'Desloratadina',
+        sinonimo: null,
+        marcas: 'Desalex, Aerius',
+        descricao: 'Anti-histamínico de terceira geração, metabólito ativo da loratadina.',
+        indicacoes: [
+          {
+            id: 'rinite-alergica',
+            label: 'Rinite Alérgica / Urticária',
+            dose_min: 0.05, dose_max: 0.1, dose_max_abs: 5,
+            unidade: 'mg/kg/dia', freq: '1x ao dia',
+            obs: '6–12m: 1 mg/dia. 1–5a: 1,25 mg/dia. 6–11a: 2,5 mg/dia. ≥12a: 5 mg/dia.',
+            apresentacoes: [
+              { label: 'Xarope 0,5 mg/mL', conc: 0.5, tipo: 'mL' },
+              { label: 'Gotas 1,25 mg/mL', conc: 1.25, tipo: 'gotas', mL_por_gota: 0.04 },
+              { label: 'Comprimido 5 mg (≥12 anos)', conc: 5, tipo: 'comprimido', idade_min: 12 },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'fexofenadina',
+        name: 'Fexofenadina',
+        sinonimo: null,
+        marcas: 'Allegra',
+        descricao: 'Anti-histamínico não sedante indicado para rinite alérgica e urticária.',
+        indicacoes: [
+          {
+            id: 'urticaria',
+            label: 'Urticária / Rinite Alérgica',
+            dose_min: 1, dose_max: 2, dose_max_abs: 180,
+            unidade: 'mg/kg/dia ÷ 2', freq: '12/12h',
+            obs: '6m–<2a: 15 mg 12/12h. 2–11a: 30 mg 12/12h. ≥12a: 180 mg 1×/dia.',
+            apresentacoes: [
+              { label: 'Suspensão 6 mg/mL', conc: 6, tipo: 'mL' },
+              { label: 'Comprimido 30 mg (≥6 anos)', conc: 30, tipo: 'comprimido', idade_min: 6 },
+              { label: 'Comprimido 60 mg (≥12 anos)', conc: 60, tipo: 'comprimido', idade_min: 12 },
+              { label: 'Comprimido 120 mg (≥12 anos)', conc: 120, tipo: 'comprimido', idade_min: 12 },
+              { label: 'Comprimido 180 mg (≥12 anos)', conc: 180, tipo: 'comprimido', idade_min: 12 },
+            ],
+          },
+        ],
+        alerta: null,
+      },
+      {
+        id: 'dexclorfeniramina',
+        name: 'Dexclorfeniramina',
+        sinonimo: null,
+        marcas: 'Polaramine',
+        descricao: 'Anti-histamínico de primeira geração com efeito sedante.',
+        indicacoes: [
+          {
+            id: 'anti-histaminico',
+            label: 'Anti-histamínico',
+            dose_min: 0.05, dose_max: 0.15, dose_max_abs: 2,
+            unidade: 'mg/kg/dose', freq: '8/8h',
+            obs: '2–5a: 0,5 mg 8/8h. 6–11a: 1 mg 8/8h. ≥12a: 2 mg 8/8h.',
+            apresentacoes: [
+              { label: 'Gotas 2,8 mg/mL', conc: 2.8, tipo: 'gotas', mL_por_gota: 0.025 },
+              { label: 'Xarope 0,4 mg/mL (2 mg/5 mL)', conc: 0.4, tipo: 'mL' },
+              { label: 'Comprimido 2 mg', conc: 2, tipo: 'comprimido' },
+            ],
+          },
+        ],
+        alerta: '⚠️ Sedativo. Evitar em < 2 anos.',
+      },
+      {
+        id: 'hidroxizina',
+        name: 'Hidroxizina',
+        sinonimo: null,
+        marcas: 'Hixizine, Atarax',
+        descricao: 'Anti-histamínico de primeira geração com ação sedativa e ansiolítica.',
+        indicacoes: [
+          {
+            id: 'alergia',
+            label: 'Alergia / Prurido',
+            dose_min: 0.5, dose_max: 1, dose_max_abs: 50,
+            unidade: 'mg/kg/dose', freq: '6/6h ou 8/8h',
+            obs: 'Sedação pré-procedimento: 1–2 mg/kg. Máx 50 mg/dose.',
+            apresentacoes: [
+              { label: 'Xarope 2 mg/mL', conc: 2, tipo: 'mL' },
+              { label: 'Comprimido 25 mg', conc: 25, tipo: 'comprimido' },
+            ],
+          },
+        ],
+        alerta: '⚠️ Sedativo. Evitar em < 6 meses.',
+      },
+      {
+        id: 'prometazina',
+        name: 'Prometazina',
+        sinonimo: null,
+        marcas: 'Fenergan',
+        descricao: 'Anti-histamínico de primeira geração com ações sedativa, antiemética e antialérgica.',
+        indicacoes: [
+          {
+            id: 'nauseas-alergia',
+            label: 'Náuseas / Vômitos / Alergia',
+            dose_min: 0.25, dose_max: 0.5, dose_max_abs: 25,
+            unidade: 'mg/kg/dose', freq: '8/8h',
+            obs: 'Máx 25 mg/dose.',
+            apresentacoes: [
+              { label: 'Ampola 25 mg/mL (IM/EV)', conc: 25, tipo: 'mL' },
+              { label: 'Xarope 1 mg/mL', conc: 1, tipo: 'mL' },
+              { label: 'Comprimido 25 mg (≥2 anos)', conc: 25, tipo: 'comprimido', idade_min: 2 },
+            ],
+          },
+        ],
+        alerta: '⚠️ Evitar em < 2 anos (risco de apneia). Sedativo.',
+      },
+    ],
+  },
+];

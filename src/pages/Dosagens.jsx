@@ -16,6 +16,7 @@ const COLOR_MAP = {
   amber:  { bg: 'bg-amber-50',  border: 'border-amber-200',  text: 'text-amber-700',  dot: 'bg-amber-500',  header: 'bg-amber-500',  badge: 'bg-amber-100 text-amber-800' },
   pink:   { bg: 'bg-pink-50',   border: 'border-pink-200',   text: 'text-pink-700',   dot: 'bg-pink-500',   header: 'bg-pink-600',   badge: 'bg-pink-100 text-pink-800' },
   lime:   { bg: 'bg-lime-50',   border: 'border-lime-200',   text: 'text-lime-700',   dot: 'bg-lime-500',   header: 'bg-lime-600',   badge: 'bg-lime-100 text-lime-800' },
+  orange: { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500', header: 'bg-orange-500', badge: 'bg-orange-100 text-orange-800' },
 };
 
 function DrugCard({ drug, catColor, onClick }) {
@@ -34,9 +35,11 @@ function DrugCard({ drug, catColor, onClick }) {
         <div className="flex-1 min-w-0">
           <p className="font-bold text-sm text-foreground leading-snug">{drug.name}</p>
           {drug.sinonimo && <p className="text-xs text-muted-foreground">{drug.sinonimo}</p>}
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${meta.badge} border-transparent`}>{drug.via}</span>
-            <span className="text-[10px] text-muted-foreground">{drug.dose_min}–{drug.dose_max} {drug.unidade}</span>
+          <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+            {drug.via && <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${meta.badge} border-transparent`}>{drug.via}</span>}
+            {drug.indicacoes?.length > 0 && (
+              <span className="text-[10px] text-muted-foreground">{drug.indicacoes.length} indicaç{drug.indicacoes.length === 1 ? 'ão' : 'ões'}</span>
+            )}
           </div>
         </div>
         <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all flex-shrink-0" />
@@ -62,7 +65,9 @@ export default function Dosagens() {
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
     return allDrugs.filter(d => {
-      const matchSearch = !q || [d.name, d.sinonimo, d.marcas, d.catLabel].filter(Boolean).some(s => s.toLowerCase().includes(q));
+      const searchFields = [d.name, d.sinonimo, d.marcas, d.catLabel,
+        ...(d.indicacoes?.map(i => i.label) ?? [])].filter(Boolean);
+      const matchSearch = !q || searchFields.some(s => s.toLowerCase().includes(q));
       const matchCat = !activeCategoria || d.catId === activeCategoria;
       return matchSearch && matchCat;
     });
