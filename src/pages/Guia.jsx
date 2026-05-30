@@ -1,34 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ALL_CATEGORIES as GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
 import { searchDrugs } from '@/lib/searchDrugs';
-import { Search, ChevronLeft, ChevronRight, AlertTriangle, ShieldAlert, Info, Package, Pill, FlaskConical, Stethoscope, Star, Zap } from 'lucide-react';
+import { Search, ChevronRight, ChevronLeft, Star, Zap, LayoutGrid, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
 
 const colorMap = {
-  'red-500': { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-500', pill: 'bg-red-500' },
-  'purple-500': { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-500', pill: 'bg-purple-500' },
-  'orange-500': { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-500', pill: 'bg-orange-500' },
-  'green-500': { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-500', pill: 'bg-green-500' },
-  'cyan-500': { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-500', pill: 'bg-cyan-500' },
-  'blue-500': { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-500', pill: 'bg-blue-500' },
-  'indigo-500': { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-500', pill: 'bg-indigo-500' },
-  'amber-500': { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-500', pill: 'bg-amber-500' },
-  'pink-500': { bg: 'bg-pink-50', border: 'border-pink-200', text: 'text-pink-500', pill: 'bg-pink-500' },
-  'teal-500': { bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-500', pill: 'bg-teal-500' },
+  'red-500':    { bg: 'bg-red-50',    border: 'border-red-200',    text: 'text-red-500',    pill: 'bg-red-500',    iconBg: 'bg-red-100' },
+  'purple-500': { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-500', pill: 'bg-purple-500', iconBg: 'bg-purple-100' },
+  'orange-500': { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-500', pill: 'bg-orange-500', iconBg: 'bg-orange-100' },
+  'green-500':  { bg: 'bg-green-50',  border: 'border-green-200',  text: 'text-green-500',  pill: 'bg-green-500',  iconBg: 'bg-green-100' },
+  'cyan-500':   { bg: 'bg-cyan-50',   border: 'border-cyan-200',   text: 'text-cyan-500',   pill: 'bg-cyan-500',   iconBg: 'bg-cyan-100' },
+  'blue-500':   { bg: 'bg-blue-50',   border: 'border-blue-200',   text: 'text-blue-500',   pill: 'bg-blue-500',   iconBg: 'bg-blue-100' },
+  'indigo-500': { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-500', pill: 'bg-indigo-500', iconBg: 'bg-indigo-100' },
+  'amber-500':  { bg: 'bg-amber-50',  border: 'border-amber-200',  text: 'text-amber-500',  pill: 'bg-amber-500',  iconBg: 'bg-amber-100' },
+  'pink-500':   { bg: 'bg-pink-50',   border: 'border-pink-200',   text: 'text-pink-500',   pill: 'bg-pink-500',   iconBg: 'bg-pink-100' },
+  'teal-500':   { bg: 'bg-teal-50',   border: 'border-teal-200',   text: 'text-teal-500',   pill: 'bg-teal-500',   iconBg: 'bg-teal-100' },
+  'lime-500':   { bg: 'bg-lime-50',   border: 'border-lime-200',   text: 'text-lime-500',   pill: 'bg-lime-500',   iconBg: 'bg-lime-100' },
 };
+
+const MAIS_CONSULTADOS = [
+  { name: 'Paracetamol',   catLabel: 'Analgésicos e Anti-inflamatórios', drugId: 'paracetamol' },
+  { name: 'Ibuprofeno',    catLabel: 'Analgésicos e Anti-inflamatórios', drugId: 'ibuprofeno' },
+  { name: 'Amoxicilina',   catLabel: 'Antibióticos',                     drugId: 'amoxicilina' },
+  { name: 'Salbutamol',    catLabel: 'Sistema Respiratório',              drugId: 'salbutamol' },
+  { name: 'Dipirona',      catLabel: 'Analgésicos e Anti-inflamatórios', drugId: 'dipirona' },
+  { name: 'Prednisolona',  catLabel: 'Corticosteroides',                  drugId: 'prednisolona' },
+  { name: 'Omeprazol',     catLabel: 'Gastroprotetores',                  drugId: 'omeprazol' },
+  { name: 'Cetirizina',    catLabel: 'Anti-histamínicos',                 drugId: 'cetirizina' },
+];
 
 export default function Guia() {
   const [search, setSearch] = useState('');
+  const [catSearch, setCatSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedDrug, setSelectedDrug] = useState(null);
-  const [activeTab, setActiveTab] = useState('categorias'); // 'categorias' | 'favoritos'
-  const filterCat = null;
+  const [activeTab, setActiveTab] = useState('categorias');
   const { favorites, isFavorite } = useFavorites();
 
-  // Handle URL param ?drug=
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const drugId = params.get('drug');
@@ -42,9 +53,7 @@ export default function Guia() {
     }
   }, []);
 
-  const searchResults = search.trim().length > 1
-    ? searchDrugs(search, 12)
-    : [];
+  const searchResults = search.trim().length > 1 ? searchDrugs(search, 12) : [];
 
   const resetAll = () => {
     setSelectedDrug(null);
@@ -53,12 +62,25 @@ export default function Guia() {
     window.history.replaceState({}, '', window.location.pathname);
   };
 
+  const allDrugsMap = useMemo(() => Object.fromEntries(
+    GUIDE_CATEGORIES.flatMap(c => c.drugs.map(d => [d.id, { ...d, catLabel: c.label, catColor: c.color, catIcon: c.icon, catId: c.id }]))
+  ), []);
+
+  const favoriteDrugs = favorites.map(id => allDrugsMap[id]).filter(Boolean);
+
+  const filteredCats = useMemo(() => {
+    const q = catSearch.toLowerCase().trim();
+    if (!q) return GUIDE_CATEGORIES;
+    return GUIDE_CATEGORIES.filter(c => c.label.toLowerCase().includes(q));
+  }, [catSearch]);
+
+  // ── Drug detail ──
   if (selectedDrug) {
     const cat = GUIDE_CATEGORIES.find(c => c.id === selectedDrug.category);
     const colors = colorMap[cat?.color] || colorMap['blue-500'];
     return (
       <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
-        <button onClick={() => { setSelectedDrug(null); }} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors">
+        <button onClick={() => setSelectedDrug(null)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Voltar
         </button>
         <DrugGuideDetail drug={selectedDrug} colors={colors} catIcon={cat?.icon} catLabel={cat?.label} />
@@ -66,6 +88,7 @@ export default function Guia() {
     );
   }
 
+  // ── Category drug list ──
   if (selectedCat) {
     const colors = colorMap[selectedCat.color] || colorMap['blue-500'];
     return (
@@ -82,11 +105,7 @@ export default function Guia() {
         </div>
         <div className="space-y-2">
           {selectedCat.drugs.map((drug, i) => (
-            <motion.button
-              key={drug.id}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.04 }}
+            <motion.button key={drug.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}
               onClick={() => setSelectedDrug(drug)}
               className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm transition-all group"
             >
@@ -102,121 +121,44 @@ export default function Guia() {
     );
   }
 
-  const allDrugsMap = Object.fromEntries(
-    GUIDE_CATEGORIES.flatMap(c => c.drugs.map(d => [d.id, { ...d, catLabel: c.label, catColor: c.color, catIcon: c.icon }]))
-  );
-  const favoriteDrugs = favorites.map(id => allDrugsMap[id]).filter(Boolean);
-
+  // ── Main view ──
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-5">
-        <h1 className="text-2xl font-extrabold text-foreground mb-1">Bulas</h1>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+
+      {/* ── HEADER ── */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-extrabold text-foreground mb-1">Bulas</h1>
         <p className="text-muted-foreground text-sm">Referência clínica completa de medicamentos pediátricos e adultos</p>
       </div>
 
-      {/* Drogas Emergência shortcut */}
-      <Link to="/drogas-emergencia">
-        <div className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl px-4 py-3.5 mb-5 shadow-sm hover:shadow-md transition-all group">
-          <div className="bg-white/20 rounded-lg p-1.5 flex-shrink-0">
-            <Zap className="w-4 h-4" />
-          </div>
-          <div className="flex-1">
-            <p className="font-bold text-sm">Drogas na Emergência</p>
-            <p className="text-red-100 text-xs">Bolus · Infusão Contínua · Equipamentos</p>
-          </div>
-          <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
-        </div>
-      </Link>
-
-      {/* Tabs */}
-      <div className="flex gap-2 mb-6">
-        <button
-          onClick={() => setActiveTab('categorias')}
-          className={`flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all ${activeTab === 'categorias' ? 'bg-primary text-white shadow' : 'bg-white border border-border text-muted-foreground hover:border-primary/40'}`}
-        >
-          Categorias
-        </button>
-        <button
-          onClick={() => setActiveTab('favoritos')}
-          className={`flex items-center justify-center gap-2 flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all ${activeTab === 'favoritos' ? 'bg-yellow-400 text-yellow-900 shadow' : 'bg-white border border-border text-muted-foreground hover:border-yellow-300'}`}
-        >
-          <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-yellow-900' : ''}`} />
-          Favoritos
-          {favorites.length > 0 && (
-            <span className={`text-xs rounded-full px-1.5 py-0.5 font-bold ${activeTab === 'favoritos' ? 'bg-yellow-900/20 text-yellow-900' : 'bg-yellow-100 text-yellow-700'}`}>
-              {favorites.length}
-            </span>
-          )}
-        </button>
-      </div>
-
-      {/* Favoritos tab */}
-      {activeTab === 'favoritos' && (
-        <div>
-          {favoriteDrugs.length === 0 ? (
-            <div className="text-center py-16 text-muted-foreground">
-              <Star className="w-10 h-10 mx-auto mb-3 text-yellow-300" />
-              <p className="font-semibold text-foreground">Nenhum favorito ainda</p>
-              <p className="text-sm mt-1">Abra um medicamento e toque na estrela ⭐ para salvá-lo aqui.</p>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              {favoriteDrugs.map((drug, i) => {
-                const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category);
-                return (
-                  <motion.button
-                    key={drug.id}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); }}
-                    className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center gap-3 hover:border-yellow-300 hover:shadow-sm transition-all group"
-                  >
-                    <span className="text-xl">{cat?.icon}</span>
-                    <div className="flex-1">
-                      <span className="font-semibold text-sm text-foreground">{drug.name}</span>
-                      {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
-                      <p className="text-xs text-muted-foreground mt-0.5">{cat?.label}</p>
-                    </div>
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
-                  </motion.button>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Categorias tab */}
-      {activeTab === 'categorias' && <>
-
-      {/* Search */}
-      <div className="relative mb-3">
+      {/* ── GLOBAL SEARCH ── */}
+      <div className="relative mb-6">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Buscar medicamento..."
+          placeholder="Buscar medicamento, classe ou princípio ativo..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full border border-border rounded-2xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white shadow-sm"
+          className="w-full border border-border rounded-2xl pl-11 pr-16 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white shadow-sm"
         />
+        <kbd className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] bg-secondary border border-border rounded px-1.5 py-0.5 font-mono text-muted-foreground hidden md:block pointer-events-none">⌘K</kbd>
+        {search && (
+          <button onClick={() => setSearch('')} className="absolute right-4 md:right-16 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+            <X className="w-4 h-4" />
+          </button>
+        )}
+
+        {/* Search dropdown */}
         <AnimatePresence>
           {searchResults.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-2xl shadow-lg overflow-hidden z-30"
-            >
+            <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-2xl shadow-lg overflow-hidden z-30">
               {searchResults.map(drug => {
                 const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category);
                 const colors = colorMap[cat?.color] || colorMap['blue-500'];
                 return (
-                  <button
-                    key={drug.id}
-                    onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); setSearch(''); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0"
-                  >
+                  <button key={drug.id} onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); setSearch(''); }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
                     <span className="text-xl">{cat?.icon}</span>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold">{drug.name}</p>
@@ -232,31 +174,165 @@ export default function Guia() {
         </AnimatePresence>
       </div>
 
-      {/* Categories grid */}
-      {!filterCat && <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {GUIDE_CATEGORIES.map((cat, i) => {
-          const colors = colorMap[cat.color] || colorMap['blue-500'];
-          return (
-            <motion.button
-              key={cat.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              onClick={() => setSelectedCat(cat)}
-              className={`${colors.bg} ${colors.border} border rounded-2xl p-4 flex items-center gap-4 text-left hover:shadow-md transition-all`}
-            >
-              <span className="text-3xl">{cat.icon}</span>
-              <div className="flex-1">
-                <p className={`text-sm font-bold ${colors.text}`}>{cat.label}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{cat.drugs.length} medicamento{cat.drugs.length !== 1 ? 's' : ''}</p>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </motion.button>
-          );
-        })}
-      </div>}
+      {/* ── TABS ── */}
+      <div className="flex gap-2 mb-6">
+        <button onClick={() => setActiveTab('categorias')}
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${activeTab === 'categorias' ? 'bg-primary text-white border-primary shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`}>
+          <LayoutGrid className="w-4 h-4" /> Categorias
+        </button>
+        <button onClick={() => setActiveTab('favoritos')}
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${activeTab === 'favoritos' ? 'bg-yellow-400 text-yellow-900 border-yellow-400 shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-yellow-300'}`}>
+          <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-yellow-900' : ''}`} />
+          Favoritos
+          {favorites.length > 0 && (
+            <span className={`text-xs rounded-full px-1.5 font-bold ${activeTab === 'favoritos' ? 'bg-yellow-900/20 text-yellow-900' : 'bg-yellow-100 text-yellow-700'}`}>
+              {favorites.length}
+            </span>
+          )}
+        </button>
+      </div>
 
-      </>}
+      {/* ── FAVORITOS TAB ── */}
+      {activeTab === 'favoritos' && (
+        <div className="max-w-3xl">
+          {favoriteDrugs.length === 0 ? (
+            <div className="text-center py-16 bg-white border border-border rounded-2xl text-muted-foreground">
+              <Star className="w-10 h-10 mx-auto mb-3 text-yellow-300" />
+              <p className="font-semibold text-foreground">Nenhum favorito ainda</p>
+              <p className="text-sm mt-1">Abra um medicamento e toque na estrela ⭐ para salvá-lo aqui.</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {favoriteDrugs.map((drug, i) => {
+                const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category);
+                return (
+                  <motion.button key={drug.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}
+                    onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); }}
+                    className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center gap-3 hover:border-yellow-300 hover:shadow-sm transition-all group">
+                    <span className="text-xl">{cat?.icon}</span>
+                    <div className="flex-1">
+                      <span className="font-semibold text-sm text-foreground">{drug.name}</span>
+                      {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
+                      <p className="text-xs text-muted-foreground mt-0.5">{cat?.label}</p>
+                    </div>
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
+                  </motion.button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── CATEGORIAS TAB ── */}
+      {activeTab === 'categorias' && (
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+
+          {/* LEFT — Category list */}
+          <div className="flex-1 min-w-0">
+
+            {/* Category search + sort */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Filtrar categorias..."
+                  value={catSearch}
+                  onChange={e => setCatSearch(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+                {catSearch && (
+                  <button onClick={() => setCatSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2.5 bg-white border border-border rounded-xl text-sm text-muted-foreground whitespace-nowrap">
+                Ordenar: A–Z
+              </div>
+            </div>
+
+            {/* Drogas Emergência shortcut */}
+            <Link to="/drogas-emergencia" className="block mb-4">
+              <div className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl px-4 py-3.5 shadow-sm hover:shadow-md transition-all group">
+                <div className="bg-white/20 rounded-lg p-1.5 flex-shrink-0">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-sm">Drogas na Emergência</p>
+                  <p className="text-red-100 text-xs">Bolus · Infusão Contínua · Equipamentos</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
+              </div>
+            </Link>
+
+            {/* Category grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {filteredCats.map((cat, i) => {
+                const colors = colorMap[cat.color] || colorMap['blue-500'];
+                return (
+                  <motion.button key={cat.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
+                    onClick={() => setSelectedCat(cat)}
+                    className="w-full bg-white border border-border rounded-2xl px-4 py-4 flex items-center gap-4 text-left hover:border-primary/30 hover:shadow-md transition-all group">
+                    <div className={`w-12 h-12 rounded-xl ${colors.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
+                      {cat.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-sm text-foreground leading-snug">{cat.label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{cat.drugs.length} medicamento{cat.drugs.length !== 1 ? 's' : ''}</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {filteredCats.length === 0 && (
+              <div className="text-center py-16 bg-white border border-border rounded-2xl">
+                <p className="text-3xl mb-2">🔍</p>
+                <p className="font-semibold text-foreground text-sm">Nenhuma categoria encontrada</p>
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT — Sidebar: Mais consultados */}
+          <div className="lg:w-72 xl:w-80 flex-shrink-0 lg:sticky lg:top-20">
+            <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
+              <div className="flex items-center gap-2 px-5 py-4 border-b border-border">
+                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                <p className="font-bold text-sm text-foreground">Mais consultados</p>
+              </div>
+              <div className="divide-y divide-border/60">
+                {MAIS_CONSULTADOS.map((item, i) => {
+                  const drug = getAllGuideDrugs().find(d => d.id === item.drugId || d.name.toLowerCase() === item.name.toLowerCase());
+                  const cat = drug ? GUIDE_CATEGORIES.find(c => c.id === drug.category) : null;
+                  return (
+                    <button key={i} onClick={() => { if (drug && cat) { setSelectedCat(cat); setSelectedDrug(drug); } }}
+                      className="w-full flex items-center gap-3 px-5 py-3.5 hover:bg-secondary/40 transition-colors group text-left">
+                      <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[11px] font-bold text-primary flex-shrink-0">
+                        {i + 1}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-foreground truncate">{item.name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{item.catLabel}</p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="px-5 py-3 border-t border-border">
+                <button onClick={() => setActiveTab('favoritos')}
+                  className="w-full flex items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+                  Ver todos <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      )}
     </div>
   );
 }
