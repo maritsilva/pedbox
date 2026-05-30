@@ -28,6 +28,16 @@ export const PART1_CATEGORIAS = [
               { label: 'Comprimido 750 mg (≥12 anos)', conc: 750, tipo: 'comprimido', idade_min: 12 },
             ],
           },
+          {
+            id: 'prematuro',
+            label: 'Prematuro / Neonato (< 1 mês)',
+            dose_min: 10, dose_max: 12, dose_max_abs: 60,
+            unidade: 'mg/kg/dose', freq: '8/8h ou 12/12h',
+            obs: 'Prematuro 28–36 sem: 10–12 mg/kg × 3–4/dia. RN a termo: 10–15 mg/kg × 4/dia.',
+            apresentacoes: [
+              { label: 'Suspensão 100 mg/mL (Bebê)', conc: 100, tipo: 'mL' },
+            ],
+          },
         ],
         alerta: null,
       },
@@ -77,7 +87,7 @@ export const PART1_CATEGORIAS = [
         indicacoes: [
           {
             id: 'analgesia-antitermico',
-            label: 'Analgesia / Antitérmico',
+            label: 'Analgesia / Antitérmico (> 3 meses)',
             dose_min: 10, dose_max: 15, dose_max_abs: 1000,
             unidade: 'mg/kg/dose', freq: '6/6h',
             obs: 'Máx 4 doses/dia. Via IV: infundir lentamente 15–30 min. ≈ 0,5 gota/kg (gotas 500 mg/mL).',
@@ -89,9 +99,19 @@ export const PART1_CATEGORIAS = [
               { label: 'Comprimido 500 mg (≥15 anos)', conc: 500, tipo: 'comprimido', idade_min: 15 },
             ],
           },
+          {
+            id: 'colica-espasmo',
+            label: 'Cólica / Espasmo Gastrointestinal',
+            dose_min: 10, dose_max: 15, dose_max_abs: 1000,
+            unidade: 'mg/kg/dose EV/IM', freq: '6/6h ou 8/8h',
+            obs: 'Uso parenteral: 10–15 mg/kg EV/IM em 15–30 min.',
+            apresentacoes: [
+              { label: 'Ampola 500 mg/mL (IM/EV)', conc: 500, tipo: 'mL' },
+            ],
+          },
         ],
         alerta: '⚠️ Contraindicado em < 3 meses ou < 5 kg. Via IV deve ser lenta para evitar hipotensão.',
-      },
+        },
       {
         id: 'morfina',
         name: 'Sulfato de Morfina',
@@ -264,6 +284,16 @@ export const PART1_CATEGORIAS = [
               { label: 'Solução oral 0,8 mg/mL', conc: 0.8, tipo: 'mL' },
               { label: 'Comprimido 4 mg (ODT/sublingual)', conc: 4, tipo: 'comprimido' },
               { label: 'Comprimido 8 mg (≥12 anos)', conc: 8, tipo: 'comprimido', idade_min: 12 },
+              { label: 'Ampola 2 mg/mL (EV)', conc: 2, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'quimioterapia',
+            label: 'Náuseas / Vômitos por Quimioterapia',
+            dose_min: 0.15, dose_max: 0.15, dose_max_abs: 8,
+            unidade: 'mg/kg/dose', freq: 'Antes da quimio + 4h e 8h depois',
+            obs: '0,15 mg/kg EV em 15 min. Máx 8 mg/dose. 3 doses (antes, 4h e 8h após quimio).',
+            apresentacoes: [
               { label: 'Ampola 2 mg/mL (EV)', conc: 2, tipo: 'mL' },
             ],
           },

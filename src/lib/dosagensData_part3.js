@@ -177,6 +177,30 @@ export const PART3_CATEGORIAS = [
               { label: 'Gotas 11 mg/mL', conc: 11, tipo: 'gotas', mL_por_gota: 0.033 },
             ],
           },
+          {
+            id: 'nefrotico',
+            label: 'Síndrome Nefrótica',
+            dose_min: 2, dose_max: 2, dose_max_abs: 60,
+            unidade: 'mg/kg/dia', freq: '1x ao dia por 4–6 semanas',
+            obs: '2 mg/kg/dia × 4–6 semanas (máx 60 mg/dia); depois 1,5 mg/kg em dias alternados × 4–6 semanas.',
+            apresentacoes: [
+              { label: 'Solução oral 3 mg/mL', conc: 3, tipo: 'mL' },
+              { label: 'Comprimido 5 mg', conc: 5, tipo: 'comprimido' },
+              { label: 'Comprimido 20 mg', conc: 20, tipo: 'comprimido' },
+            ],
+          },
+          {
+            id: 'antiinflamatorio',
+            label: 'Anti-inflamatório Geral',
+            dose_min: 0.5, dose_max: 2, dose_max_abs: 60,
+            unidade: 'mg/kg/dia', freq: '1–3 doses ao dia',
+            obs: 'Dose de 0,5–2 mg/kg/dia conforme indicação. Máx 60 mg/dia.',
+            apresentacoes: [
+              { label: 'Solução oral 3 mg/mL', conc: 3, tipo: 'mL' },
+              { label: 'Comprimido 5 mg', conc: 5, tipo: 'comprimido' },
+              { label: 'Comprimido 20 mg', conc: 20, tipo: 'comprimido' },
+            ],
+          },
         ],
         alerta: null,
       },
@@ -219,6 +243,26 @@ export const PART3_CATEGORIAS = [
             obs: '0,15 mg/kg × 4/dia × 2 dias. Iniciar junto com antibiótico.',
             apresentacoes: [
               { label: 'Ampola 4 mg/mL (EV)', conc: 4, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'edema-cerebral',
+            label: 'Edema Cerebral',
+            dose_min: 0.5, dose_max: 1, dose_max_abs: 10,
+            unidade: 'mg/kg/dose', freq: '6/6h',
+            obs: 'Ataque: 0,5–1 mg/kg EV/IM. Manutenção: 0,25–0,5 mg/kg × 4/dia.',
+            apresentacoes: [
+              { label: 'Ampola 4 mg/mL (EV)', conc: 4, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'broncoespasmo',
+            label: 'Broncoespasmo / Asma Grave',
+            dose_min: 0.3, dose_max: 0.6, dose_max_abs: 10,
+            unidade: 'mg/kg/dose', freq: '6/6h ou 12/12h por 1–3 dias',
+            obs: '0,3–0,6 mg/kg EV/IM. Máx 10 mg/dose.',
+            apresentacoes: [
+              { label: 'Ampola 2 mg/mL (IM/EV)', conc: 2, tipo: 'mL' },
             ],
           },
         ],
@@ -375,6 +419,27 @@ export const PART3_CATEGORIAS = [
               { label: 'Solução retal 2 mg/mL', conc: 2, tipo: 'mL' },
             ],
           },
+          {
+            id: 'convulsao-febril',
+            label: 'Convulsão Febril (dose pré-hospitalar)',
+            dose_min: 0.3, dose_max: 0.5, dose_max_abs: 10,
+            unidade: 'mg/kg/dose retal', freq: 'Dose única retal',
+            obs: 'Retal: 0,3–0,5 mg/kg. Máx 10 mg. Alternativa ao EV no ambiente pré-hospitalar.',
+            apresentacoes: [
+              { label: 'Solução retal 2 mg/mL', conc: 2, tipo: 'mL' },
+              { label: 'Ampola 5 mg/mL (retal)', conc: 5, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'espasmo-muscular',
+            label: 'Espasmo Muscular / Sedação Leve',
+            dose_min: 0.1, dose_max: 0.3, dose_max_abs: 5,
+            unidade: 'mg/kg/dose VO', freq: '8/8h (uso agudo)',
+            obs: 'Tétano: 0,1–0,3 mg/kg VO × 6–8/dia. Espasmos: 0,2–0,3 mg/kg × 3–4/dia.',
+            apresentacoes: [
+              { label: 'Ampola 5 mg/mL (EV)', conc: 5, tipo: 'mL' },
+            ],
+          },
         ],
         alerta: '⚠️ Infundir lentamente (< 5 mg/min). Monitorar FR e SpO₂.',
       },
@@ -390,7 +455,7 @@ export const PART3_CATEGORIAS = [
             label: 'Convulsão / Status Epiléptico',
             dose_min: 0.1, dose_max: 0.3, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: 'Repetir 1× após 5 min se necessário',
-            obs: 'EV/IM: 0,1–0,3 mg/kg (máx 10 mg). Intranasal: 0,2 mg/kg (0,1 mL/narina).',
+            obs: 'EV/IM: 0,1–0,3 mg/kg (máx 10 mg). Intranasal: 0,2 mg/kg (0,1 mL/narina). Bucal: 0,3–0,5 mg/kg.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV/IM)', conc: 5, tipo: 'mL' },
               { label: 'Ampola 1 mg/mL (EV diluído)', conc: 1, tipo: 'mL' },
@@ -399,12 +464,22 @@ export const PART3_CATEGORIAS = [
           {
             id: 'sedacao',
             label: 'Sedação para Procedimentos',
-            dose_min: 0.05, dose_max: 0.1, dose_max_abs: 5,
+            dose_min: 0.05, dose_max: 0.5, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: 'Dose única (15–30 min antes)',
-            obs: 'VO/intranasal: 0,3–0,5 mg/kg. EV: 0,05–0,1 mg/kg. Máx 5 mg.',
+            obs: 'VO/intranasal: 0,3–0,5 mg/kg. EV: 0,05–0,1 mg/kg. Máx 5 mg EV; 10 mg VO.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV/IM)', conc: 5, tipo: 'mL' },
               { label: 'Solução oral 2 mg/mL', conc: 2, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'sedacao-uti',
+            label: 'Sedação Contínua em UTI',
+            dose_min: 0.05, dose_max: 0.1, dose_max_abs: 10,
+            unidade: 'mg/kg/h (infusão EV)', freq: 'Infusão contínua EV',
+            obs: 'Infusão: 0,05–0,1 mg/kg/h. Titular conforme necessidade. Máx 0,4 mg/kg/h.',
+            apresentacoes: [
+              { label: 'Ampola 5 mg/mL (EV)', conc: 5, tipo: 'mL' },
             ],
           },
         ],
@@ -419,12 +494,31 @@ export const PART3_CATEGORIAS = [
         indicacoes: [
           {
             id: 'status-epileptico',
-            label: 'Status Epiléptico Refratário',
+            label: 'Status Epiléptico Refratário (Ataque EV)',
             dose_min: 15, dose_max: 20, dose_max_abs: 1000,
             unidade: 'mg/kg (ataque EV)', freq: 'Dose única EV lenta (1 mg/kg/min)',
-            obs: '15–20 mg/kg EV. Manutenção VO: 3–5 mg/kg/dia 1×/dia.',
+            obs: '15–20 mg/kg EV. Pode repetir 5–10 mg/kg se necessário. Máx 40 mg/kg total.',
             apresentacoes: [
               { label: 'Ampola 100 mg/mL (EV)', conc: 100, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'epilepsia-manutencao',
+            label: 'Epilepsia — Manutenção (VO)',
+            dose_min: 3, dose_max: 5, dose_max_abs: 180,
+            unidade: 'mg/kg/dia', freq: '1–2 vezes ao dia',
+            obs: 'Lactentes: 5–6 mg/kg/dia. Crianças 1–5a: 6–8 mg/kg/dia. > 5a: 3–5 mg/kg/dia.',
+            apresentacoes: [
+              { label: 'Comprimido 100 mg (VO)', conc: 100, tipo: 'comprimido' },
+            ],
+          },
+          {
+            id: 'hiperbilirrubinemia',
+            label: 'Hiperbilirrubinemia Neonatal (indutor enzimático)',
+            dose_min: 3, dose_max: 5, dose_max_abs: 30,
+            unidade: 'mg/kg/dia', freq: '1x ao dia por alguns dias',
+            obs: 'Fenobarbital 3–5 mg/kg/dia VO para induzir glucuronil transferase. Uso adjuvante na icterícia.',
+            apresentacoes: [
               { label: 'Comprimido 100 mg (VO)', conc: 100, tipo: 'comprimido' },
             ],
           },
