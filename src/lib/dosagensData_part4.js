@@ -23,6 +23,7 @@ export const PART4_CATEGORIAS = [
             label: 'Candidíase Oral / Esofágica',
             dose_min: 3, dose_max: 6, dose_max_abs: 200,
             unidade: 'mg/kg/dia', freq: '1x ao dia por 7–14 dias',
+            dias: '7–21 dias',
             obs: 'Candidíase oral: 3 mg/kg/dia × 7–14 dias. Esofágica: 6 mg/kg/dia × 14–21 dias. Máx 200 mg/dia.',
             apresentacoes: [
               { label: 'Suspensão 10 mg/mL', conc: 10, tipo: 'mL' },
@@ -37,6 +38,7 @@ export const PART4_CATEGORIAS = [
             label: 'Candidíase Sistêmica / Invasiva',
             dose_min: 6, dose_max: 12, dose_max_abs: 400,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '14–21 dias (manutenção conforme necessário)',
             obs: 'Ataque: 12 mg/kg. Manutenção: 6–12 mg/kg/dia. Máx 400 mg/dia.',
             apresentacoes: [
               { label: 'Frasco amp. 2 mg/mL (EV)', conc: 2, tipo: 'mL' },
@@ -48,6 +50,7 @@ export const PART4_CATEGORIAS = [
             label: 'Meningite Criptocócica (manutenção)',
             dose_min: 6, dose_max: 12, dose_max_abs: 400,
             unidade: 'mg/kg/dia', freq: '1x ao dia por 8 semanas',
+            dias: '8 semanas',
             obs: 'Consolidação após anfotericina: 6–12 mg/kg/dia × 8 semanas. Máx 400 mg/dia.',
             apresentacoes: [
               { label: 'Frasco amp. 2 mg/mL (EV)', conc: 2, tipo: 'mL' },
@@ -59,6 +62,7 @@ export const PART4_CATEGORIAS = [
             label: 'Profilaxia de Candidíase (imunossuprimidos)',
             dose_min: 3, dose_max: 6, dose_max_abs: 200,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '6 semanas (RN prematuro) ou contínua (imunossuprimidos)',
             obs: 'RN prematuro < 1.500 g: 3–6 mg/kg/dia × 6 semanas. Imunossuprimidos: 3 mg/kg/dia.',
             apresentacoes: [
               { label: 'Suspensão 10 mg/mL', conc: 10, tipo: 'mL' },
@@ -984,6 +988,7 @@ export const PART4_CATEGORIAS = [
             label: 'Epilepsia Generalizada / Ausências',
             dose_min: 10, dose_max: 15, dose_max_abs: 500,
             unidade: 'mg/kg/dia ÷ 2–3', freq: '8/8h ou 12/12h',
+            dias: 'Longo prazo (anos)',
             obs: 'Iniciar 10–15 mg/kg/dia; aumentar 5–10 mg/kg/semana. Máx 60 mg/kg/dia (2.500 mg/dia).',
             apresentacoes: [
               { label: 'Xarope 57,6 mg/mL', conc: 57.6, tipo: 'mL' },
@@ -997,6 +1002,7 @@ export const PART4_CATEGORIAS = [
             label: 'Status Epiléptico (EV)',
             dose_min: 15, dose_max: 45, dose_max_abs: 2500,
             unidade: 'mg/kg (ataque EV)', freq: 'Ataque: 15–45 mg/kg EV lento',
+            dias: 'Emergência — ataque único, manutenção contínua',
             obs: '15–45 mg/kg EV em 5–10 min. Manutenção: 1–4 mg/kg/h infusão contínua.',
             apresentacoes: [
               { label: 'Fr. amp. 100 mg/mL (EV)', conc: 100, tipo: 'frasco' },
@@ -1007,6 +1013,7 @@ export const PART4_CATEGORIAS = [
             label: 'Transtorno Bipolar / Estabilizador de Humor',
             dose_min: 10, dose_max: 30, dose_max_abs: 1500,
             unidade: 'mg/kg/dia ÷ 2–3', freq: '8/8h ou 12/12h',
+            dias: 'Longo prazo (meses/anos)',
             obs: 'Iniciar 10–15 mg/kg/dia. Nível sérico alvo: 50–100 mcg/mL.',
             apresentacoes: [
               { label: 'Comprimido 250 mg', conc: 250, tipo: 'comprimido' },
@@ -1028,6 +1035,7 @@ export const PART4_CATEGORIAS = [
             label: 'Epilepsia Focal',
             dose_min: 5, dose_max: 10, dose_max_abs: 400,
             unidade: 'mg/kg/dia ÷ 2–3', freq: '8/8h ou 12/12h',
+            dias: 'Longo prazo (anos)',
             obs: 'Iniciar 5 mg/kg/dia; aumentar gradual. Máx 35 mg/kg/dia (1.000–2.000 mg/dia).',
             apresentacoes: [
               { label: 'Comprimido 200 mg', conc: 200, tipo: 'comprimido' },
@@ -1041,6 +1049,7 @@ export const PART4_CATEGORIAS = [
             label: 'Nevralgia do Trigêmeo / Dor Neuropática',
             dose_min: 5, dose_max: 10, dose_max_abs: 400,
             unidade: 'mg/kg/dia ÷ 2', freq: '12/12h — titulação lenta',
+            dias: 'Longo prazo (semanas/meses)',
             obs: 'Iniciar 5 mg/kg/dia. Aumentar gradualmente conforme resposta. Monitorar nível sérico (4–12 mcg/mL).',
             apresentacoes: [
               { label: 'Comprimido 200 mg', conc: 200, tipo: 'comprimido' },
@@ -1084,6 +1093,7 @@ export const PART4_CATEGORIAS = [
             label: 'Epilepsia Focal / Generalizada (VO)',
             dose_min: 10, dose_max: 20, dose_max_abs: 1500,
             unidade: 'mg/kg/dia ÷ 2', freq: '12/12h',
+            dias: 'Longo prazo (anos)',
             obs: 'Iniciar 10 mg/kg/dia. Aumentar 10 mg/kg/2 semanas. Máx 60 mg/kg/dia (3.000 mg/dia).',
             apresentacoes: [
               { label: 'Solução oral 100 mg/mL', conc: 100, tipo: 'mL' },
@@ -1096,6 +1106,7 @@ export const PART4_CATEGORIAS = [
             label: 'Status Epiléptico (EV)',
             dose_min: 20, dose_max: 60, dose_max_abs: 3000,
             unidade: 'mg/kg (ataque EV)', freq: 'Infundir em 5–15 min',
+            dias: 'Emergência — dose única',
             obs: '20–60 mg/kg EV (máx 3.000 mg). Infundir em 5–15 min. Alternativa ao fenobarbital.',
             apresentacoes: [
               { label: 'Fr. amp. 100 mg/mL (EV)', conc: 100, tipo: 'mL' },

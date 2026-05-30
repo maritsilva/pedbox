@@ -216,6 +216,7 @@ export const PART3_CATEGORIAS = [
             label: 'Anti-inflamatório Geral',
             dose_min: 0.15, dose_max: 0.3, dose_max_abs: 10,
             unidade: 'mg/kg/dia', freq: '6/6h ou 12/12h',
+            dias: '7–14 dias',
             obs: 'Elixir oral 0,1 mg/mL. Ampola 2 mg/mL. Dividir em 2–3 doses ao dia.',
             apresentacoes: [
               { label: 'Elixir oral 0,1 mg/mL', conc: 0.1, tipo: 'mL' },
@@ -229,6 +230,7 @@ export const PART3_CATEGORIAS = [
             label: 'Crup (Laringotraqueobronquite)',
             dose_min: 0.15, dose_max: 0.6, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: 'Dose única (repetir em 24h se necessário)',
+            dias: 'Emergência — até 2 doses',
             obs: 'Dose única VO ou IM. 0,15–0,6 mg/kg. Máx 10 mg.',
             apresentacoes: [
               { label: 'Elixir oral 0,1 mg/mL', conc: 0.1, tipo: 'mL' },
@@ -240,6 +242,7 @@ export const PART3_CATEGORIAS = [
             label: 'Meningite Bacteriana',
             dose_min: 0.15, dose_max: 0.15, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: '6/6h por 2 dias',
+            dias: '2 dias',
             obs: '0,15 mg/kg × 4/dia × 2 dias. Iniciar junto com antibiótico.',
             apresentacoes: [
               { label: 'Ampola 4 mg/mL (EV)', conc: 4, tipo: 'mL' },
@@ -250,6 +253,7 @@ export const PART3_CATEGORIAS = [
             label: 'Edema Cerebral',
             dose_min: 0.5, dose_max: 1, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: '6/6h',
+            dias: '3–7 dias',
             obs: 'Ataque: 0,5–1 mg/kg EV/IM. Manutenção: 0,25–0,5 mg/kg × 4/dia.',
             apresentacoes: [
               { label: 'Ampola 4 mg/mL (EV)', conc: 4, tipo: 'mL' },
@@ -260,6 +264,7 @@ export const PART3_CATEGORIAS = [
             label: 'Broncoespasmo / Asma Grave',
             dose_min: 0.3, dose_max: 0.6, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: '6/6h ou 12/12h por 1–3 dias',
+            dias: '1–3 dias',
             obs: '0,3–0,6 mg/kg EV/IM. Máx 10 mg/dose.',
             apresentacoes: [
               { label: 'Ampola 2 mg/mL (IM/EV)', conc: 2, tipo: 'mL' },
@@ -280,6 +285,7 @@ export const PART3_CATEGORIAS = [
             label: 'Crup Moderado/Grave',
             dose_min: 2, dose_max: 2, dose_max_abs: 2,
             unidade: 'mg — dose única (nebulização)', freq: 'Dose única. Repetir em 12h se necessário.',
+            dias: 'Emergência — até 2 doses',
             obs: '2 mg nebulizados (4 mL de 0,5 mg/mL ou 2 mL de 1 mg/mL).',
             apresentacoes: [
               { label: 'Nebulização 0,5 mg/2 mL', conc: 0.5, tipo: 'mL' },
@@ -291,6 +297,7 @@ export const PART3_CATEGORIAS = [
             label: 'Asma — Manutenção',
             dose_min: 0.5, dose_max: 1, dose_max_abs: 2,
             unidade: 'mg/dia ÷ 2', freq: '12/12h',
+            dias: 'Longo prazo (meses/anos)',
             obs: 'Dose baixa: 0,25–0,5 mg × 2/dia. Dose alta: 1 mg × 2/dia.',
             apresentacoes: [
               { label: 'Nebulização 0,25 mg/2 mL', conc: 0.25, tipo: 'mL' },
@@ -312,6 +319,7 @@ export const PART3_CATEGORIAS = [
             label: 'Asma Grave / Anafilaxia / Insuf. Adrenal',
             dose_min: 5, dose_max: 10, dose_max_abs: 500,
             unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            dias: '3–5 dias',
             obs: 'Asma grave: 5–10 mg/kg × 4/dia. Anafilaxia: 1–5 mg/kg EV.',
             apresentacoes: [
               { label: 'Fr. amp. 100 mg (EV)', conc: 100, tipo: 'frasco' },
@@ -333,6 +341,7 @@ export const PART3_CATEGORIAS = [
             label: 'Asma Grave',
             dose_min: 1, dose_max: 2, dose_max_abs: 125,
             unidade: 'mg/kg/dose', freq: '6/6h',
+            dias: '3–5 dias',
             obs: '1–2 mg/kg/dose × 2–4/dia. Máx 125 mg/dose.',
             apresentacoes: [
               { label: 'Fr. amp. 125 mg (EV)', conc: 125, tipo: 'frasco' },
@@ -344,6 +353,7 @@ export const PART3_CATEGORIAS = [
             label: 'Pulsoterapia',
             dose_min: 10, dose_max: 30, dose_max_abs: 1000,
             unidade: 'mg/kg/dia', freq: '1x ao dia por 3–5 dias',
+            dias: '3–5 dias',
             obs: '10–30 mg/kg/dia (máx 1 g/dia) × 3 dias. Infundir em 30–60 min.',
             apresentacoes: [
               { label: 'Fr. amp. 1000 mg (EV)', conc: 1000, tipo: 'frasco' },
@@ -373,6 +383,7 @@ export const PART3_CATEGORIAS = [
             label: 'Anafilaxia',
             dose_min: 0.01, dose_max: 0.01, dose_max_abs: 0.5,
             unidade: 'mg/kg/dose IM (1:1.000)', freq: 'Repetir a cada 5–15 min se necessário',
+            dias: 'Emergência — até 3 doses',
             obs: '0,01 mg/kg IM na face anterolateral da coxa. Máx 0,5 mg.',
             apresentacoes: [
               { label: 'Ampola 1 mg/mL — 1:1.000 (IM/SC)', conc: 1, tipo: 'mL' },
@@ -383,6 +394,7 @@ export const PART3_CATEGORIAS = [
             label: 'Parada Cardiorrespiratória (PCR)',
             dose_min: 0.01, dose_max: 0.01, dose_max_abs: 1,
             unidade: 'mg/kg/dose EV (1:10.000)', freq: 'A cada 3–5 min',
+            dias: 'Emergência — durante RCP',
             obs: '0,01 mg/kg EV da sol. 1:10.000 (0,1 mg/mL). Máx 1 mg/dose.',
             apresentacoes: [
               { label: 'Ampola 0,1 mg/mL — 1:10.000 (EV/IO)', conc: 0.1, tipo: 'mL' },
@@ -393,6 +405,7 @@ export const PART3_CATEGORIAS = [
             label: 'Crup Grave (nebulização)',
             dose_min: 5, dose_max: 5, dose_max_abs: 5,
             unidade: 'mg — dose fixa', freq: 'Dose única. Repetir se necessário.',
+            dias: 'Emergência — até 2 doses',
             obs: '5 mL da sol. 1 mg/mL nebulizados. Ou 0,5 mL/kg (máx 4–5 mL).',
             apresentacoes: [
               { label: 'Ampola 1 mg/mL — 1:1.000 (nebulização)', conc: 1, tipo: 'mL' },
@@ -413,6 +426,7 @@ export const PART3_CATEGORIAS = [
             label: 'Convulsão / Status Epiléptico',
             dose_min: 0.2, dose_max: 0.5, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: 'Repetir 1× após 5–10 min se necessário',
+            dias: 'Emergência — até 2 doses',
             obs: 'EV: 0,2–0,5 mg/kg lento (máx 10 mg). Retal: 0,5 mg/kg.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV)', conc: 5, tipo: 'mL' },
@@ -424,6 +438,7 @@ export const PART3_CATEGORIAS = [
             label: 'Convulsão Febril (dose pré-hospitalar)',
             dose_min: 0.3, dose_max: 0.5, dose_max_abs: 10,
             unidade: 'mg/kg/dose retal', freq: 'Dose única retal',
+            dias: 'Emergência — dose única',
             obs: 'Retal: 0,3–0,5 mg/kg. Máx 10 mg. Alternativa ao EV no ambiente pré-hospitalar.',
             apresentacoes: [
               { label: 'Solução retal 2 mg/mL', conc: 2, tipo: 'mL' },
@@ -435,6 +450,7 @@ export const PART3_CATEGORIAS = [
             label: 'Espasmo Muscular / Sedação Leve',
             dose_min: 0.1, dose_max: 0.3, dose_max_abs: 5,
             unidade: 'mg/kg/dose VO', freq: '8/8h (uso agudo)',
+            dias: '3–7 dias',
             obs: 'Tétano: 0,1–0,3 mg/kg VO × 6–8/dia. Espasmos: 0,2–0,3 mg/kg × 3–4/dia.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV)', conc: 5, tipo: 'mL' },
@@ -455,6 +471,7 @@ export const PART3_CATEGORIAS = [
             label: 'Convulsão / Status Epiléptico',
             dose_min: 0.1, dose_max: 0.3, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: 'Repetir 1× após 5 min se necessário',
+            dias: 'Emergência — até 2 doses',
             obs: 'EV/IM: 0,1–0,3 mg/kg (máx 10 mg). Intranasal: 0,2 mg/kg (0,1 mL/narina). Bucal: 0,3–0,5 mg/kg.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV/IM)', conc: 5, tipo: 'mL' },
@@ -466,6 +483,7 @@ export const PART3_CATEGORIAS = [
             label: 'Sedação para Procedimentos',
             dose_min: 0.05, dose_max: 0.5, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: 'Dose única (15–30 min antes)',
+            dias: 'Dose única (pré-procedimento)',
             obs: 'VO/intranasal: 0,3–0,5 mg/kg. EV: 0,05–0,1 mg/kg. Máx 5 mg EV; 10 mg VO.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV/IM)', conc: 5, tipo: 'mL' },
@@ -477,6 +495,7 @@ export const PART3_CATEGORIAS = [
             label: 'Sedação Contínua em UTI',
             dose_min: 0.05, dose_max: 0.1, dose_max_abs: 10,
             unidade: 'mg/kg/h (infusão EV)', freq: 'Infusão contínua EV',
+            dias: 'Conforme necessário (dias/semanas)',
             obs: 'Infusão: 0,05–0,1 mg/kg/h. Titular conforme necessidade. Máx 0,4 mg/kg/h.',
             apresentacoes: [
               { label: 'Ampola 5 mg/mL (EV)', conc: 5, tipo: 'mL' },
@@ -508,6 +527,7 @@ export const PART3_CATEGORIAS = [
             label: 'Epilepsia — Manutenção (VO)',
             dose_min: 3, dose_max: 5, dose_max_abs: 180,
             unidade: 'mg/kg/dia', freq: '1–2 vezes ao dia',
+            dias: 'Longo prazo (anos)',
             obs: 'Lactentes: 5–6 mg/kg/dia. Crianças 1–5a: 6–8 mg/kg/dia. > 5a: 3–5 mg/kg/dia.',
             apresentacoes: [
               { label: 'Comprimido 100 mg (VO)', conc: 100, tipo: 'comprimido' },
@@ -518,6 +538,7 @@ export const PART3_CATEGORIAS = [
             label: 'Hiperbilirrubinemia Neonatal (indutor enzimático)',
             dose_min: 3, dose_max: 5, dose_max_abs: 30,
             unidade: 'mg/kg/dia', freq: '1x ao dia por alguns dias',
+            dias: '3–7 dias',
             obs: 'Fenobarbital 3–5 mg/kg/dia VO para induzir glucuronil transferase. Uso adjuvante na icterícia.',
             apresentacoes: [
               { label: 'Comprimido 100 mg (VO)', conc: 100, tipo: 'comprimido' },
@@ -538,6 +559,7 @@ export const PART3_CATEGORIAS = [
             label: 'Taquicardia Supraventricular (TSV)',
             dose_min: 0.1, dose_max: 0.3, dose_max_abs: 12,
             unidade: 'mg/kg/dose', freq: 'Bolus EV rápido. Repetir em doses crescentes.',
+            dias: 'Emergência — até 3 doses',
             obs: '1ª: 0,1 mg/kg. 2ª: 0,2 mg/kg. 3ª: 0,3 mg/kg (máx 12 mg). Flush SF imediato.',
             apresentacoes: [
               { label: 'Ampola 3 mg/mL (2 mL = 6 mg)', conc: 3, tipo: 'mL' },
@@ -558,6 +580,7 @@ export const PART3_CATEGORIAS = [
             label: 'Hipoglicemia Aguda',
             dose_min: 0.2, dose_max: 0.5, dose_max_abs: 25,
             unidade: 'g/kg EV', freq: 'Dose única EV. Repetir se necessário.',
+            dias: 'Emergência — dose única',
             obs: '0,25 g/kg EV = 2,5 mL/kg SG 10% ou 1 mL/kg SG 25%. Nunca usar SG 50% puro.',
             apresentacoes: [
               { label: 'SG 10% (0,1 g/mL) — usar 2,5 mL/kg', conc: 100, tipo: 'mL' },
@@ -588,6 +611,7 @@ export const PART3_CATEGORIAS = [
             label: 'Constipação Funcional — Manutenção',
             dose_min: 0.5, dose_max: 1, dose_max_abs: 34,
             unidade: 'g/kg/dia', freq: '1x ao dia',
+            dias: 'Longo prazo (conforme necessário)',
             obs: 'Desimpactação: 1–1,5 g/kg/dia × 3–6 dias. Dissolver em água.',
             apresentacoes: [
               { label: 'Sachê 17 g', conc: 17, tipo: 'comprimido' },
@@ -608,6 +632,7 @@ export const PART3_CATEGORIAS = [
             label: 'Constipação',
             dose_min: 0.5, dose_max: 1, dose_max_abs: 40,
             unidade: 'mL/kg/dia ÷ 1–2', freq: '1–2 doses ao dia',
+            dias: 'Longo prazo (conforme necessário)',
             obs: 'Máx 60 mL/dia.',
             apresentacoes: [
               { label: 'Xarope 66,7% (667 mg/mL)', conc: 667, tipo: 'mL' },
@@ -628,6 +653,7 @@ export const PART3_CATEGORIAS = [
             label: 'Constipação',
             dose_min: 0.1, dose_max: 0.3, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: '1x ao dia',
+            dias: '1–3 dias',
             obs: '3–12a: 5 mg/dose. >12a: 5–10 mg/dose. Efeito em 6–12h.',
             apresentacoes: [
               { label: 'Comprimido 5 mg', conc: 5, tipo: 'comprimido' },
@@ -659,6 +685,7 @@ export const PART3_CATEGORIAS = [
             label: 'Diarreia Aguda / Prevenção com ATB',
             dose_min: 200, dose_max: 250, dose_max_abs: 500,
             unidade: 'mg/dia ÷ 2', freq: '12/12h por 5–10 dias',
+            dias: '5–10 dias',
             obs: 'Diarreia: 200 mg × 2/dia. Prevenção (ATB): 250 mg × 2/dia.',
             apresentacoes: [
               { label: 'Cápsula 200 mg', conc: 200, tipo: 'comprimido' },
@@ -689,6 +716,7 @@ export const PART3_CATEGORIAS = [
             label: 'TDAH (≥ 6 anos)',
             dose_min: 0.3, dose_max: 1, dose_max_abs: 60,
             unidade: 'mg/kg/dia ÷ 2', freq: '12/12h (IR) ou 1×/dia (LP)',
+            dias: 'Longo prazo (meses/anos)',
             obs: 'Iniciar 0,3 mg/kg/dose; aumentar 0,1 mg/kg/semana. Máx 60 mg/dia.',
             apresentacoes: [
               { label: 'Comp. 5 mg (≥6 anos)', conc: 5, tipo: 'comprimido', idade_min: 6 },
@@ -712,6 +740,7 @@ export const PART3_CATEGORIAS = [
             label: 'Irritabilidade / Autismo',
             dose_min: 0.01, dose_max: 0.06, dose_max_abs: 3,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: 'Longo prazo (meses/anos)',
             obs: 'Iniciar 0,25 mg/dia (< 20 kg) ou 0,5 mg/dia (≥ 20 kg). Máx 3 mg/dia.',
             apresentacoes: [
               { label: 'Comp. 1 mg', conc: 1, tipo: 'comprimido' },
@@ -743,6 +772,7 @@ export const PART3_CATEGORIAS = [
             label: 'Profilaxia (Lactentes)',
             dose_min: 400, dose_max: 600, dose_max_abs: 600,
             unidade: 'UI/dia', freq: '1x ao dia',
+            dias: 'Longo prazo (meses/anos)',
             obs: 'Lactentes: 400 UI/dia. Crianças/adolescentes: 600 UI/dia.',
             apresentacoes: [
               { label: 'Gotas 200 UI/gota', conc: 200, tipo: 'gotas' },
@@ -755,6 +785,7 @@ export const PART3_CATEGORIAS = [
             label: 'Deficiência / Raquitismo',
             dose_min: 1000, dose_max: 2000, dose_max_abs: 4000,
             unidade: 'UI/dia', freq: '1x ao dia por 3 meses',
+            dias: '3 meses',
             obs: 'Raquitismo: 1.000–5.000 UI/dia. Monitorar 25-OH-D3.',
             apresentacoes: [
               { label: 'Comp. 1.000 UI', conc: 1000, tipo: 'comprimido' },
@@ -776,6 +807,7 @@ export const PART3_CATEGORIAS = [
             label: 'Anemia Ferropriva — Tratamento',
             dose_min: 3, dose_max: 6, dose_max_abs: 200,
             unidade: 'mg/kg/dia de ferro elementar ÷ 1–3', freq: '1–3 doses ao dia',
+            dias: '3–6 meses',
             obs: 'Em jejum para melhor absorção. Por 3–6 meses.',
             apresentacoes: [
               { label: 'Gotas 25 mg/mL Fe elem.', conc: 25, tipo: 'mL' },
@@ -787,6 +819,7 @@ export const PART3_CATEGORIAS = [
             label: 'Profilaxia (Lactentes)',
             dose_min: 1, dose_max: 2, dose_max_abs: 15,
             unidade: 'mg/kg/dia de ferro elementar', freq: '1x ao dia',
+            dias: 'Longo prazo (até 2 anos)',
             obs: 'RN a termo: 1 mg/kg/dia a partir de 4–6 meses. Prematuros: 2–4 mg/kg/dia desde 4 semanas.',
             apresentacoes: [
               { label: 'Gotas 25 mg/mL Fe elem.', conc: 25, tipo: 'mL' },
@@ -807,6 +840,7 @@ export const PART3_CATEGORIAS = [
             label: 'Deficiência / Anemia Megaloblástica',
             dose_min: 0.05, dose_max: 0.1, dose_max_abs: 5,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '3–6 meses',
             obs: 'Deficiência: 0,5–1 mg/dia. Anemia megaloblástica: 1–5 mg/dia.',
             apresentacoes: [
               { label: 'Comp. 0,4 mg', conc: 0.4, tipo: 'comprimido' },
