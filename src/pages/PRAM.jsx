@@ -168,138 +168,136 @@ export default function PRAM() {
   const partialScore = Object.values(scores).reduce((a, b) => a + b, 0);
   const total = allAnswered ? partialScore : null;
   const classification = total !== null ? getClassification(total) : null;
-  const progressPct = (answeredCount / CRITERIA.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50 pb-16">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50 pb-16">
+      <div className="max-w-7xl mx-auto px-4 py-8">
 
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl shadow-lg mb-4">
-            <Wind className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-extrabold text-gray-900">Score PRAM</h1>
-          <p className="text-gray-500 mt-1 text-sm">Pediatric Respiratory Assessment Measure · 2–17 anos</p>
-        </motion.div>
-
-        {/* Progress header card */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
+        {/* Header card */}
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl border border-gray-200 shadow-sm px-5 py-4 mb-6"
+          className="bg-gradient-to-br from-sky-500 to-blue-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
         >
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Activity className="w-4 h-4 text-blue-500" />
-              <span className="text-sm font-semibold text-gray-700">
-                {allAnswered ? 'Avaliação completa' : `${answeredCount} / ${CRITERIA.length} critérios`}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-extrabold text-blue-600">{partialScore}</span>
-              <span className="text-sm text-gray-400 font-medium">/ 12 pts</span>
-            </div>
+          <div className="absolute top-4 right-6 opacity-20">
+            <div className="text-6xl">{CLASSIFICATIONS[0].emoji}</div>
           </div>
 
-          {/* Progress bar */}
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-3">
-            <motion.div
-              className="h-full bg-blue-400 rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: `${progressPct}%` }}
-              transition={{ duration: 0.3 }}
-            />
+          <div className="relative z-10">
+            <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+              Score Respiratório · Pediátrico
+            </span>
+            <h1 className="text-3xl font-extrabold mb-1">PRAM</h1>
+            <p className="text-sm font-medium opacity-90 mb-6">Pediatric Respiratory Assessment Measure (2–17 anos)</p>
+            
+            <div className="border-t border-white/20 pt-4">
+              <p className="text-4xl font-extrabold">{partialScore}</p>
+              <p className="text-sm opacity-90 mt-1">/ 12 pontos</p>
+            </div>
           </div>
-
-          {/* Score gauge — always visible */}
-          <ScoreGauge score={partialScore} />
         </motion.div>
 
-        {/* Criteria */}
-        <div className="space-y-3 mb-6">
-          {CRITERIA.map((criterion, idx) => {
-            const answered = scores[criterion.id] !== undefined;
-            return (
-              <motion.div
-                key={criterion.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.07 }}
-                className={`bg-white rounded-2xl shadow-sm border-2 overflow-hidden transition-all ${
-                  answered ? 'border-blue-200' : 'border-gray-200'
-                }`}
-              >
-                <div className={`px-5 py-3 flex items-center justify-between border-b ${answered ? 'bg-blue-50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
-                  <div className="flex items-center gap-3">
-                    <span className="text-xl">{criterion.icon}</span>
-                    <div>
-                      <p className="font-bold text-gray-800 text-sm">{criterion.label}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{criterion.hint}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          {/* LEFT — Criteria */}
+          <div className="lg:col-span-2 space-y-3">
+            {CRITERIA.map((criterion, idx) => {
+              const answered = scores[criterion.id] !== undefined;
+              return (
+                <motion.div
+                  key={criterion.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                  className={`bg-white rounded-2xl shadow-sm border-2 overflow-hidden transition-all ${
+                    answered ? 'border-blue-200' : 'border-gray-200'
+                  }`}
+                >
+                  <div className={`px-5 py-3 flex items-center justify-between border-b ${answered ? 'bg-blue-50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xl">{criterion.icon}</span>
+                      <div>
+                        <p className="font-bold text-gray-800 text-sm">{criterion.label}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{criterion.hint}</p>
+                      </div>
+                    </div>
+                    {answered
+                      ? <CheckCircle2 className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      : <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />
+                    }
+                  </div>
+                  <div className="p-3 grid gap-2">
+                    {criterion.options.map((opt) => {
+                      const selected = scores[criterion.id] === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => handleSelect(criterion.id, opt.value)}
+                          className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border-2 transition-all text-sm font-medium ${
+                            selected
+                              ? 'border-sky-500 bg-sky-500 text-white shadow-md'
+                              : 'border-gray-200 bg-white text-gray-700 hover:border-sky-300 hover:bg-sky-50/60'
+                          }`}
+                        >
+                          <span>{opt.label}</span>
+                          <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                            selected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'
+                          }`}>
+                            {opt.value} {opt.value === 1 ? 'pt' : 'pts'}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* RIGHT — Sidebar */}
+          <div className="space-y-4">
+
+            {/* Resultado */}
+            <AnimatePresence>
+              {allAnswered && classification && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-5 sticky top-20`}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-3xl">{classification.emoji}</span>
+                    <span className={`text-3xl font-extrabold ${classification.text}`}>{total}</span>
+                  </div>
+                  <p className={`text-xs font-bold uppercase tracking-wider ${classification.text} mb-1`}>Pontuação</p>
+                  <p className={`text-lg font-extrabold ${classification.text} mb-3`}>{classification.label}</p>
+                  <p className="text-xs text-gray-600 leading-relaxed">{CLASSIFICATIONS.find(c => c.min <= total && c.max >= total)?.conduta?.[0] || ''}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Classification reference */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+              <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">Classificação</p>
+              <div className="space-y-2">
+                {CLASSIFICATIONS.map((row, i) => (
+                  <div key={i} className={`rounded-xl p-3 ${row.bg} border border-gray-200`}>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{row.emoji}</span>
+                      <div className="flex-1">
+                        <p className={`text-xs font-bold ${row.text}`}>{row.label}</p>
+                        <p className="text-[10px] text-gray-600">{row.range}</p>
+                      </div>
                     </div>
                   </div>
-                  {answered
-                    ? <CheckCircle2 className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                    : <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />
-                  }
-                </div>
-                <div className="p-3 grid gap-2">
-                  {criterion.options.map((opt) => {
-                    const selected = scores[criterion.id] === opt.value;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => handleSelect(criterion.id, opt.value)}
-                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border-2 transition-all text-sm font-medium ${
-                          selected
-                            ? 'border-blue-500 bg-blue-500 text-white shadow-md'
-                            : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50/60'
-                        }`}
-                      >
-                        <span>{opt.label}</span>
-                        <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
-                          selected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'
-                        }`}>
-                          {opt.value} {opt.value === 1 ? 'pt' : 'pts'}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Result */}
-        <AnimatePresence>
-          {allAnswered && classification && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className={`rounded-2xl border-2 ${classification.border} ${classification.bg} overflow-hidden mb-5`}
-            >
-              {/* Score header */}
-              <div className={`px-6 py-5 flex items-center justify-between border-b ${classification.border}`}>
-                <div>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Score PRAM</p>
-                  <p className={`text-6xl font-extrabold ${classification.text}`}>
-                    {total}
-                    <span className="text-xl font-medium ml-1 opacity-60">/ 12</span>
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="text-4xl">{classification.emoji}</span>
-                  <p className={`text-xl font-extrabold mt-1 ${classification.text}`}>{classification.label}</p>
-                </div>
+                ))}
               </div>
+            </div>
 
+          </div>
 
-            </motion.div>
-          )}
-        </AnimatePresence>
+        </div>
 
         {/* Reset */}
         {answeredCount > 0 && (
@@ -307,41 +305,16 @@ export default function PRAM() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={handleReset}
-            className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2 mb-8"
+            className="w-full py-3 mt-6 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
           >
             <RefreshCw className="w-4 h-4" />
             Nova avaliação
           </motion.button>
         )}
 
-        {/* Reference table */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="px-5 py-4 bg-gray-50 border-b border-gray-200">
-            <p className="font-bold text-gray-700 text-sm">Classificação de Gravidade</p>
-          </div>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100 bg-gray-50/50">
-                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Score</th>
-                <th className="text-left px-5 py-3 text-gray-500 font-semibold text-xs uppercase">Gravidade</th>
-                </tr>
-                </thead>
-                <tbody>
-                  {CLASSIFICATIONS.map((row, i) => (
-                    <tr key={i} className="border-b border-gray-50 last:border-0">
-                      <td className="px-5 py-3 font-mono font-bold text-gray-700">{row.range}</td>
-                      <td className="px-5 py-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.badge}`}>{row.emoji} {row.label}</span>
-                      </td>
-                    </tr>
-                  ))}
-            </tbody>
-          </table>
-        </motion.div>
-
         {/* References */}
-        <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
-          <p className="font-semibold text-gray-500">Referências</p>
+        <div className="mt-8 text-xs text-gray-400 px-1">
+          <p className="font-semibold text-gray-500 mb-1">Referências</p>
           <p>Chalut DS, et al. <em>J Pediatrics</em> 2000; 137(6):762-8.</p>
           <p>Ducharme FM, et al. <em>J Pediatrics</em> 2008; 152(4):476-80.</p>
         </div>
