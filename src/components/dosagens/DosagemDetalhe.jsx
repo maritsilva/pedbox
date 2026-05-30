@@ -71,6 +71,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
   const [peso, setPeso] = useState('');
   const [indicacaoId, setIndicacaoId] = useState(drug.indicacoes[0]?.id ?? '');
+  const [apIndex, setApIndex] = useState(0);
 
   // Support URL param ?drug=id pre-selection
   useEffect(() => {
@@ -79,10 +80,14 @@ export default function DosagemDetalhe({ drug, onBack }) {
     if (!drugParam) return;
     // reset on drug change
     setIndicacaoId(drug.indicacoes[0]?.id ?? '');
+    setApIndex(0);
     setPeso('');
   }, [drug.id]);
 
   const indicacao = drug.indicacoes.find(i => i.id === indicacaoId) ?? drug.indicacoes[0];
+
+  // Reset apresentação ao mudar indicação
+  useEffect(() => { setApIndex(0); }, [indicacaoId]);
   const pesoNum = parseFloat(peso);
   const pesoValido = !isNaN(pesoNum) && pesoNum > 0 && pesoNum <= 200;
 
@@ -251,75 +256,74 @@ export default function DosagemDetalhe({ drug, onBack }) {
               )}
             </div>
 
-            {/* Presentations */}
-            <div className="space-y-2">
-              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-1">Apresentações disponíveis</p>
-              {indicacao.apresentacoes.map((ap, i) => {
-                // Use median dose for display
-                const calcMin = calcApresentacao(ap, doseMinMg);
-                const calcMed = calcApresentacao(ap, doseMedMg);
-                const calcMax = doseMinMg !== doseMaxMg ? calcApresentacao(ap, doseMaxMg) : null;
+            {/* Presentations — selector */}
+            {(() => {
+              const ap = indicacao.apresentacoes[apIndex];
+              const calcMin = calcApresentacao(ap, doseMinMg);
+              const calcMed = calcApresentacao(ap, doseMedMg);
+              const calcMax = doseMinMg !== doseMaxMg ? calcApresentacao(ap, doseMaxMg) : null;
+              const hasAgeMin = ap?.idade_min && !isNaN(ap.idade_min);
+              const hasPesoMin = ap?.peso_min && !isNaN(ap.peso_min);
+              const isRestricted = hasAgeMin || hasPesoMin;
 
-                const hasAgeMin = ap.idade_min && !isNaN(ap.idade_min);
-                const hasPesoMin = ap.peso_min && !isNaN(ap.peso_min);
-                const isRestricted = (hasAgeMin || hasPesoMin);
+              return (
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-widest px-1">
+                    Apresentação disponível
+                  </label>
+                  <div className="relative">
+                    <Pill className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${meta.text} pointer-events-none`} />
+                    <select
+                      value={apIndex}
+                      onChange={e => setApIndex(Number(e.target.value))}
+                      className="w-full appearance-none bg-white border border-border rounded-xl pl-10 pr-10 py-3 text-sm font-semibold text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all cursor-pointer"
+                    >
+                      {indicacao.apresentacoes.map((a, i) => (
+                        <option key={i} value={i}>{a.label}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                  </div>
 
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    className={`bg-white rounded-xl border ${isRestricted ? 'border-amber-200 bg-amber-50/50' : 'border-border'} p-4 shadow-sm`}
-                  >
-                    <div className="flex items-start gap-2 mb-2">
-                      <Pill className={`w-4 h-4 flex-shrink-0 mt-0.5 ${meta.text}`} />
-                      <p className="text-sm font-bold text-foreground leading-snug">{ap.label}</p>
-                    </div>
+                  {isRestricted && (
+                    <p className="text-xs text-amber-700 bg-amber-100 rounded-lg px-3 py-1.5 font-medium">
+                      {hasAgeMin ? `⚠️ Indicado ≥ ${ap.idade_min} anos` : `⚠️ Indicado ≥ ${ap.peso_min} kg`}
+                    </p>
+                  )}
 
-                    {isRestricted && (
-                      <p className="text-xs text-amber-700 bg-amber-100 rounded-lg px-2 py-1 mb-2 font-medium">
-                        {hasAgeMin ? `Indicado ≥ ${ap.idade_min} anos` : `Indicado ≥ ${ap.peso_min} kg`}
+                  {calcMed ? (
+                    <div className={`rounded-xl ${meta.bg} border-2 ${meta.border} px-4 py-3`}>
+                      <p className={`text-xl font-extrabold ${meta.text}`}>
+                        {doseMinMg !== doseMaxMg && calcMin && calcMax
+                          ? `${calcMin.vol} a ${calcMax.vol}`
+                          : calcMed.vol}
                       </p>
-                    )}
-
-                    {calcMed ? (
-                      <div className={`rounded-xl ${meta.bg} border ${meta.border} px-3 py-2.5`}>
-                        {/* Main result */}
-                        <p className={`text-base font-extrabold ${meta.text}`}>
-                          {doseMinMg !== doseMaxMg && calcMin && calcMax
-                            ? `${calcMin.vol} a ${calcMax.vol}`
-                            : calcMed.vol}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                          via {drug.via ?? 'oral'} · {indicacao.freq}
-                        </p>
-
-                        {/* Per-kg breakdown for each step */}
-                        {!isFixedDose && doseMinMg !== doseMaxMg && (
-                          <div className="mt-2 pt-2 border-t border-border/40 grid grid-cols-3 gap-1 text-[10px] text-muted-foreground">
-                            <span className="text-center">
-                              <span className="block text-foreground font-bold">{calcMin?.vol}</span>
-                              mín ({doseMinKg} mg/kg)
-                            </span>
-                            <span className="text-center">
-                              <span className={`block font-extrabold ${meta.text}`}>{calcMed?.vol}</span>
-                              médio
-                            </span>
-                            <span className="text-center">
-                              <span className="block text-foreground font-bold">{calcMax?.vol}</span>
-                              máx ({doseMaxKg} mg/kg)
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <p className="text-xs text-muted-foreground italic">Não calculável para esta apresentação.</p>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        via {drug.via ?? 'oral'} · {indicacao.freq}
+                      </p>
+                      {!isFixedDose && doseMinMg !== doseMaxMg && (
+                        <div className="mt-2 pt-2 border-t border-border/40 grid grid-cols-3 gap-1 text-[10px] text-muted-foreground">
+                          <span className="text-center">
+                            <span className="block text-foreground font-bold">{calcMin?.vol}</span>
+                            mín ({doseMinKg} mg/kg)
+                          </span>
+                          <span className="text-center">
+                            <span className={`block font-extrabold ${meta.text}`}>{calcMed?.vol}</span>
+                            médio
+                          </span>
+                          <span className="text-center">
+                            <span className="block text-foreground font-bold">{calcMax?.vol}</span>
+                            máx ({doseMaxKg} mg/kg)
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground italic px-1">Não calculável para esta apresentação.</p>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Obs */}
             {indicacao.obs && (
