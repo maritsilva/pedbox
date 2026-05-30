@@ -19,6 +19,7 @@ export const PART1_CATEGORIAS = [
             label: 'Analgesia / Antitérmico',
             dose_min: 10, dose_max: 15, dose_max_abs: 1000,
             unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            dias: '3–5 dias',
             obs: 'Máx 75 mg/kg/dia. Dose máxima por tomada: 1.000 mg.',
             apresentacoes: [
               { label: 'Gotas 200 mg/mL (1 gota ≈ 10 mg)', conc: 200, tipo: 'gotas', mL_por_gota: 0.05 },
@@ -33,6 +34,7 @@ export const PART1_CATEGORIAS = [
             label: 'Prematuro / Neonato (< 1 mês)',
             dose_min: 10, dose_max: 12, dose_max_abs: 60,
             unidade: 'mg/kg/dose', freq: '8/8h ou 12/12h',
+            dias: '3–5 dias',
             obs: 'Prematuro 28–36 sem: 10–12 mg/kg × 3–4/dia. RN a termo: 10–15 mg/kg × 4/dia.',
             apresentacoes: [
               { label: 'Suspensão 100 mg/mL (Bebê)', conc: 100, tipo: 'mL' },
@@ -53,6 +55,7 @@ export const PART1_CATEGORIAS = [
             label: 'Febre e Dor',
             dose_min: 5, dose_max: 10, dose_max_abs: 400,
             unidade: 'mg/kg/dose', freq: '6/6h ou 8/8h',
+            dias: '3–5 dias',
             obs: 'Máx 40 mg/kg/dia. Febre alta: 10 mg/kg; febre baixa: 5 mg/kg.',
             apresentacoes: [
               { label: 'Gotas 50 mg/mL (1 gota = 2,5 mg)', conc: 50, tipo: 'gotas', mL_por_gota: 0.05 },
@@ -68,6 +71,7 @@ export const PART1_CATEGORIAS = [
             label: 'Anti-inflamatório (Artrite Juvenil)',
             dose_min: 20, dose_max: 40, dose_max_abs: 800,
             unidade: 'mg/kg/dia ÷ 3–4', freq: '8/8h',
+            dias: '6–8 semanas (artrite)',
             obs: 'Artrite juvenil: 30–50 mg/kg/dia ÷ 4. Máx 2.400 mg/dia.',
             apresentacoes: [
               { label: 'Gotas 50 mg/mL (1 gota = 2,5 mg)', conc: 50, tipo: 'gotas', mL_por_gota: 0.05 },
@@ -90,6 +94,7 @@ export const PART1_CATEGORIAS = [
             label: 'Analgesia / Antitérmico (> 3 meses)',
             dose_min: 10, dose_max: 15, dose_max_abs: 1000,
             unidade: 'mg/kg/dose', freq: '6/6h',
+            dias: '3–5 dias',
             obs: 'Máx 4 doses/dia. Via IV: infundir lentamente 15–30 min. ≈ 0,5 gota/kg (gotas 500 mg/mL).',
             apresentacoes: [
               { label: 'Gotas 500 mg/mL (25 mg/gota)', conc: 500, tipo: 'gotas', mL_por_gota: 0.05 },
@@ -104,6 +109,7 @@ export const PART1_CATEGORIAS = [
             label: 'Cólica / Espasmo Gastrointestinal',
             dose_min: 10, dose_max: 15, dose_max_abs: 1000,
             unidade: 'mg/kg/dose EV/IM', freq: '6/6h ou 8/8h',
+            dias: '3–5 dias',
             obs: 'Uso parenteral: 10–15 mg/kg EV/IM em 15–30 min.',
             apresentacoes: [
               { label: 'Ampola 500 mg/mL (IM/EV)', conc: 500, tipo: 'mL' },
@@ -124,6 +130,7 @@ export const PART1_CATEGORIAS = [
             label: 'Dor Aguda Moderada a Intensa',
             dose_min: 0.05, dose_max: 0.1, dose_max_abs: 5,
             unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            dias: '3–7 dias (hospitalar)',
             obs: 'Via IV preferencial. Infundir lentamente (4–5 min). Monitorar FR e sedação.',
             apresentacoes: [
               { label: 'Ampola 10 mg/mL (IV/IM/SC)', conc: 10, tipo: 'mL' },
@@ -145,6 +152,7 @@ export const PART1_CATEGORIAS = [
             label: 'Dor Moderada (≥ 12 anos)',
             dose_min: 0.5, dose_max: 1, dose_max_abs: 60,
             unidade: 'mg/kg/dose', freq: '4/4h ou 6/6h',
+            dias: '5–7 dias',
             obs: 'Evitar em < 12 anos. Máx 60 mg/dose.',
             apresentacoes: [
               { label: 'Comprimido 30 mg (≥12 anos)', conc: 30, tipo: 'comprimido', idade_min: 12 },
@@ -175,6 +183,7 @@ export const PART1_CATEGORIAS = [
             label: 'Refluxo Gastroesofágico / Esofagite Erosiva',
             dose_min: 0.7, dose_max: 1, dose_max_abs: 20,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '4–8 semanas',
             obs: 'Tomar 30 min antes do café da manhã. Máx 20 mg/dia.',
             apresentacoes: [
               { label: 'Cápsula 10 mg', conc: 10, tipo: 'comprimido' },
@@ -197,6 +206,7 @@ export const PART1_CATEGORIAS = [
             label: 'Úlcera / Refluxo',
             dose_min: 2, dose_max: 4, dose_max_abs: 150,
             unidade: 'mg/kg/dia ÷ 2', freq: '12/12h',
+            dias: '4–8 semanas',
             obs: 'EV: 1–2 mg/kg/dose × 3–4/dia. Máx 300 mg/dia.',
             apresentacoes: [
               { label: 'Xarope 15 mg/mL', conc: 15, tipo: 'mL' },
@@ -228,6 +238,7 @@ export const PART1_CATEGORIAS = [
             label: 'Diarreia Aguda (OMS)',
             dose_min: 10, dose_max: 20, dose_max_abs: 20,
             unidade: 'mg/dia (elemento zinco)', freq: '1x ao dia por 10–14 dias',
+            dias: '10–14 dias',
             obs: '< 6 meses: 10 mg/dia. ≥ 6 meses: 20 mg/dia.',
             apresentacoes: [
               { label: 'Comprimido 20 mg (elemento Zn)', conc: 20, tipo: 'comprimido' },
@@ -249,6 +260,7 @@ export const PART1_CATEGORIAS = [
             label: 'Diarreia (> 2 anos)',
             dose_min: 0.05, dose_max: 0.1, dose_max_abs: 2,
             unidade: 'mg/kg/dose', freq: '8/8h',
+            dias: '3–5 dias',
             obs: 'Máx 2 mg/dose. Evitar em < 2 anos, diarreia com sangue ou febre alta.',
             apresentacoes: [
               { label: 'Cápsula 2 mg (> 2 anos)', conc: 2, tipo: 'comprimido', idade_min: 2 },
@@ -279,6 +291,7 @@ export const PART1_CATEGORIAS = [
             label: 'Náuseas / Vômitos em Geral',
             dose_min: 0.1, dose_max: 0.15, dose_max_abs: 4,
             unidade: 'mg/kg/dose', freq: '8/8h',
+            dias: '3–5 dias',
             obs: 'Máx 4 mg/dose. EV em 15 min. Máx 3 doses/dia.',
             apresentacoes: [
               { label: 'Solução oral 0,8 mg/mL', conc: 0.8, tipo: 'mL' },
@@ -292,6 +305,7 @@ export const PART1_CATEGORIAS = [
             label: 'Náuseas / Vômitos por Quimioterapia',
             dose_min: 0.15, dose_max: 0.15, dose_max_abs: 8,
             unidade: 'mg/kg/dose', freq: 'Antes da quimio + 4h e 8h depois',
+            dias: 'Durante quimioterapia',
             obs: '0,15 mg/kg EV em 15 min. Máx 8 mg/dose. 3 doses (antes, 4h e 8h após quimio).',
             apresentacoes: [
               { label: 'Ampola 2 mg/mL (EV)', conc: 2, tipo: 'mL' },
@@ -312,6 +326,7 @@ export const PART1_CATEGORIAS = [
             label: 'DRGE / Procinético',
             dose_min: 0.1, dose_max: 0.15, dose_max_abs: 5,
             unidade: 'mg/kg/dose', freq: '6/6h ou 8/8h',
+            dias: '4–8 semanas',
             obs: 'Não é primeira escolha. Máx 5 mg/dose em crianças.',
             apresentacoes: [
               { label: 'Solução oral 4 mg/mL', conc: 4, tipo: 'mL' },
@@ -334,6 +349,7 @@ export const PART1_CATEGORIAS = [
             label: 'Náuseas / Refluxo',
             dose_min: 0.2, dose_max: 0.3, dose_max_abs: 10,
             unidade: 'mg/kg/dose', freq: '8/8h',
+            dias: '3–5 dias',
             obs: 'Máx 10 mg/dose. Usar menor dose e duração possível.',
             apresentacoes: [
               { label: 'Suspensão 1 mg/mL', conc: 1, tipo: 'mL' },
@@ -364,6 +380,7 @@ export const PART1_CATEGORIAS = [
             label: 'Alívio de Gases / Distensão / Flatulência',
             dose_min: 20, dose_max: 40, dose_max_abs: 125,
             unidade: 'mg/dose', freq: '6/6h ou após mamadas',
+            dias: 'Conforme necessário',
             obs: 'Lactentes: 20 mg após cada mamada. Crianças: 40 mg × 3–4/dia.',
             apresentacoes: [
               { label: 'Gotas 75 mg/mL', conc: 75, tipo: 'mL' },
@@ -395,6 +412,7 @@ export const PART1_CATEGORIAS = [
             label: 'Rinite Alérgica / Urticária',
             dose_min: 0.25, dose_max: 0.25, dose_max_abs: 10,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '14–30 dias',
             obs: '< 15 kg: 2,5 mg/dia. 15–30 kg: 5 mg/dia. > 30 kg: 10 mg/dia.',
             apresentacoes: [
               { label: 'Solução oral 1 mg/mL', conc: 1, tipo: 'mL' },
@@ -416,6 +434,7 @@ export const PART1_CATEGORIAS = [
             label: 'Anti-histamínico',
             dose_min: 0.2, dose_max: 0.2, dose_max_abs: 10,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '14–30 dias',
             obs: '< 30 kg: 5 mg/dia. ≥ 30 kg: 10 mg/dia.',
             apresentacoes: [
               { label: 'Xarope 1 mg/mL', conc: 1, tipo: 'mL' },
@@ -437,6 +456,7 @@ export const PART1_CATEGORIAS = [
             label: 'Rinite Alérgica / Urticária',
             dose_min: 0.05, dose_max: 0.1, dose_max_abs: 5,
             unidade: 'mg/kg/dia', freq: '1x ao dia',
+            dias: '14–30 dias',
             obs: '6–12m: 1 mg/dia. 1–5a: 1,25 mg/dia. 6–11a: 2,5 mg/dia. ≥12a: 5 mg/dia.',
             apresentacoes: [
               { label: 'Xarope 0,5 mg/mL', conc: 0.5, tipo: 'mL' },
@@ -459,6 +479,7 @@ export const PART1_CATEGORIAS = [
             label: 'Urticária / Rinite Alérgica',
             dose_min: 1, dose_max: 2, dose_max_abs: 180,
             unidade: 'mg/kg/dia ÷ 2', freq: '12/12h',
+            dias: '14–30 dias',
             obs: '6m–<2a: 15 mg 12/12h. 2–11a: 30 mg 12/12h. ≥12a: 180 mg 1×/dia.',
             apresentacoes: [
               { label: 'Suspensão 6 mg/mL', conc: 6, tipo: 'mL' },
@@ -505,6 +526,7 @@ export const PART1_CATEGORIAS = [
             label: 'Alergia / Prurido',
             dose_min: 0.5, dose_max: 1, dose_max_abs: 50,
             unidade: 'mg/kg/dose', freq: '6/6h ou 8/8h',
+            dias: '7–14 dias',
             obs: 'Sedação pré-procedimento: 1–2 mg/kg. Máx 50 mg/dose.',
             apresentacoes: [
               { label: 'Xarope 2 mg/mL', conc: 2, tipo: 'mL' },
@@ -526,6 +548,7 @@ export const PART1_CATEGORIAS = [
             label: 'Náuseas / Vômitos / Alergia',
             dose_min: 0.25, dose_max: 0.5, dose_max_abs: 25,
             unidade: 'mg/kg/dose', freq: '8/8h',
+            dias: '3–5 dias',
             obs: 'Máx 25 mg/dose.',
             apresentacoes: [
               { label: 'Ampola 25 mg/mL (IM/EV)', conc: 25, tipo: 'mL' },

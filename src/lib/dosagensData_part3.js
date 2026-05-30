@@ -497,6 +497,7 @@ export const PART3_CATEGORIAS = [
             label: 'Status Epiléptico Refratário (Ataque EV)',
             dose_min: 15, dose_max: 20, dose_max_abs: 1000,
             unidade: 'mg/kg (ataque EV)', freq: 'Dose única EV lenta (1 mg/kg/min)',
+            dias: 'Emergência — dose única',
             obs: '15–20 mg/kg EV. Pode repetir 5–10 mg/kg se necessário. Máx 40 mg/kg total.',
             apresentacoes: [
               { label: 'Ampola 100 mg/mL (EV)', conc: 100, tipo: 'mL' },

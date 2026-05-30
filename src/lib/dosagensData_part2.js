@@ -537,6 +537,7 @@ export const PART2_CATEGORIAS = [
             label: 'Infecção do Trato Urinário',
             dose_min: 5, dose_max: 6, dose_max_abs: 160,
             unidade: 'mg/kg/dia de TMP ÷ 2', freq: '12/12h por 7–10 dias',
+            dias: '7–10 dias',
             obs: 'Calcular pelo TMP. Máx 160 mg TMP/dose.',
             apresentacoes: [
               { label: 'Suspensão 200+40 mg/5 mL (8 mg TMP/mL)', conc: 8, tipo: 'mL' },
@@ -549,6 +550,7 @@ export const PART2_CATEGORIAS = [
             label: 'Pneumocistose (PCP) — Tratamento',
             dose_min: 15, dose_max: 20, dose_max_abs: 320,
             unidade: 'mg/kg/dia de TMP ÷ 3–4', freq: '6/6h ou 8/8h por 21 dias',
+            dias: '21 dias',
             obs: 'Calcular pelo TMP. 15–20 mg TMP/kg/dia ÷ 3–4 doses × 21 dias. EV em imunossuprimidos graves.',
             apresentacoes: [
               { label: 'Suspensão 200+40 mg/5 mL (8 mg TMP/mL)', conc: 8, tipo: 'mL' },
@@ -560,6 +562,7 @@ export const PART2_CATEGORIAS = [
             label: 'Profilaxia de Pneumocistose',
             dose_min: 5, dose_max: 5, dose_max_abs: 160,
             unidade: 'mg/kg/dia de TMP', freq: '3×/semana (em dias alternados)',
+            dias: 'Contínua (até CD4 > 200)',
             obs: '5 mg TMP/kg/dia × 3/semana. Máx 160 mg TMP/dose.',
             apresentacoes: [
               { label: 'Suspensão 200+40 mg/5 mL (8 mg TMP/mL)', conc: 8, tipo: 'mL' },
