@@ -111,13 +111,13 @@ export default function DosagemDetalhe({ drug, onBack }) {
       doseMaxMg = indicacao.dose_max;
       doseMedMg = (doseMinMg + doseMaxMg) / 2;
     } else {
-      // mg/kg based
+      // mg/kg based (calculate daily dose without dose_max_abs ceiling)
       doseMinKg = indicacao.dose_min;   // mg/kg
       doseMaxKg = indicacao.dose_max;   // mg/kg
       const rawMin = doseMinKg * pesoNum;
       const rawMax = doseMaxKg * pesoNum;
-      doseMinMg = indicacao.dose_max_abs ? Math.min(rawMin, indicacao.dose_max_abs) : rawMin;
-      doseMaxMg = indicacao.dose_max_abs ? Math.min(rawMax, indicacao.dose_max_abs) : rawMax;
+      doseMinMg = rawMin;
+      doseMaxMg = rawMax;
       doseMedMg = (doseMinMg + doseMaxMg) / 2;
     }
   }
