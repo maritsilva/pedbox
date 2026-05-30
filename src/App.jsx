@@ -29,6 +29,13 @@ import PRAM from './pages/PRAM';
 import DrogasEmergencia from './pages/DrogasEmergencia';
 import CalculadorasHub from './pages/CalculadorasHub';
 import Resumos from './pages/Resumos';
+import APGAR from './pages/calculadoras/APGAR';
+import GlasgowPediatrico from './pages/calculadoras/GlasgowPediatrico';
+import PEWS from './pages/calculadoras/PEWS';
+import SIPA from './pages/calculadoras/SIPA';
+import SilvermanAnderson from './pages/calculadoras/SilvermanAnderson';
+import EscoreRodwell from './pages/calculadoras/EscoreRodwell';
+import PASAsma from './pages/calculadoras/PASAsma';
 
 function App() {
   return (
@@ -60,6 +67,13 @@ function App() {
             <Route path="/drogas-emergencia" element={<DrogasEmergencia />} />
             <Route path="/calculadoras-hub" element={<CalculadorasHub />} />
             <Route path="/resumos" element={<Resumos />} />
+            <Route path="/apgar" element={<APGAR />} />
+            <Route path="/glasgow-pediatrico" element={<GlasgowPediatrico />} />
+            <Route path="/pews" element={<PEWS />} />
+            <Route path="/sipa" element={<SIPA />} />
+            <Route path="/silverman-anderson" element={<SilvermanAnderson />} />
+            <Route path="/rodwell" element={<EscoreRodwell />} />
+            <Route path="/pas-asma" element={<PASAsma />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

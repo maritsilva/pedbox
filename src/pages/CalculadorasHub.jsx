@@ -8,103 +8,62 @@ import {
 
 const CATEGORIES = [
   {
-    label: 'Escores Respiratórios',
+    label: '🍼 Neonatologia',
+    color: 'amber',
+    icon: '🍼',
+    tools: [
+      { label: 'APGAR', desc: 'Vitalidade do recém-nascido (0–10)', path: '/apgar', Icon: Activity, badge: 'Score', badgeColor: 'bg-amber-100 text-amber-700' },
+      { label: 'Silverman-Anderson', desc: 'Desconforto respiratório em RN (0–10)', path: '/silverman-anderson', Icon: Wind, badge: 'Score', badgeColor: 'bg-cyan-100 text-cyan-700' },
+      { label: 'Escore de Rodwell', desc: 'Probabilidade de sepse neonatal', path: '/rodwell', Icon: Microscope, badge: 'Score', badgeColor: 'bg-rose-100 text-rose-700' },
+      { label: 'IG Corrigida', desc: 'Idade gestacional ajustada para prematuros', path: '/idade-gestacional-corrigida', Icon: Calendar, badge: 'Cálculo', badgeColor: 'bg-lime-100 text-lime-700' },
+    ],
+  },
+  {
+    label: '🚨 Emergência / UTI',
+    color: 'red',
+    icon: '🚨',
+    tools: [
+      { label: 'Glasgow Pediátrica', desc: 'Nível de consciência em crianças (3–15)', path: '/glasgow-pediatrico', Icon: Activity, badge: 'Score', badgeColor: 'bg-indigo-100 text-indigo-700' },
+      { label: 'PEWS', desc: 'Alerta precoce de deterioração em enfermaria', path: '/pews', Icon: Activity, badge: 'Score', badgeColor: 'bg-teal-100 text-teal-700' },
+      { label: 'SIPA', desc: 'Shock Index ajustado por idade pediátrica', path: '/sipa', Icon: Activity, badge: 'Índice', badgeColor: 'bg-red-100 text-red-700' },
+      { label: 'Drogas na Emergência', desc: 'Doses em bolus, infusão e equipamentos (Broselow)', path: '/drogas-emergencia', Icon: Activity, badge: 'Referência', badgeColor: 'bg-rose-100 text-rose-700' },
+    ],
+  },
+  {
+    label: '🫁 Respiratório',
     color: 'blue',
     icon: '🫁',
     tools: [
-      {
-        label: 'Wood-Downes-Ferrés',
-        desc: 'Gravidade da bronquiolite em lactentes',
-        path: '/wood-downes',
-        Icon: Wind,
-        badge: 'Score',
-        badgeColor: 'bg-blue-100 text-blue-700',
-      },
-      {
-        label: 'Score PRAM',
-        desc: 'Gravidade da crise asmática (2–17 anos)',
-        path: '/pram',
-        Icon: Wind,
-        badge: 'Score',
-        badgeColor: 'bg-sky-100 text-sky-700',
-      },
+      { label: 'PAS — Asma', desc: 'Gravidade da crise asmática em PS (5–15)', path: '/pas-asma', Icon: Wind, badge: 'Score', badgeColor: 'bg-sky-100 text-sky-700' },
+      { label: 'PRAM', desc: 'Gravidade da crise asmática (2–17 anos)', path: '/pram', Icon: Wind, badge: 'Score', badgeColor: 'bg-blue-100 text-blue-700' },
+      { label: 'Wood-Downes-Ferrés', desc: 'Gravidade da bronquiolite em lactentes', path: '/wood-downes', Icon: Wind, badge: 'Score', badgeColor: 'bg-indigo-100 text-indigo-700' },
     ],
   },
   {
-    label: 'Crescimento e Desenvolvimento',
+    label: '📏 Crescimento e Desenvolvimento',
     color: 'green',
     icon: '📏',
     tools: [
-      {
-        label: 'IMC Pediátrico',
-        desc: 'Curvas de crescimento CDC 2000 (0–20 anos)',
-        path: '/imc',
-        Icon: Scale,
-        badge: 'Percentil',
-        badgeColor: 'bg-green-100 text-green-700',
-      },
-      {
-        label: 'Perímetro Cefálico',
-        desc: 'Avaliação do crescimento craniano (0–36 meses)',
-        path: '/perimetro-cefalico',
-        Icon: Ruler,
-        badge: 'Percentil',
-        badgeColor: 'bg-teal-100 text-teal-700',
-      },
-      {
-        label: 'Alvo Parental',
-        desc: 'Estatura esperada com base na altura dos pais',
-        path: '/alvo-parental',
-        Icon: TrendingUp,
-        badge: 'Cálculo',
-        badgeColor: 'bg-emerald-100 text-emerald-700',
-      },
-      {
-        label: 'IG Corrigida',
-        desc: 'Idade gestacional ajustada para prematuros',
-        path: '/idade-gestacional-corrigida',
-        Icon: Calendar,
-        badge: 'Cálculo',
-        badgeColor: 'bg-lime-100 text-lime-700',
-      },
+      { label: 'IMC Pediátrico', desc: 'Curvas de crescimento CDC 2000 (0–20 anos)', path: '/imc', Icon: Scale, badge: 'Percentil', badgeColor: 'bg-green-100 text-green-700' },
+      { label: 'Perímetro Cefálico', desc: 'Avaliação do crescimento craniano (0–36 meses)', path: '/perimetro-cefalico', Icon: Ruler, badge: 'Percentil', badgeColor: 'bg-teal-100 text-teal-700' },
+      { label: 'Alvo Parental', desc: 'Estatura esperada com base na altura dos pais', path: '/alvo-parental', Icon: TrendingUp, badge: 'Cálculo', badgeColor: 'bg-emerald-100 text-emerald-700' },
     ],
   },
   {
-    label: 'Hemodinâmica e Fluidos',
+    label: '💧 Hemodinâmica e Fluidos',
     color: 'cyan',
     icon: '💧',
     tools: [
-      {
-        label: 'Hidratação Venosa',
-        desc: 'Expansão volêmica e manutenção (Holliday-Segar)',
-        path: '/hidratacao',
-        Icon: Droplets,
-        badge: 'Cálculo',
-        badgeColor: 'bg-cyan-100 text-cyan-700',
-      },
-      {
-        label: 'Pressão Arterial Pediátrica',
-        desc: 'Percentis de PA por sexo, idade e estatura (AAP 2017)',
-        path: '/pressao-arterial',
-        Icon: Activity,
-        badge: 'Percentil',
-        badgeColor: 'bg-red-100 text-red-700',
-      },
+      { label: 'Hidratação Venosa', desc: 'Expansão volêmica e manutenção (Holliday-Segar)', path: '/hidratacao', Icon: Droplets, badge: 'Cálculo', badgeColor: 'bg-cyan-100 text-cyan-700' },
+      { label: 'Pressão Arterial Pediátrica', desc: 'Percentis de PA por sexo, idade e estatura (AAP 2017)', path: '/pressao-arterial', Icon: Activity, badge: 'Percentil', badgeColor: 'bg-red-100 text-red-700' },
     ],
   },
   {
-    label: 'Infectologia',
+    label: '🦠 Infectologia',
     color: 'purple',
     icon: '🦠',
     tools: [
-      {
-        label: 'Centor / McIsaac',
-        desc: 'Probabilidade de faringoamigdalite estreptocócica',
-        path: '/centor-mcisaac',
-        Icon: Microscope,
-        badge: 'Score',
-        badgeColor: 'bg-purple-100 text-purple-700',
-      },
+      { label: 'Centor / McIsaac', desc: 'Probabilidade de faringoamigdalite estreptocócica', path: '/centor-mcisaac', Icon: Microscope, badge: 'Score', badgeColor: 'bg-purple-100 text-purple-700' },
     ],
   },
 ];
@@ -112,6 +71,8 @@ const CATEGORIES = [
 const ALL_TOOLS = CATEGORIES.flatMap(c => c.tools);
 
 const catMeta = {
+  amber:  { header: 'bg-amber-500',  light: 'bg-amber-50',  border: 'border-amber-200',  text: 'text-amber-700'  },
+  red:    { header: 'bg-red-600',    light: 'bg-red-50',    border: 'border-red-200',    text: 'text-red-700'    },
   blue:   { header: 'bg-blue-600',   light: 'bg-blue-50',   border: 'border-blue-200',   text: 'text-blue-700'   },
   green:  { header: 'bg-emerald-600', light: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700' },
   cyan:   { header: 'bg-cyan-600',   light: 'bg-cyan-50',   border: 'border-cyan-200',   text: 'text-cyan-700'   },

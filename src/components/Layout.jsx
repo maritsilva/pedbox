@@ -38,6 +38,13 @@ const menuCategories = [
       { to: '/pram', label: 'PRAM (Asma)' },
       { to: '/calculadoras-hub', label: '🧮 Calculadoras Clínicas' },
       { to: '/drogas-emergencia', label: '🚨 Drogas na Emergência' },
+      { to: '/apgar', label: 'APGAR' },
+      { to: '/glasgow-pediatrico', label: 'Glasgow Pediátrica' },
+      { to: '/pews', label: 'PEWS' },
+      { to: '/sipa', label: 'SIPA' },
+      { to: '/silverman-anderson', label: 'Silverman-Anderson' },
+      { to: '/rodwell', label: 'Rodwell (Sepse Neonatal)' },
+      { to: '/pas-asma', label: 'PAS — Asma' },
     ],
   },
   {
