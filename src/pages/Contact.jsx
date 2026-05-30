@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Heart, Copy, ExternalLink } from 'lucide-react';
+import { Mail, Heart, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 
@@ -49,8 +49,8 @@ export default function Contact() {
     }, 3000);
   };
 
-  const handleCopyModel = () => {
-    window.open('https://app.base44.com/app-templates/69f4e81a840a3c93cee16789', '_blank');
+  const handleCloneGit = () => {
+    window.open('https://github.com/maritsilva/pedbox', '_blank');
   };
 
   return (
@@ -184,6 +184,22 @@ export default function Contact() {
             </button>
           </motion.form>
         )}
+      </motion.section>
+
+      {/* Clone Git */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto px-4 py-12"
+      >
+        <button
+          onClick={handleCloneGit}
+          className="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3"
+        >
+          <Github className="w-6 h-6" />
+          Clonar repositório no GitHub
+        </button>
       </motion.section>
 
       {/* CTA Final */}

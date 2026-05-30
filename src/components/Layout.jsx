@@ -12,7 +12,7 @@ const DESKTOP_NAV = [
   { to: '/guia',        label: 'Bulas',         Icon: BookOpen },
   { to: '/biblioteca',  label: 'Biblioteca',    Icon: BookOpen },
   { to: '/favoritos',   label: 'Favoritos',     Icon: Star },
-  { to: '/about',       label: 'Sobre o Pedbox',Icon: Info },
+  { to: '/contato',     label: 'Sobre o Pedbox',Icon: Info },
 ];
 
 const DRAWER_CATS = [
@@ -36,8 +36,7 @@ const DRAWER_CATS = [
     { to: '/vacinas',           label: '💉 Vacinas' },
   ]},
   { label: 'Sobre', items: [
-    { to: '/about',   label: 'Sobre o Pedbox' },
-    { to: '/contact', label: 'Contato & Colaboração' },
+    { to: '/contato', label: 'Sobre o Pedbox & Contato' },
   ]},
 ];
 

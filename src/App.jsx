@@ -22,7 +22,7 @@ import IdadeGestacionalCorrigida from './pages/IdadeGestacionalCorrigida';
 import CentorMcIsaac from './pages/CentorMcIsaac';
 import Vacinas from './pages/Vacinas';
 import Contato from './pages/Contato';
-import About from './pages/About';
+
 import Contact from './pages/Contact';
 import CartilhaDesenvolvimento from './pages/CartilhaDesenvolvimento';
 import Settings from './pages/Settings';
@@ -69,7 +69,7 @@ function App() {
             <Route path="/centor-mcisaac" element={<CentorMcIsaac />} />
             <Route path="/vacinas" element={<Vacinas />} />
             <Route path="/contato" element={<Contato />} />
-            <Route path="/about" element={<About />} />
+
             <Route path="/contact" element={<Contact />} />
             <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
             <Route path="/settings" element={<Settings />} />
