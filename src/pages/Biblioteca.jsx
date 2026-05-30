@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp } from 'lucide-react';
+import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { RESUMOS } from '@/lib/resumosData';
@@ -60,40 +60,144 @@ function estimateTime(resumo) {
 // ── Resumo Detail ──────────────────────────────────────────────────────────
 function ResumoDetail({ resumo, onBack }) {
   const badge = CAT_BADGE[resumo.categoria] || { bg: 'bg-gray-100', text: 'text-gray-700', label: resumo.categoria };
+  const mins = estimateTime(resumo);
+  
   return (
-    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="max-w-3xl mx-auto px-4 py-8">
+    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="max-w-7xl mx-auto px-4 py-8">
+      {/* Back button */}
       <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors group">
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
         Voltar à Biblioteca
       </button>
-      <div className="bg-white border border-border rounded-2xl p-6 mb-6 shadow-sm">
-        <div className="flex items-start gap-4">
-          <div className="text-5xl w-16 h-16 flex items-center justify-center bg-secondary/40 rounded-2xl flex-shrink-0">{resumo.emoji}</div>
-          <div className="flex-1">
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.bg} ${badge.text} inline-block mb-2`}>{badge.label}</span>
-            <h1 className="text-2xl font-extrabold text-foreground leading-tight">{resumo.titulo}</h1>
-            <p className="text-sm text-muted-foreground mt-1">{resumo.subtitulo}</p>
+
+      <div className="flex gap-6">
+        {/* ── LEFT SIDEBAR ── */}
+        <div className="lg:w-72 flex-shrink-0 hidden lg:block">
+          <div className="bg-white border border-border rounded-2xl p-4 shadow-sm sticky top-20">
+            <p className="font-bold text-sm text-foreground mb-3">Neste resumo</p>
+            <div className="space-y-1.5">
+              <button className="w-full text-left flex items-center gap-2 px-3 py-2 bg-blue-50 border-l-2 border-primary text-primary text-sm font-semibold rounded-lg transition-colors">
+                <BookOpen className="w-4 h-4" />
+                Visão geral
+              </button>
+              {resumo.seções?.map((sec, i) => (
+                <button key={i} className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 rounded-lg transition-colors group">
+                  <span className="text-[10px] font-bold">{i + 1}</span>
+                  <span className="truncate group-hover:text-foreground">{sec.nome}</span>
+                </button>
+              ))}
+              <div className="pt-2 mt-2 border-t border-border">
+                <button className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 rounded-lg transition-colors">
+                  <LayoutGrid className="w-4 h-4" />
+                  Tabela comparativa
+                </button>
+                <button className="w-full text-left flex items-center gap-2 px-3 py-2 text-muted-foreground text-xs font-medium hover:bg-secondary/60 rounded-lg transition-colors">
+                  <GitBranch className="w-4 h-4" />
+                  Referências
+                </button>
+              </div>
+            </div>
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-[10px] font-semibold text-blue-700 flex items-center gap-1.5 mb-1">
+                <span>💡</span> Dica
+              </p>
+              <p className="text-[10px] text-blue-600 leading-relaxed">Use o sumário para navegar entre as seções do resumo.</p>
+            </div>
           </div>
         </div>
-        {resumo.referencia && (
-          <p className="text-[11px] text-muted-foreground mt-4 pt-4 border-t border-border leading-relaxed">📚 {resumo.referencia}</p>
-        )}
+
+        {/* ── MAIN CONTENT ── */}
+        <div className="flex-1 min-w-0">
+          {/* Action buttons */}
+          <div className="flex items-center gap-2 mb-6 flex-wrap justify-end">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
+              <Star className="w-4 h-4" />
+              Favoritar
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
+              <Copy className="w-4 h-4" />
+              Copiar
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
+              <BookOpen className="w-4 h-4" />
+              PDF
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground border border-border rounded-lg hover:bg-secondary transition-colors">
+              <LayoutGrid className="w-4 h-4" />
+              Modo leitura
+            </button>
+          </div>
+
+          {/* Header */}
+          <div className="bg-white border border-border rounded-2xl p-6 mb-6 shadow-sm">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-5xl w-16 h-16 flex items-center justify-center bg-secondary/40 rounded-2xl flex-shrink-0">{resumo.emoji}</div>
+              <div className="flex-1">
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.bg} ${badge.text} inline-block mb-2`}>{badge.label}</span>
+                <h1 className="text-2xl font-extrabold text-foreground leading-tight">{resumo.titulo}</h1>
+                <p className="text-sm text-muted-foreground mt-1">{resumo.subtitulo}</p>
+              </div>
+            </div>
+            {resumo.referencia && (
+              <p className="text-[11px] text-muted-foreground pt-4 border-t border-border leading-relaxed">📚 {resumo.referencia}</p>
+            )}
+            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border text-[11px] text-muted-foreground">
+              <span className="flex items-center gap-1">⏱️ Leitura: {mins} min</span>
+              <span>Atualizado: Jun/2024</span>
+            </div>
+          </div>
+
+          {/* Pontos-chave section */}
+          {resumo.seções?.[0] && (
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
+              <h2 className="text-base font-extrabold text-blue-900 mb-4 flex items-center gap-2">
+                <span className="text-lg">📍</span>
+                Pontos-chave
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {[
+                  'Exantema com febre alta e pródromos intensos sugere sarampo ou rubéola',
+                  'Exantema vesicular sugere varicela ou mão-pé-boca.',
+                  'Exantema após resolução da febre sugere exantema súbito.',
+                  'Avaliar sinais de gravidade, necessidade de notificação e medidas de isolamento.',
+                ].map((point, i) => (
+                  <div key={i} className="flex gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">✓</div>
+                    <p className="text-sm text-blue-900">{point}</p>
+                  </div>
+                ))}
+              </div>
+              <button className="mt-4 px-4 py-2 bg-white border border-blue-300 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+                🏥 Modo plantão
+              </button>
+            </div>
+          )}
+
+          {/* Seções */}
+          <div className="space-y-4">
+            {resumo.seções?.map((sec, i) => {
+              const colorClass = SECTION_COLORS[sec.color] || SECTION_COLORS.blue;
+              return (
+                <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+                  className={`rounded-2xl border p-5 ${colorClass}`}>
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-6 h-6 rounded-full bg-white/60 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                      {i + 1}
+                    </div>
+                    <p className="font-bold text-sm flex-1">{sec.nome}</p>
+                  </div>
+                  <p className="text-xs leading-relaxed whitespace-pre-line">{sec.conteudo}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Footer */}
+          <p className="text-center text-[10px] text-muted-foreground/50 mt-8">
+            Este conteúdo é baseado em evidências e diretrizes atualizadas. Sempre valide com protocolos institucionais.
+          </p>
+        </div>
       </div>
-      <div className="space-y-4">
-        {resumo.seções?.map((sec, i) => {
-          const colorClass = SECTION_COLORS[sec.color] || SECTION_COLORS.blue;
-          return (
-            <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
-              className={`rounded-2xl border p-5 ${colorClass}`}>
-              <p className="font-bold text-sm mb-2">{sec.nome}</p>
-              <p className="text-xs leading-relaxed whitespace-pre-line">{sec.conteudo}</p>
-            </motion.div>
-          );
-        })}
-      </div>
-      <p className="text-center text-[10px] text-muted-foreground/50 mt-8">
-        Este conteúdo é baseado em evidências e diretrizes atualizadas. Sempre valide com protocolos institucionais.
-      </p>
     </motion.div>
   );
 }
