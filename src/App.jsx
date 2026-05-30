@@ -45,6 +45,8 @@ import FavoritosPage from './pages/FavoritosPage';
 import ExplorarFerramentas from './pages/ExplorarFerramentas';
 import Biblioteca from './pages/Biblioteca';
 import CurvasCrescimento from './pages/CurvasCrescimento';
+import SinaisVitais from './pages/SinaisVitais';
+import PageNotFound from './lib/PageNotFound';
 
 function App() {
   return (
@@ -90,6 +92,7 @@ function App() {
             <Route path="/ferramentas" element={<ExplorarFerramentas />} />
             <Route path="/biblioteca" element={<Biblioteca />} />
             <Route path="/curvas-crescimento" element={<CurvasCrescimento />} />
+            <Route path="/sinais-vitais" element={<SinaisVitais />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

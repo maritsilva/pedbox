@@ -64,7 +64,7 @@ const QUICK_ACCESS = [
   { label: 'Cálculos',     desc: 'Fórmulas e cálculos pediátricos essenciais.', icon: '➕', path: '/dosagens' },
   { label: 'Escalas e Escores', desc: 'Avaliações clínicas validadas.', icon: '⭐', path: '/calculadoras-hub' },
   { label: 'Hidratação',   desc: 'Volumes, soluções e velocidades.', icon: '💧', path: '/hidratacao' },
-  { label: 'Tabelas',      desc: 'Valores de referência e parâmetros.', icon: '📋', path: '/protocolos' },
+  { label: 'Sinais Vitais', desc: 'Valores de referência e parâmetros.', icon: '📋', path: '/sinais-vitais' },
   { label: 'Drug Drip',    desc: 'Diluições e infusões passo a passo.', icon: '💊', path: '/drogas-emergencia' },
 ];
 
