@@ -91,7 +91,7 @@ export default function Home() {
               Essenciais no Plantão
             </span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">Doses, Protocolos e Cálculosssenciais no Plantão
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">ADoses, Protocolos e Cálculos, essenciais no Plantão
 
           </p>
         </div>
