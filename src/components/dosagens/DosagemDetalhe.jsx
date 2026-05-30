@@ -123,7 +123,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
     <motion.div
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
-      className="max-w-4xl mx-auto px-4 py-8"
+      className="max-w-5xl mx-auto px-4 py-8"
     >
       {/* Back + Favorite */}
       <div className="flex items-center justify-between mb-6">
@@ -147,18 +147,17 @@ export default function DosagemDetalhe({ drug, onBack }) {
         </button>
       </div>
 
-      {/* Header */}
-      <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm border-l-4" style={{ borderLeftColor: `hsl(${meta.header.match(/\d+/)[0]}, 100%, 50%)` }}>
-        <div className="flex items-start justify-between gap-6">
-          <div className="flex-1">
-            <p className={`text-xs font-extrabold uppercase tracking-widest ${meta.text} mb-2`}>{drug.catLabel}</p>
-            <h1 className="text-3xl font-extrabold text-foreground mb-1">{drug.name}</h1>
-            {drug.sinonimo && <p className="text-sm text-muted-foreground">{drug.sinonimo}</p>}
-            {drug.descricao && <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{drug.descricao}</p>}
-          </div>
-          <div className={`w-20 h-20 rounded-2xl ${meta.bg} flex items-center justify-center text-4xl flex-shrink-0`}>
-            {drug.catIcon}
-          </div>
+      {/* Header with left orange border */}
+      <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm border-l-4 border-orange-500 flex items-start gap-6">
+        <div className="flex-1">
+          <p className="text-xs font-extrabold uppercase tracking-widest text-orange-600 mb-2">{drug.catLabel}</p>
+          <h1 className="text-3xl font-extrabold text-foreground mb-1">{drug.name}</h1>
+          {drug.sinonimo && <p className="text-sm text-muted-foreground">{drug.sinonimo}</p>}
+          {drug.marcas && <p className="text-xs text-muted-foreground mt-0.5">{drug.marcas}</p>}
+          {drug.descricao && <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{drug.descricao}</p>}
+        </div>
+        <div className="w-24 h-24 rounded-full bg-orange-100 flex items-center justify-center text-4xl flex-shrink-0">
+          {drug.catIcon}
         </div>
       </div>
 
@@ -170,19 +169,19 @@ export default function DosagemDetalhe({ drug, onBack }) {
         </div>
       )}
 
-      {/* Section 1: Indicação + Dose info */}
-      <div className="mb-6 grid md:grid-cols-3 gap-4 items-start">
-        <div className="md:col-span-1">
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-[10px] font-bold mr-2" style={{ backgroundColor: `hsl(${meta.header.match(/\d+/)?.[0] || 221}, 83%, 53%)` }}>1</span>
-            Selecione uma indicação
+      {/* Section 1 + Dose info side by side */}
+      <div className="mb-6 grid md:grid-cols-3 gap-4">
+        {/* Left: Indicação selector */}
+        <div>
+          <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2">
+            1. SELECIONE UMA INDICAÇÃO
           </p>
           {drug.indicacoes.length > 1 ? (
             <div className="relative">
               <select
                 value={indicacaoId}
                 onChange={e => setIndicacaoId(e.target.value)}
-                className="w-full appearance-none bg-white border border-border rounded-xl px-3 py-2.5 pr-9 text-sm font-semibold text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all cursor-pointer"
+                className="w-full appearance-none bg-white border border-orange-300 rounded-xl px-3 py-2.5 pr-9 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-orange-200 transition-all cursor-pointer"
               >
                 {drug.indicacoes.map(ind => (
                   <option key={ind.id} value={ind.id}>{ind.label}</option>
@@ -191,50 +190,55 @@ export default function DosagemDetalhe({ drug, onBack }) {
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
           ) : (
-            <div className={`flex items-center gap-2 px-3 py-2.5 rounded-xl ${meta.bg} border ${meta.border}`}>
-              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${meta.dot}`} />
-              <span className={`text-xs font-semibold ${meta.text}`}>{indicacao.label}</span>
+            <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white border border-orange-300">
+              <span className="text-lg">❤️</span>
+              <span className="text-sm font-semibold text-foreground">{indicacao.label}</span>
             </div>
           )}
         </div>
 
-        {/* Dose info cards */}
+        {/* Right: Dose info cards */}
         {indicacao && (
-          <div className="md:col-span-2 grid grid-cols-3 gap-2">
-            <div className="bg-white border border-border rounded-xl p-2.5 text-center">
-              <p className="text-[10px] font-bold text-muted-foreground uppercase">Dose</p>
-              <p className="text-sm font-bold text-foreground mt-1">{indicacao.dose_min === indicacao.dose_max ? `${indicacao.dose_min}` : `${indicacao.dose_min}–${indicacao.dose_max}`}</p>
-              <p className="text-[10px] text-muted-foreground">{indicacao.unidade}</p>
-            </div>
-            <div className="bg-white border border-border rounded-xl p-2.5 text-center">
-              <p className="text-[10px] font-bold text-muted-foreground uppercase">Freq.</p>
-              <p className="text-sm font-bold text-foreground mt-1">{indicacao.freq}</p>
-            </div>
-            {indicacao.dose_max_abs && (
-              <div className="bg-white border border-border rounded-xl p-2.5 text-center">
-                <p className="text-[10px] font-bold text-muted-foreground uppercase">Dose máxima</p>
-                <p className="text-sm font-bold text-foreground mt-1">{fmtDose(indicacao.dose_max_abs)}</p>
-                <p className="text-[10px] text-muted-foreground">/dose</p>
+          <div className="md:col-span-2">
+            <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2">
+              DOSE, FREQUÊNCIA E DOSE MÁXIMA
+            </p>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-white border border-border rounded-xl p-3 text-center">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase mb-2">Dose</p>
+                <p className="text-base font-bold text-foreground">{indicacao.dose_min === indicacao.dose_max ? `${indicacao.dose_min}` : `${indicacao.dose_min}–${indicacao.dose_max}`}</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">{indicacao.unidade}</p>
               </div>
-            )}
+              <div className="bg-white border border-border rounded-xl p-3 text-center">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase mb-2">Freq.</p>
+                <p className="text-base font-bold text-foreground">{indicacao.freq}</p>
+              </div>
+              {indicacao.dose_max_abs && (
+                <div className="bg-white border border-border rounded-xl p-3 text-center">
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase mb-2">Dose máxima</p>
+                  <p className="text-base font-bold text-foreground">{fmtDose(indicacao.dose_max_abs)}</p>
+                  <p className="text-[10px] text-muted-foreground">/dose</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
 
       {/* Section 2: Weight */}
       <div className="mb-6">
-        <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-[10px] font-bold mr-2" style={{ backgroundColor: `hsl(${meta.header.match(/\d+/)?.[0] || 221}, 83%, 53%)` }}>2</span>
-          Peso do paciente
+        <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
+          2. PESO DO PACIENTE
         </p>
         <div className="relative">
+          <Pill className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-500 pointer-events-none" />
           <input
             type="number"
             inputMode="decimal"
             placeholder="Ex: 13"
             value={peso}
             onChange={e => setPeso(e.target.value)}
-            className={`w-full border-2 rounded-2xl px-5 py-4 pr-12 text-3xl font-bold focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+            className={`w-full border-2 rounded-2xl px-12 py-4 text-3xl font-bold focus:outline-none transition-all ${
               peso && !pesoValido ? 'border-red-300 bg-red-50' : `border-orange-300 bg-orange-50`
             }`}
           />
@@ -257,9 +261,8 @@ export default function DosagemDetalhe({ drug, onBack }) {
           >
             {/* Section 3: Resultado */}
             <div>
-              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-[10px] font-bold mr-2" style={{ backgroundColor: `hsl(${meta.header.match(/\d+/)?.[0] || 221}, 83%, 53%)` }}>3</span>
-                Resultado para {pesoNum} kg
+              <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-4">
+                3. RESULTADO PARA {pesoNum} KG
               </p>
 
               {/* Min / Avg / Max dose cards */}
@@ -298,16 +301,15 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
                return (
                  <div>
-                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">
-                     <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-[10px] font-bold mr-2" style={{ backgroundColor: `hsl(${meta.header.match(/\d+/)?.[0] || 221}, 83%, 53%)` }}>4</span>
-                     Apresentação disponível
+                   <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
+                     4. APRESENTAÇÃO DISPONÍVEL
                    </p>
                    <div className="relative mb-3">
-                     <Pill className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 ${meta.text} pointer-events-none`} />
+                     <Pill className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
                      <select
                        value={apIndex}
                        onChange={e => setApIndex(Number(e.target.value))}
-                       className="w-full appearance-none bg-white border border-border rounded-2xl pl-11 pr-10 py-3 text-sm font-semibold text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all cursor-pointer"
+                       className="w-full appearance-none bg-white border border-orange-300 rounded-2xl pl-11 pr-10 py-3 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-orange-200 transition-all cursor-pointer"
                      >
                        {indicacao.apresentacoes.map((a, i) => (
                          <option key={i} value={i}>{a.label}</option>
@@ -323,45 +325,12 @@ export default function DosagemDetalhe({ drug, onBack }) {
                    )}
 
                    {calcMed ? (
-                     <div className={`rounded-2xl ${meta.bg} border-2 ${meta.border} px-5 py-4 mb-4`}>
-                       <p className={`text-3xl font-extrabold ${meta.text}`}>
-                         {doseMinMg !== doseMaxMg && calcMin && calcMax
-                           ? `${calcMin.vol} a ${calcMax.vol}`
-                           : calcMed.vol}
-                       </p>
-                       <p className="text-sm font-semibold text-muted-foreground mt-2">
-                         via {drug.via ?? 'oral'} · {indicacao.freq}
-                       </p>
-                       {!isFixedDose && doseMinMg !== doseMaxMg && (
-                         <div className="mt-3 pt-3 border-t border-border/40 grid grid-cols-3 gap-2 text-[10px]">
-                           <div className="text-center">
-                             <span className="block text-foreground font-bold">{calcMin?.vol}</span>
-                             <span className="text-muted-foreground">mín ({doseMinKg} mg/kg)</span>
-                           </div>
-                           <div className="text-center">
-                             <span className={`block font-extrabold ${meta.text}`}>{calcMed?.vol}</span>
-                             <span className="text-muted-foreground">médio</span>
-                           </div>
-                           <div className="text-center">
-                             <span className="block text-foreground font-bold">{calcMax?.vol}</span>
-                             <span className="text-muted-foreground">máx ({doseMaxKg} mg/kg)</span>
-                           </div>
-                         </div>
-                       )}
-                     </div>
-                   ) : (
-                     <p className="text-xs text-muted-foreground italic mb-4">Não calculável para esta apresentação.</p>
-                   )}
-
-                   {/* Section 5: Resultado em apresentação */}
-                   {calcMed && (
                      <div>
-                       <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">
-                         <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-[10px] font-bold mr-2" style={{ backgroundColor: `hsl(${meta.header.match(/\d+/)?.[0] || 221}, 83%, 53%)` }}>5</span>
-                         Resultado em {ap.tipo}
+                       <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-3">
+                         5. RESULTADO EM {ap.tipo.toUpperCase()}
                        </p>
-                       <div className={`rounded-2xl ${meta.bg} border-2 ${meta.border} px-5 py-4`}>
-                         <p className={`text-2xl font-extrabold ${meta.text}`}>
+                       <div className="bg-orange-50 border-2 border-orange-300 rounded-2xl px-5 py-4 mb-3">
+                         <p className="text-3xl font-extrabold text-orange-600">
                            {doseMinMg !== doseMaxMg && calcMin && calcMax
                              ? `${calcMin.vol} a ${calcMax.vol}`
                              : calcMed.vol}
@@ -369,24 +338,34 @@ export default function DosagemDetalhe({ drug, onBack }) {
                          <p className="text-sm text-muted-foreground mt-2">
                            via {drug.via ?? 'oral'} · {indicacao.freq}
                          </p>
-                         {!isFixedDose && doseMinMg !== doseMaxMg && (
-                           <div className="mt-3 pt-3 border-t border-border/40 grid grid-cols-3 gap-2">
-                             <div className="text-center bg-white rounded-lg px-2 py-2">
-                               <p className="text-sm font-bold text-foreground">{calcMin?.vol}</p>
-                               <p className="text-[10px] text-muted-foreground">mín (5 mg/kg)</p>
+                       </div>
+                       
+                       {/* Cards para min/médio/máx */}
+                       <div className="grid grid-cols-3 gap-3">
+                         {doseMinMg !== doseMaxMg && calcMin && calcMax ? (
+                           <>
+                             <div className="bg-white border border-border rounded-xl p-3 text-center">
+                               <p className="text-base font-bold text-foreground">{calcMin?.vol}</p>
+                               <p className="text-[10px] text-muted-foreground mt-1">mín (5 mg/kg)</p>
                              </div>
-                             <div className="text-center bg-white rounded-lg px-2 py-2">
-                               <p className="text-sm font-bold text-foreground">{calcMed?.vol}</p>
-                               <p className="text-[10px] text-muted-foreground">médio</p>
+                             <div className="bg-white border border-border rounded-xl p-3 text-center">
+                               <p className="text-base font-bold text-foreground">{calcMed?.vol}</p>
+                               <p className="text-[10px] text-muted-foreground mt-1">médio</p>
                              </div>
-                             <div className="text-center bg-white rounded-lg px-2 py-2">
-                               <p className="text-sm font-bold text-foreground">{calcMax?.vol}</p>
-                               <p className="text-[10px] text-muted-foreground">máx (10 mg/kg)</p>
+                             <div className="bg-white border border-border rounded-xl p-3 text-center">
+                               <p className="text-base font-bold text-orange-600">{calcMax?.vol}</p>
+                               <p className="text-[10px] text-muted-foreground mt-1">máx (10 mg/kg)</p>
                              </div>
+                           </>
+                         ) : (
+                           <div className="col-span-3 bg-white border border-border rounded-xl p-3 text-center">
+                             <p className="text-base font-bold text-foreground">{calcMed?.vol}</p>
                            </div>
                          )}
                        </div>
                      </div>
+                   ) : (
+                     <p className="text-xs text-muted-foreground italic">Não calculável para esta apresentação.</p>
                    )}
                  </div>
                );
