@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, ChevronDown, AlertTriangle, Info, Pill, Star } from 'lucide-react';
+import { ArrowLeft, ChevronDown, AlertTriangle, Info, Pill, Star, BookOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -71,6 +72,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
   const meta = COLOR_MAP[drug.catColor] || COLOR_MAP.blue;
   const { isFavorite, toggleFavorite } = useDosagemFavorites();
   const fav = isFavorite(drug.id);
+  const navigate = useNavigate();
 
   const [peso, setPeso] = useState('');
   const [indicacaoId, setIndicacaoId] = useState(drug.indicacoes[0]?.id ?? '');
@@ -157,8 +159,8 @@ export default function DosagemDetalhe({ drug, onBack }) {
       animate={{ opacity: 1, x: 0 }}
       className="max-w-5xl mx-auto px-4 py-8"
     >
-      {/* Back + Favorite */}
-      <div className="flex items-center justify-between mb-6">
+      {/* Back + Buttons */}
+      <div className="flex items-center justify-between mb-6 gap-3">
         <button
           onClick={onBack}
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
@@ -166,17 +168,26 @@ export default function DosagemDetalhe({ drug, onBack }) {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
           Voltar
         </button>
-        <button
-          onClick={() => toggleFavorite(drug.id)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
-            fav 
-              ? 'bg-yellow-50 border-yellow-300 text-yellow-700' 
-              : 'bg-white border-border text-muted-foreground hover:bg-secondary'
-          }`}
-        >
-          <Star className={`w-4 h-4 ${fav ? 'fill-yellow-400' : ''}`} />
-          {fav ? 'Favorito' : 'Favoritar'}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => navigate(`/guia?drug=${drug.id}`)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:bg-secondary transition-all"
+          >
+            <BookOpen className="w-4 h-4" />
+            Bula
+          </button>
+          <button
+            onClick={() => toggleFavorite(drug.id)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
+              fav 
+                ? 'bg-yellow-50 border-yellow-300 text-yellow-700' 
+                : 'bg-white border-border text-muted-foreground hover:bg-secondary'
+            }`}
+          >
+            <Star className={`w-4 h-4 ${fav ? 'fill-yellow-400' : ''}`} />
+            {fav ? 'Favorito' : 'Favoritar'}
+          </button>
+        </div>
       </div>
 
       {/* Header with left orange border */}
@@ -209,23 +220,30 @@ export default function DosagemDetalhe({ drug, onBack }) {
             1. SELECIONE UMA INDICAÇÃO
           </p>
           {drug.indicacoes.length > 1 ? (
-            <div className="relative">
-              <select
-                value={indicacaoId}
-                onChange={e => setIndicacaoId(e.target.value)}
-                className="w-full appearance-none bg-white border border-orange-300 rounded-xl px-3 py-2.5 pr-9 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-orange-200 transition-all cursor-pointer"
-              >
-                {drug.indicacoes.map(ind => (
-                  <option key={ind.id} value={ind.id}>{ind.label}</option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-            </div>
+           <div className="space-y-2">
+             <div className="relative">
+               <select
+                 value={indicacaoId}
+                 onChange={e => setIndicacaoId(e.target.value)}
+                 className="w-full appearance-none bg-white border border-orange-300 rounded-xl px-3 py-2.5 pr-9 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-orange-200 transition-all cursor-pointer"
+               >
+                 {drug.indicacoes.map(ind => (
+                   <option key={ind.id} value={ind.id}>
+                     {ind.label} {ind.dose_min !== undefined && !ind.label.includes('(') ? `(${ind.dose_min}${ind.dose_min !== ind.dose_max ? `–${ind.dose_max}` : ''} ${ind.unidade?.split(' ')[0]})` : ''}
+                   </option>
+                 ))}
+               </select>
+               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+             </div>
+             {indicacao && indicacao.obs && (
+               <p className="text-xs text-muted-foreground leading-relaxed bg-blue-50 border border-blue-200 rounded-lg p-2 italic">{indicacao.obs}</p>
+             )}
+           </div>
           ) : (
-            <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white border border-orange-300">
-              <span className="text-lg">❤️</span>
-              <span className="text-sm font-semibold text-foreground">{indicacao.label}</span>
-            </div>
+           <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white border border-orange-300">
+             <span className="text-lg">❤️</span>
+             <span className="text-sm font-semibold text-foreground">{indicacao.label}</span>
+           </div>
           )}
         </div>
 
