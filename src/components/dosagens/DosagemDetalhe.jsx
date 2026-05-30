@@ -200,12 +200,12 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
       {/* Dose info strip */}
       {indicacao && (
-        <div className="bg-white border border-border rounded-2xl px-5 py-4 mb-6 text-sm text-muted-foreground space-y-2">
-          <div className="flex items-center gap-6 flex-wrap">
-            <span><strong className="text-foreground">Dose:</strong> {indicacao.dose_min === indicacao.dose_max ? `${indicacao.dose_min}` : `${indicacao.dose_min}–${indicacao.dose_max}`} {indicacao.unidade}</span>
-            <span><strong className="text-foreground">Freq.:</strong> {indicacao.freq}</span>
+        <div className="bg-white border border-border rounded-2xl px-5 py-4 mb-6 space-y-2">
+          <div className="flex items-center gap-6 flex-wrap text-base font-semibold">
+            <span className="text-foreground">Dose: <span className="text-primary">{indicacao.dose_min === indicacao.dose_max ? `${indicacao.dose_min}` : `${indicacao.dose_min}–${indicacao.dose_max}`} {indicacao.unidade}</span></span>
+            <span className="text-foreground">Freq.: <span className="text-primary">{indicacao.freq}</span></span>
             {indicacao.dose_max_abs && (
-              <span><strong className="text-foreground">Dose máxima:</strong> {fmtDose(indicacao.dose_max_abs)}/dose</span>
+              <span className="text-foreground">Dose máxima: <span className="text-primary">{fmtDose(indicacao.dose_max_abs)}/dose</span></span>
             )}
           </div>
         </div>
@@ -314,12 +314,12 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
                    {calcMed ? (
                      <div className={`rounded-2xl ${meta.bg} border-2 ${meta.border} px-5 py-4`}>
-                       <p className={`text-2xl font-extrabold ${meta.text}`}>
+                       <p className={`text-3xl font-extrabold ${meta.text}`}>
                          {doseMinMg !== doseMaxMg && calcMin && calcMax
                            ? `${calcMin.vol} a ${calcMax.vol}`
                            : calcMed.vol}
                        </p>
-                       <p className="text-xs text-muted-foreground mt-1">
+                       <p className="text-sm font-semibold text-muted-foreground mt-2">
                          via {drug.via ?? 'oral'} · {indicacao.freq}
                        </p>
                        {!isFixedDose && doseMinMg !== doseMaxMg && (
