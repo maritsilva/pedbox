@@ -29,7 +29,7 @@ import Settings from './pages/Settings';
 import WoodDownes from './pages/WoodDownes';
 import PRAM from './pages/PRAM';
 import DrogasEmergencia from './pages/DrogasEmergencia';
-import CalculadorasHub from './pages/CalculadorasHub';
+import CalculadorasHub from './pages/CalculadorasHub.jsx';
 import Resumos from './pages/Resumos';
 import Dosagens from './pages/Dosagens';
 import APGAR from './pages/calculadoras/APGAR';

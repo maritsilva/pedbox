@@ -204,12 +204,13 @@ export default function About() {
             <strong>Licença:</strong> Livre para estudo, cópia, adaptação e melhoria.
           </p>
           <a
-            href="mailto:contato@pedbox.app"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm hover:shadow-md"
+            href="mailto:pedboxapp@gmail.com"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all hover:shadow-lg"
           >
-            <Mail className="w-4 h-4" />
+            <Mail className="w-5 h-5" />
             Entrar em contato por e-mail
           </a>
+          <p className="text-xs text-gray-400 mt-2">pedboxapp@gmail.com</p>
         </div>
       </motion.section>
 
