@@ -47,7 +47,7 @@ const MOBILE_NAV = [
   { to: '/favoritos',   label: 'Favoritos',   icon: Star },
 ];
 
-const ALL_SEARCH_TOOLS = [
+export const ALL_SEARCH_TOOLS = [
   { label: 'Dosagens',           path: '/dosagens',          icon: '⚡' },
   { label: 'Guia de Medicamentos', path: '/guia',            icon: '📖' },
   { label: 'Protocolos Clínicos', path: '/protocolos',       icon: '🧪' },
@@ -71,14 +71,14 @@ const ALL_SEARCH_TOOLS = [
   { label: 'Desenvolvimento Infantil', path: '/desenvolvimento', icon: '🌱' },
 ];
 
-function NavSearch() {
+export function NavSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
   const results = query.trim().length > 1
-    ? ALL_SEARCH_TOOLS.filter(t => t.label.toLowerCase().includes(query.toLowerCase())).slice(0, 8)
+    ? ALL_SEARCH_TOOLS.filter(t => t.label.toLowerCase().includes(query.toLowerCase())).slice(0, 10)
     : [];
 
   const handleSelect = (path) => {

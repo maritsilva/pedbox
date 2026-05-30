@@ -4,12 +4,13 @@ import {
   Search, ChevronRight, AlertTriangle,
   BookOpen, FlaskConical, Microscope, Zap,
   Calculator, Droplets, Activity, Scale,
-  Syringe, Baby, Shield, RefreshCw, Heart
+  Syringe, Baby, Shield, RefreshCw, Heart, X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllGuideDrugs } from '@/lib/guideData';
 import { searchDrugs } from '@/lib/searchDrugs';
 import { getAllDosagens } from '@/lib/dosagensData';
+import { ALL_SEARCH_TOOLS } from '@/components/Layout';
 
 // Quick category shortcuts
 const QUICK_CATS = [
@@ -68,48 +69,19 @@ const QUICK_ACCESS = [
   { label: 'Entrar em Contato', desc: 'Fale conosco e compartilhe feedback.', icon: '📧', path: '/contato' },
 ];
 
-const ALL_SEARCH_TOOLS = [
-  // Main sections
-  { label: 'Dosagens — Cálculo Rápido', desc: 'Calcule doses por peso instantaneamente · 30+ medicamentos', path: '/dosagens', keywords: ['dosagem', 'dose', 'calculo', 'peso', 'paracetamol', 'ibuprofeno', 'amoxicilina', 'dipirona', 'cetirizina', 'omeprazol', 'salbutamol'] },
-  { label: 'Guia de Medicamentos', desc: 'Doses, preparo e apresentações · 100+ fármacos', path: '/guia', keywords: ['guia', 'doses', 'medicamentos', 'antibióticos', 'bula', 'fármaco', 'princípio ativo'] },
-  { label: 'Protocolos Clínicos', desc: 'Diretrizes passo a passo · Fluxogramas', path: '/protocolos', keywords: ['protocolo', 'asma', 'bronquiolite', 'febre', 'diarreia', 'meningite', 'convulsão', 'pneumonia', 'faringoamigdalite', 'anemia', 'itu'] },
-  { label: 'Resumos Clínicos', desc: 'Sínteses baseadas em evidências · 25+ tópicos', path: '/resumos', keywords: ['resumo', 'varicela', 'sarampo', 'diarreia', 'exantema', 'coqueluche', 'covid', 'aleitamento'] },
-  { label: 'Biblioteca', desc: 'Resumos e protocolos em um só lugar', path: '/biblioteca', keywords: ['biblioteca', 'conteúdo', 'busca'] },
-  { label: 'Explorar Ferramentas', desc: 'Descobra todas as 25+ ferramentas disponíveis', path: '/ferramentas', keywords: ['ferramentas', 'explorar', 'ver tudo', 'todas'] },
-  { label: 'SophIA — IA Pediátrica', desc: 'Inteligência artificial · Busca inteligente de evidências', path: '/pesquisa', keywords: ['pesquisa', 'evidência', 'guideline', 'sophia', 'ia', 'inteligência', 'artificial'] },
-  
-  // Calculadoras & Escores
-  { label: 'Calculadoras', desc: 'IMC, superfície corporal e cálculos pediátricos', path: '/calculadoras-hub', keywords: ['calculadora', 'imc', 'superfície', 'corporal', 'cálculo'] },
-  { label: 'APGAR', desc: 'Avaliação da vitalidade neonatal', path: '/apgar', keywords: ['apgar', 'recém-nascido', 'rn', 'neonatal', 'score', 'vitalidade'] },
-  { label: 'Escore de Rodwell', desc: 'Probabilidade de sepse neonatal', path: '/rodwell', keywords: ['rodwell', 'sepse', 'neonatal', 'hemograma', 'score'] },
-  { label: 'Glasgow Pediátrica', desc: 'Nível de consciência em crianças', path: '/glasgow-pediatrico', keywords: ['glasgow', 'consciência', 'coma', 'neurológico', 'score'] },
-  { label: 'PEWS', desc: 'Alerta precoce de deterioração pediátrica', path: '/pews', keywords: ['pews', 'alerta', 'deterioração', 'enfermaria', 'score'] },
-  { label: 'SIPA', desc: 'Shock Index pediatric age-adjusted', path: '/sipa', keywords: ['sipa', 'choque', 'shock', 'índice', 'emergência'] },
-  { label: 'Silverman-Anderson', desc: 'Desconforto respiratório neonatal', path: '/silverman-anderson', keywords: ['silverman', 'anderson', 'desconforto', 'respiratório', 'rn'] },
-  { label: 'Centor/McIsaac', desc: 'Probabilidade de faringoamigdalite estreptocócica', path: '/centor-mcisaac', keywords: ['centor', 'mcisaac', 'faringoamigdalite', 'garganta', 'streptococo'] },
-  
-  // Tools & References
-  { label: 'Hidratação Venosa', desc: 'Volumes, soluções e velocidades', path: '/hidratacao', keywords: ['hidratação', 'venosa', 'soro', 'holliday', 'fluidos', 'iv'] },
-  { label: 'Drogas na Emergência', desc: 'Bolus e infusão contínua com Broselow', path: '/drogas-emergencia', keywords: ['emergência', 'drogas', 'broselow', 'infusão', 'bolus', 'reanimação'] },
-  { label: 'Vacinas', desc: 'Calendário vacinal e informações detalhadas', path: '/vacinas', keywords: ['vacina', 'imunização', 'calendário', 'doses'] },
-  { label: 'Pressão Arterial Pediátrica', desc: 'Valores de referência por percentil', path: '/pressao-arterial', keywords: ['pressão', 'pa', 'arterial', 'hipertensão', 'valores'] },
-  { label: 'Perímetro Cefálico', desc: 'Percentis e avaliação do crescimento', path: '/perimetro-cefalico', keywords: ['perímetro', 'cefálico', 'cabeça', 'crescimento', 'percentil'] },
-  { label: 'IMC Pediátrico', desc: 'Índice de massa corporal para crianças', path: '/imc', keywords: ['imc', 'índice', 'massa', 'corporal', 'peso'] },
-  { label: 'Alvo Parental', desc: 'Estimativa da altura adulta esperada', path: '/alvo-parental', keywords: ['alvo', 'parental', 'altura', 'genética', 'crescimento'] },
-  { label: 'Idade Gestacional Corrigida', desc: 'Cálculo para prematuros', path: '/idade-gestacional-corrigida', keywords: ['idade', 'gestacional', 'corrigida', 'prematuro', 'ajuste'] },
-  { label: 'Desenvolvimento Infantil', desc: 'Marcos dos 2 meses aos 5 anos', path: '/desenvolvimento', keywords: ['desenvolvimento', 'marco', 'neurodesenvolvimento', 'infância'] },
-];
+
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
+  const toolResults = ALL_SEARCH_TOOLS.filter(t =>
+    t.label.toLowerCase().includes(search.toLowerCase())
+  );
+
   const searchResults = search.trim().length > 1
     ? [
-        ...ALL_SEARCH_TOOLS.filter(t =>
-          t.label.toLowerCase().includes(search.toLowerCase()) ||
-          t.keywords.some(k => k.includes(search.toLowerCase()))
-        ).map(t => ({ ...t, type: 'tool' })),
+        ...toolResults.map(t => ({ ...t, type: 'tool' })),
         ...getAllDosagens().filter(d => {
           const q = search.toLowerCase();
           return d.name.toLowerCase().includes(q) ||
@@ -158,8 +130,13 @@ export default function Home() {
           placeholder="Buscar medicamento, protocolo ou ferramenta..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full border border-border rounded-2xl pl-12 pr-4 py-3.5 text-sm md:text-base bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+          className="w-full border border-border rounded-2xl pl-12 pr-4 py-3.5 text-sm md:text-base bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
         />
+        {search && (
+          <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+            <X className="w-4 h-4" />
+          </button>
+        )}
         <AnimatePresence>
           {searchResults.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -168,7 +145,7 @@ export default function Home() {
                 <button key={i} onClick={() => { navigate(r.path); setSearch(''); }}
                   className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
                   <div className="text-primary flex-shrink-0 text-lg">
-                    {r.type === 'drug' ? r.catIcon : r.type === 'dosagem' ? '⚡' : '🔍'}
+                    {r.type === 'drug' ? r.catIcon : r.type === 'dosagem' ? '⚡' : r.icon || '🔍'}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground truncate">{r.label}</p>
