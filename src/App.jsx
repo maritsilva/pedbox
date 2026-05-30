@@ -42,6 +42,7 @@ import PASAsma from './pages/calculadoras/PASAsma';
 import Favoritos from './pages/Favoritos';
 import FavoritosPage from './pages/FavoritosPage';
 import ExplorarFerramentas from './pages/ExplorarFerramentas';
+import Biblioteca from './pages/Biblioteca';
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
             <Route path="/pas-asma" element={<PASAsma />} />
             <Route path="/favoritos" element={<FavoritosPage />} />
             <Route path="/ferramentas" element={<ExplorarFerramentas />} />
+            <Route path="/biblioteca" element={<Biblioteca />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
