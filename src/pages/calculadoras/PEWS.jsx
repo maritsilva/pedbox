@@ -92,19 +92,29 @@ export default function PEWS() {
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-teal-500 to-cyan-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-teal-200 text-xs font-bold mb-1">Score de Alerta · Enfermaria</p>
-        <h1 className="text-3xl font-extrabold">PEWS</h1>
-        <p className="text-teal-100 text-sm mt-1">Pediatric Early Warning Score — Alerta precoce de deterioração</p>
-        <div className="flex items-end gap-4 mt-4 pt-4 border-t border-white/20">
-          <div>
-            <p className="text-teal-200 text-xs">Score atual</p>
-            <p className="text-5xl font-extrabold">{total}</p>
-          </div>
-          <p className="text-teal-200 text-sm mb-2">{answered}/{CRITERIA.length} parâmetros</p>
+      {/* Header card */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-teal-500 to-cyan-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+      >
+        <div className="absolute top-4 right-6 opacity-20">
+          <div className="text-6xl">⚠️</div>
         </div>
-      </div>
+
+        <div className="relative z-10">
+          <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+            Score de Alerta · Enfermaria
+          </span>
+          <h1 className="text-3xl font-extrabold mb-1">PEWS</h1>
+          <p className="text-sm font-medium opacity-90 mb-6">Alerta precoce de deterioração pediátrica</p>
+          
+          <div className="border-t border-white/20 pt-4">
+            <p className="text-4xl font-extrabold">{total}</p>
+            <p className="text-sm opacity-90 mt-1">/ {CRITERIA.length} parâmetros</p>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-6">
         <strong>Uso:</strong> Crianças hospitalizadas em enfermaria. Reavaliar a cada turno ou conforme protocolo institucional.

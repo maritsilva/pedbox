@@ -32,80 +32,184 @@ export default function EscoreRodwell() {
   const toggle = (id) => setChecked(prev => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 pb-16">
-      <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
-        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
+        <ChevronLeft className="w-4 h-4" />
+        Calculadoras
       </button>
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-rose-500 to-red-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-rose-200 text-xs font-bold mb-1">Score Neonatal · Infectologia</p>
-        <h1 className="text-3xl font-extrabold">Escore de Rodwell</h1>
-        <p className="text-rose-100 text-sm mt-1">Probabilidade de sepse neonatal (0–8)</p>
-        <div className="flex items-end gap-4 mt-4 pt-4 border-t border-white/20">
-          <div>
-            <p className="text-rose-200 text-xs">Critérios positivos</p>
-            <p className="text-5xl font-extrabold">{total}</p>
-          </div>
-          <p className="text-rose-200 text-sm mb-2">/ 8 critérios</p>
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
+        {/* Left column */}
+        <div className="flex-1 min-w-0 space-y-6">
+          {/* Header card */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gradient-to-br from-rose-500 to-red-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden"
+          >
+            <div className="absolute top-4 right-6 opacity-20">
+              <div className="text-6xl">🩸</div>
+            </div>
+
+            <div className="relative z-10">
+              <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+                Score Neonatal · Infectologia
+              </span>
+              <h1 className="text-3xl font-extrabold mb-1">Escore de Rodwell</h1>
+              <p className="text-sm font-medium opacity-90 mb-6">Probabilidade de sepse neonatal (0–8)</p>
+              
+              <div className="border-t border-white/20 pt-4">
+                <p className="text-4xl font-extrabold">{total}</p>
+                <p className="text-sm opacity-90 mt-1">/ 8 critérios</p>
+              </div>
+
+              <p className="text-xs mt-4 opacity-85 leading-relaxed">
+                Ferramenta para estimar probabilidade de sepse neonatal com base no hemograma.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Instruction alert */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl p-4"
+          >
+            <span className="text-xl">⚠️</span>
+            <p className="text-xs text-amber-800 leading-relaxed">Marque cada critério presente no hemograma do recém-nascido. Cada critério positivo = 1 ponto.</p>
+          </motion.div>
+
+          {/* Criteria grid */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-4"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {CRITERIA.map((criterion, idx) => (
+                <motion.div
+                  key={criterion.id}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + idx * 0.05 }}
+                  className="flex gap-3 p-4 bg-white border border-border rounded-xl hover:border-rose-300 hover:shadow-sm transition-all cursor-pointer"
+                  onClick={() => toggle(criterion.id)}
+                >
+                  <input
+                    type="checkbox"
+                    id={criterion.id}
+                    checked={!!checked[criterion.id]}
+                    onChange={() => toggle(criterion.id)}
+                    className="w-5 h-5 mt-0.5 cursor-pointer"
+                  />
+                  <label htmlFor={criterion.id} className="flex-1 cursor-pointer">
+                    <p className="font-semibold text-sm text-foreground">{criterion.icon} {criterion.label}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                      {criterion.desc}
+                    </p>
+                  </label>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Reference */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="bg-white border border-border rounded-2xl p-5"
+          >
+            <p className="font-bold text-sm text-foreground mb-3">Referência</p>
+            <div className="text-xs text-muted-foreground space-y-1.5">
+              <p>• SBP. Sepse neonatal precoce e a abordagem do RN de risco. Documento Científico SBP.</p>
+              <p>• Rodwell RL et al. Hematologic scoring system in early diagnosis of sepsis in neonates. Pediatr Infect Dis J. 1993;12(5):372-376.</p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right sidebar */}
+        <div className="lg:w-80 flex-shrink-0 space-y-4 lg:sticky lg:top-20">
+          {/* Score card */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white border border-border rounded-2xl p-5 shadow-sm"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                📊
+              </div>
+              <p className="font-bold text-sm text-foreground">Pontuação atual</p>
+            </div>
+
+            <p className="text-4xl font-extrabold text-center text-rose-600 mb-3">
+              {total}
+            </p>
+
+            {/* Progress bar */}
+            <div className="w-full bg-gray-100 rounded-full h-2 mb-3">
+              <div 
+                className="bg-rose-500 h-2 rounded-full transition-all"
+                style={{ width: `${8 ? (total / 8 * 100) : 0}%` }}
+              />
+            </div>
+
+            <p className="text-xs text-muted-foreground text-center">
+              {total} de 8 critérios
+            </p>
+          </motion.div>
+
+          {/* Results */}
+          {classification && (
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className={`rounded-2xl p-4 border ${classification.bg} ${classification.border}`}
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-2xl flex-shrink-0">
+                  {total <= 2 ? '🟢' : total <= 4 ? '🟡' : '🔴'}
+                </span>
+                <div className="flex-1">
+                  <p className={`font-bold text-sm ${classification.color}`}>{classification.label}</p>
+                  <p className={`text-xs mt-1 ${classification.color} opacity-80 leading-relaxed`}>
+                    {classification.conduta}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Info box */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="bg-blue-50 border border-blue-200 rounded-2xl p-4"
+          >
+            <p className="text-xs font-semibold text-blue-900 mb-2">💡 Ferramenta de apoio</p>
+            <p className="text-xs text-blue-800 leading-relaxed">
+              Correlacionar com clínica e protocolos institucionais. Sempre valide com avaliação clínica.
+            </p>
+          </motion.div>
         </div>
       </div>
 
-      <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-6">
-        <strong>Instruções:</strong> Marque cada critério presente no hemograma do recém-nascido. Cada critério positivo = 1 ponto.
-      </div>
-
-      {/* Criteria checkboxes */}
-      <div className="space-y-2 mb-6">
-        {CRITERIA.map((c) => {
-          const isChecked = !!checked[c.id];
-          return (
-            <button
-              key={c.id}
-              onClick={() => toggle(c.id)}
-              className={`w-full flex items-center gap-4 px-4 py-4 rounded-2xl border-2 transition-all text-left ${isChecked ? 'border-rose-400 bg-rose-50' : 'border-gray-200 bg-white hover:border-rose-200 hover:bg-rose-50/30'}`}
-            >
-              <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all ${isChecked ? 'bg-rose-500 border-rose-500' : 'border-gray-300 bg-white'}`}>
-                {isChecked && <span className="text-white text-xs font-bold">✓</span>}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className={`text-sm font-bold ${isChecked ? 'text-rose-800' : 'text-gray-800'}`}>{c.icon} {c.label}</p>
-                <p className="text-xs text-gray-500 mt-0.5 leading-snug">{c.desc}</p>
-              </div>
-              {isChecked && <span className="text-xs font-bold bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full flex-shrink-0">+1</span>}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Interpretation table */}
-      <div className="grid grid-cols-3 gap-2 mb-4 text-xs text-center">
-        {[{ r: '0–2', l: 'Improvável', c: 'bg-green-100 text-green-700' }, { r: '3–4', l: 'Possível', c: 'bg-yellow-100 text-yellow-700' }, { r: '≥5', l: 'Provável', c: 'bg-red-100 text-red-700' }].map(l => (
-          <div key={l.r} className={`${l.c} rounded-xl p-2`}><p className="font-bold">{l.r} pts</p><p>{l.l}</p></div>
-        ))}
-      </div>
-
-      <AnimatePresence>
-        {classification && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-5 mb-4`}>
-            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Resultado</p>
-            <p className={`text-2xl font-extrabold ${classification.color}`}>{total}/8 — {classification.label}</p>
-            <p className="text-sm text-gray-700 mt-2">{classification.conduta}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {Object.keys(checked).length > 0 && (
-        <button onClick={() => setChecked({})} className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 flex items-center justify-center gap-2 transition-all">
+      {answeredCount > 0 && (
+        <motion.button 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => setChecked({})}
+          className="w-full mt-6 py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 flex items-center justify-center gap-2 transition-all"
+        >
           <RefreshCw className="w-4 h-4" /> Nova avaliação
-        </button>
+        </motion.button>
       )}
-
-      <div className="mt-8 text-xs text-gray-400 px-1">
-        <p className="font-semibold text-gray-500 mb-1">Referência</p>
-        <p>SBP. Sepse neonatal precoce e a abordagem do RN de risco. Documento Científico SBP.</p>
-        <p className="mt-1">Rodwell RL et al. Hematologic scoring system in early diagnosis of sepsis in neonates. Pediatr Infect Dis J. 1993;12(5):372-376.</p>
-      </div>
     </div>
   );
 }

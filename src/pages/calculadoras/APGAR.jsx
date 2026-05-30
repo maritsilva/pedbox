@@ -77,19 +77,40 @@ export default function APGAR() {
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-sky-500 to-blue-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-sky-200 text-xs font-bold mb-1">Score Neonatal</p>
-        <h1 className="text-3xl font-extrabold">Escore de APGAR</h1>
-        <p className="text-sky-100 text-sm mt-1">Vitalidade do recém-nascido (0–10)</p>
-        <div className="flex items-end gap-4 mt-4 pt-4 border-t border-white/20">
-          <div>
-            <p className="text-sky-200 text-xs">Score atual</p>
-            <p className="text-5xl font-extrabold">{total}</p>
-          </div>
-          <p className="text-sky-200 text-sm mb-2">/ 10 · {answered}/{CRITERIA.length} itens</p>
+      {/* Header card */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-sky-500 to-blue-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+      >
+        <div className="absolute top-4 right-6 opacity-20">
+          <div className="text-6xl">👶</div>
         </div>
-      </div>
+
+        <div className="relative z-10">
+          <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+            Score Neonatal
+          </span>
+          <h1 className="text-3xl font-extrabold mb-1">Escore de APGAR</h1>
+          <p className="text-sm font-medium opacity-90 mb-6">Vitalidade do recém-nascido (0–10)</p>
+          
+          <div className="border-t border-white/20 pt-4">
+            <p className="text-4xl font-extrabold">{total}</p>
+            <p className="text-sm opacity-90 mt-1">/ 10 pontos</p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Instruction alert */}
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6"
+      >
+        <span className="text-xl">ℹ️</span>
+        <p className="text-xs text-blue-800 leading-relaxed">Avalie cada parâmetro 1 minuto após o nascimento e repita aos 5 minutos.</p>
+      </motion.div>
 
       {/* Criteria */}
       <div className="space-y-3 mb-6">

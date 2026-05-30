@@ -78,19 +78,29 @@ export default function SilvermanAnderson() {
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-cyan-500 to-teal-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-cyan-200 text-xs font-bold mb-1">Score Neonatal · Respiratório</p>
-        <h1 className="text-3xl font-extrabold">Silverman-Anderson</h1>
-        <p className="text-cyan-100 text-sm mt-1">Desconforto respiratório em RN (0–10)</p>
-        <div className="flex items-end gap-4 mt-4 pt-4 border-t border-white/20">
-          <div>
-            <p className="text-cyan-200 text-xs">Score atual</p>
-            <p className="text-5xl font-extrabold">{total}</p>
-          </div>
-          <p className="text-cyan-200 text-sm mb-2">/ 10 · {answered}/{CRITERIA.length} parâmetros</p>
+      {/* Header card */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-cyan-500 to-teal-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+      >
+        <div className="absolute top-4 right-6 opacity-20">
+          <div className="text-6xl">🫁</div>
         </div>
-      </div>
+
+        <div className="relative z-10">
+          <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+            Score Neonatal · Respiratório
+          </span>
+          <h1 className="text-3xl font-extrabold mb-1">Silverman-Anderson</h1>
+          <p className="text-sm font-medium opacity-90 mb-6">Desconforto respiratório em RN (0–10)</p>
+          
+          <div className="border-t border-white/20 pt-4">
+            <p className="text-4xl font-extrabold">{total}</p>
+            <p className="text-sm opacity-90 mt-1">/ 10 pontos</p>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-800 mb-6">
         <strong>Uso:</strong> Sala de parto, alojamento conjunto e UTI neonatal. Quanto maior o escore, mais grave o desconforto.

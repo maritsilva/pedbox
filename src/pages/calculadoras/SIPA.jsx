@@ -38,12 +38,24 @@ export default function SIPA() {
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-red-500 to-rose-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-red-200 text-xs font-bold mb-1">Score de Choque · Emergência</p>
-        <h1 className="text-3xl font-extrabold">SIPA</h1>
-        <p className="text-red-100 text-sm mt-1">Shock Index Pediatric Age-adjusted — FC / PAS</p>
-      </div>
+      {/* Header card */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-red-500 to-rose-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+      >
+        <div className="absolute top-4 right-6 opacity-20">
+          <div className="text-6xl">💓</div>
+        </div>
+
+        <div className="relative z-10">
+          <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+            Score de Choque · Emergência
+          </span>
+          <h1 className="text-3xl font-extrabold mb-1">SIPA</h1>
+          <p className="text-sm font-medium opacity-90 mb-2">Shock Index Pediatric Age-adjusted</p>
+        </div>
+      </motion.div>
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-6">
         <strong>Uso:</strong> PS, trauma, choque. SIPA elevado associa-se a maior mortalidade e necessidade de transfusão.

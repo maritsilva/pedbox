@@ -65,19 +65,29 @@ export default function GlasgowPediatrico() {
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-indigo-500 to-purple-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-indigo-200 text-xs font-bold mb-1">Score Neurológico · Emergência</p>
-        <h1 className="text-3xl font-extrabold">Glasgow Pediátrica</h1>
-        <p className="text-indigo-100 text-sm mt-1">Nível de consciência em crianças (3–15)</p>
-        <div className="flex items-end gap-4 mt-4 pt-4 border-t border-white/20">
-          <div>
-            <p className="text-indigo-200 text-xs">Score atual</p>
-            <p className="text-5xl font-extrabold">{allAnswered ? total : '—'}</p>
-          </div>
-          <p className="text-indigo-200 text-sm mb-2">/ {maxScore} · {answered}/{CRITERIA.length} componentes</p>
+      {/* Header card */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-indigo-500 to-purple-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+      >
+        <div className="absolute top-4 right-6 opacity-20">
+          <div className="text-6xl">🧠</div>
         </div>
-      </div>
+
+        <div className="relative z-10">
+          <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
+            Score Neurológico · Emergência
+          </span>
+          <h1 className="text-3xl font-extrabold mb-1">Glasgow Pediátrica</h1>
+          <p className="text-sm font-medium opacity-90 mb-6">Nível de consciência em crianças</p>
+          
+          <div className="border-t border-white/20 pt-4">
+            <p className="text-4xl font-extrabold">{allAnswered ? total : '—'}</p>
+            <p className="text-sm opacity-90 mt-1">/ {maxScore} pontos</p>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Criteria */}
       <div className="space-y-3 mb-6">
