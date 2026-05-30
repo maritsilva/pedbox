@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Copy, Share2, Zap, Users, AlertCircle, Heart, ExternalLink, Github } from 'lucide-react';
+import { BookOpen, Copy, Share2, Zap, Users, AlertCircle, Heart, ExternalLink, Github, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const container = {
@@ -200,9 +200,16 @@ export default function About() {
           <p className="text-gray-700 leading-relaxed mb-4">
             O PedBox foi desenvolvido por uma médica residente em pediatria que acredita que barreiras de acesso ao conhecimento em saúde são barreiras à equidade. Este projeto é um convite: estudar, questionar, melhorar e construir juntos ferramentas que sirvam a toda comunidade médica.
           </p>
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-600 text-sm mb-5">
             <strong>Licença:</strong> Livre para estudo, cópia, adaptação e melhoria.
           </p>
+          <a
+            href="mailto:contato@pedbox.app"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm hover:shadow-md"
+          >
+            <Mail className="w-4 h-4" />
+            Entrar em contato por e-mail
+          </a>
         </div>
       </motion.section>
 
