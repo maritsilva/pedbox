@@ -18,6 +18,7 @@ const menuCategories = [
     label: '📚 Referências',
     items: [
       { to: '/guia', label: 'Guia de Doses' },
+      { to: '/dosagens', label: '⚡ Dosagens — Cálculo Rápido' },
       { to: '/protocolos', label: 'Protocolos Clínicos' },
       { to: '/resumos', label: 'Resumos Clínicos' },
       { to: '/pesquisa', label: '🔬 PedResearch' },

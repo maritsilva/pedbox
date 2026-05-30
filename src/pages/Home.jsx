@@ -13,6 +13,7 @@ const CALCULATORS = [
 ];
 
 const ALL_SEARCH = [
+  { label: 'Dosagens — Cálculo Rápido', desc: 'Calcule doses por peso instantaneamente', path: '/dosagens', Icon: Zap, keywords: ['dosagem', 'dose', 'calculo', 'peso', 'paracetamol', 'ibuprofeno', 'amoxicilina', 'dipirona', 'ceftriaxona', 'antibiotico'] },
   { label: 'Guia de Medicamentos', desc: 'Doses, preparo e apresentações', path: '/guia', Icon: BookOpen, keywords: ['guia', 'doses', 'medicamentos', 'antibióticos', 'drogas'] },
   { label: 'Protocolos Clínicos', desc: 'Diretrizes por condição', path: '/protocolos', Icon: FlaskConical, keywords: ['protocolo', 'asma', 'bronquiolite', 'febre', 'diarreia', 'faringoamigdalite'] },
   { label: 'Resumos Clínicos', desc: 'Sínteses de tópicos pediátricos essenciais', path: '/resumos', Icon: BookOpen, keywords: ['resumo', 'varicela', 'sarampo', 'diarreia', 'aleitamento', 'desenvolvimento', 'puberdade'] },
@@ -228,6 +229,23 @@ export default function Home() {
             <div className="flex-1">
               <p className="font-bold text-base md:text-lg leading-tight">PedResearch IA</p>
               <p className="text-emerald-100 text-xs md:text-sm mt-0.5 leading-snug">Pesquisa inteligente de evidências e diretrizes</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
+          </motion.div>
+        </Link>
+      </motion.div>
+
+      {/* Dosagens — Cálculo Rápido */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.17 }}>
+        <Link to="/dosagens">
+          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl p-5 md:p-6 text-white shadow-lg shadow-indigo-200 flex items-center gap-4 cursor-pointer">
+            <div className="bg-white/20 rounded-xl p-2.5 flex-shrink-0">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-base md:text-lg leading-tight">Dosagens — Cálculo Rápido</p>
+              <p className="text-indigo-100 text-xs md:text-sm mt-1 leading-snug">Insira o peso e calcule a dose automaticamente · 30+ medicamentos</p>
             </div>
             <ChevronRight className="w-4 h-4 text-white/70 flex-shrink-0" />
           </motion.div>
