@@ -45,9 +45,17 @@ function TopicoView({ topico, categoria, onBack }) {
 
       {/* Conteúdo */}
       <div className="bg-white rounded-2xl border border-border p-5 flex-1 overflow-auto">
-        <div className="prose prose-sm max-w-none prose-headings:text-foreground prose-h2:text-base prose-h2:font-bold prose-h2:mt-5 prose-h2:mb-2 prose-h3:text-sm prose-h3:font-semibold prose-h3:mt-3 prose-h3:mb-1 prose-p:text-sm prose-p:leading-relaxed prose-li:text-sm prose-table:text-xs prose-th:bg-secondary prose-th:p-2 prose-td:p-2 prose-td:border prose-th:border">
-          <ReactMarkdown>{topico.conteudo}</ReactMarkdown>
-        </div>
+        {topico.conteudo ? (
+          <div className="prose prose-sm max-w-none prose-headings:text-foreground prose-h2:text-base prose-h2:font-bold prose-h2:mt-5 prose-h2:mb-2 prose-h3:text-sm prose-h3:font-semibold prose-h3:mt-3 prose-h3:mb-1 prose-p:text-sm prose-p:leading-relaxed prose-li:text-sm prose-table:text-xs prose-th:bg-secondary prose-th:p-2 prose-td:p-2 prose-td:border prose-th:border">
+            <ReactMarkdown>{topico.conteudo}</ReactMarkdown>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <span className="text-4xl mb-3">🚧</span>
+            <p className="text-base font-bold text-foreground mb-1">Conteúdo em desenvolvimento</p>
+            <p className="text-sm text-muted-foreground max-w-xs">Este tópico está sendo elaborado e estará disponível em breve.</p>
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -183,6 +191,7 @@ function HomeView({ categorias, onSelectCategoria, searchQuery, onSearchChange }
         {categorias.map((cat, i) => {
           const c = getColor(cat.color);
           const totalTopicos = cat.subcategorias.reduce((acc, s) => acc + s.topicos.length, 0);
+        const temConteudo = totalTopicos > 0;
           return (
             <motion.button
               key={cat.id}
