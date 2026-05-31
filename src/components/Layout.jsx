@@ -25,6 +25,7 @@ const DRAWER_CATS = [
   { label: 'Referências', items: [
     { to: '/guia',       label: '📖 Guia de Medicamentos' },
     { to: '/dosagens',   label: '⚡ Dosagens — Cálculo Rápido' },
+    { to: '/condutas',   label: '📋 Condutas e Manejos' },
     { to: '/protocolos', label: '🧪 Protocolos Clínicos' },
     { to: '/resumos',    label: '📝 Resumos Clínicos' },
     { to: '/pesquisa',   label: '🔬 SophIA — IA Pediátrica' },
@@ -49,6 +50,7 @@ const MOBILE_NAV = [
 ];
 
 export const ALL_SEARCH_TOOLS = [
+  { label: 'Condutas e Manejos', path: '/condutas',           icon: '📋' },
   { label: 'Dosagens',           path: '/dosagens',          icon: '⚡' },
   { label: 'Guia de Medicamentos', path: '/guia',            icon: '📖' },
   { label: 'Protocolos Clínicos', path: '/protocolos',       icon: '🧪' },
