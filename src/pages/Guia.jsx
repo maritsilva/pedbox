@@ -114,14 +114,14 @@ export default function Guia() {
       </div>
 
       {/* ── GLOBAL SEARCH ── */}
-      <div className="relative mb-8">
+      <div className="relative mb-6 sm:mb-8">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Buscar medicamento, classe ou princípio ativo..."
+          placeholder="Buscar medicamento..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full border border-border rounded-2xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
+          className="w-full border border-border rounded-2xl pl-11 pr-4 py-4 sm:py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
         />
         {search && (
           <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
@@ -156,15 +156,15 @@ export default function Guia() {
       </div>
 
       {/* ── TABS ── */}
-      <div className="flex gap-3 mb-8 flex-wrap">
+      <div className="flex gap-2 sm:gap-3 mb-6 sm:mb-8 flex-wrap">
         <button onClick={() => setActiveTab('categorias')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${activeTab === 'categorias' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
-          <LayoutGrid className="w-4 h-4" /> Categorias
+          className={`flex-1 sm:flex-none flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all ${activeTab === 'categorias' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
+          <LayoutGrid className="w-4 h-4" /> <span className="hidden sm:inline">Categorias</span><span className="sm:hidden">Cats</span>
         </button>
         <button onClick={() => setActiveTab('favoritos')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${activeTab === 'favoritos' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
+          className={`flex-1 sm:flex-none flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all ${activeTab === 'favoritos' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
           <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-white' : ''}`} />
-          Favoritos
+          <span className="hidden sm:inline">Favoritos</span>
           {favorites.length > 0 && (
             <span className={`text-xs rounded-full px-1.5 font-bold ${activeTab === 'favoritos' ? 'bg-white/20' : 'bg-secondary text-foreground'}`}>
               {favorites.length}
@@ -207,7 +207,7 @@ export default function Guia() {
 
       {/* ── CATEGORIAS TAB ── */}
       {activeTab === 'categorias' && (
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
 
           {/* LEFT — Main content area */}
           <div className="flex-1 min-w-0">
@@ -238,9 +238,9 @@ export default function Guia() {
                   <div className="space-y-2">
                     {selectedCat.drugs.map((drug, i) => (
                       <motion.button key={drug.id} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }}
-                        onClick={() => setSelectedDrug(drug)}
-                        className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm transition-all group"
-                      >
+                           onClick={() => setSelectedDrug(drug)}
+                           className="w-full text-left bg-white border border-border rounded-xl px-3 sm:px-4 py-3 sm:py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm active:bg-secondary/50 transition-all group"
+                         >
                         <div>
                           <span className="font-semibold text-sm text-foreground">{drug.name}</span>
                           {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
@@ -254,13 +254,13 @@ export default function Guia() {
             ) : (
               <>
                 {/* Category grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                   {filteredCats.map((cat, i) => {
                     const colors = colorMap[cat.color] || colorMap['blue-500'];
                     return (
                       <motion.button key={cat.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
-                        onClick={() => setSelectedCat(cat)}
-                        className="w-full bg-white border border-border rounded-lg px-4 py-4 flex items-center gap-3 text-left hover:bg-secondary/50 transition-all group">
+                         onClick={() => setSelectedCat(cat)}
+                         className="w-full bg-white border border-border rounded-lg px-3 sm:px-4 py-3 sm:py-4 flex items-center gap-3 text-left hover:bg-secondary/50 active:bg-secondary/70 transition-all group touch-feedback">
                         <div className={`w-10 h-10 rounded-lg ${colors.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
                           {cat.icon}
                         </div>
@@ -283,8 +283,8 @@ export default function Guia() {
             )}
           </div>
 
-          {/* RIGHT — Sidebar */}
-          <div className="lg:w-64 xl:w-72 flex-shrink-0">
+          {/* RIGHT — Sidebar (hidden on mobile) */}
+          <div className="hidden lg:block lg:w-64 xl:w-72 flex-shrink-0">
             <div className="bg-white border border-border rounded-lg p-4 sticky top-20 shadow-sm">
               <p className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
                 <Star className="w-4 h-4 text-yellow-400" />
