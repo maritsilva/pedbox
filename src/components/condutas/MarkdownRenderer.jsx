@@ -2,6 +2,42 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+// Inject anchor IDs into reference list items (under "Referências Bibliográficas" section)
+// and convert inline [N] citations to superscript links
+function processReferences(text) {
+  const lines = text.split('\n');
+  let inRefsSection = false;
+  const result = lines.map((line) => {
+    // Detect the references section heading
+    if (/^#{1,6}\s+.*referênci/i.test(line)) {
+      inRefsSection = true;
+      return line;
+    }
+    // Stop at any new heading after refs
+    if (inRefsSection && /^#{1,6}\s+/.test(line) && !/^#{1,6}\s+.*referênci/i.test(line)) {
+      inRefsSection = false;
+    }
+
+    if (inRefsSection) {
+      // Match list items like "1. " or "1) " at start of line
+      const refMatch = line.match(/^(\s*[-*]?\s*)(\d+)[.)]\s/);
+      if (refMatch) {
+        const num = refMatch[2];
+        // Inject HTML anchor via a special marker we'll keep as raw HTML
+        return line.replace(/^(\s*[-*]?\s*)(\d+)([.)]\s)/, `$1<a id="ref-${num}"></a>**$2$3**`);
+      }
+    }
+    return line;
+  });
+
+  // Convert inline [N] citations (outside code blocks) to anchor links
+  const joined = result.join('\n');
+  // Replace [N] with superscript link — avoid matching inside code fences
+  return joined.replace(/\[(\d+)\]/g, (match, num) => {
+    return `[<sup>${num}</sup>](#ref-${num})`;
+  });
+}
+
 // Convert TSV-style tables (tab-separated) into Markdown pipe tables
 function convertTsvTables(text) {
   const lines = text.split('\n');
@@ -137,7 +173,7 @@ const components = {
 };
 
 export default function MarkdownRenderer({ content }) {
-  const processed = convertTsvTables(content || '');
+  const processed = convertTsvTables(processReferences(content || ''));
   return (
     <div className="markdown-body">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>{processed}</ReactMarkdown>
