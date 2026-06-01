@@ -366,7 +366,7 @@ export default function FavoritosPage() {
         <span className="flex items-center gap-1.5 hidden"><Heart className="w-3.5 h-3.5 text-primary" /> Feito para o plantão pediátrico</span>
         <span className="flex items-center gap-1.5 hidden"><Lock className="w-3.5 h-3.5 text-primary" /> Privacidade e segurança</span>
       </div>
-      <p className="text-center text-[10px] text-muted-foreground/50 mt-4">
+      <p className="text-center text-[10px] text-muted-foreground/50 mt-4 hidden">
         Pedbox.app não substitui o julgamento clínico. Sempre considere o contexto individual de cada paciente.
       </p>
     </div>);
