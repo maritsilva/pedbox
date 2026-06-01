@@ -33,6 +33,7 @@ import CurvasCrescimento from './pages/CurvasCrescimento';
 import CalculadorasHub from './pages/CalculadorasHub.jsx';
 
 import Dosagens from './pages/Dosagens';
+import Laringite from './pages/Laringite';
 import APGAR from './pages/calculadoras/APGAR';
 import GlasgowPediatrico from './pages/calculadoras/GlasgowPediatrico';
 import PEWS from './pages/calculadoras/PEWS';
@@ -93,6 +94,7 @@ function App() {
             <Route path="/biblioteca" element={<Biblioteca />} />
             <Route path="/curvas-crescimento" element={<CurvasCrescimento />} />
             <Route path="/sinais-vitais" element={<SinaisVitais />} />
+            <Route path="/laringite" element={<Laringite />} />
 
             <Route path="/admin" element={<Admin />} />
           </Route>
