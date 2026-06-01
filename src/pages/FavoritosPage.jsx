@@ -360,15 +360,15 @@ export default function FavoritosPage() {
       }
 
       {/* Footer trust bar */}
-      <div className="flex flex-wrap justify-center gap-8 mt-10 pt-6 border-t border-border text-xs text-muted-foreground hidden">
-        <span className="flex items-center gap-1.5 hidden"><Shield className="w-3.5 h-3.5 text-primary" /> Conteúdo baseado em evidências e diretrizes atualizadas</span>
-        <span className="flex items-center gap-1.5 hidden"><RefreshCw className="w-3.5 h-3.5 text-primary" /> Atualizações frequentes</span>
-        <span className="flex items-center gap-1.5 hidden"><Heart className="w-3.5 h-3.5 text-primary" /> Feito para o plantão pediátrico</span>
-        <span className="flex items-center gap-1.5 hidden"><Lock className="w-3.5 h-3.5 text-primary" /> Privacidade e segurança</span>
-      </div>
-      <p className="text-center text-[10px] text-muted-foreground/50 mt-4 hidden">
-        Pedbox.app não substitui o julgamento clínico. Sempre considere o contexto individual de cada paciente.
-      </p>
+      
+
+
+
+
+      
+      
+
+      
     </div>);
 
 }
