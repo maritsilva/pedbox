@@ -813,7 +813,7 @@ export default function Protocolos() {
 
       {/* ── SEARCH ── */}
       <div className="relative mb-5">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground hidden" />
         <input
           type="text"
           placeholder="Buscar protocolo, sintoma, diagnóstico ou conduta..."
