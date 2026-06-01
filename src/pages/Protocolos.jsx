@@ -7,6 +7,7 @@ import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
 import Faringoamigdalite from '@/components/protocols/Faringoamigdalite';
 import FebreSemSinais from '@/components/protocols/FebreSemSinais';
 import Bronquiolite from '@/components/protocols/Bronquiolite';
+import Laringite from '@/components/protocols/Laringite';
 import FluxogramaCriseAsmatica from '@/components/protocols/fluxogramas/FluxogramaCriseAsmatica';
 import FluxogramaBronquiolite from '@/components/protocols/fluxogramas/FluxogramaBronquiolite';
 import FluxogramaConvulsao from '@/components/protocols/fluxogramas/FluxogramaConvulsao';
@@ -79,18 +80,29 @@ const PROTOCOLS = [
   keywords: ['amigdalite', 'streptococo', 'centor', 'amoxicilina', 'garganta']
 },
 {
-  id: 'febre-sem-sinais',
-  title: 'Febre sem Sinais Localizatórios',
-  subtitle: 'até 36 meses',
-  icon: '🌡️',
-  color: 'red',
-  tag: 'Infectologia',
-  especialidade: 'Infectologia',
-  source: 'Albert Einstein · Revisado Jun/2025',
-  keywords: ['febre', 'lactente', 'sepse', 'urina', 'itu']
+   id: 'febre-sem-sinais',
+   title: 'Febre sem Sinais Localizatórios',
+   subtitle: 'até 36 meses',
+   icon: '🌡️',
+   color: 'red',
+   tag: 'Infectologia',
+   especialidade: 'Infectologia',
+   source: 'Albert Einstein · Revisado Jun/2025',
+   keywords: ['febre', 'lactente', 'sepse', 'urina', 'itu']
 },
 {
-  id: 'pneumonia-complicada',
+   id: 'laringite',
+   title: 'Laringite (Crupe)',
+   subtitle: 'em Crianças e Adolescentes',
+   icon: '🗣️',
+   color: 'blue',
+   tag: 'Respiratório',
+   especialidade: 'Respiratório',
+   source: 'Albert Einstein · Revisado Jun/2024',
+   keywords: ['crupe', 'tosse de cão', 'estridor', 'dexametasona', 'adrenalina', 'parainfluenza']
+},
+{
+   id: 'pneumonia-complicada',
   title: 'PAC Complicada',
   subtitle: 'Pneumonia Adquirida na Comunidade',
   icon: '🫁',
@@ -747,6 +759,7 @@ export default function Protocolos() {
     'diarreia-aguda': <DiarreiaAguda />,
     'faringoamigdalite': <Faringoamigdalite />,
     'febre-sem-sinais': <FebreSemSinais />,
+    'laringite': <Laringite />,
     'pneumonia-complicada': <PneumoniaComplicada />,
     'anemia-ferropriva': <AnemiaFerropriva />,
     'meningite-bacteriana': <MeningiteBacteriana />,

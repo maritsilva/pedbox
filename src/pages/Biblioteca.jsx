@@ -19,6 +19,7 @@ const PROTOCOLS = [
   { id: 'diarreia-aguda',      title: 'Diarreia Aguda',                subtitle: 'em Crianças e Adolescentes',                  icon: '💧', tag: 'Gastroenterologia', source: 'Albert Einstein · Jun/2025' },
   { id: 'faringoamigdalite',   title: 'Faringoamigdalite',             subtitle: 'em Crianças e Adolescentes',                  icon: '🦠', tag: 'Infectologia',      source: 'Albert Einstein · Jun/2024' },
   { id: 'febre-sem-sinais',    title: 'Febre sem Sinais Localizatórios', subtitle: 'até 36 meses',                              icon: '🌡️', tag: 'Infectologia',      source: 'Albert Einstein · Jun/2025' },
+  { id: 'laringite',           title: 'Laringite (Crupe)',             subtitle: 'em Crianças e Adolescentes',                  icon: '🗣️', tag: 'Respiratório',      source: 'Albert Einstein · Jun/2024' },
   { id: 'pneumonia-complicada',title: 'PAC Complicada',                subtitle: 'Pneumonia Adquirida na Comunidade',            icon: '🫁', tag: 'Respiratório',      source: 'SBP · 2024' },
   { id: 'anemia-ferropriva',   title: 'Anemia Ferropriva',             subtitle: 'Deficiência de Ferro em Lactentes',           icon: '🩸', tag: 'Hematologia',       source: 'SBP · Diretriz Nº 32 · 2026' },
   { id: 'meningite-bacteriana',title: 'Meningite Aguda Bacteriana',    subtitle: 'em Lactentes, Crianças e Adolescentes',       icon: '🧠', tag: 'Infectologia',      source: 'SCIP · SPP' },
@@ -382,13 +383,15 @@ function GlobalSearchResults({ q }) {
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Condutas</p>
           <div className="space-y-2">
             {filteredCondutas.map(({ topico, categoria, subcategoria }) => (
-              <div key={topico.id} className="bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3">
+              <button key={topico.id} onClick={() => { setSearch(''); localStorage.setItem('selectedConduta', JSON.stringify({ topico, categoria, subcategoria })); }}
+                className="w-full text-left bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3 hover:shadow-md transition-all group">
                 <span className="text-xl">{categoria.icon}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm text-foreground">{topico.label}</p>
+                  <p className="font-semibold text-sm text-foreground group-hover:text-primary">{topico.label}</p>
                   <p className="text-xs text-muted-foreground">{categoria.label} › {subcategoria.label}</p>
                 </div>
-              </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </button>
             ))}
           </div>
         </div>

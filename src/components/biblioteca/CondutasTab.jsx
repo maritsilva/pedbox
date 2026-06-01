@@ -83,6 +83,17 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
   const [activeCategoria, setActiveCategoria] = useState(null); // filter by category id
   const [selectedTopico, setSelectedTopico] = useState(null); // { topico, categoria, subcategoria }
 
+  // Verificar se há um tópico selecionado no localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('selectedConduta');
+    if (saved) {
+      try {
+        setSelectedTopico(JSON.parse(saved));
+        localStorage.removeItem('selectedConduta');
+      } catch (e) {}
+    }
+  }, []);
+
   // Load DB overrides
   useEffect(() => {
     Promise.all([
