@@ -192,11 +192,42 @@ export function universalSearch(query, limit = 30) {
 
 // Badge por tipo
 export const TYPE_BADGE = {
-  tool:      { label: 'Ferramenta', color: 'bg-blue-100 text-blue-700' },
-  drug:      { label: 'Bulas',      color: 'bg-purple-100 text-purple-700' },
-  dosagem:   { label: 'Dosagem',    color: 'bg-yellow-100 text-yellow-700' },
-  resumo:    { label: 'Resumo',     color: 'bg-green-100 text-green-700' },
-  protocolo: { label: 'Protocolo',  color: 'bg-orange-100 text-orange-700' },
-  vacina:    { label: 'Vacina',     color: 'bg-teal-100 text-teal-700' },
-  conduta:   { label: 'Conduta',    color: 'bg-cyan-100 text-cyan-700' },
+  tool:      { label: 'Ferramenta', color: 'bg-blue-100 text-blue-700', icon: '🧰' },
+  drug:      { label: 'Bulas',      color: 'bg-purple-100 text-purple-700', icon: '📖' },
+  dosagem:   { label: 'Dosagem',    color: 'bg-yellow-100 text-yellow-700', icon: '⚡' },
+  resumo:    { label: 'Resumo',     color: 'bg-green-100 text-green-700', icon: '📝' },
+  protocolo: { label: 'Protocolo',  color: 'bg-orange-100 text-orange-700', icon: '🧪' },
+  vacina:    { label: 'Vacina',     color: 'bg-teal-100 text-teal-700', icon: '💉' },
+  conduta:   { label: 'Conduta',    color: 'bg-cyan-100 text-cyan-700', icon: '📋' },
 };
+
+/**
+ * Agrupa resultados de busca por tipo
+ */
+export function groupResultsByType(results) {
+  const grouped = {};
+  const typeOrder = ['tool', 'conduta', 'dosagem', 'drug', 'resumo', 'protocolo', 'vacina'];
+  
+  // Inicializar grupos vazios
+  typeOrder.forEach(type => {
+    grouped[type] = [];
+  });
+  
+  // Agrupar resultados
+  results.forEach(result => {
+    if (grouped[result.type]) {
+      grouped[result.type].push(result);
+    }
+  });
+  
+  // Retornar apenas grupos com resultados, na ordem definida
+  return typeOrder
+    .filter(type => grouped[type].length > 0)
+    .map(type => ({
+      type,
+      label: TYPE_BADGE[type].label,
+      icon: TYPE_BADGE[type].icon,
+      color: TYPE_BADGE[type].color,
+      results: grouped[type]
+    }));
+}

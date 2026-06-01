@@ -7,7 +7,7 @@ import {
   Syringe, Baby, Shield, RefreshCw, Heart, X } from
 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { universalSearch, TYPE_BADGE } from '@/lib/universalSearch';
+import { universalSearch, TYPE_BADGE, groupResultsByType } from '@/lib/universalSearch';
 
 // Quick category shortcuts
 const QUICK_CATS = [
@@ -115,24 +115,29 @@ export default function Home() {
         <AnimatePresence>
           {searchResults.length > 0 &&
           <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-          className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-xl shadow-lg overflow-hidden z-30">
-              {searchResults.map((r, i) => {
-              const badge = TYPE_BADGE[r.type] || TYPE_BADGE.tool;
-              return (
-                <button key={i} onClick={() => {navigate(r.path);setSearch('');}}
-                className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
-                    <div className="text-lg flex-shrink-0 w-7 text-center">{r.icon || '🔍'}</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <p className="text-sm font-semibold text-foreground truncate">{r.label}</p>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${badge.color} flex-shrink-0`}>{badge.label}</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground truncate mt-0.5">{r.desc}</p>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                  </button>);
-
-            })}
+          className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-xl shadow-lg overflow-hidden z-30 max-h-96 overflow-y-auto">
+              {groupResultsByType(searchResults).map((group) => (
+                <div key={group.type}>
+                  {/* Group header */}
+                  <div className={`px-4 py-2 text-xs font-bold uppercase tracking-widest text-muted-foreground border-b border-border/60 ${group.color.replace('text-', 'bg-').replace('100 ', '50 ')}`}>
+                    <span className="mr-1.5">{group.icon}</span>
+                    {group.label}
+                  </div>
+                  
+                  {/* Group results */}
+                  {group.results.map((r, i) => (
+                    <button key={i} onClick={() => {navigate(r.path);setSearch('');}}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-secondary transition-colors border-b border-border/40 last:border-0">
+                        <div className="text-lg flex-shrink-0 w-7 text-center">{r.icon || '🔍'}</div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-foreground truncate">{r.label}</p>
+                          <p className="text-xs text-muted-foreground truncate mt-0.5">{r.desc}</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      </button>
+                  ))}
+                </div>
+              ))}
             </motion.div>
           }
         </AnimatePresence>
