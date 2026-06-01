@@ -807,19 +807,19 @@ export default function Protocolos() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* ── HEADER ── */}
       <div className="mb-6">
-        <h1 className="text-3xl font-extrabold text-foreground mb-1 hidden">Protocolos Clínicos</h1>
-        <p className="text-muted-foreground text-sm hidden">Fluxogramas e condutas pediátricas para consulta rápida.</p>
+        
+        
       </div>
 
       {/* ── SEARCH ── */}
       <div className="relative mb-5">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground hidden" />
-        <input
-          type="text"
-          placeholder="Buscar protocolo, sintoma, diagnóstico ou conduta..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all shadow-sm hidden" />
+        
+        
+
+
+
+
+        
         
         {search &&
         <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">

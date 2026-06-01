@@ -186,13 +186,13 @@ export default function CondutasTab() {
     <div>
       {/* Search */}
       <div className="relative max-w-2xl mb-5">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground hidden" />
-        <input
-          type="text"
-          placeholder="Buscar conduta, patologia ou tópico..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-2xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all hidden" />
+        
+        
+
+
+
+
+        
         
         {search &&
         <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
