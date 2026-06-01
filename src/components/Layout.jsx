@@ -245,7 +245,7 @@ export default function Layout() {
           {/* Logo */}
           <Link to="/" className="flex items-center flex-shrink-0">
             <img
-              src="https://media.base44.com/images/public/69ecb71457668abac5516abd/0dcc5f4e2_ChatGPTImage1dejunde202616_41_15.png"
+              src="https://media.base44.com/images/public/69ecb71457668abac5516abd/7c6e2b506_montage.png"
               alt="PedBox"
               className="h-8 w-auto"
             />
@@ -298,7 +298,7 @@ export default function Layout() {
             >
               <div className="px-5 pt-5 pb-8 space-y-6">
                 <div className="flex items-center justify-between mb-2">
-                  <img src="https://media.base44.com/images/public/69ecb71457668abac5516abd/0dcc5f4e2_ChatGPTImage1dejunde202616_41_15.png" alt="PedBox" className="h-7 w-auto" />
+                  <img src="https://media.base44.com/images/public/69ecb71457668abac5516abd/7c6e2b506_montage.png" alt="PedBox" className="h-7 w-auto" />
                   <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-secondary transition-colors">
                     <X className="w-5 h-5 text-foreground" />
                   </button>

@@ -80,7 +80,7 @@ export default function Home() {
       {/* ── HERO ── */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center space-y-4">
         <img
-          src="https://media.base44.com/images/public/69ecb71457668abac5516abd/0dcc5f4e2_ChatGPTImage1dejunde202616_41_15.png"
+          src="https://media.base44.com/images/public/69ecb71457668abac5516abd/7c6e2b506_montage.png"
           alt="PedBox"
           className="h-48 w-auto mx-auto" />
         
