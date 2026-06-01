@@ -47,10 +47,11 @@ const TOOLS_INDEX = [
   { label: 'Guia de Medicamentos',       path: '/guia',                     icon: '📖', desc: 'Doses, preparo e apresentações · 100+ fármacos' },
   { label: 'Dosagens — Cálculo Rápido',  path: '/dosagens',                 icon: '⚡', desc: 'Calcule doses por peso instantaneamente' },
   { label: 'Protocolos Clínicos',        path: '/biblioteca',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },
-  { label: 'Resumos Clínicos',           path: '/resumos',                  icon: '📝', desc: 'Sínteses baseadas em evidências · 25+ tópicos' },
-  { label: 'Biblioteca',                 path: '/biblioteca',               icon: '📚', desc: 'Resumos e protocolos em um só lugar' },
+  { label: 'Biblioteca',                 path: '/biblioteca',               icon: '📚', desc: 'Protocolos, condutas, links e anotações pediátricas' },
   { label: 'Explorar Ferramentas',       path: '/ferramentas',              icon: '🧰', desc: 'Todas as ferramentas do site' },
-  { label: 'SophIA — IA Pediátrica',     path: '/pesquisa',                 icon: '🔬', desc: 'Busca inteligente de evidências e diretrizes' },
+  { label: 'SophIA',                     path: '/pesquisa',                 icon: '🔬', desc: 'Busca inteligente de evidências e diretrizes com IA' },
+  { label: 'Sinais Vitais Pediátricos',  path: '/sinais-vitais',            icon: '📋', desc: 'Valores de referência por faixa etária' },
+  { label: 'Curvas de Crescimento',      path: '/curvas-crescimento',       icon: '📈', desc: 'Curvas OMS, CDC e SBP para download' },
   { label: 'Favoritos',                  path: '/favoritos',                icon: '⭐', desc: 'Ferramentas e medicamentos salvos' },
 ];
 
