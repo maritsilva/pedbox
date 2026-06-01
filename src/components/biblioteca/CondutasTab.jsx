@@ -68,7 +68,7 @@ function TopicoDetail({ topico, categoria, subcategoria, onBack }) {
 }
 
 // ── Main CondutasTab ──────────────────────────────────────────────────────────
-export default function CondutasTab() {
+export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
   const [categorias, setCategorias] = useState(CONDUTAS_CATEGORIAS);
   const [search, setSearch] = useState('');
   const [activeCategoria, setActiveCategoria] = useState(null); // filter by category id
@@ -146,14 +146,16 @@ export default function CondutasTab() {
   const filteredTopicos = useMemo(() => {
     return allTopicos.filter(({ topico, categoria, subcategoria }) => {
       const matchSearch = !q ||
-      topico.label.toLowerCase().includes(q) ||
-      categoria.label.toLowerCase().includes(q) ||
-      subcategoria.label.toLowerCase().includes(q) ||
-      (topico.conteudo || '').toLowerCase().includes(q);
+        topico.label.toLowerCase().includes(q) ||
+        categoria.label.toLowerCase().includes(q) ||
+        subcategoria.label.toLowerCase().includes(q) ||
+        (topico.conteudo || '').toLowerCase().includes(q);
       const matchCat = !activeCategoria || categoria.id === activeCategoria;
-      return matchSearch && matchCat;
+      // Se não for admin, mostrar apenas tópicos com conteúdo indexado
+      const matchContent = isAdmin || !!topico.conteudo?.trim();
+      return matchSearch && matchCat && matchContent;
     });
-  }, [allTopicos, q, activeCategoria]);
+  }, [allTopicos, q, activeCategoria, isAdmin]);
 
   // Group filtered topicos by category
   const grouped = useMemo(() => {
