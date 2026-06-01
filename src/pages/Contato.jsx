@@ -49,17 +49,22 @@ export default function Contato() {
       colaboracao: 'Proposta de colaboração',
       outro: 'Outro'
     };
-    await base44.integrations.Core.SendEmail({
-      to: 'dramarinasilvaped@gmail.com',
-      subject: `[PedBox Contato] ${reasonLabels[formData.reason] || formData.reason} — ${formData.name}`,
-      body: `Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonLabels[formData.reason] || formData.reason}\n\nMensagem:\n${formData.message}`
-    });
-    setSubmitting(false);
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', institution: '', reason: '', message: '' });
-      setSubmitted(false);
-    }, 4000);
+    try {
+      await base44.integrations.Core.SendEmail({
+        to: 'dramarinasilvaped@gmail.com',
+        subject: `[PedBox Contato] ${reasonLabels[formData.reason] || formData.reason} — ${formData.name}`,
+        body: `Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonLabels[formData.reason] || formData.reason}\n\nMensagem:\n${formData.message}`
+      });
+      setSubmitted(true);
+      setTimeout(() => {
+        setFormData({ name: '', email: '', institution: '', reason: '', message: '' });
+        setSubmitted(false);
+      }, 4000);
+    } catch (err) {
+      alert('Erro ao enviar mensagem. Tente novamente.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
