@@ -396,7 +396,175 @@ export const CONDUTAS_CATEGORIAS = [
         label: 'Síndromes Respiratórias Agudas',
         topicos: [
           { id: 'epiglotite', label: 'Epiglotite', conteudo: '' },
-          { id: 'laringotraqueite-aguda-viral-crupe', label: 'Laringotraqueíte Viral (Crupe)', conteudo: '' },
+          { id: 'laringotraqueite-aguda-viral-crupe', label: 'Laringotraqueíte Viral (Crupe)', conteudo: `## 1. Definição e Fisiopatologia
+
+A **laringite aguda** ou **crupe** (laringotraqueobronquite viral) é uma **síndrome respiratória comum** caracterizada por **obstrução inflamatória das vias aéreas superiores**, manifestando-se pela tríade clássica: **tosse "de cão" (barking cough)**, **estridor inspiratório** e **rouquidão**.
+
+**Epidemiologia:**
+- Afeta principalmente crianças entre **6 meses e 3 anos de idade**
+- Pico de incidência no segundo ano de vida
+- Predomínio no sexo masculino (1,5:1)
+- Sazonalidade: pico no **outono e inverno**
+- Responsável por 7% das hospitalizações pediátricas
+
+## 2. Etiologia
+
+**Principais agentes etiológicos:**
+1. **Vírus Parainfluenza** (causa mais comum — > 75% dos casos): Tipos 1, 2 e 3
+2. **Vírus Influenza A e B**
+3. **Vírus Sincicial Respiratório (VSR)**
+4. **Rinovírus**
+5. **Adenovírus**
+6. **Metapneumovírus humano**
+7. **Coronavírus HCoV-NL63**
+8. **SARS-CoV-2** (COVID-19)
+9. **Mycoplasma pneumoniae** (causa bacteriana ocasional)
+
+**Sobreinfeção bacteriana** (rara): *Staphylococcus aureus*, *Streptococcus* spp.
+
+**Fatores de Risco:**
+- Idade entre 6 meses e 3 anos
+- Sexo masculino
+- Época do ano (outono/inverno)
+- Crupe recorrente: considerar anomalias anatômicas, DRGE, atopia
+
+---
+
+## 3. Avaliação Clínica e Diagnóstico
+
+### Quadro Clínico Típico
+
+- Pródromo de **1–3 dias**: rinorreia, febre baixa
+- Início **súbito**, frequentemente **à noite**
+- **Tosse "de cão"** ou metálica (barking cough) — patognomônica
+- **Estridor inspiratório** (piora com agitação)
+- **Rouquidão/disfonia**
+- Desconforto respiratório variável
+- Resolução da tosse em 48 horas em 60% dos casos
+
+### Escore de Westley (Avaliação da Gravidade)
+
+| Parâmetro | 0 pontos | 1 ponto | 2 pontos | 3 pontos |
+|---|---|---|---|---|
+| **Nível de consciência** | Normal | — | — | Alterado |
+| **Estridor** | Ausente | Com agitação | Em repouso | — |
+| **Entrada de ar** | Normal | Diminuída | Muito diminuída | — |
+| **Tiragem** | Ausente | Leve | Moderada | Grave |
+| **Cianose** | Ausente | Com agitação | Em repouso | — |
+
+**Interpretação:**
+- **0–2:** Crupe **leve**
+- **3–5:** Crupe **moderado**
+- **≥ 6:** Crupe **grave**
+
+### Diagnóstico Diferencial
+
+| Diagnóstico | Características distintivas |
+|---|---|
+| **Epiglotite aguda** | Criança tóxica, febre alta, sialorreia, posição de tripé, sem tosse "de cão" |
+| **Traqueíte bacteriana** | Febre alta, aspecto tóxico, secreções purulentas, falência de resposta ao tratamento |
+| **Abscesso retrofaríngeo** | Disfagia intensa, torcicolo, abaulamento faríngeo |
+| **Corpo estranho** | Início súbito sem pródromo viral, história de engasgamento, sem febre |
+
+### Exames Complementares
+
+Diagnóstico é essencialmente **clínico**. Exames **não são necessários** na maioria dos casos.
+
+- **Rx cervical (AP):** Sinal da **"torre" ou "ponta de lápis"** (estreitamento subglótico) — apenas se diagnóstico incerto
+- **Hemograma/PCR:** Suspeita de sobreinfeção bacteriana
+- **Laringoscopia:** Crupe recorrente (> 3 episódios) para investigar anomalias anatômicas
+
+---
+
+## 4. Manejo e Tratamento
+
+### Medidas Gerais
+
+- **Manter a criança calma** — agitação agrava o estridor
+- **Evitar procedimentos invasivos** desnecessários
+- **Posição confortável** (colo dos pais, semi-sentado)
+- **Oxigenoterapia** se SatO₂ < 92%
+
+### Algoritmo de Tratamento por Gravidade
+
+**🟢 Crupe Leve (Westley 0–2):**
+- Manejo ambulatorial
+- **Dexametasona 0,15 mg/kg VO** (dose única, máx 10 mg) OU **Prednisolona 1 mg/kg/dia** por 1–2 dias
+- Orientações de vigilância aos pais
+- Retornar se piora
+
+**🟡 Crupe Moderado (Westley 3–5):**
+- Observação hospitalar
+- **Dexametasona 0,6 mg/kg VO/IM** (dose única, máx 10 mg) — **1ª escolha**
+- Se indisponível: **Budesonida nebulizada 2 mg** (dose única)
+- Reavaliação em 1–2 horas
+- **Adrenalina nebulizada** se sem melhora: **Adrenalina (1:1.000) 0,5 mL/kg** (máx 5 mL) em SF 0,9% — efeito em 10–30 min, duração 1–2 horas
+
+**🔴 Crupe Grave (Westley ≥ 6):**
+- **Internamento urgente**
+- **Adrenalina nebulizada imediata** + Dexametasona EV
+- Oxigenoterapia (máscara com reservatório ou ventilação não invasiva)
+- Preparar via aérea avançada
+- Monitorização contínua
+- UCI se necessário
+
+### Corticosteroides — Resumo
+
+| Fármaco | Dose | Via | Frequência |
+|---|---|---|---|
+| **Dexametasona** | 0,15–0,6 mg/kg (máx 10 mg) | VO/IM/EV | Dose única |
+| **Prednisolona** | 1 mg/kg/dia | VO | 1–2 dias |
+| **Budesonida** | 2 mg | Nebulização | Dose única (alternativa) |
+
+> ⚠️ **Dexametasona 0,15 mg/kg** é equivalente a 0,6 mg/kg em crupe leve a moderado. Preferir dose baixa em casos leves.
+
+### Adrenalina Nebulizada
+
+- **Indicação:** Crupe moderado sem resposta a corticoide, crupe grave
+- **Dose:** Adrenalina 1:1.000 — **0,5 mL/kg** (máx 5 mL) em 3 mL SF 0,9%
+- Alternativa: Adrenalina racêmica 2,25% — 0,05 mL/kg (máx 0,5 mL)
+- **Início de ação:** 10–30 minutos
+- **Duração:** 1–2 horas (risco de efeito rebote!)
+- **Observação mínima de 2–4 horas** após última dose antes da alta
+
+---
+
+## 5. Critérios de Internamento e Alta
+
+### Internamento indicado se:
+- Westley **≥ 3** sem melhora após 4 horas de observação
+- Estridor em repouso persistente após tratamento
+- Necessidade de adrenalina nebulizada (observação mínima 2–4h)
+- Dessaturação (SatO₂ < 92%)
+- Menor de 6 meses
+- Crupe recorrente grave ou condições de base
+
+### Critérios de Alta:
+- Westley **≤ 2** e estridor apenas com agitação
+- SatO₂ > 92% em ar ambiente
+- Boa tolerância oral
+- Mínimo 2 horas após corticosteroide (crupe leve)
+- Mínimo 2–4 horas após última adrenalina nebulizada
+
+### Instruções à Alta:
+- Retornar ao pronto-socorro se: **estridor em repouso**, **tiragem**, **cianose**, **recusa alimentar**, **letargia**
+- Manter hidratação adequada
+- Ambiente calmo (evitar choro)
+- Umidificação do ar pode proporcionar alívio sintomático
+
+---
+
+## 6. Prognóstico e Seguimento
+
+- Doença **autolimitada** na grande maioria
+- Resolução da tosse em **48 horas** em 60% dos casos
+- Duração média dos sintomas: **3–7 dias**
+- Taxa de internamento: **3–7%** dos casos
+- Taxa de intubação: **< 1%**
+- Crupe **recorrente** (> 3 episódios): investigar causa anatômica, DRGE ou atopia
+
+> ⚠️ **Aviso:** Este conteúdo é uma orientação clínica baseada em evidências. Sempre valide com protocolos institucionais e supervisão médica antes de qualquer decisão clínica.
+` },
         ],
       },
     ],
