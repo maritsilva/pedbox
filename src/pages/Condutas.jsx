@@ -26,7 +26,7 @@ function getColor(color) {
 }
 
 // ── Tópico View ─────────────────────────────────────────────────────────────
-function TopicoView({ topico, categoria, onBack, onEdit }) {
+function TopicoView({ topico, categoria, onBack, onEdit, isAdmin }) {
   const c = getColor(categoria.color);
   const hasContent = topico.conteudo && topico.conteudo.trim().length > 0;
 
@@ -53,13 +53,15 @@ function TopicoView({ topico, categoria, onBack, onEdit }) {
             </div>
             <h1 className="text-xl font-bold leading-tight">{topico.label}</h1>
           </div>
-          <button
-            onClick={onEdit}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white text-xs font-semibold transition-all flex-shrink-0"
-          >
-            <Edit3 className="w-3.5 h-3.5" />
-            {hasContent ? 'Editar' : 'Adicionar'}
-          </button>
+          {isAdmin && (
+            <button
+              onClick={onEdit}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white text-xs font-semibold transition-all flex-shrink-0"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              {hasContent ? 'Editar' : 'Adicionar'}
+            </button>
+          )}
         </div>
       </div>
 
@@ -74,14 +76,16 @@ function TopicoView({ topico, categoria, onBack, onEdit }) {
             <span className="text-5xl mb-4">🚧</span>
             <p className="text-base font-bold text-foreground mb-2">Conteúdo em desenvolvimento</p>
             <p className="text-sm text-muted-foreground max-w-xs mb-5">
-              Este tópico ainda não possui conteúdo. Clique abaixo para adicionar.
+              {isAdmin ? 'Este tópico ainda não possui conteúdo. Clique abaixo para adicionar.' : 'Este tópico ainda não possui conteúdo disponível.'}
             </p>
-            <button
-              onClick={onEdit}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all"
-            >
-              <Upload className="w-4 h-4" /> Adicionar Conteúdo
-            </button>
+            {isAdmin && (
+              <button
+                onClick={onEdit}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all"
+              >
+                <Upload className="w-4 h-4" /> Adicionar Conteúdo
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -312,9 +316,17 @@ export default function Condutas() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showNovaCatModal, setShowNovaCatModal] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Local override of categorias (includes user-created + edited content)
   const [categorias, setCategorias] = useState(CONDUTAS_CATEGORIAS);
+
+  // Check if user is admin
+  useEffect(() => {
+    base44.auth.me().then(user => {
+      if (user) setIsAdmin(user.role === 'admin');
+    }).catch(() => {});
+  }, []);
 
   // Load DB condutas and merge into categories
   useEffect(() => {
@@ -514,6 +526,7 @@ export default function Condutas() {
               categoria={selectedCategoria}
               onBack={handleBack}
               onEdit={() => setShowUploadModal(true)}
+              isAdmin={isAdmin}
             />
           </motion.div>
         )}
