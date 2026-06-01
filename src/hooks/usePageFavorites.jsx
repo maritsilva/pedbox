@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, createContext } from 'react';
+import { base44 } from '@/api/base44Client';
 
 const KEY = 'pedbox_page_favorites';
 
@@ -34,27 +35,53 @@ export const ALL_PAGES = [
 const PageFavoritesContext = createContext(null);
 
 export function PageFavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(KEY)) || []; }
-    catch { return []; }
-  });
+  const [favorites, setFavorites] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
+  // Carregar favoritos do servidor ao montar
   useEffect(() => {
-    localStorage.setItem(KEY, JSON.stringify(favorites));
-  }, [favorites]);
+    const loadFavorites = async () => {
+      try {
+        const user = await base44.auth.me();
+        if (user) {
+          const favoritos = await base44.entities.Favorito.list();
+          setFavorites(favoritos.map(f => f.chave));
+        }
+      } catch (e) {
+        console.error('Erro ao carregar favoritos:', e);
+      }
+      setLoaded(true);
+    };
+    loadFavorites();
+  }, []);
 
-  const isFavorite = (path) => favorites.includes(path);
+  const isFavorite = (key) => favorites.includes(key);
 
-  const toggleFavorite = (path) => {
-    setFavorites(prev =>
-      prev.includes(path) ? prev.filter(p => p !== path) : [...prev, path]
-    );
+  const toggleFavorite = async (key) => {
+    try {
+      const isFav = favorites.includes(key);
+      
+      if (isFav) {
+        // Remover do servidor
+        const existing = await base44.entities.Favorito.filter({ chave: key });
+        if (existing.length > 0) {
+          await base44.entities.Favorito.delete(existing[0].id);
+        }
+        setFavorites(prev => prev.filter(p => p !== key));
+      } else {
+        // Adicionar ao servidor
+        await base44.entities.Favorito.create({ chave: key, tipo: 'ferramenta' });
+        setFavorites(prev => [...prev, key]);
+      }
+    } catch (e) {
+      console.error('Erro ao salvar favorito:', e);
+    }
   };
 
   const favPages = ALL_PAGES.filter(p => favorites.includes(p.path));
 
   return (
-    <PageFavoritesContext.Provider value={{ favorites, isFavorite, toggleFavorite, favPages }}>
+    <PageFavoritesContext.Provider value={{ favorites, isFavorite, toggleFavorite, favPages, loaded }}>
       {children}
     </PageFavoritesContext.Provider>
   );
