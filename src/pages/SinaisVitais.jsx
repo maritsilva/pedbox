@@ -124,12 +124,12 @@ export default function SinaisVitais() {
           key={sign.id}
           className={`rounded-lg p-4 border hidden ${sign.color}`}>
           
-             <div className="flex items-start justify-between mb-2 hidden">
-               <span className="text-2xl">{sign.icon}</span>
-             </div>
-             <h3 className="text-sm font-bold text-foreground hidden">{sign.title}</h3>
-             <p className="text-xs text-muted-foreground mt-1 mb-2 hidden">{sign.description}</p>
-             <p className="text-lg font-extrabold text-primary hidden">{sign.normal}</p>
+             
+
+          
+             
+             
+             
            </div>
         )}
        </div>
