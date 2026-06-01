@@ -94,45 +94,14 @@ export default function Guia() {
     return (
       <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
         <button onClick={() => setSelectedDrug(null)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors">
-          <ChevronLeft className="w-4 h-4" /> Voltar
+          <ChevronLeft className="w-4 h-4" /> Voltar à categoria
         </button>
         <DrugGuideDetail drug={selectedDrug} colors={colors} catIcon={cat?.icon} catLabel={cat?.label} />
       </div>
     );
   }
 
-  // ── Category drug list ──
-  if (selectedCat) {
-    const colors = colorMap[selectedCat.color] || colorMap['blue-500'];
-    return (
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <button onClick={resetAll} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
-          <ChevronLeft className="w-4 h-4" /> Todas as Categorias
-        </button>
-        <div className={`${colors.bg} ${colors.border} border rounded-2xl p-5 mb-6 flex items-center gap-3`}>
-          <span className="text-3xl">{selectedCat.icon}</span>
-          <div>
-            <p className={`text-xs font-semibold ${colors.text}`}>Categoria</p>
-            <h1 className="text-xl font-bold">{selectedCat.label}</h1>
-          </div>
-        </div>
-        <div className="space-y-2">
-          {selectedCat.drugs.map((drug, i) => (
-            <motion.button key={drug.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}
-              onClick={() => setSelectedDrug(drug)}
-              className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm transition-all group"
-            >
-              <div>
-                <span className="font-semibold text-sm text-foreground">{drug.name}</span>
-                {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.button>
-          ))}
-        </div>
-      </div>
-    );
-  }
+
 
   // ── Main view ──
   return (
@@ -243,32 +212,74 @@ export default function Guia() {
           {/* LEFT — Main content area */}
           <div className="flex-1 min-w-0">
 
-            {/* Category grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {filteredCats.map((cat, i) => {
-                  const colors = colorMap[cat.color] || colorMap['blue-500'];
-                  return (
-                    <motion.button key={cat.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
-                      onClick={() => setSelectedCat(cat)}
-                      className="w-full bg-white border border-border rounded-lg px-4 py-4 flex items-center gap-3 text-left hover:bg-secondary/50 transition-all group">
-                      <div className={`w-10 h-10 rounded-lg ${colors.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
-                        {cat.icon}
+            {/* Category drug list when a category is selected */}
+            {selectedCat ? (
+              <AnimatePresence mode="wait">
+                <motion.div key={selectedCat.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  {/* Category header */}
+                  {(() => {
+                    const colors = colorMap[selectedCat.color] || colorMap['blue-500'];
+                    return (
+                      <div className={`${colors.bg} ${colors.border} border rounded-2xl p-4 mb-4 flex items-center gap-3`}>
+                        <button onClick={() => setSelectedCat(null)} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors mr-1">
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <span className="text-2xl">{selectedCat.icon}</span>
+                        <div className="flex-1">
+                          <p className={`text-xs font-semibold ${colors.text}`}>Categoria</p>
+                          <h2 className="text-base font-bold text-foreground">{selectedCat.label}</h2>
+                        </div>
+                        <span className={`text-xs font-bold px-2 py-1 rounded-full ${colors.iconBg} ${colors.text}`}>
+                          {selectedCat.drugs.length} medicamentos
+                        </span>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-foreground leading-snug">{cat.label}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{cat.drugs.length} medicamento{cat.drugs.length !== 1 ? 's' : ''}</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                    </motion.button>
-                  );
-                })}
-              </div>
-
-            {filteredCats.length === 0 && (
-              <div className="text-center py-16 bg-white border border-border rounded-lg">
-                <p className="text-3xl mb-2">🔍</p>
-                <p className="font-semibold text-foreground text-sm">Nenhuma categoria encontrada</p>
-              </div>
+                    );
+                  })()}
+                  <div className="space-y-2">
+                    {selectedCat.drugs.map((drug, i) => (
+                      <motion.button key={drug.id} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }}
+                        onClick={() => setSelectedDrug(drug)}
+                        className="w-full text-left bg-white border border-border rounded-xl px-4 py-3.5 flex items-center justify-between hover:border-primary/40 hover:shadow-sm transition-all group"
+                      >
+                        <div>
+                          <span className="font-semibold text-sm text-foreground">{drug.name}</span>
+                          {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            ) : (
+              <>
+                {/* Category grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {filteredCats.map((cat, i) => {
+                    const colors = colorMap[cat.color] || colorMap['blue-500'];
+                    return (
+                      <motion.button key={cat.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
+                        onClick={() => setSelectedCat(cat)}
+                        className="w-full bg-white border border-border rounded-lg px-4 py-4 flex items-center gap-3 text-left hover:bg-secondary/50 transition-all group">
+                        <div className={`w-10 h-10 rounded-lg ${colors.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                          {cat.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm text-foreground leading-snug">{cat.label}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{cat.drugs.length} medicamento{cat.drugs.length !== 1 ? 's' : ''}</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                      </motion.button>
+                    );
+                  })}
+                </div>
+                {filteredCats.length === 0 && (
+                  <div className="text-center py-16 bg-white border border-border rounded-lg">
+                    <p className="text-3xl mb-2">🔍</p>
+                    <p className="font-semibold text-foreground text-sm">Nenhuma categoria encontrada</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
