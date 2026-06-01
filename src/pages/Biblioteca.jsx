@@ -1,10 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy, Stethoscope } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
+import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy, Stethoscope, Link as LinkIcon, StickyNote } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { RESUMOS } from '@/lib/resumosData';
 import CondutasTab from '@/components/biblioteca/CondutasTab';
+import LinksTab from '@/components/biblioteca/LinksTab';
+import AnotacoesTab from '@/components/biblioteca/AnotacoesTab';
 import ProtocolosPage from './Protocolos';
 
 // ── Protocols list (duplicated metadata only) ──────────────────────────────
@@ -304,51 +307,90 @@ function ProtocolCard({ protocol }) {
   );
 }
 
+// ── Search results across protocolos + links ──────────────────────────────
+function GlobalSearchResults({ q, onClose }) {
+  const navigate = useNavigate();
+  const filteredProtocols = PROTOCOLS.filter(p =>
+    p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q)
+  );
+  const [links, setLinks] = useState([]);
+  useEffect(() => {
+    base44.entities.LinkBiblioteca.list().then(setLinks).catch(() => {});
+  }, []);
+  const filteredLinks = links.filter(l =>
+    l.titulo.toLowerCase().includes(q) || (l.descricao || '').toLowerCase().includes(q) || (l.categoria || '').toLowerCase().includes(q)
+  );
+
+  const total = filteredProtocols.length + filteredLinks.length;
+
+  return (
+    <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+      <p className="text-xs text-muted-foreground mb-3">{total} resultado{total !== 1 ? 's' : ''} para "<strong>{q}</strong>"</p>
+      {filteredProtocols.length > 0 && (
+        <div className="mb-4">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Protocolos</p>
+          <div className="space-y-2">
+            {filteredProtocols.map(p => {
+              const badge = TAG_BADGE[p.tag] || { bg: 'bg-gray-100', text: 'text-gray-700' };
+              return (
+                <button key={p.id} onClick={() => navigate(`/protocolos?id=${p.id}`)}
+                  className="w-full text-left bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3 hover:shadow-md transition-all group">
+                  <span className="text-xl">{p.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm text-foreground group-hover:text-primary">{p.title}</p>
+                    <p className="text-xs text-muted-foreground">{p.subtitle}</p>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.bg} ${badge.text} flex-shrink-0`}>{p.tag}</span>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {filteredLinks.length > 0 && (
+        <div>
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Links</p>
+          <div className="space-y-2">
+            {filteredLinks.map(l => (
+              <a key={l.id} href={l.url} target="_blank" rel="noopener noreferrer"
+                className="block bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3 hover:shadow-md transition-all group">
+                <span className="text-xl">{l.icone || '🔗'}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm text-foreground group-hover:text-primary">{l.titulo}</p>
+                  {l.descricao && <p className="text-xs text-muted-foreground">{l.descricao}</p>}
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      {total === 0 && (
+        <div className="py-12 text-center bg-white border border-border rounded-2xl">
+          <p className="text-4xl mb-3">🔍</p>
+          <p className="font-semibold text-foreground">Nenhum resultado encontrado</p>
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
 // ── Main Page ──────────────────────────────────────────────────────────────
+
 const TABS = [
   { id: 'protocolos', label: 'Protocolos',  icon: FlaskConical },
   { id: 'condutas',   label: 'Condutas',    icon: Stethoscope },
+  { id: 'links',      label: 'Links',       icon: LinkIcon },
+  { id: 'anotacoes',  label: 'Anotações',   icon: StickyNote },
 ];
 
 export default function Biblioteca() {
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState('protocolos');
-  const [selectedResumo, setSelectedResumo] = useState(null);
-  const [activeCategory, setActiveCategory] = useState('Todas');
 
   const q = search.toLowerCase().trim();
-  
-  // Get all categories from resumos and protocolos
-  const allCategories = useMemo(() => {
-    const resumosCats = [...new Set(RESUMOS.map(r => r.categoria).filter(Boolean))];
-    const protocolsCats = [...new Set(PROTOCOLS.map(p => p.tag).filter(Boolean))];
-    return ['Todas', ...new Set([...resumosCats, ...protocolsCats])].sort();
-  }, []);
-
-  const filteredResumos = useMemo(() => RESUMOS.filter(r => {
-    const matchSearch = !q || r.titulo.toLowerCase().includes(q) || r.subtitulo?.toLowerCase().includes(q) ||
-      r.categoria?.toLowerCase().includes(q) || r.seções?.some(s => s.nome.toLowerCase().includes(q) || s.conteudo.toLowerCase().includes(q));
-    const matchCat = activeCategory === 'Todas' || r.categoria === activeCategory;
-    return matchSearch && matchCat;
-  }), [q, activeCategory]);
-
-  const filteredProtocols = useMemo(() => PROTOCOLS.filter(p => {
-    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q);
-    const matchCat = activeCategory === 'Todas' || p.tag === activeCategory;
-    return matchSearch && matchCat;
-  }), [q, activeCategory]);
-
-  const showResumos = false; // Resumos sempre ocultos
-  const showProtocols = true; // Sempre mostrar protocolos
-
-  if (selectedResumo) {
-    return <ResumoDetail resumo={selectedResumo} onBack={() => setSelectedResumo(null)} />;
-  }
-
-  const totalResults = (showResumos ? filteredResumos.length : 0) + (showProtocols ? filteredProtocols.length : 0);
-
-  const maisAcessados = [...filteredProtocols.slice(0, 5)];
-  const totalContent = filteredResumos.length + filteredProtocols.length;
+  const isSearching = q.length > 1;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -357,7 +399,7 @@ export default function Biblioteca() {
       <div className="mb-6">
         <h1 className="text-3xl font-extrabold text-foreground">Biblioteca</h1>
         <p className="text-muted-foreground text-sm mt-1.5 max-w-lg">
-          Resumos clínicos e protocolos baseados em evidências para a prática pediátrica.
+          Protocolos, condutas, links e anotações para a prática pediátrica.
         </p>
       </div>
 
@@ -366,7 +408,7 @@ export default function Biblioteca() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Buscar tema, resumo ou protocolo..."
+          placeholder="Buscar protocolo, conduta ou link..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-2xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
@@ -378,29 +420,35 @@ export default function Biblioteca() {
         )}
       </div>
 
+      {/* ── GLOBAL SEARCH RESULTS ── */}
+      {isSearching && <GlobalSearchResults q={q} />}
+
       {/* ── TABS ── */}
-      <div className="flex gap-2 mb-6 flex-wrap">
-        {TABS.map(tab => {
-          const Icon = tab.icon;
-          return (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                activeTab === tab.id
-                  ? 'bg-primary text-white border-primary shadow-sm'
-                  : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
-              }`}>
-              <Icon className="w-4 h-4" />
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
+      {!isSearching && (
+        <>
+          <div className="flex gap-2 mb-6 flex-wrap">
+            {TABS.map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-primary text-white border-primary shadow-sm'
+                      : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
+                  }`}>
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
 
-      {/* ── CONDUTAS TAB ── */}
-      {activeTab === 'condutas' && <CondutasTab />}
-
-      {/* ── PROTOCOLOS TAB ── */}
-      {activeTab === 'protocolos' && <ProtocolosPage />}
+          {activeTab === 'condutas'  && <CondutasTab />}
+          {activeTab === 'protocolos' && <ProtocolosPage />}
+          {activeTab === 'links'     && <LinksTab />}
+          {activeTab === 'anotacoes' && <AnotacoesTab />}
+        </>
+      )}
     </div>
   );
 }

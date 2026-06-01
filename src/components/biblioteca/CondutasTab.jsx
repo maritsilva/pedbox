@@ -324,9 +324,8 @@ export default function CondutasTab() {
               <BookOpen className="w-7 h-7 text-white" />
             </div>
             <div>
-              <p className="text-3xl font-extrabold text-primary leading-none">{comConteudo}</p>
-              <p className="text-sm font-semibold text-foreground">condutas com conteúdo</p>
-              <p className="text-xs text-muted-foreground mt-0.5">de {totalTopicos} tópicos indexados</p>
+              <p className="text-3xl font-extrabold text-primary leading-none">{totalTopicos}</p>
+              <p className="text-sm font-semibold text-foreground">tópicos indexados</p>
             </div>
           </div>
 
@@ -352,7 +351,7 @@ export default function CondutasTab() {
                     <span className="text-lg flex-shrink-0">{cat.icon}</span>
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm font-semibold truncate ${activeCategoria === cat.id ? c.text : 'text-foreground'}`}>{cat.label}</p>
-                      <p className="text-xs text-muted-foreground">{total} tópicos{withContent > 0 ? ` · ${withContent} com conteúdo` : ''}</p>
+                      <p className="text-xs text-muted-foreground">{total} tópico{total !== 1 ? 's' : ''}</p>
                     </div>
                   </button>
                 );

@@ -1,0 +1,47 @@
+{
+  "name": "Anotacao",
+  "type": "object",
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "T\u00edtulo da anota\u00e7\u00e3o"
+    },
+    "conteudo": {
+      "type": "string",
+      "description": "Conte\u00fado da anota\u00e7\u00e3o"
+    },
+    "cor": {
+      "type": "string",
+      "enum": [
+        "yellow",
+        "blue",
+        "green",
+        "pink",
+        "purple"
+      ],
+      "default": "yellow",
+      "description": "Cor da anota\u00e7\u00e3o"
+    }
+  },
+  "required": [
+    "titulo"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "record_condition": {
+        "created_by_id": "{{user_id}}"
+      }
+    },
+    "update": {
+      "record_condition": {
+        "created_by_id": "{{user_id}}"
+      }
+    },
+    "delete": {
+      "record_condition": {
+        "created_by_id": "{{user_id}}"
+      }
+    }
+  }
+}
