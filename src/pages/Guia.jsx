@@ -243,59 +243,8 @@ export default function Guia() {
           {/* LEFT — Main content area */}
           <div className="flex-1 min-w-0">
 
-            {/* Category search + sort */}
-            <div className="flex items-center gap-3 mb-6 flex-wrap">
-              <div className="relative flex-1 min-w-xs">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Filtrar categorias..."
-                  value={catSearch}
-                  onChange={e => setCatSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                />
-                {catSearch && (
-                  <button onClick={() => setCatSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-              <button onClick={() => setSortAZ(!sortAZ)} className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-semibold border transition-all whitespace-nowrap ${sortAZ ? 'bg-primary text-white border-primary' : 'bg-white border-border text-foreground hover:bg-secondary/50'}`}>
-                Ordenar: A–Z
-              </button>
-            </div>
-
-            {/* Classes filter */}
-            <div className="mb-6">
-              <p className="text-xs font-semibold text-muted-foreground mb-2.5 uppercase">Filtrar por classe</p>
-              <div className="flex flex-wrap gap-2">
-                {GUIDE_CATEGORIES.map(cat => (
-                  <button key={cat.id} onClick={() => setSelectedClasses(selectedClasses.includes(cat.id) ? selectedClasses.filter(id => id !== cat.id) : [...selectedClasses, cat.id])}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${selectedClasses.includes(cat.id) ? 'bg-primary text-white border-primary' : 'bg-white border-border text-foreground hover:bg-secondary/50'}`}>
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* All drugs or filtered list */}
-            {selectedClasses.length > 0 ? (
-              <div className="space-y-2">
-                {allDrugsFlat.filter(d => selectedClasses.includes(d.catId)).map((drug, i) => (
-                  <motion.button key={drug.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }}
-                    onClick={() => { const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category); setSelectedCat(cat); setSelectedDrug(drug); }}
-                    className="w-full text-left bg-white border border-border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-secondary/50 transition-all group">
-                    <div>
-                      <span className="font-semibold text-sm text-foreground">{drug.name}</span>
-                      {drug.suffix && <span className="ml-2 text-xs text-muted-foreground">({drug.suffix})</span>}
-                      <p className="text-xs text-muted-foreground mt-0.5">{drug.catLabel}</p>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {/* Category grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {filteredCats.map((cat, i) => {
                   const colors = colorMap[cat.color] || colorMap['blue-500'];
                   return (
@@ -314,16 +263,8 @@ export default function Guia() {
                   );
                 })}
               </div>
-            )}
 
-            {selectedClasses.length > 0 && allDrugsFlat.filter(d => selectedClasses.includes(d.catId)).length === 0 && (
-              <div className="text-center py-16 bg-white border border-border rounded-lg">
-                <p className="text-3xl mb-2">🔍</p>
-                <p className="font-semibold text-foreground text-sm">Nenhum medicamento encontrado</p>
-              </div>
-            )}
-
-            {selectedClasses.length === 0 && filteredCats.length === 0 && (
+            {filteredCats.length === 0 && (
               <div className="text-center py-16 bg-white border border-border rounded-lg">
                 <p className="text-3xl mb-2">🔍</p>
                 <p className="font-semibold text-foreground text-sm">Nenhuma categoria encontrada</p>
