@@ -1,0 +1,46 @@
+{
+  "name": "Favorito",
+  "type": "object",
+  "properties": {
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "ferramenta",
+        "medicamento",
+        "dosagem",
+        "anotacao"
+      ],
+      "description": "Tipo de favorito"
+    },
+    "chave": {
+      "type": "string",
+      "description": "Chave \u00fanica do favorito (ex: 'conduta-asma', 'drug-dipirona')"
+    },
+    "label": {
+      "type": "string",
+      "description": "R\u00f3tulo/nome do favorito"
+    }
+  },
+  "required": [
+    "tipo",
+    "chave"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "record_condition": {
+        "created_by_id": "{{user_id}}"
+      }
+    },
+    "update": {
+      "record_condition": {
+        "created_by_id": "{{user_id}}"
+      }
+    },
+    "delete": {
+      "record_condition": {
+        "created_by_id": "{{user_id}}"
+      }
+    }
+  }
+}

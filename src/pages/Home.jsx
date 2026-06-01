@@ -72,7 +72,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
-  const searchResults = universalSearch(search, 14);
+  const searchResults = universalSearch(search, 20);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">

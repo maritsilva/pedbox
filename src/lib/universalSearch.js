@@ -5,6 +5,7 @@ import { getAllGuideDrugs, ALL_CATEGORIES } from './guideData';
 import { getAllDosagens } from './dosagensData';
 import { RESUMOS } from './resumosData';
 import { vacinasData } from './vacinasData';
+import { CONDUTAS_CATEGORIAS } from './condutasData';
 
 // Protocolos
 const PROTOCOLS = [
@@ -57,9 +58,9 @@ const TOOLS_INDEX = [
 
 /**
  * Busca universal — retorna até `limit` resultados.
- * Tipos: 'tool' | 'drug' | 'dosagem' | 'resumo' | 'protocolo' | 'vacina'
+ * Tipos: 'tool' | 'drug' | 'dosagem' | 'resumo' | 'protocolo' | 'vacina' | 'conduta'
  */
-export function universalSearch(query, limit = 14) {
+export function universalSearch(query, limit = 30) {
   if (!query || query.trim().length < 2) return [];
   const q = query.toLowerCase().trim();
   const results = [];
@@ -155,6 +156,30 @@ export function universalSearch(query, limit = 14) {
     }
   }
 
+  // 7. Condutas — busca nas categorias, subcategorias e tópicos
+  for (const cat of CONDUTAS_CATEGORIAS) {
+    for (const sub of cat.subcategorias) {
+      for (const top of sub.topicos) {
+        if (
+          top.label.toLowerCase().includes(q) ||
+          cat.label.toLowerCase().includes(q) ||
+          sub.label.toLowerCase().includes(q)
+        ) {
+          results.push({
+            label: top.label,
+            desc: `Conduta · ${cat.label} › ${sub.label}`,
+            path: `/biblioteca`,
+            icon: cat.icon || '📋',
+            type: 'conduta',
+          });
+          if (results.filter(r => r.type === 'conduta').length >= 8) break;
+        }
+      }
+      if (results.filter(r => r.type === 'conduta').length >= 8) break;
+    }
+    if (results.filter(r => r.type === 'conduta').length >= 8) break;
+  }
+
   // Deduplicar por path+label e limitar
   const seen = new Set();
   return results.filter(r => {
@@ -173,4 +198,5 @@ export const TYPE_BADGE = {
   resumo:    { label: 'Resumo',     color: 'bg-green-100 text-green-700' },
   protocolo: { label: 'Protocolo',  color: 'bg-orange-100 text-orange-700' },
   vacina:    { label: 'Vacina',     color: 'bg-teal-100 text-teal-700' },
+  conduta:   { label: 'Conduta',    color: 'bg-cyan-100 text-cyan-700' },
 };
