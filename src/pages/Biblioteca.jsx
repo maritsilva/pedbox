@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { RESUMOS } from '@/lib/resumosData';
-import CondutasPage from './Condutas';
+import CondutasTab from '@/components/biblioteca/CondutasTab';
 import ProtocolosPage from './Protocolos';
 
 // ── Protocols list (duplicated metadata only) ──────────────────────────────
@@ -396,8 +396,8 @@ export default function Biblioteca() {
         })}
       </div>
 
-      {/* ── CONDUTAS TAB ── renders the full Condutas page inline */}
-      {activeTab === 'condutas' && <CondutasPage />}
+      {/* ── CONDUTAS TAB ── */}
+      {activeTab === 'condutas' && <CondutasTab />}
 
       {/* ── PROTOCOLOS TAB ── */}
       {activeTab === 'protocolos' && <ProtocolosPage />}
