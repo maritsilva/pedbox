@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { RESUMOS } from '@/lib/resumosData';
 import CondutasTab from '@/components/biblioteca/CondutasTab';
+import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import LinksTab from '@/components/biblioteca/LinksTab';
 import AnotacoesTab from '@/components/biblioteca/AnotacoesTab';
 import ProtocolosPage from './Protocolos';
@@ -307,12 +308,32 @@ function ProtocolCard({ protocol }) {
   );
 }
 
-// ── Search results across protocolos + links ──────────────────────────────
-function GlobalSearchResults({ q, onClose }) {
+// ── Search results across protocolos + condutas + links ───────────────────
+function GlobalSearchResults({ q }) {
   const navigate = useNavigate();
+
   const filteredProtocols = PROTOCOLS.filter(p =>
     p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q)
   );
+
+  const filteredCondutas = useMemo(() => {
+    const results = [];
+    CONDUTAS_CATEGORIAS.forEach(cat => {
+      cat.subcategorias.forEach(sub => {
+        sub.topicos.forEach(top => {
+          if (
+            top.label.toLowerCase().includes(q) ||
+            cat.label.toLowerCase().includes(q) ||
+            sub.label.toLowerCase().includes(q)
+          ) {
+            results.push({ topico: top, categoria: cat, subcategoria: sub });
+          }
+        });
+      });
+    });
+    return results.slice(0, 8);
+  }, [q]);
+
   const [links, setLinks] = useState([]);
   useEffect(() => {
     base44.entities.LinkBiblioteca.list().then(setLinks).catch(() => {});
@@ -321,7 +342,7 @@ function GlobalSearchResults({ q, onClose }) {
     l.titulo.toLowerCase().includes(q) || (l.descricao || '').toLowerCase().includes(q) || (l.categoria || '').toLowerCase().includes(q)
   );
 
-  const total = filteredProtocols.length + filteredLinks.length;
+  const total = filteredProtocols.length + filteredCondutas.length + filteredLinks.length;
 
   return (
     <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
@@ -345,6 +366,22 @@ function GlobalSearchResults({ q, onClose }) {
                 </button>
               );
             })}
+          </div>
+        </div>
+      )}
+      {filteredCondutas.length > 0 && (
+        <div className="mb-4">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Condutas</p>
+          <div className="space-y-2">
+            {filteredCondutas.map(({ topico, categoria, subcategoria }) => (
+              <div key={topico.id} className="bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3">
+                <span className="text-xl">{categoria.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm text-foreground">{topico.label}</p>
+                  <p className="text-xs text-muted-foreground">{categoria.label} › {subcategoria.label}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -424,31 +461,27 @@ export default function Biblioteca() {
       {isSearching && <GlobalSearchResults q={q} />}
 
       {/* ── TABS ── */}
-      {!isSearching && (
-        <>
-          <div className="flex gap-2 mb-6 flex-wrap">
-            {TABS.map(tab => {
-              const Icon = tab.icon;
-              return (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                    activeTab === tab.id
-                      ? 'bg-primary text-white border-primary shadow-sm'
-                      : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
-                  }`}>
-                  <Icon className="w-4 h-4" />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
+      <div className="flex gap-2 mb-6 flex-wrap">
+        {TABS.map(tab => {
+          const Icon = tab.icon;
+          return (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
+                activeTab === tab.id
+                  ? 'bg-primary text-white border-primary shadow-sm'
+                  : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
+              }`}>
+              <Icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
 
-          {activeTab === 'condutas'  && <CondutasTab />}
-          {activeTab === 'protocolos' && <ProtocolosPage />}
-          {activeTab === 'links'     && <LinksTab />}
-          {activeTab === 'anotacoes' && <AnotacoesTab />}
-        </>
-      )}
+      {activeTab === 'condutas'   && <CondutasTab externalSearch={search} />}
+      {activeTab === 'protocolos' && <ProtocolosPage />}
+      {activeTab === 'links'      && <LinksTab />}
+      {activeTab === 'anotacoes'  && <AnotacoesTab />}
     </div>
   );
 }
