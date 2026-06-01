@@ -46,6 +46,7 @@ import ExplorarFerramentas from './pages/ExplorarFerramentas';
 import Biblioteca from './pages/Biblioteca';
 import Condutas from './pages/Condutas';
 import SinaisVitais from './pages/SinaisVitais';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -93,6 +94,7 @@ function App() {
             <Route path="/curvas-crescimento" element={<CurvasCrescimento />} />
             <Route path="/sinais-vitais" element={<SinaisVitais />} />
             <Route path="/condutas" element={<Condutas />} />
+            <Route path="/admin" element={<Admin />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

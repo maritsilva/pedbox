@@ -1,0 +1,42 @@
+{
+  "name": "CategoriaCustom",
+  "type": "object",
+  "properties": {
+    "categoria_id": {
+      "type": "string",
+      "description": "ID \u00fanico da categoria"
+    },
+    "label": {
+      "type": "string",
+      "description": "Nome da categoria"
+    },
+    "icon": {
+      "type": "string",
+      "description": "\u00cdcone emoji"
+    },
+    "color": {
+      "type": "string",
+      "description": "Cor da categoria"
+    },
+    "subcategorias": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Lista de subcategorias"
+    }
+  },
+  "required": [
+    "label",
+    "icon",
+    "color"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "name": "Conduta",
+  "type": "object",
+  "properties": {
+    "categoria_id": {
+      "type": "string",
+      "description": "ID da categoria"
+    },
+    "categoria_label": {
+      "type": "string",
+      "description": "Nome da categoria"
+    },
+    "categoria_icon": {
+      "type": "string",
+      "description": "\u00cdcone da categoria"
+    },
+    "categoria_color": {
+      "type": "string",
+      "description": "Cor da categoria"
+    },
+    "subcategoria_id": {
+      "type": "string",
+      "description": "ID da subcategoria"
+    },
+    "subcategoria_label": {
+      "type": "string",
+      "description": "Nome da subcategoria"
+    },
+    "topico_id": {
+      "type": "string",
+      "description": "ID do t\u00f3pico"
+    },
+    "topico_label": {
+      "type": "string",
+      "description": "Nome do t\u00f3pico"
+    },
+    "conteudo": {
+      "type": "string",
+      "description": "Conte\u00fado em Markdown"
+    },
+    "imagens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs das imagens anexadas"
+    },
+    "is_custom": {
+      "type": "boolean",
+      "description": "Se \u00e9 uma entrada criada pelo admin (n\u00e3o do c\u00f3digo)"
+    }
+  },
+  "required": [
+    "topico_label",
+    "categoria_label"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

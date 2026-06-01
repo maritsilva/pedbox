@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ChevronRight, ChevronLeft, Search, BookOpen, X, Upload, Plus, Edit3, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import MarkdownRenderer from '@/components/condutas/MarkdownRenderer';
 import UploadCondutaModal from '@/components/condutas/UploadCondutaModal';
 import NovaCategoriaModal from '@/components/condutas/NovaCategoriaModal';
+import { base44 } from '@/api/base44Client';
 
 const COLOR_MAP = {
   blue:   { bg: 'bg-blue-50',   border: 'border-blue-200',   text: 'text-blue-700',   icon: 'bg-blue-100',   badge: 'bg-blue-100 text-blue-700',   header: 'from-blue-500 to-blue-700' },
@@ -314,6 +315,63 @@ export default function Condutas() {
 
   // Local override of categorias (includes user-created + edited content)
   const [categorias, setCategorias] = useState(CONDUTAS_CATEGORIAS);
+
+  // Load DB condutas and merge into categories
+  useEffect(() => {
+    Promise.all([
+      base44.entities.CategoriaCustom.list(),
+      base44.entities.Conduta.list(),
+    ]).then(([customCats, dbCondutas]) => {
+      setCategorias(prev => {
+        // Start with static data
+        let merged = prev.map(cat => ({ ...cat, subcategorias: cat.subcategorias.map(sub => ({ ...sub, topicos: sub.topicos.map(t => ({ ...t })) })) }));
+
+        // Override/inject content from DB into existing static topics
+        dbCondutas.forEach(cond => {
+          const cat = merged.find(c => c.id === cond.categoria_id || c.label === cond.categoria_label);
+          if (cat) {
+            const sub = cat.subcategorias.find(s => s.id === cond.subcategoria_id || s.label === cond.subcategoria_label);
+            if (sub) {
+              const topIdx = sub.topicos.findIndex(t => t.id === cond.topico_id || t.label === cond.topico_label);
+              if (topIdx >= 0) {
+                sub.topicos[topIdx] = { ...sub.topicos[topIdx], conteudo: cond.conteudo || sub.topicos[topIdx].conteudo };
+              } else if (cond.is_custom) {
+                sub.topicos.push({ id: cond.topico_id || cond.id, label: cond.topico_label, conteudo: cond.conteudo || '' });
+              }
+            } else if (cond.is_custom) {
+              const subId = cond.subcategoria_id || cond.id + '-sub';
+              let newSub = cat.subcategorias.find(s => s.id === subId);
+              if (!newSub) {
+                newSub = { id: subId, label: cond.subcategoria_label || 'Geral', topicos: [] };
+                cat.subcategorias.push(newSub);
+              }
+              newSub.topicos.push({ id: cond.topico_id || cond.id, label: cond.topico_label, conteudo: cond.conteudo || '' });
+            }
+          }
+        });
+
+        // Add fully custom categories from DB
+        customCats.forEach(customCat => {
+          const exists = merged.find(c => c.id === customCat.categoria_id || c.label === customCat.label);
+          if (!exists) {
+            const subs = (customCat.subcategorias || []).map(s => ({
+              id: s.id, label: s.label,
+              topicos: dbCondutas.filter(d => d.categoria_label === customCat.label && d.subcategoria_label === s.label)
+                .map(d => ({ id: d.topico_id || d.id, label: d.topico_label, conteudo: d.conteudo || '' })),
+            }));
+            // Also add condutas without a subcategoria
+            const noSubCondutas = dbCondutas.filter(d => d.categoria_label === customCat.label && !d.subcategoria_label);
+            if (noSubCondutas.length > 0) {
+              subs.push({ id: 'geral', label: 'Geral', topicos: noSubCondutas.map(d => ({ id: d.topico_id || d.id, label: d.topico_label, conteudo: d.conteudo || '' })) });
+            }
+            merged.push({ id: customCat.categoria_id || customCat.id, label: customCat.label, icon: customCat.icon, color: customCat.color, subcategorias: subs });
+          }
+        });
+
+        return merged;
+      });
+    }).catch(() => {});
+  }, []);
 
   // Busca global
   const searchResults = useMemo(() => {
