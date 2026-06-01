@@ -381,7 +381,7 @@ export default function Contato() {
             Obrigado por fazer parte desta comunidade de aprendizado compartilhado.
           </p>
           <button
-            onClick={() => window.open('https://app.base44.com/app-templates/69f4e81a840a3c93cee16789', '_blank')}
+            onClick={() => window.open('https://github.com/maritsilva/pedbox', '_blank')}
             className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-2xl hover:shadow-xl transition-all hover:scale-105"
           >
             <Copy className="w-5 h-5" />
