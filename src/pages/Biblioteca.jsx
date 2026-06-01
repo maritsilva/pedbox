@@ -323,7 +323,7 @@ function GlobalSearchResults({ q, setSearch }) {
 
   const filteredProtocols = PROTOCOLS.filter(p =>
     p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q)
-  );
+  ).slice(0, 6);
 
   const filteredCondutas = useMemo(() => {
     const results = [];
@@ -349,7 +349,7 @@ function GlobalSearchResults({ q, setSearch }) {
   }, []);
   const filteredLinks = links.filter(l =>
     l.titulo.toLowerCase().includes(q) || (l.descricao || '').toLowerCase().includes(q) || (l.categoria || '').toLowerCase().includes(q)
-  );
+  ).slice(0, 6);
 
   const total = filteredProtocols.length + filteredCondutas.length + filteredLinks.length;
 
