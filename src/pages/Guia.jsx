@@ -76,7 +76,7 @@ export default function Guia() {
     if (selectedClasses.length > 0) {
       filtered = filtered.filter(c => selectedClasses.includes(c.id));
     }
-    return filtered;
+    return filtered.sort((a, b) => a.label.localeCompare(b.label));
   }, [catSearch, selectedClasses]);
 
   const allDrugsFlat = useMemo(() => {
