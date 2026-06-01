@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy } from 'lucide-react';
+import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { RESUMOS } from '@/lib/resumosData';
+import CondutasPage from './Condutas';
 
 // ── Protocols list (duplicated metadata only) ──────────────────────────────
 const PROTOCOLS = [
@@ -304,14 +305,14 @@ function ProtocolCard({ protocol }) {
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'todos',      label: 'Todos',             icon: LayoutGrid },
-  { id: 'resumos',    label: 'Resumos Clínicos',  icon: BookOpen },
-  { id: 'protocolos', label: 'Protocolos Clínicos', icon: FlaskConical },
+  { id: 'protocolos', label: 'Protocolos',  icon: FlaskConical },
+  { id: 'condutas',   label: 'Condutas',    icon: Stethoscope },
 ];
 
 export default function Biblioteca() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState('todos');
+  const [activeTab, setActiveTab] = useState('protocolos');
   const [selectedResumo, setSelectedResumo] = useState(null);
   const [activeCategory, setActiveCategory] = useState('Todas');
 
@@ -379,172 +380,135 @@ export default function Biblioteca() {
 
       {/* ── TABS ── */}
       <div className="flex gap-2 mb-6 flex-wrap">
-        {TABS.filter(tab => tab.id !== 'resumos').map(tab => {
+        {TABS.map(tab => {
           const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
           return (
-            <button key={tab.id} onClick={() => { setActiveTab(tab.id === 'todos' ? 'protocolos' : tab.id); }}
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                (tab.id === 'todos' && activeTab !== 'resumos') || (tab.id === activeTab) 
-                  ? 'bg-primary text-white border-primary shadow-sm' 
+                activeTab === tab.id
+                  ? 'bg-primary text-white border-primary shadow-sm'
                   : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
               }`}>
               <Icon className="w-4 h-4" />
-              {tab.label === 'Todos' ? 'Protocolos' : tab.label}
+              {tab.label}
             </button>
           );
         })}
       </div>
 
-      {/* ── CATEGORY FILTERS ── */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {allCategories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all ${
-              activeCategory === cat
-                ? 'bg-primary text-white border-primary'
-                : 'bg-white text-muted-foreground border-border hover:border-primary/40'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      {/* ── CONDUTAS TAB ── renders the full Condutas page inline */}
+      {activeTab === 'condutas' && <CondutasPage />}
 
-      <div className="flex flex-col lg:flex-row gap-6 items-start">
-        {/* ── LEFT: Main content ── */}
-        <div className="flex-1 min-w-0">
-          {/* ── SEARCH RESULT COUNT ── */}
-          {q && (
-            <p className="text-xs text-muted-foreground mb-4">
-              {totalResults} resultado{totalResults !== 1 ? 's' : ''} para "<strong>{search}</strong>"
-            </p>
-          )}
-
-          {/* ── CONTENT ── */}
-          {totalResults === 0 && q ? (
-            <div className="text-center py-16 bg-white border border-border rounded-2xl">
-              <p className="text-4xl mb-3">📚</p>
-              <p className="font-bold text-foreground text-lg">Nenhum conteúdo encontrado</p>
-              <p className="text-muted-foreground mt-1 text-sm">Tente outros termos de busca</p>
-            </div>
-          ) : (
-            <div className="space-y-6">
-
-              {/* Resumos section */}
-              {showResumos && filteredResumos.length > 0 && (
-                <section className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center">
-                      <BookOpen className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h2 className="text-base font-extrabold text-foreground">Resumos Clínicos</h2>
-                      <p className="text-xs text-muted-foreground">{filteredResumos.length} resumo{filteredResumos.length !== 1 ? 's' : ''}</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                    {filteredResumos.map((r, i) => (
-                      <motion.div key={r.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                        <ResumoCard resumo={r} onOpen={setSelectedResumo} />
-                      </motion.div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Protocols section */}
-              {showProtocols && filteredProtocols.length > 0 && (
-                <section className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-violet-100 flex items-center justify-center">
-                      <FlaskConical className="w-4 h-4 text-violet-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h2 className="text-base font-extrabold text-foreground">Protocolos Clínicos</h2>
-                      <p className="text-xs text-muted-foreground">{filteredProtocols.length} protocolo{filteredProtocols.length !== 1 ? 's' : ''}</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                    {filteredProtocols.map((p, i) => (
-                      <motion.div key={p.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                        <ProtocolCard protocol={p} />
-                      </motion.div>
-                    ))}
-                  </div>
-                </section>
-              )}
-            </div>
-          )}
-
-          {/* ── FOOTER ── */}
-          <div className="mt-10 pt-6 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: '🛡️', text: 'Baseado em evidências' },
-              { icon: '🔄', text: 'Revisado por especialistas' },
-              { icon: '👨‍⚕️', text: 'Prático e rápido' },
-              { icon: '❤️', text: 'Foco no cuidado' },
-            ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center gap-2">
-                <span className="text-xl">{item.icon}</span>
-                <p className="text-[10px] text-muted-foreground leading-snug">{item.text}</p>
-              </div>
+      {/* ── PROTOCOLOS TAB ── */}
+      {activeTab === 'protocolos' && (
+        <>
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {allCategories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                  activeCategory === cat
+                    ? 'bg-primary text-white border-primary'
+                    : 'bg-white text-muted-foreground border-border hover:border-primary/40'
+                }`}
+              >
+                {cat}
+              </button>
             ))}
           </div>
-        </div>
 
-        {/* ── RIGHT: Sidebar ── */}
-        <div className="lg:w-72 xl:w-80 flex-shrink-0 space-y-4 lg:sticky lg:top-20">
-          {/* Counter card */}
-          <div className="bg-white border border-border rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center flex-shrink-0 shadow">
-              <BookOpen className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <p className="text-3xl font-extrabold text-primary leading-none">26</p>
-              <p className="text-sm font-semibold text-foreground">conteúdos disponíveis</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Resumos e protocolos atualizados</p>
-            </div>
-          </div>
+          <div className="flex flex-col lg:flex-row gap-6 items-start">
+            <div className="flex-1 min-w-0">
+              {q && (
+                <p className="text-xs text-muted-foreground mb-4">
+                  {totalResults} resultado{totalResults !== 1 ? 's' : ''} para "<strong>{search}</strong>"
+                </p>
+              )}
 
-          {/* Mais acessados sidebar */}
-          <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
-            <div className="flex items-center gap-2 px-5 py-4 border-b border-border">
-              <TrendingUp className="w-4 h-4 text-orange-500" />
-              <p className="font-bold text-sm text-foreground">Mais acessados</p>
-            </div>
-            {maisAcessados.length === 0 ? (
-              <div className="px-5 py-6 text-center">
-                <p className="text-sm text-muted-foreground">Nenhum conteúdo acessado ainda.</p>
+              {totalResults === 0 && q ? (
+                <div className="text-center py-16 bg-white border border-border rounded-2xl">
+                  <p className="text-4xl mb-3">📚</p>
+                  <p className="font-bold text-foreground text-lg">Nenhum conteúdo encontrado</p>
+                  <p className="text-muted-foreground mt-1 text-sm">Tente outros termos de busca</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {filteredProtocols.length > 0 && (
+                    <section className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-xl bg-violet-100 flex items-center justify-center">
+                          <FlaskConical className="w-4 h-4 text-violet-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h2 className="text-base font-extrabold text-foreground">Protocolos Clínicos</h2>
+                          <p className="text-xs text-muted-foreground">{filteredProtocols.length} protocolo{filteredProtocols.length !== 1 ? 's' : ''}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                        {filteredProtocols.map((p, i) => (
+                          <motion.div key={p.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+                            <ProtocolCard protocol={p} />
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </div>
+              )}
+
+              <div className="mt-10 pt-6 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { icon: '🛡️', text: 'Baseado em evidências' },
+                  { icon: '🔄', text: 'Revisado por especialistas' },
+                  { icon: '👨‍⚕️', text: 'Prático e rápido' },
+                  { icon: '❤️', text: 'Foco no cuidado' },
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col items-center text-center gap-2">
+                    <span className="text-xl">{item.icon}</span>
+                    <p className="text-[10px] text-muted-foreground leading-snug">{item.text}</p>
+                  </div>
+                ))}
               </div>
-            ) : (
-              <div className="divide-y divide-border/60">
-                {maisAcessados.map((item, i) => {
-                  const isResumo = item.titulo !== undefined;
-                  return (
-                    <button
-                      key={isResumo ? item.id : item.id}
-                      onClick={() => isResumo ? setSelectedResumo(item) : null}
-                      className="w-full flex items-center gap-3 px-5 py-3 hover:bg-secondary/40 transition-colors text-left group"
-                    >
-                      <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[11px] font-bold text-primary flex-shrink-0">
-                        {i + 1}
-                      </span>
+            </div>
+
+            <div className="lg:w-72 xl:w-80 flex-shrink-0 space-y-4 lg:sticky lg:top-20">
+              <div className="bg-white border border-border rounded-2xl p-5 shadow-sm flex items-center gap-4">
+                <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center flex-shrink-0 shadow">
+                  <BookOpen className="w-7 h-7 text-white" />
+                </div>
+                <div>
+                  <p className="text-3xl font-extrabold text-primary leading-none">{filteredProtocols.length}</p>
+                  <p className="text-sm font-semibold text-foreground">protocolos disponíveis</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Baseados em evidências</p>
+                </div>
+              </div>
+
+              <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
+                <div className="flex items-center gap-2 px-5 py-4 border-b border-border">
+                  <TrendingUp className="w-4 h-4 text-orange-500" />
+                  <p className="font-bold text-sm text-foreground">Mais acessados</p>
+                </div>
+                <div className="divide-y divide-border/60">
+                  {filteredProtocols.slice(0, 5).map((item, i) => (
+                    <button key={item.id}
+                      onClick={() => navigate(`/protocolos?id=${item.id}`)}
+                      className="w-full flex items-center gap-3 px-5 py-3 hover:bg-secondary/40 transition-colors text-left group">
+                      <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[11px] font-bold text-primary flex-shrink-0">{i + 1}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-foreground truncate">{isResumo ? item.titulo : item.title}</p>
-                        <p className="text-xs text-muted-foreground truncate">{isResumo ? item.categoria : item.tag}</p>
+                        <p className="text-sm font-semibold text-foreground truncate">{item.title}</p>
+                        <p className="text-xs text-muted-foreground truncate">{item.tag}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                     </button>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }
