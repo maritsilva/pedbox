@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, ExternalLink, Trash2, Edit2, X, Check, Link as LinkIcon } from 'lucide-react';
+import { Plus, ExternalLink, Trash2, Edit2, X, Check, Link as LinkIcon, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 
 function LinkForm({ initial, onSave, onCancel }) {
   const [titulo, setTitulo] = useState(initial?.titulo || '');
@@ -70,6 +71,7 @@ export default function LinksTab({ search = '' }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
+  const { isFavorite, toggleFavorite } = usePageFavorites();
 
   useEffect(() => {
     base44.auth.me().then(u => { if (u?.role === 'admin') setIsAdmin(true); }).catch(() => {});
@@ -155,19 +157,27 @@ export default function LinksTab({ search = '' }) {
                     whileHover={{ y: -1 }}
                     className="bg-white border border-border rounded-2xl p-4 shadow-sm flex flex-col gap-2 group relative"
                   >
-                    {isAdmin && (
-                      <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => setEditing(link)} className="p-1.5 rounded-lg hover:bg-secondary transition-colors">
-                          <Edit2 className="w-3.5 h-3.5 text-muted-foreground" />
-                        </button>
-                        <button onClick={() => handleDelete(link.id)} className="p-1.5 rounded-lg hover:bg-red-50 transition-colors">
-                          <Trash2 className="w-3.5 h-3.5 text-red-500" />
-                        </button>
-                      </div>
-                    )}
+                    <div className="absolute top-3 right-3 flex gap-1">
+                      <button
+                        onClick={() => toggleFavorite(`link-${link.id}`)}
+                        className="p-1.5 rounded-lg hover:bg-secondary transition-colors"
+                      >
+                        <Star className={`w-3.5 h-3.5 transition-colors ${isFavorite(`link-${link.id}`) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 hover:text-yellow-300'}`} />
+                      </button>
+                      {isAdmin && (
+                        <>
+                          <button onClick={() => setEditing(link)} className="p-1.5 rounded-lg hover:bg-secondary transition-colors opacity-0 group-hover:opacity-100">
+                            <Edit2 className="w-3.5 h-3.5 text-muted-foreground" />
+                          </button>
+                          <button onClick={() => handleDelete(link.id)} className="p-1.5 rounded-lg hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100">
+                            <Trash2 className="w-3.5 h-3.5 text-red-500" />
+                          </button>
+                        </>
+                      )}
+                    </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{link.icone || '🔗'}</span>
-                      <p className="font-bold text-sm text-foreground leading-snug flex-1 pr-12">{link.titulo}</p>
+                      <p className="font-bold text-sm text-foreground leading-snug flex-1 pr-16">{link.titulo}</p>
                     </div>
                     {link.descricao && (
                       <p className="text-xs text-muted-foreground leading-relaxed">{link.descricao}</p>

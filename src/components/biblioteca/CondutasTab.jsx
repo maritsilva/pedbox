@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, X, ChevronRight, ChevronLeft, LayoutGrid, BookOpen, CheckCircle, Clock } from 'lucide-react';
+import { Search, X, ChevronRight, ChevronLeft, LayoutGrid, BookOpen, CheckCircle, Clock, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import MarkdownRenderer from '@/components/condutas/MarkdownRenderer';
 import { base44 } from '@/api/base44Client';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 
 const COLOR_MAP = {
   blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', icon: 'bg-blue-100', header: 'from-blue-500 to-blue-700', badge: 'bg-blue-100 text-blue-700' },
@@ -27,6 +28,8 @@ function getC(color) {
 function TopicoDetail({ topico, categoria, subcategoria, onBack }) {
   const c = getC(categoria.color);
   const hasContent = topico.conteudo && topico.conteudo.trim().length > 0;
+  const { isFavorite, toggleFavorite } = usePageFavorites();
+  const favKey = `conduta-${topico.id || topico.label}`;
 
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="max-w-4xl mx-auto">
@@ -37,14 +40,20 @@ function TopicoDetail({ topico, categoria, subcategoria, onBack }) {
       </button>
 
       {/* Header */}
-      <div className={`bg-gradient-to-br ${c.header} text-white rounded-2xl p-5 mb-5 shadow`}>
+      <div className={`bg-gradient-to-br ${c.header} text-white rounded-2xl p-5 mb-5 shadow relative`}>
+        <button
+          onClick={() => toggleFavorite(favKey)}
+          className="absolute top-4 right-4 p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
+        >
+          <Star className={`w-4 h-4 ${isFavorite(favKey) ? 'fill-yellow-300 text-yellow-300' : 'text-white/70'}`} />
+        </button>
         <div className="flex items-center gap-2 mb-1 text-white/70 text-xs">
           <span>{categoria.icon}</span>
           <span>{categoria.label}</span>
           <span>›</span>
           <span>{subcategoria.label}</span>
         </div>
-        <h1 className="text-xl font-bold leading-tight">{topico.label}</h1>
+        <h1 className="text-xl font-bold leading-tight pr-10">{topico.label}</h1>
       </div>
 
       {/* Content */}

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy, Stethoscope, Link as LinkIcon, StickyNote } from 'lucide-react';
+import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy, Stethoscope, Link as LinkIcon, StickyNote, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
@@ -285,13 +285,21 @@ function ResumoCard({ resumo, onOpen }) {
 // ── Protocol Card ──────────────────────────────────────────────────────────
 function ProtocolCard({ protocol }) {
   const navigate = useNavigate();
+  const { isFavorite, toggleFavorite } = usePageFavorites();
+  const favKey = `protocolo-${protocol.id}`;
   const badge = TAG_BADGE[protocol.tag] || { bg: 'bg-gray-100', text: 'text-gray-700' };
   return (
     <motion.div whileHover={{ y: -1 }}
-      onClick={() => navigate(`/protocolos?id=${protocol.id}`)}
-      className="bg-white border border-border rounded-2xl p-4 flex gap-4 cursor-pointer hover:shadow-md transition-all group">
+      className="bg-white border border-border rounded-2xl p-4 flex gap-4 cursor-pointer hover:shadow-md transition-all group relative"
+      onClick={() => navigate(`/protocolos?id=${protocol.id}`)}>
+      <button
+        onClick={e => { e.stopPropagation(); toggleFavorite(favKey); }}
+        className="absolute top-3 right-3 p-1 z-10"
+      >
+        <Star className={`w-4 h-4 transition-colors ${isFavorite(favKey) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 hover:text-yellow-300'}`} />
+      </button>
       <div className="text-3xl w-14 h-14 flex items-center justify-center bg-secondary/40 rounded-xl flex-shrink-0">{protocol.icon}</div>
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 pr-6">
         <p className="font-bold text-sm text-foreground leading-snug group-hover:text-primary transition-colors">{protocol.title}</p>
         <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{protocol.subtitle}</p>
         <div className="flex items-center gap-2 mt-2 flex-wrap">

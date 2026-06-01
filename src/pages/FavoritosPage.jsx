@@ -1,10 +1,26 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, Search, X, ChevronRight, LayoutGrid, Shield, RefreshCw, Heart, Lock } from 'lucide-react';
+import { Star, Search, X, ChevronRight, LayoutGrid, Shield, RefreshCw, Heart, Lock, BookOpen, Link as LinkIcon, StickyNote, FlaskConical, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';
 import { getAllDosagens } from '@/lib/dosagensData';
+import { base44 } from '@/api/base44Client';
+import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
+
+// Protocol metadata (same as Biblioteca)
+const PROTOCOLS = [
+  { id: 'crise-asmatica',      title: 'Crise Asmática',                icon: '🫁', tag: 'Respiratório' },
+  { id: 'bronquiolite',        title: 'Bronquiolite',                  icon: '🫧', tag: 'Respiratório' },
+  { id: 'convulsao-febril',    title: 'Convulsão Febril Benigna',      icon: '⚡', tag: 'Neurologia' },
+  { id: 'diarreia-aguda',      title: 'Diarreia Aguda',                icon: '💧', tag: 'Gastroenterologia' },
+  { id: 'faringoamigdalite',   title: 'Faringoamigdalite',             icon: '🦠', tag: 'Infectologia' },
+  { id: 'febre-sem-sinais',    title: 'Febre sem Sinais Localizatórios', icon: '🌡️', tag: 'Infectologia' },
+  { id: 'pneumonia-complicada',title: 'PAC Complicada',                icon: '🫁', tag: 'Respiratório' },
+  { id: 'anemia-ferropriva',   title: 'Anemia Ferropriva',             icon: '🩸', tag: 'Hematologia' },
+  { id: 'meningite-bacteriana',title: 'Meningite Aguda Bacteriana',    icon: '🧠', tag: 'Infectologia' },
+  { id: 'itu',                 title: 'Infecção do Trato Urinário',    icon: '💧', tag: 'Infectologia' },
+];
 
 const CAT_COLORS = {
   'Doses':       'bg-blue-100 text-blue-700',
@@ -21,7 +37,7 @@ const CAT_COLORS = {
   'Ferramenta':  'bg-gray-100 text-gray-700',
 };
 
-const FILTER_TABS = ['Todos', 'Ferramentas', 'Biblioteca', 'Protocolos', 'Recentes'];
+const FILTER_TABS = ['Todos', 'Ferramentas', 'Protocolos', 'Condutas', 'Links', 'Anotações'];
 
 function FavCard({ icon, label, desc, badge, badgeColor, onOpen, onRemove }) {
   return (
@@ -57,7 +73,7 @@ function FavCard({ icon, label, desc, badge, badgeColor, onOpen, onRemove }) {
 }
 
 export default function FavoritosPage() {
-  const { favPages, toggleFavorite: togglePage } = usePageFavorites();
+  const { favPages, favorites, toggleFavorite: togglePage } = usePageFavorites();
   const { favorites: favDrugIds, toggleFavorite: toggleDrug } = useDosagemFavorites();
   const allDrugs = useMemo(() => getAllDosagens(), []);
   const favDrugs = useMemo(() => favDrugIds.map(id => allDrugs.find(d => d.id === id)).filter(Boolean), [favDrugIds, allDrugs]);
@@ -65,12 +81,58 @@ export default function FavoritosPage() {
 
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState('Todos');
+  const [links, setLinks] = useState([]);
+  const [anotacoes, setAnotacoes] = useState([]);
+
+  useEffect(() => {
+    base44.entities.LinkBiblioteca.list().then(setLinks).catch(() => {});
+    base44.auth.me().then(u => {
+      if (u) base44.entities.Anotacao.filter({ created_by_id: u.id }).then(setAnotacoes).catch(() => {});
+    }).catch(() => {});
+  }, []);
+
   const q = search.toLowerCase().trim();
+
+  // Favorited protocols
+  const favProtocols = useMemo(() => favorites
+    .filter(k => k.startsWith('protocolo-'))
+    .map(k => PROTOCOLS.find(p => `protocolo-${p.id}` === k))
+    .filter(Boolean)
+    .filter(p => !q || p.title.toLowerCase().includes(q)), [favorites, q]);
+
+  // Favorited condutas (need to match from condutasData)
+  const allTopicos = useMemo(() => {
+    const list = [];
+    CONDUTAS_CATEGORIAS.forEach(cat => cat.subcategorias.forEach(sub => sub.topicos.forEach(top => list.push({ topico: top, cat, sub }))));
+    return list;
+  }, []);
+  const favCondutas = useMemo(() => favorites
+    .filter(k => k.startsWith('conduta-'))
+    .map(k => {
+      const id = k.replace('conduta-', '');
+      return allTopicos.find(({ topico }) => (topico.id === id || topico.label === id));
+    })
+    .filter(Boolean)
+    .filter(({ topico }) => !q || topico.label.toLowerCase().includes(q)), [favorites, allTopicos, q]);
+
+  // Favorited links
+  const favLinks = useMemo(() => favorites
+    .filter(k => k.startsWith('link-'))
+    .map(k => links.find(l => `link-${l.id}` === k))
+    .filter(Boolean)
+    .filter(l => !q || l.titulo.toLowerCase().includes(q)), [favorites, links, q]);
+
+  // Favorited anotações
+  const favAnotacoes = useMemo(() => favorites
+    .filter(k => k.startsWith('anotacao-'))
+    .map(k => anotacoes.find(a => `anotacao-${a.id}` === k))
+    .filter(Boolean)
+    .filter(a => !q || a.titulo.toLowerCase().includes(q)), [favorites, anotacoes, q]);
 
   const filteredPages = favPages.filter(p => !q || p.label.toLowerCase().includes(q) || p.desc?.toLowerCase().includes(q));
   const filteredDrugs = favDrugs.filter(d => !q || d.name.toLowerCase().includes(q));
 
-  const isEmpty = favPages.length === 0 && favDrugs.length === 0;
+  const isEmpty = favPages.length === 0 && favDrugs.length === 0 && favProtocols.length === 0 && favCondutas.length === 0 && favLinks.length === 0 && favAnotacoes.length === 0;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -189,7 +251,91 @@ export default function FavoritosPage() {
             </>
           )}
 
-          {filteredPages.length === 0 && filteredDrugs.length === 0 && (
+          {/* Protocols */}
+          {favProtocols.length > 0 && (
+            <>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><FlaskConical className="w-3.5 h-3.5" /> Protocolos ({favProtocols.length})</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                {favProtocols.map(p => (
+                  <FavCard
+                    key={p.id}
+                    icon={p.icon}
+                    label={p.title}
+                    desc={p.tag}
+                    badge="Protocolo"
+                    badgeColor={CAT_COLORS['Protocolos']}
+                    onOpen={() => navigate(`/biblioteca?protocolo=${p.id}`)}
+                    onRemove={() => togglePage(`protocolo-${p.id}`)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Condutas */}
+          {favCondutas.length > 0 && (
+            <>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Condutas ({favCondutas.length})</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                {favCondutas.map(({ topico, cat }) => (
+                  <FavCard
+                    key={topico.id || topico.label}
+                    icon={cat.icon}
+                    label={topico.label}
+                    desc={cat.label}
+                    badge="Conduta"
+                    badgeColor="bg-violet-100 text-violet-700"
+                    onOpen={() => navigate('/biblioteca?tab=condutas')}
+                    onRemove={() => togglePage(`conduta-${topico.id || topico.label}`)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Links */}
+          {favLinks.length > 0 && (
+            <>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><LinkIcon className="w-3.5 h-3.5" /> Links ({favLinks.length})</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                {favLinks.map(l => (
+                  <FavCard
+                    key={l.id}
+                    icon={l.icone || '🔗'}
+                    label={l.titulo}
+                    desc={l.descricao || l.categoria || ''}
+                    badge="Link"
+                    badgeColor="bg-teal-100 text-teal-700"
+                    onOpen={() => window.open(l.url, '_blank')}
+                    onRemove={() => togglePage(`link-${l.id}`)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Anotações */}
+          {favAnotacoes.length > 0 && (
+            <>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><StickyNote className="w-3.5 h-3.5" /> Anotações ({favAnotacoes.length})</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                {favAnotacoes.map(a => (
+                  <FavCard
+                    key={a.id}
+                    icon="📝"
+                    label={a.titulo}
+                    desc={a.conteudo ? a.conteudo.replace(/<[^>]+>/g, '').slice(0, 80) : ''}
+                    badge="Anotação"
+                    badgeColor="bg-yellow-100 text-yellow-700"
+                    onOpen={() => navigate('/biblioteca?tab=anotacoes')}
+                    onRemove={() => togglePage(`anotacao-${a.id}`)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {filteredPages.length === 0 && filteredDrugs.length === 0 && favProtocols.length === 0 && favCondutas.length === 0 && favLinks.length === 0 && favAnotacoes.length === 0 && (
             <div className="text-center py-10 text-muted-foreground text-sm">
               Nenhum favorito encontrado para "<strong>{search}</strong>"
             </div>

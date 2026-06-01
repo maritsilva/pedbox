@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Edit2, Check, StickyNote, Bold, Italic, List, ListOrdered, Strikethrough, Highlighter } from 'lucide-react';
+import { Plus, Trash2, Edit2, Check, StickyNote, Bold, Italic, List, ListOrdered, Strikethrough, Highlighter, Star } from 'lucide-react';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 
@@ -162,6 +163,7 @@ export default function AnotacoesTab() {
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
+  const { isFavorite, toggleFavorite } = usePageFavorites();
 
   useEffect(() => {
     base44.auth.me().then(u => {
@@ -246,15 +248,18 @@ export default function AnotacoesTab() {
                   exit={{ opacity: 0, scale: 0.97 }}
                   className={`${style.bg} ${style.border} border rounded-2xl p-4 flex flex-col gap-2 group relative shadow-sm`}
                 >
-                  <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => { setEditing(a); setShowForm(false); }} className="p-1.5 rounded-lg hover:bg-white/70 transition-colors">
+                  <div className="absolute top-3 right-3 flex gap-1">
+                    <button onClick={() => toggleFavorite(`anotacao-${a.id}`)} className="p-1.5 rounded-lg hover:bg-white/70 transition-colors">
+                      <Star className={`w-3.5 h-3.5 transition-colors ${isFavorite(`anotacao-${a.id}`) ? 'fill-yellow-400 text-yellow-400' : 'text-current opacity-30 hover:opacity-70'}`} />
+                    </button>
+                    <button onClick={() => { setEditing(a); setShowForm(false); }} className="p-1.5 rounded-lg hover:bg-white/70 transition-colors opacity-0 group-hover:opacity-100">
                       <Edit2 className="w-3.5 h-3.5 text-muted-foreground" />
                     </button>
-                    <button onClick={() => handleDelete(a.id)} className="p-1.5 rounded-lg hover:bg-white/70 transition-colors">
+                    <button onClick={() => handleDelete(a.id)} className="p-1.5 rounded-lg hover:bg-white/70 transition-colors opacity-0 group-hover:opacity-100">
                       <Trash2 className="w-3.5 h-3.5 text-red-500" />
                     </button>
                   </div>
-                  <p className={`font-bold text-sm ${style.text} pr-14`}>{a.titulo}</p>
+                  <p className={`font-bold text-sm ${style.text} pr-20`}>{a.titulo}</p>
                   {a.conteudo && (
                     <div
                       className={`text-xs ${style.text} opacity-80 leading-relaxed rich-content`}
