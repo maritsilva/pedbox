@@ -174,7 +174,7 @@ export default function Contato() {
             <motion.button
               variants={item}
               whileHover={{ y: -4 }}
-              onClick={() => window.open('https://app.base44.com/app-templates/69f4e81a840a3c93cee16789', '_blank')}
+              onClick={() => window.open('https://github.com/maritsilva/pedbox', '_blank')}
               className="bg-gradient-to-br from-orange-400 to-amber-500 text-white rounded-3xl p-6 text-left transition-all hover:shadow-xl hover:shadow-orange-200 group"
             >
               <div className="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center mb-4">
