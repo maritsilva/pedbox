@@ -210,11 +210,11 @@ export default function ExplorarFerramentas() {
           }
 
           {/* Footer trust bar */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8 pt-6 border-t border-border text-xs text-muted-foreground hidden">
-            <span className="flex items-center gap-1.5 hidden"><Shield className="w-3.5 h-3.5 text-primary" /> Conteúdo atualizado por especialistas</span>
-            <span className="flex items-center gap-1.5 hidden"><Users className="w-3.5 h-3.5 text-primary" /> Ferramentas para o plantão pediátrico</span>
-            <span className="flex items-center gap-1.5 hidden"><Heart className="w-3.5 h-3.5 text-primary" /> Uso profissional e responsável</span>
-          </div>
+          
+
+
+
+          
         </div>
 
         {/* ── RIGHT: Sidebar ── */}
