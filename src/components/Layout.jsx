@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
+import { Settings } from 'lucide-react';
 import { Menu, Home, LayoutGrid, BookOpen, Star, Info, Search, X, ChevronRight, User, LogIn } from 'lucide-react';
 import { universalSearch as doUniversalSearch } from '@/lib/universalSearch';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -191,6 +192,16 @@ function UserMenu() {
                 <p className="text-sm font-bold text-foreground truncate">{user.full_name}</p>
                 <p className="text-xs text-muted-foreground truncate">{user.email}</p>
               </div>
+              {user.role === 'admin' && (
+                <Link
+                  to="/admin"
+                  onClick={() => setDropOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors border-b border-border"
+                >
+                  <Settings className="w-4 h-4" />
+                  Admin
+                </Link>
+              )}
               <button
                 onClick={() => { base44.auth.logout(); setDropOpen(false); }}
                 className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
