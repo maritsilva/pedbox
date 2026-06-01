@@ -31,7 +31,7 @@ import PRAM from './pages/PRAM';
 import DrogasEmergencia from './pages/DrogasEmergencia';
 import CurvasCrescimento from './pages/CurvasCrescimento';
 import CalculadorasHub from './pages/CalculadorasHub.jsx';
-import Resumos from './pages/Resumos';
+
 import Dosagens from './pages/Dosagens';
 import APGAR from './pages/calculadoras/APGAR';
 import GlasgowPediatrico from './pages/calculadoras/GlasgowPediatrico';
@@ -79,7 +79,7 @@ function App() {
             <Route path="/pram" element={<PRAM />} />
             <Route path="/drogas-emergencia" element={<DrogasEmergencia />} />
             <Route path="/calculadoras-hub" element={<CalculadorasHub />} />
-            <Route path="/resumos" element={<Resumos />} />
+
             <Route path="/dosagens" element={<Dosagens />} />
             <Route path="/apgar" element={<APGAR />} />
             <Route path="/glasgow-pediatrico" element={<GlasgowPediatrico />} />
