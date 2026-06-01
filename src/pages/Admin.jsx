@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, Edit3, Trash2, Upload, Image, Save, X, AlertTriangle, Check, FileText, FolderOpen, BookOpen, BarChart2, Search, ChevronDown, ChevronRight, Eye, EyeOff } from 'lucide-react';
+import { Plus, Edit3, Trash2, Upload, Image, Save, X, AlertTriangle, Check, FileText, FolderOpen, BookOpen, BarChart2, Search, ChevronDown, ChevronRight, Eye, EyeOff, Link as LinkIcon, FlaskConical } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import CondutasTab from '@/components/biblioteca/CondutasTab';
+import LinksAdminSection from '@/components/admin/LinksAdminSection';
+import ProtocolosAdminSection from '@/components/admin/ProtocolosAdminSection';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const ICONS = ['📋','🏥','💊','🧬','❤️','🧠','🫁','🩸','🫘','🌡️','⚕️','🔬','👶','🌱','🦠','🧪','🩺','🚑','💉','🔪','🫃','🧴','💛','🧒','🫀'];
@@ -591,20 +593,36 @@ export default function Admin() {
   const withContent = condutas.filter(c => c.conteudo?.trim()).length;
 
   const TABS = [
-    { id: 'indice',    label: 'Índice',      icon: BarChart2 },
-    { id: 'condutas',  label: 'Condutas',    icon: BookOpen },
-    { id: 'preview',   label: 'Preview Admin', icon: Eye },
-    { id: 'categorias',label: 'Categorias',  icon: FolderOpen },
+    { id: 'indice',     label: 'Índice',       icon: BarChart2 },
+    { id: 'condutas',   label: 'Condutas',     icon: BookOpen },
+    { id: 'protocolos', label: 'Protocolos',   icon: FlaskConical },
+    { id: 'links',      label: 'Links',        icon: LinkIcon },
+    { id: 'preview',    label: 'Preview',      icon: Eye },
+    { id: 'categorias', label: 'Categorias',   icon: FolderOpen },
   ];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 pb-12">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-slate-700 to-slate-900 text-white rounded-2xl p-6 mb-6 shadow-lg">
-        <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-1">Painel de Administração</p>
-        <h1 className="text-2xl font-extrabold">Condutas e Manejos</h1>
-        <p className="text-white/60 text-sm mt-1">Gerencie categorias e conteúdo clínico</p>
+        className="bg-gradient-to-br from-slate-800 to-slate-950 text-white rounded-2xl p-6 mb-6 shadow-lg relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+        <div className="relative">
+          <p className="text-xs font-bold text-white/40 uppercase tracking-widest mb-1.5">Painel de Controle</p>
+          <h1 className="text-2xl font-extrabold">Administração · PedBox</h1>
+          <p className="text-white/50 text-sm mt-1">Gerencie protocolos, condutas, links e categorias</p>
+          <div className="flex gap-2 mt-4 flex-wrap">
+            {[
+              { label: 'Condutas', val: condutas.length, color: 'bg-blue-500/20 text-blue-300' },
+              { label: 'Com conteúdo', val: withContent, color: 'bg-green-500/20 text-green-300' },
+              { label: 'Categorias', val: categorias.length, color: 'bg-purple-500/20 text-purple-300' },
+            ].map(s => (
+              <span key={s.label} className={`text-xs font-bold px-3 py-1 rounded-full ${s.color}`}>
+                {s.val} {s.label}
+              </span>
+            ))}
+          </div>
+        </div>
       </motion.div>
 
       {/* Stats */}
@@ -659,6 +677,16 @@ export default function Admin() {
               <p className="text-xs text-amber-800 font-medium">Modo admin — todos os tópicos visíveis, incluindo sem conteúdo.</p>
             </div>
             <CondutasTab isAdmin={true} />
+          </motion.div>
+        )}
+        {tab === 'protocolos' && (
+          <motion.div key="protos" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <ProtocolosAdminSection />
+          </motion.div>
+        )}
+        {tab === 'links' && (
+          <motion.div key="links" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <LinksAdminSection />
           </motion.div>
         )}
         {tab === 'categorias' && (
