@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // Convert TSV-style tables (tab-separated) into Markdown pipe tables
 function convertTsvTables(text) {
@@ -139,7 +140,7 @@ export default function MarkdownRenderer({ content }) {
   const processed = convertTsvTables(content || '');
   return (
     <div className="markdown-body">
-      <ReactMarkdown components={components}>{processed}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>{processed}</ReactMarkdown>
     </div>
   );
 }
