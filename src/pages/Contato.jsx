@@ -135,8 +135,8 @@ export default function Contato() {
             <p>
               Sabemos que estudantes, residentes, professores e profissionais de saúde precisam de ferramentas rápidas e confiáveis — mas muitas vezes enfrentam custos proibitivos, plataformas fechadas ou conhecimento disperso.
             </p>
-            <p>
-              Decidimos construir algo diferente: um projeto educacional <strong className="text-foreground">radicalmente livre</strong>. Não apenas disponível, mas genuinamente aberto para estudo, adaptação e melhoria contínua.
+            <p>Decidimos construir algo diferente: um projeto educacional radicalmente livre. Não apenas disponível, mas genuinamente aberto para estudo, adaptação e melhoria contínua.
+
             </p>
             <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-2xl p-4 mt-2">
               <p className="font-bold text-blue-800 text-lg">Na saúde, democratizar conhecimento também é uma forma de cuidado.</p>
