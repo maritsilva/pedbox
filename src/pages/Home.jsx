@@ -214,10 +214,10 @@ export default function Home() {
 
       {/* ── FOOTER TRUST BAR ── */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.24 }}
-      className="flex flex-wrap justify-center gap-6 py-5 border-t border-border text-xs text-muted-foreground">
-        <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-primary" /> Conteúdo baseado em evidências e diretrizes atualizadas</span>
-        <span className="flex items-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 text-primary" /> Atualizações frequentes</span>
-        <span className="flex items-center gap-1.5"><Heart className="w-3.5 h-3.5 text-primary" /> Feito para o plantão pediátrico</span>
+      className="flex flex-wrap justify-center gap-6 py-5 border-t border-border text-xs text-muted-foreground hidden">
+        <span className="flex items-center gap-1.5 hidden"><Shield className="w-3.5 h-3.5 text-primary" /> Conteúdo baseado em evidências e diretrizes atualizadas</span>
+        <span className="flex items-center gap-1.5 hidden"><RefreshCw className="w-3.5 h-3.5 text-primary" /> Atualizações frequentes</span>
+        <span className="flex items-center gap-1.5 hidden"><Heart className="w-3.5 h-3.5 text-primary" /> Feito para o plantão pediátrico</span>
       </motion.div>
 
     </div>);
