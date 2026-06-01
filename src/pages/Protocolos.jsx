@@ -952,7 +952,7 @@ export default function Protocolos() {
 
               {/* Coming soon */}
               {!search && !activeEsp &&
-            <div className="bg-secondary/60 border border-border rounded-2xl p-5 text-center">
+            <div className="bg-secondary/60 border border-border rounded-2xl p-5 text-center hidden">
                   <BookOpen className="w-7 h-7 text-muted-foreground mx-auto mb-2" />
                   <p className="text-sm font-semibold text-foreground">Mais protocolos em breve</p>
                   <p className="text-xs text-muted-foreground mt-1">Sepse neonatal, cetoacidose diabética, anafilaxia e outros.</p>
