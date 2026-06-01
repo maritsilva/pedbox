@@ -318,7 +318,7 @@ function ProtocolCard({ protocol }) {
 }
 
 // ── Search results across protocolos + condutas + links ───────────────────
-function GlobalSearchResults({ q }) {
+function GlobalSearchResults({ q, setSearch }) {
   const navigate = useNavigate();
 
   const filteredProtocols = PROTOCOLS.filter(p =>
@@ -469,7 +469,7 @@ export default function Biblioteca() {
       </div>
 
       {/* ── GLOBAL SEARCH RESULTS ── */}
-      {isSearching && <GlobalSearchResults q={q} />}
+      {isSearching && <GlobalSearchResults q={q} setSearch={setSearch} />}
 
       {/* ── TABS ── */}
       <div className="flex gap-2 mb-6 flex-wrap">

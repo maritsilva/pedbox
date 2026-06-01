@@ -33,7 +33,7 @@ export default function Laringite() {
 
       {/* Definition */}
       <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-900 leading-relaxed">
-        A <strong>laringite aguda (crupe)</strong> é uma síndrome de obstrução de vias aéreas superiores causada principalmente por vírus (parainfluenza em &gt; 75% dos casos). Afeta crianças entre 6 meses e 3 anos, com pico aos 2 anos. Apresenta-se com a tríade clássica: <strong>tosse "de cão"</strong>, <strong>estridor inspiratório</strong> e <strong>rouquidão</strong>. É uma doença autolimitada, mas requer avaliação de gravidade para estratificar o tratamento.
+        A <strong>laringite aguda (crupe)</strong> é uma síndrome de obstrução de vias aéreas superiores causada principalmente por vírus (parainfluenza em > 75% dos casos). Afeta crianças entre 6 meses e 3 anos, com pico aos 2 anos. Apresenta-se com a tríade clássica: <strong>tosse "de cão"</strong>, <strong>estridor inspiratório</strong> e <strong>rouquidão</strong>. É uma doença autolimitada, mas requer avaliação de gravidade para estratificar o tratamento.
       </div>
 
       {/* 1. Severity */}
@@ -149,7 +149,7 @@ export default function Laringite() {
             <h4 className="font-bold text-red-900 text-sm mb-2">🔴 Laringite Grave (Westley ≥ 6)</h4>
             <div className="space-y-2 text-sm text-red-900">
               <p><strong>1. Dexametasona:</strong> 0,6 mg/kg (máx 10-12 mg) — VO/IM/EV</p>
-              <p><strong>2. Adrenalina inalatória:</strong> 0,5 mL/kg da solução 1:1000 (máx 5 mL)</p>
+              <p><strong>2. Adrenalina inalatória:</strong> 0,5 mL/kg da solução 1:1000 (máx. 5 mL)</p>
               <p className="text-xs text-red-800 mt-2">⏱️ Observação obrigatória 2-4 horas (risco de efeito rebote)</p>
               <p className="text-xs text-red-700 mt-1">⚠️ Pode repetir adrenalina a cada 20-30 min se necessário</p>
             </div>
@@ -192,7 +192,7 @@ export default function Laringite() {
               items: ['Laringite grave sem resposta às medidas iniciais',
                 'Retorno ao estado anterior após tratamento',
                 'Desconforto respiratório grave com cianose',
-                'Hipoxemia persistente (SatO₂ &lt; 92%)'],
+                'Hipoxemia persistente (SatO₂ < 92%)'],
               color: 'border-red-300 bg-red-50 text-red-900'
             }
           ].map((group, i) =>
@@ -230,7 +230,7 @@ export default function Laringite() {
               {['Piora da tosse rouca',
                 'Falta de ar / estridor em repouso',
                 'Prostração ou estado mental alterado',
-                'Febre &gt; 72 horas'].map((item, i) =>
+                'Febre > 72 horas'].map((item, i) =>
                 <li key={i} className="flex gap-2"><span className="flex-shrink-0">⚠️</span>{item}</li>
               )}
             </ul>
