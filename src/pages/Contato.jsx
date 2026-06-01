@@ -263,23 +263,18 @@ export default function Contato() {
             <p className="text-muted-foreground mt-2">Sugestões, correções, colaborações — adoramos ouvir você.</p>
           </motion.div>
 
-          {submitted ?
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-green-50 border-2 border-green-300 rounded-3xl p-10 text-center">
-            
+          {submitted ? (
+            <div className="bg-green-50 border-2 border-green-300 rounded-3xl p-10 text-center">
               <div className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Heart className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-extrabold text-green-900 mb-2">Mensagem enviada!</h3>
               <p className="text-green-700">Obrigado por entrar em contato. Responderemos em breve.</p>
-            </motion.div> :
-
-          <motion.form
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            onSubmit={handleSubmit}
-            className="bg-white rounded-3xl shadow-lg border border-border p-8 sm:p-10 space-y-5">
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white rounded-3xl shadow-lg border border-border p-8 sm:p-10 space-y-5">
             
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
@@ -343,10 +338,10 @@ export default function Contato() {
                   </>
               }
               </button>
-            </motion.form>
-          }
-        </div>
-      </section>
+              </form>
+              )}
+              </div>
+              </section>
 
       {/* ── SOBRE A DESENVOLVEDORA ── */}
       <motion.section
