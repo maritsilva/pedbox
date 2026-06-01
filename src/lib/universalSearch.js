@@ -46,7 +46,7 @@ const TOOLS_INDEX = [
   { label: 'Vacinas',                    path: '/vacinas',                  icon: '💉', desc: 'Calendário vacinal e informações detalhadas' },
   { label: 'Guia de Medicamentos',       path: '/guia',                     icon: '📖', desc: 'Doses, preparo e apresentações · 100+ fármacos' },
   { label: 'Dosagens — Cálculo Rápido',  path: '/dosagens',                 icon: '⚡', desc: 'Calcule doses por peso instantaneamente' },
-  { label: 'Protocolos Clínicos',        path: '/protocolos',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },
+  { label: 'Protocolos Clínicos',        path: '/biblioteca',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },
   { label: 'Resumos Clínicos',           path: '/resumos',                  icon: '📝', desc: 'Sínteses baseadas em evidências · 25+ tópicos' },
   { label: 'Biblioteca',                 path: '/biblioteca',               icon: '📚', desc: 'Resumos e protocolos em um só lugar' },
   { label: 'Explorar Ferramentas',       path: '/ferramentas',              icon: '🧰', desc: 'Todas as ferramentas do site' },
@@ -130,7 +130,7 @@ export function universalSearch(query, limit = 14) {
       results.push({
         label: p.title,
         desc: p.tag,
-        path: `/protocolos?id=${p.id}`,
+        path: `/biblioteca`,
         icon: '🧪',
         type: 'protocolo',
       });

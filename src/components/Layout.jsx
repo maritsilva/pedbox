@@ -25,8 +25,8 @@ const DRAWER_CATS = [
   { label: 'Referências', items: [
     { to: '/guia',       label: '📖 Guia de Medicamentos' },
     { to: '/dosagens',   label: '⚡ Dosagens — Cálculo Rápido' },
-    { to: '/condutas',   label: '📋 Condutas e Manejos' },
-    { to: '/protocolos', label: '🧪 Protocolos Clínicos' },
+    { to: '/biblioteca', label: '📋 Condutas e Manejos' },
+    { to: '/biblioteca', label: '🧪 Protocolos Clínicos' },
     { to: '/resumos',    label: '📝 Resumos Clínicos' },
     { to: '/pesquisa',   label: '🔬 SophIA — IA Pediátrica' },
   ]},
@@ -45,15 +45,15 @@ const DRAWER_CATS = [
 const MOBILE_NAV = [
   { to: '/',            label: 'Home',        icon: Home },
   { to: '/ferramentas', label: 'Ferramentas', icon: LayoutGrid },
-  { to: '/protocolos',  label: 'Protocolos',  icon: BookOpen },
+  { to: '/biblioteca',  label: 'Biblioteca',  icon: BookOpen },
   { to: '/favoritos',   label: 'Favoritos',   icon: Star },
 ];
 
 export const ALL_SEARCH_TOOLS = [
-  { label: 'Condutas e Manejos', path: '/condutas',           icon: '📋' },
+  { label: 'Condutas e Manejos', path: '/biblioteca',          icon: '📋' },
   { label: 'Dosagens',           path: '/dosagens',          icon: '⚡' },
   { label: 'Guia de Medicamentos', path: '/guia',            icon: '📖' },
-  { label: 'Protocolos Clínicos', path: '/protocolos',       icon: '🧪' },
+  { label: 'Protocolos Clínicos', path: '/biblioteca',        icon: '🧪' },
   { label: 'Resumos Clínicos',   path: '/resumos',           icon: '📝' },
   { label: 'SophIA — IA Pediátrica',  path: '/pesquisa',     icon: '🔬' },
   { label: 'Hidratação Venosa',  path: '/hidratacao',        icon: '💧' },
