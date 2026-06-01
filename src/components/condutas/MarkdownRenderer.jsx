@@ -1,6 +1,41 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+// Convert TSV-style tables (tab-separated) into Markdown pipe tables
+function convertTsvTables(text) {
+  const lines = text.split('\n');
+  const result = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    // Detect if this line has tabs (TSV row)
+    if (line.includes('\t')) {
+      // Collect all consecutive tab-separated lines
+      const tableLines = [];
+      while (i < lines.length && lines[i].includes('\t')) {
+        tableLines.push(lines[i]);
+        i++;
+      }
+      // Convert to markdown table
+      const rows = tableLines.map(l => l.split('\t').map(cell => cell.trim()));
+      const header = rows[0];
+      const mdHeader = '| ' + header.join(' | ') + ' |';
+      const mdSep = '| ' + header.map(() => '---').join(' | ') + ' |';
+      const mdBody = rows.slice(1).map(r => {
+        // Pad row to match header length
+        while (r.length < header.length) r.push('');
+        return '| ' + r.join(' | ') + ' |';
+      });
+      result.push(mdHeader, mdSep, ...mdBody, '');
+    } else {
+      result.push(line);
+      i++;
+    }
+  }
+  return result.join('\n');
+}
+
 // Custom renderers for beautiful Markdown display
 const components = {
   h1: ({ children }) => (
@@ -101,9 +136,10 @@ const components = {
 };
 
 export default function MarkdownRenderer({ content }) {
+  const processed = convertTsvTables(content || '');
   return (
     <div className="markdown-body">
-      <ReactMarkdown components={components}>{content}</ReactMarkdown>
+      <ReactMarkdown components={components}>{processed}</ReactMarkdown>
     </div>
   );
 }
