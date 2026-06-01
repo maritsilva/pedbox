@@ -2,27 +2,45 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+// Detect if a line looks like a TSV row (has tabs or multiple consecutive spaces suggesting columns)
+function isTsvLine(line) {
+  return line.includes('\t');
+}
+
+// Split a TSV line into cells, handling both tab and multiple-space separators
+function splitTsvLine(line) {
+  if (line.includes('\t')) {
+    return line.split('\t').map(cell => cell.trim());
+  }
+  return line.split(/\s{2,}/).map(cell => cell.trim()).filter(c => c.length > 0);
+}
+
 // Convert TSV-style tables (tab-separated) into Markdown pipe tables
 function convertTsvTables(text) {
-  const lines = text.split('\n');
+  // Normalize: replace common unicode tab-like separators
+  const normalized = text.replace(/\u00a0/g, ' ');
+  const lines = normalized.split('\n');
   const result = [];
   let i = 0;
 
   while (i < lines.length) {
     const line = lines[i];
-    if (line.includes('\t')) {
+    if (isTsvLine(line)) {
       const tableLines = [];
-      while (i < lines.length && lines[i].includes('\t')) {
+      while (i < lines.length && isTsvLine(lines[i])) {
         tableLines.push(lines[i]);
         i++;
       }
-      const rows = tableLines.map(l => l.split('\t').map(cell => cell.trim()));
+      const rows = tableLines.map(l => splitTsvLine(l));
+      // Normalize all rows to the same number of columns as the header
       const header = rows[0];
-      const mdHeader = '| ' + header.join(' | ') + ' |';
+      const colCount = header.length;
+      const escapePipe = (str) => str.replace(/\|/g, '\\|');
+      const mdHeader = '| ' + header.map(escapePipe).join(' | ') + ' |';
       const mdSep = '| ' + header.map(() => '---').join(' | ') + ' |';
       const mdBody = rows.slice(1).map(r => {
-        while (r.length < header.length) r.push('');
-        return '| ' + r.join(' | ') + ' |';
+        while (r.length < colCount) r.push('');
+        return '| ' + r.slice(0, colCount).map(escapePipe).join(' | ') + ' |';
       });
       result.push(mdHeader, mdSep, ...mdBody, '');
     } else {
