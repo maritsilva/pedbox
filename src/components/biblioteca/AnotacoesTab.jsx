@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Edit2, Check, StickyNote, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Plus, Trash2, Edit2, Check, StickyNote, Bold, Italic, List, ListOrdered, Strikethrough, Highlighter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 
@@ -11,6 +11,106 @@ const COR_STYLES = {
   purple: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-900', dot: 'bg-purple-400', label: 'Roxo' },
 };
 
+// ── Rich Text Toolbar ─────────────────────────────────────────────────────
+function ToolbarBtn({ onMouseDown, active, title, children }) {
+  return (
+    <button
+      type="button"
+      title={title}
+      onMouseDown={onMouseDown}
+      className={`p-1.5 rounded-lg transition-colors ${active ? 'bg-primary/15 text-primary' : 'text-muted-foreground hover:bg-secondary hover:text-foreground'}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function RichEditor({ value, onChange, placeholder }) {
+  const editorRef = useRef(null);
+
+  // Keep the div in sync only when value changes from outside (initial load)
+  useEffect(() => {
+    const el = editorRef.current;
+    if (!el) return;
+    if (el.innerHTML !== value) {
+      el.innerHTML = value || '';
+    }
+  }, []); // only on mount
+
+  const exec = (cmd, val = null) => {
+    editorRef.current?.focus();
+    document.execCommand(cmd, false, val);
+    handleChange();
+  };
+
+  const handleChange = () => {
+    onChange(editorRef.current?.innerHTML || '');
+  };
+
+  const isActive = (cmd) => {
+    try { return document.queryCommandState(cmd); } catch { return false; }
+  };
+
+  const [, forceUpdate] = useState(0);
+  const refresh = () => forceUpdate(n => n + 1);
+
+  return (
+    <div className="border border-border rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/30 focus-within:border-primary transition-all">
+      {/* Toolbar */}
+      <div
+        className="flex items-center gap-0.5 px-2 py-1.5 border-b border-border bg-secondary/40 flex-wrap"
+        onMouseDown={e => e.preventDefault()}
+      >
+        <ToolbarBtn title="Negrito (Ctrl+B)" onMouseDown={() => { exec('bold'); refresh(); }} active={isActive('bold')}>
+          <Bold className="w-4 h-4" />
+        </ToolbarBtn>
+        <ToolbarBtn title="Itálico (Ctrl+I)" onMouseDown={() => { exec('italic'); refresh(); }} active={isActive('italic')}>
+          <Italic className="w-4 h-4" />
+        </ToolbarBtn>
+        <ToolbarBtn title="Tachado" onMouseDown={() => { exec('strikeThrough'); refresh(); }} active={isActive('strikeThrough')}>
+          <Strikethrough className="w-4 h-4" />
+        </ToolbarBtn>
+        <div className="w-px h-5 bg-border mx-1" />
+        <ToolbarBtn title="Lista com marcadores" onMouseDown={() => { exec('insertUnorderedList'); refresh(); }} active={isActive('insertUnorderedList')}>
+          <List className="w-4 h-4" />
+        </ToolbarBtn>
+        <ToolbarBtn title="Lista numerada" onMouseDown={() => { exec('insertOrderedList'); refresh(); }} active={isActive('insertOrderedList')}>
+          <ListOrdered className="w-4 h-4" />
+        </ToolbarBtn>
+        <div className="w-px h-5 bg-border mx-1" />
+        <ToolbarBtn title="Destaque" onMouseDown={() => { exec('hiliteColor', '#fef08a'); refresh(); }}>
+          <Highlighter className="w-4 h-4" />
+        </ToolbarBtn>
+        <ToolbarBtn title="Título" onMouseDown={() => { exec('formatBlock', '<h3>'); refresh(); }}>
+          <span className="text-xs font-bold px-0.5">H</span>
+        </ToolbarBtn>
+        <ToolbarBtn title="Parágrafo" onMouseDown={() => { exec('formatBlock', '<p>'); refresh(); }}>
+          <span className="text-xs px-0.5">¶</span>
+        </ToolbarBtn>
+        <div className="w-px h-5 bg-border mx-1" />
+        <ToolbarBtn title="Desfazer" onMouseDown={() => { exec('undo'); refresh(); }}>
+          <span className="text-xs font-mono">↩</span>
+        </ToolbarBtn>
+        <ToolbarBtn title="Refazer" onMouseDown={() => { exec('redo'); refresh(); }}>
+          <span className="text-xs font-mono">↪</span>
+        </ToolbarBtn>
+      </div>
+      {/* Editable area */}
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        onInput={handleChange}
+        onKeyUp={refresh}
+        onMouseUp={refresh}
+        data-placeholder={placeholder}
+        className="min-h-[140px] max-h-72 overflow-y-auto px-3 py-2.5 text-sm text-foreground leading-relaxed outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-muted-foreground/60 rich-editor"
+      />
+    </div>
+  );
+}
+
+// ── Form ─────────────────────────────────────────────────────────────────
 function AnotacaoForm({ initial, onSave, onCancel }) {
   const [titulo, setTitulo] = useState(initial?.titulo || '');
   const [conteudo, setConteudo] = useState(initial?.conteudo || '');
@@ -35,12 +135,7 @@ function AnotacaoForm({ initial, onSave, onCancel }) {
         className="w-full border border-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
         required
       />
-      <textarea
-        value={conteudo} onChange={e => setConteudo(e.target.value)}
-        placeholder="Conteúdo da anotação..."
-        rows={4}
-        className="w-full border border-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
-      />
+      <RichEditor value={conteudo} onChange={setConteudo} placeholder="Conteúdo da anotação..." />
       <div className="flex items-center gap-2">
         <span className="text-xs text-muted-foreground font-medium">Cor:</span>
         {Object.entries(COR_STYLES).map(([key, style]) => (
@@ -161,7 +256,10 @@ export default function AnotacoesTab() {
                   </div>
                   <p className={`font-bold text-sm ${style.text} pr-14`}>{a.titulo}</p>
                   {a.conteudo && (
-                    <p className={`text-xs ${style.text} opacity-80 leading-relaxed whitespace-pre-line`}>{a.conteudo}</p>
+                    <div
+                      className={`text-xs ${style.text} opacity-80 leading-relaxed rich-content`}
+                      dangerouslySetInnerHTML={{ __html: a.conteudo }}
+                    />
                   )}
                   <p className="text-[10px] text-muted-foreground mt-auto pt-2 border-t border-current/10">
                     {new Date(a.created_date).toLocaleDateString('pt-BR')}
