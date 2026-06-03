@@ -28,19 +28,13 @@
   "rls": {
     "create": {},
     "read": {
-      "record_condition": {
-        "created_by_id": "{{user_id}}"
-      }
+      "created_by_id": "{{user.id}}"
     },
     "update": {
-      "record_condition": {
-        "created_by_id": "{{user_id}}"
-      }
+      "created_by_id": "{{user.id}}"
     },
     "delete": {
-      "record_condition": {
-        "created_by_id": "{{user_id}}"
-      }
+      "created_by_id": "{{user.id}}"
     }
   }
 }
