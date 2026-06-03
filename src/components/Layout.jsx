@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { Settings } from 'lucide-react';
-import { Menu, Home, LayoutGrid, BookOpen, Star, Info, Search, X, ChevronRight, User, LogIn } from 'lucide-react';
+import { Menu, Home, LayoutGrid, BookOpen, Star, Info, Search, X, ChevronRight, User, LogIn, WifiOff } from 'lucide-react';
 import { universalSearch as doUniversalSearch } from '@/lib/universalSearch';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import MobileHeader from './MobileHeader';
 import PullToRefresh from './PullToRefresh';
+import OfflineBanner from './OfflineBanner';
+import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 
 const DESKTOP_NAV = [
   { to: '/',            label: 'Início',        Icon: Home },
@@ -219,6 +221,7 @@ export default function Layout() {
   const [tabStates, setTabStates] = useState({});
   const location = useLocation();
   const mainRef = useRef(null);
+  const isOnline = useOnlineStatus();
 
   useEffect(() => {
     return () => {
@@ -236,6 +239,9 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-inter overflow-hidden">
+      {/* Offline Banner */}
+      {!isOnline && <OfflineBanner />}
+
       {/* Mobile Header */}
       <MobileHeader menuOpen={open} setMenuOpen={setOpen} />
 
@@ -276,6 +282,11 @@ export default function Layout() {
 
           {/* Right side: search + user */}
           <div className="flex items-center gap-3 flex-shrink-0">
+            {!isOnline && (
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+                <WifiOff className="w-3.5 h-3.5" /> Offline
+              </span>
+            )}
             <NavSearch />
             <UserMenu />
           </div>
