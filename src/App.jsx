@@ -47,6 +47,7 @@ import Biblioteca from './pages/Biblioteca';
 
 import SinaisVitais from './pages/SinaisVitais';
 import Admin from './pages/Admin';
+import RastreioPreventivo from './pages/RastreioPreventivo';
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
             <Route path="/sinais-vitais" element={<SinaisVitais />} />
 
             <Route path="/admin" element={<Admin />} />
+            <Route path="/rastreio-preventivo" element={<RastreioPreventivo />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

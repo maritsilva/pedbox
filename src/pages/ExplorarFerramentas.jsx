@@ -40,10 +40,12 @@ const TOOLS = [
 { path: '/biblioteca', label: 'Condutas Clínicas', icon: '🩺', desc: 'Manejos e condutas estruturadas por categoria.', cat: 'Biblioteca', color: 'bg-violet-50 border-violet-200', iconBg: 'bg-violet-100' },
 { path: '/biblioteca', label: 'Biblioteca', icon: '📚', desc: 'Protocolos, condutas, links e anotações pediátricas.', cat: 'Biblioteca', color: 'bg-indigo-50 border-indigo-200', iconBg: 'bg-indigo-100' },
 // Pesquisa
-{ path: '/pesquisa', label: 'SophIA', icon: '🔬', desc: 'Pesquisa inteligente de evidências e diretrizes clínicas com IA.', cat: 'Pesquisa', color: 'bg-emerald-50 border-emerald-200', iconBg: 'bg-emerald-100' }];
+{ path: '/pesquisa', label: 'SophIA', icon: '🔬', desc: 'Pesquisa inteligente de evidências e diretrizes clínicas com IA.', cat: 'Pesquisa', color: 'bg-emerald-50 border-emerald-200', iconBg: 'bg-emerald-100' },
+// Preventivo
+{ path: '/rastreio-preventivo', label: 'Rastreio / Medicina Preventiva', icon: '🛡️', desc: 'Calendário de triagens e rastreios pediátricos — Bright Futures / AAP.', cat: 'Preventivo', color: 'bg-blue-50 border-blue-200', iconBg: 'bg-blue-100' }];
 
 
-const CATS = ['Todas', 'Puericultura', 'Doses', 'Emergência', 'Escores', 'Neonatal', 'Calculadoras', 'Biblioteca', 'Pesquisa'];
+const CATS = ['Todas', 'Puericultura', 'Doses', 'Emergência', 'Escores', 'Neonatal', 'Calculadoras', 'Biblioteca', 'Pesquisa', 'Preventivo'];
 
 const CAT_COLORS = {
   'Puericultura': 'bg-green-100 text-green-700 border-green-200',
@@ -53,7 +55,8 @@ const CAT_COLORS = {
   'Neonatal': 'bg-amber-100 text-amber-700 border-amber-200',
   'Calculadoras': 'bg-blue-100 text-blue-700 border-blue-200',
   'Biblioteca': 'bg-violet-100 text-violet-700 border-violet-200',
-  'Pesquisa': 'bg-emerald-100 text-emerald-700 border-emerald-200'
+  'Pesquisa': 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  'Preventivo': 'bg-blue-100 text-blue-700 border-blue-200'
 };
 
 const MAIS_USADAS = ['Hidratação Venosa', 'IMC Pediátrico', 'APGAR', 'PEWS', 'Vacinas'];
