@@ -20,6 +20,7 @@ import FluxogramaPneumonia from '@/components/protocols/fluxogramas/FluxogramaPn
 import FluxogramaAnemiaFerropriva from '@/components/protocols/fluxogramas/FluxogramaAnemiaFerropriva';
 import MeningiteBacteriana from '@/components/protocols/MeningiteBacteriana.jsx';
 import InfeccaoTratoUrinario from '@/components/protocols/InfeccaoTratoUrinario.jsx';
+import HipovitaminoseD from '@/components/protocols/HipovitaminoseD.jsx';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -144,6 +145,17 @@ const PROTOCOLS = [
   especialidade: 'Infectologia',
   source: 'Hospital Israelita Albert Einstein · Versão 3 · Set/2025',
   keywords: ['itu', 'disúria', 'urocultura', 'urina tipo i', 'pielonefrite', 'uretrite', 'antibiótico', 'cefuroxima', 'cefalexina', 'ceftriaxone']
+},
+{
+  id: 'hipovitaminose-d',
+  title: 'Hipovitaminose D',
+  subtitle: 'Diagnóstico, Tratamento e Prevenção',
+  icon: '☀️',
+  color: 'green',
+  tag: 'Endocrinologia',
+  especialidade: 'Endocrinologia',
+  source: 'SBP — Dep. Científico de Endocrinologia · Doc. Científico Nº 181 · Nov/2024',
+  keywords: ['vitamina d', 'colecalciferol', 'raquitismo', 'calcidiol', 'calcifediol', 'suplementação', 'deficiência', 'hipocalcemia', 'PTH', 'fosfatase alcalina', 'osteomalácia']
 }];
 
 
@@ -152,7 +164,8 @@ const ESPECIALIDADE_META = {
   'Neurologia': { color: 'purple', bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', dot: 'bg-purple-500' },
   'Gastroenterologia': { color: 'teal', bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-700', dot: 'bg-teal-500' },
   'Infectologia': { color: 'orange', bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500' },
-  'Hematologia': { color: 'red', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', dot: 'bg-red-500' }
+  'Hematologia': { color: 'red', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', dot: 'bg-red-500' },
+  'Endocrinologia': { color: 'green', bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', dot: 'bg-green-500' }
 };
 
 // ── Severity Table ─────────────────────────────────────────────────────────────
@@ -763,7 +776,8 @@ export default function Protocolos() {
     'pneumonia-complicada': <PneumoniaComplicada />,
     'anemia-ferropriva': <AnemiaFerropriva />,
     'meningite-bacteriana': <MeningiteBacteriana />,
-    'itu': <InfeccaoTratoUrinario />
+    'itu': <InfeccaoTratoUrinario />,
+    'hipovitaminose-d': <HipovitaminoseD />
   };
 
   const filtered = useMemo(() => {
@@ -813,7 +827,7 @@ export default function Protocolos() {
 
   const ESP_ICONS = {
     'Respiratório': '🫁', 'Neurologia': '🧠', 'Gastroenterologia': '🥗',
-    'Infectologia': '🦠', 'Hematologia': '🩸'
+    'Infectologia': '🦠', 'Hematologia': '🩸', 'Endocrinologia': '☀️'
   };
 
   return (
