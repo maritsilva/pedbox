@@ -76,10 +76,10 @@ function processReferences(text) {
     return line;
   });
 
-  // Convert inline [N] to superscript HTML with click-to-scroll
+  // Convert inline [N] to superscript HTML — onClick handled by sup renderer
   const joined = result.join('\n');
   return joined.replace(/\[(\d+)\]/g, (_match, num) => {
-    return `<sup data-ref="${num}" onclick="(function(){var el=document.getElementById('ref-${num}');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.background='#fef08a';setTimeout(function(){el.style.background=''},1500)}})();" style="font-size:0.6rem;font-weight:700;color:#3b82f6;vertical-align:super;line-height:0;cursor:pointer" title="Ir para referência ${num}">${num}</sup>`;
+    return `<sup data-ref="${num}" style="font-size:0.6rem;font-weight:700;color:#3b82f6;vertical-align:super;line-height:0;cursor:pointer" title="Ir para referência ${num}">${num}</sup>`;
   });
 }
 
@@ -203,14 +203,25 @@ const components = {
       </a>
     );
   },
-  sup: ({ children, ...props }) => (
-    <sup
-      {...props}
-      className="text-[10px] font-bold text-primary align-super leading-none cursor-pointer hover:text-primary/70"
-    >
-      {children}
-    </sup>
-  ),
+  sup: ({ children, 'data-ref': dataRef, ...props }) => {
+    const handleClick = dataRef ? () => {
+      const el = document.getElementById(`ref-${dataRef}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.style.background = '#fef08a';
+        setTimeout(() => { el.style.background = ''; }, 1500);
+      }
+    } : undefined;
+    return (
+      <sup
+        {...props}
+        onClick={handleClick}
+        className="text-[10px] font-bold text-primary align-super leading-none cursor-pointer hover:text-primary/70"
+      >
+        {children}
+      </sup>
+    );
+  },
   span: ({ children, ...props }) => <span {...props}>{children}</span>,
   div: ({ children, ...props }) => <div {...props}>{children}</div>,
   // img is handled via closure in the component below
