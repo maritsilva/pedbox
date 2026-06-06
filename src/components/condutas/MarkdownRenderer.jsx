@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import ImageLightbox from './ImageLightbox';
 
 // Detect if a line looks like a TSV row (has tabs or multiple consecutive spaces suggesting columns)
 function isTsvLine(line) {
@@ -206,16 +207,30 @@ const components = {
   sup: ({ children }) => (
     <sup className="text-[10px] font-bold text-primary align-super leading-none">{children}</sup>
   ),
-  img: ({ src, alt }) => (
-    <img src={src} alt={alt} className="max-w-full rounded-xl my-3 shadow border border-border" />
-  ),
+  // img is handled via closure in the component below
 };
 
 export default function MarkdownRenderer({ content }) {
+  const [lightbox, setLightbox] = useState(null);
   const processed = convertTsvTables(processReferences(content || ''));
+
+  const allComponents = {
+    ...components,
+    img: ({ src, alt }) => (
+      <img
+        src={src}
+        alt={alt}
+        onClick={() => setLightbox({ src, alt })}
+        className="max-w-full rounded-xl my-3 shadow border border-border cursor-zoom-in hover:opacity-90 transition-opacity"
+        title="Clique para ver em tela cheia"
+      />
+    ),
+  };
+
   return (
     <div className="markdown-body">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={components}>{processed}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={allComponents}>{processed}</ReactMarkdown>
+      {lightbox && <ImageLightbox src={lightbox.src} alt={lightbox.alt} onClose={() => setLightbox(null)} />}
     </div>
   );
 }
