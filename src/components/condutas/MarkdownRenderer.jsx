@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 // Detect if a line looks like a TSV row (has tabs or multiple consecutive spaces suggesting columns)
 function isTsvLine(line) {
@@ -214,7 +215,7 @@ export default function MarkdownRenderer({ content }) {
   const processed = convertTsvTables(processReferences(content || ''));
   return (
     <div className="markdown-body">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>{processed}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={components}>{processed}</ReactMarkdown>
     </div>
   );
 }
