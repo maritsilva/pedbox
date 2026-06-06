@@ -75,10 +75,10 @@ function processReferences(text) {
     return line;
   });
 
-  // Convert inline [N] to superscript links — but not inside code blocks
+  // Convert inline [N] to superscript — use HTML span to avoid markdown link parsing issues
   const joined = result.join('\n');
   return joined.replace(/\[(\d+)\]/g, (_match, num) => {
-    return `[<sup>${num}</sup>](#ref-${num})`;
+    return `<sup class="cite" data-ref="${num}">${num}</sup>`;
   });
 }
 
