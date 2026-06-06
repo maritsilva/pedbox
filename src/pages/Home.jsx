@@ -63,7 +63,7 @@ const QUICK_ACCESS = [
 { label: 'Escalas e Escores', desc: 'Avaliações clínicas validadas.', icon: '⭐', path: '/calculadoras-hub' },
 { label: 'Hidratação', desc: 'Volumes, soluções e velocidades.', icon: '💧', path: '/hidratacao' },
 { label: 'Sinais Vitais', desc: 'Valores de referência e parâmetros.', icon: '📋', path: '/sinais-vitais' },
-{ label: 'Entrar em Contato', desc: 'Fale conosco e compartilhe feedback.', icon: '📧', path: '/contato' }];
+{ label: 'Rastreio Preventivo', desc: 'Calendário de triagens pediátricas AAP/Bright Futures.', icon: '🛡️', path: '/rastreio-preventivo' }];
 
 
 
