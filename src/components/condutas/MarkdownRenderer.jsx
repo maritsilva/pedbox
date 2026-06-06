@@ -76,10 +76,10 @@ function processReferences(text) {
     return line;
   });
 
-  // Convert inline [N] to superscript HTML
+  // Convert inline [N] to superscript HTML with click-to-scroll
   const joined = result.join('\n');
   return joined.replace(/\[(\d+)\]/g, (_match, num) => {
-    return `<sup style="font-size:0.6rem;font-weight:700;color:#3b82f6;vertical-align:super;line-height:0;cursor:pointer" title="Referência ${num}">${num}</sup>`;
+    return `<sup data-ref="${num}" onclick="(function(){var el=document.getElementById('ref-${num}');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.background='#fef08a';setTimeout(function(){el.style.background=''},1500)}})();" style="font-size:0.6rem;font-weight:700;color:#3b82f6;vertical-align:super;line-height:0;cursor:pointer" title="Ir para referência ${num}">${num}</sup>`;
   });
 }
 
