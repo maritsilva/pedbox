@@ -53,8 +53,7 @@ function convertTsvTables(text) {
   return result.join('\n');
 }
 
-// Convert inline [N] citations to superscript anchor links
-// and add anchor IDs to ordered list items inside the References section
+// Convert inline [N] citations to superscript HTML and add anchor IDs to reference list items
 function processReferences(text) {
   const lines = text.split('\n');
   let inRefsSection = false;
@@ -67,20 +66,20 @@ function processReferences(text) {
       inRefsSection = false;
     }
     if (inRefsSection) {
-      // Match ordered list items: "1. " or "1) "
       const refMatch = line.match(/^(\s*)(\d+)[.)]\s/);
       if (refMatch) {
         const num = refMatch[2];
-        return line.replace(/^(\s*)(\d+)([.)]\s)/, `$1<span id="ref-${num}"></span>**${num}.**  `);
+        // Wrap entire list item in a div with id so scroll-to works
+        return `<div id="ref-${num}" style="margin:2px 0;font-size:0.75rem;line-height:1.5">${line.replace(/^(\s*)(\d+)[.)]\s/, `<strong>${num}.</strong> `)}</div>`;
       }
     }
     return line;
   });
 
-  // Convert inline [N] to superscript — use HTML span to avoid markdown link parsing issues
+  // Convert inline [N] to superscript HTML
   const joined = result.join('\n');
   return joined.replace(/\[(\d+)\]/g, (_match, num) => {
-    return `<sup class="cite" data-ref="${num}">${num}</sup>`;
+    return `<sup style="font-size:0.6rem;font-weight:700;color:#3b82f6;vertical-align:super;line-height:0;cursor:pointer" title="Referência ${num}">${num}</sup>`;
   });
 }
 
@@ -204,9 +203,16 @@ const components = {
       </a>
     );
   },
-  sup: ({ children }) => (
-    <sup className="text-[10px] font-bold text-primary align-super leading-none">{children}</sup>
+  sup: ({ children, ...props }) => (
+    <sup
+      {...props}
+      className="text-[10px] font-bold text-primary align-super leading-none cursor-pointer hover:text-primary/70"
+    >
+      {children}
+    </sup>
   ),
+  span: ({ children, ...props }) => <span {...props}>{children}</span>,
+  div: ({ children, ...props }) => <div {...props}>{children}</div>,
   // img is handled via closure in the component below
 };
 
