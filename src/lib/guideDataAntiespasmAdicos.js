@@ -641,6 +641,8 @@ export const antieméticos = [
     presentations: [
       { label: 'Comprimido orodispersível 4 mg e 8 mg' },
       { label: 'Comprimido revestido 4 mg e 8 mg' },
+      { label: 'Gotas 8 mg/mL (0,4 mg por gota) — 8/8h' },
+      { label: 'Gotas 4 mg/mL (0,2 mg por gota) — 8/8h' },
       { label: 'Ampola 2 mg/mL' },
     ],
     doses: [

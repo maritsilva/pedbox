@@ -92,10 +92,10 @@ export const PART1_CATEGORIAS = [
           {
             id: 'analgesia-antitermico',
             label: 'Analgesia / Antitérmico (> 3 meses)',
-            dose_min: 10, dose_max: 15, dose_max_abs: 1000,
+            dose_min: 10, dose_max: 25, dose_max_abs: 1000,
             unidade: 'mg/kg/dose', freq: '6/6h',
             dias: '3–5 dias',
-            obs: 'Máx 4 doses/dia. Via IV: infundir lentamente 15–30 min. ≈ 0,5 gota/kg (gotas 500 mg/mL).',
+            obs: 'Máx 4 doses/dia. Dose máxima: 25 mg/kg/dose. Via IV: infundir lentamente 15–30 min. ≈ 0,5 gota/kg (gotas 500 mg/mL).',
             apresentacoes: [
               { label: 'Gotas 500 mg/mL (25 mg/gota)', conc: 500, tipo: 'gotas', mL_por_gota: 0.05 },
               { label: 'Xarope 50 mg/mL', conc: 50, tipo: 'mL' },
@@ -107,10 +107,10 @@ export const PART1_CATEGORIAS = [
           {
             id: 'colica-espasmo',
             label: 'Cólica / Espasmo Gastrointestinal',
-            dose_min: 10, dose_max: 15, dose_max_abs: 1000,
+            dose_min: 10, dose_max: 25, dose_max_abs: 1000,
             unidade: 'mg/kg/dose EV/IM', freq: '6/6h ou 8/8h',
             dias: '3–5 dias',
-            obs: 'Uso parenteral: 10–15 mg/kg EV/IM em 15–30 min.',
+            obs: 'Uso parenteral: 10–15 mg/kg EV/IM em 15–30 min. Dose máxima: 25 mg/kg/dose.',
             apresentacoes: [
               { label: 'Ampola 500 mg/mL (IM/EV)', conc: 500, tipo: 'mL' },
             ],
@@ -295,6 +295,8 @@ export const PART1_CATEGORIAS = [
             obs: 'Máx 4 mg/dose. EV em 15 min. Máx 3 doses/dia.',
             apresentacoes: [
               { label: 'Solução oral 0,8 mg/mL', conc: 0.8, tipo: 'mL' },
+              { label: 'Gotas 8 mg/mL (0,4 mg por gota)', conc: 8, tipo: 'gotas', mL_por_gota: 0.05 },
+              { label: 'Gotas 4 mg/mL (0,2 mg por gota)', conc: 4, tipo: 'gotas', mL_por_gota: 0.05 },
               { label: 'Comprimido 4 mg (ODT/sublingual)', conc: 4, tipo: 'comprimido' },
               { label: 'Comprimido 8 mg (≥12 anos)', conc: 8, tipo: 'comprimido', idade_min: 12 },
               { label: 'Ampola 2 mg/mL (EV)', conc: 2, tipo: 'mL' },

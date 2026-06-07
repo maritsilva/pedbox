@@ -999,7 +999,7 @@ export const GUIDE_CATEGORIES = [
           {
             group: 'Crianças — Via oral',
             items: [
-              { label: 'Dose por peso', value: '10–15 mg/kg/dose, 4 vezes ao dia. Máx: 25 mg/kg/dose' },
+              { label: 'Dose por peso', value: '10–15 mg/kg/dose, 4 vezes ao dia. Dose máxima: 25 mg/kg/dose' },
               { label: 'Gotas (500 mg/mL)', value: '0,4–0,6 gotas/kg/dose, 4 vezes ao dia' },
               { label: 'Solução oral (50 mg/mL)', value: '0,2–0,3 mL/kg/dose, 4 vezes ao dia' },
               { label: '3–11 meses (5–8 kg)', value: '2–5 gotas ou 1,25–2,5 mL da solução' },
