@@ -64,7 +64,6 @@ export const corticosteroideNasal = [
     id: 'dexametasona-nasal',
     name: 'Dexametasona Nasal',
     category: 'nasal-corticosteroide',
-    observations: 'Corticosteroide associado a antimicrobiano e vasoconstritor',
     brands: ['Decadron nasal (Aché) — Sol. nasal 0,5 + 5 + 3,5 mg/mL', 'Hidronal (Aché) — Gotas 0,5 + 5 + 0,75 mg/mL'],
     presentations: [{ label: 'Solução nasal' }, { label: 'Gotas nasais' }],
     doses: [

@@ -1,8 +1,9 @@
+import DOMPurify from 'dompurify';
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, Edit2, Check, StickyNote, Bold, Italic, List, ListOrdered, Strikethrough, Highlighter, Star } from 'lucide-react';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 
 const COR_STYLES = {
   yellow: { bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-900', dot: 'bg-yellow-400', label: 'Amarelo' },
@@ -13,7 +14,7 @@ const COR_STYLES = {
 };
 
 // ── Rich Text Toolbar ─────────────────────────────────────────────────────
-function ToolbarBtn({ onMouseDown, active, title, children }) {
+function ToolbarBtn({ onMouseDown, active = false, title, children }) {
   return (
     <button
       type="button"
@@ -34,7 +35,7 @@ function RichEditor({ value, onChange, placeholder }) {
     const el = editorRef.current;
     if (!el) return;
     if (el.innerHTML !== value) {
-      el.innerHTML = value || '';
+      el.innerHTML = DOMPurify.sanitize(value) || '';
     }
   }, []); // only on mount
 
@@ -112,7 +113,7 @@ function RichEditor({ value, onChange, placeholder }) {
 }
 
 // ── Form ─────────────────────────────────────────────────────────────────
-function AnotacaoForm({ initial, onSave, onCancel }) {
+function AnotacaoForm({ initial = null, onSave, onCancel }) {
   const [titulo, setTitulo] = useState(initial?.titulo || '');
   const [conteudo, setConteudo] = useState(initial?.conteudo || '');
   const [cor, setCor] = useState(initial?.cor || 'yellow');
@@ -166,10 +167,10 @@ export default function AnotacoesTab() {
   const { isFavorite, toggleFavorite } = usePageFavorites();
 
   useEffect(() => {
-    base44.auth.me().then(u => {
+    services.auth.me().then(u => {
       setUser(u);
       if (u) {
-        base44.entities.Anotacao.filter({ created_by_id: u.id }, '-created_date').then(data => {
+        services.notes.filter({ created_by_id: u.id }, '-created_date').then(data => {
           setAnotacoes(data);
           setLoading(false);
         }).catch(() => setLoading(false));
@@ -181,18 +182,18 @@ export default function AnotacoesTab() {
 
   const handleSave = async (data) => {
     if (editing) {
-      await base44.entities.Anotacao.update(editing.id, data);
+      await services.notes.update(editing.id, data);
       setAnotacoes(prev => prev.map(a => a.id === editing.id ? { ...a, ...data } : a));
       setEditing(null);
     } else {
-      const created = await base44.entities.Anotacao.create(data);
+      const created = await services.notes.create(data);
       setAnotacoes(prev => [created, ...prev]);
       setShowForm(false);
     }
   };
 
   const handleDelete = async (id) => {
-    await base44.entities.Anotacao.delete(id);
+    await services.notes.delete(id);
     setAnotacoes(prev => prev.filter(a => a.id !== id));
   };
 
@@ -203,7 +204,7 @@ export default function AnotacoesTab() {
       <div className="py-16 text-center bg-white border border-border rounded-2xl">
         <StickyNote className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
         <p className="font-semibold text-foreground">Faça login para ver suas anotações</p>
-        <button onClick={() => base44.auth.redirectToLogin()} className="mt-4 px-5 py-2 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors">
+        <button onClick={() => services.auth.redirectToLogin()} className="mt-4 px-5 py-2 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors">
           Entrar
         </button>
       </div>
@@ -263,7 +264,7 @@ export default function AnotacoesTab() {
                   {a.conteudo && (
                     <div
                       className={`text-xs ${style.text} opacity-80 leading-relaxed rich-content`}
-                      dangerouslySetInnerHTML={{ __html: a.conteudo }}
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(a.conteudo) }}
                     />
                   )}
                   <p className="text-[10px] text-muted-foreground mt-auto pt-2 border-t border-current/10">

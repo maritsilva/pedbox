@@ -70,7 +70,7 @@ function processReferences(text) {
       if (refMatch) {
         const num = refMatch[2];
         // Wrap entire list item in a div with id so scroll-to works
-        return `<div id="ref-${num}" style="margin:2px 0;font-size:0.75rem;line-height:1.5">${line.replace(/^(\s*)(\d+)[.)]\s/, `<strong>${num}.</strong> `)}</div>`;
+        return `<div id="ref-${num}" style="margin:2px 0;font-size:0.75rem;line-height:1.5">\n\n${line.replace(/^(\s*)(\d+)[.)]\s/, `<strong>${num}.</strong> `)}\n\n</div>\n`;
       }
     }
     return line;
@@ -78,8 +78,11 @@ function processReferences(text) {
 
   // Convert inline [N] to superscript HTML — onClick handled by sup renderer
   const joined = result.join('\n');
-  return joined.replace(/\[(\d+)\]/g, (_match, num) => {
-    return `<sup data-ref="${num}" style="font-size:0.6rem;font-weight:700;color:#3b82f6;vertical-align:super;line-height:0;cursor:pointer" title="Ir para referência ${num}">${num}</sup>`;
+  return joined.replace(/\[(\d+(?:\s*,\s*\d+)*)\](?!\()/g, (_match, numbers) => {
+    return numbers.split(',').map(value => {
+      const num = value.trim();
+      return `<sup><a href="#ref-${num}" title="Ir para referência ${num}">${num}</a></sup>`;
+    }).join(',');
   });
 }
 
@@ -198,7 +201,7 @@ const components = {
     }
     return (
       <a href={href} target="_blank" rel="noopener noreferrer"
-        className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">
+        className="[overflow-wrap:anywhere] text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">
         {children}
       </a>
     );

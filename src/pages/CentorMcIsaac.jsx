@@ -115,7 +115,7 @@ export default function CentorMcIsaac() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 pb-16">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="page-surface max-w-2xl mx-auto px-4 py-8">
 
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">

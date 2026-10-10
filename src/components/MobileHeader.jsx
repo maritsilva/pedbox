@@ -14,7 +14,9 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
 
   // Map routes to readable titles
   const routeTitles = {
-    '/guia': 'Biblioteca',
+    '/guia': 'Guia de medicamentos',
+    '/biblioteca': 'Biblioteca',
+    '/admin': 'Administração',
     '/calculadoras': 'Calculadoras',
     '/pesquisa': 'SophIA — IA Pediátrica',
     '/settings': 'Configurações',
@@ -24,6 +26,9 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
     '/pressao-arterial': 'PA Pediátrica',
     '/perimetro-cefalico': 'Perímetro Cefálico',
     '/alvo-parental': 'Alvo Parental',
+    '/ictericia': 'Icterícia neonatal',
+    '/horas-de-vida': 'Horas de vida',
+    '/idade-gestacional': 'Idade gestacional',
     '/idade-gestacional-corrigida': 'IG Corrigida',
     '/centor-mcisaac': 'Centor/McIsaac',
     '/desenvolvimento': 'Desenvolvimento',
@@ -50,17 +55,18 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
   const currentTitle = routeTitles[location.pathname] || 'PedBox';
 
   const handleBack = () => {
-    navigate(-1);
+    if (window.history.state?.idx > 0) navigate(-1);
+    else navigate('/');
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-border shadow-sm md:hidden">
+    <header className="app-header sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-border shadow-sm xl:hidden">
       <div className="h-16 px-4 flex items-center justify-between">
         {isRoot ? (
           <>
             <Link to="/" className="flex items-center">
               <img
-                src="https://media.base44.com/images/public/69ecb71457668abac5516abd/5237c8a2e_ChatGPTImage17demai-remove-bg-io3.png"
+                src="/assets/pedbox-mobile.png"
                 alt="PedBox"
                 className="h-8 w-auto"
               />
@@ -72,7 +78,7 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="p-2 hover:bg-secondary rounded-lg transition-colors"
-                aria-label="Toggle menu"
+                aria-label="Abrir menu" aria-expanded={menuOpen}
               >
                 <Menu className="w-6 h-6 text-foreground" />
               </button>
@@ -82,18 +88,18 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
           <>
             <button
               onClick={handleBack}
-              className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-              aria-label="Go back"
+              className="icon-action flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              aria-label="Voltar"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
-            <h1 className="flex-1 text-center text-sm font-bold text-foreground truncate px-4">
+            <p className="flex-1 text-center text-sm font-bold text-foreground truncate px-4">
               {currentTitle}
-            </h1>
+            </p>
             {isFavoritablePage ? (
               <button
                 onClick={() => toggleFavorite(currentPath)}
-                className="w-10 flex items-center justify-center"
+                className="icon-action"
                 title={fav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
               >
                 <Star className={`w-5 h-5 transition-colors ${fav ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />

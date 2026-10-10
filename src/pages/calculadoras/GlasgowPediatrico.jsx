@@ -61,7 +61,7 @@ export default function GlasgowPediatrico() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-16">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="page-surface max-w-7xl mx-auto px-4 py-8">
         <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
         </button>
@@ -70,7 +70,7 @@ export default function GlasgowPediatrico() {
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-indigo-500 to-purple-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+          className="score-banner relative overflow-hidden mb-8"
         >
           <div className="absolute top-4 right-6 opacity-20">
             <div className="text-6xl">🧠</div>

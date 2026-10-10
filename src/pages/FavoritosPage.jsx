@@ -1,11 +1,12 @@
+import { normalizeSearch } from '@/lib/calculatorRegistry';
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, Search, X, ChevronRight, LayoutGrid, Shield, RefreshCw, Heart, Lock, BookOpen, Link as LinkIcon, StickyNote, FlaskConical, Stethoscope } from 'lucide-react';
+import { Star, Search, X, ChevronRight, LayoutGrid, BookOpen, Link as LinkIcon, StickyNote, FlaskConical } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';
 import { getAllDosagens } from '@/lib/dosagensData';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 
 // Protocol metadata (same as Biblioteca)
@@ -22,54 +23,16 @@ const PROTOCOLS = [
 { id: 'itu', title: 'Infecção do Trato Urinário', icon: '💧', tag: 'Infectologia' }];
 
 
-const CAT_COLORS = {
-  'Doses': 'bg-blue-100 text-blue-700',
-  'Emergência': 'bg-red-100 text-red-700',
-  'Hidratação': 'bg-cyan-100 text-cyan-700',
-  'Escores': 'bg-purple-100 text-purple-700',
-  'Vacinas': 'bg-green-100 text-green-700',
-  'Crescimento': 'bg-pink-100 text-pink-700',
-  'Neonatal': 'bg-amber-100 text-amber-700',
-  'Protocolos': 'bg-violet-100 text-violet-700',
-  'Tabelas': 'bg-teal-100 text-teal-700',
-  'Pesquisa': 'bg-emerald-100 text-emerald-700',
-  'Biblioteca': 'bg-blue-100 text-blue-700',
-  'Ferramenta': 'bg-gray-100 text-gray-700'
-};
+const FILTER_TABS = ['Todos', 'Medicamentos', 'Ferramentas', 'Protocolos', 'Condutas', 'Links', 'Anotações'];
 
-const FILTER_TABS = ['Todos', 'Ferramentas', 'Protocolos', 'Condutas', 'Links', 'Anotações'];
-
-function FavCard({ icon, label, desc, badge, badgeColor, onOpen, onRemove }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-border rounded-2xl shadow-sm p-5 flex flex-col gap-3 hover:shadow-md transition-all">
-      
-      <div className="flex items-start justify-between">
-        <div className="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center text-2xl flex-shrink-0">
-          {icon}
-        </div>
-        <button onClick={onRemove} title="Remover dos favoritos">
-          <Star className="w-5 h-5 fill-blue-500 text-blue-500 hover:text-red-400 transition-colors" />
-        </button>
-      </div>
-      <div className="flex-1">
-        <p className="font-bold text-sm text-foreground leading-snug">{label}</p>
-        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{desc}</p>
-      </div>
-      {badge &&
-      <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full w-fit ${badgeColor || 'bg-gray-100 text-gray-700'}`}>
-          {badge}
-        </span>
-      }
-      <button
-        onClick={onOpen}
-        className="flex items-center gap-2 border border-border rounded-lg px-3 py-2 text-xs font-semibold text-foreground hover:bg-secondary transition-all w-full justify-center">
-        
-        Abrir <ChevronRight className="w-3.5 h-3.5" />
-      </button>
-    </motion.div>);
-
+function FavCard({ label, desc, badge, onOpen, onRemove }) {
+  return <article className="resource-item bg-white border rounded-xl">
+    <button onClick={onOpen} className="resource-row text-left flex-1 min-w-0">
+      <div><h2 className="font-semibold">{label}</h2><p className="text-sm text-muted-foreground mt-1">{desc}</p><p className="text-xs text-muted-foreground mt-2">{badge}</p></div>
+      <ChevronRight size={18} className="shrink-0" />
+    </button>
+    <button onClick={onRemove} className="icon-action mr-2 text-primary" aria-label={`Remover ${label} dos favoritos`}><Star size={18} fill="currentColor" /></button>
+  </article>;
 }
 
 export default function FavoritosPage() {
@@ -85,20 +48,21 @@ export default function FavoritosPage() {
   const [anotacoes, setAnotacoes] = useState([]);
 
   useEffect(() => {
-    base44.entities.LinkBiblioteca.list().then(setLinks).catch(() => {});
-    base44.auth.me().then((u) => {
-      if (u) base44.entities.Anotacao.filter({ created_by_id: u.id }).then(setAnotacoes).catch(() => {});
+    services.libraryLinks.list().then(setLinks).catch(() => {});
+    services.auth.me().then((u) => {
+      if (u) services.notes.filter({ created_by_id: u.id }).then(setAnotacoes).catch(() => {});
     }).catch(() => {});
   }, []);
 
-  const q = search.toLowerCase().trim();
+  const q = normalizeSearch(search);
 
   // Favorited protocols
   const favProtocols = useMemo(() => favorites.
   filter((k) => k.startsWith('protocolo-')).
   map((k) => PROTOCOLS.find((p) => `protocolo-${p.id}` === k)).
   filter(Boolean).
-  filter((p) => !q || p.title.toLowerCase().includes(q)), [favorites, q]);
+  filter(() => activeTab === 'Todos' || activeTab === 'Protocolos').
+  filter((p) => !q || normalizeSearch(p.title).includes(q)), [favorites, q, activeTab]);
 
   // Favorited condutas (need to match from condutasData)
   const allTopicos = useMemo(() => {
@@ -113,31 +77,34 @@ export default function FavoritosPage() {
     return allTopicos.find(({ topico }) => topico.id === id || topico.label === id);
   }).
   filter(Boolean).
-  filter(({ topico }) => !q || topico.label.toLowerCase().includes(q)), [favorites, allTopicos, q]);
+  filter(() => activeTab === 'Todos' || activeTab === 'Condutas').
+  filter(({ topico }) => !q || normalizeSearch(topico.label).includes(q)), [favorites, allTopicos, q, activeTab]);
 
   // Favorited links
   const favLinks = useMemo(() => favorites.
   filter((k) => k.startsWith('link-')).
   map((k) => links.find((l) => `link-${l.id}` === k)).
   filter(Boolean).
-  filter((l) => !q || l.titulo.toLowerCase().includes(q)), [favorites, links, q]);
+  filter(() => activeTab === 'Todos' || activeTab === 'Links').
+  filter((l) => !q || normalizeSearch(l.titulo).includes(q)), [favorites, links, q, activeTab]);
 
   // Favorited anotações
   const favAnotacoes = useMemo(() => favorites.
   filter((k) => k.startsWith('anotacao-')).
   map((k) => anotacoes.find((a) => `anotacao-${a.id}` === k)).
   filter(Boolean).
-  filter((a) => !q || a.titulo.toLowerCase().includes(q)), [favorites, anotacoes, q]);
+  filter(() => activeTab === 'Todos' || activeTab === 'Anotações').
+  filter((a) => !q || normalizeSearch(a.titulo).includes(q)), [favorites, anotacoes, q, activeTab]);
 
-  const filteredPages = favPages.filter((p) => !q || p.label.toLowerCase().includes(q) || p.desc?.toLowerCase().includes(q));
-  const filteredDrugs = favDrugs.filter((d) => !q || d.name.toLowerCase().includes(q));
+  const filteredPages = favPages.filter(() => activeTab === 'Todos' || activeTab === 'Ferramentas').filter((p) => !q || normalizeSearch(p.label).includes(q) || normalizeSearch(p.desc || '').includes(q));
+  const filteredDrugs = favDrugs.filter(() => activeTab === 'Todos' || activeTab === 'Medicamentos').filter((d) => !q || normalizeSearch(d.name).includes(q));
 
-  const isEmpty = favPages.length === 0 && favDrugs.length === 0 && favProtocols.length === 0 && favCondutas.length === 0 && favLinks.length === 0 && favAnotacoes.length === 0;
+  const isEmpty = favorites.length === 0 && favDrugIds.length === 0;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4 mb-6">
+      <div className="page-heading flex items-start justify-between gap-4 mb-6">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Star className="w-7 h-7 text-primary" />
@@ -184,14 +151,15 @@ export default function FavoritosPage() {
           <div className="relative mb-5">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
-            type="text"
+            type="search"
+            aria-label="Buscar favoritos"
             placeholder="Buscar nos seus favoritos..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-10 pr-10 py-3 bg-white border border-border rounded-xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
           
             {search &&
-          <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+          <button onClick={() => setSearch('')} aria-label="Limpar busca" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                 <X className="w-4 h-4" />
               </button>
           }
@@ -202,6 +170,7 @@ export default function FavoritosPage() {
             {FILTER_TABS.map((tab) =>
           <button
             key={tab}
+            aria-pressed={activeTab === tab}
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${
             activeTab === tab ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`
@@ -214,15 +183,15 @@ export default function FavoritosPage() {
 
           {/* Pages grid */}
           {filteredPages.length > 0 &&
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
               {filteredPages.map((page) =>
           <FavCard
             key={page.path}
-            icon={page.icon}
+
             label={page.label}
             desc={page.desc}
             badge="Ferramenta"
-            badgeColor={CAT_COLORS['Ferramenta']}
+
             onOpen={() => navigate(page.path)}
             onRemove={() => togglePage(page.path)} />
 
@@ -234,15 +203,15 @@ export default function FavoritosPage() {
           {filteredDrugs.length > 0 &&
         <>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">Medicamentos — Dosagem Rápida ({filteredDrugs.length})</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                 {filteredDrugs.map((drug) =>
             <FavCard
               key={drug.id}
-              icon={drug.catIcon}
+
               label={drug.name}
               desc={drug.catLabel}
               badge="Medicamento"
-              badgeColor={CAT_COLORS['Doses']}
+
               onOpen={() => navigate(`/dosagens?drug=${drug.id}`)}
               onRemove={() => toggleDrug(drug.id)} />
 
@@ -255,16 +224,16 @@ export default function FavoritosPage() {
           {favProtocols.length > 0 &&
         <>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><FlaskConical className="w-3.5 h-3.5" /> Protocolos ({favProtocols.length})</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                 {favProtocols.map((p) =>
             <FavCard
               key={p.id}
-              icon={p.icon}
+
               label={p.title}
               desc={p.tag}
               badge="Protocolo"
-              badgeColor={CAT_COLORS['Protocolos']}
-              onOpen={() => navigate(`/biblioteca?protocolo=${p.id}`)}
+
+              onOpen={() => navigate(`/biblioteca?tab=protocolos&id=${p.id}`)}
               onRemove={() => togglePage(`protocolo-${p.id}`)} />
 
             )}
@@ -276,16 +245,16 @@ export default function FavoritosPage() {
           {favCondutas.length > 0 &&
         <>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Condutas ({favCondutas.length})</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                 {favCondutas.map(({ topico, cat }) =>
             <FavCard
               key={topico.id || topico.label}
-              icon={cat.icon}
+
               label={topico.label}
               desc={cat.label}
               badge="Conduta"
-              badgeColor="bg-violet-100 text-violet-700"
-              onOpen={() => navigate('/biblioteca?tab=condutas')}
+
+              onOpen={() => navigate(`/biblioteca?tab=condutas&topico=${encodeURIComponent(topico.id || topico.label)}`)}
               onRemove={() => togglePage(`conduta-${topico.id || topico.label}`)} />
 
             )}
@@ -297,15 +266,15 @@ export default function FavoritosPage() {
           {favLinks.length > 0 &&
         <>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><LinkIcon className="w-3.5 h-3.5" /> Links ({favLinks.length})</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                 {favLinks.map((l) =>
             <FavCard
               key={l.id}
-              icon={l.icone || '🔗'}
+
               label={l.titulo}
               desc={l.descricao || l.categoria || ''}
               badge="Link"
-              badgeColor="bg-teal-100 text-teal-700"
+
               onOpen={() => window.open(l.url, '_blank')}
               onRemove={() => togglePage(`link-${l.id}`)} />
 
@@ -318,15 +287,15 @@ export default function FavoritosPage() {
           {favAnotacoes.length > 0 &&
         <>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-1.5"><StickyNote className="w-3.5 h-3.5" /> Anotações ({favAnotacoes.length})</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                 {favAnotacoes.map((a) =>
             <FavCard
               key={a.id}
-              icon="📝"
+
               label={a.titulo}
               desc={a.conteudo ? a.conteudo.replace(/<[^>]+>/g, '').slice(0, 80) : ''}
               badge="Anotação"
-              badgeColor="bg-yellow-100 text-yellow-700"
+
               onOpen={() => navigate('/biblioteca?tab=anotacoes')}
               onRemove={() => togglePage(`anotacao-${a.id}`)} />
 
@@ -337,25 +306,11 @@ export default function FavoritosPage() {
 
           {filteredPages.length === 0 && filteredDrugs.length === 0 && favProtocols.length === 0 && favCondutas.length === 0 && favLinks.length === 0 && favAnotacoes.length === 0 &&
         <div className="text-center py-10 text-muted-foreground text-sm">
-              Nenhum favorito encontrado para "<strong>{search}</strong>"
+              Nenhum favorito corresponde aos filtros.
+              <button className="block mx-auto text-primary mt-3" onClick={() => { setSearch(''); setActiveTab('Todos'); }}>Limpar filtros</button>
             </div>
         }
 
-          {/* CTA add more */}
-          <div className="bg-secondary/50 border border-border rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="text-4xl opacity-30">⭐</div>
-              <div>
-                <p className="font-bold text-foreground">Adicione mais favoritos para montar seus atalhos personalizados.</p>
-                <p className="text-sm text-muted-foreground mt-0.5">Quanto mais você usa, mais o Pedbox.app se adapta ao seu jeito de trabalhar.</p>
-              </div>
-            </div>
-            <Link to="/ferramentas"
-          className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-primary/90 transition-colors flex-shrink-0">
-              <LayoutGrid className="w-4 h-4" />
-              Explorar ferramentas
-            </Link>
-          </div>
         </>
       }
 

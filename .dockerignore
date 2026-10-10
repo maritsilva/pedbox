@@ -1,0 +1,11 @@
+.git
+node_modules
+dist
+.env
+.env.*
+.data
+exports
+test-results
+playwright-report
+docs
+base44

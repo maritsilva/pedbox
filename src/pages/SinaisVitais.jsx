@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import PageHeader from '@/components/PageHeader';
+import React from 'react';
 import { ChevronLeft, Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -91,21 +92,11 @@ export default function SinaisVitais() {
    const navigate = useNavigate();
 
    return (
-     <div className="max-w-7xl mx-auto px-4 py-6">
+     <div className="page-surface max-w-7xl mx-auto px-4 py-6">
        {/* Header compacto */}
-       <div className="flex items-center justify-between mb-6">
-         <div>
-           <h1 className="text-3xl font-extrabold text-foreground">Sinais Vitais Pediátricos</h1>
-           <p className="text-xs text-muted-foreground mt-1">Referência clínica para profissionais de saúde</p>
-         </div>
-         <button
-           onClick={() => navigate('/')}
-           className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-         >
-           <ChevronLeft className="w-4 h-4" />
-           Voltar
-         </button>
-       </div>
+       <PageHeader eyebrow="Avaliação pediátrica" title="Sinais Vitais Pediátricos" description="Referência clínica para profissionais de saúde">
+         <button onClick={() => navigate('/')} className="flex items-center gap-1 text-sm text-primary mt-3"><ChevronLeft size={16}/>Voltar</button>
+       </PageHeader>
 
        {/* Alert profissional */}
        <motion.div

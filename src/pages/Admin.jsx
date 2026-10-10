@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { base44 } from '@/api/base44Client';
-import { Plus, Edit3, Trash2, Upload, Image, Save, X, AlertTriangle, Check, FileText, FolderOpen, BookOpen, BarChart2, Search, ChevronDown, ChevronRight, Eye, EyeOff, Link as LinkIcon, FlaskConical } from 'lucide-react';
+import { services } from '@/api/services';
+import { Plus, Edit3, Trash2, Image, Save, X, AlertTriangle, Check, FileText, FolderOpen, BookOpen, BarChart2, Search, ChevronDown, ChevronRight, Eye, Link as LinkIcon, FlaskConical } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import CondutasTab from '@/components/biblioteca/CondutasTab';
@@ -198,10 +198,10 @@ function CategoriasSection({ categorias, onSaved }) {
     try {
       const data = { label: form.label.trim(), icon: form.icon, color: form.color, categoria_id: slugify(form.label), subcategorias: form.subcategorias };
       if (editId) {
-        await base44.entities.CategoriaCustom.update(editId, data);
+        await services.categories.update(editId, data);
         show('Categoria atualizada!');
       } else {
-        await base44.entities.CategoriaCustom.create(data);
+        await services.categories.create(data);
         show('Categoria criada!');
       }
       setShowForm(false);
@@ -214,7 +214,7 @@ function CategoriasSection({ categorias, onSaved }) {
 
   const handleDelete = async (id) => {
     if (!confirm('Excluir esta categoria?')) return;
-    await base44.entities.CategoriaCustom.delete(id);
+    await services.categories.delete(id);
     show('Excluída!');
     onSaved();
   };
@@ -323,7 +323,7 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
   const [uploadingImg, setUploadingImg] = useState(false);
   const { toast, show } = useToast();
 
-  const emptyForm = { categoria_label: '', categoria_icon: '📋', categoria_color: 'blue', subcategoria_label: '', topico_label: '', conteudo: '', imagens: [], is_custom: true };
+  const emptyForm = { categoria_label: '', categoria_icon: '📋', categoria_color: 'blue', subcategoria_label: '', topico_label: '', conteudo: '', review_sources: '', imagens: [], is_custom: true };
   const [form, setForm] = useState(emptyForm);
 
   // Open form with prefill from Índice
@@ -363,7 +363,7 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
   const selectedCat = allCatOptions.find(c => c.label === form.categoria_label);
 
   const startEdit = (c) => {
-    setForm({ categoria_label: c.categoria_label || '', categoria_icon: c.categoria_icon || '📋', categoria_color: c.categoria_color || 'blue', subcategoria_label: c.subcategoria_label || '', topico_label: c.topico_label || '', conteudo: c.conteudo || '', imagens: c.imagens || [], is_custom: true });
+    setForm({ categoria_label: c.categoria_label || '', categoria_icon: c.categoria_icon || '📋', categoria_color: c.categoria_color || 'blue', subcategoria_label: c.subcategoria_label || '', topico_label: c.topico_label || '', conteudo: c.conteudo || '', review_sources: c.review_sources || '', imagens: c.imagens || [], is_custom: true });
     setEditId(c.id);
     setShowForm(true);
   };
@@ -372,7 +372,7 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = ev => setForm(f => ({ ...f, conteudo: ev.target.result }));
+    reader.onload = ev => setForm(f => ({ ...f, conteudo: String(ev.target.result) }));
     reader.readAsText(file);
   };
 
@@ -381,7 +381,7 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
     if (!file) return;
     setUploadingImg(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await services.uploads.create({ file });
       setForm(f => ({ ...f, imagens: [...(f.imagens || []), file_url], conteudo: f.conteudo + `\n![${file.name}](${file_url})\n` }));
       show('Imagem anexada!');
     } catch { show('Erro ao enviar imagem', 'error'); }
@@ -395,13 +395,19 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
     setSaving(true);
     try {
       const cat = allCatOptions.find(c => c.label === form.categoria_label);
-      const data = { ...form, categoria_id: cat ? (cat.categoria_id || slugify(cat.label)) : slugify(form.categoria_label), categoria_icon: cat?.icon || form.categoria_icon, categoria_color: cat?.color || form.categoria_color, subcategoria_id: form.subcategoria_label ? slugify(form.subcategoria_label) : '', topico_id: slugify(form.topico_label) };
+      const data = { ...form, categoria_id: cat ? (('categoria_id' in cat ? cat.categoria_id : null) || slugify(cat.label)) : slugify(form.categoria_label), categoria_icon: cat?.icon || form.categoria_icon, categoria_color: cat?.color || form.categoria_color, subcategoria_id: form.subcategoria_label ? slugify(form.subcategoria_label) : '', topico_id: slugify(form.topico_label) };
+      const canonicalCat = CONDUTAS_CATEGORIAS.find(item => item.label === form.categoria_label);
+      const canonicalSub = canonicalCat?.subcategorias.find(item => item.label === form.subcategoria_label);
+      const canonicalTopic = canonicalSub?.topicos.find(item => item.label === form.topico_label);
+      if (canonicalCat) data.categoria_id = canonicalCat.id;
+      if (canonicalSub) data.subcategoria_id = canonicalSub.id;
+      if (canonicalTopic) data.topico_id = canonicalTopic.id;
       if (editId) {
-        await base44.entities.Conduta.update(editId, data);
-        show('Conduta atualizada!');
+        await services.contents.update(editId, data);
+        show('Rascunho atualizado. Revise antes de publicar.');
       } else {
-        await base44.entities.Conduta.create(data);
-        show('Conduta criada!');
+        await services.contents.create(data);
+        show('Rascunho criado. Ainda não está público.');
       }
       setShowForm(false);
       setForm(emptyForm);
@@ -411,9 +417,16 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
     finally { setSaving(false); }
   };
 
+  const changePublication = async (entry) => {
+    const next = entry.publication_status === 'draft' ? 'published' : 'draft';
+    if (next === 'published' && !confirm('Confirmo que revisei o conteúdo clínico e suas referências e desejo publicá-lo.')) return;
+    try { await services.contents.update(entry.id, { publication_status: next }); await onSaved(); show(next === 'published' ? 'Conduta publicada.' : 'Conduta retirada de publicação.'); }
+    catch (error) { show(error.message, 'error'); }
+  };
+
   const handleDelete = async (id) => {
     if (!confirm('Excluir esta conduta?')) return;
-    await base44.entities.Conduta.delete(id);
+    await services.contents.delete(id);
     show('Excluída!');
     onSaved();
   };
@@ -443,6 +456,8 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold">{c.publication_status === 'draft' ? 'Rascunho' : 'Publicado'}</span>
+              <button onClick={() => changePublication(c)} disabled={c.publication_status === 'draft' && (!c.review_sources?.trim() || !c.conteudo?.trim())} className="text-xs border rounded-lg px-2 py-2 disabled:opacity-40">{c.publication_status === 'draft' ? 'Revisar e publicar' : 'Retirar publicação'}</button>
               {c.conteudo && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">✓ MD</span>}
               {c.imagens?.length > 0 && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">{c.imagens.length} img</span>}
               <button onClick={() => startEdit(c)} className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-all"><Edit3 className="w-3.5 h-3.5" /></button>
@@ -509,6 +524,10 @@ function CondutasSection({ condutas, categorias, onSaved, prefill }) {
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest block">Conteúdo Markdown</label>
                 <span className="text-xs text-muted-foreground">{form.conteudo.length} chars</span>
               </div>
+              <label className="field-label mb-4">Referências da revisão (livro, edição, capítulo/página e fontes complementares)
+                <textarea rows={3} value={form.review_sources} onChange={e => setForm(f => ({ ...f, review_sources: e.target.value }))} className="border rounded-xl p-3" />
+              </label>
+              <p className="review-note">Salvar cria ou atualiza um rascunho. A publicação exige uma ação separada após a revisão clínica.</p>
               <textarea value={form.conteudo} onChange={e => setForm(f => ({ ...f, conteudo: e.target.value }))}
                 rows={10}
                 placeholder={"## Título\n\nConteúdo em Markdown...\n\n| Col 1 | Col 2 |\n|---|---|\n| Valor | Valor |"}
@@ -557,13 +576,13 @@ export default function Admin() {
   const [condutasPrefill, setCondutasPrefill] = useState(null);
 
   useEffect(() => {
-    base44.auth.me().then(u => { setUser(u); setLoading(false); }).catch(() => setLoading(false));
+    services.auth.me().then(u => { setUser(u); setLoading(false); }).catch(() => setLoading(false));
   }, []);
 
   const loadData = async () => {
     const [cats, conds] = await Promise.all([
-      base44.entities.CategoriaCustom.list(),
-      base44.entities.Conduta.list(),
+      services.categories.list(),
+      services.contents.list(),
     ]);
     setCategorias(cats);
     setCondutas(conds);
@@ -584,7 +603,7 @@ export default function Admin() {
         <AlertTriangle className="w-10 h-10 text-amber-500" />
         <p className="text-base font-bold text-foreground">Acesso Restrito</p>
         <p className="text-sm text-muted-foreground">Esta área é exclusiva para administradores.</p>
-        <button onClick={() => base44.auth.redirectToLogin()} className="px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-bold">Entrar como Admin</button>
+        <button onClick={() => services.auth.redirectToLogin()} className="px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-bold">Entrar como Admin</button>
       </div>
     );
   }
@@ -602,15 +621,15 @@ export default function Admin() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 pb-12">
+    <div className="page-surface max-w-4xl mx-auto px-4 py-6 pb-12">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-slate-800 to-slate-950 text-white rounded-2xl p-6 mb-6 shadow-lg relative overflow-hidden">
+        className="score-banner mb-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         <div className="relative">
-          <p className="text-xs font-bold text-white/40 uppercase tracking-widest mb-1.5">Painel de Controle</p>
+          <p className="text-xs font-bold text-white/80 uppercase tracking-widest mb-1.5">Painel de Controle</p>
           <h1 className="text-2xl font-extrabold">Administração · PedBox</h1>
-          <p className="text-white/50 text-sm mt-1">Gerencie protocolos, condutas, links e categorias</p>
+          <p className="text-white/80 text-sm mt-1">Gerencie protocolos, condutas, links e categorias</p>
           <div className="flex gap-2 mt-4 flex-wrap">
             {[
               { label: 'Condutas', val: condutas.length, color: 'bg-blue-500/20 text-blue-300' },

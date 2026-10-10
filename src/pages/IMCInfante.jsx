@@ -95,7 +95,7 @@ function InfantChart({ type, sex, ageMon, value, label, unit, yLabel }) {
   );
 }
 
-function ResultCard({ icon: Icon, title, z, percentile, category }) {
+function ResultCard({ icon: Icon, title, z, percentile, category = undefined }) {
   return (
     <div className="bg-white border border-border rounded-2xl p-4 shadow-sm flex items-start gap-3">
       <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0">
@@ -141,7 +141,7 @@ export default function IMCInfante() {
   const [form, setForm] = useState({
     birthDate: '',
     measureDate: today(),
-    sex: 'M',
+    sex: /** @type {'M'|'F'} */ ('M'),
     length: '',
     weight: '',
     hc: '',
@@ -183,7 +183,7 @@ export default function IMCInfante() {
   };
 
   const handleReset = () => {
-    setForm({ birthDate: '', measureDate: today(), sex: 'M', length: '', weight: '', hc: '' });
+    setForm({ birthDate: '', measureDate: today(), sex: /** @type {'M'|'F'} */ ('M'), length: '', weight: '', hc: '' });
     setResult(null);
     setError('');
   };
@@ -319,6 +319,8 @@ export default function IMCInfante() {
                   <ResultCard icon={TrendingUp} title="Peso/Comprimento" z={result.wflR.z} percentile={result.wflR.percentile} />
                   {result.hcR && <ResultCard icon={Activity} title="PC/Idade" z={result.hcR.z} percentile={result.hcR.percentile} />}
                 </div>
+
+                {result.wflR.percentile == null && <p role="status" className="text-sm text-muted-foreground">Peso/comprimento indisponível: a medida está fora dos limites da tabela CDC. Não foi extrapolado um percentil.</p>}
 
                 {/* Charts */}
                 <InfantChart type="length" sex={result.sex} ageMon={result.ageMonths} value={result.len} label="Comprimento por Idade" unit="cm" yLabel="Comp. (cm)" />

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ChevronRight, Trash2 } from 'lucide-react';
+import { Star, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePageFavorites, ALL_PAGES } from '@/hooks/usePageFavorites.jsx';
 import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';
@@ -17,7 +17,7 @@ export default function Favoritos() {
   const isEmpty = favPages.length === 0 && favDrugs.length === 0;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-2xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2.5 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-xl shadow-md">

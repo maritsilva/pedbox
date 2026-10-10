@@ -163,7 +163,7 @@ export default function DrogasEmergencia() {
   });
 
   return (
-    <div className="max-w-4xl mx-auto px-3 py-6">
+    <div className="page-surface max-w-4xl mx-auto px-4 py-6">
       {/* Header */}
       <div className="bg-gradient-to-br from-red-500 to-rose-700 rounded-2xl p-5 text-white mb-5">
         <div className="flex items-center gap-3 mb-1">

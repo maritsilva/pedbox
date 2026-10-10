@@ -1,3 +1,4 @@
+import { CALCULATORS, normalizeSearch } from './calculatorRegistry';
 // ============================================================
 // BUSCA UNIVERSAL — indexa todos os módulos do site
 // ============================================================
@@ -28,6 +29,9 @@ const TOOLS_INDEX = [
   { label: 'Pressão Arterial Pediátrica',path: '/pressao-arterial',        icon: '❤️', desc: 'Valores de referência por percentil e idade' },
   { label: 'Perímetro Cefálico',         path: '/perimetro-cefalico',       icon: '🔵', desc: 'Percentis e avaliação do crescimento craniano' },
   { label: 'Alvo Parental',              path: '/alvo-parental',            icon: '📐', desc: 'Estimativa da altura adulta esperada' },
+  { label: 'Icterícia neonatal', path: '/ictericia', icon: '☀️', desc: 'Bilirrubina, fototerapia e exames seriados — AAP 2022' },
+  { label: 'Horas de vida', path: '/horas-de-vida', icon: '🕒', desc: 'Horas desde o nascimento, horário atual ou escolhido' },
+  { label: 'Idade gestacional', path: '/idade-gestacional', icon: '📅', desc: 'Gestação pela DUM, ultrassom, DPP ou FIV' },
   { label: 'IG Corrigida',               path: '/idade-gestacional-corrigida', icon: '🍼', desc: 'Idade gestacional corrigida para prematuros' },
   { label: 'Wood-Downes',                path: '/wood-downes',              icon: '🫁', desc: 'Classificação de gravidade da bronquiolite' },
   { label: 'PRAM',                       path: '/pram',                     icon: '💨', desc: 'Pontuação de risco em asma pediátrica' },
@@ -62,12 +66,12 @@ const TOOLS_INDEX = [
  */
 export function universalSearch(query, limit = 30) {
   if (!query || query.trim().length < 2) return [];
-  const q = query.toLowerCase().trim();
+  const q = normalizeSearch(query);
   const results = [];
 
   // 1. Ferramentas / páginas
-  for (const t of TOOLS_INDEX) {
-    if (t.label.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)) {
+  for (const t of [...CALCULATORS, ...TOOLS_INDEX.filter(t => !CALCULATORS.some(c => c.path === t.path))]) {
+    if (normalizeSearch(t.label).includes(q) || normalizeSearch(t.desc).includes(q)) {
       results.push({ label: t.label, desc: t.desc, path: t.path, icon: t.icon, type: 'tool' });
     }
   }

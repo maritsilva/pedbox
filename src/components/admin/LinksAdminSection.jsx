@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit3, Trash2, X, Check, Save, Link as LinkIcon, ExternalLink, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 
 function useToast() {
   const [toast, setToast] = useState(null);
@@ -40,7 +40,7 @@ export default function LinksAdminSection() {
   }, []);
 
   const load = async () => {
-    const data = await base44.entities.LinkBiblioteca.list('-created_date');
+    const data = await services.libraryLinks.list('-created_date');
     setLinks(data);
     setLoading(false);
   };
@@ -62,11 +62,11 @@ export default function LinksAdminSection() {
     setSaving(true);
     try {
       if (editId) {
-        await base44.entities.LinkBiblioteca.update(editId, form);
+        await services.libraryLinks.update(editId, form);
         setLinks(prev => prev.map(l => l.id === editId ? { ...l, ...form } : l));
         show('Link atualizado!');
       } else {
-        const created = await base44.entities.LinkBiblioteca.create(form);
+        const created = await services.libraryLinks.create(form);
         setLinks(prev => [created, ...prev]);
         show('Link criado!');
       }
@@ -78,7 +78,7 @@ export default function LinksAdminSection() {
 
   const handleDelete = async (id) => {
     if (!confirm('Excluir este link?')) return;
-    await base44.entities.LinkBiblioteca.delete(id);
+    await services.libraryLinks.delete(id);
     setLinks(prev => prev.filter(l => l.id !== id));
     show('Link excluído!');
   };

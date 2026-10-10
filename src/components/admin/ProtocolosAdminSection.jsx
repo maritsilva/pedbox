@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit3, Eye, FlaskConical, ExternalLink, Search, ChevronRight, Tag, AlertCircle } from 'lucide-react';
+import { Eye, FlaskConical, Search, Tag, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const PROTOCOLS = [

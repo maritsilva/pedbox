@@ -19,7 +19,7 @@ export default function ScoreLayout({
   children 
 }) {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-7xl mx-auto px-4 py-8">
       {/* Back button */}
       {onBack && (
         <button 
@@ -38,7 +38,7 @@ export default function ScoreLayout({
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`${color} text-white rounded-3xl p-8 shadow-lg relative overflow-hidden`}
+            className={`score-banner relative overflow-hidden`}
           >
             {/* Background decoration */}
             <div className="absolute top-4 right-6 opacity-20">

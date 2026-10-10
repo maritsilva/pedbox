@@ -1,10 +1,8 @@
-import { useState, useEffect, useContext, createContext } from 'react';
-import { base44 } from '@/api/base44Client';
+import { CALCULATORS } from '@/lib/calculatorRegistry';
+import { createContext, useContext } from 'react';
+import { useFavoriteCollection } from './useFavoriteCollection';
 
-const KEY = 'pedbox_page_favorites';
-
-// Catalog of all favoritable pages/tools
-export const ALL_PAGES = [
+const LEGACY_PAGES = [
   { path: '/dosagens',            label: 'Dosagens — Cálculo Rápido',       icon: '⚡', desc: 'Calcule doses por peso instantaneamente' },
   { path: '/guia',                label: 'Guia de Medicamentos',             icon: '📖', desc: 'Doses, preparo e apresentações' },
   { path: '/protocolos',          label: 'Protocolos Clínicos',             icon: '🧪', desc: 'Fluxogramas passo a passo' },
@@ -32,61 +30,22 @@ export const ALL_PAGES = [
   { path: '/vacinas',             label: 'Vacinas',                         icon: '💉', desc: 'Calendário vacinal' },
 ];
 
+export const ALL_PAGES = [...CALCULATORS, ...LEGACY_PAGES.filter(p => !CALCULATORS.some(c => c.path === p.path))];
+
 const PageFavoritesContext = createContext(null);
-
 export function PageFavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-
-  // Carregar favoritos do servidor ao montar
-  useEffect(() => {
-    const loadFavorites = async () => {
-      try {
-        const user = await base44.auth.me();
-        if (user) {
-          const favoritos = await base44.entities.Favorito.list();
-          setFavorites(favoritos.map(f => f.chave));
-        }
-      } catch (e) {
-        console.error('Erro ao carregar favoritos:', e);
-      }
-      setLoaded(true);
-    };
-    loadFavorites();
-  }, []);
-
-  const isFavorite = (key) => favorites.includes(key);
-
-  const toggleFavorite = async (key) => {
-    try {
-      const isFav = favorites.includes(key);
-      
-      if (isFav) {
-        // Remover do servidor
-        const existing = await base44.entities.Favorito.filter({ chave: key });
-        if (existing.length > 0) {
-          await base44.entities.Favorito.delete(existing[0].id);
-        }
-        setFavorites(prev => prev.filter(p => p !== key));
-      } else {
-        // Adicionar ao servidor
-        await base44.entities.Favorito.create({ chave: key, tipo: 'ferramenta' });
-        setFavorites(prev => [...prev, key]);
-      }
-    } catch (e) {
-      console.error('Erro ao salvar favorito:', e);
-    }
+  const state = useFavoriteCollection('ferramenta');
+  const notes = useFavoriteCollection('anotacao');
+  const favPages = ALL_PAGES.filter(page => state.favorites.includes(page.path));
+  const favorites = [...new Set([...state.favorites, ...notes.favorites])];
+  // Older versions stored note favorites as tools. Keep those readable/removable,
+  // while new notes use their own type, without silently rewriting imported data.
+  const toggleFavorite = key => {
+    if (!key.startsWith('anotacao-')) return state.toggleFavorite(key);
+    if (state.isFavorite(key)) return state.toggleFavorite(key);
+    return notes.toggleFavorite(key);
   };
-
-  const favPages = ALL_PAGES.filter(p => favorites.includes(p.path));
-
-  return (
-    <PageFavoritesContext.Provider value={{ favorites, isFavorite, toggleFavorite, favPages, loaded }}>
-      {children}
-    </PageFavoritesContext.Provider>
-  );
+  return <PageFavoritesContext.Provider value={{ favorites, favPages, loaded: state.loaded && notes.loaded,
+    isFavorite: key => favorites.includes(key), toggleFavorite }}>{children}</PageFavoritesContext.Provider>;
 }
-
-export function usePageFavorites() {
-  return useContext(PageFavoritesContext);
-}
+export function usePageFavorites() { return useContext(PageFavoritesContext); }

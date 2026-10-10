@@ -1,9 +1,10 @@
+import { toast } from 'sonner';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, LogOut, ChevronLeft } from 'lucide-react';
+import { AlertTriangle, LogOut } from 'lucide-react';
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Settings() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const me = await base44.auth.me();
+        const me = await services.auth.me();
         setUser(me);
       } catch (error) {
         navigate('/');
@@ -30,16 +31,16 @@ export default function Settings() {
     setDeleting(true);
     try {
       // Call delete endpoint or function
-      await base44.asServiceRole.functions.invoke('deleteUserAccount', {});
-      await base44.auth.logout('/');
+      await services.auth.deleteAccount();
+      await services.auth.logout('/');
     } catch (error) {
-      console.error('Error deleting account:', error);
+      toast.error(error.message);
       setDeleting(false);
     }
   };
 
   const handleLogout = async () => {
-    await base44.auth.logout('/');
+    await services.auth.logout('/');
   };
 
   if (loading) {
@@ -57,26 +58,13 @@ export default function Settings() {
       exit={{ opacity: 0, y: -10 }}
       className="min-h-screen bg-background"
     >
-      {/* Mobile Header */}
-      <div className="md:hidden sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-border">
-        <div className="flex items-center gap-3 px-4 h-12">
-          <button
-            onClick={() => navigate(-1)}
-            className="p-2 rounded-lg hover:bg-secondary select-none"
-            style={{ WebkitTouchCallout: 'none', userSelect: 'none' }}
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <h1 className="text-lg font-bold">Configurações</h1>
-        </div>
-      </div>
+      <header className="clinical-page page-heading !pb-5 !mb-0">
+        <p className="eyebrow">Sua conta</p>
+        <h1>Configurações</h1>
+        <p>Gerencie seu acesso e suas preferências.</p>
+      </header>
 
-      {/* Desktop Header */}
-      <div className="hidden md:block px-6 py-8">
-        <h1 className="text-3xl font-bold">Configurações</h1>
-      </div>
-
-      <div className="max-w-2xl mx-auto px-4 md:px-6 py-6 space-y-6">
+      <div className="page-surface max-w-2xl mx-auto px-4 md:px-6 py-6 space-y-6">
         {/* User Info */}
         {user && (
           <motion.div
@@ -149,7 +137,7 @@ export default function Settings() {
           ) : (
             <div className="space-y-3">
               <p className="text-sm font-semibold text-red-900 dark:text-red-100">
-                Tem certeza? Todos seus dados serão apagados permanentemente.
+                Tem certeza? Seu perfil, favoritos, anotações e conversas no PedBox serão apagados. Sua conta no provedor de login permanece disponível.
               </p>
               <div className="flex gap-2">
                 <Button

@@ -1,0 +1,9 @@
+{
+  "source": "bmi-boys-perc-who2007-exp.xlsx",
+  "sha256": "d76b455cc3d728660bc3869c03c00c6be81f641a99ceb18240b8931ec3494c16",
+  "compared_points": 392,
+  "maximum_absolute_difference_kg_m2": 0.0006999999999983686,
+  "api_engine": "4.6.4",
+  "reference": "who",
+  "note": "Male BMI WHO 2007 only; this does not validate all measures, sexes or ages."
+}

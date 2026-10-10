@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Arrow({ label }) {
+function Arrow({ label = undefined }) {
   return (
     <div className="flex flex-col items-center py-1">
       <div className="w-0.5 h-4 bg-gray-400" />

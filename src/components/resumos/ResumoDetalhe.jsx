@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, BookMarked, Tag } from 'lucide-react';
+import { ChevronLeft, BookMarked } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const CATEGORIA_COLORS = {

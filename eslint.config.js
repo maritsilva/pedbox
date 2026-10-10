@@ -5,6 +5,13 @@ import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 
 export default [
+  { ignores: ['node_modules/**', 'dist/**', '.data/**', 'test-results/**', 'playwright-report/**'] },
+  {
+    files: ['server/**/*.js', 'scripts/**/*.js', 'tests/**/*.js', 'playwright.config.js'],
+    ...pluginJs.configs.recommended,
+    languageOptions: { globals: { ...globals.node, ...globals.browser }, ecmaVersion: 2022, sourceType: 'module' },
+    rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }] },
+  },
   {
     files: [
       "src/components/**/*.{js,mjs,cjs,jsx}",

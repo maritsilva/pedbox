@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wind, CheckCircle2, Circle, RefreshCw, Activity } from 'lucide-react';
+import { CheckCircle2, Circle, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CRITERIA = [
@@ -41,8 +41,9 @@ const CRITERIA = [
     icon: '👂',
     options: [
       { label: 'Normal', value: 0 },
-      { label: 'Diminuída', value: 1 },
-      { label: 'Muito diminuída / ausente', value: 2 },
+      { label: 'Diminuída nas bases', value: 1 },
+      { label: 'Diminuída difusamente', value: 2 },
+      { label: 'Mínima ou ausente', value: 3 },
     ],
   },
   {
@@ -171,13 +172,13 @@ export default function PRAM() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-16">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="page-surface max-w-7xl mx-auto px-4 py-8">
 
         {/* Header card */}
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-sky-500 to-blue-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+          className="score-banner relative overflow-hidden mb-8"
         >
           <div className="absolute top-4 right-6 opacity-20">
             <div className="text-6xl">{CLASSIFICATIONS[0].emoji}</div>

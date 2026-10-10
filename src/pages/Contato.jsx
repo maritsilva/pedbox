@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, BookOpen, Share2, Zap, Users, Heart, AlertCircle, Copy, ExternalLink, Globe, Star, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
@@ -50,11 +50,7 @@ export default function Contato() {
       outro: 'Outro'
     };
     try {
-      await base44.integrations.Core.SendEmail({
-        to: 'dramarinasilvaped@gmail.com',
-        subject: `[PedBox Contato] ${reasonLabels[formData.reason] || formData.reason} — ${formData.name}`,
-        body: `Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonLabels[formData.reason] || formData.reason}\n\nMensagem:\n${formData.message}`
-      });
+      await services.contact.send(formData);
       setSubmitted(true);
       setTimeout(() => {
         setFormData({ name: '', email: '', institution: '', reason: '', message: '' });
@@ -71,7 +67,7 @@ export default function Contato() {
     <div className="bg-white min-h-screen">
 
       {/* ── HERO ── */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
+      <section className="score-banner max-w-6xl mx-auto mt-6 overflow-hidden relative">
         {/* Decorative circles */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4 pointer-events-none" />
@@ -80,13 +76,13 @@ export default function Contato() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="relative max-w-5xl mx-auto px-6 py-24 text-center">
+          className="relative max-w-5xl mx-auto px-2 py-8 sm:py-12">
           
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-6 backdrop-blur-sm">
             <Globe className="w-3.5 h-3.5" />
             Projeto educacional aberto
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-6">
             Conhecimento médico<br />
             deve ser{' '}
             <span className="relative inline-block">
@@ -119,7 +115,7 @@ export default function Contato() {
       {/* ── PROPÓSITO ── */}
       <motion.section
         variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}
-        className="max-w-4xl mx-auto px-6 py-20">
+        className="page-surface max-w-4xl mx-auto px-6 py-12">
         
         <motion.div variants={item} className="flex flex-col lg:flex-row gap-8 items-start">
           <div className="lg:w-1/3">
@@ -317,7 +313,7 @@ export default function Contato() {
 
               <div>
                 <label className="block text-sm font-semibold text-foreground mb-1.5">Mensagem</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} required rows="5"
+                <textarea name="message" value={formData.message} onChange={handleChange} required rows={5}
               className="w-full px-4 py-3 rounded-xl border border-border bg-slate-50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all resize-none text-sm"
               placeholder="Conte-nos mais..." />
               

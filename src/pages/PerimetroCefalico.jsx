@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Ruler, RefreshCw, CheckCircle2, AlertTriangle, Info } from 'lucide-react';
+import { Ruler, RefreshCw, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const HEAD_DATA = {
@@ -66,7 +66,7 @@ export default function PerimetroCefalico() {
     if (!val || !birthDate) return;
     const birth = new Date(birthDate);
     const now = new Date();
-    const months = Math.floor((now - birth) / (1000*60*60*24*30.4375));
+    const months = Math.floor((now.getTime() - birth.getTime()) / (1000*60*60*24*30.4375));
     if (months < 0 || months > 36) return;
     const key = getClosestKey(months);
     const refs = HEAD_DATA[sex][key];
@@ -84,7 +84,7 @@ export default function PerimetroCefalico() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 pb-16">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="page-surface max-w-2xl mx-auto px-4 py-8">
 
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
@@ -101,7 +101,7 @@ export default function PerimetroCefalico() {
 
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2">Perímetro Cefálico (cm)</label>
-            <input type="number" step="0.1" value={pc} onChange={e => setResult(null) || setPc(e.target.value)}
+            <input type="number" step="0.1" value={pc} onChange={e => { setResult(null); setPc(e.target.value); }}
               placeholder="Ex: 35.5"
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-teal-400 transition text-sm" />
           </div>

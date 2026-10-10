@@ -30,3 +30,12 @@ dist-ssr
 .env
 .vite
 base44/.app.jsonc
+
+!.env.example
+.data/
+exports/
+playwright-report/
+test-results/
+
+# Generated visual QA screenshots
+artifacts/

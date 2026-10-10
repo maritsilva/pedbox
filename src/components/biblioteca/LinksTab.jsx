@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, ExternalLink, Trash2, Edit2, X, Check, Link as LinkIcon, Star } from 'lucide-react';
+import { Plus, ExternalLink, Trash2, Edit2, Check, Link as LinkIcon, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 
-function LinkForm({ initial, onSave, onCancel }) {
+function LinkForm({ initial = null, onSave, onCancel }) {
   const [titulo, setTitulo] = useState(initial?.titulo || '');
   const [url, setUrl] = useState(initial?.url || '');
   const [descricao, setDescricao] = useState(initial?.descricao || '');
@@ -74,8 +74,8 @@ export default function LinksTab({ search = '' }) {
   const { isFavorite, toggleFavorite } = usePageFavorites();
 
   useEffect(() => {
-    base44.auth.me().then(u => { if (u?.role === 'admin') setIsAdmin(true); }).catch(() => {});
-    base44.entities.LinkBiblioteca.list('-created_date').then(data => {
+    services.auth.me().then(u => { if (u?.role === 'admin') setIsAdmin(true); }).catch(() => {});
+    services.libraryLinks.list('-created_date').then(data => {
       setLinks(data);
       setLoading(false);
     }).catch(() => setLoading(false));
@@ -83,18 +83,18 @@ export default function LinksTab({ search = '' }) {
 
   const handleSave = async (data) => {
     if (editing) {
-      const updated = await base44.entities.LinkBiblioteca.update(editing.id, data);
+      const updated = await services.libraryLinks.update(editing.id, data);
       setLinks(prev => prev.map(l => l.id === editing.id ? { ...l, ...data } : l));
       setEditing(null);
     } else {
-      const created = await base44.entities.LinkBiblioteca.create(data);
+      const created = await services.libraryLinks.create(data);
       setLinks(prev => [created, ...prev]);
       setShowForm(false);
     }
   };
 
   const handleDelete = async (id) => {
-    await base44.entities.LinkBiblioteca.delete(id);
+    await services.libraryLinks.delete(id);
     setLinks(prev => prev.filter(l => l.id !== id));
   };
 

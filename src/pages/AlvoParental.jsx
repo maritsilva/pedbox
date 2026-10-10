@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, Info, AlertTriangle, Ruler } from 'lucide-react';
+import { TrendingUp, Info, Ruler } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AlvoParental() {
@@ -35,7 +35,7 @@ export default function AlvoParental() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 pb-12">
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-2xl mx-auto px-4 py-8">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-2">

@@ -1,8 +1,8 @@
+import PageHeader from '@/components/PageHeader';
 import React, { useState, useEffect, useMemo } from 'react';
 import { ALL_CATEGORIES as GUIDE_CATEGORIES, getAllGuideDrugs } from '@/lib/guideData';
 import { searchDrugs } from '@/lib/searchDrugs';
-import { Search, ChevronRight, ChevronLeft, Star, Zap, LayoutGrid, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Search, ChevronRight, ChevronLeft, Star, LayoutGrid, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrugGuideDetail from '@/components/DrugGuideDetail';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
@@ -105,13 +105,10 @@ export default function Guia() {
 
   // ── Main view ──
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-7xl mx-auto px-4 py-8">
 
       {/* ── HEADER ── */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-foreground mb-1">Bulas</h1>
-        <p className="text-muted-foreground text-sm">Referência clínica completa de medicamentos pediátricos e adultos</p>
-      </div>
+      <PageHeader kind="doses" eyebrow="Medicamentos" title="Bulas" description="Consulte apresentações, indicações e informações dos medicamentos."/>
 
       {/* ── GLOBAL SEARCH ── */}
       <div className="relative mb-6 sm:mb-8">

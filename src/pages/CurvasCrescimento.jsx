@@ -98,7 +98,7 @@ export default function CurvasCrescimento() {
   const [expandedCategory, setExpandedCategory] = useState(null);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-5xl mx-auto px-4 py-8">
       {/* Back button */}
       <button
         onClick={() => navigate('/')}

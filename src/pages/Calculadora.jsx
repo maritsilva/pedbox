@@ -121,7 +121,7 @@ export default function Calculadora() {
   if (selectedCat) {
     const colors = categoryColorMap[selectedCat.color] || categoryColorMap['blue-500'];
     return (
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="page-surface max-w-5xl mx-auto px-4 py-8">
         <button onClick={resetAll} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Todas as Categorias
         </button>
@@ -154,7 +154,7 @@ export default function Calculadora() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-3xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-extrabold text-foreground mb-1">Calculadora de Doses</h1>
         <p className="text-muted-foreground text-sm">Selecione uma categoria ou pesquise um medicamento</p>

@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { Droplets, RotateCcw, Calculator, AlertCircle, Info, Star } from 'lucide-react';
-import { useFavorites } from '@/hooks/useFavorites.jsx';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
 function round(value, decimals) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals);
 }
 
 function calcularExpansao(peso, tipo) {
@@ -83,7 +83,7 @@ export default function Hidratacao() {
    const [resultado, setResultado] = useState(null);
    const [showPerdas, setShowPerdas] = useState(false); // kept for compat
    const resultRef = useRef(null);
-   const { toggleFavorite, isFavorite } = useFavorites();
+   const { toggleFavorite, isFavorite } = usePageFavorites();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -122,9 +122,9 @@ export default function Hidratacao() {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-2xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-cyan-500 to-teal-500 rounded-2xl p-6 text-white mb-8 shadow-lg shadow-cyan-200">
+      <div className="score-banner mb-8">
         <div className="flex items-center gap-3 mb-2 justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-white/20 rounded-xl p-2">

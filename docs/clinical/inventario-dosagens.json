@@ -1,0 +1,6888 @@
+{
+  "scope": "Inventário técnico. Sondagem aritmética usa peso sintético de 10 kg e intervalos cadastrados; não valida população, dose, fonte ou segurança clínica.",
+  "summary": {
+    "drugs": 133,
+    "indications": 208,
+    "indicationsWithTechnicalNotes": 116,
+    "indicationsWithRegisteredReferences": 1,
+    "clinicallyApproved": 0
+  },
+  "indications": [
+    {
+      "drugId": "paracetamol",
+      "drug": "Paracetamol",
+      "indicationId": "analgesia",
+      "indication": "Analgesia / Antitérmico",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 1,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": "Não ultrapassar 4 tomadas em 24 horas. Escolha outro intervalo."
+        },
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [
+        "Não ultrapassar 4 tomadas em 24 horas. Escolha outro intervalo."
+      ],
+      "presentations": [
+        {
+          "label": "Gotas 200 mg/mL (1 gota ≈ 10 mg)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 32 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 100 mg/mL (Bebê)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 750 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "paracetamol",
+      "drug": "Paracetamol",
+      "indicationId": "prematuro",
+      "indication": "Prematuro / Neonato (< 1 mês)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        },
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 100 mg/mL (Bebê)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "ibuprofeno",
+      "drug": "Ibuprofeno",
+      "indicationId": "febre-dor",
+      "indication": "Febre e Dor",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Gotas 50 mg/mL (1 gota = 2,5 mg)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Gotas 100 mg/mL (1 gota = 5 mg)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Xarope 30 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 600 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ibuprofeno",
+      "drug": "Ibuprofeno",
+      "indicationId": "antiinflamatorio",
+      "indication": "Anti-inflamatório (Artrite Juvenil)",
+      "unit": "mg/kg/dia ÷ 3–4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: a faixa cadastrada (20–40 mg/kg/dia) diverge da observação (30–50 mg/kg/dia). O cálculo desta indicação foi desativado até reconciliar a fonte."
+        }
+      ],
+      "issues": [
+        "Em revisão: a faixa cadastrada (20–40 mg/kg/dia) diverge da observação (30–50 mg/kg/dia). O cálculo desta indicação foi desativado até reconciliar a fonte."
+      ],
+      "presentations": [
+        {
+          "label": "Gotas 50 mg/mL (1 gota = 2,5 mg)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Xarope 30 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "dipirona",
+      "drug": "Dipirona",
+      "indicationId": "analgesia-antitermico",
+      "indication": "Analgesia / Antitérmico (> 3 meses)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Gotas 500 mg/mL (25 mg/gota)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Xarope 50 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 500 mg/mL (IM/EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Supositório 300 mg (≥4 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg (≥15 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "dipirona",
+      "drug": "Dipirona",
+      "indicationId": "colica-espasmo",
+      "indication": "Cólica / Espasmo Gastrointestinal",
+      "unit": "mg/kg/dose EV/IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 500 mg/mL (IM/EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "morfina",
+      "drug": "Sulfato de Morfina",
+      "indicationId": "dor-aguda",
+      "indication": "Dor Aguda Moderada a Intensa",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": null
+        },
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 10 mg/mL (IV/IM/SC)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 1 mg/mL (IV diluída)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "codeina",
+      "drug": "Fosfato de Codeína",
+      "indicationId": "dor-moderada",
+      "indication": "Dor Moderada (≥ 12 anos)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": null
+        },
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 30 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução oral 3 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "omeprazol",
+      "drug": "Omeprazol",
+      "indicationId": "drge",
+      "indication": "Refluxo Gastroesofágico / Esofagite Erosiva",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 10 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula 20 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Fr. amp. 40 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ranitidina",
+      "drug": "Ranitidina",
+      "indicationId": "ulcera-refluxo",
+      "indication": "Úlcera / Refluxo",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Xarope 15 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 150 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Ampola 25 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "zinco-diarreia",
+      "drug": "Sulfato de Zinco",
+      "indicationId": "diarreia-aguda",
+      "indication": "Diarreia Aguda (OMS)",
+      "unit": "mg/dia (elemento zinco)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 20 mg (elemento Zn)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução 2 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "loperamida",
+      "drug": "Loperamida",
+      "indicationId": "diarreia",
+      "indication": "Diarreia (> 2 anos)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Cápsula 2 mg (> 2 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução 0,2 mg/mL (> 2 anos)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "ondansetrona",
+      "drug": "Ondansetrona",
+      "indicationId": "nauseas-vomitos",
+      "indication": "Náuseas / Vômitos em Geral",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Solução oral 0,8 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Gotas 8 mg/mL (0,4 mg por gota)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Gotas 4 mg/mL (0,2 mg por gota)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 4 mg (ODT/sublingual)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 8 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Ampola 2 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "ondansetrona",
+      "drug": "Ondansetrona",
+      "indicationId": "quimioterapia",
+      "indication": "Náuseas / Vômitos por Quimioterapia",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 2 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "metoclopramida",
+      "drug": "Metoclopramida",
+      "indicationId": "drge-procinetico",
+      "indication": "DRGE / Procinético",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Solução oral 4 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 5 mg/mL (IM/IV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 10 mg (≥14 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "domperidona",
+      "drug": "Domperidona",
+      "indicationId": "nauseas-refluxo",
+      "indication": "Náuseas / Refluxo",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 10 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "simeticona",
+      "drug": "Simeticona",
+      "indicationId": "gases",
+      "indication": "Alívio de Gases / Distensão / Flatulência",
+      "unit": "mg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Gotas 75 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido mastigável 40 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula 125 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cetirizina",
+      "drug": "Cetirizina",
+      "indicationId": "rinite-urticaria",
+      "indication": "Rinite Alérgica / Urticária",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Solução oral 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 10 mg (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "loratadina",
+      "drug": "Loratadina",
+      "indicationId": "anti-histaminico",
+      "indication": "Anti-histamínico",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Xarope 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 10 mg (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "desloratadina",
+      "drug": "Desloratadina",
+      "indicationId": "rinite-alergica",
+      "indication": "Rinite Alérgica / Urticária",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Xarope 0,5 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Gotas 1,25 mg/mL",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 5 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "fexofenadina",
+      "drug": "Fexofenadina",
+      "indicationId": "urticaria",
+      "indication": "Urticária / Rinite Alérgica",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 6 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 30 mg (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 60 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 120 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 180 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "dexclorfeniramina",
+      "drug": "Dexclorfeniramina",
+      "indicationId": "anti-histaminico",
+      "indication": "Anti-histamínico",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Gotas 2,8 mg/mL",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Xarope 0,4 mg/mL (2 mg/5 mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 2 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "hidroxizina",
+      "drug": "Hidroxizina",
+      "indicationId": "alergia",
+      "indication": "Alergia / Prurido",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Xarope 2 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 25 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "prometazina",
+      "drug": "Prometazina",
+      "indicationId": "nauseas-alergia",
+      "indication": "Náuseas / Vômitos / Alergia",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 25 mg/mL (IM/EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Xarope 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 25 mg (≥2 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "diclofenaco",
+      "drug": "Diclofenaco",
+      "indicationId": "dor-inflamacao",
+      "indication": "Dor / Inflamação",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 25 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 50 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Ampola 75 mg/3 mL (IM)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "nimesulida",
+      "drug": "Nimesulida",
+      "indicationId": "dor-inflamacao",
+      "indication": "Dor / Inflamação (≥ 12 anos)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 100 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 10 mg/mL (≥12 anos)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "meloxicam",
+      "drug": "Meloxicam",
+      "indicationId": "artrite",
+      "indication": "Artrite Juvenil / Dor",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 7,5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 15 mg (≥15 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 1,5 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "naproxeno",
+      "drug": "Naproxeno",
+      "indicationId": "artrite-dor",
+      "indication": "Artrite / Dor",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 25 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "neonato-3m",
+      "indication": "Neonatos e < 3 meses",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "dose-usual",
+      "indication": "> 3 meses — Dose Usual",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 500 mg/5 mL (100 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg (≥40 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "infeccoes-graves",
+      "indication": "Infecções Graves",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 500 mg/5 mL (100 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "otite",
+      "indication": "Otite Média Aguda",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "pneumonia-pneumococo",
+      "indication": "Pneumonia por S. pneumoniae",
+      "unit": "mg/kg/dia ÷ 2 por 7–10 dias",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "pneumonia-hi",
+      "indication": "Pneumonia por H. influenzae",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "endocardite",
+      "indication": "Endocardite",
+      "unit": "mg/kg/dia ÷ 4–6 por 2–4 semanas",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "profilaxia-endocardite",
+      "indication": "Profilaxia de Endocardite",
+      "unit": "mg/kg VO antes do procedimento",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina",
+      "drug": "Amoxicilina",
+      "indicationId": "profilaxia-itu",
+      "indication": "Profilaxia de Infecção do Trato Urinário",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400 mg/5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina-clavulanato",
+      "drug": "Amoxicilina + Clavulanato",
+      "indicationId": "dose-padrao",
+      "indication": "Dose Padrão",
+      "unit": "mg/kg/dia (amox) ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 125+31,25 mg/5 mL (25 mg/mL amox)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 250+62,5 mg/5 mL (50 mg/mL amox)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 400+57 mg/5 mL (80 mg/mL amox)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 500+125 mg (≥40 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 875+125 mg (≥50 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "amoxicilina-clavulanato",
+      "drug": "Amoxicilina + Clavulanato",
+      "indicationId": "dose-alta",
+      "indication": "Dose Alta (OMA resistente / Sinusite)",
+      "unit": "mg/kg/dia (amox) ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 400+57 mg/5 mL (80 mg/mL amox)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "azitromicina",
+      "drug": "Azitromicina",
+      "indicationId": "respiratorio-pele",
+      "indication": "Infecções Respiratórias / Pele / OMA",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Selecione um intervalo de administração para dividir a dose diária."
+        }
+      ],
+      "issues": [
+        "Selecione um intervalo de administração para dividir a dose diária."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200 mg/5 mL (40 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg (≥45 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "azitromicina",
+      "drug": "Azitromicina",
+      "indicationId": "faringite",
+      "indication": "Faringoamigdalite",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200 mg/5 mL (40 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg (≥45 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "azitromicina",
+      "drug": "Azitromicina",
+      "indicationId": "pneumonia-atipica",
+      "indication": "Pneumonia Atípica (Mycoplasma / Clamídia)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200 mg/5 mL (40 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg (≥45 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "azitromicina",
+      "drug": "Azitromicina",
+      "indicationId": "coqueluche",
+      "indication": "Coqueluche (Bordetella pertussis)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Selecione um intervalo de administração para dividir a dose diária."
+        }
+      ],
+      "issues": [
+        "Selecione um intervalo de administração para dividir a dose diária."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200 mg/5 mL (40 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg (≥45 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "claritromicina",
+      "drug": "Claritromicina",
+      "indicationId": "dose-geral",
+      "indication": "Dose Geral",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefalexina",
+      "drug": "Cefalexina",
+      "indicationId": "pele",
+      "indication": "Infecção de Pele / Partes Moles",
+      "unit": "mg/kg/dia ÷ 3–4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefalexina",
+      "drug": "Cefalexina",
+      "indicationId": "itu",
+      "indication": "Infecção do Trato Urinário",
+      "unit": "mg/kg/dia ÷ 3–4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefalexina",
+      "drug": "Cefalexina",
+      "indicationId": "otite-sinusite",
+      "indication": "Otite Média / Sinusite",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ceftriaxona",
+      "drug": "Ceftriaxona",
+      "indicationId": "dose-geral",
+      "indication": "Dose Geral",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 500 mg (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 1000 mg (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ceftriaxona",
+      "drug": "Ceftriaxona",
+      "indicationId": "meningite",
+      "indication": "Meningite Bacteriana",
+      "unit": "mg/kg/dia ÷ 1–2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ceftriaxona",
+      "drug": "Ceftriaxona",
+      "indicationId": "sepse-neonatal",
+      "indication": "Sepse Neonatal",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ceftriaxona",
+      "drug": "Ceftriaxona",
+      "indicationId": "pneumonia",
+      "indication": "Pneumonia Grave",
+      "unit": "mg/kg/dia ÷ 1–2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ceftriaxona",
+      "drug": "Ceftriaxona",
+      "indicationId": "gonorreia",
+      "indication": "Gonorreia / DST",
+      "unit": "mg — dose única IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 1000 mg (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "vancomicina",
+      "drug": "Vancomicina",
+      "indicationId": "mrsa-neonatal",
+      "indication": "Infecção por MRSA — Neonatal (≤ 1 mês)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Pó injetável 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "vancomicina",
+      "drug": "Vancomicina",
+      "indicationId": "mrsa-crianca",
+      "indication": "Infecção por MRSA — Criança",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Pó injetável 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Pó injetável 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "vancomicina",
+      "drug": "Vancomicina",
+      "indicationId": "meningite-mrsa",
+      "indication": "Meningite por MRSA / Pneumococo Resistente",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Pó injetável 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Pó injetável 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "vancomicina",
+      "drug": "Vancomicina",
+      "indicationId": "endocardite-mrsa",
+      "indication": "Endocardite por MRSA",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Pó injetável 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "sulfametoxazol-tmp",
+      "drug": "Sulfametoxazol + Trimetoprim",
+      "indicationId": "itu",
+      "indication": "Infecção do Trato Urinário",
+      "unit": "mg/kg/dia de TMP ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200+40 mg/5 mL (8 mg TMP/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 400+80 mg (80 mg TMP)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. Forte 800+160 mg (160 mg TMP)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "sulfametoxazol-tmp",
+      "drug": "Sulfametoxazol + Trimetoprim",
+      "indicationId": "pneumocistose",
+      "indication": "Pneumocistose (PCP) — Tratamento",
+      "unit": "mg/kg/dia de TMP ÷ 3–4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200+40 mg/5 mL (8 mg TMP/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. Forte 800+160 mg (160 mg TMP)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "sulfametoxazol-tmp",
+      "drug": "Sulfametoxazol + Trimetoprim",
+      "indicationId": "profilaxia-pcp",
+      "indication": "Profilaxia de Pneumocistose",
+      "unit": "mg/kg/dia de TMP",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Selecione um intervalo de administração para dividir a dose diária."
+        }
+      ],
+      "issues": [
+        "Selecione um intervalo de administração para dividir a dose diária."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 200+40 mg/5 mL (8 mg TMP/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 400+80 mg (80 mg TMP)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metronidazol",
+      "drug": "Metronidazol",
+      "indicationId": "giardíase",
+      "indication": "Giardíase",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 40 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Ampola 500 mg/100 mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "metronidazol",
+      "drug": "Metronidazol",
+      "indicationId": "anaerobios",
+      "indication": "Infecções por Anaeróbios",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Ampola 500 mg/100 mL (EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metronidazol",
+      "drug": "Metronidazol",
+      "indicationId": "amebíase",
+      "indication": "Amebíase Intestinal / Hepática",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 40 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Ampola 500 mg/100 mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "metronidazol",
+      "drug": "Metronidazol",
+      "indicationId": "trichomonas-vaginose",
+      "indication": "Tricomoníase / Vaginose Bacteriana",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "nitazoxanida",
+      "drug": "Nitazoxanida",
+      "indicationId": "giardia-crypto",
+      "indication": "Giardíase / Criptosporidiose",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 20 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "aciclovir",
+      "drug": "Aciclovir",
+      "indicationId": "varicela",
+      "indication": "Varicela (VO)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 40 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "aciclovir",
+      "drug": "Aciclovir",
+      "indicationId": "encefalite",
+      "indication": "Encefalite Herpética (EV)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 250 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "oseltamivir",
+      "drug": "Oseltamivir",
+      "indicationId": "influenza",
+      "indication": "Influenza — Tratamento",
+      "unit": "mg/kg/dia ÷ 2 por 5 dias",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 6 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 30 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula 45 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula 75 mg (≥40 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "albendazol",
+      "drug": "Albendazol",
+      "indicationId": "enterobiase",
+      "indication": "Enterobíase (Oxiúros)",
+      "unit": "mg — dose única",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 40 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 400 mg mastigável",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "albendazol",
+      "drug": "Albendazol",
+      "indicationId": "ascaridiase",
+      "indication": "Ascaridíase / Ancilostomíase",
+      "unit": "mg — dose única",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 40 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 400 mg mastigável",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "mebendazol",
+      "drug": "Mebendazol",
+      "indicationId": "oxiuros",
+      "indication": "Enterobíase (Oxiúros)",
+      "unit": "mg — dose única",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 20 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "mebendazol",
+      "drug": "Mebendazol",
+      "indicationId": "ascaridiase",
+      "indication": "Ancilostomíase / Ascaridíase",
+      "unit": "mg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 20 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "ivermectina",
+      "drug": "Ivermectina",
+      "indicationId": "ascaridiase",
+      "indication": "Ascaridíase",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 6 mg (> 15 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ivermectina",
+      "drug": "Ivermectina",
+      "indicationId": "sarna",
+      "indication": "Escabiose (Sarna)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 6 mg (> 15 kg)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ambroxol",
+      "drug": "Ambroxol",
+      "indicationId": "mucolitico",
+      "indication": "Mucolítico",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Xarope 3 mg/mL (15 mg/5 mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Xarope 6 mg/mL (30 mg/5 mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Gotas 7,5 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Solução inalatória 7,5 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 30 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "acetilcisteina",
+      "drug": "Acetilcisteína",
+      "indicationId": "mucolitico",
+      "indication": "Mucolítico",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Sachê 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Sachê 600 mg (≥14 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "salbutamol",
+      "drug": "Salbutamol",
+      "indicationId": "broncoespasmo",
+      "indication": "Broncoespasmo Agudo",
+      "unit": "mg/kg/dose (nebulização)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Sol. nebulização 5 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Spray (MDI) 100 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        },
+        {
+          "label": "Xarope 0,4 mg/mL (2 mg/5 mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Sol. injetável 0,5 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fenoterol",
+      "drug": "Fenoterol",
+      "indicationId": "broncoespasmo",
+      "indication": "Broncoespasmo Agudo",
+      "unit": "mg/kg/dose (nebulização)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Sol. nebulização 5 mg/mL (gotas)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Spray (MDI) 100 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "ipratropio",
+      "drug": "Ipratrópio",
+      "indicationId": "asma-grave",
+      "indication": "Asma Grave / Broncoespasmo (associar ao salbutamol)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": null
+        },
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Sol. nebulização 0,25 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Spray (MDI) 20 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "captopril",
+      "drug": "Captopril",
+      "indicationId": "has",
+      "indication": "Hipertensão Arterial",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 12,5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 25 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução 1 mg/mL (manipulada)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "enalapril",
+      "drug": "Enalapril",
+      "indicationId": "has",
+      "indication": "Hipertensão Arterial",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 10 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução 1 mg/mL (manipulada)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "propranolol",
+      "drug": "Propranolol",
+      "indicationId": "has-arritmia",
+      "indication": "HAS / Arritmia / Enxaqueca / Hemangioma",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 10 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 40 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "amlodipino",
+      "drug": "Anlodipino",
+      "indicationId": "has",
+      "indication": "Hipertensão Arterial (≥ 6 anos)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 2,5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "furosemida",
+      "drug": "Furosemida",
+      "indicationId": "edema",
+      "indication": "Edema / Insuficiência Cardíaca",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        },
+        {
+          "intervalHours": 24,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 10 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 40 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução oral 10 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "digoxina",
+      "drug": "Digoxina",
+      "indicationId": "manutencao",
+      "indication": "Dose de Manutenção",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Sol. pediátrica 0,05 mg/mL (50 mcg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 0,25 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "prednisolona",
+      "drug": "Prednisolona",
+      "indicationId": "asma-crise",
+      "indication": "Asma (crise moderada/grave) — < 12 anos",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Selecione um intervalo de administração para dividir a dose diária."
+        }
+      ],
+      "issues": [
+        "Selecione um intervalo de administração para dividir a dose diária."
+      ],
+      "presentations": [
+        {
+          "label": "Solução oral 3 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Gotas 11 mg/mL",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 20 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "prednisolona",
+      "drug": "Prednisolona",
+      "indicationId": "crup",
+      "indication": "Crup (Laringotraqueobronquite)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Solução oral 3 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Gotas 11 mg/mL",
+          "type": "gotas",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "prednisolona",
+      "drug": "Prednisolona",
+      "indicationId": "nefrotico",
+      "indication": "Síndrome Nefrótica",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Solução oral 3 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 20 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "prednisolona",
+      "drug": "Prednisolona",
+      "indicationId": "antiinflamatorio",
+      "indication": "Anti-inflamatório Geral",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Selecione um intervalo de administração para dividir a dose diária."
+        }
+      ],
+      "issues": [
+        "Selecione um intervalo de administração para dividir a dose diária."
+      ],
+      "presentations": [
+        {
+          "label": "Solução oral 3 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 20 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "dexametasona",
+      "drug": "Dexametasona",
+      "indicationId": "antiinflamatorio",
+      "indication": "Anti-inflamatório Geral",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Elixir oral 0,1 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 2 mg/mL (IM/EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 0,5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 4 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "dexametasona",
+      "drug": "Dexametasona",
+      "indicationId": "crup",
+      "indication": "Crup (Laringotraqueobronquite)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Elixir oral 0,1 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 2 mg/mL (IM/EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "dexametasona",
+      "drug": "Dexametasona",
+      "indicationId": "meningite",
+      "indication": "Meningite Bacteriana",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 4 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "dexametasona",
+      "drug": "Dexametasona",
+      "indicationId": "edema-cerebral",
+      "indication": "Edema Cerebral",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 4 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "dexametasona",
+      "drug": "Dexametasona",
+      "indicationId": "broncoespasmo",
+      "indication": "Broncoespasmo / Asma Grave",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 2 mg/mL (IM/EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "budesonida-inalatoria",
+      "drug": "Budesonida (inalatória)",
+      "indicationId": "crup",
+      "indication": "Crup Moderado/Grave",
+      "unit": "mg — dose única (nebulização)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Nebulização 0,5 mg/2 mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Nebulização 1 mg/2 mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "budesonida-inalatoria",
+      "drug": "Budesonida (inalatória)",
+      "indicationId": "asma-manutencao",
+      "indication": "Asma — Manutenção",
+      "unit": "mg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Nebulização 0,25 mg/2 mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Nebulização 0,5 mg/2 mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "hidrocortisona",
+      "drug": "Hidrocortisona",
+      "indicationId": "asma-grave",
+      "indication": "Asma Grave / Anafilaxia / Insuf. Adrenal",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": null
+        },
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 100 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metilprednisolona",
+      "drug": "Metilprednisolona",
+      "indicationId": "asma-grave",
+      "indication": "Asma Grave",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 125 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metilprednisolona",
+      "drug": "Metilprednisolona",
+      "indicationId": "pulsoterapia",
+      "indication": "Pulsoterapia",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "adrenalina-emergencia",
+      "drug": "Adrenalina (Epinefrina)",
+      "indicationId": "anafilaxia",
+      "indication": "Anafilaxia",
+      "unit": "mg/kg/dose IM (1:1.000)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 1 mg/mL — 1:1.000 (IM/SC)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "adrenalina-emergencia",
+      "drug": "Adrenalina (Epinefrina)",
+      "indicationId": "pcr",
+      "indication": "Parada Cardiorrespiratória (PCR)",
+      "unit": "mg/kg/dose EV (1:10.000)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 0,1 mg/mL — 1:10.000 (EV/IO)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "adrenalina-emergencia",
+      "drug": "Adrenalina (Epinefrina)",
+      "indicationId": "crup",
+      "indication": "Crup Grave (nebulização)",
+      "unit": "mg — dose fixa",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 1 mg/mL — 1:1.000 (nebulização)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "diazepam",
+      "drug": "Diazepam",
+      "indicationId": "convulsao",
+      "indication": "Convulsão / Status Epiléptico",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 5 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Solução retal 2 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "diazepam",
+      "drug": "Diazepam",
+      "indicationId": "convulsao-febril",
+      "indication": "Convulsão Febril (dose pré-hospitalar)",
+      "unit": "mg/kg/dose retal",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Solução retal 2 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 5 mg/mL (retal)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "diazepam",
+      "drug": "Diazepam",
+      "indicationId": "espasmo-muscular",
+      "indication": "Espasmo Muscular / Sedação Leve",
+      "unit": "mg/kg/dose VO",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 5 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "midazolam",
+      "drug": "Midazolam",
+      "indicationId": "convulsao",
+      "indication": "Convulsão / Status Epiléptico",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 5 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 1 mg/mL (EV diluído)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "midazolam",
+      "drug": "Midazolam",
+      "indicationId": "sedacao",
+      "indication": "Sedação para Procedimentos",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 5 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Solução oral 2 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "midazolam",
+      "drug": "Midazolam",
+      "indicationId": "sedacao-uti",
+      "indication": "Sedação Contínua em UTI",
+      "unit": "mg/kg/h (infusão EV)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Ampola 5 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fenobarbital",
+      "drug": "Fenobarbital",
+      "indicationId": "status-epileptico",
+      "indication": "Status Epiléptico Refratário (Ataque EV)",
+      "unit": "mg/kg (ataque EV)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 100 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fenobarbital",
+      "drug": "Fenobarbital",
+      "indicationId": "epilepsia-manutencao",
+      "indication": "Epilepsia — Manutenção (VO)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 100 mg (VO)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "fenobarbital",
+      "drug": "Fenobarbital",
+      "indicationId": "hiperbilirrubinemia",
+      "indication": "Hiperbilirrubinemia Neonatal (indutor enzimático)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 100 mg (VO)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "adenosina",
+      "drug": "Adenosina",
+      "indicationId": "tsv",
+      "indication": "Taquicardia Supraventricular (TSV)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 3 mg/mL (2 mL = 6 mg)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "glicose-hipoglicemia",
+      "drug": "Glicose (Hipoglicemia)",
+      "indicationId": "hipoglicemia",
+      "indication": "Hipoglicemia Aguda",
+      "unit": "g/kg EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Unidade sem conversão segura cadastrada."
+        }
+      ],
+      "issues": [
+        "Unidade sem conversão segura cadastrada."
+      ],
+      "presentations": [
+        {
+          "label": "SG 10% (0,1 g/mL) — usar 2,5 mL/kg",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "SG 25% (0,25 g/mL) — usar 1 mL/kg",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "polietilenoglicol",
+      "drug": "Polietilenoglicol (PEG)",
+      "indicationId": "constipacao",
+      "indication": "Constipação Funcional — Manutenção",
+      "unit": "g/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Unidade sem conversão segura cadastrada."
+        }
+      ],
+      "issues": [
+        "Unidade sem conversão segura cadastrada."
+      ],
+      "presentations": [
+        {
+          "label": "Sachê 17 g",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "lactulose",
+      "drug": "Lactulose",
+      "indicationId": "constipacao",
+      "indication": "Constipação",
+      "unit": "mL/kg/dia ÷ 1–2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Unidade sem conversão segura cadastrada."
+        }
+      ],
+      "issues": [
+        "Unidade sem conversão segura cadastrada."
+      ],
+      "presentations": [
+        {
+          "label": "Xarope 66,7% (667 mg/mL)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "bisacodil",
+      "drug": "Bisacodil",
+      "indicationId": "constipacao",
+      "indication": "Constipação",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comprimido 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Supositório 5 mg (< 12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Supositório 10 mg (≥ 12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "saccharomyces",
+      "drug": "Saccharomyces boulardii",
+      "indicationId": "diarreia",
+      "indication": "Diarreia Aguda / Prevenção com ATB",
+      "unit": "mg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Sachê 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metilfenidato",
+      "drug": "Metilfenidato",
+      "indicationId": "tdah",
+      "indication": "TDAH (≥ 6 anos)",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 5 mg (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 10 mg (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. LP 18 mg — Concerta (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. LP 36 mg — Concerta (≥6 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "risperidona",
+      "drug": "Risperidona",
+      "indicationId": "autismo",
+      "indication": "Irritabilidade / Autismo",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 1 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 2 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução oral 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "vitamina-d3",
+      "drug": "Vitamina D3 (Colecalciferol)",
+      "indicationId": "profilaxia",
+      "indication": "Profilaxia (Lactentes)",
+      "unit": "UI/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Gotas 200 UI/gota",
+          "type": "gotas",
+          "notes": [
+            "Fator de gotas ausente ou inválido"
+          ]
+        },
+        {
+          "label": "Gotas 400 UI/gota",
+          "type": "gotas",
+          "notes": [
+            "Fator de gotas ausente ou inválido"
+          ]
+        },
+        {
+          "label": "Comp. 1.000 UI",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "vitamina-d3",
+      "drug": "Vitamina D3 (Colecalciferol)",
+      "indicationId": "deficiencia",
+      "indication": "Deficiência / Raquitismo",
+      "unit": "UI/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 1.000 UI",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 2.000 UI",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "sulfato-ferroso",
+      "drug": "Sulfato Ferroso",
+      "indicationId": "anemia",
+      "indication": "Anemia Ferropriva — Tratamento",
+      "unit": "mg/kg/dia de ferro elementar ÷ 1–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Selecione um intervalo de administração para dividir a dose diária."
+        }
+      ],
+      "issues": [
+        "Selecione um intervalo de administração para dividir a dose diária."
+      ],
+      "presentations": [
+        {
+          "label": "Gotas 25 mg/mL Fe elem.",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 40 mg Fe elem. (200 mg sulfato)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "sulfato-ferroso",
+      "drug": "Sulfato Ferroso",
+      "indicationId": "profilaxia",
+      "indication": "Profilaxia (Lactentes)",
+      "unit": "mg/kg/dia de ferro elementar",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Gotas 25 mg/mL Fe elem.",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "acido-folico",
+      "drug": "Ácido Fólico",
+      "indicationId": "deficiencia",
+      "indication": "Deficiência / Anemia Megaloblástica",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 0,4 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 1 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "fluconazol",
+      "drug": "Fluconazol",
+      "indicationId": "candidíase-oral",
+      "indication": "Candidíase Oral / Esofágica",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 10 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Suspensão 40 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 50 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula 150 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Frasco amp. 2 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fluconazol",
+      "drug": "Fluconazol",
+      "indicationId": "candidíase-sistêmica",
+      "indication": "Candidíase Sistêmica / Invasiva",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Frasco amp. 2 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 150 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "fluconazol",
+      "drug": "Fluconazol",
+      "indicationId": "meningite-criptococica",
+      "indication": "Meningite Criptocócica (manutenção)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Frasco amp. 2 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 150 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "fluconazol",
+      "drug": "Fluconazol",
+      "indicationId": "profilaxia-candida",
+      "indication": "Profilaxia de Candidíase (imunossuprimidos)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 10 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Frasco amp. 2 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "nistatina",
+      "drug": "Nistatina",
+      "indicationId": "candidiase-oral",
+      "indication": "Candidíase Oral (Sapinho)",
+      "unit": "UI/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão oral 100.000 UI/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "griseofulvina",
+      "drug": "Griseofulvina",
+      "indicationId": "tinea-capitis",
+      "indication": "Tinea Capitis / Dermatofitoses",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 125 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 25 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "itraconazol",
+      "drug": "Itraconazol",
+      "indicationId": "onicomicose-tinea",
+      "indication": "Tinea / Onicomicose",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução oral 10 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "ampiclilina",
+      "drug": "Ampicilina",
+      "indicationId": "meningite-neonatal",
+      "indication": "Meningite Neonatal / Sepse",
+      "unit": "mg/kg/dia ÷ 2–4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (EV/IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ampiclilina",
+      "drug": "Ampicilina",
+      "indicationId": "itu-pneumonia",
+      "indication": "ITU / Pneumonia (ambulatorial)",
+      "unit": "mg/kg/dia ÷ 4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 250 mg/5 mL (50 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "clindamicina",
+      "drug": "Clindamicina",
+      "indicationId": "pele-grave",
+      "indication": "Infecção de Pele Grave / MRSA Ambulatorial",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 300 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Solução oral 75 mg/5 mL (15 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 150 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "cefazolina",
+      "drug": "Cefazolina",
+      "indicationId": "profilaxia-cirurgica",
+      "indication": "Profilaxia Cirúrgica",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (EV/IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefazolina",
+      "drug": "Cefazolina",
+      "indicationId": "infecção-grave",
+      "indication": "Infecção Grave (Pele/Osso)",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Fr. amp. 1000 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefuroxima",
+      "drug": "Cefuroxima",
+      "indicationId": "oma-pneumonia",
+      "indication": "OMA / Sinusite / Pneumonia Leve",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 125 mg/5 mL (25 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefpodoxima",
+      "drug": "Cefpodoxima",
+      "indicationId": "oma-itu",
+      "indication": "OMA / Sinusite / ITU / Pneumonia",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 10 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 200 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cefdinir",
+      "drug": "Cefdinir",
+      "indicationId": "respiratorio",
+      "indication": "OMA / Faringoamigdalite / Pneumonia",
+      "unit": "mg/kg/dia ÷ 1–2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 25 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 300 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "penicilina-benzatina",
+      "drug": "Penicilina Benzatina",
+      "indicationId": "faringite",
+      "indication": "Faringoamigdalite Estreptocócica",
+      "unit": "UI — dose única IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. 600.000 UI (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. 1.200.000 UI (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "penicilina-benzatina",
+      "drug": "Penicilina Benzatina",
+      "indicationId": "profilaxia-reumatica",
+      "indication": "Profilaxia Febre Reumática",
+      "unit": "UI — a cada 21 dias IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. 600.000 UI (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        },
+        {
+          "label": "Fr. 1.200.000 UI (IM)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "doxiciclina",
+      "drug": "Doxiciclina",
+      "indicationId": "pneumonia-atipica",
+      "indication": "Pneumonia Atípica / Mico / Clamídia (≥ 8 anos)",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 100 mg (≥8 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 5 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "eritromicina",
+      "drug": "Eritromicina",
+      "indicationId": "coqueluche",
+      "indication": "Coqueluche (Bordetella pertussis)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 25 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "gentamicina",
+      "drug": "Gentamicina",
+      "indicationId": "sepse-neonatal",
+      "indication": "Sepse Neonatal (< 1 mês)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 40 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 10 mg/mL pediátrica",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "gentamicina",
+      "drug": "Gentamicina",
+      "indicationId": "gram-negativos",
+      "indication": "Infecção por Gram-negativos (Crianças)",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Ampola 40 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "nitrofurantoina",
+      "drug": "Nitrofurantoína",
+      "indicationId": "itu",
+      "indication": "ITU Não Complicada",
+      "unit": "mg/kg/dia ÷ 4",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 5 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "nitrofurantoina",
+      "drug": "Nitrofurantoína",
+      "indicationId": "profilaxia-itu",
+      "indication": "Profilaxia ITU Recorrente",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Suspensão 5 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Cápsula 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ciprofloxacino",
+      "drug": "Ciprofloxacino",
+      "indicationId": "itu-grave",
+      "indication": "ITU Complicada / Infecções Gram-negativas",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 25 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Solução EV 2 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "valaciclovir",
+      "drug": "Valaciclovir",
+      "indicationId": "herpes-labial",
+      "indication": "Herpes Labial Recorrente",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 1000 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "valaciclovir",
+      "drug": "Valaciclovir",
+      "indicationId": "varicela-imuno",
+      "indication": "Varicela em Imunodeprimidos",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 1000 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ribavirina",
+      "drug": "Ribavirina",
+      "indicationId": "bronquiolite-vsr",
+      "indication": "Bronquiolite Grave por VSR (imunodeprimidos)",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Cápsula 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ganciclovir",
+      "drug": "Ganciclovir",
+      "indicationId": "cmv-congenito",
+      "indication": "CMV Congênito Sintomático",
+      "unit": "mg/kg/dose EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ganciclovir",
+      "drug": "Ganciclovir",
+      "indicationId": "cmv-imunodeprimidos",
+      "indication": "CMV em Imunodeprimidos",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 500 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "cetamina",
+      "drug": "Cetamina (Ketamina)",
+      "indicationId": "sedacao-proc",
+      "indication": "Sedação para Procedimentos Dolorosos",
+      "unit": "mg/kg/dose EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 50 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 10 mg/mL (diluído EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "cetamina",
+      "drug": "Cetamina (Ketamina)",
+      "indicationId": "broncoespasmo",
+      "indication": "Broncoespasmo Grave (IOT)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 50 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "propofol",
+      "drug": "Propofol",
+      "indicationId": "inducao-anestesia",
+      "indication": "Indução Anestésica",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 10 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fentanil",
+      "drug": "Fentanil",
+      "indicationId": "analgesia-proc",
+      "indication": "Analgesia para Procedimentos",
+      "unit": "mcg/kg/dose EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 0,05 mg/mL = 50 mcg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fentanil",
+      "drug": "Fentanil",
+      "indicationId": "analgesia-uti",
+      "indication": "Analgesia Contínua em UTI",
+      "unit": "mcg/kg/h (infusão)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Ampola 50 mcg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "nalbufina",
+      "drug": "Nalbufina",
+      "indicationId": "dor-moderada",
+      "indication": "Dor Moderada a Intensa",
+      "unit": "mg/kg/dose EV/IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 10 mg/mL (EV/IM/SC)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "tramadol",
+      "drug": "Tramadol",
+      "indicationId": "dor-moderada",
+      "indication": "Dor Moderada a Intensa (≥ 12 anos)",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 6,
+          "error": null
+        },
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Gotas 100 mg/mL (1 gota = 2,5 mg)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Ampola 50 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 50 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 100 mg SR (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "atropina",
+      "drug": "Atropina",
+      "indicationId": "bradicardia",
+      "indication": "Bradicardia Sintomática",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 0,5 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 1 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "atropina",
+      "drug": "Atropina",
+      "indicationId": "premed-anestesia",
+      "indication": "Pré-medicação Anestésica",
+      "unit": "mg/kg/dose IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 0,5 mg/mL (IM)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "naloxona",
+      "drug": "Naloxona",
+      "indicationId": "reversao-opioides",
+      "indication": "Reversão de Depressão por Opioides",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 0,4 mg/mL (EV/IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 1 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "surfactante",
+      "drug": "Surfactante Exógeno",
+      "indicationId": "sdr-profilaxia",
+      "indication": "SDR — Profilaxia / Resgate Precoce",
+      "unit": "mg/kg/dose IT",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Survanta 200 mg/8 mL (25 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Curosurf 120 mg/1,5 mL (80 mg/mL)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "cafeina-citrato",
+      "drug": "Cafeína Citrato",
+      "indicationId": "apneia-prematuridade",
+      "indication": "Apneia da Prematuridade",
+      "unit": "mg/kg (ataque) EV/VO",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Solução 10 mg/mL (EV/VO)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Solução 20 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "indometacina",
+      "drug": "Indometacina",
+      "indicationId": "pca",
+      "indication": "Canal Arterial Persistente (PCA)",
+      "unit": "mg/kg/dose EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 1 mg (EV — UTIN)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "ibuprofeno-neonatal",
+      "drug": "Ibuprofeno (PCA neonatal)",
+      "indicationId": "pca",
+      "indication": "Canal Arterial Persistente (PCA)",
+      "unit": "mg/kg/dose EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 5 mg/mL — Pedea (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "vitamina-k1-neonatal",
+      "drug": "Vitamina K1 (Fitomenadiona)",
+      "indicationId": "profilaxia-rn",
+      "indication": "Profilaxia Doença Hemorrágica do RN",
+      "unit": "mg — dose única IM",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 10 mg/mL (IM)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 2 mg/0,2 mL pediátrica",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fenobarbital-neonatal",
+      "drug": "Fenobarbital (Neonatal)",
+      "indicationId": "convulsao-neonatal",
+      "indication": "Convulsão Neonatal",
+      "unit": "mg/kg (ataque EV)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 100 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "permetrina",
+      "drug": "Permetrina",
+      "indicationId": "pediculose",
+      "indication": "Pediculose (Piolho)",
+      "unit": "% — aplicação tópica",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Shampoo/Loção 1% (tópico)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "permetrina",
+      "drug": "Permetrina",
+      "indicationId": "escabiose",
+      "indication": "Escabiose (Sarna)",
+      "unit": "% — aplicação tópica",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Creme 5% (tópico)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "benzoato-benzila",
+      "drug": "Benzoato de Benzila",
+      "indicationId": "escabiose",
+      "indication": "Escabiose (Sarna)",
+      "unit": "% — aplicação tópica",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Loção 25% (tópico)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "mupirocina",
+      "drug": "Mupirocina",
+      "indicationId": "impetigo",
+      "indication": "Impetigo / Infecção de Pele por S. aureus",
+      "unit": "% — aplicação tópica",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Pomada 2% (tópico)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "aciclovir-topico",
+      "drug": "Aciclovir (Tópico)",
+      "indicationId": "herpes-labial",
+      "indication": "Herpes Labial",
+      "unit": "% — aplicação tópica",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Creme 5% (tópico)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "acido-valproico",
+      "drug": "Ácido Valproico",
+      "indicationId": "epilepsia",
+      "indication": "Epilepsia Generalizada / Ausências",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Xarope 57,6 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Cápsula CR 250 mg (1x/dia)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "acido-valproico",
+      "drug": "Ácido Valproico",
+      "indicationId": "status-epileptico-ev",
+      "indication": "Status Epiléptico (EV)",
+      "unit": "mg/kg (ataque EV)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 100 mg/mL (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "acido-valproico",
+      "drug": "Ácido Valproico",
+      "indicationId": "transtorno-bipolar",
+      "indication": "Transtorno Bipolar / Estabilizador de Humor",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comprimido 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "carbamazepina",
+      "drug": "Carbamazepina",
+      "indicationId": "epilepsia-focal",
+      "indication": "Epilepsia Focal",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Suspensão 20 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. CR 200 mg (liberação prolongada)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. CR 400 mg (liberação prolongada)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "carbamazepina",
+      "drug": "Carbamazepina",
+      "indicationId": "nevralgia",
+      "indication": "Nevralgia do Trigêmeo / Dor Neuropática",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comprimido 200 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. CR 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "lamotrigina",
+      "drug": "Lamotrigina",
+      "indicationId": "epilepsia",
+      "indication": "Epilepsia Focal / Generalizada",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 25 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 50 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "levetiracetam",
+      "drug": "Levetiracetam",
+      "indicationId": "epilepsia",
+      "indication": "Epilepsia Focal / Generalizada (VO)",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Solução oral 100 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 250 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "levetiracetam",
+      "drug": "Levetiracetam",
+      "indicationId": "status-epileptico",
+      "indication": "Status Epiléptico (EV)",
+      "unit": "mg/kg (ataque EV)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 100 mg/mL (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "topiramato",
+      "drug": "Topiramato",
+      "indicationId": "epilepsia",
+      "indication": "Epilepsia Focal / Generalizada",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 25 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 50 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "clonazepam",
+      "drug": "Clonazepam",
+      "indicationId": "epilepsia",
+      "indication": "Epilepsia / Mioclonias",
+      "unit": "mg/kg/dia ÷ 2–3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        },
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Gotas 2,5 mg/mL (1 gota = 0,1 mg)",
+          "type": "gotas",
+          "notes": []
+        },
+        {
+          "label": "Comp. 0,5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 2 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "oxcarbazepina",
+      "drug": "Oxcarbazepina",
+      "indicationId": "epilepsia-focal",
+      "indication": "Epilepsia Focal",
+      "unit": "mg/kg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 60 mg/mL",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 300 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 600 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "desmopressina",
+      "drug": "Desmopressina (DDAVP)",
+      "indicationId": "enurese",
+      "indication": "Enurese Noturna Primária",
+      "unit": "mg/dose VO (à noite)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comp. 0,1 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 0,2 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Spray nasal 0,1 mg/jato",
+          "type": "jatos",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "desmopressina",
+      "drug": "Desmopressina (DDAVP)",
+      "indicationId": "diabetes-insipido",
+      "indication": "Diabetes Insípido Central",
+      "unit": "mg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comp. 0,1 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 0,2 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Spray nasal 0,1 mg/jato",
+          "type": "jatos",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "oxibutinina",
+      "drug": "Oxibutinina",
+      "indicationId": "bexiga-hiperativa",
+      "indication": "Bexiga Hiperativa / Enurese",
+      "unit": "mg/kg/dose",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Comp. 5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Xarope 1 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "levotiroxina",
+      "drug": "Levotiroxina (T4)",
+      "indicationId": "hipotireoidismo-congenito",
+      "indication": "Hipotireoidismo Congênito (< 3 meses)",
+      "unit": "mcg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 25 mcg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 50 mcg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "levotiroxina",
+      "drug": "Levotiroxina (T4)",
+      "indicationId": "hipotireoidismo-crianca",
+      "indication": "Hipotireoidismo Adquirido (Criança)",
+      "unit": "mcg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 25 mcg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 50 mcg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 100 mcg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "insulina-rapida",
+      "drug": "Insulina Regular",
+      "indicationId": "cad",
+      "indication": "Cetoacidose Diabética (CAD)",
+      "unit": "UI/kg/h (infusão EV)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Frasco 100 UI/mL (EV/SC)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "insulina-rapida",
+      "drug": "Insulina Regular",
+      "indicationId": "hiperglicemia",
+      "indication": "Hiperglicemia Aguda (SC)",
+      "unit": "UI/kg/dose SC",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Frasco 100 UI/mL (SC)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "glucagon",
+      "drug": "Glucagon",
+      "indicationId": "hipoglicemia-grave",
+      "indication": "Hipoglicemia Grave (sem acesso EV)",
+      "unit": "mg/kg/dose IM/SC",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Fr. amp. 1 mg (IM/SC/EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metformina",
+      "drug": "Metformina",
+      "indicationId": "dm2",
+      "indication": "DM tipo 2 (≥ 10 anos)",
+      "unit": "mg/dia (dose inicial)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 500 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 850 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. XR 500 mg (liberação prolongada)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "metotrexato",
+      "drug": "Metotrexato",
+      "indicationId": "aij",
+      "indication": "Artrite Idiopática Juvenil (AIJ)",
+      "unit": "mg/m² — 1x/semana SC/VO",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 2,5 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 10 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Ampola 25 mg/mL (SC/EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "azatioprina",
+      "drug": "Azatioprina",
+      "indicationId": "autoimune",
+      "indication": "Doença Autoimune / Transplante",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 50 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "hidroxicloroquina",
+      "drug": "Hidroxicloroquina",
+      "indicationId": "les-aij",
+      "indication": "LES / Artrite Juvenil",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "pantoprazol",
+      "drug": "Pantoprazol",
+      "indicationId": "drge-ulcera",
+      "indication": "DRGE / Úlcera Péptica",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 20 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 40 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Fr. amp. 40 mg (EV)",
+          "type": "frasco",
+          "notes": [
+            "Conversão requer preparo ou implementação específica"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "esomeprazol",
+      "drug": "Esomeprazol",
+      "indicationId": "drge",
+      "indication": "DRGE / Esofagite Erosiva",
+      "unit": "mg/kg/dia",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 10 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 20 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 40 mg (≥12 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "mesalazina",
+      "drug": "Mesalazina (5-ASA)",
+      "indicationId": "rcu",
+      "indication": "Retocolite Ulcerativa / Crohn",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Comp. 400 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 800 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "trimebutina",
+      "drug": "Trimebutina",
+      "indicationId": "colica-sii",
+      "indication": "Cólica / SII",
+      "unit": "mg/kg/dia ÷ 3",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 8,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Suspensão 12,5 mg/5 mL (2,5 mg/mL)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Comp. 100 mg",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "montelucaste",
+      "drug": "Montelucaste",
+      "indicationId": "asma-rinite",
+      "indication": "Asma Persistente / Rinite Alérgica",
+      "unit": "mg/dia — dose fixa",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 24,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Sachê granulado 4 mg (6m–5a)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. mastigável 5 mg (6–14 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        },
+        {
+          "label": "Comp. 10 mg (≥15 anos)",
+          "type": "comprimido",
+          "notes": [
+            "Fracionamento não autorizado no cadastro; apenas unidades inteiras"
+          ]
+        }
+      ]
+    },
+    {
+      "drugId": "salmeterol",
+      "drug": "Salmeterol",
+      "indicationId": "asma-manutencao",
+      "indication": "Asma — Manutenção (associar ao CI)",
+      "unit": "mcg/dose (inalação)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Spray 25 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "fluticasona",
+      "drug": "Fluticasona Propionato (inalatória)",
+      "indicationId": "asma-manutencao",
+      "indication": "Asma — Manutenção",
+      "unit": "mcg/dia ÷ 2",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 12,
+          "error": "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+        }
+      ],
+      "issues": [
+        "Em revisão: o cadastro não distingue se o teto é diário ou por tomada."
+      ],
+      "presentations": [
+        {
+          "label": "Spray 50 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        },
+        {
+          "label": "Spray 125 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        },
+        {
+          "label": "Spray 250 mcg/jato",
+          "type": "jatos",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "brometo-ipatropio-nebulização",
+      "drug": "Brometo de Ipratrópio (nebulização)",
+      "indicationId": "crise-asma",
+      "indication": "Crise Grave de Asma (associar ao salbutamol)",
+      "unit": "mg/kg/dose (nebulização)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 4,
+          "error": null
+        },
+        {
+          "intervalHours": 6,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Sol. nebulização 0,25 mg/mL",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "n-acetilcisteina-iv",
+      "drug": "N-Acetilcisteína EV",
+      "indicationId": "intoxicacao-paracetamol",
+      "indication": "Intoxicação Aguda por Paracetamol",
+      "unit": "mg/kg — protocolo 3 bolsas EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": 21,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Ampola 200 mg/mL (EV diluído)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "emla",
+      "drug": "EMLA (Lidocaína + Prilocaína)",
+      "indicationId": "punção-venosa",
+      "indication": "Anestesia Tópica (Punção / Procedimentos)",
+      "unit": "g/local — aplicação tópica",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+        }
+      ],
+      "issues": [
+        "Este esquema não é compatível com cálculo por tomada. Consulte o protocolo específico."
+      ],
+      "presentations": [
+        {
+          "label": "Creme 2,5+2,5% (tópico)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "lidocaina",
+      "drug": "Lidocaína",
+      "indicationId": "infiltracao",
+      "indication": "Infiltração / Bloqueio Local",
+      "unit": "mg/kg/dose (s/ epinefrina)",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Solução 1% = 10 mg/mL (infiltração)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Solução 2% = 20 mg/mL (infiltração)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "drugId": "lidocaina",
+      "drug": "Lidocaína",
+      "indicationId": "arritmia",
+      "indication": "Antiarrítmico — TV/FV (EV)",
+      "unit": "mg/kg/dose EV",
+      "clinicalStatus": "pending",
+      "referencesRegistered": 0,
+      "arithmeticProbes": [
+        {
+          "intervalHours": null,
+          "error": null
+        }
+      ],
+      "issues": [],
+      "presentations": [
+        {
+          "label": "Ampola 10 mg/mL = 1% (EV)",
+          "type": "mL",
+          "notes": []
+        },
+        {
+          "label": "Ampola 20 mg/mL = 2% (EV)",
+          "type": "mL",
+          "notes": []
+        }
+      ]
+    }
+  ]
+}

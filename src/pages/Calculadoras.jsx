@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Droplets, Scale, Activity, Ruler, TrendingUp, Calendar, Microscope, Zap, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useFavorites } from '@/hooks/useFavorites.jsx';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 
 const CALCULATORS = [
   { label: 'Hidratação Venosa', desc: 'Cálculo rápido de volumes e velocidades', path: '/hidratacao', Icon: Droplets, keywords: ['hidratação', 'venosa', 'soro', 'holliday'] },
@@ -15,10 +15,10 @@ const CALCULATORS = [
 ];
 
 export default function Calculadoras() {
-  const { toggleFavorite, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = usePageFavorites();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">

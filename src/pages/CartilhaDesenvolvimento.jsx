@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, AlertCircle, CheckCircle2, Users, Brain, Zap, ArrowRight } from 'lucide-react';
+import { ChevronDown, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ageGroups = [
@@ -329,21 +329,21 @@ export default function CartilhaDesenvolvimento() {
   const currentAgeGroup = ageGroups.find(g => g.id === activeAge);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen">
       {/* Hero */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-12"
+        className="clinical-page page-heading"
       >
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">Cartilha de Desenvolvimento Infantil</h1>
-          <p className="text-lg text-blue-100 mb-2">2 meses a 5 anos · Vigilância do Desenvolvimento em Puericultura</p>
-          <p className="text-blue-100 text-sm">Baseada no programa Act Early (CDC) · Adaptação SBP e Sociedade Paraibana de Pediatria</p>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Cartilha de Desenvolvimento Infantil</h1>
+          <p className="text-lg text-muted-foreground mb-2">2 meses a 5 anos · Vigilância do Desenvolvimento em Puericultura</p>
+          <p className="text-muted-foreground text-sm">Baseada no programa Act Early (CDC) · Adaptação SBP e Sociedade Paraibana de Pediatria</p>
         </div>
       </motion.section>
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="page-surface max-w-6xl mx-auto px-4 py-12">
         {/* Navigation Tabs */}
         <div className="flex flex-wrap gap-2 mb-8 justify-center">
           <button

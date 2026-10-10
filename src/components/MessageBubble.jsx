@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Copy, CheckCircle2, AlertCircle, Loader2, ChevronRight, Clock, Zap } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Loader2, ChevronRight, Clock, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const FunctionDisplay = ({ toolCall }) => {
@@ -88,15 +88,8 @@ export default function MessageBubble({ message }) {
               <ReactMarkdown
                 className="text-sm prose prose-sm prose-slate max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
                 components={{
-                  code: ({ inline, className, children, ...props }) => {
-                    return !inline ? (
-                      <pre className="bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto my-2">
-                        <code className={className} {...props}>{children}</code>
-                      </pre>
-                    ) : (
-                      <code className="px-1 py-0.5 rounded bg-slate-100 text-slate-700 text-xs">{children}</code>
-                    );
-                  },
+                  pre: ({ children }) => <pre className="bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto my-2">{children}</pre>,
+                  code: ({ className, children }) => <code className={className || 'text-xs'}>{children}</code>,
                   a: ({ children, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary underline">{children}</a>,
                   p: ({ children }) => <p className="my-1 leading-relaxed">{children}</p>,
                   ul: ({ children }) => <ul className="my-1 ml-4 list-disc">{children}</ul>,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, RefreshCw } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 const CRITERIA = [
@@ -32,7 +32,7 @@ export default function EscoreRodwell() {
   const toggle = (id) => setChecked(prev => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-7xl mx-auto px-4 py-8">
       <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
         <ChevronLeft className="w-4 h-4" />
         Calculadoras
@@ -45,7 +45,7 @@ export default function EscoreRodwell() {
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-br from-rose-500 to-red-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden"
+            className="score-banner relative overflow-hidden"
           >
             <div className="absolute top-4 right-6 opacity-20">
               <div className="text-6xl">🩸</div>
@@ -154,7 +154,7 @@ export default function EscoreRodwell() {
             <div className="w-full bg-gray-100 rounded-full h-2 mb-3">
               <div 
                 className="bg-rose-500 h-2 rounded-full transition-all"
-                style={{ width: `${8 ? (total / 8 * 100) : 0}%` }}
+                style={{ width: `${total / 8 * 100}%` }}
               />
             </div>
 

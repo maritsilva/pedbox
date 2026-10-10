@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import { ChevronLeft, RefreshCw } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 // SIPA cutoffs by age group
 const AGE_GROUPS = [
-  { label: '< 1 ano', min: 0, max: 1, cutoff: 1.22 },
-  { label: '1–2 anos', min: 1, max: 2, cutoff: 1.22 },
-  { label: '2–4 anos', min: 2, max: 4, cutoff: 1.0 },
-  { label: '4–6 anos', min: 4, max: 6, cutoff: 1.0 },
-  { label: '6–12 anos', min: 6, max: 12, cutoff: 0.9 },
-  { label: '> 12 anos', min: 12, max: 999, cutoff: 0.9 },
+  { label: '1–6 anos', min: 1, max: 7, cutoff: 1.22 },
+  { label: '7–12 anos', min: 7, max: 13, cutoff: 1.0 },
+  { label: '13–17 anos', min: 13, max: 18, cutoff: 0.9 },
 ];
 
 function getAgeGroup(age) {
-  return AGE_GROUPS.find(g => age >= g.min && age < g.max) || AGE_GROUPS[AGE_GROUPS.length - 1];
+  return AGE_GROUPS.find(g => age >= g.min && age < g.max);
 }
 
 export default function SIPA() {
@@ -27,13 +24,13 @@ export default function SIPA() {
   const fcNum = parseFloat(fc);
   const pasNum = parseFloat(pas);
 
-  const canCalc = !isNaN(idadeNum) && !isNaN(fcNum) && !isNaN(pasNum) && pasNum > 0 && fcNum > 0 && idadeNum >= 0;
+  const canCalc = !isNaN(idadeNum) && !isNaN(fcNum) && !isNaN(pasNum) && pasNum > 0 && fcNum > 0 && idadeNum >= 1 && idadeNum < 18 && fcNum <= 300 && pasNum <= 300;
   const sipa = canCalc ? (fcNum / pasNum) : null;
   const ageGroup = canCalc ? getAgeGroup(idadeNum) : null;
-  const isElevated = sipa !== null && ageGroup ? sipa >= ageGroup.cutoff : false;
+  const isElevated = sipa !== null && ageGroup ? sipa > ageGroup.cutoff : false;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 pb-16">
+    <div className="page-surface max-w-2xl mx-auto px-4 py-8 pb-16">
       <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
@@ -42,7 +39,7 @@ export default function SIPA() {
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-red-500 to-rose-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+        className="score-banner relative overflow-hidden mb-8"
       >
         <div className="absolute top-4 right-6 opacity-20">
           <div className="text-6xl">💓</div>
@@ -58,7 +55,7 @@ export default function SIPA() {
       </motion.div>
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-6">
-        <strong>Uso:</strong> PS, trauma, choque. SIPA elevado associa-se a maior mortalidade e necessidade de transfusão.
+        <strong>Uso:</strong> Referência em trauma, 1–17 anos. Traynor et al. (2019), PMID 31521372. Não extrapolar para lactentes menores de 1 ano.
       </div>
 
       {/* Inputs */}
@@ -89,11 +86,11 @@ export default function SIPA() {
               </div>
               <div className="flex-1">
                 <p className="text-xs text-gray-500 mb-1">Ponto de corte para esta idade</p>
-                <p className="text-2xl font-bold text-gray-800">≥ {ageGroup.cutoff}</p>
+                <p className="text-2xl font-bold text-gray-800">&gt; {ageGroup.cutoff}</p>
               </div>
             </div>
             <div className={`px-4 py-3 rounded-xl font-bold text-sm ${isElevated ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-              {isElevated ? '⚠️ SIPA ELEVADO — Choque/Hipoperfusão provável. Considerar ressuscitação imediata.' : '✅ SIPA Normal para a idade. Monitorar clinicamente.'}
+              {isElevated ? 'SIPA acima do corte do estudo. Requer avaliação clínica; não determina ressuscitação isoladamente.' : 'SIPA não elevado pelo corte do estudo. Isso não exclui choque.'}
             </div>
           </motion.div>
         )}
@@ -105,7 +102,7 @@ export default function SIPA() {
           <p className="font-bold text-sm">Valores de Corte por Idade</p>
         </div>
         <table className="w-full text-sm">
-          <thead><tr className="bg-gray-50 border-b border-gray-100"><th className="text-left px-4 py-2 text-xs font-bold text-gray-500">Faixa etária</th><th className="text-center px-4 py-2 text-xs font-bold text-gray-500">SIPA elevado (≥)</th></tr></thead>
+          <thead><tr className="bg-gray-50 border-b border-gray-100"><th className="text-left px-4 py-2 text-xs font-bold text-gray-500">Faixa etária</th><th className="text-center px-4 py-2 text-xs font-bold text-gray-500">SIPA elevado (&gt;)</th></tr></thead>
           <tbody className="divide-y divide-gray-50">
             {AGE_GROUPS.map((g, i) => (
               <tr key={i} className={ageGroup?.label === g.label ? 'bg-red-50' : i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>

@@ -1,7 +1,8 @@
+import { toast } from 'sonner';
 import React, { useState } from 'react';
 import { Mail, Heart, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 
 const container = {
   hidden: { opacity: 0 },
@@ -37,11 +38,7 @@ export default function Contact() {
       colaboracao: 'Proposta de colaboração',
       outro: 'Outro',
     };
-    await base44.integrations.Core.SendEmail({
-      to: 'dramarinasilvaped@gmail.com',
-      subject: `[PedBox Contato] ${reasonLabels[formData.reason] || formData.reason} — ${formData.name}`,
-      body: `Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonLabels[formData.reason] || formData.reason}\n\nMensagem:\n${formData.message}`,
-    });
+    try { await services.contact.send(formData); } catch (e) { toast.error(e.message); return; }
     setSubmitted(true);
     setTimeout(() => {
       setFormData({ name: '', email: '', institution: '', reason: '', message: '' });
@@ -54,17 +51,17 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="min-h-screen">
 
       {/* Hero */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="py-16 px-4 text-center bg-gradient-to-b from-slate-50 to-white"
+        className="clinical-page page-heading"
       >
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-4">
             Vamos conversar?
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed">
@@ -81,7 +78,7 @@ export default function Contact() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 py-12"
+        className="page-surface max-w-3xl mx-auto px-4 py-12"
       >
         <motion.h2 variants={item} className="text-2xl font-bold text-gray-900 mb-8">
           Seu feedback é importante
@@ -169,7 +166,7 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                rows="5"
+                rows={5}
                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors resize-none"
                 placeholder="Conte-nos mais..."
               />
@@ -191,7 +188,7 @@ export default function Contact() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 py-12"
+        className="page-surface max-w-3xl mx-auto px-4 py-12"
       >
         <button
           onClick={handleCloneGit}

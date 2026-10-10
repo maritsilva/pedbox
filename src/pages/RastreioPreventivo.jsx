@@ -1,6 +1,7 @@
+import PageHeader from '@/components/PageHeader';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, ChevronDown, ChevronRight, Info, AlertCircle } from 'lucide-react';
+import { ChevronDown, ChevronRight, Info, AlertCircle } from 'lucide-react';
 
 // ── Legend ────────────────────────────────────────────────────────────────────
 const LEGEND = [
@@ -299,19 +300,11 @@ const KEY_ITEMS = [
 
 export default function RastreioPreventivo() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
+    <div className="page-surface max-w-7xl mx-auto px-4 py-8 space-y-6">
 
       {/* Header */}
       <div>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Shield className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-extrabold text-foreground leading-tight">Rastreio — Medicina Preventiva</h1>
-            <p className="text-sm text-muted-foreground">Calendário de Saúde Preventiva Pediátrica</p>
-          </div>
-        </div>
+        <PageHeader eyebrow="Acompanhamento pediátrico" title="Rastreio — Medicina Preventiva" description="Calendário de Saúde Preventiva Pediátrica"/>
 
         {/* AAP badge */}
         <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl p-4 mt-4">

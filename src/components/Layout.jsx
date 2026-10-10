@@ -1,43 +1,45 @@
+import { CALCULATORS } from '@/lib/calculatorRegistry';
+import { useAuth } from '@/lib/AuthContext';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { Settings } from 'lucide-react';
-import { Menu, Home, LayoutGrid, BookOpen, Star, Info, Search, X, ChevronRight, User, LogIn, WifiOff } from 'lucide-react';
+import { Menu, Home, LayoutGrid, BookOpen, Star, Search, X, ChevronRight, LogIn, WifiOff } from 'lucide-react';
 import { universalSearch as doUniversalSearch } from '@/lib/universalSearch';
 import { motion, AnimatePresence } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 import MobileHeader from './MobileHeader';
-import PullToRefresh from './PullToRefresh';
+import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import OfflineBanner from './OfflineBanner';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 
 const DESKTOP_NAV = [
   { to: '/',            label: 'Início',        Icon: Home },
-  { to: '/ferramentas', label: 'Ferramentas',   Icon: LayoutGrid },
+  { to: '/dosagens', label: 'Dosagens', Icon: LayoutGrid },
+  { to: '/calculadoras', label: 'Calculadoras', Icon: LayoutGrid },
   { to: '/guia',        label: 'Bulas',         Icon: BookOpen },
   { to: '/biblioteca',  label: 'Biblioteca',    Icon: BookOpen },
   { to: '/favoritos',   label: 'Favoritos',     Icon: Star },
-  { to: '/contato',     label: 'Sobre o Pedbox',Icon: Info },
 ];
 
 const DRAWER_CATS = [
   { label: 'Principal', items: [
-    { to: '/',            label: '🏠 Início' },
-    { to: '/ferramentas', label: '🧰 Explorar Ferramentas' },
-    { to: '/favoritos',   label: '⭐ Favoritos' },
+    { to: '/',            label: 'Início' },
+    { to: '/ferramentas', label: 'Explorar Ferramentas' },
+    { to: '/favoritos',   label: 'Favoritos' },
   ]},
   { label: 'Referências', items: [
-    { to: '/guia',       label: '📖 Guia de Medicamentos' },
-    { to: '/dosagens',   label: '⚡ Dosagens — Cálculo Rápido' },
-    { to: '/biblioteca', label: '📋 Condutas e Manejos' },
-    { to: '/biblioteca', label: '🧪 Protocolos Clínicos' },
-    { to: '/pesquisa',   label: '🔬 SophIA' },
+    { to: '/guia',       label: 'Guia de Medicamentos' },
+    { to: '/dosagens',   label: 'Dosagens — Cálculo Rápido' },
+    { to: '/biblioteca?tab=condutas', label: 'Condutas' },
+    { to: '/biblioteca?tab=protocolos', label: 'Protocolos' },
+    { to: '/pesquisa',   label: 'SophIA' },
   ]},
   { label: 'Ferramentas', items: [
-    { to: '/hidratacao',        label: '💧 Hidratação Venosa' },
-    { to: '/drogas-emergencia', label: '🚨 Drogas na Emergência' },
-    { to: '/calculadoras-hub',  label: '🧮 Calculadoras Clínicas' },
-    { to: '/desenvolvimento',   label: '🌱 Desenvolvimento Infantil' },
-    { to: '/vacinas',           label: '💉 Vacinas' },
+    { to: '/hidratacao',        label: 'Hidratação Venosa' },
+    { to: '/drogas-emergencia', label: 'Drogas na Emergência' },
+    { to: '/calculadoras-hub',  label: 'Calculadoras Clínicas' },
+    { to: '/desenvolvimento',   label: 'Desenvolvimento Infantil' },
+    { to: '/vacinas',           label: 'Vacinas' },
   ]},
   { label: 'Sobre', items: [
     { to: '/contato', label: 'Sobre o Pedbox & Contato' },
@@ -45,7 +47,7 @@ const DRAWER_CATS = [
 ];
 
 const MOBILE_NAV = [
-  { to: '/',            label: 'Home',        icon: Home },
+  { to: '/',            label: 'Início',        icon: Home },
   { to: '/ferramentas', label: 'Ferramentas', icon: LayoutGrid },
   { to: '/biblioteca',  label: 'Biblioteca',  icon: BookOpen },
   { to: '/favoritos',   label: 'Favoritos',   icon: Star },
@@ -80,6 +82,14 @@ export function NavSearch() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  useEffect(() => {
+    const onKey = event => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); setOpen(true); setTimeout(() => inputRef.current?.focus(), 0); }
+      if (event.key === 'Escape') { setOpen(false); setQuery(''); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
   const results = query.trim().length > 1
     ? doUniversalSearch(query, 10)
     : [];
@@ -145,20 +155,16 @@ export function NavSearch() {
 }
 
 function UserMenu() {
-  const [user, setUser] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+  const { user, isLoadingAuth } = useAuth();
+  const loaded = !isLoadingAuth;
   const [dropOpen, setDropOpen] = useState(false);
-
-  useEffect(() => {
-    base44.auth.me().then(u => { setUser(u); setLoaded(true); }).catch(() => setLoaded(true));
-  }, []);
 
   if (!loaded) return <div className="w-8 h-8 rounded-full bg-secondary animate-pulse" />;
 
   if (!user) {
     return (
       <button
-        onClick={() => base44.auth.redirectToLogin()}
+        onClick={() => services.auth.redirectToLogin()}
         className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-all"
       >
         <LogIn className="w-4 h-4" />
@@ -203,7 +209,7 @@ function UserMenu() {
                 </Link>
               )}
               <button
-                onClick={() => { base44.auth.logout(); setDropOpen(false); }}
+                onClick={() => { services.auth.logout(); setDropOpen(false); }}
                 className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
               >
                 Sair
@@ -221,6 +227,7 @@ export default function Layout() {
   const [tabStates, setTabStates] = useState({});
   const location = useLocation();
   const mainRef = useRef(null);
+  const clinicalTool = CALCULATORS.find(tool => tool.path === location.pathname);
   const isOnline = useOnlineStatus();
 
   useEffect(() => {
@@ -238,7 +245,8 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-inter overflow-hidden">
+    <div className="app-shell min-h-screen bg-background flex flex-col font-inter">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:p-3">Ir para o conteúdo</a>
       {/* Offline Banner */}
       {!isOnline && <OfflineBanner />}
 
@@ -246,12 +254,12 @@ export default function Layout() {
       <MobileHeader menuOpen={open} setMenuOpen={setOpen} />
 
       {/* DESKTOP NAVBAR */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm hidden md:flex items-center">
-        <div className="max-w-7xl mx-auto w-full px-6 h-14 flex items-center gap-6">
+      <header className="app-header sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm hidden xl:flex items-center">
+        <div className="max-w-7xl mx-auto w-full px-4 h-16 flex items-center gap-3">
           {/* Logo */}
           <Link to="/" className="flex items-center flex-shrink-0">
             <img
-              src="https://media.base44.com/images/public/69ecb71457668abac5516abd/7c6e2b506_montage.png"
+              src="/assets/pedbox-logo.png"
               alt="PedBox"
               className="h-8 w-auto"
             />
@@ -266,7 +274,7 @@ export default function Layout() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all relative group ${
+                  className={`flex items-center gap-1.5 px-2 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all relative group ${
                     isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
                   }`}
                 >
@@ -293,81 +301,34 @@ export default function Layout() {
         </div>
       </header>
 
-      {/* MOBILE DRAWER */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/30 z-40 md:hidden"
-              onClick={() => setOpen(false)}
-            />
-            <motion.div
-              initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.22 }}
-              className="fixed top-0 right-0 bottom-0 w-72 bg-white z-50 md:hidden shadow-2xl overflow-y-auto"
-            >
-              <div className="px-5 pt-5 pb-8 space-y-6">
-                <div className="flex items-center justify-between mb-2">
-                  <img src="https://media.base44.com/images/public/69ecb71457668abac5516abd/7c6e2b506_montage.png" alt="PedBox" className="h-7 w-auto" />
-                  <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-secondary transition-colors">
-                    <X className="w-5 h-5 text-foreground" />
-                  </button>
-                </div>
-                {DRAWER_CATS.map(cat => (
-                  <div key={cat.label}>
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2 px-1">{cat.label}</p>
-                    <div className="space-y-0.5">
-                      {cat.items.map(item => (
-                        <Link
-                          key={item.to}
-                          to={item.to}
-                          onClick={() => setOpen(false)}
-                          className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition-all select-none ${
-                            location.pathname === item.to
-                              ? 'bg-primary text-white font-semibold'
-                              : 'text-foreground hover:bg-secondary'
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent className="overflow-y-auto bg-white">
+          <SheetTitle>Menu</SheetTitle><SheetDescription>Ferramentas e referências do PedBox.</SheetDescription>
+          <nav className="space-y-6 mt-6" aria-label="Menu principal">
+            {DRAWER_CATS.map(cat => <section key={cat.label}><h2 className="text-xs font-semibold text-muted-foreground mb-2">{cat.label}</h2><div className="space-y-1">{cat.items.map(item => <Link key={item.label} to={item.to} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-sm hover:bg-secondary" aria-current={location.pathname + location.search === item.to ? 'page' : undefined}>{item.label}</Link>)}</div></section>)}
+          </nav>
+        </SheetContent>
+      </Sheet>
 
       {/* MAIN CONTENT */}
-      <main ref={mainRef} className="flex-1 pb-20 md:pb-0 overflow-y-auto">
-        <PullToRefresh onRefresh={async () => { await new Promise(r => setTimeout(r, 500)); }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Outlet />
-            </motion.div>
-          </AnimatePresence>
-        </PullToRefresh>
+      <main id="main-content" ref={mainRef} className="app-content flex-1 pb-24 xl:pb-0">
+        <div>
+          <div key={location.pathname}>
+              {clinicalTool?.status === 'blocked' ? <section className="clinical-page"><header className="clinical-heading"><h1>{clinicalTool.label}</h1></header><div className="review-note"><strong>Em revisão — cálculo desativado</strong><p className="mt-2">{clinicalTool.blockedReason}</p></div><Link to="/calculadoras" className="text-primary underline">Voltar às calculadoras</Link></section> : <>{clinicalTool?.status === 'available' && <div className="max-w-6xl mx-auto px-4 pt-4"><p className="text-xs text-amber-900">Revisão clínica pendente · consulte a referência e a população aplicável.</p></div>}<Outlet /></>}
+          </div>
+        </div>
       </main>
 
       {/* DESKTOP FOOTER */}
-      <footer className="hidden md:block bg-white border-t border-border">
+      <footer className="hidden xl:block bg-white border-t border-border">
         <div className="max-w-6xl mx-auto px-4 py-5 text-center text-xs text-muted-foreground">
-          <p>© 2025 PedBox · Para uso por profissionais de saúde habilitados</p>
+          <p>© {new Date().getFullYear()} PedBox · Para uso por profissionais de saúde habilitados</p>
           <p className="mt-1">Este conteúdo serve como orientação clínica. Sempre valide com protocolos institucionais.</p>
         </div>
       </footer>
 
       {/* MOBILE BOTTOM TAB BAR */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-border md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <nav className="bottom-navigation fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-border xl:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="flex items-center justify-around h-16">
           {MOBILE_NAV.map((item) => {
             const isActive = location.pathname === item.to;

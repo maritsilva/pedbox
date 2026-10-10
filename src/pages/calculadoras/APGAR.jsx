@@ -57,9 +57,9 @@ const CRITERIA = [
 ];
 
 function getClassification(score) {
-  if (score >= 7) return { label: 'Normal', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-300', conduta: 'Cuidados de rotina — secar, aquecer, avaliar.' };
-  if (score >= 4) return { label: 'Depressão Moderada', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-300', conduta: 'Estimulação tátil, aspiração, oxigênio e VPP se necessário.' };
-  return { label: 'Depressão Grave / Crítico', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-300', conduta: 'Reanimação avançada imediata: VPP, IOT, massagem cardíaca, medicações.' };
+  if (score >= 7) return { label: 'Faixa de 7–10 pontos', color: 'text-green-700', bg: 'bg-green-50', border: 'border-green-300' };
+  if (score >= 4) return { label: 'Faixa de 4–6 pontos', color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-300' };
+  return { label: 'Faixa de 0–3 pontos', color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-300' };
 }
 
 export default function APGAR() {
@@ -73,7 +73,7 @@ export default function APGAR() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-16">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="page-surface max-w-7xl mx-auto px-4 py-8">
         <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
         </button>
@@ -82,7 +82,7 @@ export default function APGAR() {
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-sky-500 to-blue-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+          className="score-banner relative overflow-hidden mb-8"
         >
           <div className="absolute top-4 right-6 opacity-20">
             <div className="text-6xl">👶</div>
@@ -96,7 +96,8 @@ export default function APGAR() {
             <p className="text-sm font-medium opacity-90 mb-6">Vitalidade do recém-nascido (0–10)</p>
             
             <div className="border-t border-white/20 pt-4">
-              <p className="text-4xl font-extrabold">{total}</p>
+              <p className="text-4xl font-extrabold">{allAnswered ? total : '—'}</p>
+              <p className="text-sm mt-2" role="status">{answered}/{CRITERIA.length} critérios preenchidos</p>
               <p className="text-sm opacity-90 mt-1">/ 10 pontos</p>
             </div>
           </div>
@@ -145,7 +146,7 @@ export default function APGAR() {
               className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl p-4"
             >
               <span className="text-xl">ℹ️</span>
-              <p className="text-xs text-blue-800 leading-relaxed">Avalie cada parâmetro 1 minuto após o nascimento e repita aos 5 minutos.</p>
+              <p className="text-xs text-blue-800 leading-relaxed">Registre a avaliação em 1 e 5 minutos. Não aguarde a pontuação para iniciar cuidados indicados pela avaliação clínica e pelo protocolo de reanimação.</p>
             </motion.div>
           </div>
 
@@ -159,19 +160,20 @@ export default function APGAR() {
                   <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Resultado</p>
                   <p className={`text-4xl font-extrabold ${classification.color}`}>{total}</p>
                   <p className={`text-sm font-bold ${classification.color} mt-1 mb-3`}>{classification.label}</p>
-                  <p className="text-xs text-gray-600 leading-relaxed">{classification.conduta}</p>
+                  <p className="text-xs text-gray-600 leading-relaxed">O Apgar descreve a condição do recém-nascido. A pontuação não determina manobras de reanimação nem permite prever, isoladamente, o desfecho individual.</p>
                 </motion.div>
               )}
             </AnimatePresence>
 
             {/* Classification reference */}
             <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-              <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">Classificação</p>
+              <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">Referência aos 5 minutos</p>
+              <p className="text-xs text-slate-600 mb-3">Faixas descritivas para recém-nascidos a termo e prematuros tardios. Interpretar junto ao momento da avaliação e às intervenções realizadas.</p>
               <div className="space-y-2">
                 {[
-                  { range: '7–10', label: 'Normal', bg: 'bg-green-50 border-green-200 text-green-700' },
-                  { range: '4–6', label: 'Moderada', bg: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
-                  { range: '0–3', label: 'Grave', bg: 'bg-red-50 border-red-200 text-red-700' }
+                  { range: '7–10', label: 'Tranquilizadora', bg: 'bg-green-50 border-green-200 text-green-700' },
+                  { range: '4–6', label: 'Moderadamente anormal', bg: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
+                  { range: '0–3', label: 'Baixa', bg: 'bg-red-50 border-red-200 text-red-700' }
                 ].map(r => (
                   <div key={r.range} className={`border ${r.bg} rounded-xl p-3`}>
                     <p className="text-xs font-bold">{r.label}</p>
@@ -193,6 +195,7 @@ export default function APGAR() {
 
         <div className="mt-8 text-xs text-gray-400 px-1">
           <p className="font-semibold text-gray-500 mb-1">Referência</p>
+          <p><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2015/10/the-apgar-score" target="_blank" rel="noreferrer" className="text-primary underline">AAP/ACOG — The Apgar Score, 2015. Consultado em 08/10/2026.</a></p>
           <p>Paraná. SESA-PR. Caderno de Atenção à Saúde da Criança: RN de Risco. 2020.</p>
         </div>
       </div>

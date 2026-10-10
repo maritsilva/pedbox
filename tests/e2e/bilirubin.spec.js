@@ -1,0 +1,25 @@
+import {test,expect} from '@playwright/test';
+for(const width of [390,1280])test(`icterícia ${width}px`,async({page})=>{
+ await page.setViewportSize({width,height:1000});await page.goto('/ictericia');
+ await page.getByLabel('Data de nascimento',{exact:true}).fill('2026-01-01');
+ await page.getByLabel('Hora de nascimento',{exact:true}).fill('00:00');
+ await page.getByLabel('IG: semanas',{exact:true}).selectOption('40');
+ await page.getByLabel('Data da coleta 1',{exact:true}).fill('2026-01-02');
+ await page.getByLabel('Hora da coleta 1',{exact:true}).fill('00:00');
+ await page.getByLabel('Bilirrubina total 1 (mg/dL)',{exact:true}).fill('13.3');
+ await page.getByLabel('Há fatores adicionais além da idade gestacional?').selectOption('no');
+ await page.getByRole('button',{name:'Avaliar bilirrubina',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Limiar de fototerapia atingido',exact:true})).toBeVisible();
+ await expect(page.locator('.recharts-line-curve')).toHaveCount(3);
+ await expect(page.locator('.recharts-scatter-symbol')).toHaveCount(1);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.screenshot({path:`artifacts/design/ictericia-${width}.png`,fullPage:true});
+ await page.getByLabel('Unidade',{exact:true}).selectOption('µmol/L');
+ await expect(page.getByLabel('Bilirrubina total 1 (µmol/L)',{exact:true})).toHaveValue('227.43');
+ await expect(page.getByRole('region',{name:'Resultado da bilirrubina'})).toHaveCount(0);
+ await page.getByLabel('Tipo do exame 1',{exact:true}).selectOption('tcb');
+ await page.getByRole('button',{name:'Avaliar bilirrubina',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Medição transcutânea: triagem',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'Avaliação visual',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Avaliação visual não estima um limiar seguro'})).toBeVisible();
+});

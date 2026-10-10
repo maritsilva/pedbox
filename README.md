@@ -40,43 +40,41 @@ Recursos rápidos para consulta de **fluxogramas e condutas** baseadas nas evid�
 
 ---
 
-### 🚀 Começando
+### Executar localmente
 
-#### Instalação Local
+Requisitos: Node.js 22 ou superior e npm. Na primeira execução:
 
-Se você deseja contribuir com o código ou rodar sua própria instância:
-
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/maritsilva/pedbox.git
-   ```
-
-   **Instale as dependências:**
-   ```bash
-   npm install
-   ```
-
-#### Configuração de Ambiente
-Crie um arquivo `.env.local` na raiz do projeto e insira suas chaves do Base44:
-```
-VITE_BASE44_APP_ID=seu_app_id
-VITE_BASE44_APP_BASE_URL=sua_url_do_backend
-```
-
-**Execução**
 ```bash
+npm ci
+cp .env.example .env
 npm run dev
 ```
 
-### 🤝 Faça parte do movimento
-O PedBox é um organismo vivo. Sua participação é o que mantém o projeto atualizado e seguro:
-* **Mantenha o projeto vivo:** Divulgue e utilize em sua prática.
-* **Reporte & Sugira:** Encontrou um bug ou precisa de uma calculadora específica? Abra uma Issue.
-* **Contribua com Código:** Pull Requests são sempre bem-vindos, desde melhorias na UI até novos algoritmos clínicos.
-* **Revisão por Pares:** Ajude-nos a manter as dosagens de acordo com os protocolos mais recentes.
+Abra http://localhost:5173. A API roda em 127.0.0.1:3001. O banco PostgreSQL embutido (PGlite) persiste em `.data/postgres`; os arquivos ficam em `.data/uploads`.
 
-### 📚 Links Úteis
-* **Acesse o App:** [pedbox.app](https://pedbox.app)
-* **Engine de Desenvolvimento:** [Base44 Documentation](https://docs.base44.com/)
+Com `DEV_AUTH=true`, a tela de login oferece uma conta administrativa fixa **somente para desenvolvimento local**. Em produção esse modo é recusado pelo servidor. Se já tiver `.env`, preserve-o em vez de copiá-lo novamente.
 
-**PedBox:** Criado por quem cuida, para quem cuida. O conhecimento é o nosso melhor remédio.
+A aplicação usa React/Vite e uma API Node.js própria. Não exige SDK, conta ou endpoints Base44. Favoritos, anotações, biblioteca e administração funcionam localmente. Envio real de e-mail, login público e IA precisam das credenciais indicadas em `.env.example`; sem elas, o aplicativo informa a indisponibilidade e não simula sucesso.
+
+### Verificação
+
+```bash
+npm test
+npm run lint
+npm run typecheck
+npm run build
+npm run check:independence
+npx playwright install chromium
+npm run test:e2e
+```
+
+Se já houver Google Chrome instalado, use `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`. Os testes de navegador usam a API na porta 4173, dados separados em `.data/e2e` e o build de produção; rode `npm run build` antes deles.
+
+### Publicação e migração
+
+- [Operação e publicação](docs/operacao.md): PostgreSQL externo, Docker, HTTPS, login OIDC, e-mail e IA.
+- [Importação, exportação e reversão](docs/migration/README.md): formato de arquivos, identidade, anexos, simulação e restauração.
+- [Relatório de execução](docs/migracao-executada.md): o que foi implementado, verificações e pendências externas.
+- [Plano original](docs/plano-remocao-base44.md): inventário histórico usado como referência.
+
+Credenciais, bancos locais e exportações não devem ser enviados ao Git. A exclusão da conta remove o perfil e dados privados do PedBox; ela não apaga a identidade do provedor externo de login.

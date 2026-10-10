@@ -1,10 +1,11 @@
+import PageHeader from '@/components/PageHeader';
+import { normalizeSearch } from '@/lib/calculatorRegistry';
 import React, { useState, useMemo, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
-import { Search, Clock, ChevronRight, Flame, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, TrendingUp, Copy, Stethoscope, Link as LinkIcon, StickyNote, Heart } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { services } from '@/api/services';
+import { Search, Clock, ChevronRight, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, Copy, Stethoscope, Link as LinkIcon, StickyNote } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
-import { RESUMOS } from '@/lib/resumosData';
 import CondutasTab from '@/components/biblioteca/CondutasTab';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import LinksTab from '@/components/biblioteca/LinksTab';
@@ -92,7 +93,7 @@ function ResumoDetail({ resumo, onBack }) {
   ];
   
   return (
-    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="max-w-7xl mx-auto px-4 py-8">
+    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="page-surface max-w-7xl mx-auto px-4 py-8">
       {/* Back button */}
       <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors group">
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
@@ -322,7 +323,7 @@ function GlobalSearchResults({ q, setSearch }) {
   const navigate = useNavigate();
 
   const filteredProtocols = PROTOCOLS.filter(p =>
-    p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q)
+    normalizeSearch(p.title).includes(q) || normalizeSearch(p.subtitle).includes(q) || normalizeSearch(p.tag).includes(q)
   ).slice(0, 6);
 
   const filteredCondutas = useMemo(() => {
@@ -331,9 +332,9 @@ function GlobalSearchResults({ q, setSearch }) {
       cat.subcategorias.forEach(sub => {
         sub.topicos.forEach(top => {
           if (
-            top.label.toLowerCase().includes(q) ||
-            cat.label.toLowerCase().includes(q) ||
-            sub.label.toLowerCase().includes(q)
+            normalizeSearch(top.label).includes(q) ||
+            normalizeSearch(cat.label).includes(q) ||
+            normalizeSearch(sub.label).includes(q)
           ) {
             results.push({ topico: top, categoria: cat, subcategoria: sub });
           }
@@ -345,10 +346,10 @@ function GlobalSearchResults({ q, setSearch }) {
 
   const [links, setLinks] = useState([]);
   useEffect(() => {
-    base44.entities.LinkBiblioteca.list().then(setLinks).catch(() => {});
+    services.libraryLinks.list().then(setLinks).catch(() => {});
   }, []);
   const filteredLinks = links.filter(l =>
-    l.titulo.toLowerCase().includes(q) || (l.descricao || '').toLowerCase().includes(q) || (l.categoria || '').toLowerCase().includes(q)
+    normalizeSearch(l.titulo).includes(q) || normalizeSearch((l.descricao || '')).includes(q) || normalizeSearch((l.categoria || '')).includes(q)
   ).slice(0, 6);
 
   const total = filteredProtocols.length + filteredCondutas.length + filteredLinks.length;
@@ -363,7 +364,7 @@ function GlobalSearchResults({ q, setSearch }) {
             {filteredProtocols.map(p => {
               const badge = TAG_BADGE[p.tag] || { bg: 'bg-gray-100', text: 'text-gray-700' };
               return (
-                <button key={p.id} onClick={() => navigate(`/protocolos?id=${p.id}`)}
+                <button key={p.id} onClick={() => { setSearch(''); navigate(`/biblioteca?tab=protocolos&id=${p.id}`); }}
                   className="w-full text-left bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3 hover:shadow-md transition-all group">
                   <span className="text-xl">{p.icon}</span>
                   <div className="flex-1 min-w-0">
@@ -383,7 +384,7 @@ function GlobalSearchResults({ q, setSearch }) {
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Condutas</p>
           <div className="space-y-2">
             {filteredCondutas.map(({ topico, categoria, subcategoria }) => (
-              <button key={topico.id} onClick={() => { setSearch(''); localStorage.setItem('selectedConduta', JSON.stringify({ topico, categoria, subcategoria })); }}
+              <button key={topico.id} onClick={() => { setSearch(''); navigate(`/biblioteca?tab=condutas&topico=${encodeURIComponent(topico.id || topico.label)}`); }}
                 className="w-full text-left bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3 hover:shadow-md transition-all group">
                 <span className="text-xl">{categoria.icon}</span>
                 <div className="flex-1 min-w-0">
@@ -435,34 +436,32 @@ const TABS = [
 
 export default function Biblioteca() {
   const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState('protocolos');
+  const [tabParams, setTabParams] = useSearchParams();
+  const activeTab = ['protocolos','condutas','links','anotacoes'].includes(tabParams.get('tab')) ? tabParams.get('tab') : 'protocolos';
+  const setActiveTab = tab => { setSearch(''); setTabParams({tab}); };
 
-  const q = search.toLowerCase().trim();
+  const q = normalizeSearch(search).trim();
   const isSearching = q.length > 1;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="page-surface library-workspace mx-auto px-4 py-8">
 
       {/* ── HEADER ── */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-extrabold text-foreground">Biblioteca</h1>
-        <p className="text-muted-foreground text-sm mt-1.5 max-w-lg">
-          Protocolos, condutas, links e anotações para a prática pediátrica.
-        </p>
-      </div>
+      <PageHeader kind="library" eyebrow="Seu espaço de consulta" title="Biblioteca" description="Protocolos, fluxogramas e condutas. Encontre um tema ou escolha uma seção."/>
 
       {/* ── SEARCH ── */}
-      <div className="relative max-w-2xl mb-6">
+      <div className="relative mb-6">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
+          aria-label="Buscar na biblioteca"
           placeholder="Buscar protocolo, conduta ou link..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-2xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
         />
         {search && (
-          <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+          <button onClick={() => setSearch('')} aria-label="Limpar busca" className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
             <X className="w-4 h-4" />
           </button>
         )}
@@ -472,16 +471,12 @@ export default function Biblioteca() {
       {isSearching && <GlobalSearchResults q={q} setSearch={setSearch} />}
 
       {/* ── TABS ── */}
-      <div className="flex gap-2 mb-6 flex-wrap">
+      <div className="library-navigation">
         {TABS.map(tab => {
           const Icon = tab.icon;
           return (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                activeTab === tab.id
-                  ? 'bg-primary text-white border-primary shadow-sm'
-                  : 'bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
-              }`}>
+            <button key={tab.id} aria-pressed={!isSearching && activeTab === tab.id} onClick={() => setActiveTab(tab.id)}
+              className="library-tab">
               <Icon className="w-4 h-4" />
               {tab.label}
             </button>
@@ -489,10 +484,10 @@ export default function Biblioteca() {
         })}
       </div>
 
-      {activeTab === 'condutas'   && <CondutasTab externalSearch={search} />}
-      {activeTab === 'protocolos' && <ProtocolosPage />}
-      {activeTab === 'links'      && <LinksTab />}
-      {activeTab === 'anotacoes'  && <AnotacoesTab />}
+      {!isSearching && activeTab === 'condutas'   && <CondutasTab externalSearch={search} />}
+      {!isSearching && activeTab === 'protocolos' && <ProtocolosPage />}
+      {!isSearching && activeTab === 'links'      && <LinksTab />}
+      {!isSearching && activeTab === 'anotacoes'  && <AnotacoesTab />}
     </div>
   );
 }

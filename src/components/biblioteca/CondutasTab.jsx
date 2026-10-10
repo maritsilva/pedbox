@@ -1,9 +1,11 @@
+import { useSearchParams } from 'react-router-dom';
+import { normalizeSearch } from '@/lib/calculatorRegistry';
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, X, ChevronRight, ChevronLeft, LayoutGrid, BookOpen, CheckCircle, Clock, Star } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { X, ChevronRight, ChevronLeft, BookOpen, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import MarkdownRenderer from '@/components/condutas/MarkdownRenderer';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 
 const COLOR_MAP = {
@@ -32,7 +34,7 @@ function TopicoDetail({ topico, categoria, subcategoria, onBack }) {
   const favKey = `conduta-${topico.id || topico.label}`;
 
   return (
-    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="max-w-4xl mx-auto">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-4xl mx-auto">
       {/* Back */}
       <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors group">
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
@@ -40,14 +42,14 @@ function TopicoDetail({ topico, categoria, subcategoria, onBack }) {
       </button>
 
       {/* Header */}
-      <div className={`bg-gradient-to-br ${c.header} text-white rounded-2xl p-5 mb-5 shadow relative`}>
+      <div className="topic-heading border-b pb-5 mb-5 relative">
         <button
-          onClick={() => toggleFavorite(favKey)}
-          className="absolute top-4 right-4 p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
+          aria-label="Favoritar conduta" aria-pressed={isFavorite(favKey)} onClick={() => toggleFavorite(favKey)}
+          className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-secondary transition-colors"
         >
-          <Star className={`w-4 h-4 ${isFavorite(favKey) ? 'fill-yellow-300 text-yellow-300' : 'text-white/70'}`} />
+          <Star className={`w-4 h-4 ${isFavorite(favKey) ? 'fill-yellow-300 text-yellow-300' : 'text-muted-foreground'}`} />
         </button>
-        <div className="flex items-center gap-2 mb-1 text-white/70 text-xs">
+        <div className="flex items-center gap-2 mb-1 text-muted-foreground text-xs">
           <span>{categoria.icon}</span>
           <span>{categoria.label}</span>
           <span>›</span>
@@ -57,6 +59,8 @@ function TopicoDetail({ topico, categoria, subcategoria, onBack }) {
       </div>
 
       {/* Content */}
+      {topico.publication_status === 'draft' && <div role="status" className="review-note mb-4"><strong>Rascunho — não publicado</strong><p>Pesquisa e revisão profissional pendentes. Esta prévia não altera a versão pública.</p></div>}
+      {topico.review_sources && <details className="mb-4 border rounded-xl p-4"><summary>Fontes e pendências da revisão</summary><p className="text-sm whitespace-pre-wrap mt-3">{topico.review_sources}</p></details>}
       <div className="bg-white rounded-2xl border border-border shadow-sm">
         {hasContent ?
         <div className="p-5 sm:p-7">
@@ -81,31 +85,28 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
   const [categorias, setCategorias] = useState(CONDUTAS_CATEGORIAS);
   const [search, setSearch] = useState('');
   const [activeCategoria, setActiveCategoria] = useState(null); // filter by category id
-  const [selectedTopico, setSelectedTopico] = useState(null); // { topico, categoria, subcategoria }
-
-  // Verificar se há um tópico selecionado no localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem('selectedConduta');
-    if (saved) {
-      try {
-        setSelectedTopico(JSON.parse(saved));
-        localStorage.removeItem('selectedConduta');
-      } catch (e) {}
-    }
-  }, []);
+  const [params, setParams] = useSearchParams();
+  const selectedId = params.get('topico');
+  const setSelectedTopico = item => {
+    const next = new URLSearchParams(params); next.set('tab', 'condutas');
+    if (item) next.set('topico', item.topico.id || item.topico.label); else next.delete('topico');
+    setParams(next);
+  };
 
   // Load DB overrides
   useEffect(() => {
     Promise.all([
-    base44.entities.CategoriaCustom.list(),
-    base44.entities.Conduta.list()]
+    services.categories.list(),
+    services.contents.list('-updated_date')]
     ).then(([customCats, dbCondutas]) => {
-      setCategorias((prev) => {
-        let merged = prev.map((cat) => ({
+      dbCondutas = dbCondutas.filter(c => isAdmin || c.publication_status !== 'draft').reverse();
+      if (isAdmin) dbCondutas.sort((a,b) => Number(a.publication_status === 'draft') - Number(b.publication_status === 'draft'));
+      setCategorias(() => {
+        let merged = CONDUTAS_CATEGORIAS.map((cat) => ({
           ...cat,
           subcategorias: cat.subcategorias.map((sub) => ({
             ...sub,
-            topicos: sub.topicos.map((t) => ({ ...t }))
+            topicos: sub.topicos.map((t) => ({ ...t, publication_status: undefined, review_sources: undefined }))
           }))
         }));
 
@@ -116,9 +117,9 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
             if (sub) {
               const topIdx = sub.topicos.findIndex((t) => t.id === cond.topico_id || t.label === cond.topico_label);
               if (topIdx >= 0) {
-                sub.topicos[topIdx] = { ...sub.topicos[topIdx], conteudo: cond.conteudo || sub.topicos[topIdx].conteudo };
+                sub.topicos[topIdx] = { ...sub.topicos[topIdx], conteudo: cond.conteudo ?? '', publication_status: cond.publication_status, review_sources: cond.review_sources };
               } else if (cond.is_custom) {
-                sub.topicos.push({ id: cond.topico_id || cond.id, label: cond.topico_label, conteudo: cond.conteudo || '' });
+                sub.topicos.push({ id: cond.topico_id || cond.id, label: cond.topico_label, conteudo: cond.conteudo || '', publication_status: cond.publication_status, review_sources: cond.review_sources });
               }
             }
           }
@@ -131,7 +132,7 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
               id: s.id, label: s.label,
               topicos: dbCondutas.
               filter((d) => d.categoria_label === customCat.label && d.subcategoria_label === s.label).
-              map((d) => ({ id: d.topico_id || d.id, label: d.topico_label, conteudo: d.conteudo || '' }))
+              map((d) => ({ id: d.topico_id || d.id, label: d.topico_label, conteudo: d.conteudo || '', publication_status: d.publication_status, review_sources: d.review_sources }))
             }));
             merged.push({
               id: customCat.categoria_id || customCat.id,
@@ -146,7 +147,7 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
         return merged;
       });
     }).catch(() => {});
-  }, []);
+  }, [isAdmin]);
 
   // Flatten all topicos for search
   const allTopicos = useMemo(() => {
@@ -161,15 +162,16 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
     return list;
   }, [categorias]);
 
-  const q = search.toLowerCase().trim();
+  const selectedTopico = allTopicos.find(item => (item.topico.id || item.topico.label) === selectedId);
+  const q = normalizeSearch(externalSearch || search);
 
   const filteredTopicos = useMemo(() => {
     return allTopicos.filter(({ topico, categoria, subcategoria }) => {
       const matchSearch = !q ||
-        topico.label.toLowerCase().includes(q) ||
-        categoria.label.toLowerCase().includes(q) ||
-        subcategoria.label.toLowerCase().includes(q) ||
-        (topico.conteudo || '').toLowerCase().includes(q);
+        normalizeSearch(topico.label).includes(q) ||
+        normalizeSearch(categoria.label).includes(q) ||
+        normalizeSearch(subcategoria.label).includes(q) ||
+        normalizeSearch((topico.conteudo || '')).includes(q);
       const matchCat = !activeCategoria || categoria.id === activeCategoria;
       // Se não for admin, mostrar apenas tópicos com conteúdo indexado
       const matchContent = isAdmin || !!topico.conteudo?.trim();
@@ -204,184 +206,13 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
 
   }
 
-  return (
-    <div>
-      {/* Search */}
-      <div className="relative max-w-2xl mb-5">
-        
-        
-
-
-
-
-        
-        
-        {search &&
-        <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-            <X className="w-4 h-4" />
-          </button>
-        }
-      </div>
-
-      {/* Category filter chips */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        <button
-          onClick={() => setActiveCategoria(null)}
-          className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all ${
-          !activeCategoria ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`
-          }>
-          
-          Todas
-        </button>
-        {categorias.map((cat) => {
-          const c = getC(cat.color);
-          const isActive = activeCategoria === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategoria(isActive ? null : cat.id)}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all ${
-              isActive ? `${c.badge} border-current` : 'bg-white text-muted-foreground border-border hover:border-primary/40'}`
-              }>
-              
-              <span>{cat.icon}</span> {cat.label}
-            </button>);
-
-        })}
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-6 items-start">
-        {/* ── LEFT: Main content ── */}
-        <div className="flex-1 min-w-0 space-y-4">
-          {q &&
-          <p className="text-xs text-muted-foreground">
-              {filteredTopicos.length} resultado{filteredTopicos.length !== 1 ? 's' : ''} para "<strong>{search}</strong>"
-            </p>
-          }
-
-          {filteredTopicos.length === 0 ?
-          <div className="text-center py-16 bg-white border border-border rounded-2xl">
-              <p className="text-4xl mb-3">🔍</p>
-              <p className="font-semibold text-foreground">Nenhum resultado encontrado</p>
-              <p className="text-sm text-muted-foreground mt-1">Tente outros termos como "sepse", "asma" ou "crupe".</p>
-            </div> :
-
-          grouped.map(({ categoria, items }) => {
-            const c = getC(categoria.color);
-            // Group items by subcategoria
-            const bySubcat = {};
-            items.forEach((item) => {
-              if (!bySubcat[item.subcategoria.id]) {
-                bySubcat[item.subcategoria.id] = { subcategoria: item.subcategoria, topicos: [] };
-              }
-              bySubcat[item.subcategoria.id].topicos.push(item);
-            });
-
-            return (
-              <div key={categoria.id} className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
-                  {/* Category header */}
-                  <div className={`flex items-center gap-2.5 px-5 py-3.5 border-b border-border`}>
-                    <span className="text-xl">{categoria.icon}</span>
-                    <span className={`text-base font-extrabold ${c.text}`}>{categoria.label}</span>
-                    <span className={`ml-auto text-xs font-semibold px-2.5 py-1 rounded-full ${c.bg} ${c.text} border ${c.border}`}>
-                      {items.length} tópico{items.length !== 1 ? 's' : ''}
-                    </span>
-                  </div>
-
-                  {/* Subcategories + topics */}
-                  {Object.values(bySubcat).map(({ subcategoria, topicos: subcatTopicos }) =>
-                <div key={subcategoria.id}>
-                      {/* Subcategory label */}
-                      <div className={`px-5 py-2 ${c.bg} border-b border-border/50`}>
-                        <p className={`text-xs font-bold ${c.text}`}>{subcategoria.label}</p>
-                      </div>
-                      {/* Topics */}
-                      <div className="divide-y divide-border/60">
-                        {subcatTopicos.map(({ topico }) => {
-                      const hasContent = topico.conteudo?.trim();
-                      return (
-                        <button
-                          key={topico.id}
-                          onClick={() => setSelectedTopico({ topico, categoria, subcategoria })}
-                          className="w-full text-left px-5 py-4 flex items-center gap-4 hover:bg-secondary/30 transition-all group">
-                          
-                              <div className={`w-10 h-10 rounded-xl ${c.icon} flex items-center justify-center text-lg flex-shrink-0`}>
-                                {hasContent ? <CheckCircle className={`w-5 h-5 ${c.text}`} /> : <BookOpen className={`w-4 h-4 ${c.text} opacity-40`} />}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-sm text-foreground">{topico.label}</p>
-                                {!hasContent && <p className="text-xs text-muted-foreground">Em desenvolvimento</p>}
-                              </div>
-                              <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
-                                {hasContent &&
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✓ conteúdo</span>
-                            }
-                              </div>
-                              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 ml-2" />
-                            </button>);
-
-                    })}
-                      </div>
-                    </div>
-                )}
-                </div>);
-
-          })
-          }
-
-          {!q && !activeCategoria &&
-          <div className="bg-secondary/60 border border-border rounded-2xl p-5 text-center">
-              <BookOpen className="w-7 h-7 text-muted-foreground mx-auto mb-2" />
-              <p className="text-sm font-semibold text-foreground">Mais condutas em breve</p>
-              <p className="text-xs text-muted-foreground mt-1">Conteúdos sendo adicionados continuamente.</p>
-            </div>
-          }
-        </div>
-
-        {/* ── RIGHT: Sidebar ── */}
-        <div className="lg:w-72 xl:w-80 flex-shrink-0 space-y-4 lg:sticky lg:top-20">
-          {/* Counter */}
-          <div className="bg-white border border-border rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center flex-shrink-0 shadow">
-              <BookOpen className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <p className="text-3xl font-extrabold text-primary leading-none">{totalTopicos}</p>
-              <p className="text-sm font-semibold text-foreground">tópicos indexados</p>
-            </div>
-          </div>
-
-          {/* Categorias rápidas */}
-          <div className="bg-white border border-border rounded-2xl shadow-sm overflow-hidden">
-            <div className="flex items-center gap-2 px-5 py-4 border-b border-border">
-              <LayoutGrid className="w-4 h-4 text-primary" />
-              <p className="font-bold text-sm text-foreground">Categorias</p>
-            </div>
-            <div className="divide-y divide-border/60">
-              {categorias.map((cat) => {
-                const c = getC(cat.color);
-                const total = cat.subcategorias.reduce((acc, s) => acc + s.topicos.length, 0);
-                const withContent = cat.subcategorias.reduce(
-                  (acc, s) => acc + s.topicos.filter((t) => t.conteudo?.trim()).length, 0
-                );
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategoria(activeCategoria === cat.id ? null : cat.id)}
-                    className={`w-full flex items-center gap-3 px-5 py-3 hover:bg-secondary/40 transition-colors group text-left ${activeCategoria === cat.id ? c.bg : ''}`}>
-                    
-                    <span className="text-lg flex-shrink-0">{cat.icon}</span>
-                    <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-semibold truncate ${activeCategoria === cat.id ? c.text : 'text-foreground'}`}>{cat.label}</p>
-                      <p className="text-xs text-muted-foreground">{total} tópico{total !== 1 ? 's' : ''}</p>
-                    </div>
-                  </button>);
-
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>);
-
+  return <div className="condutas-catalogue">
+    <div className="catalogue-toolbar">
+      <div className="catalogue-search"><BookOpen size={18}/><input aria-label="Buscar conduta" placeholder="Buscar tema ou condição" value={search} onChange={e=>setSearch(e.target.value)}/>{search&&<button aria-label="Limpar busca de conduta" onClick={()=>setSearch('')}><X size={18}/></button>}</div>
+      <select aria-label="Categoria de condutas" value={activeCategoria||''} onChange={e=>setActiveCategoria(e.target.value||null)}><option value="">Todas as categorias</option>{categorias.map(cat=><option key={cat.id} value={cat.id}>{cat.label}</option>)}</select>
+    </div>
+    <p className="catalogue-count" role="status">{filteredTopicos.length} tópicos disponíveis</p>
+    <div className="catalogue-columns">{grouped.map(({categoria,items})=><section key={categoria.id} className="catalogue-group"><header><h2>{categoria.label}</h2><span>{items.length}</span></header>{items.map(item=><article key={item.topico.id||item.topico.label} className="catalogue-item"><button className="catalogue-open" onClick={()=>setSelectedTopico(item)}><span><strong>{item.topico.label}</strong><small>{item.subcategoria.label}{!item.topico.conteudo?.trim()?' · Em desenvolvimento':''}</small></span><ChevronRight size={17}/></button></article>)}</section>)}</div>
+    {!filteredTopicos.length&&<div className="catalogue-empty"><h2>Nenhuma conduta encontrada</h2><p>Tente outro termo ou categoria.</p><button onClick={()=>{setSearch('');setActiveCategoria(null);}}>Limpar filtros</button></div>}
+  </div>;
 }

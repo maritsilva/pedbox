@@ -1,100 +1,26 @@
-const CACHE_NAME = 'pedbox-v3';
-
-// Assets to pre-cache on install (static shell)
-const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/offline.html',
-];
-
-// ── Install: pre-cache shell ──────────────────────────────────────────────
+const CACHE = 'pedbox-v7';
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(PRECACHE_URLS))
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(['/', '/index.html', '/offline.html', '/favicon.svg'])).then(() => self.skipWaiting()));
 });
-
-// ── Activate: remove old caches ───────────────────────────────────────────
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('pedbox-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim()));
 });
-
-// ── Fetch: strategy by request type ──────────────────────────────────────
 self.addEventListener('fetch', event => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Ignore non-GET and cross-origin API/auth requests
-  if (request.method !== 'GET') return;
-  if (url.pathname.startsWith('/api/') || url.hostname !== self.location.hostname) {
-    // Network-first for API; serve stale on failure (enables offline data)
-    if (url.pathname.startsWith('/api/')) {
-      event.respondWith(networkFirstWithCache(request));
+  const request = event.request, url = new URL(request.url);
+  // API responses are NEVER cached, including public endpoints and authenticated errors.
+  if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/uploads/')) return;
+  if (request.mode === 'navigate') {
+    event.respondWith(fetch(request).catch(async () => (await caches.match('/index.html')) || caches.match('/offline.html')));
+    return;
+  }
+  if (!url.pathname.startsWith('/assets/') && url.pathname !== '/favicon.svg') return;
+  event.respondWith(caches.match(request).then(async cached => {
+    if (cached) return cached;
+    const response = await fetch(request);
+    if (response.ok && response.type === 'basic') {
+      const cache = await caches.open(CACHE);
+      await cache.put(request, response.clone());
     }
-    return;
-  }
-
-  // Cache-first for static assets (JS/CSS/images/fonts)
-  if (/\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)(\?.*)?$/.test(url.pathname)) {
-    event.respondWith(cacheFirst(request));
-    return;
-  }
-
-  // Network-first for HTML navigation — fall back to cached /index.html
-  event.respondWith(networkFirstWithFallback(request));
+    return response;
+  }));
 });
-
-// ── Strategies ────────────────────────────────────────────────────────────
-
-async function cacheFirst(request) {
-  const cached = await caches.match(request);
-  if (cached) return cached;
-  try {
-    const response = await fetch(request);
-    if (response.ok) {
-      const cache = await caches.open(CACHE_NAME);
-      cache.put(request, response.clone());
-    }
-    return response;
-  } catch {
-    return new Response('', { status: 408 });
-  }
-}
-
-async function networkFirstWithFallback(request) {
-  try {
-    const response = await fetch(request);
-    if (response.ok) {
-      const cache = await caches.open(CACHE_NAME);
-      cache.put(request, response.clone());
-    }
-    return response;
-  } catch {
-    const cached = await caches.match(request);
-    if (cached) return cached;
-    // Fall back to app shell for SPA navigation
-    const shell = await caches.match('/index.html');
-    return shell || new Response('Offline', { status: 503 });
-  }
-}
-
-async function networkFirstWithCache(request) {
-  try {
-    const response = await fetch(request);
-    if (response.ok) {
-      const cache = await caches.open(CACHE_NAME);
-      cache.put(request, response.clone());
-    }
-    return response;
-  } catch {
-    const cached = await caches.match(request);
-    if (cached) return cached;
-    return Response.json({ error: 'offline', data: [] }, { status: 503 });
-  }
-}

@@ -73,7 +73,7 @@ export default function SilvermanAnderson() {
   const classification = allAnswered ? getClassification(total) : null;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 pb-16">
+    <div className="page-surface max-w-2xl mx-auto px-4 py-8 pb-16">
       <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
@@ -82,7 +82,7 @@ export default function SilvermanAnderson() {
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-cyan-500 to-teal-700 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden mb-8"
+        className="score-banner relative overflow-hidden mb-8"
       >
         <div className="absolute top-4 right-6 opacity-20">
           <div className="text-6xl">🫁</div>
@@ -96,7 +96,8 @@ export default function SilvermanAnderson() {
           <p className="text-sm font-medium opacity-90 mb-6">Desconforto respiratório em RN (0–10)</p>
           
           <div className="border-t border-white/20 pt-4">
-            <p className="text-4xl font-extrabold">{total}</p>
+            <p className="text-4xl font-extrabold">{allAnswered ? total : '—'}</p>
+              <p className="text-sm mt-2" role="status">{answered}/{CRITERIA.length} critérios preenchidos</p>
             <p className="text-sm opacity-90 mt-1">/ 10 pontos</p>
           </div>
         </div>

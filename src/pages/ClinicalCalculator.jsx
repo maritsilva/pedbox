@@ -1,0 +1,17 @@
+import PageHeader from '@/components/PageHeader';
+import { CLINICAL_PENDING } from '@/lib/clinicalPending';
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { CALCULATORS } from '@/lib/calculatorRegistry';
+import { CLINICAL_DEFINITIONS, evaluateClinical } from '@/lib/clinicalCalculators';
+import { useAuth } from '@/lib/AuthContext';
+export default function ClinicalCalculator(){
+ const {id}=useParams(); const calculator=CALCULATORS.find(c=>c.id===id); const definition=CLINICAL_DEFINITIONS[id]; const {user}=useAuth(); const pending=CLINICAL_PENDING[id];
+ if(!calculator)return <div className="clinical-page"><h1>Calculadora não encontrada</h1><Link to="/calculadoras">Ver catálogo</Link></div>;
+ return <div className="clinical-page"><Link to="/calculadoras" className="text-primary">← Calculadoras</Link><PageHeader kind="calculator" eyebrow={calculator.category} title={calculator.label} description={calculator.desc}/><div className="review-note">Rascunho — revisão clínica pendente. Esta nova ferramenta ainda não está liberada para uso clínico.</div>
+ {definition?<><section className="clinical-card mb-5"><h2>Aplicabilidade</h2><p className="mt-3">{definition.population}</p><p className="mt-3">{definition.formula}</p><h2 className="mt-5">Referências</h2>{definition.references.map(([label,url])=><a className="block text-primary underline mt-2" key={url} href={url} target="_blank" rel="noreferrer">{label}</a>)}</section>{user?.role==='admin'?<CalculatorForm key={id} definition={definition}/>:<p className="clinical-card">A prévia de cálculo está disponível para revisão na conta administrativa.</p>}</>:<section className="clinical-card"><h2>Preparação da ferramenta</h2><p className="mt-3">{pending?.reason || 'Pendente: confirmar a fonte primária, a versão, os critérios completos e os casos de referência antes de implementar o cálculo. Nenhum resultado é gerado com critérios incompletos.'}</p>{pending?.links.map(([label,url])=><a className="block text-primary underline mt-3" key={url} href={url} target="_blank" rel="noreferrer">{label}</a>)}</section>}</div>;
+}
+function CalculatorForm({definition}){
+ const [values,setValues]=useState({}); const [submitted,setSubmitted]=useState(false); const result=submitted?evaluateClinical(definition,values):null;
+ return <form className="clinical-card" onSubmit={e=>{e.preventDefault();setSubmitted(true);}}><h2>Prévia para revisão</h2><div className="grid sm:grid-cols-2 gap-5 my-5">{definition.fields.map(field=><label className="field-label" key={field.id}>{field.label}{field.options?<select value={values[field.id]??''} onChange={e=>{setValues({...values,[field.id]:e.target.value});setSubmitted(false);}}><option value="">Selecione</option>{field.options.map(([value,label])=><option key={value} value={value}>{label}</option>)}</select>:<input inputMode="decimal" value={values[field.id]??''} onChange={e=>{setValues({...values,[field.id]:e.target.value});setSubmitted(false);}}/>}</label>)}</div><div className="flex gap-3"><button className="rounded-xl bg-primary text-white px-5 py-3" type="submit">Calcular prévia</button><button type="button" className="rounded-xl border px-5 py-3" onClick={()=>{setValues({});setSubmitted(false);}}>Limpar</button></div>{result&&<div role="status" className="clinical-result mt-5">{result.error||<><strong>{new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2}).format(result.value)} {result.unit}</strong><p>Prévia aritmética para revisão — não liberada para uso clínico.</p></>}</div>}</form>;
+}

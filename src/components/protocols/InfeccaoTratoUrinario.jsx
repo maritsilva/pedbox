@@ -1,5 +1,5 @@
 import React from 'react';
-import { Info, AlertTriangle, Pill, Activity, Droplets, Microscope, LogOut, BookOpen, ClipboardList } from 'lucide-react';
+import { Pill, Activity, Droplets, Microscope, LogOut, BookOpen, ClipboardList } from 'lucide-react';
 
 function Section({ icon, title, color = 'blue', children }) {
   const colors = {

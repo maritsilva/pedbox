@@ -1,65 +1,83 @@
+import { lazy, Suspense } from 'react';
+import { AuthProvider } from '@/lib/AuthContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
+const Login = lazy(() => import('@/pages/Login'));
+import { Toaster as Notifications } from 'sonner';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { FavoritesProvider } from '@/hooks/useFavorites.jsx';
 import { DosagemFavoritesProvider } from '@/hooks/useDosagemFavorites.jsx';
 import { PageFavoritesProvider } from '@/hooks/usePageFavorites.jsx';
 import PageNotFound from './lib/PageNotFound';
 import Layout from './components/Layout';
 // Add page imports here
-import Home from './pages/Home';
-import Calculadoras from './pages/Calculadoras';
-import Hidratacao from './pages/Hidratacao';
-import IMC from './pages/IMC';
-import PressaoArterial from './pages/PressaoArterial';
+const Ictericia = lazy(() => import('./pages/Ictericia'));
+const HorasDeVida = lazy(() => import('./pages/HorasDeVida'));
+const IdadeGestacional = lazy(() => import('./pages/IdadeGestacional'));
+const Home = lazy(() => import('./pages/Home'));
+const ClinicalCalculator = lazy(() => import('./pages/ClinicalCalculator'));
+const Hidratacao = lazy(() => import('./pages/Hidratacao'));
+const IMC = lazy(() => import('./pages/IMC'));
+const PressaoArterial = lazy(() => import('./pages/PressaoArterial'));
 
-import Guia from './pages/Guia';
-import Pesquisa from './pages/Pesquisa';
-import PerimetroCefalico from './pages/PerimetroCefalico';
-import AlvoParental from './pages/AlvoParental';
-import IdadeGestacionalCorrigida from './pages/IdadeGestacionalCorrigida';
-import CentorMcIsaac from './pages/CentorMcIsaac';
-import Vacinas from './pages/Vacinas';
-import Contato from './pages/Contato';
+const Guia = lazy(() => import('./pages/Guia'));
+const Pesquisa = lazy(() => import('./pages/Pesquisa'));
+const PerimetroCefalico = lazy(() => import('./pages/PerimetroCefalico'));
+const AlvoParental = lazy(() => import('./pages/AlvoParental'));
+const IdadeGestacionalCorrigida = lazy(() => import('./pages/IdadeGestacionalCorrigida'));
+const CentorMcIsaac = lazy(() => import('./pages/CentorMcIsaac'));
+const Vacinas = lazy(() => import('./pages/Vacinas'));
+const Contato = lazy(() => import('./pages/Contato'));
 
-import Contact from './pages/Contact';
-import CartilhaDesenvolvimento from './pages/CartilhaDesenvolvimento';
-import Settings from './pages/Settings';
-import WoodDownes from './pages/WoodDownes';
-import PRAM from './pages/PRAM';
-import DrogasEmergencia from './pages/DrogasEmergencia';
-import CurvasCrescimento from './pages/CurvasCrescimento';
-import CalculadorasHub from './pages/CalculadorasHub.jsx';
+const Contact = lazy(() => import('./pages/Contact'));
+const CartilhaDesenvolvimento = lazy(() => import('./pages/CartilhaDesenvolvimento'));
+const Settings = lazy(() => import('./pages/Settings'));
+const WoodDownes = lazy(() => import('./pages/WoodDownes'));
+const PRAM = lazy(() => import('./pages/PRAM'));
+const DrogasEmergencia = lazy(() => import('./pages/DrogasEmergencia'));
+const CurvasCrescimento = lazy(() => import('./pages/CurvasCrescimento'));
+const CalculadorasHub = lazy(() => import('./pages/CalculadorasHub.jsx'));
 
-import Dosagens from './pages/Dosagens';
-import APGAR from './pages/calculadoras/APGAR';
-import GlasgowPediatrico from './pages/calculadoras/GlasgowPediatrico';
-import PEWS from './pages/calculadoras/PEWS';
-import SIPA from './pages/calculadoras/SIPA';
-import SilvermanAnderson from './pages/calculadoras/SilvermanAnderson';
-import EscoreRodwell from './pages/calculadoras/EscoreRodwell';
-import PASAsma from './pages/calculadoras/PASAsma';
-import Favoritos from './pages/Favoritos';
-import FavoritosPage from './pages/FavoritosPage';
-import ExplorarFerramentas from './pages/ExplorarFerramentas';
-import Biblioteca from './pages/Biblioteca';
+const Dosagens = lazy(() => import('./pages/Dosagens'));
+const APGAR = lazy(() => import('./pages/calculadoras/APGAR'));
+const GlasgowPediatrico = lazy(() => import('./pages/calculadoras/GlasgowPediatrico'));
+const PEWS = lazy(() => import('./pages/calculadoras/PEWS'));
+const SIPA = lazy(() => import('./pages/calculadoras/SIPA'));
+const SilvermanAnderson = lazy(() => import('./pages/calculadoras/SilvermanAnderson'));
+const EscoreRodwell = lazy(() => import('./pages/calculadoras/EscoreRodwell'));
+const PASAsma = lazy(() => import('./pages/calculadoras/PASAsma'));
+const Favoritos = lazy(() => import('./pages/Favoritos'));
+const FavoritosPage = lazy(() => import('./pages/FavoritosPage'));
+const ExplorarFerramentas = lazy(() => import('./pages/ExplorarFerramentas'));
+const Biblioteca = lazy(() => import('./pages/Biblioteca'));
 
-import SinaisVitais from './pages/SinaisVitais';
-import Admin from './pages/Admin';
-import RastreioPreventivo from './pages/RastreioPreventivo';
+const SinaisVitais = lazy(() => import('./pages/SinaisVitais'));
+const Admin = lazy(() => import('./pages/Admin'));
+const RastreioPreventivo = lazy(() => import('./pages/RastreioPreventivo'));
+
+function LibraryRedirect({tab}) {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  params.set('tab', tab);
+  return <Navigate to={`/biblioteca?${params}`} replace />;
+}
 
 function App() {
   return (
     <QueryClientProvider client={queryClientInstance}>
+      <AuthProvider>
       <FavoritesProvider>
       <DosagemFavoritesProvider>
       <PageFavoritesProvider>
       <Router>
+        <Suspense fallback={<div className="clinical-page" role="status">Carregando página…</div>}>
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/calculadoras" element={<Calculadoras />} />
+            <Route path="/calculadoras" element={<CalculadorasHub />} />
             <Route path="/guia" element={<Guia />} />
             <Route path="/hidratacao" element={<Hidratacao />} />
             <Route path="/imc" element={<IMC />} />
@@ -68,6 +86,9 @@ function App() {
             <Route path="/pesquisa" element={<Pesquisa />} />
             <Route path="/perimetro-cefalico" element={<PerimetroCefalico />} />
             <Route path="/alvo-parental" element={<AlvoParental />} />
+            <Route path="/ictericia" element={<Ictericia />} />
+            <Route path="/horas-de-vida" element={<HorasDeVida />} />
+            <Route path="/idade-gestacional" element={<IdadeGestacional />} />
             <Route path="/idade-gestacional-corrigida" element={<IdadeGestacionalCorrigida />} />
             <Route path="/centor-mcisaac" element={<CentorMcIsaac />} />
             <Route path="/vacinas" element={<Vacinas />} />
@@ -75,11 +96,15 @@ function App() {
 
             <Route path="/contact" element={<Contact />} />
             <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route element={<ProtectedRoute />}><Route path="/settings" element={<Settings />} /></Route>
             <Route path="/wood-downes" element={<WoodDownes />} />
             <Route path="/pram" element={<PRAM />} />
             <Route path="/drogas-emergencia" element={<DrogasEmergencia />} />
-            <Route path="/calculadoras-hub" element={<CalculadorasHub />} />
+            <Route path="/calculadoras-hub" element={<Navigate to="/calculadoras" replace />} />
+            <Route path="/calculadoras/:id" element={<ClinicalCalculator />} />
+            <Route path="/condutas" element={<LibraryRedirect tab="condutas" />} />
+            <Route path="/protocolos" element={<LibraryRedirect tab="protocolos" />} />
+            <Route path="/resumos" element={<LibraryRedirect tab="condutas" />} />
 
             <Route path="/dosagens" element={<Dosagens />} />
             <Route path="/apgar" element={<APGAR />} />
@@ -95,16 +120,18 @@ function App() {
             <Route path="/curvas-crescimento" element={<CurvasCrescimento />} />
             <Route path="/sinais-vitais" element={<SinaisVitais />} />
 
-            <Route path="/admin" element={<Admin />} />
+            <Route element={<ProtectedRoute admin />}><Route path="/admin" element={<Admin />} /></Route>
             <Route path="/rastreio-preventivo" element={<RastreioPreventivo />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <Toaster />
+        </Suspense>
+        <Toaster /><Notifications richColors />
       </Router>
       </PageFavoritesProvider>
       </DosagemFavoritesProvider>
       </FavoritesProvider>
+      </AuthProvider>
     </QueryClientProvider>
   )
 }

@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, RotateCcw, AlertTriangle, Info, Activity, Ruler, Star } from 'lucide-react';
-import { useFavorites } from '@/hooks/useFavorites.jsx';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ReferenceLine, ReferenceDot, ResponsiveContainer, Legend,
+  ReferenceLine, ReferenceDot, ResponsiveContainer,
 } from 'recharts';
 import { calcPercentile } from '@/lib/cdcGrowthData';
 import { getBPPercentile, generateBPCurve, getBPCategory } from '@/lib/bpData';
@@ -143,7 +143,7 @@ export default function PressaoArterial() {
    });
    const [result, setResult] = useState(null);
    const [error, setError] = useState('');
-   const { toggleFavorite, isFavorite } = useFavorites();
+   const { toggleFavorite, isFavorite } = usePageFavorites();
 
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setResult(null); setError(''); };
 
@@ -175,6 +175,10 @@ export default function PressaoArterial() {
     // Height percentile using CDC tables
     const heightR = calcPercentile('height', form.sex, ageMonths, h);
     const heightP = heightR.percentile;
+    if (heightP == null) {
+      setError('A referência de estatura disponível começa aos 2 anos. Para menores de 2 anos, consulte a tabela clínica específica.');
+      return;
+    }
 
     // BP percentiles
     const sysR = getBPPercentile('sys', form.sex, ageInt, heightP, sys);
@@ -192,7 +196,7 @@ export default function PressaoArterial() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="page-surface max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between">
         <div className="flex-1">

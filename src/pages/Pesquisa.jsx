@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
-import { Send, Loader2, RotateCcw, Shield, Sparkles, Mic, ChevronRight } from 'lucide-react';
+import { useAuth } from '@/lib/AuthContext';
+import { services } from '@/api/services';
+import { Send, Loader2, RotateCcw, Shield, Sparkles, ChevronRight } from 'lucide-react';
 import MessageBubble from '@/components/MessageBubble';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -23,54 +24,68 @@ export default function Pesquisa() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, isLoadingAuth } = useAuth();
+  const [error, setError] = useState('');
+  const [history, setHistory] = useState([]);
+  const controllerRef = useRef(null);
+  const attemptRef = useRef(null);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
 
   useEffect(() => {
-    base44.auth.isAuthenticated().then(async (authed) => {
-      setIsAuthenticated(authed);
-      if (authed) await startNewConversation();
-      else setLoading(false);
-    });
-  }, []);
+    if (isLoadingAuth) return;
+    let active = true;
+    if (!isAuthenticated) { setLoading(false); return; }
+    services.research.status().then(async status => {
+      if (!active) return;
+      if (!status.configured) { setError('A assistente ainda não foi configurada.'); return; }
+      const rows = await services.research.list();
+      if (!active) return;
+      setHistory(rows);
+      if (rows.length) {
+        const conv = await services.research.get(rows[0].id);
+        if (active) { setConversation(conv); setMessages(conv.messages); }
+      }
+    }).catch(e => { if (active) setError(e.message); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; controllerRef.current?.abort(); };
+  }, [isAuthenticated, isLoadingAuth]);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // Auto-resize textarea
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
   useEffect(() => {
     const el = textareaRef.current;
-    if (!el) return;
-    el.style.height = 'auto';
-    el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+    if (el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 160) + 'px'; }
   }, [input]);
 
   const startNewConversation = async () => {
-    setLoading(true);
-    setMessages([]);
-    const conv = await base44.agents.createConversation({
-      agent_name: AGENT_NAME,
-      metadata: { name: 'Pesquisa Pediátrica' },
-    });
-    setConversation(conv);
-    setLoading(false);
-    base44.agents.subscribeToConversation(conv.id, (data) => {
-      setMessages([...data.messages]);
-    });
-    setTimeout(() => textareaRef.current?.focus(), 100);
+    controllerRef.current?.abort();
+    setSending(false); setLoading(true); setError('');
+    try {
+      const conv = await services.research.create();
+      setConversation(conv); setMessages([]); attemptRef.current = null;
+      setHistory(await services.research.list());
+    } catch (e) { setError(e.message); }
+    finally { setLoading(false); }
   };
-
-  const handleSend = async (text) => {
-    const msg = text || input.trim();
-    if (!msg || !conversation || sending) return;
-    setInput('');
-    setSending(true);
-    await base44.agents.addMessage(conversation, { role: 'user', content: msg });
-    setSending(false);
-    setTimeout(() => textareaRef.current?.focus(), 100);
+  const handleSend = async text => {
+    const msg = typeof text === 'string' ? text : input.trim();
+    if (!msg || sending || loading) return;
+    setError(''); setSending(true);
+    const controller = new AbortController(); controllerRef.current = controller;
+    try {
+      const conv = conversation || await services.research.create();
+      setConversation(conv);
+      if (!attemptRef.current || attemptRef.current.content !== msg || attemptRef.current.id !== conv.id) {
+        attemptRef.current = { content: msg, id: conv.id, requestId: crypto.randomUUID() };
+      }
+      await services.research.send(conv.id, msg, data => {
+        if (controllerRef.current === controller && data.messages) setMessages(data.messages);
+      }, controller.signal, attemptRef.current.requestId);
+      setInput(''); attemptRef.current = null;
+      setHistory(await services.research.list());
+    } catch (e) { if (e.name !== 'AbortError') setError(e.message); }
+    finally { if (controllerRef.current === controller) setSending(false); }
   };
 
   const handleKeyDown = (e) => {
@@ -80,35 +95,47 @@ export default function Pesquisa() {
     }
   };
 
+  const statusPanel = <div className="px-4 py-2 space-y-2">
+    {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
+    {history.length > 0 && <label className="text-sm">Conversas anteriores <select aria-label="Conversas anteriores" disabled={sending || loading} value={conversation?.id || ''} onChange={async e => {
+      try { const conv = await services.research.get(e.target.value); setConversation(conv); setMessages(conv.messages); setError(''); attemptRef.current = null; }
+      catch (err) { setError(err.message); }
+    }} className="border rounded p-1 text-slate-800">
+      <option value="" disabled>Selecione</option>
+      {history.map(item => <option key={item.id} value={item.id}>{new Date(item.created_date).toLocaleString('pt-BR')}</option>)}
+    </select></label>}
+    {sending && <button onClick={() => controllerRef.current?.abort()} className="text-sm underline">Cancelar resposta</button>}
+  </div>;
+
   // ── Not authenticated ──
   if (!isAuthenticated && !loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center px-4">
+      <div className="clinical-page flex items-center justify-center py-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center max-w-md w-full"
+          className="login-card text-center max-w-md w-full p-8"
         >
           {/* Logo */}
           <div className="relative w-20 h-20 mx-auto mb-6">
             <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-900/50">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-slate-900 animate-pulse" />
+
           </div>
-          <h1 className="text-4xl font-extrabold text-white mb-2">SophIA</h1>
-          <p className="text-blue-300 text-base mb-1 font-medium">IA Clínica Pediátrica</p>
-          <p className="text-slate-400 text-sm mb-8 leading-relaxed max-w-xs mx-auto">
+          <h1 className="text-3xl font-bold text-foreground mb-2">SophIA</h1>
+          <p className="text-primary text-base mb-1 font-medium">IA Clínica Pediátrica</p>
+          <p className="text-slate-600 text-sm mb-8 leading-relaxed max-w-xs mx-auto">
             Pesquise diretrizes, evidências e protocolos com inteligência artificial especializada em pediatria.
           </p>
           <div className="flex flex-wrap justify-center gap-2 mb-8">
             {SOURCES.map(s => (
-              <span key={s} className="bg-white/10 border border-white/20 text-white/70 text-xs px-2.5 py-1 rounded-full font-medium">{s}</span>
+              <span key={s} className="bg-secondary border border-border text-slate-600 text-xs px-2.5 py-1 rounded-full font-medium">{s}</span>
             ))}
           </div>
           <button
-            onClick={() => base44.auth.redirectToLogin()}
-            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-base hover:shadow-xl hover:shadow-blue-900/40 transition-all hover:scale-105 shadow-lg"
+            onClick={() => services.auth.redirectToLogin()}
+            className="w-full bg-primary text-white px-8 py-4 rounded-2xl font-bold text-base hover:shadow-xl hover:shadow-blue-900/40 transition-all hover:scale-105 shadow-lg"
           >
             Entrar para acessar
           </button>
@@ -118,11 +145,12 @@ export default function Pesquisa() {
     );
   }
 
-  const isWaiting = sending || (messages.length > 0 && messages[messages.length - 1]?.role === 'user');
+  const isWaiting = sending;
   const hasMessages = messages.length > 0;
 
   return (
     <div className="flex flex-col bg-slate-50" style={{ height: 'calc(100dvh - 56px)' }}>
+      {statusPanel}
 
       {/* ── HEADER ── */}
       <div className="px-4 py-3 bg-white border-b border-border flex items-center justify-between flex-shrink-0">

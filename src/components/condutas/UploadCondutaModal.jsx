@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { X, Upload, FileText, Image, AlertTriangle, Check } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { motion } from 'framer-motion';
+import { services } from '@/api/services';
 
 export default function UploadCondutaModal({ topico, onClose, onContentUpdate }) {
   const [tab, setTab] = useState('md'); // 'md' | 'image'
@@ -9,8 +9,8 @@ export default function UploadCondutaModal({ topico, onClose, onContentUpdate })
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
-  const mdFileRef = useRef();
-  const imgFileRef = useRef();
+  const mdFileRef = useRef(null);
+  const imgFileRef = useRef(null);
 
   const handleMdFileUpload = (e) => {
     const file = e.target.files[0];
@@ -25,7 +25,7 @@ export default function UploadCondutaModal({ topico, onClose, onContentUpdate })
     if (!file) return;
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await services.uploads.create({ file });
       setImageUrl(file_url);
       // Insert image markdown at cursor or end
       const imgMd = `\n![${file.name}](${file_url})\n`;

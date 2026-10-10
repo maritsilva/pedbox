@@ -1,0 +1,51 @@
+[
+  {
+    "file": "bmiagerev.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "cbeea0e8d500ee15c652f3fdc45bcd02cb9c15d4d1e86f4d8048bbfea8d166e5",
+    "rows": 438
+  },
+  {
+    "file": "statage.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/statage.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "45130d2a9d7c50c54a47e7ba626b66c61d4554bc2d901198cedd9419a53f7251",
+    "rows": 436
+  },
+  {
+    "file": "wtage.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/wtage.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "3406c9d125bcb69c062a9e84eb8c0209bfe9346542bdc1d308643750dcc241b7",
+    "rows": 436
+  },
+  {
+    "file": "lenageinf.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/lenageinf.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "a334b86bc0ecde80d12cdc172dde17b4390ca53ac372b26dd0d72d8502ac2687",
+    "rows": 74
+  },
+  {
+    "file": "wtageinf.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/wtageinf.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "73221dd4de82eb9a70c1e6dd45c9b9e285fa1a3d7fff4971c3b85c1be6e5feed",
+    "rows": 76
+  },
+  {
+    "file": "hcageinf.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/hcageinf.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "bf7e2d7af8fdb336f0b159e480414842136da960ea6a730b7e73d1060b4549e9",
+    "rows": 76
+  },
+  {
+    "file": "wtleninf.csv",
+    "url": "https://www.cdc.gov/growthcharts/data/zscore/wtleninf.csv",
+    "retrieved": "2026-10-09",
+    "sha256": "3dd616c8d11ad8ad5470929477609e6fc44cb2e5f7b95494061e1413a0034249",
+    "rows": 120
+  }
+]

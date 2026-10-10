@@ -5,7 +5,7 @@ import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
 import MarkdownRenderer from '@/components/condutas/MarkdownRenderer';
 import UploadCondutaModal from '@/components/condutas/UploadCondutaModal';
 import NovaCategoriaModal from '@/components/condutas/NovaCategoriaModal';
-import { base44 } from '@/api/base44Client';
+import { services } from '@/api/services';
 
 const COLOR_MAP = {
   blue:   { bg: 'bg-blue-50',   border: 'border-blue-200',   text: 'text-blue-700',   icon: 'bg-blue-100',   badge: 'bg-blue-100 text-blue-700',   header: 'from-blue-500 to-blue-700' },
@@ -323,7 +323,7 @@ export default function Condutas() {
 
   // Check if user is admin
   useEffect(() => {
-    base44.auth.me().then(user => {
+    services.auth.me().then(user => {
       if (user) setIsAdmin(user.role === 'admin');
     }).catch(() => {});
   }, []);
@@ -331,8 +331,8 @@ export default function Condutas() {
   // Load DB condutas and merge into categories
   useEffect(() => {
     Promise.all([
-      base44.entities.CategoriaCustom.list(),
-      base44.entities.Conduta.list(),
+      services.categories.list(),
+      services.contents.list(),
     ]).then(([customCats, dbCondutas]) => {
       setCategorias(prev => {
         // Start with static data
@@ -466,7 +466,7 @@ export default function Condutas() {
   const isSearching = searchQuery.trim().length >= 2;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6">
+    <div className="page-surface max-w-3xl mx-auto px-4 py-6">
       <AnimatePresence mode="wait">
         {view === 'home' && !isSearching && (
           <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>

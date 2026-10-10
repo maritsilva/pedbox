@@ -72,22 +72,22 @@ export default function PASAsma() {
   const classification = allAnswered ? getClassification(total) : null;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 pb-16">
+    <div className="page-surface max-w-2xl mx-auto px-4 py-8 pb-16">
       <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
       </button>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-blue-500 to-sky-700 rounded-3xl p-6 text-white mb-8 shadow-lg">
-        <p className="text-blue-200 text-xs font-bold mb-1">Score Respiratório · Emergência</p>
+      <div className="score-banner mb-8">
+        <p className="text-slate-600 text-xs font-bold mb-1">Score Respiratório · Emergência</p>
         <h1 className="text-3xl font-extrabold">PAS — Asma</h1>
         <p className="text-blue-100 text-sm mt-1">Pediatric Asthma Score — Gravidade da crise (5–15)</p>
         <div className="flex items-end gap-4 mt-4 pt-4 border-t border-white/20">
           <div>
-            <p className="text-blue-200 text-xs">Score atual</p>
-            <p className="text-5xl font-extrabold">{total || '—'}</p>
+            <p className="text-slate-600 text-xs">Score atual</p>
+            <p className="text-5xl font-extrabold">{allAnswered ? total : '—'}</p>
           </div>
-          <p className="text-blue-200 text-sm mb-2">/ 15 · {answered}/{CRITERIA.length} parâmetros</p>
+          <p className="text-slate-600 text-sm mb-2">/ 15 · {answered}/{CRITERIA.length} parâmetros</p>
         </div>
       </div>
 
