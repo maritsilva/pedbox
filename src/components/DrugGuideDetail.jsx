@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   AlertTriangle,
   ShieldAlert,
@@ -49,7 +49,6 @@ function DoseGroup({ group, items }) {
 
 export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
   const { isFavorite, toggleFavorite } = useFavorites();
-  const [activeTab, setActiveTab] = useState('geral');
 
   if (!drug) return null;
   const fav = isFavorite(drug.id);
@@ -60,17 +59,9 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
   ) || drug.doses?.[0];
   const highlightDose = firstChildGroup?.items?.[0];
 
-  const TABS = [
-    { id: 'geral', label: 'Visão geral' },
-    { id: 'doses', label: 'Dose e administração', show: drug.doses?.length > 0 },
-    { id: 'apresentacoes', label: 'Apresentações', show: drug.presentations?.length > 0 || drug.brands?.length > 0 },
-    { id: 'efeitos', label: 'Efeitos adversos', show: drug.sideEffects?.length > 0 },
-    { id: 'contra', label: 'Contraindicações', show: drug.contraindications?.length > 0 },
-  ].filter((t) => t.show !== false);
-
   return (
     <div className="space-y-6">
-      {/* HEADER SECTION (Mockup 4 style: Name + Star + Subtitle) */}
+      {/* HEADER SECTION (Name + Star + Category) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-4">
         <div>
           <div className="flex items-center gap-3">
@@ -100,120 +91,51 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
           </p>
         </div>
 
-        {/* TABS SELECTOR */}
-        <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto">
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                activeTab === tab.id
-                  ? 'bg-white text-brand-navy shadow-xs font-bold'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 text-xs font-bold text-brand-navy">
+            <Info className="w-3.5 h-3.5 text-brand-teal" />
+            Visão Geral Completa
+          </span>
         </div>
       </div>
 
-      {/* TWO-COLUMN GRID (Content on left, Highlight Cards on right - Mockup 4) */}
+      {/* TWO-COLUMN GRID (Unified overview content on left, Highlight Cards on right) */}
       <div className="grid lg:grid-cols-12 gap-6 items-start">
-        {/* MAIN TAB CONTENT */}
+        {/* MAIN OVERVIEW CONTENT */}
         <div className="lg:col-span-8 space-y-6">
-          {/* TAB 1: VISÃO GERAL */}
-          {activeTab === 'geral' && (
-            <div className="space-y-5">
-              {/* Observações / Descrição principal */}
-              {drug.observations && (
-                <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-2">
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Informações principais
-                  </h2>
-                  <p className="text-sm text-slate-700 leading-relaxed">{drug.observations}</p>
-                </div>
-              )}
-
-              {/* Preparo e diluição */}
-              {drug.preparation && (
-                <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-teal">
-                    <Syringe className="w-4 h-4" />
-                    <span>Preparo e Administração</span>
-                  </div>
-                  <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
-                    {drug.preparation}
-                  </p>
-                </div>
-              )}
-
-              {/* Ajuste Renal */}
-              {drug.renalAdjustment && drug.renalAdjustment.length > 0 && (
-                <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
-                    <Info className="w-4 h-4" />
-                    <span>Ajuste na Insuficiência Renal</span>
-                  </div>
-                  <div className="divide-y divide-slate-100 rounded-xl overflow-hidden border border-slate-200">
-                    {drug.renalAdjustment.map((r, i) => (
-                      <div key={i} className="flex justify-between items-center p-3 text-xs">
-                        <span className="font-bold text-slate-700">{r.label}</span>
-                        <span className="text-slate-600">{r.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Sensibilidade antimicrobiana */}
-              {drug.sensitivity && (
-                <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
-                    <ShieldAlert className="w-4 h-4 text-brand-teal" />
-                    <span>Espectro & Sensibilidade</span>
-                  </div>
-                  {drug.sensitivity.susceptible?.length > 0 && (
-                    <div>
-                      <p className="text-xs font-bold text-emerald-700 mb-1.5 flex items-center gap-1">
-                        <CheckCircle2 className="w-3.5 h-3.5" /> Sensíveis:
-                      </p>
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {drug.sensitivity.susceptible.join(', ')}
-                      </p>
-                    </div>
-                  )}
-                  {drug.sensitivity.resistant?.length > 0 && (
-                    <div className="pt-2">
-                      <p className="text-xs font-bold text-rose-700 mb-1.5 flex items-center gap-1">
-                        <XCircle className="w-3.5 h-3.5" /> Resistentes:
-                      </p>
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {drug.sensitivity.resistant.join(', ')}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
+          {/* Informações principais / Observações */}
+          {drug.observations && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-2">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Informações Principais
+              </h2>
+              <p className="text-sm text-slate-700 leading-relaxed">{drug.observations}</p>
             </div>
           )}
 
-          {/* TAB 2: DOSES E ADMINISTRAÇÃO */}
-          {activeTab === 'doses' && (
+          {/* Doses e Administração */}
+          {drug.doses && drug.doses.length > 0 && (
+            <div className="space-y-3">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <Stethoscope className="w-4 h-4 text-brand-teal" />
+                <span>Dose e Administração</span>
+              </h2>
+              <div className="space-y-4">
+                {drug.doses.map((group, gi) => (
+                  <DoseGroup key={gi} group={group.group} items={group.items} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Apresentações e Nomes Comerciais */}
+          {((drug.presentations && drug.presentations.length > 0) || (drug.brands && drug.brands.length > 0)) && (
             <div className="space-y-4">
-              {drug.doses?.map((group, gi) => (
-                <DoseGroup key={gi} group={group.group} items={group.items} />
-              ))}
-            </div>
-          )}
-
-          {/* TAB 3: APRESENTAÇÕES E MARCAS */}
-          {activeTab === 'apresentacoes' && (
-            <div className="space-y-5">
               {drug.presentations && drug.presentations.length > 0 && (
                 <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Apresentações mais comuns
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <FlaskConical className="w-4 h-4 text-brand-teal" />
+                    <span>Apresentações Mais Comuns</span>
                   </h3>
                   <div className="divide-y divide-slate-100">
                     {drug.presentations.map((p, i) => (
@@ -233,8 +155,9 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
 
               {drug.brands && drug.brands.length > 0 && (
                 <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Nomes Comerciais
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <Tag className="w-4 h-4 text-purple-500" />
+                    <span>Nomes Comerciais</span>
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {drug.brands.map((b, i) => (
@@ -252,15 +175,76 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
             </div>
           )}
 
-          {/* TAB 4: EFEITOS ADVERSOS */}
-          {activeTab === 'efeitos' && (
+          {/* Preparo e diluição */}
+          {drug.preparation && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-teal">
+                <Syringe className="w-4 h-4" />
+                <span>Preparo e Diluição</span>
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                {drug.preparation}
+              </p>
+            </div>
+          )}
+
+          {/* Ajuste Renal */}
+          {drug.renalAdjustment && drug.renalAdjustment.length > 0 && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
+                <Info className="w-4 h-4" />
+                <span>Ajuste na Insuficiência Renal</span>
+              </div>
+              <div className="divide-y divide-slate-100 rounded-xl overflow-hidden border border-slate-200">
+                {drug.renalAdjustment.map((r, i) => (
+                  <div key={i} className="flex justify-between items-center p-3 text-xs">
+                    <span className="font-bold text-slate-700">{r.label}</span>
+                    <span className="text-slate-600">{r.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sensibilidade antimicrobiana */}
+          {drug.sensitivity && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
+                <ShieldAlert className="w-4 h-4 text-brand-teal" />
+                <span>Espectro & Sensibilidade</span>
+              </div>
+              {drug.sensitivity.susceptible?.length > 0 && (
+                <div>
+                  <p className="text-xs font-bold text-emerald-700 mb-1.5 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Sensíveis:
+                  </p>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {drug.sensitivity.susceptible.join(', ')}
+                  </p>
+                </div>
+              )}
+              {drug.sensitivity.resistant?.length > 0 && (
+                <div className="pt-2">
+                  <p className="text-xs font-bold text-rose-700 mb-1.5 flex items-center gap-1">
+                    <XCircle className="w-3.5 h-3.5" /> Resistentes:
+                  </p>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {drug.sensitivity.resistant.join(', ')}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Efeitos adversos */}
+          {drug.sideEffects && drug.sideEffects.length > 0 && (
             <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4" />
                 <span>Reações Adversas Frequentes</span>
               </h3>
               <ul className="space-y-2 text-xs text-slate-700">
-                {drug.sideEffects?.map((ef, i) => (
+                {drug.sideEffects.map((ef, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="text-amber-500 font-bold">•</span>
                     <span>{ef}</span>
@@ -270,15 +254,15 @@ export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
             </div>
           )}
 
-          {/* TAB 5: CONTRAINDICAÇÕES */}
-          {activeTab === 'contra' && (
+          {/* Contraindicações */}
+          {drug.contraindications && drug.contraindications.length > 0 && (
             <div className="bg-rose-50/70 border border-rose-200 rounded-2xl p-5 shadow-2xs space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-rose-800 flex items-center gap-1.5">
                 <AlertCircle className="w-4 h-4 text-rose-600" />
                 <span>Contraindicações Absolutas & Relativas</span>
               </h3>
               <ul className="space-y-2 text-xs text-rose-900">
-                {drug.contraindications?.map((c, i) => (
+                {drug.contraindications.map((c, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="text-rose-600 font-bold">✕</span>
                     <span>{c}</span>
