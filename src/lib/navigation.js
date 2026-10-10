@@ -10,7 +10,6 @@ import {
   Star,
   Settings,
   HelpCircle,
-  Sparkles,
   Grid
 } from 'lucide-react';
 
@@ -28,7 +27,6 @@ export const MAIN_NAV_ITEMS = [
 
 export const SECONDARY_NAV_ITEMS = [
   { to: '/ferramentas', label: 'Todas as ferramentas', icon: Grid },
-  { to: '/pesquisa', label: 'SophIA (IA)', icon: Sparkles },
   { to: '/contato', label: 'Sobre & Contato', icon: HelpCircle },
 ];
 
@@ -49,7 +47,6 @@ export const ROUTE_TITLES = {
   '/sinais-vitais': 'Sinais Vitais',
   '/favoritos': 'Meus Favoritos',
   '/ferramentas': 'Explorar Ferramentas',
-  '/pesquisa': 'SophIA — IA Pediátrica',
   '/hidratacao': 'Hidratação Pediátrica',
   '/imc': 'IMC Pediátrico',
   '/pressao-arterial': 'Pressão Arterial',

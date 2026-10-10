@@ -31,7 +31,7 @@ test('canonical catalogue, clinical drafts and blocked tool remain clearly disti
 
 for (const width of [390,1280]) test(`clinical layout fits ${width}px`, async ({page}) => {
  await page.setViewportSize({width,height:900});
- for(const path of ['/','/biblioteca','/biblioteca?tab=protocolos','/biblioteca?tab=links','/biblioteca?tab=anotacoes','/guia','/favoritos','/ferramentas','/calculadoras','/dosagens?drug=paracetamol','/apgar','/pews','/sipa','/imc','/hidratacao','/vacinas','/desenvolvimento','/contact','/contato','/pesquisa','/login']){
+ for(const path of ['/','/biblioteca','/biblioteca?tab=protocolos','/biblioteca?tab=links','/biblioteca?tab=anotacoes','/guia','/favoritos','/ferramentas','/calculadoras','/dosagens?drug=paracetamol','/apgar','/pews','/sipa','/imc','/hidratacao','/vacinas','/desenvolvimento','/contact','/contato','/login']){
   await page.goto(path);
   await expect(page.locator('h1').last()).toBeVisible();
   if (['/','/ferramentas','/biblioteca','/apgar','/login'].includes(path)) await page.waitForTimeout(800);

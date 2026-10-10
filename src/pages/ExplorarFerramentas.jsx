@@ -13,7 +13,6 @@ import {
   BookOpen,
   Scale,
   ShieldAlert,
-  Sparkles,
 } from 'lucide-react';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { CALCULATORS, normalizeSearch } from '@/lib/calculatorRegistry';
@@ -27,7 +26,6 @@ const CATEGORY_TILES = [
   { label: 'Biblioteca', desc: 'Artigos, guias e materiais', cat: 'Biblioteca', icon: BookOpen, color: 'text-indigo-600 bg-indigo-50' },
   { label: 'Avaliação Clínica', desc: 'Escalas e escores', cat: 'Escores', icon: Scale, color: 'text-sky-600 bg-sky-50' },
   { label: 'Emergência', desc: 'Drogas e suporte rápido', cat: 'Emergência', icon: ShieldAlert, color: 'text-rose-600 bg-rose-50' },
-  { label: 'SophIA (IA)', desc: 'Pesquisa com evidências', cat: 'Pesquisa', icon: Sparkles, color: 'text-amber-600 bg-amber-50' },
 ];
 
 const TOOLS = [
@@ -58,7 +56,6 @@ const TOOLS = [
   { path: '/biblioteca?tab=protocolos', label: 'Protocolos Clínicos', icon: '🧪', desc: 'Fluxogramas passo a passo por condição clínica.', cat: 'Biblioteca' },
   { path: '/biblioteca?tab=condutas', label: 'Condutas Clínicas', icon: '🩺', desc: 'Manejos e condutas estruturadas por categoria.', cat: 'Biblioteca' },
   { path: '/biblioteca', label: 'Biblioteca Completa', icon: '📚', desc: 'Protocolos, condutas, links e anotações pediátricas.', cat: 'Biblioteca' },
-  { path: '/pesquisa', label: 'SophIA', icon: '🔬', desc: 'Pesquisa inteligente de evidências e diretrizes clínicas com IA.', cat: 'Pesquisa' },
   { path: '/rastreio-preventivo', label: 'Rastreio Preventivo', icon: '🛡️', desc: 'Calendário de triagens pediátricas — Bright Futures / AAP.', cat: 'Preventivo' },
 ];
 

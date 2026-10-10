@@ -30,8 +30,6 @@ test('login, notes UI, persistence, admin authorization and logout', async ({ pa
   await page.reload();
   await page.getByRole('button', { name: /Anotações/ }).first().click();
   await expect(page.getByText(title, { exact: true })).toBeVisible();
-  await page.goto('/pesquisa');
-  await expect(page.getByRole('alert')).toContainText('ainda não foi configurada');
   await page.goto('/settings');
   await page.getByRole('button', { name: 'Sair', exact: true }).click();
   await expect(page).toHaveURL('/');

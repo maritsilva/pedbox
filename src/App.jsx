@@ -23,7 +23,6 @@ const IMC = lazy(() => import('./pages/IMC'));
 const PressaoArterial = lazy(() => import('./pages/PressaoArterial'));
 
 const Guia = lazy(() => import('./pages/Guia'));
-const Pesquisa = lazy(() => import('./pages/Pesquisa'));
 const PerimetroCefalico = lazy(() => import('./pages/PerimetroCefalico'));
 const AlvoParental = lazy(() => import('./pages/AlvoParental'));
 const IdadeGestacionalCorrigida = lazy(() => import('./pages/IdadeGestacionalCorrigida'));
@@ -83,8 +82,6 @@ function App() {
             <Route path="/hidratacao" element={<Hidratacao />} />
             <Route path="/imc" element={<IMC />} />
             <Route path="/pressao-arterial" element={<PressaoArterial />} />
-
-            <Route path="/pesquisa" element={<Pesquisa />} />
             <Route path="/perimetro-cefalico" element={<PerimetroCefalico />} />
             <Route path="/alvo-parental" element={<AlvoParental />} />
             <Route path="/ictericia" element={<Ictericia />} />

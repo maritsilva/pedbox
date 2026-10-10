@@ -54,7 +54,6 @@ const TOOLS_INDEX = [
   { label: 'Protocolos Clínicos',        path: '/biblioteca',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },
   { label: 'Biblioteca',                 path: '/biblioteca',               icon: '📚', desc: 'Protocolos, condutas, links e anotações pediátricas' },
   { label: 'Explorar Ferramentas',       path: '/ferramentas',              icon: '🧰', desc: 'Todas as ferramentas do site' },
-  { label: 'SophIA',                     path: '/pesquisa',                 icon: '🔬', desc: 'Busca inteligente de evidências e diretrizes com IA' },
   { label: 'Sinais Vitais Pediátricos',  path: '/sinais-vitais',            icon: '📋', desc: 'Valores de referência por faixa etária' },
   { label: 'Curvas de Crescimento',      path: '/curvas-crescimento',       icon: '📈', desc: 'Curvas OMS, CDC e SBP para download' },
   { label: 'Favoritos',                  path: '/favoritos',                icon: '⭐', desc: 'Ferramentas e medicamentos salvos' },
