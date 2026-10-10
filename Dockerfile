@@ -13,6 +13,7 @@ RUN npm ci --omit=dev --no-audit --no-fund && mkdir -p /app/.data/uploads && cho
 COPY --from=build /app/dist ./dist
 COPY server ./server
 COPY scripts ./scripts
+COPY src/lib ./src/lib
 USER node
 EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=5s CMD node -e "fetch('http://127.0.0.1:3001/api/v1/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"

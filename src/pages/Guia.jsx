@@ -92,36 +92,42 @@ export default function Guia() {
     const cat = GUIDE_CATEGORIES.find(c => c.id === selectedDrug.category);
     const colors = colorMap[cat?.color] || colorMap['blue-500'];
     return (
-      <div className="max-w-3xl mx-auto px-4 pb-12 pt-6">
-        <button onClick={() => setSelectedDrug(null)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-5 transition-colors">
-          <ChevronLeft className="w-4 h-4" /> Voltar à categoria
+      <div className="clinical-page max-w-5xl mx-auto space-y-4">
+        <button
+          onClick={() => setSelectedDrug(null)}
+          className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-navy mb-2 transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" /> Voltar aos medicamentos
         </button>
         <DrugGuideDetail drug={selectedDrug} colors={colors} catIcon={cat?.icon} catLabel={cat?.label} />
       </div>
     );
   }
 
-
-
   // ── Main view ──
   return (
-    <div className="page-surface max-w-7xl mx-auto px-4 py-8">
+    <div className="clinical-page max-w-6xl mx-auto space-y-6">
 
       {/* ── HEADER ── */}
-      <PageHeader kind="doses" eyebrow="Medicamentos" title="Bulas" description="Consulte apresentações, indicações e informações dos medicamentos."/>
+      <PageHeader
+        kind="doses"
+        eyebrow="Terapêutica Pediátrica"
+        title="Guia de Medicamentos"
+        description="Consulte doses detalhadas por peso, vias de administração, apresentações e alertas clínicos."
+      />
 
       {/* ── GLOBAL SEARCH ── */}
-      <div className="relative mb-6 sm:mb-8">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <div className="relative">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
         <input
           type="text"
-          placeholder="Buscar medicamento..."
+          placeholder="Buscar princípio ativo ou medicamento..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full border border-border rounded-2xl pl-11 pr-4 py-4 sm:py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
+          className="w-full border border-slate-300 rounded-2xl pl-11 pr-10 py-3.5 text-sm focus:outline-none focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/15 transition-all bg-white"
         />
         {search && (
-          <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+          <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
             <X className="w-4 h-4" />
           </button>
         )}
@@ -130,20 +136,19 @@ export default function Guia() {
         <AnimatePresence>
           {searchResults.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-              className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-2xl shadow-lg overflow-hidden z-30">
+              className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden z-30 divide-y divide-slate-100">
               {searchResults.map(drug => {
                 const cat = GUIDE_CATEGORIES.find(c => c.id === drug.category);
-                const colors = colorMap[cat?.color] || colorMap['blue-500'];
                 return (
                   <button key={drug.id} onClick={() => { setSelectedCat(cat); setSelectedDrug(drug); setSearch(''); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary transition-colors border-b border-border last:border-0">
+                    className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-brand-sky/40 transition-colors">
                     <span className="text-xl">{cat?.icon}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold">{drug.name}</p>
-                      {drug.suffix && <span className="text-xs text-muted-foreground">({drug.suffix}) · </span>}
-                      <span className={`text-xs ${colors.text}`}>{cat?.label}</span>
+                      <p className="text-sm font-bold text-brand-navy">{drug.name}</p>
+                      {drug.suffix && <span className="text-xs text-slate-400">({drug.suffix}) · </span>}
+                      <span className="text-xs font-semibold text-brand-teal">{cat?.label}</span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground ml-auto" />
+                    <ChevronRight className="w-4 h-4 text-slate-400 ml-auto" />
                   </button>
                 );
               })}
@@ -153,17 +158,30 @@ export default function Guia() {
       </div>
 
       {/* ── TABS ── */}
-      <div className="flex gap-2 sm:gap-3 mb-6 sm:mb-8 flex-wrap">
-        <button onClick={() => setActiveTab('categorias')}
-          className={`flex-1 sm:flex-none flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all ${activeTab === 'categorias' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
-          <LayoutGrid className="w-4 h-4" /> <span className="hidden sm:inline">Categorias</span><span className="sm:hidden">Cats</span>
+      <div className="flex gap-2">
+        <button
+          onClick={() => setActiveTab('categorias')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            activeTab === 'categorias'
+              ? 'bg-brand-navy text-white shadow-xs'
+              : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+          }`}
+        >
+          <LayoutGrid className="w-3.5 h-3.5" />
+          <span>Categorias</span>
         </button>
-        <button onClick={() => setActiveTab('favoritos')}
-          className={`flex-1 sm:flex-none flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all ${activeTab === 'favoritos' ? 'bg-primary text-white border-primary' : 'bg-white text-foreground border-border hover:bg-secondary/50'}`}>
-          <Star className={`w-4 h-4 ${activeTab === 'favoritos' ? 'fill-white' : ''}`} />
-          <span className="hidden sm:inline">Favoritos</span>
+        <button
+          onClick={() => setActiveTab('favoritos')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            activeTab === 'favoritos'
+              ? 'bg-brand-navy text-white shadow-xs'
+              : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+          }`}
+        >
+          <Star className={`w-3.5 h-3.5 ${activeTab === 'favoritos' ? 'fill-amber-300 text-amber-300' : 'text-slate-400'}`} />
+          <span>Favoritos</span>
           {favorites.length > 0 && (
-            <span className={`text-xs rounded-full px-1.5 font-bold ${activeTab === 'favoritos' ? 'bg-white/20' : 'bg-secondary text-foreground'}`}>
+            <span className={`text-[10px] rounded-full px-1.5 font-bold ${activeTab === 'favoritos' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'}`}>
               {favorites.length}
             </span>
           )}

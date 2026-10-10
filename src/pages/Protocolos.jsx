@@ -823,14 +823,118 @@ export default function Protocolos() {
 
   }
 
-  return <div className="protocol-library">
-    <div className="catalogue-toolbar">
-      <div className="catalogue-search"><ClipboardList size={18}/><input aria-label="Buscar protocolo ou fluxograma" placeholder="Buscar protocolo ou fluxograma" value={search} onChange={e=>setSearch(e.target.value)}/></div>
-      <select aria-label="Especialidade dos protocolos" value={activeEsp||''} onChange={e=>setActiveEsp(e.target.value||null)}><option value="">Todas as especialidades</option>{especialidades.map(esp=><option key={esp}>{esp}</option>)}</select>
+  return (
+    <div className="protocol-library space-y-5">
+      {/* Specialty Chips & Search Toolbar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
+          <button
+            onClick={() => setActiveEsp(null)}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              !activeEsp
+                ? 'bg-brand-navy text-white shadow-xs'
+                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            Todas
+          </button>
+          {especialidades.map((esp) => (
+            <button
+              key={esp}
+              onClick={() => setActiveEsp(esp)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                activeEsp === esp
+                  ? 'bg-brand-navy text-white shadow-xs font-bold'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+              }`}
+            >
+              {esp}
+            </button>
+          ))}
+        </div>
+
+        <div className="relative w-full sm:w-64">
+          <ClipboardList className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            aria-label="Buscar protocolo ou conduta"
+            placeholder="Buscar protocolos..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full bg-white border border-slate-300 rounded-xl pl-9 pr-3 py-1.5 text-xs focus:outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20"
+          />
+        </div>
+      </div>
+
+      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+        {filtered.length} {filtered.length === 1 ? 'protocolo disponível' : 'protocolos disponíveis'}
+      </p>
+
+      {/* Grid of Protocols */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        {filtered.map((p) => (
+          <article
+            key={p.id}
+            className="group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-brand-teal hover:shadow-xs transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-sky text-brand-navy">
+                  {p.especialidade}
+                </span>
+                <span className="text-base">{p.icon}</span>
+              </div>
+              <h3 className="text-sm font-bold text-slate-800 group-hover:text-brand-navy transition-colors">
+                {p.title}
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5 leading-snug">{p.subtitle}</p>
+              {p.source && (
+                <p className="text-[10px] text-slate-400 mt-2 truncate">Fonte: {p.source}</p>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between mt-4 pt-2 border-t border-slate-100 text-xs">
+              <button
+                onClick={() => setSelected(p.id)}
+                className="font-bold text-brand-teal hover:text-teal-700 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+              >
+                Abrir conduta <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+              {FLUXOGRAMAS[p.id] && (
+                <button
+                  onClick={() => setExpandedFlux(p.id)}
+                  className="text-[11px] text-slate-500 hover:text-brand-navy flex items-center gap-1"
+                >
+                  <GitBranch className="w-3 h-3 text-brand-teal" />
+                  Fluxograma
+                </button>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {!filtered.length && (
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center space-y-2">
+          <p className="text-sm font-semibold text-slate-700">Nenhum protocolo encontrado.</p>
+          <button
+            onClick={() => {
+              setSearch('');
+              setActiveEsp(null);
+            }}
+            className="text-xs font-bold text-brand-teal hover:underline"
+          >
+            Limpar filtros
+          </button>
+        </div>
+      )}
+
+      <FluxogramaModal
+        isOpen={!!expandedFlux}
+        onClose={() => setExpandedFlux(null)}
+        title={FLUXOGRAMAS[expandedFlux]?.title || 'Fluxograma'}
+      >
+        {FLUXOGRAMAS[expandedFlux]?.component}
+      </FluxogramaModal>
     </div>
-    <p className="catalogue-count" role="status">{filtered.length} protocolos · Abra o texto ou consulte o fluxograma.</p>
-    <div className="catalogue-columns">{Object.entries(grouped).map(([esp,protocols])=><section className="catalogue-group" key={esp}><header><h2>{esp}</h2><span>{protocols.length}</span></header>{protocols.map(p=><article key={p.id} className="protocol-catalogue-item"><button className="catalogue-open" onClick={()=>setSelected(p.id)}><span><strong>{p.title}</strong><small>{p.subtitle}</small></span><ChevronRight size={17}/></button>{FLUXOGRAMAS[p.id]&&<button className="flow-link" onClick={()=>setExpandedFlux(p.id)} aria-label={`Abrir fluxograma de ${p.title}`}><GitBranch size={15}/>Ver fluxograma</button>}</article>)}</section>)}</div>
-    {!filtered.length&&<div className="catalogue-empty"><h2>Nenhum protocolo encontrado</h2><button onClick={()=>{setSearch('');setActiveEsp(null);}}>Limpar filtros</button></div>}
-    <FluxogramaModal isOpen={!!expandedFlux} onClose={()=>setExpandedFlux(null)} title={FLUXOGRAMAS[expandedFlux]?.title||'Fluxograma'}>{FLUXOGRAMAS[expandedFlux]?.component}</FluxogramaModal>
-  </div>;
+  );
 }

@@ -1,18 +1,65 @@
 /** @type {import('tailwindcss').Config} */
+const navy = {
+    50: '#EEF5FA',
+    100: '#D6E7F2',
+    200: '#ADCDE3',
+    300: '#7FB0D2',
+    400: '#4E8DBB',
+    500: '#2A70A3',
+    600: '#1F5C8A',
+    700: '#164B73',
+    800: '#123C5C',
+    900: '#0E2E47',
+    950: '#081D2E',
+};
+
+const teal = {
+    50: '#E9F7F7',
+    100: '#CBEDED',
+    200: '#9CDCDC',
+    300: '#64C7C7',
+    400: '#35B3B3',
+    500: '#20A6A6',
+    600: '#198787',
+    700: '#156C6C',
+    800: '#115656',
+    900: '#0D4242',
+    950: '#062626',
+};
+
 module.exports = {
     darkMode: ["class"],
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
     theme: {
         extend: {
             fontFamily: {
+                sans: ['Inter', 'sans-serif'],
                 inter: ['Inter', 'sans-serif'],
+                display: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
             },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
-                sm: 'calc(var(--radius) - 4px)'
+                sm: 'calc(var(--radius) - 4px)',
+                'xl': '1rem',
+                '2xl': '1.25rem',
+                '3xl': '1.5rem',
             },
             colors: {
+                brand: {
+                    navy: '#164B73',
+                    blue: '#1F6FA8',
+                    teal: '#20A6A6',
+                    sky: '#EAF4FA',
+                    bg: '#F3F8FC',
+                    ink: '#243447',
+                    muted: '#647488',
+                },
+                // Remapped brand scales to preserve existing utility usage across 45+ pages
+                blue: navy,
+                sky: navy,
+                cyan: teal,
+                teal: teal,
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {

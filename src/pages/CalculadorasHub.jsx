@@ -1,17 +1,131 @@
 import PageHeader from '@/components/PageHeader';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Star, ArrowUpRight } from 'lucide-react';
+import { Search, Star, ArrowRight, Calculator } from 'lucide-react';
 import { CALCULATORS, normalizeSearch } from '@/lib/calculatorRegistry';
 import { usePageFavorites } from '@/hooks/usePageFavorites';
+
 export default function CalculadorasHub() {
- const [query,setQuery]=useState(''), [category,setCategory]=useState('Todas');
- const {isFavorite,toggleFavorite}=usePageFavorites();
- const categories=['Todas',...new Set(CALCULATORS.map(c=>c.category))];
- const filtered=CALCULATORS.filter(c=>(category==='Todas'||c.category===category)&&normalizeSearch(`${c.label} ${c.desc}`).includes(normalizeSearch(query)));
- return <div className="clinical-page"><PageHeader kind="calculator" eyebrow="Ferramentas clínicas" title="Calculadoras e escalas" description="Encontre pelo nome, sigla ou área. Consulte a população aplicável e as referências em cada ferramenta."/>
- <div className="filter-toolbar mb-6"><label className="field-label flex-1"><span className="flex gap-2"><Search size={16}/> Buscar calculadora</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Nome, sigla ou situação clínica"/></label><label className="field-label">Categoria<select value={category} onChange={e=>setCategory(e.target.value)}>{categories.map(c=><option key={c}>{c}</option>)}</select></label></div>
- <p className="text-sm text-muted-foreground mb-4">{filtered.length} ferramentas · Novas ferramentas em revisão antes da liberação clínica.</p>
- <div className="calculator-grid">{filtered.map(c=><article className="clinical-card calculator-card flex flex-col" key={c.id}><div className="flex justify-between items-start gap-2"><p className="eyebrow">{c.category}</p><button className="icon-action" aria-label={`Favoritar ${c.label}`} aria-pressed={isFavorite(c.path)} onClick={()=>toggleFavorite(c.path)}><Star size={18} fill={isFavorite(c.path)?'currentColor':'none'}/></button></div><h2 className="mt-3">{c.label}</h2><p className="text-sm text-muted-foreground my-2 flex-1">{c.desc}</p><p className="text-xs text-amber-800 my-2">{c.status==='blocked'?'Em revisão · cálculo desativado':c.status==='draft'?'Rascunho · revisão clínica pendente':'Revisão clínica pendente'}</p><Link className="flex items-center justify-between text-primary font-semibold mt-3" to={c.path}>{c.status==='draft'?'Ver ferramenta em revisão':'Abrir calculadora'}<ArrowUpRight size={18}/></Link></article>)}</div>
- {!filtered.length&&<p role="status" className="clinical-card">Nenhuma ferramenta encontrada. Tente outro termo.</p>}</div>;
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('Todas');
+  const { isFavorite, toggleFavorite } = usePageFavorites();
+  const categories = ['Todas', ...new Set(CALCULATORS.map((c) => c.category))];
+
+  const filtered = CALCULATORS.filter(
+    (c) =>
+      (category === 'Todas' || c.category === category) &&
+      normalizeSearch(`${c.label} ${c.desc}`).includes(normalizeSearch(query))
+  );
+
+  return (
+    <div className="clinical-page max-w-6xl mx-auto space-y-6">
+      <PageHeader
+        kind="calculator"
+        eyebrow="Ferramentas Clínicas Pediátricas"
+        title="Calculadoras e Escores"
+        description="Encontre pelo nome, sigla ou área clínica. Consulte a população aplicável e as referências em cada ferramenta."
+      />
+
+      {/* FILTER & SEARCH TOOLBAR */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200/90 shadow-2xs">
+        {/* Category Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 max-w-full">
+          {categories.map((c) => (
+            <button
+              key={c}
+              onClick={() => setCategory(c)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                category === c
+                  ? 'bg-brand-navy text-white shadow-xs font-bold'
+                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+
+        {/* Search Input */}
+        <div className="relative w-full sm:w-72 shrink-0">
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar calculadora ou escore..."
+            className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2 text-xs focus:bg-white focus:outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20"
+          />
+        </div>
+      </div>
+
+      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+        {filtered.length} {filtered.length === 1 ? 'ferramenta disponível' : 'ferramentas disponíveis'}
+      </p>
+
+      {/* CALCULATOR GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        {filtered.map((c) => (
+          <article
+            className="group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-brand-teal hover:shadow-xs transition-all flex flex-col justify-between"
+            key={c.id}
+          >
+            <div>
+              <div className="flex justify-between items-start gap-2 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-sky text-brand-navy">
+                  {c.category}
+                </span>
+                <button
+                  className="icon-action -mr-1 -mt-1"
+                  aria-label={`Favoritar ${c.label}`}
+                  aria-pressed={isFavorite(c.path)}
+                  onClick={() => toggleFavorite(c.path)}
+                >
+                  <Star
+                    className={`w-4 h-4 transition-colors ${
+                      isFavorite(c.path) ? 'fill-amber-400 text-amber-400' : 'text-slate-300'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              <h2 className="text-sm font-bold text-slate-800 group-hover:text-brand-navy transition-colors">
+                {c.label}
+              </h2>
+              <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">{c.desc}</p>
+              {c.status && (
+                <p className="text-[11px] font-medium text-amber-700 mt-2">
+                  {c.status === 'blocked' ? 'Em revisão · cálculo desativado' : 'Revisão pendente'}
+                </p>
+              )}
+            </div>
+
+            <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+              <Link
+                to={c.path}
+                className="font-bold text-brand-teal group-hover:translate-x-0.5 transition-transform flex items-center gap-1"
+              >
+                {c.status === 'draft' ? 'Ver em revisão' : 'Calcular'}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {!filtered.length && (
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center space-y-2">
+          <p className="text-sm font-semibold text-slate-700">Nenhuma calculadora encontrada.</p>
+          <button
+            onClick={() => {
+              setQuery('');
+              setCategory('Todas');
+            }}
+            className="text-xs font-bold text-brand-teal hover:underline"
+          >
+            Limpar filtros
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }

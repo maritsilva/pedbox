@@ -89,94 +89,94 @@ const VITAL_TABLES = [
 ];
 
 export default function SinaisVitais() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-   return (
-     <div className="page-surface max-w-7xl mx-auto px-4 py-6">
-       {/* Header compacto */}
-       <PageHeader eyebrow="Avaliação pediátrica" title="Sinais Vitais Pediátricos" description="Referência clínica para profissionais de saúde">
-         <button onClick={() => navigate('/')} className="flex items-center gap-1 text-sm text-primary mt-3"><ChevronLeft size={16}/>Voltar</button>
-       </PageHeader>
+  return (
+    <div className="clinical-page max-w-6xl mx-auto space-y-6">
+        <PageHeader
+          eyebrow="Avaliação pediátrica"
+          title="Sinais Vitais Pediátricos"
+          description="Valores de referência clínicos por faixa etária baseados em diretrizes PALS e SBP."
+        />
 
-       {/* Alert profissional */}
-       <motion.div
-         initial={{ opacity: 0, y: 10 }}
-         animate={{ opacity: 1, y: 0 }}
-         className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-lg p-3 mb-6"
-       >
-         <Info className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-         <p className="text-xs text-red-800"><strong>Aviso:</strong> Sempre correlacione com avaliação clínica e protocolos institucionais</p>
-       </motion.div>
+        {/* Clinical Alert */}
+        <div className="flex items-start gap-2.5 bg-amber-50/80 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900">
+          <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <p>
+            <strong>Aviso de prática:</strong> Sempre correlacione os valores com a avaliação clínica individual, temperatura, choro e estado de vigília do paciente.
+          </p>
+        </div>
 
-       {/* Quick reference - 3 colunas */}
-       <div className="grid md:grid-cols-3 gap-3 mb-6">
-         {VITAL_SIGNS.map((sign) => (
-           <div
-             key={sign.id}
-             className={`rounded-lg p-4 border ${sign.color}`}
-           >
-             <div className="flex items-start justify-between mb-2">
-               <span className="text-2xl">{sign.icon}</span>
-             </div>
-             <h3 className="text-sm font-bold text-foreground">{sign.title}</h3>
-             <p className="text-xs text-muted-foreground mt-1 mb-2">{sign.description}</p>
-             <p className="text-lg font-extrabold text-primary">{sign.normal}</p>
-           </div>
-         ))}
-       </div>
+        {/* Quick reference - 3 colunas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          {VITAL_SIGNS.map((sign) => (
+            <div
+              key={sign.id}
+              className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs hover:border-brand-teal transition-all"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl">{sign.icon}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-sky text-brand-navy">
+                  Normal
+                </span>
+              </div>
+              <h3 className="text-sm font-bold text-brand-navy">{sign.title}</h3>
+              <p className="text-xs text-slate-500 mt-0.5 mb-2 leading-relaxed">{sign.description}</p>
+              <p className="text-xl font-display font-extrabold text-brand-teal">{sign.normal}</p>
+            </div>
+          ))}
+        </div>
 
-       {/* Tabelas de referência - layout profissional */}
-       <div className="space-y-4">
-         {VITAL_TABLES.map((table) => (
-           <motion.div
-             key={table.id}
-             initial={{ opacity: 0, y: 10 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="bg-white border border-border rounded-lg overflow-hidden shadow-sm"
-           >
-             <div className="bg-gradient-to-r from-primary/5 to-blue-50 px-4 py-3 border-b border-border flex items-center gap-2">
-               <span className="text-xl">{table.icon}</span>
-               <h3 className="text-sm font-bold text-foreground">{table.title}</h3>
-             </div>
+        {/* Tabelas de referência */}
+        <div className="space-y-5">
+          {VITAL_TABLES.map((table) => (
+            <div
+              key={table.id}
+              className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-2xs"
+            >
+              <div className="bg-gradient-to-r from-brand-sky/60 to-slate-50 px-5 py-3.5 border-b border-slate-200/80 flex items-center gap-2.5">
+                <span className="text-lg">{table.icon}</span>
+                <h3 className="text-sm font-bold text-brand-navy">{table.title}</h3>
+              </div>
 
-             <div className="overflow-x-auto">
-               <table className="w-full text-xs">
-                 <thead>
-                   <tr className="bg-gray-50 border-b border-border">
-                     <th className="px-4 py-2.5 text-left font-bold text-foreground">Faixa Etária</th>
-                     <th className="px-4 py-2.5 text-left font-bold text-foreground">Valores Normais</th>
-                     <th className="px-4 py-2.5 text-left font-bold text-muted-foreground">Observações</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   {table.data.map((row, rowIdx) => (
-                     <tr
-                       key={rowIdx}
-                       className={`border-b border-border/50 ${rowIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} hover:bg-primary/5 transition-colors`}
-                     >
-                       <td className="px-4 py-3 font-medium text-foreground whitespace-nowrap">
-                         {row.age}
-                       </td>
-                       <td className="px-4 py-3 font-semibold text-foreground">
-                         {row.min && row.max ? (
-                           <>{row.min} - {row.max} {row.unit}</>
-                         ) : row.systolic ? (
-                           <>{row.systolic} / {row.diastolic} {row.unit}</>
-                         ) : (
-                           <>{row.volume}</>
-                         )}
-                       </td>
-                       <td className="px-4 py-3 text-muted-foreground">
-                         {row.note || '—'}
-                       </td>
-                     </tr>
-                   ))}
-                 </tbody>
-               </table>
-             </div>
-           </motion.div>
-         ))}
-       </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="bg-slate-50/70 border-b border-slate-200/80 text-slate-500">
+                      <th className="px-5 py-3 text-left font-bold uppercase tracking-wider text-[10px]">Faixa Etária</th>
+                      <th className="px-5 py-3 text-left font-bold uppercase tracking-wider text-[10px]">Valores Normais</th>
+                      <th className="px-5 py-3 text-left font-bold uppercase tracking-wider text-[10px]">Observações Clínicas</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {table.data.map((row, rowIdx) => (
+                      <tr
+                        key={rowIdx}
+                        className={`transition-colors hover:bg-brand-sky/20 ${rowIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/40'}`}
+                      >
+                        <td className="px-5 py-3 font-bold text-slate-800 whitespace-nowrap">
+                          {row.age}
+                        </td>
+                        <td className="px-5 py-3 font-semibold text-brand-navy">
+                          {row.min && row.max ? (
+                            <>{row.min} - {row.max} {row.unit}</>
+                          ) : row.systolic ? (
+                            <>{row.systolic} / {row.diastolic} {row.unit}</>
+                          ) : (
+                            <>{row.volume}</>
+                          )}
+                        </td>
+                        <td className="px-5 py-3 text-slate-500">
+                          {row.note || '—'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
 
       {/* Considerações Clínicas */}
       <motion.div

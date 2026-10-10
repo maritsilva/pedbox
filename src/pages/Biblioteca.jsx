@@ -444,24 +444,29 @@ export default function Biblioteca() {
   const isSearching = q.length > 1;
 
   return (
-    <div className="page-surface library-workspace mx-auto px-4 py-8">
+    <div className="clinical-page max-w-6xl mx-auto space-y-6">
 
       {/* ── HEADER ── */}
-      <PageHeader kind="library" eyebrow="Seu espaço de consulta" title="Biblioteca" description="Protocolos, fluxogramas e condutas. Encontre um tema ou escolha uma seção."/>
+      <PageHeader
+        kind="library"
+        eyebrow="Espaço de Evidências Clínicas"
+        title="Biblioteca Pediátrica"
+        description="Protocolos assistenciais, condutas estruturadas, diretrizes e links úteis organizados para consulta rápida."
+      />
 
       {/* ── SEARCH ── */}
-      <div className="relative mb-6">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <div className="relative">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
         <input
           type="text"
           aria-label="Buscar na biblioteca"
-          placeholder="Buscar protocolo, conduta ou link..."
+          placeholder="Buscar protocolos, condutas por doença ou links..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full pl-11 pr-10 py-3.5 bg-white border border-border rounded-2xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+          className="w-full pl-11 pr-10 py-3.5 bg-white border border-slate-300 rounded-2xl text-sm shadow-2xs focus:outline-none focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/15 transition-all"
         />
         {search && (
-          <button onClick={() => setSearch('')} aria-label="Limpar busca" className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+          <button onClick={() => setSearch('')} aria-label="Limpar busca" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
             <X className="w-4 h-4" />
           </button>
         )}
