@@ -38,7 +38,11 @@ export function safePath(value) {
 }
 export const services = {
   auth: {
-    me: () => request('/me'), status: () => request('/auth/status'),
+    me: () => request('/me'),
+    status: () => request('/auth/status'),
+    login: (body) => request('/auth/login', { method: 'POST', body }),
+    register: (body) => request('/auth/register', { method: 'POST', body }),
+    googleVerify: (credential) => request('/auth/google/verify', { method: 'POST', body: { credential } }),
     devLogin: () => request('/auth/dev-login', { method: 'POST' }),
     isAuthenticated: async () => { try { await request('/me'); return true; } catch (e) { if (e.status === 401) return false; throw e; } },
     redirectToLogin: (returnTo = window.location.href) => { window.location.assign('/login?returnTo=' + encodeURIComponent(safePath(returnTo))); },

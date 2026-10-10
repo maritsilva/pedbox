@@ -86,10 +86,10 @@ export default function Home() {
   return (
     <div className="clinical-page home-page max-w-6xl mx-auto space-y-8">
       {/* HERO SECTION WITH IMAGE */}
-      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#EBF4FA] via-[#F4F9FD] to-white border border-slate-200/90 shadow-sm">
+      <section className="relative rounded-3xl bg-gradient-to-r from-[#EBF4FA] via-[#F4F9FD] to-white border border-slate-200/90 shadow-sm z-30">
         <div className="grid lg:grid-cols-12 items-center min-h-[340px]">
           {/* Left Text & Search */}
-          <div className="lg:col-span-7 p-6 sm:p-10 z-10 space-y-6">
+          <div className="lg:col-span-7 p-6 sm:p-10 z-20 space-y-6">
             <div className="space-y-2">
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-teal">
                 Plataforma Pediátrica Livre
@@ -121,7 +121,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setQuery('')}
-                    className="absolute right-12 p-1 text-slate-400 hover:text-slate-600"
+                    className="absolute right-12 p-1 text-slate-400 hover:text-slate-600 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -129,30 +129,39 @@ export default function Home() {
                 <button
                   type="submit"
                   aria-label="Buscar"
-                  className="absolute right-2.5 w-9 h-9 rounded-xl bg-brand-teal hover:bg-teal-600 text-white flex items-center justify-center transition-colors shadow-xs"
+                  className="absolute right-2.5 w-9 h-9 rounded-xl bg-brand-teal hover:bg-teal-600 text-white flex items-center justify-center transition-colors shadow-xs cursor-pointer"
                 >
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Floating Live Results Dropdown */}
+              {/* Floating Live Results Dropdown (Unclipped, elevated above hero) */}
               {query.trim().length > 1 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden z-30 divide-y divide-slate-100 max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-200/90 shadow-2xl overflow-hidden z-50 divide-y divide-slate-100 max-h-96 overflow-y-auto ring-1 ring-slate-900/5">
+                  <div className="p-2.5 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-500">
+                    <span>Resultados da busca rápida</span>
+                    <span>{results.length} encontrados</span>
+                  </div>
                   {results.length > 0 ? (
                     results.map((r, i) => (
                       <Link
                         key={i}
                         to={r.path}
-                        className="flex items-center gap-3.5 px-4 py-3 hover:bg-brand-sky/40 transition-colors text-left"
+                        onClick={() => setQuery('')}
+                        className="flex items-center gap-3.5 px-4 py-3 hover:bg-slate-50 transition-colors text-left group"
                       >
-                        <span className="text-xl w-6 text-center shrink-0">{r.icon || '🔍'}</span>
+                        <span className="text-xl w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                          {r.icon || '🔍'}
+                        </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-brand-navy truncate">{r.label}</p>
+                          <p className="text-xs font-bold text-brand-navy truncate group-hover:text-brand-teal transition-colors">
+                            {r.label}
+                          </p>
                           {r.desc && (
                             <p className="text-[11px] text-slate-500 truncate">{r.desc}</p>
                           )}
                         </div>
-                        <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
+                        <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-brand-navy group-hover:translate-x-0.5 transition-all shrink-0" />
                       </Link>
                     ))
                   ) : (
@@ -182,15 +191,15 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Image Container */}
-          <div className="hidden lg:block lg:col-span-5 relative h-full min-h-[340px] overflow-hidden">
+          {/* Right Image Container (contained and rounded) */}
+          <div className="hidden lg:block lg:col-span-5 relative h-full min-h-[340px] overflow-hidden rounded-r-3xl">
             <img
               src="/assets/hero-pediatra.jpg"
               alt="Pediatra cuidando de bebê"
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
             {/* Gradient feather on the left edge of image */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F4F9FD] via-transparent to-transparent w-28" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F4F9FD] via-transparent to-transparent w-28 pointer-events-none" />
           </div>
         </div>
       </section>
