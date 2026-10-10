@@ -65,9 +65,10 @@ export default function CalculadorasHub() {
       {/* CALCULATOR GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
         {filtered.map((c) => (
-          <article
-            className="group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-brand-teal hover:shadow-xs transition-all flex flex-col justify-between"
+          <Link
             key={c.id}
+            to={c.path}
+            className="group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-brand-teal hover:shadow-xs transition-all flex flex-col justify-between cursor-pointer"
           >
             <div>
               <div className="flex justify-between items-start gap-2 mb-2">
@@ -75,10 +76,15 @@ export default function CalculadorasHub() {
                   {c.category}
                 </span>
                 <button
-                  className="icon-action -mr-1 -mt-1"
+                  type="button"
+                  className="icon-action -mr-1 -mt-1 relative z-10"
                   aria-label={`Favoritar ${c.label}`}
                   aria-pressed={isFavorite(c.path)}
-                  onClick={() => toggleFavorite(c.path)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleFavorite(c.path);
+                  }}
                 >
                   <Star
                     className={`w-4 h-4 transition-colors ${
@@ -100,15 +106,12 @@ export default function CalculadorasHub() {
             </div>
 
             <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-              <Link
-                to={c.path}
-                className="font-bold text-brand-teal group-hover:translate-x-0.5 transition-transform flex items-center gap-1"
-              >
+              <span className="font-bold text-brand-teal group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
                 {c.status === 'draft' ? 'Ver em revisão' : 'Calcular'}
                 <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              </span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
 
