@@ -3,12 +3,42 @@ import { Link } from 'react-router-dom';
 import { Plus, Trash2, Star, TrendingUp, RotateCcw, Info, Activity, CheckCircle2, AlertTriangle, ShieldCheck, ExternalLink } from 'lucide-react';
 import { CartesianGrid, Line, ReferenceLine, ResponsiveContainer, Scatter, ComposedChart, Tooltip, XAxis, YAxis } from 'recharts';
 import PageHeader from '@/components/PageHeader';
-import IMCInfante from './IMCInfante';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { request } from '@/api/services';
 import { GROWTH_REFERENCES, GROWTH_FORMATS, BONE_AGE_METHODS, referenceLabel, specialistAllowed } from '@/lib/growthOptions';
 import { chartSeries } from '@/lib/rcpchGrowth';
 import { localDate } from '@/lib/growthMeasurements';
+
+function getBirthDateFromAge(years, months, measureDate) {
+  const y = parseInt(years, 10) || 0;
+  const m = parseInt(months, 10) || 0;
+  if (!years && !months && y === 0 && m === 0) return '';
+  const refDate = measureDate ? new Date(`${measureDate}T12:00:00Z`) : new Date();
+  const d = new Date(refDate);
+  d.setUTCFullYear(d.getUTCFullYear() - y);
+  d.setUTCMonth(d.getUTCMonth() - m);
+  return d.toISOString().slice(0, 10);
+}
+
+function getAgeFromBirthDate(birthDate, measureDate) {
+  if (!birthDate) return null;
+  const start = new Date(`${birthDate}T12:00:00Z`);
+  const end = measureDate ? new Date(`${measureDate}T12:00:00Z`) : new Date();
+  if (start > end || isNaN(start.getTime()) || isNaN(end.getTime())) return null;
+
+  let years = end.getUTCFullYear() - start.getUTCFullYear();
+  let months = end.getUTCMonth() - start.getUTCMonth();
+  let days = end.getUTCDate() - start.getUTCDate();
+
+  if (days < 0) {
+    months -= 1;
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+  return { years: Math.max(0, years), months: Math.max(0, months) };
+}
 
 const TYPES = {
   height: { label: 'Estatura', unit: 'cm' },
@@ -212,14 +242,16 @@ function GrowthPlot({ rows, type, sex, reference, diagnosis, formatChoice, custo
 }
 
 export default function IMC() {
-  const [reference, setReference] = useState('cdc');
+  const [reference, setReference] = useState('who');
   const [formatChoice, setFormatChoice] = useState('three-percent-centiles');
   const [customInput, setCustomInput] = useState('3;10;25;50;75;90;97');
   const [custom, setCustom] = useState('3;10;25;50;75;90;97');
   const [isSds, setIsSds] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [ageTab, setAgeTab] = useState('child');
   const [form, setForm] = useState(initialForm);
+  const [ageMode, setAgeMode] = useState('age'); // 'age' | 'birthDate'
+  const [ageYears, setAgeYears] = useState('');
+  const [ageMonths, setAgeMonths] = useState('');
   const [rows, setRows] = useState([]);
   const [type, setType] = useState('bmi');
   const [mode, setMode] = useState('centiles');
@@ -252,9 +284,23 @@ export default function IMC() {
   async function submit(event) {
     event.preventDefault();
     try {
-      if (!form.birthDate) throw new Error('Informe a data de nascimento do paciente.');
+      let birthDateToUse = form.birthDate;
+      if (ageMode === 'age') {
+        const y = parseInt(ageYears, 10);
+        const m = parseInt(ageMonths, 10);
+        if (isNaN(y) && isNaN(m)) {
+          throw new Error('Informe a idade do paciente (anos e/ou meses).');
+        }
+        birthDateToUse = getBirthDateFromAge(ageYears, ageMonths, form.measureDate);
+        if (!birthDateToUse) {
+          throw new Error('Informe uma idade válida para o paciente.');
+        }
+      } else {
+        if (!birthDateToUse) throw new Error('Informe a data de nascimento do paciente.');
+      }
+
       if (!form.measureDate) throw new Error('Informe a data da medição.');
-      if (form.measureDate < form.birthDate) throw new Error('A data da medição deve ser posterior à data de nascimento.');
+      if (form.measureDate < birthDateToUse) throw new Error('A data da medição deve ser posterior à data de nascimento.');
       if (rows.some(r => r.date === form.measureDate && (r.measurement || 'combined') === form.measurement)) {
         throw new Error('Já existe uma medição nesta data. Remova a anterior para substituí-la.');
       }
@@ -267,7 +313,7 @@ export default function IMC() {
       const body = {
         reference,
         sex: form.sex,
-        birthDate: form.birthDate,
+        birthDate: birthDateToUse,
         measureDate: form.measureDate,
         gestationWeeks: form.gestationWeeks,
         gestationDays: form.gestationDays,
@@ -277,6 +323,7 @@ export default function IMC() {
         ...(form.boneAge ? { boneAge: number(form.boneAge), boneAgeType: form.boneAgeType } : {}),
       };
       const result = await request('/growth/measurements', { method: 'POST', body });
+      set('birthDate', birthDateToUse);
       setType(form.measurement === 'combined' ? 'bmi' : form.measurement);
       setRows(previous => [...previous, result]);
       setError('');
@@ -295,6 +342,8 @@ export default function IMC() {
     }
     setRows([]);
     setForm(initialForm());
+    setAgeYears('');
+    setAgeMonths('');
     setError('');
     setResetPending(false);
   }
@@ -330,28 +379,7 @@ export default function IMC() {
         </button>
       </PageHeader>
 
-      <div className="growth-age-tabs" aria-label="Faixa etária">
-        <button
-          aria-pressed={ageTab === 'child'}
-          disabled={busy}
-          onClick={() => setAgeTab('child')}
-        >
-          Curvas da API · 2 a 20 anos (OMS & CDC)
-        </button>
-        <button
-          aria-pressed={ageTab === 'infant'}
-          disabled={busy}
-          onClick={() => setAgeTab('infant')}
-        >
-          Lactentes · CDC local (0 a 36 meses)
-        </button>
-      </div>
-
-      {ageTab === 'infant' ? (
-        <IMCInfante />
-      ) : (
-        <>
-          <div className="review-note mb-5 flex items-start gap-3 bg-sky-50/70 border border-sky-200 text-sky-900 rounded-xl p-3.5">
+      <div className="review-note mb-5 flex items-start gap-3 bg-sky-50/70 border border-sky-200 text-sky-900 rounded-xl p-3.5">
             <ShieldCheck className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
             <p className="text-xs leading-relaxed">
               Cálculos e percentis oficiais sincronizados via motor digital RCPCH (OMS 2006/2007 e CDC 2000).
@@ -413,26 +441,156 @@ export default function IMC() {
                     </select>
                   </label>
 
-                  <div className="growth-form-pair">
-                    <label className="field-label">
-                      Nascimento
-                      <input
-                        type="date"
-                        value={form.birthDate}
-                        max={localDate()}
-                        disabled={rows.length > 0}
-                        onChange={e => set('birthDate', e.target.value)}
-                      />
-                    </label>
-                    <label className="field-label">
-                      Data da medição
-                      <input
-                        type="date"
-                        value={form.measureDate}
-                        max={localDate()}
-                        onChange={e => set('measureDate', e.target.value)}
-                      />
-                    </label>
+                  <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/90 space-y-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-[#164B73]">Idade do Paciente</span>
+                      <div className="inline-flex p-0.5 bg-slate-200/80 rounded-lg text-xs font-semibold">
+                        <button
+                          type="button"
+                          disabled={rows.length > 0}
+                          onClick={() => {
+                            setAgeMode('age');
+                            if (form.birthDate) {
+                              const a = getAgeFromBirthDate(form.birthDate, form.measureDate);
+                              if (a) {
+                                setAgeYears(String(a.years));
+                                setAgeMonths(String(a.months));
+                              }
+                            }
+                          }}
+                          className={`px-2.5 py-1 rounded-md transition-all ${
+                            ageMode === 'age'
+                              ? 'bg-white text-[#164B73] shadow-xs font-bold'
+                              : 'text-slate-500 hover:text-slate-800'
+                          }`}
+                        >
+                          Por Idade
+                        </button>
+                        <button
+                          type="button"
+                          disabled={rows.length > 0}
+                          onClick={() => {
+                            setAgeMode('birthDate');
+                            if ((ageYears || ageMonths) && !form.birthDate) {
+                              const b = getBirthDateFromAge(ageYears, ageMonths, form.measureDate);
+                              set('birthDate', b);
+                            }
+                          }}
+                          className={`px-2.5 py-1 rounded-md transition-all ${
+                            ageMode === 'birthDate'
+                              ? 'bg-white text-[#164B73] shadow-xs font-bold'
+                              : 'text-slate-500 hover:text-slate-800'
+                          }`}
+                        >
+                          Por Data de Nasc.
+                        </button>
+                      </div>
+                    </div>
+
+                    {ageMode === 'age' ? (
+                      <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-2.5">
+                          <div>
+                            <label className="text-[11px] font-medium text-slate-500 block mb-1">
+                              Anos
+                            </label>
+                            <input
+                              type="number"
+                              min="0"
+                              max="20"
+                              placeholder="Ex.: 5"
+                              value={ageYears}
+                              disabled={rows.length > 0}
+                              onChange={e => {
+                                const y = e.target.value;
+                                setAgeYears(y);
+                                const b = getBirthDateFromAge(y, ageMonths, form.measureDate);
+                                set('birthDate', b);
+                              }}
+                              className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-[#20A6A6]"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-[11px] font-medium text-slate-500 block mb-1">
+                              Meses (0 a 11)
+                            </label>
+                            <input
+                              type="number"
+                              min="0"
+                              max="11"
+                              placeholder="Ex.: 4"
+                              value={ageMonths}
+                              disabled={rows.length > 0}
+                              onChange={e => {
+                                const m = e.target.value;
+                                setAgeMonths(m);
+                                const b = getBirthDateFromAge(ageYears, m, form.measureDate);
+                                set('birthDate', b);
+                              }}
+                              className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-[#20A6A6]"
+                            />
+                          </div>
+                        </div>
+                        {form.birthDate && (
+                          <p className="text-[11px] text-slate-500 flex items-center gap-1">
+                            <span>Data estimada de nascimento:</span>
+                            <strong className="text-slate-700">{displayDate(form.birthDate)}</strong>
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        <label className="field-label mb-1">
+                          Data de nascimento
+                          <input
+                            type="date"
+                            value={form.birthDate}
+                            max={localDate()}
+                            disabled={rows.length > 0}
+                            onChange={e => {
+                              const b = e.target.value;
+                              set('birthDate', b);
+                              const a = getAgeFromBirthDate(b, form.measureDate);
+                              if (a) {
+                                setAgeYears(String(a.years));
+                                setAgeMonths(String(a.months));
+                              }
+                            }}
+                          />
+                        </label>
+                        {form.birthDate && (
+                          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
+                            <span>Idade calculada:</span>
+                            <strong className="text-slate-700">
+                              {(() => {
+                                const a = getAgeFromBirthDate(form.birthDate, form.measureDate);
+                                if (!a) return '—';
+                                return `${a.years} ${a.years === 1 ? 'ano' : 'anos'} e ${a.months} ${a.months === 1 ? 'mês' : 'meses'}`;
+                              })()}
+                            </strong>
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="pt-2 border-t border-slate-200/80">
+                      <label className="field-label">
+                        Data da medição
+                        <input
+                          type="date"
+                          value={form.measureDate}
+                          max={localDate()}
+                          onChange={e => {
+                            const mDate = e.target.value;
+                            set('measureDate', mDate);
+                            if (ageMode === 'age' && (ageYears || ageMonths)) {
+                              const b = getBirthDateFromAge(ageYears, ageMonths, mDate);
+                              set('birthDate', b);
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
                   </div>
 
                   <label className="field-label">
@@ -865,8 +1023,6 @@ export default function IMC() {
               </div>
             </div>
           </section>
-        </>
-      )}
 
       <footer className="growth-sources">
         <strong>Referência e método de cálculo</strong>
