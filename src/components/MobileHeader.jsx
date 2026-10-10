@@ -27,7 +27,7 @@ export default function MobileHeader({ menuOpen, setMenuOpen }) {
         {isRoot ? (
           <>
             <Link to="/" className="flex items-center">
-              <PedBoxLogo variant="full" iconClassName="w-7 h-7" className="text-xl" />
+              <PedBoxLogo variant="full" className="h-7" />
             </Link>
             <div className="flex items-center gap-1">
               <Link
