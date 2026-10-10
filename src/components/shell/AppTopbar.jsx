@@ -19,6 +19,29 @@ export default function AppTopbar() {
   const [query, setQuery] = useState('');
   const [userDropdown, setUserDropdown] = useState(false);
   const searchInputRef = useRef(null);
+  const searchContainerRef = useRef(null);
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setSearchOpen(false);
+        setQuery('');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
+
+  // Close search on route change
+  useEffect(() => {
+    setSearchOpen(false);
+    setQuery('');
+  }, [location.pathname]);
 
   useEffect(() => {
     const onKey = (event) => {
@@ -49,7 +72,7 @@ export default function AppTopbar() {
   const isHome = location.pathname === '/';
 
   return (
-    <header className="h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-20">
+    <header className="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-50">
       {/* Breadcrumb path */}
       <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
         {!isHome && (
@@ -72,14 +95,14 @@ export default function AppTopbar() {
         )}
 
         {/* Universal Search Trigger */}
-        <div className="relative">
+        <div ref={searchContainerRef} className="relative">
           {!searchOpen ? (
             <button
               onClick={() => {
                 setSearchOpen(true);
                 setTimeout(() => searchInputRef.current?.focus(), 50);
               }}
-              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-700 hover:border-slate-300 transition-all text-xs"
+              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-700 hover:border-slate-300 transition-all text-xs cursor-pointer"
             >
               <Search className="w-3.5 h-3.5 text-slate-400" />
               <span className="hidden sm:inline">Buscar medicamento, calculadora...</span>
@@ -97,18 +120,28 @@ export default function AppTopbar() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Digite sua busca..."
-                  className="w-72 sm:w-80 pl-9 pr-4 py-1.5 rounded-xl bg-white border border-brand-teal text-sm focus:outline-none shadow-sm"
-                  onBlur={() => {
-                    if (!query) setSearchOpen(false);
-                  }}
+                  className="w-72 sm:w-80 pl-9 pr-8 py-1.5 rounded-xl bg-white border border-brand-teal text-sm focus:outline-none shadow-sm text-slate-800"
+                  autoFocus
                 />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => setQuery('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
+                    aria-label="Limpar texto"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
               <button
+                type="button"
                 onClick={() => {
                   setSearchOpen(false);
                   setQuery('');
                 }}
-                className="p-1 text-slate-400 hover:text-slate-600"
+                className="p-1 text-slate-400 hover:text-slate-600 cursor-pointer"
+                aria-label="Fechar busca"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -121,14 +154,18 @@ export default function AppTopbar() {
               <motion.div
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="absolute top-full right-0 mt-2 w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden z-50 divide-y divide-slate-100"
+                exit={{ opacity: 0, y: -4 }}
+                className="absolute top-full right-0 mt-2 w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-50 divide-y divide-slate-100 ring-1 ring-slate-900/10 max-h-[70vh] overflow-y-auto"
               >
+                <div className="p-2.5 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-500">
+                  <span>Resultados da busca ({results.length})</span>
+                  <span className="text-[10px] text-slate-400">Esc para fechar</span>
+                </div>
                 {results.map((r, i) => (
                   <button
                     key={i}
                     onClick={() => handleSelect(r.path)}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-brand-sky/50 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-brand-sky/50 transition-colors cursor-pointer"
                   >
                     <span className="text-base w-6 text-center shrink-0">{r.icon || '🔍'}</span>
                     <div className="flex-1 min-w-0">

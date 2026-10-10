@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Search,
@@ -75,21 +75,49 @@ export default function Home() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const results = universalSearch(query, 8);
+  const heroSearchRef = useRef(null);
+
+  // Close hero search dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (heroSearchRef.current && !heroSearchRef.current.contains(event.target)) {
+        setQuery('');
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
+
+  // Close hero search on Escape key
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setQuery('');
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (results.length > 0) {
       navigate(results[0].path);
+      setQuery('');
     }
   };
 
   return (
     <div className="clinical-page home-page max-w-6xl mx-auto space-y-8">
       {/* HERO SECTION WITH IMAGE */}
-      <section className="relative rounded-3xl bg-gradient-to-r from-[#EBF4FA] via-[#F4F9FD] to-white border border-slate-200/90 shadow-sm z-30">
+      <section className="relative rounded-3xl bg-gradient-to-r from-[#EBF4FA] via-[#F4F9FD] to-white border border-slate-200/90 shadow-sm">
         <div className="grid lg:grid-cols-12 items-center min-h-[340px]">
           {/* Left Text & Search */}
-          <div className="lg:col-span-7 p-6 sm:p-10 z-20 space-y-6">
+          <div className="lg:col-span-7 p-6 sm:p-10 space-y-6">
             <div className="space-y-2">
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-teal">
                 Plataforma Pediátrica Livre
@@ -107,7 +135,7 @@ export default function Home() {
             </div>
 
             {/* Main Search Bar */}
-            <form onSubmit={handleSearchSubmit} className="relative max-w-xl">
+            <form ref={heroSearchRef} onSubmit={handleSearchSubmit} className="relative max-w-xl">
               <div className="relative flex items-center">
                 <Search className="w-5 h-5 absolute left-4 text-slate-400 pointer-events-none" />
                 <input
