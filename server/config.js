@@ -14,7 +14,7 @@ export function configFromEnv(env = process.env) {
     uploadDirectory: resolve(env.UPLOAD_DIR || '.data/uploads'),
     devAuth: env.DEV_AUTH === 'true',
     oidcIssuer: env.OIDC_ISSUER, oidcClientId: env.OIDC_CLIENT_ID, oidcClientSecret: env.OIDC_CLIENT_SECRET,
-    smtpUrl: env.SMTP_URL,
+    smtpUrl: env.SMTP_URL || (production ? 'smtp://pedbox.app:NWGhtLs7fvupCNYN@mail.smtp2go.com:2525' : undefined),
     mailFrom: env.MAIL_FROM || (production ? 'marina@pedbox.app' : undefined),
     contactTo: env.CONTACT_TO || (production ? 'marina@pedbox.app' : undefined),
     anthropicKey: env.ANTHROPIC_API_KEY, anthropicModel: env.ANTHROPIC_MODEL,
