@@ -57,7 +57,12 @@ export default function Contato() {
         setSubmitted(false);
       }, 4000);
     } catch (err) {
-      alert('Erro ao enviar mensagem. Tente novamente.');
+      // Fallback para cliente de e-mail local direcionado à marina@pedbox.app
+      const reasonText = reasonLabels[formData.reason] || formData.reason || 'Contato PedBox';
+      const subject = encodeURIComponent(`[PedBox Contato] ${reasonText} — ${formData.name}`);
+      const body = encodeURIComponent(`Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonText}\n\nMensagem:\n${formData.message}`);
+      window.location.href = `mailto:marina@pedbox.app?subject=${subject}&body=${body}`;
+      setSubmitted(true);
     } finally {
       setSubmitting(false);
     }
@@ -257,6 +262,13 @@ export default function Contato() {
             
             <h2 className="text-3xl font-extrabold text-foreground">Entre em contato</h2>
             <p className="text-muted-foreground mt-2">Sugestões, correções, colaborações — adoramos ouvir você.</p>
+            <div className="mt-4 inline-flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-border shadow-sm text-sm">
+              <Mail className="w-4 h-4 text-primary" />
+              <span className="text-muted-foreground">E-mail:</span>
+              <a href="mailto:marina@pedbox.app" className="font-bold text-primary hover:underline">
+                marina@pedbox.app
+              </a>
+            </div>
           </motion.div>
 
           {submitted ? (

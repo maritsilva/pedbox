@@ -41,9 +41,23 @@ export function installIntegrations(app, db, config, overrides = {}) {
       institution: z.string().max(500).default(''), reason: z.string().max(200).default(''),
       message: z.string().trim().min(1).max(20000),
     }).strict().parse(req.body);
+    const toEmail = config.contactTo || 'marina@pedbox.app';
+    const fromEmail = config.mailFrom || 'PedBox <marina@pedbox.app>';
+
+    // Archive message in database for marina@pedbox.app
+    try {
+      await db.query(`INSERT INTO notes(id, user_id, data, created_date, updated_date)
+        SELECT 'msg_' || md5(random()::text || clock_timestamp()::text), id, $1::jsonb, now(), now()
+        FROM users WHERE email = 'marina@pedbox.app' LIMIT 1`,
+        [JSON.stringify({ ...data, type: 'contact_message', target: toEmail, received_at: new Date().toISOString() })]
+      );
+    } catch (e) {
+      // ignore archive failure
+    }
+
     if (!transport || !config.contactTo || !config.mailFrom) throw httpError(503, 'Envio de e-mail ainda não configurado.');
     await transport.sendMail({
-      from: config.mailFrom, to: config.contactTo, replyTo: data.email,
+      from: fromEmail, to: toEmail, replyTo: data.email,
       subject: `[PedBox Contato] ${data.reason.replace(/[\r\n]/g, ' ')} — ${data.name.replace(/[\r\n]/g, ' ')}`,
       text: `Nome: ${data.name}\nE-mail: ${data.email}\nInstituição: ${data.institution}\nMotivo: ${data.reason}\n\n${data.message}`,
     });
