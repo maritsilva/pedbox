@@ -1,308 +1,700 @@
-// Sínteses próprias. Histórico anterior preservado em vacinasData.js, fora desta página.
-export const VACCINE_REVIEW_DATE = '10/10/2026';
+// Guia Clínico de Imunização Pediátrica — PedBox
+// Atualizado com base na Instrução Normativa PNI 2026 e SBIm 2026/2027
+// Referência principal: "Imunização pediátrica — Leitura expandida", Marina Silva (HU Pediatria, Outubro 2026)
+
+export const VACCINE_REVIEW_DATE = '08/10/2026';
+
 export const VACCINE_SOURCES = {
- pni: {title: 'Ministério da Saúde — Instrução Normativa 2026', url: 'https://www.gov.br/saude/pt-br/vacinacao/publicacoes/instrucao-normativa-que-instrui-o-calendario-nacional-de-vacinacao-2026.pdf/@@download/file'},
- sbim: {title: 'SBIm 2026/2027 — criança, PDF pp. 10–11, atualização 17/06/2026', url: 'https://sbim.org.br/images/livreto-Calend-SBIm-2026-27-260619a.pdf_2026-06-19.pdf'},
- reading: {title: 'Imunização pediátrica — leitura expandida, Equipe PedBox, 07/10/2026 (material fornecido)'}
+  pni: {
+    title: 'Ministério da Saúde — Instrução Normativa Calendário Nacional de Vacinação 2026',
+    url: 'https://www.gov.br/saude/pt-br/vacinacao/publicacoes/instrucao-normativa-que-instrui-o-calendario-nacional-de-vacinacao-2026.pdf/@@download/file',
+  },
+  sbim: {
+    title: 'SBIm 2026/2027 — Calendário da Criança e Adolescente (Atualização Setembro/Outubro 2026)',
+    url: 'https://sbim.org.br/images/livreto-Calend-SBIm-2026-27-260619a.pdf_2026-06-19.pdf',
+  },
+  reading: {
+    title: 'Imunização Pediátrica — Resumo Expandido para Leitura e Estudo, Marina Silva (HU Pediatria, 2026)',
+  },
 };
-export const VACCINE_AGES = [[0,'Ao nascer'],[1,'1 mês'],[2,'2 meses'],[3,'3 meses'],[4,'4 meses'],[5,'5 meses'],[6,'6 meses'],[7,'7 meses'],[9,'9 meses'],[12,'12 meses'],[15,'15–18 meses'],[18,'18 meses'],[48,'4–6 anos'],[60,'5–6 anos'],[108,'9–14 anos'],[120,'10–14 anos'],[132,'11–14 anos']];
+
+export const VACCINE_AGES = [
+  [0, 'Ao nascer'],
+  [1, '1 mês'],
+  [2, '2 meses'],
+  [3, '3 meses'],
+  [4, '4 meses'],
+  [5, '5 meses'],
+  [6, '6 meses'],
+  [7, '7 meses'],
+  [9, '9 meses'],
+  [12, '12 meses'],
+  [15, '15–18 meses'],
+  [18, '18 meses'],
+  [48, '4–6 anos'],
+  [60, '5–6 anos'],
+  [108, '9–14 anos'],
+  [120, '10–14 anos'],
+  [132, '11–14 anos'],
+];
+
 export const vaccineGuide = [
   {
-    "id": "bcg",
-    "name": "BCG",
-    "pni": "Ao nascer, dose única.",
-    "sbim": "Ao nascer, dose única.",
-    "note": "Adiar se peso inferior a 2.000 g. Ausência de cicatriz, com dose documentada, não indica revacinação. Suspeita de imunodeficiência exige avaliação antes da aplicação.",
-    "readingPage": 3,
-    "pniAges": [
-      0
+    id: 'bcg',
+    name: 'BCG (Bacilo de Calmette-Guérin)',
+    shortName: 'BCG',
+    category: 'Vivas Atenuadas',
+    type: 'Bactéria viva atenuada (Mycobacterium bovis)',
+    route: 'Intradérmica estrita (inserção inferior do deltoide direito)',
+    pni: 'Ao nascer, dose única.',
+    sbim: 'Ao nascer, dose única.',
+    pniSchedule: 'Dose única preferencialmente ainda na maternidade ou no primeiro mês de vida. Pode ser administrada até 4 anos, 11 meses e 29 dias se não vacinado.',
+    sbimSchedule: 'Dose única na maternidade o mais precocemente possível.',
+    prevents: 'Formas graves e disseminadas de tuberculose na infância: meningite tuberculosa e tuberculose miliar. Não previne a infecção inicial nem a tuberculose pulmonar do adulto.',
+    composition: 'Bacilo de Calmette-Guérin vivo atenuado (cepa Moreau no Brasil), com glutamato de sódio e solução fisiológica.',
+    minAge: 'Ao nascer (com peso ≥ 2.000 g)',
+    maxAge: '4 anos, 11 meses e 29 dias na rotina do PNI (acima disso apenas comunicantes de hanseníase conforme norma)',
+    catchUp: 'Criança não vacinada até 4 anos, 11 meses e 29 dias deve receber 1 dose única de BCG. Crianças com dose documentada que não desenvolveram cicatriz NÃO devem ser revacinadas de rotina.',
+    contraindications: [
+      'Peso ao nascer inferior a 2.000 g (adiar até a criança atingir 2.000 g)',
+      'Imunodeficiências primárias celulares graves (ex: SCID, defeito de células T)',
+      'Imunossupressão grave congênita ou adquirida',
+      'Exposição intrauterina a imunossupressores biológicos (anticorpos monoclonais anti-TNF)',
+      'Erupção cutânea generalizada no sítio de aplicação (adiar até resolução)',
     ],
-    "sbimAges": [
-      0
-    ]
+    falseContraindications: [
+      'Ausência de cicatriz vacinal após dose documentada (NÃO revacinar de rotina)',
+      'Prematuridade isolada com peso ≥ 2.000 g e estabilidade clínica (pode vacinar)',
+      'Recém-nascido exposto ao HIV assintomático sem sinais de imunodepressão (vacinar na maternidade)',
+    ],
+    adverseEvents: [
+      'Evolução normal esperada: mácula avermelhada (3-4 sem) → pústula → úlcera de até 1 cm com crosta → cicatriz vacinal em 6 a 12 semanas. Orientar não espremer, não cobrir e lavar apenas com água e sabão.',
+      'Úlcera > 1 cm ou abscesso frio: investigar e avaliar tratamento com Isoniazida conforme protocolo do Ministério da Saúde.',
+      'Abscesso quente bacteriano secundário: avaliar antibioticoterapia piogênica.',
+      'Linfadenite regional não supurada > 3 cm: apenas acompanhar clinicamente (não dar isoniazida apenas por isso).',
+      'Linfonodo supurado ou lesão disseminada: encaminhar ao CRIE. Lembrar: o bacilo vacinal BCG é naturalmente resistente à pirazinamida.',
+    ],
+    specialSituations: 'Prematuros com peso < 2.000 g adiam apenas a BCG; as vacinas não vivas seguem a idade cronológica. Comunicantes domiciliares de hanseníase têm protocolo específico de doses adicionais.',
+    readingPage: 7,
+    pniAges: [0],
+    sbimAges: [0],
+    note: 'Adiar se peso inferior a 2.000 g. Ausência de cicatriz, com dose documentada, não indica revacinação. Suspeita de imunodeficiência exige avaliação antes da aplicação.',
   },
   {
-    "id": "hepb",
-    "name": "Hepatite B",
-    "pni": "Ao nascer e componente da penta aos 2, 4 e 6 meses.",
-    "sbim": "Ao nascer, 1 e 6 meses; quatro doses quando utilizada combinação contendo hepatite B.",
-    "note": "Preferir a dose neonatal nas primeiras 12 horas. Mãe HBsAg positiva: associar imunoglobulina específica em local diferente e organizar seguimento.",
-    "readingPage": 3,
-    "pniAges": [
-      0,
-      2,
-      4,
-      6
+    id: 'hepb',
+    name: 'Hepatite B',
+    shortName: 'HepB',
+    category: 'Não Vivas / Inativadas',
+    type: 'Recombinante (antígeno de superfície HBsAg purificado)',
+    route: 'Intramuscular profunda (vasto lateral da coxa em lactentes; deltoide em crianças maiores)',
+    pni: 'Ao nascer e componente da penta aos 2, 4 e 6 meses.',
+    sbim: 'Ao nascer, 1 e 6 meses; quatro doses quando utilizada combinação contendo hepatite B.',
+    pniSchedule: '1ª dose isolada nas primeiras 12–24 horas de vida. Continuidade com o componente HepB presente na vacina Pentavalente (DTPw-HB-Hib) aos 2, 4 e 6 meses (total de 4 doses).',
+    sbimSchedule: 'Dose ao nascer nas primeiras 12h + doses aos 2, 4 e 6 meses (ou 2 e 6 meses em esquemas com vacinas acelulares hexavalentes). Total de 3 ou 4 doses no primeiro ano é plenamente válido.',
+    prevents: 'Infecção pelo vírus da hepatite B (HBV), evitando evolução para cirrose hepática e carcinoma hepatocelular (90% dos bebês infectados verticalmente tornam-se portadores crônicos).',
+    composition: 'Proteína recombinante de superfície do HBV (HBsAg), adjuvada em hidróxido de alumínio.',
+    minAge: 'Ao nascer (o mais precocemente possível nas primeiras 12 horas)',
+    maxAge: 'Sem limite superior; disponível para todas as faixas etárias suscetíveis',
+    catchUp: 'Para crianças e adolescentes não vacinados: esquema de 3 doses no esquema 0, 1 e 6 meses. Doses já aplicadas são aproveitadas, respeitando intervalo de 4 semanas entre D1-D2 e 8 semanas entre D2-D3 (com mínimo de 16 semanas entre D1 e D3).',
+    contraindications: [
+      'Histórico de anafilaxia a dose anterior ou a qualquer componente da fórmula.',
     ],
-    "sbimAges": [
-      0,
-      1,
-      6
-    ]
+    falseContraindications: [
+      'Prematuridade e baixo peso (deve receber ao nascer independentemente do peso)',
+      'Icterícia fisiológica neonatal',
+      'Uso de antibióticos ou febre baixa recente',
+    ],
+    adverseEvents: [
+      'Dor local discreta, eritema e enduração passageira.',
+      'Febre baixa nas primeiras 24–48h em pequena porcentagem dos vacinados.',
+    ],
+    specialSituations: 'Mãe HBsAg Positiva: administrar vacina + Imunoglobulina Humana Anti-Hepatite B (IGHB) em membros diferentes nas primeiras 12h de vida (máximo 7 dias para IGHB). Solicitar anti-HBs entre 9–12 meses de vida. Prematuros com peso < 2.000 g ou IG < 33 semanas devem receber 4 doses de vacina (0, 2, 4 e 6 meses). Pacientes renais crônicos/imunossuprimidos recebem dose dobrada em 4 aplicações.',
+    readingPage: 7,
+    pniAges: [0, 2, 4, 6],
+    sbimAges: [0, 1, 6],
+    note: 'Preferir a dose neonatal nas primeiras 12 horas. Mãe HBsAg positiva: associar imunoglobulina específica em local diferente e organizar seguimento.',
   },
   {
-    "id": "dtp",
-    "name": "Difteria, tétano e coqueluche",
-    "pni": "Penta com DTPw aos 2, 4 e 6 meses; DTP aos 15 meses e 4 anos.",
-    "sbim": "Preferir DTPa aos 2, 4 e 6 meses; reforços aos 15–18 meses e 4–6 anos. dTpa preferencialmente aos 9–11 anos, cinco anos após o reforço anterior.",
-    "note": "Penta do SUS contém hepatite B e Hib; penta acelular contém VIP e Hib; hexa acelular contém todos esses componentes. Conferir por antígeno para evitar omissões ou duplicidade.",
-    "readingPage": 9,
-    "pniAges": [
-      2,
-      4,
-      6,
-      15,
-      48
+    id: 'dtp',
+    name: 'Difteria, tétano e coqueluche',
+    shortName: 'DTP / DTPa / dTpa',
+    category: 'Não Vivas / Inativadas',
+    type: 'Toxoides (Difteria e Tétano) e componentes de Bordetella pertussis (células inteiras DTPw ou acelular DTPa)',
+    route: 'Intramuscular profunda (vasto lateral da coxa em lactentes; deltoide acima de 2 anos)',
+    pni: 'Penta com DTPw aos 2, 4 e 6 meses; DTP aos 15 meses e 4 anos.',
+    sbim: 'Preferir DTPa aos 2, 4 e 6 meses; reforços aos 15–18 meses e 4–6 anos. dTpa preferencialmente aos 9–11 anos, cinco anos após o reforço anterior.',
+    pniSchedule: 'Pentavalente (DTPw + HB + Hib) aos 2, 4 e 6 meses. 1º reforço com DTP aos 15 meses. 2º reforço com DTP aos 4 anos. A partir de 7 anos: dT de adultos.',
+    sbimSchedule: 'DTPa (em combinação acelular Hexavalente ou Pentavalente) aos 2, 4 e 6 meses. Reforços com DTPa aos 15–18 meses e 4–6 anos. Reforço com dTpa (tipo adulto) aos 9–11 anos e a cada 10 anos.',
+    prevents: 'Difteria (obstrução de vias aéreas por pseudomembranas), tétano (espasmos musculares graves) e coqueluche (tosse paroxística violenta, apneia e óbito em lactentes).',
+    composition: 'Toxoide diftérico, toxoide tetânico e pertussis (célula inteira purificada ou subunidades acelulares PT, FHA, pertactina) adsorvidos em sais de alumínio.',
+    minAge: '6 semanas (2 meses no calendário de rotina)',
+    maxAge: 'Formulações infantis com alta carga (DTPw, DTPa, DT) são licenciadas até 6 anos, 11 meses e 29 dias. A partir dos 7 anos usa-se dT ou dTpa.',
+    catchUp: 'Intervalo mínimo de 4 semanas entre doses da série básica. Reforço aos 15 meses exige pelo menos 6 meses da 3ª dose básica. Crianças a partir de 7 anos com esquema incompleto completam com dT ou dTpa (não reiniciar).',
+    contraindications: [
+      'Encefalopatia aguda nos primeiros 7 dias após vacina com pertussis sem outra causa identificável: contraindica DEFINITIVAMENTE o componente pertussis (inclusive acelular!). Continuar com vacina dupla infantil DT.',
+      'Anafilaxia grave comprovada a dose anterior.',
     ],
-    "sbimAges": [
-      2,
-      4,
-      6,
-      15,
-      48,
-      108
-    ]
+    falseContraindications: [
+      'Episódio Hipotônico-Hiporresponsivo (EHH) nas 48h pós-DTPw NÃO contraindica vacinação: indica trocar doses seguintes por vacina acelular (DTPa) no CRIE.',
+      'Convulsão febril ou afebril até 72h pós-DTPw NÃO contraindica: indica troca por DTPa no CRIE.',
+      'Histórico familiar de convulsões (pode vacinar normalmente).',
+    ],
+    adverseEvents: [
+      'DTPw de células inteiras tem reatogenicidade expressiva: febre alta (> 38,5°C), dor intensa local e choro persistente em até 50% dos lactentes.',
+      'DTPa acelular tem redução drástica desses efeitos colaterais.',
+      'EHH (palidez, flacidez e perda súbita de tônus/consciência por minutos/horas): evento raro, sem sequelas a longo prazo; encaminhar ao CRIE para DTPa.',
+    ],
+    specialSituations: 'Gestantes: devem receber 1 dose de dTpa em cada gestação a partir da 20ª semana para transferência transplacentária de anticorpos protetores contra coqueluche ao bebê. CRIE fornece DTPa para prematuros < 33 semanas ou < 1.500 g, cardiopatas e pneumopatas.',
+    readingPage: 11,
+    pniAges: [2, 4, 6, 15, 48],
+    sbimAges: [2, 4, 6, 15, 48, 108],
+    note: 'Penta do SUS contém hepatite B e Hib; penta acelular contém VIP e Hib; hexa acelular contém todos esses componentes. Conferir por antígeno para evitar omissões ou duplicidade.',
   },
   {
-    "id": "vip",
-    "name": "Poliomielite — VIP",
-    "pni": "2, 4 e 6 meses; reforços aos 15 meses e 4 anos.",
-    "sbim": "2, 4 e 6 meses; reforços aos 15–18 meses e 4–6 anos.",
-    "note": "Esquema exclusivamente inativado. Divergência documental: o livreto SBIm de junho ainda descreve apenas um reforço no PNI; a norma PNI consultada e a aula posterior incluem o reforço aos 4 anos.",
-    "readingPage": 5,
-    "pniAges": [
-      2,
-      4,
-      6,
-      15,
-      48
+    id: 'vip',
+    name: 'Poliomielite — VIP',
+    shortName: 'VIP',
+    category: 'Não Vivas / Inativadas',
+    type: 'Vírus inativados da poliomielite (tipos 1, 2 e 3 - Salk)',
+    route: 'Intramuscular profunda (vasto lateral da coxa ou deltoide)',
+    pni: '2, 4 e 6 meses; reforços aos 15 meses e 4 anos.',
+    sbim: '2, 4 e 6 meses; reforços aos 15–18 meses e 4–6 anos.',
+    pniSchedule: 'Esquema 100% inativado com VIP: 3 doses básicas aos 2, 4 e 6 meses; 1º reforço aos 15 meses; 2º reforço aos 4 anos. A vacina oral (VOP) foi completamente extinta do calendário brasileiro.',
+    sbimSchedule: 'VIP aos 2, 4 e 6 meses; reforços aos 15–18 meses e 4–6 anos (frequentemente associada na penta/hexa acelular).',
+    prevents: 'Poliomielite (paralisia infantil flácida aguda irreversível).',
+    composition: 'Suspensão purificada de poliovírus tipos 1 (Mahoney), 2 (MEF-1) e 3 (Saukett) inativados pelo formaldeído.',
+    minAge: '6 semanas',
+    maxAge: 'Rotina até antes dos 5 anos no PNI. Em viajantes e grupos sob risco epidemiológico pode ser administrada em qualquer idade.',
+    catchUp: 'Manter intervalo mínimo de 4 semanas entre doses básicas. O 1º reforço exige pelo menos 6 meses da 3ª dose. O 2º reforço aos 4 anos exige intervalo mínimo de 6 meses do 1º reforço. Nunca reiniciar esquema.',
+    contraindications: [
+      'Anafilaxia grave a dose anterior ou a antibióticos residuais da fabricação (neomicina, estreptomicina ou polimixina B).',
     ],
-    "sbimAges": [
-      2,
-      4,
-      6,
-      15,
-      48
-    ]
+    falseContraindications: [
+      'Criança convivente com imunossuprimido (a VIP é inativada e 100% segura para familiares e contactantes)',
+      'Prematuridade (vacinar pela idade cronológica)',
+    ],
+    adverseEvents: [
+      'Excelente tolerabilidade e segurança.',
+      'Dor leve e vermelhidão no local da injeção em menos de 10%. Febre é rara.',
+      'Zero risco de poliomielite vacinal (VAPP), ao contrário da antiga vacina oral VOP.',
+    ],
+    specialSituations: 'Pacientes imunocomprometidos e seus contactantes domiciliares devem receber exclusivamente VIP (nunca VOP). Doses prévias de VOP registradas no passado são computadas como válidas.',
+    readingPage: 12,
+    pniAges: [2, 4, 6, 15, 48],
+    sbimAges: [2, 4, 6, 15, 48],
+    note: 'Esquema exclusivamente inativado. Divergência documental: o livreto SBIm de junho ainda descreve apenas um reforço no PNI; a norma PNI consultada e a aula posterior incluem o reforço aos 4 anos.',
   },
   {
-    "id": "hib",
-    "name": "Haemophilus influenzae b — Hib",
-    "pni": "Componente da penta aos 2, 4 e 6 meses.",
-    "sbim": "2, 4 e 6 meses; reforço aos 15–18 meses, especialmente após combinações acelulares.",
-    "note": "Rotina para crianças saudáveis menores de 5 anos. Condições especiais, como asplenia e imunodeficiências, exigem consulta à RIE/CRIE.",
-    "readingPage": 5,
-    "pniAges": [
-      2,
-      4,
-      6
+    id: 'hib',
+    name: 'Haemophilus influenzae b — Hib',
+    shortName: 'Hib',
+    category: 'Conjugadas',
+    type: 'Polissacarídeo capsular (PRP) conjugado a carreador proteico',
+    route: 'Intramuscular profunda',
+    pni: 'Componente da penta aos 2, 4 e 6 meses.',
+    sbim: '2, 4 e 6 meses; reforço aos 15–18 meses, especialmente após combinações acelulares.',
+    pniSchedule: 'Administrada no componente da Pentavalente do PNI aos 2, 4 e 6 meses.',
+    sbimSchedule: 'Doses aos 2, 4 e 6 meses, mais 1 dose de reforço aos 15–18 meses (reforço importante na imunização acelular).',
+    prevents: 'Meningite bacteriana grave por Hib, epiglotite aguda, artrite séptica, pneumonia bacterêmica e celulite orbitária.',
+    composition: 'Polirribosil-ribitol-fosfato (PRP) capsular conjugado ao toxoide tetânico ou CRM197.',
+    minAge: '6 semanas',
+    maxAge: 'Rotina indicada até 4 anos, 11 meses e 29 dias para crianças saudáveis.',
+    catchUp: 'Criança saudável não vacinada entre 15 e 59 meses de idade necessita de APENAS 1 DOSE para considerar o esquema completo. Crianças saudáveis com ≥ 5 anos não precisam mais de Hib.',
+    contraindications: [
+      'Hipersensibilidade anafilática prévia aos componentes.',
     ],
-    "sbimAges": [
-      2,
-      4,
-      6,
-      15
-    ]
+    falseContraindications: [
+      'Gripe comum ou infecção respiratória superior febril recente',
+      'Desconhecimento do produto exato (completar conforme regras por antígeno)',
+    ],
+    adverseEvents: [
+      'Reações locais leves (dor, rubor e inchaço no local em 10–15%). Febre baixa ocasional.',
+    ],
+    specialSituations: 'Pacientes com asplenia anatômica ou funcional (anemia falciforme), imunodeficiências primárias, implante coclear ou pós-transplante mantêm indicação de vacinação contra Hib mesmo após os 5 anos de idade pelo CRIE.',
+    readingPage: 13,
+    pniAges: [2, 4, 6],
+    sbimAges: [2, 4, 6, 15],
+    note: 'Rotina para crianças saudáveis menores de 5 anos. Condições especiais, como asplenia e imunodeficiências, exigem consulta à RIE/CRIE.',
   },
   {
-    "id": "rotavirus",
-    "name": "Rotavírus — RV1 / RV5",
-    "pni": "RV1: 2 e 4 meses.",
-    "sbim": "RV1: 2 e 4 meses; RV5: 2, 4 e 6 meses.",
-    "note": "Recuperação: primeira dose até 11 meses e 29 dias e última até 23 meses e 29 dias. A ampliação para RV5 é off label. Não repetir se regurgitar ou vomitar. Intussuscepção prévia e imunodeficiência grave contraindicam. Não administrar durante internação; planejar após alta.",
-    "readingPage": 4,
-    "pniAges": [
-      2,
-      4
+    id: 'rotavirus',
+    name: 'Rotavírus — RV1 / RV5',
+    shortName: 'Rotavírus',
+    category: 'Vivas Atenuadas',
+    type: 'Vírus vivo atenuado (Via Oral)',
+    route: 'Oral estrita (NÃO injetar sob nenhuma circunstância)',
+    pni: 'RV1: 2 e 4 meses.',
+    sbim: 'RV1: 2 e 4 meses; RV5: 2, 4 e 6 meses.',
+    pniSchedule: 'Vacina monovalente (RV1): 2 doses aos 2 e 4 meses de vida.',
+    sbimSchedule: 'Vacina monovalente RV1 (2 doses: 2 e 4 meses) ou vacina pentavalente RV5 (3 doses: 2, 4 e 6 meses).',
+    prevents: 'Gastroenterite viral aguda grave por rotavírus, diarreia desidratante e hospitalizações em lactentes.',
+    composition: 'RV1: Cepa humana atenuada G1P[8]. RV5: Cinco cepas de rotavírus reassortante humano-bovino (G1, G2, G3, G4 e P1A[8]).',
+    minAge: '6 semanas (1 mês e 15 dias)',
+    maxAge: 'Primeira dose pode ser feita até 11 meses e 29 dias; última dose até 23 meses e 29 dias (Normas atuais 2026).',
+    catchUp: 'Intervalo mínimo entre doses de 30 dias (recomendado: 60 dias). Caso a 1ª dose tenha sido feita com RV5 ou produto ignorado, completar com 3 doses totais.',
+    contraindications: [
+      'Histórico de intussuscepção (invaginação) intestinal prévia (contraindicação absoluta!)',
+      'Malformação congênita não corrigida do trato gastrointestinal predisponente à intussuscepção (ex: divertículo de Meckel)',
+      'Imunodeficiência Combinada Grave (SCID)',
+      'Anafilaxia prévia à vacina',
     ],
-    "sbimAges": [
-      2,
-      4,
-      6
-    ]
+    falseContraindications: [
+      'Criança que cuspiu, regurgitou ou vomitou após a tomada: NÃO REPETIR A DOSE (a dose é mantida válida)',
+      'Aleitamento materno (pode amamentar livremente antes e depois)',
+      'Presença de convivente imunossuprimido (orientar higiene rigorosa das mãos após troca de fraldas)',
+      'Pequenas estrias isoladas de sangue nas fezes sem intussuscepção (investigar causa, não proíbe vacina)',
+    ],
+    adverseEvents: [
+      'Irritabilidade leve, febre baixa e diarreia transitória autolimitada em pequena porcentagem.',
+      'Intussuscepção intestinal: risco extremamente raro (1 a 5 casos por 100.000 lactentes), com maior probabilidade nos primeiros 7 a 14 dias após a 1ª dose. Alerta para: dor cólica súbita episódica, pernas flexionadas, vômitos biliosos e fezes em "geleia de framboesa".',
+    ],
+    specialSituations: 'Criança internada em unidade neonatal/pediátrica NÃO deve ser vacinada dentro do hospital devido ao risco de eliminação fecal de vírus atenuado e contaminação cruzada; programar a aplicação para logo após a alta hospitalar.',
+    readingPage: 10,
+    pniAges: [2, 4],
+    sbimAges: [2, 4, 6],
+    note: 'Recuperação: primeira dose até 11 meses e 29 dias e última até 23 meses e 29 dias. A ampliação para RV5 é off label. Não repetir se regurgitar ou vomitar. Intussuscepção prévia e imunodeficiência grave contraindicam. Não administrar durante internação; planejar após alta.',
   },
   {
-    "id": "pneumo",
-    "name": "Pneumocócicas conjugadas",
-    "pni": "Transição 2+1: VPC20 aos 2 meses, VPC10 aos 4 e VPC20 aos 12 meses.",
-    "sbim": "Preferir VPC20 ou VPC15: 2, 4 e 6 meses, com reforço aos 12–15 meses, quando iniciada até 6 meses.",
-    "note": "Na falta de VPC10, seguir a norma para VPC20. Esquema completo anterior de VPC10 permanece válido no PNI. Complementação SBIm depende de idade, produto e risco; não equivale a reiniciar toda a série.",
-    "readingPage": 7,
-    "pniAges": [
-      2,
-      4,
-      12
+    id: 'pneumo',
+    name: 'Pneumocócicas conjugadas',
+    shortName: 'VPC10 / VPC15 / VPC20',
+    category: 'Conjugadas',
+    type: 'Polissacarídeos capsulares de múltiplos sorotipos de S. pneumoniae conjugados a carreador proteico',
+    route: 'Intramuscular profunda',
+    pni: 'Transição 2+1: VPC20 aos 2 meses, VPC10 aos 4 e VPC20 aos 12 meses.',
+    sbim: 'Preferir VPC20 ou VPC15: 2, 4 e 6 meses, com reforço aos 12–15 meses, quando iniciada até 6 meses.',
+    pniSchedule: 'Transição oficial 2026: esquema 2+1 com VPC20 aos 2 meses, VPC10 aos 4 meses e reforço com VPC20 aos 12 meses. Na falta de VPC10, autoriza-se usar VPC20 em todas as doses. Esquemas prévios de VPC10 continuam válidos.',
+    sbimSchedule: 'Preferência pelas vacinas de espectro ampliado VPC15 ou VPC20 no esquema 3+1 (aos 2, 4 e 6 meses, e reforço entre 12 e 15 meses).',
+    prevents: 'Doença pneumocócica invasiva (bacteremia, sepse, meningite bacteriana por pneumococo) e infecções respiratórias (pneumonia bacteriana consolidativa e otite média aguda pelos sorotipos cobertos).',
+    composition: 'Polissacarídeos capsulares de pneumococos (10, 15 ou 20 sorotipos) conjugados a proteínas carreadoras (CRM197 ou proteína D do Hib).',
+    minAge: '6 semanas',
+    maxAge: 'Rotina até antes dos 5 anos para crianças hígidas. Grupos de alto risco clínico mantêm indicação na RIE em qualquer idade.',
+    catchUp: 'Criança de 12 meses a 4 anos sem vacinação prévia recebe 1 dose única de VPC20 no PNI. Atrasos na série básica não exigem recomeçar: respeitar intervalo mínimo de 60 dias (30 dias em situações excepcionais).',
+    contraindications: [
+      'Histórico de anafilaxia aos componentes da vacina ou toxoide diftérico carreador.',
     ],
-    "sbimAges": [
-      2,
-      4,
-      6,
-      12
-    ]
+    falseContraindications: [
+      'Episódio prévio de otite média ou pneumonia (não substitui nem contraindica a vacinação)',
+      'Esquema prévio de VPC10 (esquema válido; ampliação com VPC20 é complementar)',
+    ],
+    adverseEvents: [
+      'Dor local, endurecimento e eritema em até 30%.',
+      'Irritabilidade, sonolência transitória e febre baixa nas primeiras 48h.',
+    ],
+    specialSituations: 'Pacientes de alto risco (asplenia, nefropatias, fístula liquórica, implante coclear, imunodeficiências): as Notas Técnicas 52 e 64 de 2026 incorporam a VPC20 na RIE. A vacina polissacarídica VPP23 não substitui a conjugada em lactentes e não deve ser adicionada após VPC20 segundo essa nova estratégia.',
+    readingPage: 16,
+    pniAges: [2, 4, 12],
+    sbimAges: [2, 4, 6, 12],
+    note: 'Na falta de VPC10, seguir a norma para VPC20. Esquema completo anterior de VPC10 permanece válido no PNI. Complementação SBIm depende de idade, produto e risco; não equivale a reiniciar toda a série.',
   },
   {
-    "id": "men",
-    "name": "Meningocócicas C / ACWY",
-    "pni": "MenC aos 3 e 5 meses; ACWY aos 12 meses e dos 11 aos 14 anos.",
-    "sbim": "Preferir ACWY aos 3 e 5 meses, reforço aos 12–15 meses e aos 5–6 anos; adequar ao fabricante e histórico.",
-    "note": "MenC protege contra C; ACWY acrescenta A, W e Y. Trocar o produto requer avaliar proteção contra os sorogrupos adicionais. Nenhuma delas substitui a MenB.",
-    "readingPage": 6,
-    "pniAges": [
-      3,
-      5,
-      12,
-      132
+    id: 'men',
+    name: 'Meningocócicas C / ACWY',
+    shortName: 'MenC / MenACWY',
+    category: 'Conjugadas',
+    type: 'Polissacarídeos capsulares meningocócicos conjugados a carreadores proteicos',
+    route: 'Intramuscular profunda',
+    pni: 'MenC aos 3 e 5 meses; ACWY aos 12 meses e dos 11 aos 14 anos.',
+    sbim: 'Preferir ACWY aos 3 e 5 meses, reforço aos 12–15 meses e aos 5–6 anos; adequar ao fabricante e histórico.',
+    pniSchedule: 'MenC aos 3 e 5 meses; reforço com MenACWY aos 12 meses. Reforço com MenACWY na adolescência (11 a 14 anos).',
+    sbimSchedule: 'MenACWY aos 3 e 5 meses, 1º reforço aos 12–15 meses, 2º reforço aos 5–6 anos e novo reforço aos 11 anos ou 5 anos após a última dose.',
+    prevents: 'Meningite meningocócica e meningococcemia fulminante causadas por Neisseria meningitidis dos sorogrupos C (na MenC) ou A, C, W e Y (na MenACWY).',
+    composition: 'Oligossacarídeos ou polissacarídeos dos sorogrupos A, C, W-135 e Y conjugados a CRM197 ou toxoide tetânico.',
+    minAge: 'Depende da marca de MenACWY: Nimenrix a partir de 6 semanas; Menveo a partir de 2 meses; MenQuadfi a partir de 12 meses.',
+    maxAge: 'Sem limite superior para indivíduos sob risco ou em situações epidemiológicas.',
+    catchUp: 'Intervalo mínimo entre doses primárias de 2 meses no lactente. Reforço após 12 meses exige pelo menos 2 a 6 meses da última dose primária conforme o fabricante.',
+    contraindications: [
+      'Anafilaxia grave a dose prévia da vacina.',
     ],
-    "sbimAges": [
-      3,
-      5,
-      12,
-      60
-    ]
+    falseContraindications: [
+      'Ter recebido MenC anterior não impede receber MenACWY (aguardar 1 mês da dose de MenC)',
+      'Uso simultâneo de outras vacinas do calendário infantil',
+    ],
+    adverseEvents: [
+      'Dor, vermelhidão e sensibilidade no sítio de injeção em 15–25%. Febre baixa passageira em 10%.',
+    ],
+    specialSituations: 'Pacientes com asplenia anatômica ou funcional, deficiências de frações terminais do complemento ou em uso de eculizumabe/ravulizumabe: risco altíssimo de meningococcemia. Devem receber esquema ampliado e reforços periódicos pelo CRIE. Em caso de surto ou exposição escolar, a quimioprofilaxia urgente com antibiótico é prioritária e a vacina não a substitui.',
+    readingPage: 13,
+    pniAges: [3, 5, 12, 132],
+    sbimAges: [3, 5, 12, 60],
+    note: 'MenC protege contra C; ACWY acrescenta A, W e Y. Trocar o produto requer avaliar proteção contra os sorogrupos adicionais. Nenhuma delas substitui a MenB.',
   },
   {
-    "id": "menb",
-    "name": "Meningocócica B",
-    "pni": "Não integra a rotina universal do PNI.",
-    "sbim": "Início aos 3 e 5 meses, reforço aos 12–15 meses.",
-    "note": "Início tardio modifica número de doses e intervalos. A partir de 2 anos, esquema conforme idade e apresentação; não extrapolar o esquema do lactente para todos os produtos.",
-    "readingPage": 6,
-    "pniAges": [],
-    "sbimAges": [
-      3,
-      5,
-      12
-    ]
+    id: 'menb',
+    name: 'Meningocócica B',
+    shortName: 'MenB',
+    category: 'Não Vivas / Inativadas',
+    type: 'Recombinante proteica subcapsular (Bexsero / Trumenba)',
+    route: 'Intramuscular profunda',
+    pni: 'Não integra a rotina universal do PNI.',
+    sbim: 'Início aos 3 e 5 meses, reforço aos 12–15 meses.',
+    pniSchedule: 'Disponível no SUS apenas pelo CRIE para grupos selecionados de alto risco (asplenia, imunodeficiências do complemento, doadores/receptores de TCTH).',
+    sbimSchedule: 'Recomendada para todas as crianças: início ideal aos 3 e 5 meses com reforço aos 12–15 meses (mínimo de 6 meses após a 2ª dose). Início dos 12 aos 23 meses: 2 doses (intervalo 2 meses) + reforço 12 a 23 meses após.',
+    prevents: 'Doença meningocócica invasiva grave e meningococcemia causada pelo meningococo do sorogrupo B.',
+    composition: 'Quatro proteínas antigênicas de membrana do meningococo B (fHbp, NadA, NHBA e OMV da cepa NZ98/254) com hidróxido de alumínio.',
+    minAge: '2 meses (início prático habitual aos 3 meses)',
+    maxAge: 'Licenciada até 50 anos (Bexsero) ou sem limite superior em grupos sob risco.',
+    catchUp: 'Início a partir de 2 anos: 2 doses com intervalo de 1 a 2 meses. Doses atrasadas são aproveitadas sem reiniciar a série.',
+    contraindications: [
+      'Histórico de reação anafilática grave à vacina.',
+    ],
+    falseContraindications: [
+      'Febre prévia com outras vacinas',
+      'Coadministração com vacinas MenACWY e pneumocócica (permitida)',
+    ],
+    adverseEvents: [
+      'Elevada reatogenicidade e febre alta: febre > 38,5°C nas primeiras 24–48h ocorre em mais de 50% dos lactentes, principalmente se aplicada em conjunto com outras vacinas.',
+      'Dor local intensa com irritabilidade marcante e choro.',
+      'Conduta profilática aceita: especificamente para a MenB, pode ser prescrito paracetamol profilático antes ou no momento da aplicação, mantendo a cada 6–8h nas primeiras 24h sem prejuízo da resposta imune.',
+    ],
+    specialSituations: 'Pacientes com asplenia, imunodeficiência e hemoglobinopatias têm indicação prioritária.',
+    readingPage: 14,
+    pniAges: [],
+    sbimAges: [3, 5, 12],
+    note: 'Início tardio modifica número de doses e intervalos. A partir de 2 anos, esquema conforme idade e apresentação; não extrapolar o esquema do lactente para todos os produtos.',
   },
   {
-    "id": "influenza",
-    "name": "Influenza",
-    "pni": "Anual a partir de 6 meses até menores de 6 anos, além dos grupos elegíveis.",
-    "sbim": "Anual para todas as crianças e adolescentes a partir de 6 meses.",
-    "note": "Primovacinação em menores de 9 anos: duas doses separadas por 30 dias. PNI considera dose anual quando há pelo menos uma dose em anos anteriores. Alergia a ovo não é proibição automática; reação grave exige ambiente e avaliação apropriados. Conferir formulação sazonal.",
-    "readingPage": 7,
-    "pniAges": [
-      6
+    id: 'influenza',
+    name: 'Influenza',
+    shortName: 'Gripe',
+    category: 'Não Vivas / Inativadas',
+    type: 'Vírus inativados, fragmentados e purificados',
+    route: 'Intramuscular profunda',
+    pni: 'Anual a partir de 6 meses até menores de 6 anos, além dos grupos elegíveis.',
+    sbim: 'Anual para todas as crianças e adolescentes a partir de 6 meses.',
+    pniSchedule: 'Campanhas anuais para crianças de 6 meses a menores de 6 anos, gestantes, puérperas, indígenas e comorbidades crônicas.',
+    sbimSchedule: 'Vacinação anual recomendada para todas as crianças e adolescentes a partir dos 6 meses de vida, preferencialmente antes do período de maior circulação viral.',
+    prevents: 'Infecção pelos vírus Influenza A (H1N1 e H3N2) e Influenza B, bronquiolite e pneumonia gripal, exacerbações de asma e hospitalizações.',
+    composition: 'Proteínas hemaglutinina (HA) e neuraminidase (NA) de 3 ou 4 cepas padronizadas anualmente pela OMS.',
+    minAge: '6 meses de vida',
+    maxAge: 'Sem limite superior',
+    catchUp: 'Primovacinação em crianças menores de 9 anos: exige 2 doses com intervalo mínimo de 30 dias na primeira temporada. Crianças com pelo menos 1 dose em anos anteriores recebem dose única anual.',
+    contraindications: [
+      'Anafilaxia grave a dose anterior da própria vacina da gripe.',
     ],
-    "sbimAges": [
-      6
-    ]
+    falseContraindications: [
+      'Alergia grave ao ovo (inclusive anafilaxia): NÃO É CONTRAINDICAÇÃO! A quantidade de ovalbumina é ínfima. Na norma brasileira, vacinar em serviço de saúde com suporte.',
+      'Sintomas respiratórios leves afebris (coriza, tosse leve sem febre alta)',
+      'Uso de corticoide inalatório ou nasal',
+    ],
+    adverseEvents: [
+      'Dor, hiperemia e enduração local em 10–20%.',
+      'Febre baixa, mal-estar e mialgia leve que duram 24 a 48 horas (a vacina é inativada e NUNCA causa gripe!).',
+    ],
+    specialSituations: 'Atualização regulatória 2026: com a ausência de circulação mundial da linhagem B/Yamagata desde 2020, as vacinas estão em transição de quadrivalentes para trivalentes sem perda de eficácia.',
+    readingPage: 18,
+    pniAges: [6],
+    sbimAges: [6],
+    note: 'Primovacinação em menores de 9 anos: duas doses separadas por 30 dias. PNI considera dose anual quando há pelo menos uma dose em anos anteriores. Alergia a ovo não é proibição automática; reação grave exige ambiente e avaliação apropriados. Conferir formulação sazonal.',
   },
   {
-    "id": "covid",
-    "name": "Covid-19",
-    "pni": "Rotina dos 6 meses aos menores de 5 anos. Esquema conforme produto e histórico.",
-    "sbim": "Seguir a recomendação vigente do PNI para idade e condição clínica.",
-    "note": "Pfizer: três doses, agenda 6, 7 e 9 meses; mínimos de quatro semanas entre D1–D2 e oito semanas entre D2–D3. Reconhecer esquema prévio Moderna de duas doses. Criança saudável com esquema completo não recebe dose periódica de rotina; grupos especiais têm indicação própria. Conferir apresentação antes da aplicação.",
-    "readingPage": 12,
-    "pniAges": [
-      6,
-      7,
-      9
+    id: 'covid',
+    name: 'Covid-19',
+    shortName: 'Covid-19',
+    category: 'Não Vivas / Inativadas',
+    type: 'mRNA ou subunidade proteica recombinante',
+    route: 'Intramuscular profunda',
+    pni: 'Rotina dos 6 meses aos menores de 5 anos. Esquema conforme produto e histórico.',
+    sbim: 'Seguir a recomendação vigente do PNI para idade e condição clínica.',
+    pniSchedule: 'Rotina infantil oficial dos 6 meses a 4 anos, 11 meses e 29 dias. Na apresentação Pfizer Baby: 3 doses (aos 6, 7 e 9 meses). Crianças saudáveis com esquema completo não necessitam de reforços periódicos.',
+    sbimSchedule: 'Acompanha a indicação do PNI. Imunossuprimidos e grupos de risco recebem reforços semestrais periódicos.',
+    prevents: 'Formas graves de COVID-19, internações em UTI pediátrica, óbitos e Síndrome Inflamatória Multissistêmica Pediátrica (SIM-P).',
+    composition: 'mRNA encapsulado em nanopartículas lipídicas codificando a proteína Spike (cepa atualizada conforme determinação da Anvisa).',
+    minAge: '6 meses',
+    maxAge: 'Sem limite; acima de 5 anos priorizada para grupos prioritários e comorbidades',
+    catchUp: 'Pfizer baby: intervalo mínimo de 4 semanas entre D1-D2 e de 8 semanas entre D2-D3. Esquemas anteriores completos (ex: Moderna 2 doses) são reconhecidos sem necessidade de reiniciar.',
+    contraindications: [
+      'Anafilaxia grave a dose prévia da vacina ou a seus componentes (ex: polietilenoglicol / PEG).',
     ],
-    "sbimAges": [
-      6,
-      7,
-      9
-    ]
+    falseContraindications: [
+      'Infecção prévia por SARS-CoV-2 (aguardar resolução do quadro agudo e mínimo de 4 semanas)',
+      'Coadministração com outras vacinas do calendário infantil (totalmente permitida)',
+    ],
+    adverseEvents: [
+      'Dor no local da injeção, irritabilidade, fadiga e febre baixa.',
+      'Miocardite e pericardite: eventos raríssimos, predominantemente em homens jovens. Em caso de dor torácica, palpitações ou falta de ar, procurar atendimento médico imediato.',
+    ],
+    specialSituations: 'Imunodeprimidos graves recebem esquema de doses com reforços periódicos a cada 6 meses. Gestantes têm indicação de 1 dose a cada gestação para passagem de anticorpos ao concepto.',
+    readingPage: 27,
+    pniAges: [6, 7, 9],
+    sbimAges: [6, 7, 9],
+    note: 'Pfizer: três doses, agenda 6, 7 e 9 meses; mínimos de quatro semanas entre D1–D2 e oito semanas entre D2–D3. Reconhecer esquema prévio Moderna de duas doses. Criança saudável com esquema completo não recebe dose periódica de rotina; grupos especiais têm indicação própria. Conferir apresentação antes da aplicação.',
   },
   {
-    "id": "fa",
-    "name": "Febre amarela",
-    "pni": "9 meses e reforço aos 4 anos.",
-    "sbim": "9 meses e 4 anos; se primeira dose a partir de 5 anos, segunda dose dez anos depois.",
-    "note": "No PNI, início a partir de 5 anos corresponde a dose única; início antes dos 5 exige segunda dose. Em menores de 2 anos, separar de SCR/tetraviral por 30 dias na rotina. Exceções epidemiológicas exigem avaliação. Vacina viva: verificar contraindicações.",
-    "readingPage": 11,
-    "pniAges": [
-      9,
-      48
+    id: 'fa',
+    name: 'Febre amarela',
+    shortName: 'Febre Amarela',
+    category: 'Vivas Atenuadas',
+    type: 'Vírus vivo atenuado (cepa 17D)',
+    route: 'Subcutânea (região deltoide)',
+    pni: '9 meses e reforço aos 4 anos.',
+    sbim: '9 meses e 4 anos; se primeira dose a partir de 5 anos, segunda dose dez anos depois.',
+    pniSchedule: '1ª dose aos 9 meses e reforço aos 4 anos de vida em todo o território nacional. Se iniciado após os 5 anos de idade: DOSE ÚNICA para toda a vida no PNI.',
+    sbimSchedule: '1ª dose aos 9 meses e reforço aos 4 anos. Para quem inicia a partir dos 5 anos, a SBIm recomenda uma segunda dose de reforço 10 anos após a primeira.',
+    prevents: 'Febre amarela urbana e silvestre, infecção grave por flavivírus, hepatite necrótica aguda fulminante e choque séptico hemorrágico.',
+    composition: 'Vírus vivos atenuados da cepa 17D-204 cultivados em ovos embrionados de galinha.',
+    minAge: '9 meses (em emergência epidemiológica: a partir de 6 meses como dose zero, que não substitui a rotina)',
+    maxAge: 'Sem limite; adultos ≥ 60 anos necessitam de avaliação individual criteriosa de risco/benefício',
+    catchUp: 'Criança que recebeu 1 dose antes de completar 5 anos DEVE receber o reforço mesmo que tenha ultrapassado os 4 anos. Quem iniciou com 5 anos ou mais é considerado vacinado no SUS.',
+    contraindications: [
+      'Menores de 6 meses de vida (risco elevado de encefalite vacinal)',
+      'Imunossupressão grave congênita ou adquirida, neoplasias e transplantes',
+      'Doenças do timo (timoma, ausência anatômica de timo com disfunção imune, miastenia gravis)',
+      'Anafilaxia grave ao ovo ou a componentes da vacina',
     ],
-    "sbimAges": [
-      9,
-      48
-    ]
+    falseContraindications: [
+      'Uso de corticoide em dose baixa ou inalatório',
+      'Histórico de cirurgia cardíaca infantil sem doença do timo',
+    ],
+    adverseEvents: [
+      'Febre, cefaleia e mialgia em 5 a 10% dos vacinados entre o 3º e 7º dia.',
+      'Eventos raríssimos e graves: Doença Neurológica Associada à Vacina (DNEAV) e Doença Viscerotrópica Aguda (DAVE). Exigem notificação compulsória imediata em até 24 horas.',
+    ],
+    specialSituations: 'INTERVALO CRÍTICO: Em menores de 2 anos de idade, DEVE-SE RESPEITAR INTERVALO DE 30 DIAS entre Febre Amarela e Tríplice Viral (SCR) ou Tetraviral (SCRV), pois a coadministração em menores de 2 anos reduz a soroconversão. AMAMENTAÇÃO: Mulher amamentando bebê com menos de 6 meses que receber a vacina DEVE SUSPENDER A AMAMENTAÇÃO POR 10 DIAS (risco de encefalite pelo vírus vacinal transferido pelo leite).',
+    readingPage: 24,
+    pniAges: [9, 48],
+    sbimAges: [9, 48],
+    note: 'No PNI, início a partir de 5 anos corresponde a dose única; início antes dos 5 exige segunda dose. Em menores de 2 anos, separar de SCR/tetraviral por 30 dias na rotina. Exceções epidemiológicas exigem avaliação. Vacina viva: verificar contraindicações.',
   },
   {
-    "id": "scr",
-    "name": "Tríplice viral — SCR",
-    "pni": "12 e 15 meses.",
-    "sbim": "12 e 15 meses.",
-    "note": "Dose zero entre 6 e 11 meses em situações epidemiológicas indicadas não substitui as duas doses após 12 meses. Avaliar imunossupressão e hemoderivados. SCR não contém varicela; tetraviral contém.",
-    "readingPage": 8,
-    "pniAges": [
-      12,
-      15
+    id: 'scr',
+    name: 'Tríplice viral — SCR',
+    shortName: 'SCR',
+    category: 'Vivas Atenuadas',
+    type: 'Vírus vivos atenuados combinados',
+    route: 'Subcutânea (região deltoide ou tríceps)',
+    pni: '12 e 15 meses.',
+    sbim: '12 e 15 meses.',
+    pniSchedule: '1ª dose aos 12 meses (SCR). 2ª dose aos 15 meses (preferencialmente na forma Tetraviral SCRV ou SCR + Varicela). Adultos até 29 anos devem ter 2 doses; dos 30 aos 59 anos, 1 dose.',
+    sbimSchedule: '1ª dose aos 12 meses e 2ª dose aos 15 meses (com apresentações separadas ou tetraviral).',
+    prevents: 'Sarampo (doença exantemática com alto risco de pneumonia, cegueira, encefalite aguda e panencefalite esclerosante subaguda), caxumba (parotidite, meningite asséptica e orquite) e rubéola (síndrome da rubéola congênita grave em conceptos).',
+    composition: 'Vírus vivos atenuados do sarampo (cepa Schwarz ou Edmonston-Zagreb), caxumba (cepa Jeryl Lynn ou RIT 4385) e rubéola (cepa Wistar RA 27/3).',
+    minAge: '12 meses para rotina (6 meses em situação de surto ou bloqueio como "dose zero")',
+    maxAge: '59 anos no PNI para indivíduos suscetíveis',
+    catchUp: 'Duas doses após os 12 meses com intervalo mínimo de 4 semanas (30 dias) entre si conferem imunidade plena. "Dose zero" feita dos 6 aos 11 meses NÃO anula nem substitui as duas doses regulares após 1 ano.',
+    contraindications: [
+      'Gestação (mulheres vacinadas devem evitar gravidez por 30 dias)',
+      'Imunodepressão grave congênita ou adquirida (leucemias, quimioterapia recente, HIV com imunodepressão grave)',
+      'Uso recente de imunoglobulina ou hemoderivados (respeitar tabela de intervalo de 3 a 11 meses)',
+      'Anafilaxia grave prévia à vacina ou neomicina',
     ],
-    "sbimAges": [
-      12,
-      15
-    ]
+    falseContraindications: [
+      'Alergia grave ao ovo de galinha (NÃO contraindica; o vírus é cultivado em cultura de fibroblastos de embrião de galinha sem ovalbumina alergênica)',
+      'Convivente domiciliar de gestante ou imunocomprometido (vacina é segura para os contactantes)',
+    ],
+    adverseEvents: [
+      'Febre alta (> 39°C) e exantema morbiliforme leve e não contagioso que surge tipicamente entre 5 e 12 dias após a aplicação (manifestação esperada da replicação vacinal benéfica).',
+      'Púrpura Trombocitopênica Imunológica (PTI) benigna é rara (1:30.000 a 1:40.000 doses) e surge em 2 a 4 semanas.',
+    ],
+    specialSituations: 'Separar por 30 dias da vacina de Febre Amarela em crianças menores de 2 anos na rotina. Se aplicadas no mesmo dia em menores de 2 anos inadvertidamente, não revacinar de rotina.',
+    readingPage: 19,
+    pniAges: [12, 15],
+    sbimAges: [12, 15],
+    note: 'Dose zero entre 6 e 11 meses em situações epidemiológicas indicadas não substitui as duas doses após 12 meses. Avaliar imunossupressão e hemoderivados. SCR não contém varicela; tetraviral contém.',
   },
   {
-    "id": "varicela",
-    "name": "Varicela",
-    "pni": "15 meses e 4 anos.",
-    "sbim": "12 e 15 meses.",
-    "note": "Vacina viva. Identificar doses recebidas como monovalente ou tetraviral. Avaliar imunossupressão e interferência de imunoglobulinas antes de aplicar.",
-    "readingPage": 8,
-    "pniAges": [
-      15,
-      48
+    id: 'varicela',
+    name: 'Varicela',
+    shortName: 'Varicela',
+    category: 'Vivas Atenuadas',
+    type: 'Vírus vivo atenuado (cepa Oka/Merck ou Oka/GSK)',
+    route: 'Subcutânea',
+    pni: '15 meses e 4 anos.',
+    sbim: '12 e 15 meses.',
+    pniSchedule: '1ª dose aos 15 meses (como Tetraviral SCR-V ou monovalente); 2ª dose aos 4 anos (monovalente).',
+    sbimSchedule: '1ª dose aos 12 meses e 2ª dose aos 15–18 meses (duas doses completadas ainda no 2º ano de vida com intervalo mínimo de 3 meses entre si).',
+    prevents: 'Varicela (catapora), sobreinfecções bacterianas graves por Streptococcus pyogenes (fasceíte necrosante), ataxia cerebelar aguda, encefalite e zoster futuro.',
+    composition: 'Vírus vivo atenuado varicela-zóster da cepa Oka.',
+    minAge: '12 meses para rotina (9 meses em situações de surto e bloqueio)',
+    maxAge: 'Sem limite; indicada para qualquer adolescente ou adulto suscetível',
+    catchUp: 'Intervalo mínimo entre doses: 3 meses para menores de 13 anos; 4 semanas para pessoas com ≥ 13 anos.',
+    contraindications: [
+      'Gestação',
+      'Imunossupressão grave celular',
+      'Uso de salicilatos (AAS) prolongado (risco teórico de Síndrome de Reye)',
+      'Anafilaxia grave a componentes ou dose anterior',
     ],
-    "sbimAges": [
-      12,
-      15
-    ]
+    falseContraindications: [
+      'Contato recente com catapora (na verdade é indicação de vacinação de bloqueio em até 72–96h)',
+      'Alergia a ovo (não contém proteínas de ovo)',
+    ],
+    adverseEvents: [
+      'Dor e eritema no local em 20%.',
+      'Pequenas lesões vesiculares (2 a 5 vesículas) próximas ao sítio de injeção ou disseminadas 1 a 3 semanas após a vacina em 3 a 5% dos vacinados.',
+    ],
+    specialSituations: 'Profilaxia Pós-Exposição: em crianças imunocompetentes suscetíveis com ≥ 9 meses, aplicar a vacina em até 72 a 96 horas do contato. Em imunossuprimidos graves, gestantes suscetíveis ou recém-nascidos cuja mãe teve varicela de 5 dias antes a 2 dias após o parto: indicar Imunoglobulina Humana Antivaricela-Zóster (VARIG) em até 96h.',
+    readingPage: 19,
+    pniAges: [15, 48],
+    sbimAges: [12, 15],
+    note: 'Vacina viva. Identificar doses recebidas como monovalente ou tetraviral. Avaliar imunossupressão e interferência de imunoglobulinas antes de aplicar.',
   },
   {
-    "id": "hepa",
-    "name": "Hepatite A",
-    "pni": "Dose única aos 15 meses; recuperação até menores de 5 anos.",
-    "sbim": "Duas doses aos 12 e 18 meses, com intervalo de seis meses.",
-    "note": "Condições especiais podem ter indicação de duas doses no SUS. Conferir histórico e critérios da RIE/CRIE; a dose única da rotina pública não se aplica indistintamente a pacientes de risco.",
-    "readingPage": 8,
-    "pniAges": [
-      15
+    id: 'hepa',
+    name: 'Hepatite A',
+    shortName: 'HepA',
+    category: 'Não Vivas / Inativadas',
+    type: 'Vírus inativado purificado',
+    route: 'Intramuscular profunda',
+    pni: 'Dose única aos 15 meses; recuperação até menores de 5 anos.',
+    sbim: 'Duas doses aos 12 e 18 meses, com intervalo de seis meses.',
+    pniSchedule: 'Dose única aos 15 meses de vida (disponível no SUS até 4 anos, 11 meses e 29 dias).',
+    sbimSchedule: 'Duas doses: 1ª dose aos 12 meses e 2ª dose aos 18 meses (intervalo de 6 meses entre doses).',
+    prevents: 'Hepatite infecciosa aguda pelo vírus da hepatite A (HAV), colestase prolongada e hepatite fulminante.',
+    composition: 'Vírus da hepatite A inativado pelo formaldeído e adsorvido em hidróxido de alumínio.',
+    minAge: '12 meses',
+    maxAge: 'Sem limite para indivíduos suscetíveis',
+    catchUp: 'Criança que recebeu a dose única do PNI aos 15 meses pode receber a 2ª dose na rede privada 6 meses depois para conferir imunidade estendida para a vida adulta. Se atrasar, nunca reiniciar o esquema.',
+    contraindications: [
+      'Hipersensibilidade grave comprovada a dose anterior.',
     ],
-    "sbimAges": [
-      12,
-      18
-    ]
+    falseContraindications: [
+      'Icterícia neonatal prévia',
+      'Portadores de hepatopatias crônicas (na verdade têm indicação prioritária no CRIE)',
+    ],
+    adverseEvents: [
+      'Excelente tolerabilidade. Dor leve no local da aplicação e eritema em 10%. Sintomas sistêmicos são muito raros.',
+    ],
+    specialSituations: 'Pacientes com hepatopatias crônicas, coagulopatias, fibrose cística, hemoglobinopatias, HIV ou imunossuprimidos têm direito a 2 doses de Hepatite A gratuitamente na Rede de Imunobiológicos Especiais (CRIE). Profilaxia pós-exposição em contactantes suscetíveis pode ser feita em até 14 dias.',
+    readingPage: 20,
+    pniAges: [15],
+    sbimAges: [12, 18],
+    note: 'Condições especiais podem ter indicação de duas doses no SUS. Conferir histórico e critérios da RIE/CRIE; a dose única da rotina pública não se aplica indistintamente a pacientes de risco.',
   },
   {
-    "id": "hpv",
-    "name": "HPV",
-    "pni": "HPV4: dose única dos 9 aos 14 anos na rotina.",
-    "sbim": "Preferir HPV9. Crianças de 9–14 anos: duas doses com intervalo de seis meses.",
-    "note": "Não aplicar a regra de dose única aos grupos especiais. Imunodeprimidos têm esquema próprio. Resgate de 15–19 anos depende da estratégia vigente. A aula posterior descreve duas doses de HPV9 até 19 anos, off label a partir de 15; consultar posicionamento atualizado antes dessa ampliação.",
-    "readingPage": 10,
-    "pniAges": [
-      108
+    id: 'hpv',
+    name: 'HPV',
+    shortName: 'HPV',
+    category: 'Não Vivas / Inativadas',
+    type: 'Recombinante (VLPs - partículas semelhantes ao vírus)',
+    route: 'Intramuscular profunda (músculo deltoide)',
+    pni: 'HPV4: dose única dos 9 aos 14 anos na rotina.',
+    sbim: 'Preferir HPV9. Crianças de 9–14 anos: duas doses com intervalo de seis meses.',
+    pniSchedule: 'Dose única de vacina quadrivalente (HPV4) para meninas e meninos dos 9 aos 14 anos, 11 meses e 29 dias.',
+    sbimSchedule: 'Preferência pela vacina nonavalente HPV9 (tipos 6, 11, 16, 18, 31, 33, 45, 52 e 58) em 2 doses com intervalo de 6 meses dos 9 aos 19 anos.',
+    prevents: 'Câncer de colo do útero, vulva, vagina, ânus, pênis, orofaringe e verrugas anogenitais (condilomas acuminados).',
+    composition: 'Proteína maior L1 do capsídeo viral montada em partículas semelhantes a vírus (VLPs) não infecciosas, adsorvidas em adjuvante.',
+    minAge: '9 anos (exceto indicações especiais pelo CRIE)',
+    maxAge: '45 anos para grupos especiais',
+    catchUp: 'Adolescentes imunocompetentes de 9 a 14 anos recebem dose única no PNI. Grupos especiais no PNI recebem 3 DOSES (0, 2 e 6 meses) até 45 anos: pessoas vivendo com HIV/Aids, pacientes oncológicos, transplantados de órgãos sólidos ou medula óssea, e vítimas de violência sexual.',
+    contraindications: [
+      'Gestação (caso ocorra gravidez durante o esquema, suspender novas doses e retomar no pós-parto)',
+      'Anafilaxia grave a dose anterior',
     ],
-    "sbimAges": [
-      108
-    ]
+    falseContraindications: [
+      'Início ou ausência de atividade sexual (deve ser aplicada preferencialmente antes do início da vida sexual)',
+      'Amamentação (é perfeitamente compatível)',
+    ],
+    adverseEvents: [
+      'Dor local moderada e edema passageiro.',
+      'SÍNCOPE VASO-VAGAL: comum em adolescentes por reflexo neurogênico ao estresse/agulha. Conduta: administrar com o adolescente sentado ou deitado e manter em observação por 15 minutos.',
+    ],
+    specialSituations: 'Quem já recebeu HPV4 e deseja ampliar proteção com HPV9: a SBIm orienta aplicar 2 doses de HPV9 com intervalo de 6 meses entre si, iniciando pelo menos 6 meses após uma dose de HPV4 ou 1 ano após esquema completo prévio de HPV4.',
+    readingPage: 22,
+    pniAges: [108],
+    sbimAges: [108],
+    note: 'Não aplicar a regra de dose única aos grupos especiais. Imunodeprimidos têm esquema próprio. Resgate de 15–19 anos depende da estratégia vigente. A aula posterior descreve duas doses de HPV9 até 19 anos, off label a partir de 15; consultar posicionamento atualizado antes dessa ampliação.',
   },
   {
-    "id": "dengue",
-    "name": "Dengue — Qdenga",
-    "pni": "10–14 anos, conforme estratégia de oferta; duas doses com intervalo de três meses.",
-    "sbim": "A partir de 4 anos: duas doses com intervalo de três meses, independentemente de dengue prévia.",
-    "note": "Não indicada antes dos 4 anos. Vacina viva, contraindicada em gestantes, lactantes e imunodeprimidos. Após dengue antes da primeira dose, aguardar seis meses; doença entre doses exige ao menos 30 dias desde seu início para D2. Não intercambiar fabricantes.",
-    "readingPage": 10,
-    "pniAges": [
-      120
+    id: 'dengue',
+    name: 'Dengue — Qdenga',
+    shortName: 'Qdenga',
+    category: 'Vivas Atenuadas',
+    type: 'Vírus vivo atenuado tetravalente (reassortante DEN-2)',
+    route: 'Subcutânea profunda',
+    pni: '10–14 anos, conforme estratégia de oferta; duas doses com intervalo de três meses.',
+    sbim: 'A partir de 4 anos: duas doses com intervalo de três meses, independentemente de dengue prévia.',
+    pniSchedule: 'Estratégia do PNI: crianças e adolescentes de 10 a 14 anos, 11 meses e 29 dias em todo o país; esquema de 2 doses com intervalo de 3 meses.',
+    sbimSchedule: 'Recomendada dos 4 aos 60 anos, esquema de 2 doses com intervalo de 3 meses, independentemente de sorologia ou histórico de infecção.',
+    prevents: 'Infecção e manifestações clínicas causadas pelos 4 sorotipos da dengue (DENV-1, DENV-2, DENV-3 e DENV-4), prevenindo dengue hemorrágica e hospitalizações.',
+    composition: 'Vírus vivos atenuados dos 4 sorotipos da dengue sobre o esqueleto genético da cepa atenuada DENV-2 (TAK-003).',
+    minAge: '4 anos de idade',
+    maxAge: '60 anos',
+    catchUp: 'Manter a 2ª dose aos 3 meses após a 1ª dose. Se atrasar, apenas aplicar a 2ª dose sem reiniciar o esquema.',
+    contraindications: [
+      'Menores de 4 anos de idade',
+      'Gestantes e mulheres em fase de amamentação (lactantes)',
+      'Pessoas com imunodeficiências primárias ou adquiridas (incluindo terapia imunossupressora)',
+      'Anafilaxia grave a dose prévia da vacina',
     ],
-    "sbimAges": [
-      48
-    ]
-  }
+    falseContraindications: [
+      'Não ter tido dengue antes (a vacina é liberada e eficaz para soronegativos e soropositivos)',
+      'Coadministração com vacinas não vivas (permitida sem intervalo obrigatório)',
+    ],
+    adverseEvents: [
+      'Dor no local da injeção, cefaleia, mialgia e febre baixa entre o 2º e 7º dia pós-vacinal.',
+      'Orientação do serviço: observação obrigatória de 15 a 30 minutos na sala de vacina para monitorização de anafilaxia.',
+    ],
+    specialSituations: 'HISTÓRICO DE DENGUE E INTERVALOS: Se o paciente teve dengue antes de iniciar a vacinação, deve-se aguardar 6 MESES para aplicar a primeira dose. Se a infecção por dengue ocorrer ENTRE a 1ª e a 2ª dose, mantém-se a 2ª dose agendada desde que decorridos pelo menos 30 DIAS do início dos sintomas. Após uso de imunoglobulinas ou hemoderivados, aguardar 3 meses (ou no mínimo 6 semanas).',
+    readingPage: 23,
+    pniAges: [120],
+    sbimAges: [48],
+    note: 'Não indicada antes dos 4 anos. Vacina viva, contraindicada em gestantes, lactantes e imunodeprimidos. Após dengue antes da primeira dose, aguardar seis meses; doença entre doses exige ao menos 30 dias desde seu início para D2. Não intercambiar fabricantes.',
+  },
+  {
+    id: 'vsr',
+    name: 'Prevenção do Vírus Sincicial Respiratório (VSR)',
+    shortName: 'VSR (Abrysvo / Nirsevimabe)',
+    category: 'Imunização Passiva & Materna',
+    type: 'Vacina Materna recombinante (Abrysvo) e Anticorpo Monoclonal de ação prolongada (Nirsevimabe)',
+    route: 'Vacina Materna: Intramuscular na gestante / Nirsevimabe: Intramuscular no lactente',
+    pni: 'Vacina materna (Abrysvo) a partir de 28 semanas; Nirsevimabe para prematuros < 37 sem menores de 6 meses e cardiopatas/pneumopatas até 24 meses.',
+    sbim: 'Vacina materna entre 24–36 semanas; Nirsevimabe para todos os recém-nascidos e lactentes antes da temporada de VSR.',
+    pniSchedule: 'Vacinação materna no PNI: dose única de Abrysvo a partir da 28ª semana de gravidez em cada gestação. Na criança: Nirsevimabe no SUS para prematuros < 37 semanas com idade < 6 meses no início da sazonalidade, e até 24 meses para portadores de comorbidades elegíveis (cardiopatia congênita com repercussão, doença pulmonar da prematuridade, imunocomprometimento).',
+    sbimSchedule: 'Vacinação materna com Abrysvo licenciada entre 24 e 36 semanas. Nirsevimabe recomendado para todos os lactentes antes de sua primeira temporada de VSR (dose: 50 mg para peso < 5 kg; 100 mg para peso ≥ 5 kg).',
+    prevents: 'Bronquiolite viral aguda grave, pneumonia por VSR, insuficiência respiratória hipoxêmica e internações em UTI pediátrica no primeiro ano de vida.',
+    composition: 'Abrysvo: antígeno proteico recombinante da glicoproteína F do VSR em conformação pré-fusão (subgrupos A e B). Nirsevimabe: anticorpo monoclonal recombinante IgG1κ humano anti-glicoproteína F pré-fusão.',
+    minAge: 'Ao nascer (Nirsevimabe)',
+    maxAge: '24 meses em crianças de alto risco clínico',
+    catchUp: 'Nirsevimabe é uma imunização passiva conferida por anticorpo monoclonal e não uma vacina de estímulo ativo. Clesrovimabe é outra opção monoclonal licenciada para menores de 12 meses.',
+    contraindications: [
+      'Hipersensibilidade grave conhecida a qualquer componente do produto.',
+    ],
+    falseContraindications: [
+      'Nirsevimabe NÃO interfere em nenhuma vacina ativa do calendário infantil e pode ser aplicado no mesmo dia ou com qualquer intervalo com qualquer imunizante.',
+    ],
+    adverseEvents: [
+      'Excelente perfil de segurança. Erupção cutânea transitória e dor local leve em menos de 1% dos lactentes.',
+    ],
+    specialSituations: 'Lactentes nascidos de mães vacinadas com Abrysvo há menos de 14 dias antes do parto podem ter transferência transplacentária incompleta de anticorpos e têm indicação de receber o anticorpo monoclonal Nirsevimabe se pertencentes a grupo de risco.',
+    readingPage: 30,
+    pniAges: [0],
+    sbimAges: [0],
+    note: 'Abrysvo aplicada na gestante transfere proteção aos recém-nascidos. Nirsevimabe é anticorpo monoclonal administrado diretamente ao bebê sem interferência no calendário vacinal habitual.',
+  },
 ];
-const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+const normalize = (value) =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
 export function filterVaccineGuide({ network = 'compare', query = '', age = 'all' } = {}) {
- const term = normalize(query.trim());
- return vaccineGuide.filter(v => {
-  const ages = network === 'pni' ? v.pniAges : network === 'sbim' ? v.sbimAges : [...v.pniAges, ...v.sbimAges];
-  return ages.length > 0 && (age === 'all' || ages.includes(Number(age))) && normalize([v.name, v.pni, v.sbim, v.note].join(' ')).includes(term);
- });
+  const term = normalize(query.trim());
+  return vaccineGuide.filter((v) => {
+    const ages =
+      network === 'pni'
+        ? v.pniAges
+        : network === 'sbim'
+        ? v.sbimAges
+        : [...new Set([...v.pniAges, ...v.sbimAges])];
+
+    const matchesAge = ages.length > 0 && (age === 'all' || ages.includes(Number(age)));
+
+    const searchableText = normalize(
+      [
+        v.name,
+        v.shortName,
+        v.pni,
+        v.sbim,
+        v.note,
+        v.prevents,
+        v.type,
+        v.category,
+        ...(v.contraindications || []),
+      ].join(' ')
+    );
+
+    return matchesAge && searchableText.includes(term);
+  });
 }
