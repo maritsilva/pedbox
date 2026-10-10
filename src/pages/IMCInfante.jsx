@@ -313,7 +313,7 @@ export default function IMCInfante() {
                 </div>
 
                 {/* Result cards */}
-                <div className={`grid grid-cols-1 sm:grid-cols-${result.hcR ? '4' : '3'} gap-3`}>
+                <div className={`grid grid-cols-1 ${result.hcR ? 'sm:grid-cols-4' : 'sm:grid-cols-3'} gap-3`}>
                   <ResultCard icon={Ruler} title="Comprimento/Idade" z={result.lengthR.z} percentile={result.lengthR.percentile} />
                   <ResultCard icon={Weight} title="Peso/Idade" z={result.weightR.z} percentile={result.weightR.percentile} category={getWeightCategory(result.weightR.percentile)} />
                   <ResultCard icon={TrendingUp} title="Peso/Comprimento" z={result.wflR.z} percentile={result.wflR.percentile} />
