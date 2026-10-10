@@ -55,6 +55,7 @@ const Biblioteca = lazy(() => import('./pages/Biblioteca'));
 
 const SinaisVitais = lazy(() => import('./pages/SinaisVitais'));
 const Admin = lazy(() => import('./pages/Admin'));
+const Perfil = lazy(() => import('./pages/Perfil'));
 const RastreioPreventivo = lazy(() => import('./pages/RastreioPreventivo'));
 
 function LibraryRedirect({tab}) {
@@ -121,6 +122,7 @@ function App() {
             <Route path="/sinais-vitais" element={<SinaisVitais />} />
 
             <Route element={<ProtectedRoute admin />}><Route path="/admin" element={<Admin />} /></Route>
+            <Route element={<ProtectedRoute />}><Route path="/perfil" element={<Perfil />} /></Route>
             <Route path="/rastreio-preventivo" element={<RastreioPreventivo />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />

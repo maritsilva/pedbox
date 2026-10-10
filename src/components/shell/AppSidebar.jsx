@@ -76,7 +76,7 @@ export default function AppSidebar() {
           );
         })}
 
-        {user?.role === 'admin' && (
+        {(user?.email === 'marina@pedbox.app' || user?.id === 'local-developer') && (
           <Link
             to="/admin"
             className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-50"
@@ -90,17 +90,21 @@ export default function AppSidebar() {
       {/* User profile / Login Footer */}
       <div className="p-3 border-t border-slate-100 bg-slate-50/50">
         {user ? (
-          <div className="flex items-center gap-3 p-2 rounded-xl bg-white border border-slate-200/80 shadow-xs">
+          <Link
+            to="/perfil"
+            className="flex items-center gap-3 p-2 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-brand-teal/50 hover:shadow-sm transition-all group"
+            title="Acessar meu perfil e configurações"
+          >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-navy to-brand-blue flex items-center justify-center text-white text-xs font-bold shrink-0">
               {user.full_name?.charAt(0).toUpperCase() || 'U'}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-bold text-slate-800 truncate leading-tight">
+              <p className="text-xs font-bold text-slate-800 truncate leading-tight group-hover:text-brand-teal transition-colors">
                 {user.full_name || 'Profissional'}
               </p>
-              <p className="text-[10px] text-brand-teal font-medium">Médico Pediátrico</p>
+              <p className="text-[10px] text-slate-400 font-medium truncate">{user.email || 'Configurações'}</p>
             </div>
-          </div>
+          </Link>
         ) : (
           <button
             onClick={() => services.auth.redirectToLogin()}

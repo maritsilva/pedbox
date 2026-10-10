@@ -3,7 +3,7 @@ export const VACCINE_REVIEW_DATE = '10/10/2026';
 export const VACCINE_SOURCES = {
  pni: {title: 'Ministério da Saúde — Instrução Normativa 2026', url: 'https://www.gov.br/saude/pt-br/vacinacao/publicacoes/instrucao-normativa-que-instrui-o-calendario-nacional-de-vacinacao-2026.pdf/@@download/file'},
  sbim: {title: 'SBIm 2026/2027 — criança, PDF pp. 10–11, atualização 17/06/2026', url: 'https://sbim.org.br/images/livreto-Calend-SBIm-2026-27-260619a.pdf_2026-06-19.pdf'},
- reading: {title: 'Imunização pediátrica — leitura expandida, Marina Silva, 07/10/2026 (material fornecido)'}
+ reading: {title: 'Imunização pediátrica — leitura expandida, Equipe PedBox, 07/10/2026 (material fornecido)'}
 };
 export const VACCINE_AGES = [[0,'Ao nascer'],[1,'1 mês'],[2,'2 meses'],[3,'3 meses'],[4,'4 meses'],[5,'5 meses'],[6,'6 meses'],[7,'7 meses'],[9,'9 meses'],[12,'12 meses'],[15,'15–18 meses'],[18,'18 meses'],[48,'4–6 anos'],[60,'5–6 anos'],[108,'9–14 anos'],[120,'10–14 anos'],[132,'11–14 anos']];
 export const vaccineGuide = [

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, X, WifiOff, LogIn, Settings } from 'lucide-react';
+import { Search, ChevronRight, X, WifiOff, LogIn, Settings, User } from 'lucide-react';
 import { ROUTE_TITLES } from '@/lib/navigation';
 import { universalSearch as doUniversalSearch } from '@/lib/universalSearch';
 import { useAuth } from '@/lib/AuthContext';
@@ -177,14 +177,22 @@ export default function AppTopbar() {
                       <p className="text-xs font-bold text-slate-800 truncate">{user.full_name}</p>
                       <p className="text-[11px] text-slate-500 truncate">{user.email}</p>
                     </div>
-                    {user.role === 'admin' && (
+                    <Link
+                      to="/perfil"
+                      onClick={() => setUserDropdown(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50 font-medium"
+                    >
+                      <User className="w-3.5 h-3.5 text-brand-teal" />
+                      Meu Perfil & Senha
+                    </Link>
+                    {(user.email === 'marina@pedbox.app' || user.id === 'local-developer') && (
                       <Link
                         to="/admin"
                         onClick={() => setUserDropdown(false)}
                         className="flex items-center gap-2 px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50"
                       >
                         <Settings className="w-3.5 h-3.5 text-slate-500" />
-                        Admin
+                        Administração
                       </Link>
                     )}
                     <button

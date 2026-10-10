@@ -43,14 +43,23 @@ export function installAuth(app, db, config) {
     const raw = req.cookies[sessionCookie];
     if (raw) {
       const { rows } = await db.query('SELECT u.*, s.authenticated_at FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>now()', [hash(raw)]);
-      req.user = rows[0];
+      const user = rows[0];
+      if (user) {
+        // Enforce: only marina@pedbox.app (or test fixture admin / dev) has admin access
+        const isMasterAdmin = (user.email || '').trim().toLowerCase() === 'marina@pedbox.app';
+        const isPrivileged = isMasterAdmin || user.id === 'admin' || user.id === 'local-developer';
+        user.role = isPrivileged ? (user.role === 'admin' || isMasterAdmin ? 'admin' : user.role) : 'user';
+        req.user = user;
+      }
     }
     next();
   });
   app.get('/api/v1/me', (req, res) => {
     if (!req.user) throw httpError(401, 'Entre para continuar.');
     const { id, email, full_name, role } = req.user;
-    res.json({ id, email, full_name, role });
+    const isMasterAdmin = (email || '').trim().toLowerCase() === 'marina@pedbox.app';
+    const isPrivileged = isMasterAdmin || id === 'admin' || id === 'local-developer';
+    res.json({ id, email, full_name, role: isPrivileged ? role : 'user' });
   });
 
   app.get('/api/v1/auth/status', (_req, res) => res.json({
@@ -60,6 +69,56 @@ export function installAuth(app, db, config) {
     localAuth: true,
     development: config.devAuth
   }));
+
+  // ── Update Profile (Name, Email, Password) ──
+  app.patch('/api/v1/me', async (req, res) => {
+    if (!req.user) throw httpError(401, 'Entre para continuar.');
+    const { full_name, email, current_password, new_password } = req.body || {};
+
+    let cleanName = req.user.full_name;
+    if (typeof full_name === 'string') {
+      if (!full_name.trim()) throw httpError(400, 'O nome não pode estar em branco.');
+      cleanName = full_name.trim().slice(0, 100);
+    }
+
+    let cleanEmail = req.user.email;
+    if (typeof email === 'string' && email.trim().toLowerCase() !== req.user.email.toLowerCase()) {
+      cleanEmail = email.trim().toLowerCase();
+      if (!cleanEmail.includes('@') || cleanEmail.length > 254) {
+        throw httpError(400, 'Informe um endereço de e-mail válido.');
+      }
+      const existing = await db.query('SELECT id FROM users WHERE lower(email)=$1 AND id != $2', [cleanEmail, req.user.id]);
+      if (existing.rows.length > 0) {
+        throw httpError(409, 'Este endereço de e-mail já está sendo utilizado por outra conta.');
+      }
+    }
+
+    let newHash = req.user.password_hash;
+    if (new_password) {
+      if (typeof new_password !== 'string' || new_password.length < 6) {
+        throw httpError(400, 'A nova senha deve ter no mínimo 6 caracteres.');
+      }
+      if (req.user.password_hash) {
+        if (!current_password || !verifyPassword(current_password, req.user.password_hash)) {
+          throw httpError(401, 'A senha atual informada está incorreta.');
+        }
+      }
+      newHash = hashPassword(new_password);
+    }
+
+    const isMasterAdmin = cleanEmail.toLowerCase() === 'marina@pedbox.app';
+    const role = isMasterAdmin ? 'admin' : (req.user.id === 'local-developer' ? req.user.role : 'user');
+
+    const { rows } = await db.query(
+      `UPDATE users
+       SET full_name=$1, email=$2, password_hash=$3, role=$4
+       WHERE id=$5
+       RETURNING id, email, full_name, role`,
+      [cleanName, cleanEmail, newHash, role, req.user.id]
+    );
+
+    res.json({ ok: true, user: rows[0] });
+  });
 
   // ── Local User Registration ──
   app.post('/api/v1/auth/register', async (req, res) => {
@@ -80,11 +139,13 @@ export function installAuth(app, db, config) {
 
     const pHash = hashPassword(password);
     const userId = randomUUID();
+    const role = cleanEmail === 'marina@pedbox.app' ? 'admin' : 'user';
+
     const { rows: users } = await db.query(
       `INSERT INTO users(id, issuer, subject, email, full_name, password_hash, role)
-       VALUES($1, 'local', $2, $3, $4, $5, 'user')
+       VALUES($1, 'local', $2, $3, $4, $5, $6)
        RETURNING id, email, full_name, role`,
-      [userId, cleanEmail, cleanEmail, cleanName, pHash]
+      [userId, cleanEmail, cleanEmail, cleanName, pHash, role]
     );
 
     if (req.cookies[sessionCookie]) await db.query('DELETE FROM sessions WHERE token_hash=$1', [hash(req.cookies[sessionCookie])]);
@@ -110,7 +171,8 @@ export function installAuth(app, db, config) {
 
     if (req.cookies[sessionCookie]) await db.query('DELETE FROM sessions WHERE token_hash=$1', [hash(req.cookies[sessionCookie])]);
     await issueSession(db, user.id, res, config);
-    res.json({ ok: true, user: { id: user.id, email: user.email, full_name: user.full_name, role: user.role } });
+    const role = cleanEmail === 'marina@pedbox.app' ? 'admin' : user.role;
+    res.json({ ok: true, user: { id: user.id, email: user.email, full_name: user.full_name, role } });
   });
 
   // ── Google Sign-in Verification (GIS / ID Token) ──
@@ -137,13 +199,14 @@ export function installAuth(app, db, config) {
     const email = googleUser.email.toLowerCase();
     const name = googleUser.name || googleUser.given_name || 'Usuário';
     const sub = googleUser.sub;
+    const role = email === 'marina@pedbox.app' ? 'admin' : 'user';
 
     const { rows: users } = await db.query(
-      `INSERT INTO users(id, issuer, subject, email, full_name)
-       VALUES($1, 'https://accounts.google.com', $2, $3, $4)
+      `INSERT INTO users(id, issuer, subject, email, full_name, role)
+       VALUES($1, 'https://accounts.google.com', $2, $3, $4, $5)
        ON CONFLICT(issuer, subject) DO UPDATE SET email=excluded.email, full_name=excluded.full_name
        RETURNING id, email, full_name, role`,
-      [randomUUID(), sub, email, name]
+      [randomUUID(), sub, email, name, role]
     );
 
     if (req.cookies[sessionCookie]) await db.query('DELETE FROM sessions WHERE token_hash=$1', [hash(req.cookies[sessionCookie])]);
@@ -181,9 +244,11 @@ export function installAuth(app, db, config) {
     if (!claims?.sub) throw httpError(401, 'Identidade inválida.');
     if (typeof claims.auth_time !== 'number' || Math.abs(Date.now() / 1000 - claims.auth_time) > 300) throw httpError(401, 'O provedor não confirmou uma autenticação recente. Entre novamente.');
     const issuer = provider.serverMetadata().issuer;
-    const { rows: users } = await db.query(`INSERT INTO users(id,issuer,subject,email,full_name)
-      VALUES($1,$2,$3,$4,$5) ON CONFLICT(issuer,subject) DO UPDATE SET email=excluded.email,full_name=excluded.full_name RETURNING id`,
-      [randomUUID(), issuer, claims.sub, claims.email_verified === true ? claims.email || '' : '', claims.name || 'Usuário']);
+    const email = claims.email_verified === true ? (claims.email || '').toLowerCase() : '';
+    const role = email === 'marina@pedbox.app' ? 'admin' : 'user';
+    const { rows: users } = await db.query(`INSERT INTO users(id,issuer,subject,email,full_name,role)
+      VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(issuer,subject) DO UPDATE SET email=excluded.email,full_name=excluded.full_name RETURNING id`,
+      [randomUUID(), issuer, claims.sub, email, claims.name || 'Usuário', role]);
     if (req.cookies[sessionCookie]) await db.query('DELETE FROM sessions WHERE token_hash=$1', [hash(req.cookies[sessionCookie])]);
     await issueSession(db, users[0].id, res, config);
     res.redirect(attempt.return_to);

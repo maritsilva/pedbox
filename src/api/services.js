@@ -52,6 +52,7 @@ export const services = {
       window.location.assign(safePath(returnTo));
     },
     deleteAccount: async () => { await request('/me', { method: 'DELETE' }); window.dispatchEvent(new Event('pedbox:session-ended')); },
+    updateProfile: (body) => request('/me', { method: 'PATCH', body }),
   },
   favorites: { ...collection('/favorites'), remove: (tipo, chave) => request('/favorites', { method: 'DELETE', body: { tipo, chave } }) },
   notes: collection('/notes'), categories: collection('/categories'), contents: collection('/contents'), libraryLinks: collection('/library-links'),

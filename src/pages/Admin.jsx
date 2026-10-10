@@ -597,13 +597,15 @@ export default function Admin() {
 
   if (loading) return <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>;
 
-  if (!user || user.role !== 'admin') {
+  if (!user || (user.email !== 'marina@pedbox.app' && user.id !== 'local-developer')) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 gap-4 text-center px-6">
-        <AlertTriangle className="w-10 h-10 text-amber-500" />
-        <p className="text-base font-bold text-foreground">Acesso Restrito</p>
-        <p className="text-sm text-muted-foreground">Esta área é exclusiva para administradores.</p>
-        <button onClick={() => services.auth.redirectToLogin()} className="px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-bold">Entrar como Admin</button>
+      <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-6">
+        <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl font-bold">
+          ✕
+        </div>
+        <p className="text-lg font-bold text-brand-navy">Acesso Restrito</p>
+        <p className="text-xs text-slate-500 max-w-sm">Esta área é exclusiva para a administração autorizada (marina@pedbox.app).</p>
+        <button onClick={() => services.auth.redirectToLogin()} className="px-5 py-2.5 rounded-xl bg-brand-navy text-white text-xs font-bold hover:bg-slate-800 transition-colors">Entrar como Admin</button>
       </div>
     );
   }

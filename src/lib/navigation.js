@@ -74,6 +74,7 @@ export const ROUTE_TITLES = {
   '/curvas-crescimento': 'Curvas de Crescimento',
   '/rastreio-preventivo': 'Rastreio Preventivo',
   '/admin': 'Administração',
+  '/perfil': 'Meu Perfil',
   '/settings': 'Configurações',
   '/contato': 'Sobre & Contato',
   '/contact': 'Sobre & Contato',
