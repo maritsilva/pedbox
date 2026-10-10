@@ -241,6 +241,11 @@
   }
 
   /* Catalog & Library Views */
+  .catalogue-page {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .catalogue-toolbar {
     display: flex;
     gap: 0.75rem;
@@ -253,11 +258,16 @@
     gap: 0.65rem;
     background: #FFFFFF;
     border: 1px solid #CBD5E1;
-    border-radius: 0.65rem;
+    border-radius: 0.75rem;
     padding: 0 0.85rem;
     flex: 1;
-    min-width: 220px;
+    min-width: 240px;
     min-height: 44px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .catalogue-search:focus-within {
+    border-color: #20A6A6;
+    box-shadow: 0 0 0 3px rgba(32, 166, 166, 0.12);
   }
   .catalogue-search input {
     width: 100%;
@@ -266,6 +276,28 @@
     background: transparent;
     font-size: 0.95rem;
     color: #243447;
+  }
+  .catalogue-select {
+    min-height: 44px;
+    border: 1px solid #CBD5E1;
+    border-radius: 0.75rem;
+    background: #FFFFFF;
+    padding: 0 0.85rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #243447;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .catalogue-select:focus {
+    border-color: #20A6A6;
+  }
+  .catalogue-item {
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .catalogue-item:hover {
+    transform: translateY(-2px);
   }
   .library-navigation {
     display: flex;

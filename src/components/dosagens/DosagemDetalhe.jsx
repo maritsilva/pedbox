@@ -23,11 +23,45 @@ export default function DosagemDetalhe({ drug, onBack }) {
   const min = !result.error ? presentationAmount(ap, result.min, result.unit, context) : null;
   const max = !result.error ? presentationAmount(ap, result.max, result.unit, context) : null;
   const range = (a, b, unit) => `${fmt(a)}${a !== b ? `–${fmt(b)}` : ''} ${unit}`;
-  return <div className="clinical-page">
-    <div className="flex justify-between gap-3 mb-6"><button onClick={onBack} className="flex items-center gap-2"><ArrowLeft size={18}/> Medicamentos</button><button onClick={() => toggleFavorite(drug.id)} aria-pressed={isFavorite(drug.id)} className="flex items-center gap-2"><Star size={18} fill={isFavorite(drug.id) ? 'currentColor' : 'none'}/> Favoritar</button></div>
-    <PageHeader kind="doses" eyebrow={drug.catLabel} title={drug.name} description={drug.descricao}><p className="text-sm mt-3 text-muted-foreground">{drug.marcas}</p></PageHeader>
-    <div className="review-note">Revisão clínica pendente. A conferência aritmética não valida a indicação, a dose nem a apresentação para um paciente específico.</div>
-    {drug.alerta && <div className="review-note">{drug.alerta}</div>}
+  return (
+    <div className="clinical-page max-w-5xl mx-auto px-4 py-4">
+      <div className="flex justify-between items-center gap-3 mb-6">
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[#164B73] hover:text-[#20A6A6] bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 px-3.5 py-2 rounded-xl transition-all shadow-xs"
+        >
+          <ArrowLeft size={16} /> Voltar aos Medicamentos
+        </button>
+        <button
+          type="button"
+          onClick={() => toggleFavorite(drug.id)}
+          aria-pressed={isFavorite(drug.id)}
+          className={`inline-flex items-center gap-1.5 text-sm font-semibold px-3.5 py-2 rounded-xl transition-all shadow-xs border ${
+            isFavorite(drug.id)
+              ? 'bg-amber-50 text-amber-700 border-amber-300'
+              : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+          }`}
+        >
+          <Star
+            size={16}
+            className={isFavorite(drug.id) ? 'text-amber-500 fill-amber-500' : 'text-slate-400'}
+          />
+          {isFavorite(drug.id) ? 'Favoritado' : 'Favoritar'}
+        </button>
+      </div>
+      <PageHeader
+        kind="doses"
+        eyebrow={drug.catLabel}
+        title={drug.name}
+        description={drug.descricao}
+      >
+        {drug.marcas && <p className="text-sm mt-3 text-slate-500"><strong>Marcas de referência:</strong> {drug.marcas}</p>}
+      </PageHeader>
+      <div className="review-note">
+        Revisão clínica pendente. A conferência aritmética não valida a indicação, a dose nem a apresentação para um paciente específico.
+      </div>
+      {drug.alerta && <div className="review-note">{drug.alerta}</div>}
     <div className="grid lg:grid-cols-2 gap-6">
       <section className="clinical-card space-y-5"><h2>Dados para o cálculo</h2>
         <label className="field-label">Indicação<select value={indIndex} onChange={e => {setIndIndex(Number(e.target.value)); setApIndex(0); setInterval('');}}>{drug.indicacoes.map((i,index) => <option key={i.id} value={index}>{i.label}</option>)}</select></label>
@@ -44,9 +78,27 @@ export default function DosagemDetalhe({ drug, onBack }) {
           {min?.error || max?.error ? <div className="review-note">{min?.error || max?.error}</div> : <div className="clinical-result"><strong>{range(min.value, max.value, min.unit)}</strong><p>{ap.label}</p>{(min.theoretical || max.theoretical) && <p>Conversão teórica: gotas fracionadas não são administráveis. Escolha outra apresentação ou uma dose clinicamente validada em gotas inteiras.</p>}</div>}
         </>}
         <details open><summary>Dados do cadastro e limites</summary><p className="mt-3">{indication?.dose_min}–{indication?.dose_max} {indication?.unidade} · {indication?.freq}</p><p className="mt-2">{indication?.obs}</p>{indication?.dose_max_abs && <p className="mt-2">Teto cadastrado: {indication.dose_max_abs} {indication.unidade?.split('/')[0]} ({indication.maxScope === 'day' ? 'por dia' : indication.maxScope === 'dose' || /\/dose/.test(indication.unidade) ? 'por tomada' : 'escopo pendente de revisão'}).</p>}</details>
-        {indication?.references?.map(reference => <a className="block text-primary underline text-sm" key={reference.url} href={reference.url} target="_blank" rel="noreferrer">{reference.title}</a>)}
-        <Link to={`/guia?drug=${drug.id}`} className="text-primary underline">Consultar guia do medicamento</Link>
+        {indication?.references?.map(reference => (
+          <a
+            className="block text-[#164B73] hover:text-[#20A6A6] underline text-sm transition-colors"
+            key={reference.url}
+            href={reference.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {reference.title}
+          </a>
+        ))}
+        <div className="pt-2 border-t border-slate-100">
+          <Link
+            to={`/guia?drug=${drug.id}`}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#164B73] hover:text-[#20A6A6] transition-colors"
+          >
+            Consultar guia completo do medicamento →
+          </Link>
+        </div>
       </section>
     </div>
-  </div>;
+  </div>
+  );
 }
