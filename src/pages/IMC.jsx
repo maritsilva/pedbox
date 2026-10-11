@@ -128,6 +128,181 @@ function getNutritionalDiagnosis({ type, age, z, percentile }) {
   return null;
 }
 
+export function formatAgeYearsMonths(rowOrAge, measureDate, birthDate) {
+  let bDate = birthDate;
+  let mDate = measureDate;
+  let ageYears = null;
+
+  if (typeof rowOrAge === 'object' && rowOrAge !== null) {
+    bDate = rowOrAge.birthDate;
+    mDate = rowOrAge.date;
+    ageYears = rowOrAge.age;
+  } else if (typeof rowOrAge === 'number') {
+    ageYears = rowOrAge;
+  }
+
+  if (bDate && mDate) {
+    const ageObj = getAgeFromBirthDate(bDate, mDate);
+    if (ageObj) {
+      const { years, months } = ageObj;
+      if (years === 0 && months === 0) {
+        const start = new Date(`${bDate}T12:00:00Z`);
+        const end = new Date(`${mDate}T12:00:00Z`);
+        const days = Math.max(0, Math.round((end - start) / 86400000));
+        return days === 1 ? '1 dia' : `${days} dias`;
+      }
+      if (years === 0) {
+        return months === 1 ? '1 mês' : `${months} meses`;
+      }
+      if (months === 0) {
+        return years === 1 ? '1 ano' : `${years} anos`;
+      }
+      return `${years} ${years === 1 ? 'ano' : 'anos'} e ${months} ${months === 1 ? 'mês' : 'meses'}`;
+    }
+  }
+
+  if (ageYears != null && Number.isFinite(ageYears)) {
+    const totalMonths = Math.round(ageYears * 12);
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    if (years === 0 && months === 0) {
+      const days = Math.round(ageYears * 365.25);
+      return days <= 1 ? '1 dia' : `${days} dias`;
+    }
+    if (years === 0) {
+      return months === 1 ? '1 mês' : `${months} meses`;
+    }
+    if (months === 0) {
+      return years === 1 ? '1 ano' : `${years} anos`;
+    }
+    return `${years} ${years === 1 ? 'ano' : 'anos'} e ${months} ${months === 1 ? 'mês' : 'meses'}`;
+  }
+
+  return '—';
+}
+
+function getCentilesAtAge(series, targetAge) {
+  if (!series || !series.length || !Number.isFinite(targetAge)) return [];
+  const coveringCurves = series.filter(c => {
+    if (!c.data || !c.data.length) return false;
+    const minAge = c.data[0].age;
+    const maxAge = c.data[c.data.length - 1].age;
+    return targetAge >= minAge - 0.05 && targetAge <= maxAge + 0.05;
+  });
+
+  const curvesToUse = coveringCurves.length > 0 ? coveringCurves : series;
+  const centileMap = new Map();
+
+  for (const curve of curvesToUse) {
+    const key = curve.centile != null ? curve.centile : curve.sds;
+    if (centileMap.has(key)) continue;
+
+    const pts = curve.data;
+    if (!pts.length) continue;
+    let interpolatedVal = pts[0].value;
+    if (targetAge <= pts[0].age) {
+      interpolatedVal = pts[0].value;
+    } else if (targetAge >= pts[pts.length - 1].age) {
+      interpolatedVal = pts[pts.length - 1].value;
+    } else {
+      const idx = pts.findIndex(p => p.age >= targetAge);
+      if (idx === 0) {
+        interpolatedVal = pts[0].value;
+      } else if (idx > 0) {
+        const p0 = pts[idx - 1];
+        const p1 = pts[idx];
+        const t = (targetAge - p0.age) / (p1.age - p0.age || 1);
+        interpolatedVal = p0.value + t * (p1.value - p0.value);
+      }
+    }
+    centileMap.set(key, {
+      centile: curve.centile,
+      sds: curve.sds,
+      value: interpolatedVal,
+    });
+  }
+
+  return Array.from(centileMap.values()).sort((a, b) => {
+    if (a.centile != null && b.centile != null) return a.centile - b.centile;
+    return a.sds - b.sds;
+  });
+}
+
+function CustomGrowthTooltip({ active, label, series, points, rows, type, mode, isSds }) {
+  if (!active || label == null) return null;
+  const targetAge = Number(label);
+  if (!Number.isFinite(targetAge)) return null;
+
+  const ageFormatted = formatAgeYearsMonths(targetAge);
+  const centiles = mode === 'z' ? [] : getCentilesAtAge(series, targetAge);
+  const nearRow = rows?.find(r => Math.abs(r.age - targetAge) < 0.12);
+
+  return (
+    <div className="bg-white p-3 rounded-xl shadow-lg border border-slate-200 text-xs min-w-[170px] space-y-2">
+      <div className="border-b border-slate-100 pb-1">
+        <span className="font-bold text-slate-800 block text-xs">
+          {format(targetAge)} anos
+        </span>
+        <span className="text-[11px] text-slate-500 font-medium">
+          {ageFormatted}
+        </span>
+      </div>
+
+      {nearRow && (
+        <div className="bg-teal-50 border border-teal-200 p-2 rounded-lg space-y-0.5">
+          <span className="text-[10px] font-bold text-brand-teal uppercase tracking-wide block">
+            Aferição do paciente
+          </span>
+          <div className="font-bold text-slate-800 text-sm">
+            {format(nearRow[type])} {TYPES[type].unit}
+          </div>
+          <div className="text-[11px] text-slate-600 font-medium">
+            {nearRow.scores?.[type]?.percentile != null ? `P${format(nearRow.scores[type].percentile)}` : ''}
+            {nearRow.scores?.[type]?.z != null ? ` · Escore Z ${format(nearRow.scores[type].z)}` : ''}
+          </div>
+        </div>
+      )}
+
+      {mode === 'z' ? (
+        <div className="space-y-1">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide block">
+            Curvas de Desvio Padrão
+          </span>
+          {[-3, -2, -1, 0, 1, 2, 3].map(z => (
+            <div key={z} className={`flex justify-between py-0.5 ${z === 0 ? 'font-bold text-brand-navy' : 'text-slate-600'}`}>
+              <span>{z > 0 ? `+${z}` : z} Z:</span>
+              <span>{z} SDS</span>
+            </div>
+          ))}
+        </div>
+      ) : centiles.length > 0 ? (
+        <div className="space-y-1">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide block">
+            Curvas {TYPES[type].label} ({TYPES[type].unit})
+          </span>
+          {centiles.map(c => {
+            const isMedian = c.centile === 50 || c.sds === 0;
+            const labelStr = isSds ? `${c.sds > 0 ? `+${c.sds}` : c.sds} Z` : `P${c.centile}`;
+            return (
+              <div
+                key={labelStr}
+                className={`flex justify-between py-0.5 items-center ${
+                  isMedian
+                    ? 'font-bold text-brand-navy bg-slate-50 px-1.5 rounded'
+                    : 'text-slate-600'
+                }`}
+              >
+                <span>{labelStr}:</span>
+                <span className="font-mono">{format(c.value)}</span>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function GrowthPlot({ rows, type, sex, reference, diagnosis, formatChoice, custom, isSds, mode, zoom, monochrome }) {
   const [loaded, setLoaded] = useState({ key: '', series: [], error: '' });
   const key = `${reference}/${sex}/${type}/${diagnosis}/${formatChoice}/${custom}/${isSds}`;
@@ -200,9 +375,16 @@ function GrowthPlot({ rows, type, sex, reference, diagnosis, formatChoice, custo
             label={{ value: mode === 'z' ? 'Escore Z (SDS)' : TYPES[type].unit, angle: -90, position: 'insideLeft', fontSize: 11 }}
           />
           <Tooltip
-            formatter={(v, n) => [format(Number(v)), n]}
-            labelFormatter={v => `${format(Number(v))} anos`}
-            contentStyle={{ backgroundColor: '#ffffff', borderRadius: '0.5rem', border: '1px solid #CBD5E1', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            content={
+              <CustomGrowthTooltip
+                series={series}
+                points={points}
+                rows={rows}
+                type={type}
+                mode={mode}
+                isSds={isSds}
+              />
+            }
           />
           {mode === 'z'
             ? [-3, -2, -1, 0, 1, 2, 3].map(z => (
@@ -942,7 +1124,7 @@ export default function IMC() {
                   <thead>
                     <tr>
                       <th>Data</th>
-                      <th>Idade (anos)</th>
+                      <th>Idade</th>
                       <th>Altura (cm)</th>
                       <th>Peso (kg)</th>
                       <th>IMC (kg/m²)</th>
@@ -956,7 +1138,14 @@ export default function IMC() {
                     {sorted.map(row => (
                       <tr key={row.date + (row.measurement || 'combined')}>
                         <td>{displayDate(row.date)}</td>
-                        <td>{format(row.age)}</td>
+                        <td>
+                          <span className="font-semibold text-slate-800 block text-xs whitespace-nowrap">
+                            {formatAgeYearsMonths(row)}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground block">
+                            {format(row.age)} anos
+                          </span>
+                        </td>
                         <td>{format(row.height)}</td>
                         <td>{format(row.weight)}</td>
                         <td>{format(row.bmi)}</td>
