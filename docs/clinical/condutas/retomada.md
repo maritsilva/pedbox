@@ -9,4 +9,4 @@
 
 ## Atualização técnica — 10/10/2026
 
-Pedido prioritário de Marina: manter layout PedBox e integrar CDC/OMS à página IMC usando sua API RCPCH. Concluída integração local, ver docs/clinical/imc-rcpch-adaptation.md. Chave SOMENTE em .env ignorado; não reproduzir em mensagens, comandos diagnósticos ou documentos. Prévia http://127.0.0.1:5173/imc; API porta 3001. A pesquisa clínica das condutas continua pendente conforme matriz, sem publicar rascunhos.
+Pedido prioritário: manter layout PedBox e integrar CDC/OMS à página IMC usando sua API RCPCH. Concluída integração local, ver docs/clinical/imc-rcpch-adaptation.md. Chave SOMENTE em .env ignorado; não reproduzir em mensagens, comandos diagnósticos ou documentos. Prévia http://127.0.0.1:5173/imc; API porta 3001. A pesquisa clínica das condutas continua pendente conforme matriz, sem publicar rascunhos.

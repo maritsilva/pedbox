@@ -10,7 +10,8 @@ import {
   Star,
   Settings,
   HelpCircle,
-  Grid
+  Grid,
+  Baby
 } from 'lucide-react';
 
 export const MAIN_NAV_ITEMS = [
@@ -18,6 +19,7 @@ export const MAIN_NAV_ITEMS = [
   { to: '/calculadoras', label: 'Calculadoras', icon: Calculator },
   { to: '/guia', label: 'Medicamentos', icon: Pill },
   { to: '/dosagens', label: 'Dosagens', icon: Zap },
+  { to: '/amamentacao', label: 'Amamentação', icon: Baby },
   { to: '/biblioteca?tab=protocolos', label: 'Protocolos', icon: FileText, matchBase: '/protocolos' },
   { to: '/vacinas', label: 'Vacinas', icon: Syringe },
   { to: '/sinais-vitais', label: 'Sinais Vitais', icon: Activity },
@@ -44,6 +46,8 @@ export const ROUTE_TITLES = {
   '/protocolos': 'Protocolos Clínicos',
   '/biblioteca': 'Biblioteca',
   '/vacinas': 'Calendário Vacinal',
+  '/amamentacao': 'Segurança na Amamentação',
+  '/seguranca-amamentacao': 'Segurança na Amamentação',
   '/sinais-vitais': 'Sinais Vitais',
   '/favoritos': 'Meus Favoritos',
   '/ferramentas': 'Explorar Ferramentas',

@@ -107,7 +107,7 @@ test('local registration and login flow via API', async () => {
       .send({
         email: 'marina@pedbox.app',
         password: 'adminPassword123',
-        full_name: 'Administradora Marina',
+        full_name: 'Administradora PedBox',
       });
     assert.equal(resMarina.status, 200);
     assert.equal(resMarina.body.user.role, 'admin');

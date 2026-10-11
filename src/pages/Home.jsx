@@ -15,6 +15,7 @@ import {
   Thermometer,
   Zap,
   Star,
+  Baby,
 } from 'lucide-react';
 import { universalSearch } from '@/lib/universalSearch';
 import { usePageFavorites } from '@/hooks/usePageFavorites';
@@ -68,6 +69,7 @@ const CATEGORIES = [
 ];
 
 const QUICK_ACCESS = [
+  { label: 'Segurança amamentação', path: '/amamentacao', icon: Baby },
   { label: 'Hidratação pediátrica', path: '/hidratacao', icon: Droplets },
   { label: 'Antibióticos', path: '/guia', icon: Pill },
   { label: 'Esquema vacinal', path: '/vacinas', icon: Syringe },
@@ -95,6 +97,7 @@ export default function Home() {
       list.push({
         label: p.label,
         path: p.path,
+        iconEmoji: p.icon || '🧮',
         icon: Star,
         isCustomFavorite: true,
         type: 'ferramenta',
@@ -108,6 +111,7 @@ export default function Home() {
         list.push({
           label: drug.name,
           path: `/dosagens?drug=${encodeURIComponent(drug.id)}`,
+          iconEmoji: '💊',
           icon: Pill,
           isCustomFavorite: true,
           type: 'medicamento',
@@ -119,7 +123,23 @@ export default function Home() {
   }, [favPages, favDrugIds, allDrugs]);
 
   const hasUserFavorites = userFavorites.length > 0;
-  const displayQuickAccess = hasUserFavorites ? userFavorites.slice(0, 12) : QUICK_ACCESS;
+
+  // Prioritize user favorites first, then fill remaining slots with standard QUICK_ACCESS
+  const displayQuickAccess = useMemo(() => {
+    const combined = [...userFavorites];
+    const existingPaths = new Set(userFavorites.map((f) => f.path));
+
+    QUICK_ACCESS.forEach((item) => {
+      if (!existingPaths.has(item.path)) {
+        combined.push({
+          ...item,
+          isCustomFavorite: false,
+        });
+      }
+    });
+
+    return combined.slice(0, 12);
+  }, [userFavorites]);
 
   // Close hero search dropdown when clicking outside
   useEffect(() => {
@@ -309,30 +329,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ACESSO RÁPIDO (Favoritos do Usuário ou Atalhos Principais) */}
+      {/* ACESSO RÁPIDO (Favoritos do Usuário Priorizados + Atalhos Principais) */}
       <section className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              {hasUserFavorites ? 'Acesso Rápido — Seus Favoritos' : 'Acesso Rápido'}
+              Acesso Rápido
             </h2>
             {hasUserFavorites && (
-              <span className="text-[10px] font-bold text-amber-800 bg-amber-100/90 border border-amber-200/80 px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span className="text-[10px] font-bold text-amber-800 bg-amber-100/90 border border-amber-200/80 px-2 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
                 <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
-                <span>{userFavorites.length} {userFavorites.length === 1 ? 'salvo' : 'salvos'}</span>
+                <span>{userFavorites.length} {userFavorites.length === 1 ? 'favorito priorizado' : 'favoritos priorizados'}</span>
               </span>
             )}
           </div>
 
           <div className="flex items-center gap-3">
-            {hasUserFavorites && (
-              <Link
-                to="/favoritos"
-                className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1"
-              >
-                Gerenciar favoritos <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            )}
+            <Link
+              to="/favoritos"
+              className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1"
+            >
+              Meus favoritos <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
             <Link
               to="/ferramentas"
               className="text-xs font-bold text-brand-teal hover:text-teal-700 flex items-center gap-1"
@@ -351,18 +369,26 @@ export default function Home() {
                 to={item.path}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-semibold transition-all shadow-2xs group ${
                   item.isCustomFavorite
-                    ? 'bg-amber-50/70 border-amber-200 text-amber-950 hover:bg-amber-100/80 hover:border-amber-300'
+                    ? 'bg-amber-50/80 border-amber-300 text-amber-950 font-bold hover:bg-amber-100 hover:border-amber-400'
                     : 'bg-white border-slate-200/80 text-slate-700 hover:border-brand-teal hover:text-brand-navy hover:bg-brand-sky/30'
                 }`}
               >
-                <Icon
-                  className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${
-                    item.isCustomFavorite
-                      ? 'text-amber-500 fill-amber-400'
-                      : 'text-brand-teal'
-                  }`}
-                />
+                {item.isCustomFavorite ? (
+                  <div className="flex items-center gap-1">
+                    {item.iconEmoji && (
+                      <span className="text-sm shrink-0 leading-none">{item.iconEmoji}</span>
+                    )}
+                    <Star className="w-3 h-3 text-amber-500 fill-amber-400 shrink-0" />
+                  </div>
+                ) : (
+                  <Icon className="w-3.5 h-3.5 text-brand-teal shrink-0 transition-transform group-hover:scale-110" />
+                )}
                 <span>{item.label}</span>
+                {item.isCustomFavorite && item.type === 'medicamento' && (
+                  <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded bg-amber-200/70 text-amber-900 ml-0.5">
+                    Dose
+                  </span>
+                )}
               </Link>
             );
           })}

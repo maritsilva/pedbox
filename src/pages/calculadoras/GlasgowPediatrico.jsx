@@ -1,181 +1,137 @@
 import React, { useState } from 'react';
-import { ChevronLeft, RefreshCw } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import ScoreCalculatorLayout from '@/components/calculators/ScoreCalculatorLayout';
 
 const CRITERIA = [
   {
     id: 'ocular',
     label: 'Abertura Ocular',
+    subtitle: 'Avaliação da resposta aos estímulos ambientais e álgicos',
     icon: '👁️',
+    iconBg: 'bg-blue-50 text-blue-600',
     options: [
-      { label: 'Espontânea', value: 4 },
-      { label: 'Ao chamado / som', value: 3 },
-      { label: 'Estímulo álgico', value: 2 },
-      { label: 'Não responde', value: 1 },
-    ],
-  },
-  {
-    id: 'motora',
-    label: 'Melhor Resposta Motora',
-    icon: '🤚',
-    options: [
-      { label: 'Movimentos com propósito', value: 6 },
-      { label: 'Localiza dor', value: 5 },
-      { label: 'Retira membros à dor', value: 4 },
-      { label: 'Flexão anormal (decorticação)', value: 3 },
-      { label: 'Extensão anormal (descerebração)', value: 2 },
-      { label: 'Não responde', value: 1 },
+      { label: 'Espontânea', desc: 'Olhos abertos espontaneamente, contato visual', value: 4 },
+      { label: 'Ao estímulo verbal / chamada', desc: 'Abre os olhos quando chamado pelo nome ou voz alta', value: 3 },
+      { label: 'Ao estímulo doloroso / pressão', desc: 'Abre os olhos somente após estímulo tátil firme ou dor', value: 2 },
+      { label: 'Nenhuma resposta', desc: 'Não abre os olhos a nenhum estímulo', value: 1 },
     ],
   },
   {
     id: 'verbal',
     label: 'Melhor Resposta Verbal',
+    subtitle: 'Adaptada para idade e desenvolvimento neuropsicomotor',
     icon: '💬',
-    hint: 'Adaptada para lactentes/crianças',
+    iconBg: 'bg-teal-50 text-teal-600',
     options: [
-      { label: 'Lalação / sons próprios da idade', value: 5 },
-      { label: 'Choro consolável', value: 4 },
-      { label: 'Choro inconsolável', value: 3 },
-      { label: 'Grunidos / gemência à dor', value: 2 },
-      { label: 'Não responde', value: 1 },
+      { label: 'Balbucia, sorri, palavras apropriadas / orientado', desc: 'Lalação normal, sorri, interage socialmente ou fala orientada', value: 5 },
+      { label: 'Choro consolável, interação inadequada / confuso', desc: 'Chora mas acalma no colo da mãe/cuidador; desorientado', value: 4 },
+      { label: 'Choro persistente inadequado ou gemência / palavras soltas', desc: 'Inconsolável, agitado, uso isolado de palavras desconexas', value: 3 },
+      { label: 'Sons incompreensíveis, grunhidos à dor', desc: 'Grunhidos inespecíficos ou gemidos reflexos', value: 2 },
+      { label: 'Nenhuma resposta verbal', desc: 'Ausência total de emissão vocal mesmo à dor', value: 1 },
+    ],
+  },
+  {
+    id: 'motora',
+    label: 'Melhor Resposta Motora',
+    subtitle: 'Avalia a integridade do neuroeixo e resposta cortical',
+    icon: '🤚',
+    iconBg: 'bg-indigo-50 text-indigo-600',
+    options: [
+      { label: 'Movimentos espontâneos ou obedece comandos', desc: 'Movimentação normal dos 4 membros, alcança brinquedos', value: 6 },
+      { label: 'Localiza dor ou retira ao toque', desc: 'Tenta afastar o estímulo doloroso propositalmente', value: 5 },
+      { label: 'Retirada inespecífica à dor (flexão normal)', desc: 'Flexiona o membro rapidamente para fugir da dor', value: 4 },
+      { label: 'Decorticação (flexão anormal à dor)', desc: 'Postura de flexão com adução dos braços e punhos cerrados', value: 3 },
+      { label: 'Descerebração (extensão anormal à dor)', desc: 'Extensão rígida e pronação dos membros superiores', value: 2 },
+      { label: 'Nenhuma resposta motora (flacidez)', desc: 'Flacidez muscular completa, sem resposta reflexa motora', value: 1 },
     ],
   },
 ];
 
-function getClassification(score) {
-  if (score >= 13) return { label: 'Normal / Leve', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-300', conduta: 'Alteração leve. Monitorar continuamente.' };
-  if (score >= 9) return { label: 'Moderada', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-300', conduta: 'Investigação e observação intensiva necessárias.' };
-  return { label: 'Grave (Coma)', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-300', conduta: 'Glasgow ≤8: indicação clássica de proteção de via aérea / intubação.' };
+const REFERENCE_TABLE = [
+  {
+    label: 'TCE Leve',
+    range: '13 a 15 pontos',
+    desc: 'Baixo risco neurológico. Vigilância clínica, critérios PECARN para TC.',
+    status: 'normal',
+  },
+  {
+    label: 'TCE Moderado',
+    range: '9 a 12 pontos',
+    desc: 'Risco intermediário. Tomografia de crânio recomendada e observação.',
+    status: 'warning',
+  },
+  {
+    label: 'TCE Grave / Coma',
+    range: '3 a 8 pontos',
+    desc: 'Indicação clássica de via aérea definitiva (IOT) e internação em UTI.',
+    status: 'danger',
+  },
+];
+
+const CLINICAL_NOTES = [
+  'Sempre pontuar a melhor resposta obtida em cada item avaliado.',
+  'Para lactentes pré-verbais (< 2 anos), utilize prioritariamente os equivalentes de choro consolável e interação apropriada.',
+  'Em pacientes sob sedação ou com intubação orotraqueal, registrar verbal como "1T" ou não avaliável.',
+  'Escore ≤ 8 define coma e indica proteção imediata de via aérea com intubação em sequência rápida.',
+];
+
+function getClassification(total) {
+  if (total >= 13) {
+    return {
+      label: 'TCE Leve (Glasgow ' + total + ')',
+      status: 'normal',
+      description: 'Baixo risco de lesão cerebral traumática clinicamente relevante.',
+      conduta: 'Observação clínica vigilante. Aplicar regras PECARN para indicação de neuroimagem se indicado.',
+    };
+  }
+  if (total >= 9) {
+    return {
+      label: 'TCE Moderado (Glasgow ' + total + ')',
+      status: 'warning',
+      description: 'Risco moderado com potencial deterioração rápida do sensório.',
+      conduta: 'Indicação de TC de crânio urgente, acesso venoso, jejum e avaliação neurocirúrgica.',
+    };
+  }
+  return {
+    label: 'TCE Grave / Coma (Glasgow ' + total + ')',
+    status: 'danger',
+    description: 'Comprometimento grave da consciência e reflexos de proteção.',
+    conduta: 'Proteção imediata de via aérea (IOT), ventilação protetora, suporte hemodinâmico e UTI imediata.',
+  };
 }
 
 export default function GlasgowPediatrico() {
   const [scores, setScores] = useState({});
-  const navigate = useNavigate();
 
-  const answered = CRITERIA.filter(c => scores[c.id] !== undefined).length;
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
-  const allAnswered = answered === CRITERIA.length;
+  const handleSelectOption = (criterionId, value) => {
+    setScores((prev) => ({
+      ...prev,
+      [criterionId]: value,
+    }));
+  };
+
+  const handleReset = () => {
+    setScores({});
+  };
+
+  const allAnswered = CRITERIA.every((c) => scores[c.id] !== undefined);
+  const total = Object.values(scores).reduce((a, b) => a + Number(b), 0);
   const classification = allAnswered ? getClassification(total) : null;
-  const maxScore = 15;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16">
-      <div className="page-surface max-w-7xl mx-auto px-4 py-8">
-        <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
-          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
-        </button>
-
-        {/* Header card */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="score-banner relative overflow-hidden mb-8"
-        >
-          <div className="absolute top-4 right-6 opacity-20">
-            <div className="text-6xl">🧠</div>
-          </div>
-
-          <div className="relative z-10">
-            <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
-              Score Neurológico · Emergência
-            </span>
-            <h1 className="text-3xl font-extrabold mb-1">Glasgow Pediátrica</h1>
-            <p className="text-sm font-medium opacity-90 mb-6">Nível de consciência em crianças</p>
-            
-            <div className="border-t border-white/20 pt-4">
-              <p className="text-4xl font-extrabold">{allAnswered ? total : '—'}</p>
-              <p className="text-sm opacity-90 mt-1">/ {maxScore} pontos</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* LEFT — Criteria */}
-          <div className="lg:col-span-2 space-y-3">
-            {CRITERIA.map((c, idx) => (
-              <motion.div 
-                key={c.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-                className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
-              >
-                <div className="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
-                  <span>{c.icon}</span>
-                  <div>
-                    <p className="font-bold text-sm text-gray-800">{c.label}</p>
-                    {c.hint && <p className="text-xs text-gray-400">{c.hint}</p>}
-                  </div>
-                  {scores[c.id] !== undefined && <span className="ml-auto text-xs bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full">{scores[c.id]} pt</span>}
-                </div>
-                <div className="p-3 space-y-2">
-                  {c.options.map(opt => {
-                    const selected = scores[c.id] === opt.value;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => setScores(prev => ({ ...prev, [c.id]: opt.value }))}
-                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border-2 transition-all text-sm font-medium ${selected ? 'border-indigo-500 bg-indigo-500 text-white' : 'border-gray-200 bg-white text-gray-700 hover:border-indigo-300 hover:bg-indigo-50/50'}`}
-                      >
-                        <span>{opt.label}</span>
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${selected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>{opt.value}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* RIGHT — Sidebar */}
-          <div className="space-y-4">
-
-            {/* Result */}
-            <AnimatePresence>
-              {allAnswered && classification && (
-                <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0 }} className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-5 sticky top-20`}>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Resultado</p>
-                  <p className={`text-4xl font-extrabold ${classification.color}`}>{total}</p>
-                  <p className={`text-sm font-bold ${classification.color} mt-1 mb-3`}>{classification.label}</p>
-                  <p className="text-xs text-gray-600 leading-relaxed">{classification.conduta}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Classification reference */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-              <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">Classificação</p>
-              <div className="space-y-2">
-                {[
-                  { range: '13–15', label: 'Leve', bg: 'bg-green-50 border-green-200 text-green-700' },
-                  { range: '9–12', label: 'Moderada', bg: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
-                  { range: '3–8', label: 'Grave', bg: 'bg-red-50 border-red-200 text-red-700' }
-                ].map(r => (
-                  <div key={r.range} className={`border ${r.bg} rounded-xl p-3`}>
-                    <p className="text-xs font-bold">{r.label}</p>
-                    <p className="text-[10px]">{r.range}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        {answered > 0 && (
-          <button onClick={() => setScores({})} className="w-full py-3 mt-6 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 flex items-center justify-center gap-2 transition-all">
-            <RefreshCw className="w-4 h-4" /> Nova avaliação
-          </button>
-        )}
-
-        <div className="mt-8 text-xs text-gray-400 px-1">
-          <p className="font-semibold text-gray-500 mb-1">Referência</p>
-          <p>Bauru. SMS. Protocolo de Classificação de Risco Pediatria. 2020. Adaptado da escala original de Teasdale & Jennett, 1974.</p>
-        </div>
-      </div>
-    </div>
+    <ScoreCalculatorLayout
+      title="Escala de Coma de Glasgow Pediátrica"
+      eyebrow="Escore Neurológico • Emergência"
+      subtitle="Avaliação do nível de consciência e gravidade do traumatismo cranioencefálico (TCE) em crianças e lactentes"
+      icon3d="🧠"
+      criteria={CRITERIA}
+      scores={scores}
+      onSelectOption={handleSelectOption}
+      maxScore={15}
+      classification={classification}
+      referenceTable={REFERENCE_TABLE}
+      clinicalNotes={CLINICAL_NOTES}
+      onReset={handleReset}
+      referenceSource="Teasdale G, Jennett B. Assessment of coma and impaired consciousness. Lancet. 1974; PECARN Traumatic Brain Injury, 2009."
+    />
   );
 }

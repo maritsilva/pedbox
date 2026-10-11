@@ -604,7 +604,7 @@ export default function Admin() {
           ✕
         </div>
         <p className="text-lg font-bold text-brand-navy">Acesso Restrito</p>
-        <p className="text-xs text-slate-500 max-w-sm">Esta área é exclusiva para a administração autorizada (marina@pedbox.app).</p>
+        <p className="text-xs text-slate-500 max-w-sm">Esta área é exclusiva para a administração autorizada.</p>
         <button onClick={() => services.auth.redirectToLogin()} className="px-5 py-2.5 rounded-xl bg-brand-navy text-white text-xs font-bold hover:bg-slate-800 transition-colors">Entrar como Admin</button>
       </div>
     );

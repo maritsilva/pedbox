@@ -49,13 +49,13 @@ export default function Contact() {
       const reasonText = reasonLabels[formData.reason] || formData.reason || 'Contato PedBox';
       const subject = encodeURIComponent(`[PedBox Contato] ${reasonText} — ${formData.name}`);
       const body = encodeURIComponent(`Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonText}\n\nMensagem:\n${formData.message}`);
-      window.location.href = `mailto:marina@pedbox.app?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:contato@pedbox.app?subject=${subject}&body=${body}`;
       setSubmitted(true);
     }
   };
 
   const handleCloneGit = () => {
-    window.open('https://github.com/maritsilva/pedbox', '_blank');
+    window.open('https://github.com/pedbox-app/pedbox', '_blank');
   };
 
   return (
@@ -77,9 +77,9 @@ export default function Contact() {
           </p>
           <div className="mt-4 inline-flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-gray-200 shadow-sm text-sm">
             <Mail className="w-4 h-4 text-primary" />
-            <span className="text-gray-500">E-mail direto:</span>
-            <a href="mailto:marina@pedbox.app" className="font-bold text-primary hover:underline">
-              marina@pedbox.app
+            <span className="text-gray-500">E-mail de contato:</span>
+            <a href="mailto:contato@pedbox.app" className="font-bold text-primary hover:underline">
+              contato@pedbox.app
             </a>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
-                  placeholder="João Silva"
+                  placeholder="Seu nome completo"
                 />
               </div>
               <div>

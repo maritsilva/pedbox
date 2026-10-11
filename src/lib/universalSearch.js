@@ -49,6 +49,7 @@ const TOOLS_INDEX = [
   { label: 'Sinais Vitais Pediátricos',  path: '/sinais-vitais',            icon: '📋', desc: 'Valores de referência por faixa etária' },
   { label: 'Desenvolvimento Infantil',   path: '/desenvolvimento',          icon: '🌱', desc: 'Marcos dos 2 meses aos 5 anos com sinais de alerta' },
   { label: 'Vacinas',                    path: '/vacinas',                  icon: '💉', desc: 'Calendário vacinal e informações detalhadas' },
+  { label: 'Segurança na Amamentação',   path: '/amamentacao',              icon: '🤱', desc: 'Medicamentos e lactação · Guia Ministério da Saúde 2025' },
   { label: 'Guia de Medicamentos',       path: '/guia',                     icon: '📖', desc: 'Doses, preparo e apresentações · 100+ fármacos' },
   { label: 'Dosagens — Cálculo Rápido',  path: '/dosagens',                 icon: '⚡', desc: 'Calcule doses por peso instantaneamente' },
   { label: 'Protocolos Clínicos',        path: '/biblioteca',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },

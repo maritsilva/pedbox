@@ -1,4 +1,4 @@
-const CACHE = 'pedbox-v7';
+const CACHE = 'pedbox-v8';
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(['/', '/index.html', '/offline.html', '/favicon.svg'])).then(() => self.skipWaiting()));
 });

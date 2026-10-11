@@ -1,210 +1,184 @@
 import React, { useState } from 'react';
-import { ChevronLeft, RefreshCw } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import ScoreCalculatorLayout from '@/components/calculators/ScoreCalculatorLayout';
 
 const CRITERIA = [
   {
     id: 'comportamento',
-    label: 'Comportamento',
+    label: 'Comportamento / Estado Neurológico',
+    subtitle: 'Nível de alerta, interação e resposta a estímulos',
     icon: '🧠',
+    iconBg: 'bg-indigo-50 text-indigo-600',
     options: [
-      { label: 'Brincando/Apropriado', desc: 'Alerta, interativo, atividade normal para idade', value: 0 },
-      { label: 'Dormindo', desc: 'Sonolento mas despertável, responde normalmente', value: 1 },
-      { label: 'Irritável', desc: 'Irritável, choroso, difícil de consolar', value: 2 },
-      { label: 'Letárgico/Confuso', desc: 'Resposta reduzida a estímulos, confuso', value: 3 },
-      { label: 'Não responsivo', desc: 'Responde apenas a dor ou não responde', value: 4 },
+      { label: 'Brincando / Apropriado', desc: 'Alerta, ativo, consolável e interativo conforme a idade', value: 0 },
+      { label: 'Dormindo', desc: 'Sonolento mas prontamente despertável ao toque ou chamada', value: 1 },
+      { label: 'Irritável', desc: 'Inconsolável, choro persistente, difícil de acalmar', value: 2 },
+      { label: 'Letárgico / Confuso', desc: 'Redução importante da resposta, sonolência profunda ou desorientação', value: 3 },
+      { label: 'Não responsivo / Coma', desc: 'Sem resposta a estímulos ou resposta reflexa mínima à dor', value: 4 },
     ],
   },
   {
     id: 'cardiovascular',
-    label: 'Cardiovascular',
+    label: 'Cardiovascular / Perfusão Periférica',
+    subtitle: 'Coloração cutânea e Tempo de Enchimento Capilar (TEC)',
     icon: '❤️',
+    iconBg: 'bg-rose-50 text-rose-600',
     options: [
-      { label: 'Rosado, TEC < 3s', desc: 'Cor normal, perfusão adequada', value: 0 },
-      { label: 'Pálido OU TEC 3s', desc: 'Palidez leve ou perfusão levemente prolongada', value: 1 },
-      { label: 'Acinzentado OU TEC 4s', desc: 'Coloração acinzentada ou perfusão moderada', value: 2 },
-      { label: 'Cinza/Moteado OU TEC ≥ 5s', desc: 'Má perfusão, pele moteada', value: 3 },
+      { label: 'Rosado, TEC < 3s', desc: 'Perfusão periférica rápida e coloração rosada normal', value: 0 },
+      { label: 'Pálido OU TEC = 3s', desc: 'Palidez cutaneomucosa discreta ou perfusão limítrofe', value: 1 },
+      { label: 'Acinzentado OU TEC = 4s', desc: 'Pele acinzentada ou lentificação moderada da perfusão', value: 2 },
+      { label: 'Cinza / Moteado OU TEC ≥ 5s', desc: 'Livedo reticular, pele fria, moteada e má perfusão grave', value: 3 },
     ],
   },
   {
     id: 'respiratorio',
-    label: 'Respiratório',
+    label: 'Padrão Respiratório e Frequência',
+    subtitle: 'Frequência respiratória e uso de musculatura acessória',
     icon: '🫁',
+    iconBg: 'bg-sky-50 text-sky-600',
     options: [
-      { label: 'Normal', desc: 'FR normal para idade, sem esforço', value: 0 },
-      { label: 'FR > 10 acima do normal', desc: 'Taquipneia leve, sem tiragens', value: 1 },
-      { label: 'FR > 20 acima OU musculatura acessória', desc: 'Taquipneia moderada ou tiragens leves', value: 2 },
-      { label: 'FR < 5 abaixo OU tiragens intensas', desc: 'Bradipneia ou desconforto importante', value: 3 },
-      { label: 'FR ≥ 5 abaixo OU gemido/estridor', desc: 'Bradipneia significativa ou obstrução grave', value: 4 },
+      { label: 'Normal para idade', desc: 'FR na faixa de normalidade, sem tiragens ou gemência', value: 0 },
+      { label: 'FR > 10 acima do normal', desc: 'Taquipneia leve sem retração torácica aparente', value: 1 },
+      { label: 'FR > 20 acima OU musculatura acessória', desc: 'Taquipneia evidente ou tiragem subcostal/intercostal', value: 2 },
+      { label: 'FR < 5 abaixo OU tiragens intensas', desc: 'Bradipneia preocupante ou esforço respiratório acentuado', value: 3 },
+      { label: 'FR ≥ 5 abaixo OU gemido / estridor', desc: 'Bradipneia grave ou estridor em repouso / gemido contínuo', value: 4 },
     ],
   },
   {
     id: 'o2',
-    label: 'Necessidade de O₂',
+    label: 'Necessidade de Oxigenoterapia',
+    subtitle: 'Suporte ventilatório adicional para manter oximetria',
     icon: '💨',
+    iconBg: 'bg-teal-50 text-teal-600',
     options: [
-      { label: 'Ar ambiente', desc: 'SpO₂ > 94% em ar ambiente', value: 0 },
-      { label: 'Qualquer O₂ suplementar', desc: 'Necessita oxigênio para manter SpO₂', value: 2 },
-      { label: 'O₂ ≥ 6L/min ou FiO₂ ≥ 50%', desc: 'Alto fluxo de oxigênio', value: 3 },
+      { label: 'Ar ambiente (SpO₂ > 94%)', desc: 'Boa saturação sem necessidade de oxigênio suplementar', value: 0 },
+      { label: 'Qualquer O₂ suplementar', desc: 'Cateter nasal ou máscara de baixo fluxo para manter saturação', value: 2 },
+      { label: 'O₂ ≥ 6 L/min ou FiO₂ ≥ 50%', desc: 'Alto fluxo, máscara não reinalante ou suporte avançado', value: 3 },
     ],
   },
   {
     id: 'nebulizacao',
-    label: 'Nebulização (últimas 4h)',
+    label: 'Nebulizações nas Últimas 4h',
+    subtitle: 'Frequência de broncodilatadores de resgate administrados',
     icon: '💊',
+    iconBg: 'bg-amber-50 text-amber-600',
     options: [
-      { label: 'Nenhuma', desc: 'Sem necessidade de nebulização', value: 0 },
-      { label: '1 nebulização', desc: 'Uma nebulização nas últimas 4 horas', value: 1 },
-      { label: '≥ 2 nebulizações', desc: 'Duas ou mais nebulizações nas últimas 4 horas', value: 2 },
+      { label: 'Nenhuma nebulização', desc: 'Sem broncodilatador inalatório recente', value: 0 },
+      { label: '1 nebulização', desc: 'Uma administração de broncodilatador nas últimas 4 horas', value: 1 },
+      { label: '≥ 2 nebulizações', desc: 'Múltiplas nebulizações de resgate nas últimas 4 horas', value: 2 },
     ],
   },
   {
     id: 'vomitos',
-    label: 'Vômitos (pós-cirúrgico)',
+    label: 'Vômitos Persistentes (Pós-operatório)',
+    subtitle: 'Tolerância gástrica e emese incoercível pós-cirúrgica',
     icon: '🏥',
+    iconBg: 'bg-slate-50 text-slate-600',
     options: [
-      { label: 'Não ou N/A', desc: 'Sem vômitos ou paciente não cirúrgico', value: 0 },
-      { label: 'Vômitos persistentes', desc: 'Vômitos persistentes após cirurgia', value: 2 },
+      { label: 'Sem vômitos / Não cirúrgico', desc: 'Paciente estável ou sem episódios eméticos recorrentes', value: 0 },
+      { label: 'Vômitos persistentes', desc: 'Episódios repetidos de vômito com risco de aspiração ou desidratação', value: 2 },
     ],
   },
 ];
 
-function getClassification(score) {
-  if (score <= 2) return { label: 'Verde — Baixo Risco', color: 'text-green-700', bg: 'bg-green-50', border: 'border-green-300', conduta: 'Avaliação a cada 4–8h. Cuidados de rotina.' };
-  if (score <= 4) return { label: 'Amarelo — Risco Moderado', color: 'text-yellow-700', bg: 'bg-yellow-50', border: 'border-yellow-300', conduta: 'Avaliação a cada 2–4h. Comunicar enfermeiro responsável.' };
-  if (score <= 6) return { label: 'Laranja — Risco Alto', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-300', conduta: 'Avaliação a cada 1–2h. Comunicar médico imediatamente.' };
-  return { label: 'Vermelho — Emergência', color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-300', conduta: 'Acionar Time de Resposta Rápida. Preparar transferência imediata para UTI.' };
+const REFERENCE_TABLE = [
+  {
+    label: 'Verde (Baixo Risco)',
+    range: '0 a 2 pontos',
+    desc: 'Estabilidade clínica. Reavaliação a cada 4 a 8 horas, cuidados rotineiros.',
+    status: 'normal',
+  },
+  {
+    label: 'Amarelo (Risco Moderado)',
+    range: '3 a 4 pontos',
+    desc: 'Sinais de alerta. Reavaliar a cada 2 a 4 horas e comunicar equipe de enfermagem.',
+    status: 'warning',
+  },
+  {
+    label: 'Laranja (Risco Alto)',
+    range: '5 a 6 pontos',
+    desc: 'Deterioração clínica iminente. Avaliação médica presencial imediata em até 30 min.',
+    status: 'warning',
+  },
+  {
+    label: 'Vermelho (Emergência)',
+    range: '≥ 7 pontos',
+    desc: 'Risco crítico. Acionar Time de Resposta Rápida (TRR) e preparar leito de UTI.',
+    status: 'danger',
+  },
+];
+
+const CLINICAL_NOTES = [
+  'O PEWS (Pediatric Early Warning Score) monitora e previne deterioração clínica hospitalar em enfermarias pediátricas.',
+  'Ponto de corte de segurança: qualquer critério individual com pontuação máxima (≥ 3) exige avaliação médica imediata independente da pontuação total.',
+  'Se o paciente apresentar pontuação ≥ 7 ou piora abrupta de 2 pontos entre avaliações consecutivas, acione imediatamente o Time de Resposta Rápida.',
+];
+
+function getClassification(total) {
+  if (total <= 2) {
+    return {
+      label: 'Verde — Baixo Risco (PEWS ' + total + ')',
+      status: 'normal',
+      description: 'Condição clínica estável sem evidências de deterioração aguda.',
+      conduta: 'Manter monitorização e reavaliação clínica a cada 4 a 8 horas de acordo com a rotina do setor.',
+    };
+  }
+  if (total <= 4) {
+    return {
+      label: 'Amarelo — Risco Moderado (PEWS ' + total + ')',
+      status: 'warning',
+      description: 'Alterações fisiológicas leves a moderadas com potencial de descompensação.',
+      conduta: 'Reavaliar a cada 2 a 4 horas. Comunicar médico de plantão e revisar plano terapêutico.',
+    };
+  }
+  if (total <= 6) {
+    return {
+      label: 'Laranja — Risco Alto (PEWS ' + total + ')',
+      status: 'warning',
+      description: 'Deterioração fisiológica significativa em curso.',
+      conduta: 'Avaliação médica presencial em até 30 minutos. Monitorização contínua de sinais vitais e reavaliação horária.',
+    };
+  }
+  return {
+    label: 'Vermelho — Emergência Crítica (PEWS ' + total + ')',
+    status: 'danger',
+    description: 'Risco iminente de parada cardiorrespiratória ou falência de múltiplos órgãos.',
+    conduta: 'Acionamento IMEDIATO do Time de Resposta Rápida (TRR) ou equipe de emergência. Preparar transferência para UTI Pediátrica.',
+  };
 }
 
 export default function PEWS() {
   const [scores, setScores] = useState({});
-  const navigate = useNavigate();
 
-  const answered = CRITERIA.filter(c => scores[c.id] !== undefined).length;
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
-  const allAnswered = answered === CRITERIA.length;
+  const handleSelectOption = (criterionId, value) => {
+    setScores((prev) => ({
+      ...prev,
+      [criterionId]: value,
+    }));
+  };
+
+  const handleReset = () => {
+    setScores({});
+  };
+
+  const allAnswered = CRITERIA.every((c) => scores[c.id] !== undefined);
+  const total = Object.values(scores).reduce((a, b) => a + Number(b), 0);
   const classification = allAnswered ? getClassification(total) : null;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16">
-      <div className="page-surface max-w-7xl mx-auto px-4 py-8">
-        <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
-          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
-        </button>
-
-        {/* Header card */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="score-banner relative overflow-hidden mb-8"
-        >
-          <div className="absolute top-4 right-6 opacity-20">
-            <div className="text-6xl">⚠️</div>
-          </div>
-
-          <div className="relative z-10">
-            <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
-              Score de Alerta · Enfermaria
-            </span>
-            <h1 className="text-3xl font-extrabold mb-1">PEWS</h1>
-            <p className="text-sm font-medium opacity-90 mb-6">Alerta precoce de deterioração pediátrica</p>
-            
-            <div className="border-t border-white/20 pt-4">
-              <p className="text-4xl font-extrabold">{allAnswered ? total : '—'}</p>
-              <p className="text-sm mt-2" role="status">{answered}/{CRITERIA.length} critérios preenchidos</p>
-              <p className="text-sm opacity-90 mt-1">pontos</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* LEFT — Criteria */}
-          <div className="lg:col-span-2 space-y-3">
-            {CRITERIA.map((c, idx) => (
-              <motion.div 
-                key={c.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-                className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
-              >
-                <div className="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
-                  <span>{c.icon}</span>
-                  <p className="font-bold text-sm text-gray-800">{c.label}</p>
-                  {scores[c.id] !== undefined && <span className="ml-auto text-xs bg-teal-100 text-teal-700 font-bold px-2 py-0.5 rounded-full">+{scores[c.id]}</span>}
-                </div>
-                <div className="p-3 space-y-2">
-                  {c.options.map(opt => {
-                    const selected = scores[c.id] === opt.value;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => setScores(prev => ({ ...prev, [c.id]: opt.value }))}
-                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border-2 transition-all text-left gap-2 ${selected ? 'border-teal-500 bg-teal-500 text-white' : 'border-gray-200 bg-white text-gray-700 hover:border-teal-300 hover:bg-teal-50/50'}`}
-                      >
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold">{opt.label}</p>
-                          {opt.desc && <p className={`text-xs mt-0.5 ${selected ? 'text-teal-100' : 'text-gray-400'}`}>{opt.desc}</p>}
-                        </div>
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${selected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>+{opt.value}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* RIGHT — Sidebar */}
-          <div className="space-y-4">
-
-            {/* Result */}
-            <AnimatePresence>
-              {allAnswered && classification && (
-                <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0 }} className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-5 sticky top-20`}>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Nível de Alerta</p>
-                  <p className={`text-4xl font-extrabold ${classification.color}`}>{total}</p>
-                  <p className={`text-sm font-bold ${classification.color} mt-1 mb-3`}>{classification.label}</p>
-                  <p className="text-xs text-gray-600 leading-relaxed">{classification.conduta}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Levels legend */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
-              <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">Classificação</p>
-              <div className="space-y-2">
-                {[
-                  { r: '0–2', l: 'Verde', c: 'bg-green-50 border-green-200 text-green-700' },
-                  { r: '3–4', l: 'Amarelo', c: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
-                  { r: '5–6', l: 'Laranja', c: 'bg-orange-50 border-orange-200 text-orange-700' },
-                  { r: '≥7', l: 'Vermelho', c: 'bg-red-50 border-red-200 text-red-700' }
-                ].map(level => (
-                  <div key={level.r} className={`border ${level.c} rounded-xl p-3`}>
-                    <p className="text-xs font-bold">{level.l}</p>
-                    <p className="text-[10px]">{level.r}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        {answered > 0 && (
-          <button onClick={() => setScores({})} className="w-full py-3 mt-6 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 flex items-center justify-center gap-2 transition-all">
-            <RefreshCw className="w-4 h-4" /> Nova avaliação
-          </button>
-        )}
-
-        <div className="mt-8 text-xs text-gray-400 px-1">
-          <p className="font-semibold text-gray-500 mb-1">Referência</p>
-          <p>Monaghan A. Detecting and managing deterioration in children. Paediatr Nurs. 2005;17(1):32-35.</p>
-        </div>
-      </div>
-    </div>
+    <ScoreCalculatorLayout
+      title="PEWS — Pediatric Early Warning Score"
+      eyebrow="Escore de Alerta Precoce Pediátrico"
+      subtitle="Detecção precoce de deterioração clínica e prevenção de paradas cardiorrespiratórias em pacientes internados"
+      icon3d="⚠️"
+      criteria={CRITERIA}
+      scores={scores}
+      onSelectOption={handleSelectOption}
+      maxScore={18}
+      classification={classification}
+      referenceTable={REFERENCE_TABLE}
+      clinicalNotes={CLINICAL_NOTES}
+      onReset={handleReset}
+      referenceSource="Monaghan A. Detecting and managing deterioration in children. Paediatr Nurs. 2005; Duncan H et al. Nature Pediatr Res 2006."
+    />
   );
 }

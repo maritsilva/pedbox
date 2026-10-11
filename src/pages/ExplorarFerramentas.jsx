@@ -100,6 +100,7 @@ const CONSULTA_ROTEIROS = [
     ferramentas: [
       { label: 'Horas de Vida', path: '/horas-de-vida', icon: '⏱️' },
       { label: 'Icterícia Neonatal', path: '/ictericia', icon: '☀️' },
+      { label: 'Segurança Amamentação', path: '/amamentacao', icon: '🤱' },
       { label: 'Perímetro Cefálico', path: '/perimetro-cefalico', icon: '🔵' },
       { label: 'IG Corrigida (Prematuro)', path: '/idade-gestacional-corrigida', icon: '🍼' },
     ],
@@ -119,6 +120,7 @@ const CONSULTA_ROTEIROS = [
       'Profilaxia com Ferro elementar a partir dos 3 meses (prematuros/baixo peso) ou 6 meses (termo)',
     ],
     ferramentas: [
+      { label: 'Segurança Amamentação', path: '/amamentacao', icon: '🤱' },
       { label: 'IMC Pediátrico & Percentis', path: '/imc', icon: '📊' },
       { label: 'Curvas de Crescimento OMS', path: '/curvas-crescimento', icon: '📈' },
       { label: 'Marcos do Desenvolvimento', path: '/desenvolvimento', icon: '🌱' },
@@ -201,6 +203,8 @@ const BASE_TOOLS = [
     cat: 'Consultas',
     categories: ['Consultas', 'Calculadoras'],
     isConsultationCore: true,
+    status: 'available',
+    blockedReason: '',
   },
   {
     path: '/curvas-crescimento',
@@ -236,6 +240,15 @@ const BASE_TOOLS = [
     desc: 'Calendários oficiais PNI e SBIm com informações detalhadas por vacina.',
     cat: 'Consultas',
     categories: ['Consultas'],
+    isConsultationCore: true,
+  },
+  {
+    path: '/amamentacao',
+    label: 'Segurança na Amamentação',
+    icon: '🤱',
+    desc: 'Compatibilidade e risco de mais de 1.300 medicamentos e substâncias · Guia MS 2025.',
+    cat: 'Consultas',
+    categories: ['Consultas', 'Doses'],
     isConsultationCore: true,
   },
   {

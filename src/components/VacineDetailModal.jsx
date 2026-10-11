@@ -382,7 +382,7 @@ export default function VacineDetailModal({ vacina, isOpen, onClose }) {
           {/* FOOTER */}
           <div className="bg-slate-50 px-5 sm:px-6 py-3.5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shrink-0">
             <span className="text-slate-500 text-[11px] text-center sm:text-left">
-              Baseado no manual <span className="font-semibold text-slate-700">Imunização Pediátrica 2026</span> (Marina Silva · HU Pediatria, p. {vacina.readingPage || 3}).
+              Baseado no manual <span className="font-semibold text-slate-700">Imunização Pediátrica 2026</span> (HU Pediatria, p. {vacina.readingPage || 3}).
             </span>
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <a

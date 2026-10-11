@@ -28,6 +28,7 @@ const AlvoParental = lazy(() => import('./pages/AlvoParental'));
 const IdadeGestacionalCorrigida = lazy(() => import('./pages/IdadeGestacionalCorrigida'));
 const CentorMcIsaac = lazy(() => import('./pages/CentorMcIsaac'));
 const Vacinas = lazy(() => import('./pages/Vacinas'));
+const Amamentacao = lazy(() => import('./pages/Amamentacao'));
 const Contato = lazy(() => import('./pages/Contato'));
 
 const Contact = lazy(() => import('./pages/Contact'));
@@ -90,6 +91,8 @@ function App() {
             <Route path="/idade-gestacional-corrigida" element={<IdadeGestacionalCorrigida />} />
             <Route path="/centor-mcisaac" element={<CentorMcIsaac />} />
             <Route path="/vacinas" element={<Vacinas />} />
+            <Route path="/amamentacao" element={<Amamentacao />} />
+            <Route path="/seguranca-amamentacao" element={<Navigate to="/amamentacao" replace />} />
             <Route path="/contato" element={<Contato />} />
 
             <Route path="/contact" element={<Contact />} />

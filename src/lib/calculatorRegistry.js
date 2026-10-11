@@ -41,7 +41,7 @@ const additions = [
  ['cdlqi','CDLQI','Gastro e dermatologia','Qualidade de vida em dermatologia pediátrica'],
 ];
 export const CALCULATORS = [
- ...existing.map(([id,label,category,desc]) => ({id,label,category,desc,path:`/${id}`,status:'available',clinicalReview:'pending',icon:'🧮', ...(id === 'rodwell' ? {status:'blocked', blockedReason:'A implementação anterior duplicava alterações degenerativas e citoplasmáticas, confundia a razão imaturos/maduros com imaturos/totais e produzia interpretação com critérios incompletos. Cálculo suspenso até corrigir e revisar a escala.'} : {})})),
+ ...existing.map(([id,label,category,desc]) => ({id,label,category,desc,path:`/${id}`,status:'available',clinicalReview:'pending',icon:'🧮'})),
  ...additions.map(([id,label,category,desc]) => ({id,label,category,desc,path:`/calculadoras/${id}`,status:'draft',clinicalReview:'pending',icon:'🧮'})),
 ];
 // Proven classification defect; retain original implementation for audit only.

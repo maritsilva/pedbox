@@ -1,169 +1,169 @@
 import React, { useState } from 'react';
-import { ChevronLeft, RefreshCw } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import ScoreCalculatorLayout from '@/components/calculators/ScoreCalculatorLayout';
 
 const CRITERIA = [
   {
     id: 'sincronia',
-    label: 'Sincronia toracoabdominal',
+    label: 'Sincronia Toracoabdominal',
+    subtitle: 'Coordenação entre os movimentos da caixa torácica e abdome',
     icon: '🫀',
+    iconBg: 'bg-rose-50 text-rose-600',
     options: [
-      { label: 'Movimento sincrônico', desc: 'Tórax e abdome movem-se juntos de forma coordenada', value: 0 },
-      { label: 'Atraso inspiratório', desc: 'Pequeno atraso entre o movimento do abdome e do tórax', value: 1 },
-      { label: 'Movimento paradoxal', desc: 'Tórax afunda enquanto abdome expande (gangorra)', value: 2 },
+      { label: 'Movimento sincrônico', desc: 'Tórax e abdome expandem-se juntos harmonicamente', value: 0 },
+      { label: 'Atraso inspiratório', desc: 'Pequeno atraso entre a expansão abdominal e a elevação torácica', value: 1 },
+      { label: 'Movimento paradoxal ("gangorra")', desc: 'Tórax afunda enquanto o abdome expande na inspiração', value: 2 },
     ],
   },
   {
     id: 'intercostal',
-    label: 'Tiragem intercostal',
+    label: 'Tiragem Intercostal',
+    subtitle: 'Depressão visível entre os arcos costais durante o esforço',
     icon: '🔍',
+    iconBg: 'bg-sky-50 text-sky-600',
     options: [
-      { label: 'Ausente', desc: 'Sem retração visível dos espaços intercostais', value: 0 },
-      { label: 'Discreta', desc: 'Retração leve, visível apenas com atenção', value: 1 },
-      { label: 'Acentuada', desc: 'Retração marcante e facilmente identificável', value: 2 },
+      { label: 'Ausente', desc: 'Sem retração perceptível nos espaços intercostais', value: 0 },
+      { label: 'Discreta', desc: 'Retração intercostal leve, visível apenas com inspeção atenta', value: 1 },
+      { label: 'Acentuada', desc: 'Retração funda e nítida em múltiplos espaços intercostais', value: 2 },
     ],
   },
   {
     id: 'xifoide',
-    label: 'Retração xifoide',
+    label: 'Retração Xifoidiana',
+    subtitle: 'Afundamento da ponta do esterno / apêndice xifoide',
     icon: '📍',
+    iconBg: 'bg-indigo-50 text-indigo-600',
     options: [
-      { label: 'Ausente', desc: 'Sem afundamento da região xifoide', value: 0 },
-      { label: 'Discreta', desc: 'Leve depressão do apêndice xifoide na inspiração', value: 1 },
-      { label: 'Acentuada', desc: 'Afundamento pronunciado do xifoide', value: 2 },
+      { label: 'Ausente', desc: 'Sem depressão do apêndice xifoide na inspiração', value: 0 },
+      { label: 'Discreta', desc: 'Leve retração da ponta do apêndice xifoide', value: 1 },
+      { label: 'Acentuada', desc: 'Afundamento xifoidiano proeminente e constante', value: 2 },
     ],
   },
   {
     id: 'nasal',
-    label: 'Batimento de asa nasal',
+    label: 'Batimento de Asa de Nariz',
+    subtitle: 'Dilatação reflexa das narinas para reduzir resistência aérea',
     icon: '👃',
+    iconBg: 'bg-amber-50 text-amber-600',
     options: [
-      { label: 'Ausente', desc: 'Narinas estáveis durante a respiração', value: 0 },
-      { label: 'Discreto', desc: 'Dilatação leve das narinas na inspiração', value: 1 },
-      { label: 'Acentuado', desc: 'Abertura ampla e contínua das narinas', value: 2 },
+      { label: 'Ausente', desc: 'Abertura estável das narinas durante todo o ciclo', value: 0 },
+      { label: 'Discreto', desc: 'Alargamento leve e intermitente das asas nasais na inspiração', value: 1 },
+      { label: 'Acentuado', desc: 'Dilatação nítida, ampla e contínua a cada incursão respiratória', value: 2 },
     ],
   },
   {
     id: 'gemido',
-    label: 'Gemido expiratório',
+    label: 'Gemido Expiratório',
+    subtitle: 'Mecanismo de aumento fisiológico de PEEP por fechamento parcial de glote',
     icon: '🔊',
+    iconBg: 'bg-teal-50 text-teal-600',
     options: [
-      { label: 'Ausente', desc: 'Sem gemido durante a expiração', value: 0 },
-      { label: 'Audível ao estetoscópio', desc: 'Gemido detectável apenas na ausculta', value: 1 },
-      { label: 'Audível a distância', desc: 'Gemido audível sem estetoscópio', value: 2 },
+      { label: 'Ausente', desc: 'Expiração livre e silenciosa sem ruídos audíveis', value: 0 },
+      { label: 'Audível ao estetoscópio', desc: 'Ruído expiratório abafado, captado apenas à ausculta direta', value: 1 },
+      { label: 'Audível a distância', desc: 'Gemido contínuo e alto, perfeitamente audível sem estetoscópio', value: 2 },
     ],
   },
 ];
 
-function getClassification(score) {
-  if (score === 0) return { label: 'Sem desconforto', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-300', conduta: 'Observação clínica. Sem suporte adicional necessário.' };
-  if (score <= 3) return { label: 'Leve', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-300', conduta: 'Monitorização. O₂ por cateter ou hood se necessário.' };
-  if (score <= 6) return { label: 'Moderado', color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-300', conduta: 'Considerar CPAP nasal (5–6 cmH₂O). O₂ para manter SatO₂ 91–95%.' };
-  return { label: 'Grave', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-300', conduta: 'Considerar intubação e ventilação mecânica se sem resposta ao CPAP ou com apneias/acidose.' };
+const REFERENCE_TABLE = [
+  {
+    label: 'Sem Desconforto',
+    range: '0 ponto',
+    desc: 'Padrão respiratório fisiológico normal. Manter vigilância de rotina.',
+    status: 'normal',
+  },
+  {
+    label: 'Desconforto Leve',
+    range: '1 a 3 pontos',
+    desc: 'Disfunção respiratória inicial. Monitorização contínua e oxigenoterapia se SatO₂ < 91%.',
+    status: 'warning',
+  },
+  {
+    label: 'Desconforto Moderado',
+    range: '4 a 6 pontos',
+    desc: 'Sobrecarga respiratória importante. Indicação de CPAP nasal precoce.',
+    status: 'warning',
+  },
+  {
+    label: 'Desconforto Grave',
+    range: '7 a 10 pontos',
+    desc: 'Insuficiência respiratória com iminência de fadiga. Indicação de suporte invasivo / IOT.',
+    status: 'danger',
+  },
+];
+
+const CLINICAL_NOTES = [
+  'Ao contrário de outros escores, no Silverman-Andersen maior pontuação significa pior gravidade: 0 é o padrão normal e 10 é a falência respiratória máxima.',
+  'Avaliar o recém-nascido preferencialmente em repouso térmico e calmo; o choro intenso pode falsear tiragem e batimento de asa nasal.',
+  'O gemido expiratório reflete fechamento parcial da glote como tentativa biológica de reter volume pulmonar (auto-PEEP); sua presença indica gravidade.',
+  'Reavaliações seriadas são essenciais para monitorar resposta ao CPAP nasal ou necessidade de intubação e surfactante.',
+];
+
+function getClassification(total) {
+  if (total === 0) {
+    return {
+      label: 'Sem Desconforto Respiratório (0 pt)',
+      status: 'normal',
+      description: 'Padrão ventilatório totalmente sincrônico e livre de sinais de esforço.',
+      conduta: 'Cuidados habituais de transição ou alojamento conjunto. Vigilância de sinais vitais de rotina.',
+    };
+  }
+  if (total <= 3) {
+    return {
+      label: 'Desconforto Respiratório Leve (' + total + ' pts)',
+      status: 'warning',
+      description: 'Sinais leves de sobrecarga respiratória sem falência biomecânica.',
+      conduta: 'Desobstrução de vias aéreas superiores, manter aquecimento neutro, oximetria de pulso contínua; O₂ suplementar se SatO₂ < 91%.',
+    };
+  }
+  if (total <= 6) {
+    return {
+      label: 'Desconforto Respiratório Moderado (' + total + ' pts)',
+      status: 'warning',
+      description: 'Esforço muscular evidente com risco de fadiga do diafragma neonatal.',
+      conduta: 'Iniciar suporte com CPAP nasal (pressão 5–6 cmH₂O), gasometria arterial e Rx de tórax. Alvo SatO₂ 91–95%.',
+    };
+  }
+  return {
+    label: 'Desconforto Respiratório Grave (' + total + ' pts)',
+    status: 'danger',
+    description: 'Falência respiratória manifesta com dissociação toracoabdominal grave e/ou gemência contínua.',
+    conduta: 'Indicação de intubação orotraqueal em sequência rápida e ventilação mecânica invasiva. Investigar SDR / SAM / sepse neonatal.',
+  };
 }
 
 export default function SilvermanAnderson() {
   const [scores, setScores] = useState({});
-  const navigate = useNavigate();
 
-  const answered = CRITERIA.filter(c => scores[c.id] !== undefined).length;
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
-  const allAnswered = answered === CRITERIA.length;
+  const handleSelectOption = (criterionId, value) => {
+    setScores((prev) => ({
+      ...prev,
+      [criterionId]: value,
+    }));
+  };
+
+  const handleReset = () => {
+    setScores({});
+  };
+
+  const allAnswered = CRITERIA.every((c) => scores[c.id] !== undefined);
+  const total = Object.values(scores).reduce((a, b) => a + Number(b), 0);
   const classification = allAnswered ? getClassification(total) : null;
 
   return (
-    <div className="page-surface max-w-2xl mx-auto px-4 py-8 pb-16">
-      <button onClick={() => navigate('/calculadoras-hub')} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors group">
-        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Calculadoras
-      </button>
-
-      {/* Header card */}
-      <motion.div 
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="score-banner relative overflow-hidden mb-8"
-      >
-        <div className="absolute top-4 right-6 opacity-20">
-          <div className="text-6xl">🫁</div>
-        </div>
-
-        <div className="relative z-10">
-          <span className="inline-block text-xs font-bold bg-white/20 px-3 py-1 rounded-full mb-3">
-            Score Neonatal · Respiratório
-          </span>
-          <h1 className="text-3xl font-extrabold mb-1">Silverman-Anderson</h1>
-          <p className="text-sm font-medium opacity-90 mb-6">Desconforto respiratório em RN (0–10)</p>
-          
-          <div className="border-t border-white/20 pt-4">
-            <p className="text-4xl font-extrabold">{allAnswered ? total : '—'}</p>
-              <p className="text-sm mt-2" role="status">{answered}/{CRITERIA.length} critérios preenchidos</p>
-            <p className="text-sm opacity-90 mt-1">/ 10 pontos</p>
-          </div>
-        </div>
-      </motion.div>
-
-      <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-800 mb-6">
-        <strong>Uso:</strong> Sala de parto, alojamento conjunto e UTI neonatal. Quanto maior o escore, mais grave o desconforto.
-      </div>
-
-      {/* Criteria */}
-      <div className="space-y-3 mb-6">
-        {CRITERIA.map((c) => (
-          <div key={c.id} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-            <div className="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
-              <span>{c.icon}</span>
-              <p className="font-bold text-sm text-gray-800">{c.label}</p>
-              {scores[c.id] !== undefined && <span className="ml-auto text-xs bg-cyan-100 text-cyan-700 font-bold px-2 py-0.5 rounded-full">+{scores[c.id]}</span>}
-            </div>
-            <div className="p-3 space-y-2">
-              {c.options.map(opt => {
-                const selected = scores[c.id] === opt.value;
-                return (
-                  <button
-                    key={opt.value}
-                    onClick={() => setScores(prev => ({ ...prev, [c.id]: opt.value }))}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border-2 transition-all text-left gap-3 ${selected ? 'border-cyan-500 bg-cyan-500 text-white' : 'border-gray-200 bg-white text-gray-700 hover:border-cyan-300 hover:bg-cyan-50/50'}`}
-                  >
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold">{opt.label}</p>
-                      <p className={`text-xs mt-0.5 ${selected ? 'text-cyan-100' : 'text-gray-400'}`}>{opt.desc}</p>
-                    </div>
-                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${selected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>{opt.value} pt{opt.value !== 1 ? 's' : ''}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-4 gap-2 mb-4 text-xs text-center">
-        {[{ r: '0', l: 'Sem desconforto', c: 'bg-green-100 text-green-700' }, { r: '1–3', l: 'Leve', c: 'bg-yellow-100 text-yellow-700' }, { r: '4–6', l: 'Moderado', c: 'bg-orange-100 text-orange-700' }, { r: '7–10', l: 'Grave', c: 'bg-red-100 text-red-700' }].map(l => (
-          <div key={l.r} className={`${l.c} rounded-xl p-2`}><p className="font-bold">{l.r}</p><p>{l.l}</p></div>
-        ))}
-      </div>
-
-      <AnimatePresence>
-        {allAnswered && classification && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-5 mb-4`}>
-            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Resultado</p>
-            <p className={`text-3xl font-extrabold ${classification.color}`}>{total}/10 — {classification.label}</p>
-            <p className="text-sm text-gray-700 mt-2">{classification.conduta}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {answered > 0 && (
-        <button onClick={() => setScores({})} className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:bg-gray-50 flex items-center justify-center gap-2 transition-all">
-          <RefreshCw className="w-4 h-4" /> Nova avaliação
-        </button>
-      )}
-
-      <div className="mt-8 text-xs text-gray-400 px-1">
-        <p className="font-semibold text-gray-500 mb-1">Referência</p>
-        <p>Silverman WA, Andersen DH. A controlled clinical trial of effects of water mist on obstructive respiratory signs. Pediatrics. 1956;17(1):1-10.</p>
-      </div>
-    </div>
+    <ScoreCalculatorLayout
+      title="Boletim de Silverman-Andersen"
+      eyebrow="Score Neonatal • Desconforto Respiratório"
+      subtitle="Avaliação objetiva e seriada da gravidade da dificuldade respiratória no recém-nascido em sala de parto e UTI neonatal"
+      icon3d="🫁"
+      criteria={CRITERIA}
+      scores={scores}
+      onSelectOption={handleSelectOption}
+      maxScore={10}
+      classification={classification}
+      referenceTable={REFERENCE_TABLE}
+      clinicalNotes={CLINICAL_NOTES}
+      onReset={handleReset}
+      referenceSource="Silverman WA, Andersen DH. A controlled clinical trial of effects of water mist on obstructive respiratory signs. Pediatrics. 1956;17(1):1-10; SBP Neonatologia (2022)."
+    />
   );
 }

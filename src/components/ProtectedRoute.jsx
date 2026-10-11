@@ -15,7 +15,7 @@ export default function ProtectedRoute({ admin = false }) {
         </div>
         <h1 className="text-xl font-display font-extrabold text-brand-navy">Acesso restrito</h1>
         <p className="text-xs text-slate-500">
-          Esta área é restrita exclusivamente à administração autorizada (marina@pedbox.app).
+          Esta área é restrita exclusivamente aos administradores da plataforma.
         </p>
       </div>
     );

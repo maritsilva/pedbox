@@ -27,6 +27,7 @@ const LEGACY_PAGES = [
   { path: '/pas-asma',            label: 'PAS — Asma',                      icon: '🌬️', desc: 'Pediatric Asthma Score' },
   { path: '/desenvolvimento',     label: 'Marcos do Desenvolvimento',       icon: '🌱', desc: 'Milestones 2 meses a 5 anos' },
   { path: '/vacinas',             label: 'Vacinas',                         icon: '💉', desc: 'Calendário vacinal' },
+  { path: '/amamentacao',         label: 'Segurança na Amamentação',        icon: '🤱', desc: 'Compatibilidade de medicamentos na lactação · MS 2025' },
 ];
 
 export const ALL_PAGES = [...CALCULATORS, ...LEGACY_PAGES.filter(p => !CALCULATORS.some(c => c.path === p.path))];

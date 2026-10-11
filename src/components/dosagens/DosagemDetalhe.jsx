@@ -29,15 +29,31 @@ export default function DosagemDetalhe({ drug, onBack }) {
   const [ageUnit, setAgeUnit] = useState('meses');
   const [indIndex, setIndIndex] = useState(0);
   const [apIndex, setApIndex] = useState(0);
-  const [chosenInterval, setInterval] = useState('');
+  
+  // Pre-select first interval of first indication
+  const [chosenInterval, setChosenInterval] = useState(() => {
+    const initInd = drug?.indicacoes?.[0];
+    const initIntervals = intervalOptions(initInd?.freq);
+    return initIntervals.length > 0 ? String(initIntervals[0]) : '';
+  });
+
   const { isFavorite, toggleFavorite } = useDosagemFavorites();
 
   const indication = drug.indicacoes[indIndex] || drug.indicacoes[0];
   const intervals = intervalOptions(indication?.freq);
-  const interval = chosenInterval ? Number(chosenInterval) : intervals.length === 1 ? intervals[0] : null;
+  
+  // Ensure an interval is always active if available
+  const activeInterval = chosenInterval !== '' && intervals.includes(Number(chosenInterval))
+    ? Number(chosenInterval)
+    : (intervals.length > 0 ? intervals[0] : null);
+
   const numWeight = numberInput(weight);
-  const result = calculateDose(indication, numWeight, interval);
-  const ap = indication?.apresentacoes?.[apIndex] || indication?.apresentacoes?.[0];
+  const result = calculateDose(indication, numWeight, activeInterval);
+
+  // Ensure first presentation is always active
+  const safeApIndex = (apIndex < (indication?.apresentacoes?.length || 0)) ? apIndex : 0;
+  const ap = indication?.apresentacoes?.[safeApIndex] || indication?.apresentacoes?.[0];
+
   const context = { ageMonths: numberInput(age) * (ageUnit === 'anos' ? 12 : 1), weight: numWeight };
   
   const minPres = !result.error ? presentationAmount(ap, result.min, result.unit, context) : null;
@@ -75,7 +91,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-navy bg-white border border-slate-200 hover:border-slate-300 px-3.5 py-2 rounded-xl transition-all shadow-2xs"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-navy bg-white border border-slate-200 hover:border-slate-300 px-3.5 py-2 rounded-xl transition-all shadow-2xs cursor-pointer"
         >
           <ArrowLeft size={16} /> Voltar
         </button>
@@ -92,7 +108,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
             type="button"
             onClick={() => toggleFavorite(drug.id)}
             aria-pressed={isFavorite(drug.id)}
-            className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-xl transition-all shadow-2xs border ${
+            className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-xl transition-all shadow-2xs border cursor-pointer ${
               isFavorite(drug.id)
                 ? 'bg-amber-50 text-amber-700 border-amber-300'
                 : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
@@ -109,8 +125,8 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
       {/* DRUG HEADER CARD */}
       <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4 relative overflow-hidden">
-        <div className="relative pl-4 sm:pl-5 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1.5 before:bg-orange-500 before:rounded-full space-y-1">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-orange-600 block">
+        <div className="relative pl-4 sm:pl-5 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1.5 before:bg-[#164B73] before:rounded-full space-y-1">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#164B73] block">
             {drug.catLabel || 'Medicamento Pediátrico'}
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
@@ -127,7 +143,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
         </div>
 
         {/* Circular Category Badge */}
-        <div className="hidden sm:flex w-20 h-20 rounded-full bg-orange-50 border border-orange-100 items-center justify-center text-orange-500 shrink-0">
+        <div className="hidden sm:flex w-20 h-20 rounded-full bg-blue-50 border border-blue-100 items-center justify-center text-blue-600 shrink-0">
           <DrugCategoryIcon className="w-10 h-10" />
         </div>
       </div>
@@ -139,8 +155,8 @@ export default function DosagemDetalhe({ drug, onBack }) {
           <span>{drug.alerta}</span>
         </div>
       ) : (
-        <div className="bg-amber-50/50 border border-amber-200 rounded-2xl p-3.5 text-xs text-amber-900 flex items-center gap-2.5">
-          <Info className="w-4 h-4 text-amber-600 shrink-0" />
+        <div className="bg-blue-50/50 border border-blue-200/70 rounded-2xl p-3.5 text-xs text-blue-950 flex items-center gap-2.5">
+          <Info className="w-4 h-4 text-blue-600 shrink-0" />
           <span>Verifique contraindicações específicas, função renal e hepática antes da administração.</span>
         </div>
       )}
@@ -152,7 +168,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
           {/* STEP 1: INDICAÇÃO */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-orange-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-6 h-6 rounded-full bg-[#164B73] text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                 1
               </span>
               <h3 className="text-sm font-bold text-slate-900">
@@ -162,16 +178,19 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
             <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs space-y-2.5">
               <div className="relative">
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-orange-500 pointer-events-none">
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-600 pointer-events-none">
                   <FileText className="w-4 h-4" />
                 </div>
                 <select
                   aria-label="Selecionar indicação clínica"
                   value={indIndex}
                   onChange={e => {
-                    setIndIndex(Number(e.target.value));
+                    const newIndex = Number(e.target.value);
+                    setIndIndex(newIndex);
                     setApIndex(0);
-                    setInterval('');
+                    const newInd = drug.indicacoes[newIndex] || drug.indicacoes[0];
+                    const newIntervals = intervalOptions(newInd?.freq);
+                    setChosenInterval(newIntervals.length > 0 ? String(newIntervals[0]) : '');
                   }}
                   className="w-full bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 outline-none focus:border-brand-teal focus:bg-white transition-all appearance-none cursor-pointer"
                 >
@@ -188,7 +207,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
               {/* Sub helper box */}
               {indication?.obs && (
-                <div className="bg-sky-50/70 border border-sky-100 rounded-xl p-2.5 text-xs text-slate-700 italic leading-relaxed">
+                <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-2.5 text-xs text-slate-700 italic leading-relaxed">
                   {indication.obs}
                 </div>
               )}
@@ -198,7 +217,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
           {/* STEP 2: PESO DO PACIENTE */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-orange-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-6 h-6 rounded-full bg-[#164B73] text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                 2
               </span>
               <h3 className="text-sm font-bold text-slate-900">
@@ -208,7 +227,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
             <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs">
               <div className="relative flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 focus-within:border-brand-teal focus-within:bg-white transition-all">
-                <Scale className="w-5 h-5 text-orange-500 shrink-0 mr-2.5" />
+                <Scale className="w-5 h-5 text-blue-600 shrink-0 mr-2.5" />
                 <input
                   type="text"
                   inputMode="decimal"
@@ -269,13 +288,10 @@ export default function DosagemDetalhe({ drug, onBack }) {
                 <div className="relative">
                   <select
                     aria-label="Selecionar intervalo de administração"
-                    value={interval || ''}
-                    onChange={e => setInterval(e.target.value)}
+                    value={activeInterval || ''}
+                    onChange={e => setChosenInterval(e.target.value)}
                     className="w-full bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 outline-none focus:border-brand-teal focus:bg-white transition-all appearance-none cursor-pointer"
                   >
-                    <option value="">
-                      {intervals.length ? 'Selecione o intervalo de tomada' : 'Conforme esquema'}
-                    </option>
                     {intervals.map(n => (
                       <option key={n} value={n}>
                         A cada {n} horas ({24 / n}x ao dia)
@@ -293,7 +309,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
           {/* STEP 4: APRESENTAÇÃO DISPONÍVEL */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-orange-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-6 h-6 rounded-full bg-[#164B73] text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                 4
               </span>
               <h3 className="text-sm font-bold text-slate-900">
@@ -303,12 +319,12 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
             <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs">
               <div className="relative">
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-orange-500 pointer-events-none">
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-600 pointer-events-none">
                   <FlaskConical className="w-4 h-4" />
                 </div>
                 <select
                   aria-label="Selecionar apresentação do medicamento"
-                  value={apIndex}
+                  value={safeApIndex}
                   onChange={e => setApIndex(Number(e.target.value))}
                   className="w-full bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 outline-none focus:border-brand-teal focus:bg-white transition-all appearance-none cursor-pointer"
                 >
@@ -331,7 +347,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
           {/* STEP 3: RESULTADO PARA X KG (Dose em mg/mcg) */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-orange-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-6 h-6 rounded-full bg-[#164B73] text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                 3
               </span>
               <h3 className="text-sm font-bold text-slate-900">
@@ -367,12 +383,12 @@ export default function DosagemDetalhe({ drug, onBack }) {
                     </div>
 
                     {/* Dose Média */}
-                    <div className="bg-blue-50/60 border border-blue-300 rounded-2xl p-3 text-center flex flex-col justify-between ring-1 ring-blue-300/40">
+                    <div className="bg-blue-50/70 border border-blue-300 rounded-2xl p-3 text-center flex flex-col justify-between ring-1 ring-blue-300/40">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700">
                         Dose Média
                       </span>
                       <div className="my-1.5">
-                        <span className="text-lg sm:text-xl font-black text-blue-600 block">
+                        <span className="text-lg sm:text-xl font-black text-blue-700 block">
                           {fmt(avgDose)} {result.unit}
                         </span>
                       </div>
@@ -387,7 +403,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
                         Dose Máxima
                       </span>
                       <div className="my-1.5">
-                        <span className="text-lg sm:text-xl font-black text-orange-600 block">
+                        <span className="text-lg sm:text-xl font-black text-slate-900 block">
                           {fmt(result.max)} {result.unit}
                         </span>
                       </div>
@@ -399,8 +415,8 @@ export default function DosagemDetalhe({ drug, onBack }) {
 
                   {/* Ceiling / Dose Máxima Absoluta Info */}
                   {indication.dose_max_abs && (
-                    <div className="bg-sky-50 border border-sky-200 rounded-xl px-3.5 py-2 flex items-center gap-2 text-xs text-sky-950 font-medium">
-                      <Info className="w-4 h-4 text-sky-600 shrink-0" />
+                    <div className="bg-blue-50/70 border border-blue-200 rounded-xl px-3.5 py-2 flex items-center gap-2 text-xs text-blue-950 font-medium">
+                      <Info className="w-4 h-4 text-blue-600 shrink-0" />
                       <span>
                         Dose máxima cadastrada: <strong>{indication.dose_max_abs} {result.unit}</strong>{' '}
                         {indication.maxScope === 'day' ? '/ dia' : '/ dose'}.
@@ -415,7 +431,7 @@ export default function DosagemDetalhe({ drug, onBack }) {
           {/* STEP 5: RESULTADO EM APRESENTAÇÃO (Gotas, mL, Comprimidos) */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-orange-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-6 h-6 rounded-full bg-[#164B73] text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                 5
               </span>
               <h3 className="text-sm font-bold text-slate-900">
@@ -434,13 +450,13 @@ export default function DosagemDetalhe({ drug, onBack }) {
                 </div>
               ) : (
                 <>
-                  {/* Giant Presentation Result Banner */}
-                  <div className="bg-orange-50/50 border border-orange-200 rounded-2xl p-4 sm:p-5 text-center space-y-1">
-                    <span className="text-xl sm:text-2xl md:text-3xl font-black text-orange-600 block tracking-tight">
+                  {/* Giant Presentation Result Banner in Brand Blue */}
+                  <div className="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 sm:p-5 text-center space-y-1 shadow-2xs">
+                    <span className="text-xl sm:text-2xl md:text-3xl font-black text-brand-navy block tracking-tight">
                       {presRangeStr}
                     </span>
                     <span className="text-xs sm:text-sm font-semibold text-slate-600 block">
-                      Via {ap?.via || 'oral'} {interval ? `• a cada ${interval} horas` : `• ${indication.freq}`}
+                      Via {ap?.via || 'oral'} {activeInterval ? `• a cada ${activeInterval} horas` : `• ${indication.freq}`}
                     </span>
                   </div>
 
@@ -453,15 +469,15 @@ export default function DosagemDetalhe({ drug, onBack }) {
                       <span className="text-[10px] text-slate-500 font-medium">Mínima</span>
                     </div>
 
-                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-center">
-                      <span className="text-sm sm:text-base font-bold text-slate-800 block">
+                    <div className="bg-blue-50/50 border border-blue-200 rounded-xl p-2.5 text-center">
+                      <span className="text-sm sm:text-base font-bold text-blue-700 block">
                         {fmt(avgPres?.value)} {minPres?.unit}
                       </span>
-                      <span className="text-[10px] text-slate-500 font-medium">Média</span>
+                      <span className="text-[10px] text-blue-600 font-medium">Média</span>
                     </div>
 
                     <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-center">
-                      <span className="text-sm sm:text-base font-bold text-orange-600 block">
+                      <span className="text-sm sm:text-base font-bold text-slate-800 block">
                         {fmt(maxPres?.value)} {minPres?.unit}
                       </span>
                       <span className="text-[10px] text-slate-500 font-medium">Máxima</span>

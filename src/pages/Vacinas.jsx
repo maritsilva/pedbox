@@ -115,9 +115,9 @@ export default function Vacinas() {
           {VACCINE_AGES.map(([val, label]) => (
             <button
               key={val}
-              onClick={() => setAge(val)}
+              onClick={() => setAge(String(val))}
               className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-                age === val
+                String(age) === String(val)
                   ? 'bg-brand-navy text-white shadow-xs font-bold'
                   : 'bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}

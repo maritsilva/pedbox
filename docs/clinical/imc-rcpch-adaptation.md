@@ -17,7 +17,7 @@ As curvas mantêm os segmentos de origem separados, incluindo transições WHO 2
 - https://growth.rcpch.ac.uk/integrator/making-api-calls/
 - https://api.rcpch.ac.uk/growth-spec/v1/
 - https://growth.rcpch.ac.uk/developer/who-reference-implementation/
-- Pasta local `/Users/marina/Downloads/TABELAS IMC`: PDFs de instruções 0–5 e 5–19 anos, documento de computação de centis/escores Z, planilhas expandidas.
+- Arquivos de referência: TABELAS IMC: PDFs de instruções 0–5 e 5–19 anos, documento de computação de centis/escores Z, planilhas expandidas.
 
 Os PDFs explicam a conversão de dias em meses (30,4375), a transição comprimento/estatura e o tratamento das caudas fora de ±3 Z. Não foi implementada uma fórmula LMS genérica como substituto da API.
 

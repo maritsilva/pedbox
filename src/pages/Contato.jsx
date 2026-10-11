@@ -57,11 +57,11 @@ export default function Contato() {
         setSubmitted(false);
       }, 4000);
     } catch (err) {
-      // Fallback para cliente de e-mail local direcionado à marina@pedbox.app
+      // Fallback para cliente de e-mail local direcionado à contato@pedbox.app
       const reasonText = reasonLabels[formData.reason] || formData.reason || 'Contato PedBox';
       const subject = encodeURIComponent(`[PedBox Contato] ${reasonText} — ${formData.name}`);
       const body = encodeURIComponent(`Nome: ${formData.name}\nE-mail: ${formData.email}\nInstituição: ${formData.institution}\nMotivo: ${reasonText}\n\nMensagem:\n${formData.message}`);
-      window.location.href = `mailto:marina@pedbox.app?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:contato@pedbox.app?subject=${subject}&body=${body}`;
       setSubmitted(true);
     } finally {
       setSubmitting(false);
@@ -180,7 +180,7 @@ export default function Contato() {
             <motion.button
               variants={item}
               whileHover={{ y: -4 }}
-              onClick={() => window.open('https://github.com/maritsilva/pedbox', '_blank')}
+              onClick={() => window.open('https://github.com/pedbox-app/pedbox', '_blank')}
               className="bg-gradient-to-br from-orange-400 to-amber-500 text-white rounded-3xl p-6 text-left transition-all hover:shadow-xl hover:shadow-orange-200 group">
               
               <div className="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center mb-4">
@@ -265,8 +265,8 @@ export default function Contato() {
             <div className="mt-4 inline-flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-border shadow-sm text-sm">
               <Mail className="w-4 h-4 text-primary" />
               <span className="text-muted-foreground">E-mail:</span>
-              <a href="mailto:marina@pedbox.app" className="font-bold text-primary hover:underline">
-                marina@pedbox.app
+              <a href="mailto:contato@pedbox.app" className="font-bold text-primary hover:underline">
+                contato@pedbox.app
               </a>
             </div>
           </motion.div>
@@ -289,7 +289,7 @@ export default function Contato() {
                   <label className="block text-sm font-semibold text-foreground mb-1.5">Seu nome</label>
                   <input type="text" name="name" value={formData.name} onChange={handleChange} required
                 className="w-full px-4 py-3 rounded-xl border border-border bg-slate-50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-sm"
-                placeholder="João Silva" />
+                placeholder="Seu nome completo" />
                 
                 </div>
                 <div>
@@ -389,7 +389,7 @@ export default function Contato() {
             Obrigado por fazer parte desta comunidade de aprendizado compartilhado.
           </p>
           <button
-            onClick={() => window.open('https://github.com/maritsilva/pedbox', '_blank')}
+            onClick={() => window.open('https://github.com/pedbox-app/pedbox', '_blank')}
             className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-2xl hover:shadow-xl transition-all hover:scale-105">
             
             <Copy className="w-5 h-5" />

@@ -1,335 +1,184 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Wind, AlertTriangle, CheckCircle, Activity } from 'lucide-react';
+import ScoreCalculatorLayout from '@/components/calculators/ScoreCalculatorLayout';
 
 const CRITERIA = [
   {
     id: 'sibilancias',
     label: 'Sibilâncias',
+    subtitle: 'Intensidade e fase respiratória da ausculta de sibilos',
+    icon: '🌬️',
+    iconBg: 'bg-sky-50 text-sky-600',
     options: [
-      { value: 0, label: 'Sem sibilâncias' },
-      { value: 1, label: 'Final da expiração (com estetoscópio)' },
-      { value: 2, label: 'Toda expiração (com estetoscópio)' },
-      { value: 3, label: 'Ins. + esp. / sem estetoscópio' },
+      { label: 'Sem sibilâncias', desc: 'Murmúrio vesicular limpo sem ruídos adventícios', value: 0 },
+      { label: 'Final da expiração', desc: 'Sibilos discretos audíveis apenas no final da expiração', value: 1 },
+      { label: 'Toda a expiração', desc: 'Sibilância em toda a fase expiratória ao estetoscópio', value: 2 },
+      { label: 'Inspiratórios e expiratórios / Audíveis a distância', desc: 'Sibilos bifásicos ou audíveis sem estetoscópio', value: 3 },
     ],
   },
   {
     id: 'retracoes',
-    label: 'Retrações',
+    label: 'Retrações / Tiragens',
+    subtitle: 'Recrutamento de musculatura acessória da respiração',
+    icon: '💪',
+    iconBg: 'bg-indigo-50 text-indigo-600',
     options: [
-      { value: 0, label: 'Sem retrações' },
-      { value: 1, label: 'Intercostais leves' },
-      { value: 2, label: 'Intercostais + subcostais' },
-      { value: 3, label: 'Intercostais + subcostais + supraesternais' },
+      { label: 'Sem retrações', desc: 'Respiração normal sem tiragem visível', value: 0 },
+      { label: 'Intercostais leves', desc: 'Tiragem intercostal baixa discreta', value: 1 },
+      { label: 'Intercostais + Subcostais', desc: 'Retrações moderadas em múltiplos sítios', value: 2 },
+      { label: 'Intercostais + Subcostais + Supraesternais / Fúrcula', desc: 'Esforço respiratório intenso e generalizado', value: 3 },
     ],
   },
   {
     id: 'entrada_ar',
-    label: 'Entrada de ar',
+    label: 'Entrada de Ar (Murmúrio Vesicular)',
+    subtitle: 'Simetria e volume da ventilação pulmonar',
+    icon: '🫁',
+    iconBg: 'bg-teal-50 text-teal-600',
     options: [
-      { value: 0, label: 'Normal / simétrica' },
-      { value: 1, label: 'Discreta diminuição' },
-      { value: 2, label: 'Importante diminuição' },
-      { value: 3, label: 'Ausente / mínima' },
+      { label: 'Normal / Simétrica', desc: 'Boa expansibilidade e murmúrio fisiológico bilateral', value: 0 },
+      { label: 'Discreta diminuição', desc: 'Redução leve da ventilação basal', value: 1 },
+      { label: 'Importante diminuição', desc: 'Hipoventilação acentuada difusa', value: 2 },
+      { label: 'Ausente / Mínima ("Tórax silencioso")', desc: 'Passagem aérea quase nula por broncoespasmo grave ou exaustão', value: 3 },
     ],
   },
   {
     id: 'cianose',
     label: 'Cianose',
+    subtitle: 'Sinal de hipoxemia tecidual e insuficiência da troca gasosa',
+    icon: '🎨',
+    iconBg: 'bg-rose-50 text-rose-600',
     options: [
-      { value: 0, label: 'Sem cianose' },
-      { value: 1, label: 'Perioral em repouso' },
-      { value: 2, label: 'Generalizada em repouso' },
+      { label: 'Sem cianose (Rosado)', desc: 'Coloração cutaneomucosa normal em ar ambiente', value: 0 },
+      { label: 'Perioral em repouso', desc: 'Cianose circunscrita ao redor dos lábios', value: 1 },
+      { label: 'Generalizada em repouso', desc: 'Cianose central de lábios, língua e tronco', value: 2 },
     ],
   },
   {
     id: 'fr',
     label: 'Frequência Respiratória',
+    subtitle: 'Incursões por minuto contadas por 60 segundos',
+    icon: '⏱️',
+    iconBg: 'bg-amber-50 text-amber-600',
     options: [
-      { value: 0, label: '≤ 30 ipm' },
-      { value: 1, label: '31–45 ipm' },
-      { value: 2, label: '46–60 ipm' },
-      { value: 3, label: '> 60 ipm' },
+      { label: '≤ 30 ipm', desc: 'Eupneia ou frequência basal', value: 0 },
+      { label: '31 a 45 ipm', desc: 'Taquipneia leve', value: 1 },
+      { label: '46 a 60 ipm', desc: 'Taquipneia moderada a acentuada', value: 2 },
+      { label: '> 60 ipm', desc: 'Taquipneia grave com sobrecarga ventilatória', value: 3 },
     ],
   },
   {
     id: 'fc',
     label: 'Frequência Cardíaca',
+    subtitle: 'Avaliação da resposta simpática ao estresse respiratório',
+    icon: '❤️',
+    iconBg: 'bg-red-50 text-red-600',
     options: [
-      { value: 0, label: '≤ 120 bpm' },
-      { value: 1, label: '121–140 bpm' },
-      { value: 2, label: '> 140 bpm' },
+      { label: '≤ 120 bpm', desc: 'Frequência cardíaca basal para lactentes', value: 0 },
+      { label: '121 a 140 bpm', desc: 'Taquicardia compensatória discreta', value: 1 },
+      { label: '> 140 bpm', desc: 'Taquicardia sustentada por hipóxia ou estresse', value: 2 },
     ],
   },
 ];
 
-function getClassification(score) {
-  if (score <= 3) return { // 0–3 Leve
-    label: 'Leve',
-    color: 'green',
-    bg: 'bg-green-50',
-    border: 'border-green-300',
-    text: 'text-green-800',
-    badge: 'bg-green-100 text-green-800',
-    icon: <CheckCircle className="w-8 h-8 text-green-600" />,
-    description: 'Desconforto respiratório leve. Tratamento ambulatorial com reavaliação.',
-    conduct: [
-      'Suporte domiciliar com orientações aos pais',
-      'Posicionamento: cabeceira elevada 30°',
-      'Higiene nasal com soro fisiológico',
-      'Aleitamento materno / hidratação oral',
-      'Retorno se piora dos sintomas',
-    ],
-  };
-  if (score <= 6) return { // 4–6 Moderada
-    label: 'Moderada',
-    color: 'yellow',
-    bg: 'bg-yellow-50',
-    border: 'border-yellow-300',
-    text: 'text-yellow-800',
-    badge: 'bg-yellow-100 text-yellow-800',
-    icon: <Activity className="w-8 h-8 text-yellow-600" />,
-    description: 'Desconforto respiratório moderado. Avaliação hospitalar recomendada.',
-    conduct: [
-      'Internação hospitalar para observação',
-      'Oxigênio suplementar se SpO₂ < 94%',
-      'Higiene nasal frequente',
-      'Hidratação adequada (oral ou EV se necessário)',
-      'Fisioterapia respiratória conforme protocolo',
-      'Monitorização contínua de SpO₂ e FC',
-    ],
-  };
-  if (score <= 9) return { // 7–9 Grave
-    label: 'Grave',
-    color: 'orange',
-    bg: 'bg-orange-50',
-    border: 'border-orange-300',
-    text: 'text-orange-800',
-    badge: 'bg-orange-100 text-orange-800',
-    icon: <AlertTriangle className="w-8 h-8 text-orange-600" />,
-    description: 'Desconforto respiratório grave. Internação imediata necessária.',
-    conduct: [
-      'Internação hospitalar imediata',
-      'Oxigenoterapia suplementar (alvo SpO₂ > 94%)',
-      'Considerar CNAF (Cânula Nasal de Alto Fluxo)',
-      'Acesso venoso periférico',
-      'Hidratação endovenosa',
-      'Monitorização contínua',
-      'Considerar transferência para UTI pediátrica',
-    ],
-  };
+const REFERENCE_TABLE = [
+  {
+    label: 'Desconforto Leve',
+    range: '0 a 3 pontos',
+    desc: 'Tratamento ambulatorial/suporte domiciliar, vigilância clínica e lavagem nasal.',
+    status: 'normal',
+  },
+  {
+    label: 'Desconforto Moderado',
+    range: '4 a 6 pontos',
+    desc: 'Observação hospitalar/internação, O₂ suplementar se SatO₂ < 94%, hidratação.',
+    status: 'warning',
+  },
+  {
+    label: 'Desconforto Grave',
+    range: '7 a 9 pontos',
+    desc: 'Internação hospitalar imediata, considerar suporte não-invasivo (CNAF/CPAP).',
+    status: 'warning',
+  },
+  {
+    label: 'Muito Grave / Falência',
+    range: '10 a 16 pontos',
+    desc: 'Insuficiência respiratória iminente. Indicação de UTI pediátrica e suporte ventilatório.',
+    status: 'danger',
+  },
+];
+
+const CLINICAL_NOTES = [
+  'A Escala de Wood-Downes modificada por Ferrés é amplamente utilizada para estratificar gravidade na Bronquiolite Viral Aguda (BVA) e crises de sibilância em lactentes.',
+  'A monitorização contínua da saturação de oxigênio (alvo ≥ 92–94%) e estado de hidratação são pilares fundamentais.',
+  'Reavaliações seriadas são mandatórias para identificar precocemente necessidade de suporte respiratório não-invasivo (CNAF).',
+];
+
+function getClassification(total) {
+  if (total <= 3) {
+    return {
+      label: 'Desconforto Leve (' + total + ' pts)',
+      status: 'normal',
+      description: 'Quadro respiratório brando com estabilidade da troca gasosa.',
+      conduta: 'Suporte domiciliar com cabeceira elevada 30°, lavagem nasal frequente com SF 0,9%, aleitamento mantido e orientação de sinais de alarme.',
+    };
+  }
+  if (total <= 6) {
+    return {
+      label: 'Desconforto Moderado (' + total + ' pts)',
+      status: 'warning',
+      description: 'Obstrução de vias aéreas médias/baixas com aumento do trabalho respiratório.',
+      conduta: 'Internação em enfermaria para observação, oxigênio suplementar se SatO₂ < 94%, higiene nasal rigorosa, hidratação oral fracionada ou venosa e monitorização de SpO₂/FC.',
+    };
+  }
+  if (total <= 9) {
+    return {
+      label: 'Desconforto Grave (' + total + ' pts)',
+      status: 'warning',
+      description: 'Trabalho respiratório intenso com risco de exaustão muscular diafragmática.',
+      conduta: 'Internação imediata, oxigenoterapia em alto fluxo (CNAF) ou CPAP, acesso venoso, jejum/hidratação venosa e considerar vaga em UTI pediátrica.',
+    };
+  }
   return {
-    label: 'Muito Grave',
-    color: 'red',
-    bg: 'bg-red-50',
-    border: 'border-red-300',
-    text: 'text-red-800',
-    badge: 'bg-red-100 text-red-800',
-    icon: <AlertTriangle className="w-8 h-8 text-red-600" />,
-    description: 'Insuficiência respiratória iminente. UTI pediátrica urgente.',
-    conduct: [
-      'Transferência imediata para UTI pediátrica',
-      'Suporte ventilatório não invasivo (VNI/CNAF)',
-      'Considerar intubação orotraqueal',
-      'Monitorização intensiva (ECG, SpO₂, capnografia)',
-      'Acesso venoso seguro / IOT se apneia',
-    ],
+    label: 'Muito Grave / Risco de Falência (' + total + ' pts)',
+    status: 'danger',
+    description: 'Insuficiência respiratória manifesta com risco imediato de parada respiratória.',
+    conduta: 'Transferência imediata para UTI Pediátrica, suporte com VNI ou Intubação Orotraqueal em sequência rápida, monitorização multiparamétrica contínua.',
   };
 }
 
 export default function WoodDownes() {
   const [scores, setScores] = useState({});
 
-  const answeredCount = CRITERIA.filter(c => scores[c.id] !== undefined).length;
-  const allAnswered = answeredCount === CRITERIA.length;
-  const partialScore = Object.values(scores).reduce((a, b) => a + b, 0);
-  const total = allAnswered ? partialScore : null;
-
-  const classification = total !== null ? getClassification(total) : null;
+  const handleSelectOption = (criterionId, value) => {
+    setScores((prev) => ({
+      ...prev,
+      [criterionId]: value,
+    }));
+  };
 
   const handleReset = () => {
     setScores({});
   };
 
-  const colorBar = (score) => {
-    if (score <= 3) return 'bg-green-500';
-    if (score <= 6) return 'bg-yellow-500';
-    if (score <= 9) return 'bg-orange-500';
-    return 'bg-red-500';
-  };
+  const allAnswered = CRITERIA.every((c) => scores[c.id] !== undefined);
+  const total = Object.values(scores).reduce((a, b) => a + Number(b), 0);
+  const classification = allAnswered ? getClassification(total) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 pb-12">
-      <div className="page-surface max-w-2xl mx-auto px-4 py-8">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <Wind className="w-7 h-7 text-white" />
-            </div>
-            <h1 className="text-3xl font-extrabold text-gray-900">Wood-Downes-Ferrés</h1>
-          </div>
-          <p className="text-gray-600 text-base">Escala de gravidade para bronquiolite</p>
-          <p className="text-xs text-gray-400 mt-1">Lactentes com suspeita de bronquiolite viral aguda</p>
-        </motion.div>
-
-        {/* Progress */}
-        {answeredCount > 0 && !allAnswered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl border border-gray-200 px-5 py-3 mb-4 flex items-center justify-between"
-          >
-            <span className="text-sm text-gray-500 font-medium">
-              {answeredCount} de {CRITERIA.length} critérios respondidos
-            </span>
-            <span className="text-sm font-bold text-blue-600">
-              Parcial: {partialScore} pts
-            </span>
-          </motion.div>
-        )}
-
-        {/* Criteria Cards */}
-        <div className="space-y-4 mb-6">
-          {CRITERIA.map((criterion, idx) => (
-            <motion.div
-              key={criterion.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.06 }}
-              className={`bg-white rounded-2xl shadow-sm border-2 transition-all ${
-                scores[criterion.id] !== undefined
-                  ? 'border-blue-300'
-                  : 'border-gray-100'
-              } p-5`}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-gray-800 text-base">{criterion.label}</h3>
-                {scores[criterion.id] !== undefined && (
-                  <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                    {scores[criterion.id]} pt{scores[criterion.id] !== 1 ? 's' : ''}
-                  </span>
-                )}
-              </div>
-              <div className="grid gap-2">
-                {criterion.options.map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => setScores(prev => ({ ...prev, [criterion.id]: opt.value }))}
-                    className={`w-full text-left px-4 py-2.5 rounded-xl border-2 text-sm font-medium transition-all ${
-                      scores[criterion.id] === opt.value
-                        ? 'bg-blue-600 border-blue-600 text-white shadow-md'
-                        : 'bg-gray-50 border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
-                    }`}
-                  >
-                    <span className={`inline-block w-5 h-5 rounded-full border-2 mr-2 align-middle text-xs font-bold text-center leading-4 ${
-                      scores[criterion.id] === opt.value
-                        ? 'bg-white border-white text-blue-600'
-                        : 'bg-white border-gray-300 text-gray-500'
-                    }`}>
-                      {opt.value}
-                    </span>
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Result */}
-        {classification && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className={`rounded-2xl border-2 ${classification.border} ${classification.bg} p-6 mb-6 shadow-md`}
-          >
-            <div className="flex items-center gap-4 mb-4">
-              {classification.icon}
-              <div>
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Pontuação Total</p>
-                <div className="flex items-baseline gap-2">
-                  <span className={`text-5xl font-extrabold ${classification.text}`}>{total}</span>
-                  <span className="text-gray-400 text-sm">/ 14</span>
-                </div>
-              </div>
-              <span className={`ml-auto text-lg font-extrabold px-4 py-2 rounded-xl ${classification.badge}`}>
-                {classification.label}
-              </span>
-            </div>
-
-            {/* Score bar */}
-            <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${(total / 14) * 100}%` }}
-                transition={{ duration: 0.5 }}
-                className={`h-3 rounded-full ${colorBar(total)}`}
-              />
-            </div>
-            <div className="flex justify-between text-xs text-gray-400 mb-4">
-              <span>0 — Leve</span>
-              <span>4 — Moderado</span>
-              <span>7 — Grave</span>
-              <span>10 — Muito grave</span>
-            </div>
-
-            <p className={`text-sm font-semibold ${classification.text}`}>{classification.description}</p>
-          </motion.div>
-        )}
-
-        {/* Score Reference Table */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6"
-        >
-          <h3 className="font-bold text-gray-800 mb-3">Interpretação da Escala</h3>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            {[
-              { range: '0 – 3', label: 'Leve', color: 'bg-green-100 text-green-800' },
-              { range: '4 – 6', label: 'Moderada', color: 'bg-yellow-100 text-yellow-800' },
-              { range: '7 – 9', label: 'Grave', color: 'bg-orange-100 text-orange-800' },
-              { range: '10 – 14', label: 'Muito Grave', color: 'bg-red-100 text-red-800' },
-            ].map(row => (
-              <div key={row.label} className={`flex justify-between items-center rounded-xl px-4 py-2 font-semibold ${row.color}`}>
-                <span>{row.range} pts</span>
-                <span>{row.label}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Disclaimer */}
-        <p className="text-center text-xs text-gray-400 mb-4">
-          Escala de Wood-Downes modificada por Ferrés. Pontuação máxima: 14 pontos.<br />
-          Use como suporte à decisão clínica, não substitui avaliação médica individualizada.
-        </p>
-
-        {/* Reset */}
-        {Object.keys(scores).length > 0 && (
-          <button
-            onClick={handleReset}
-            className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-500 font-semibold hover:border-gray-400 hover:text-gray-700 transition-all text-sm"
-          >
-            Limpar e recalcular
-          </button>
-        )}
-
-        {/* Referências */}
-        <div className="mt-6 text-xs text-gray-400 space-y-1 px-1">
-          <p className="font-semibold text-gray-500">Referências</p>
-          <p>Wood DW, Downes JJ, Lecks HI. A clinical scoring system for the diagnosis of respiratory failure. <em>Am J Dis Child</em> 1972;123(3):227-8.</p>
-          <p>Ferrés J. Modificación de la escala de Wood-Downes. In: <em>Protocolos diagnóstico-terapéuticos de Urgencias Pediátricas SEUP-AEP</em>. 2ª ed. Madrid; 2010.</p>
-          <p>Sociedade Brasileira de Pediatria (SBP). <em>Protocolo de Bronquiolite Viral Aguda</em>. Rio de Janeiro: SBP; 2020.</p>
-        </div>
-      </div>
-    </div>
+    <ScoreCalculatorLayout
+      title="Escore de Wood-Downes Modificado"
+      eyebrow="Score Respiratório • Bronquiolite / Asma"
+      subtitle="Avaliação da gravidade do desconforto respiratório agudo em lactentes com Bronquiolite Viral Aguda (Ferrés et al.)"
+      icon3d="🫁"
+      criteria={CRITERIA}
+      scores={scores}
+      onSelectOption={handleSelectOption}
+      maxScore={16}
+      classification={classification}
+      referenceTable={REFERENCE_TABLE}
+      clinicalNotes={CLINICAL_NOTES}
+      onReset={handleReset}
+      referenceSource="Wood DW et al. Am J Dis Child. 1972; Ferrés J et al. An Esp Pediatr. 1980; Diretrizes SBP para Bronquiolite Viral Aguda."
+    />
   );
 }

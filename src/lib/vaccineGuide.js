@@ -1,6 +1,6 @@
 // Guia Clínico de Imunização Pediátrica — PedBox
 // Atualizado com base na Instrução Normativa PNI 2026 e SBIm 2026/2027
-// Referência principal: "Imunização pediátrica — Leitura expandida", Marina Silva (HU Pediatria, Outubro 2026)
+// Referência principal: "Imunização pediátrica — Leitura expandida" (HU Pediatria, Outubro 2026)
 
 export const VACCINE_REVIEW_DATE = '08/10/2026';
 
@@ -14,7 +14,7 @@ export const VACCINE_SOURCES = {
     url: 'https://sbim.org.br/images/livreto-Calend-SBIm-2026-27-260619a.pdf_2026-06-19.pdf',
   },
   reading: {
-    title: 'Imunização Pediátrica — Resumo Expandido para Leitura e Estudo, Marina Silva (HU Pediatria, 2026)',
+    title: 'Imunização Pediátrica — Resumo Expandido para Leitura e Estudo (HU Pediatria, 2026)',
   },
 };
 
