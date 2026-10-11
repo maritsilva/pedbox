@@ -1,9 +1,11 @@
 import { normalizeSearch } from '@/lib/calculatorRegistry';
 import FluxogramaModal from '@/components/protocols/FluxogramaModal';
 import React, { useState, useMemo } from 'react';
-import { ChevronRight, ChevronLeft, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, ChevronDown, Calculator } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { ChevronRight, ChevronLeft, Activity, Pill, LogOut, ClipboardList, Info, GitBranch, ChevronDown, Calculator, Star } from 'lucide-react';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
+import { toast } from 'sonner';
 import ConvulsaoFebril from '@/components/protocols/ConvulsaoFebril';
 import DiarreiaAguda from '@/components/protocols/DiarreiaAguda';
 import Faringoamigdalite from '@/components/protocols/Faringoamigdalite';
@@ -36,7 +38,9 @@ const PROTOCOLS = [
   tag: 'Respiratório',
   especialidade: 'Respiratório',
   source: 'Albert Einstein · Revisado Jun/2024',
-  keywords: ['asma', 'broncoespasmo', 'salbutamol', 'sibilância', 'dispneia']
+  keywords: ['asma', 'broncoespasmo', 'salbutamol', 'sibilância', 'dispneia'],
+  calcLabel: 'PRAM / Asma',
+  calcPath: '/pram',
 },
 {
   id: 'bronquiolite',
@@ -47,7 +51,9 @@ const PROTOCOLS = [
   tag: 'Respiratório',
   especialidade: 'Respiratório',
   source: 'Albert Einstein · Revisado Jul/2024',
-  keywords: ['vsr', 'lactente', 'sibilância', 'wood downes', 'hipoxemia']
+  keywords: ['vsr', 'lactente', 'sibilância', 'wood downes', 'hipoxemia'],
+  calcLabel: 'Wood-Downes',
+  calcPath: '/wood-downes',
 },
 {
   id: 'convulsao-febril',
@@ -58,7 +64,9 @@ const PROTOCOLS = [
   tag: 'Neurologia',
   especialidade: 'Neurologia',
   source: 'Albert Einstein · Revisado Jun/2025',
-  keywords: ['crise', 'epilepsia', 'febre', 'diazepam', 'anticonvulsivante']
+  keywords: ['crise', 'epilepsia', 'febre', 'diazepam', 'anticonvulsivante'],
+  calcLabel: 'Glasgow Pediátrico',
+  calcPath: '/glasgow-pediatrico',
 },
 {
   id: 'diarreia-aguda',
@@ -69,7 +77,9 @@ const PROTOCOLS = [
   tag: 'Gastroenterologia',
   especialidade: 'Gastroenterologia',
   source: 'Albert Einstein · Revisado Jun/2025',
-  keywords: ['desidratação', 'sro', 'gastroenterite', 'ors', 'vômito']
+  keywords: ['desidratação', 'sro', 'gastroenterite', 'ors', 'vômito'],
+  calcLabel: 'Hidratação Venosa',
+  calcPath: '/hidratacao',
 },
 {
   id: 'faringoamigdalite',
@@ -80,7 +90,9 @@ const PROTOCOLS = [
   tag: 'Infectologia',
   especialidade: 'Infectologia',
   source: 'Albert Einstein · Revisado Jun/2024',
-  keywords: ['amigdalite', 'streptococo', 'centor', 'amoxicilina', 'garganta']
+  keywords: ['amigdalite', 'streptococo', 'centor', 'amoxicilina', 'garganta'],
+  calcLabel: 'Centor / McIsaac',
+  calcPath: '/centor-mcisaac',
 },
 {
    id: 'febre-sem-sinais',
@@ -91,7 +103,9 @@ const PROTOCOLS = [
    tag: 'Infectologia',
    especialidade: 'Infectologia',
    source: 'Albert Einstein · Revisado Jun/2025',
-   keywords: ['febre', 'lactente', 'sepse', 'urina', 'itu']
+   keywords: ['febre', 'lactente', 'sepse', 'urina', 'itu'],
+   calcLabel: 'Doses Antitérmicos',
+   calcPath: '/dosagens?drug=dipirona',
 },
 {
    id: 'laringite',
@@ -102,7 +116,9 @@ const PROTOCOLS = [
    tag: 'Respiratório',
    especialidade: 'Respiratório',
    source: 'Albert Einstein · Revisado Jun/2024',
-   keywords: ['crupe', 'tosse de cão', 'estridor', 'dexametasona', 'adrenalina', 'parainfluenza']
+   keywords: ['crupe', 'tosse de cão', 'estridor', 'dexametasona', 'adrenalina', 'parainfluenza'],
+   calcLabel: 'Dose Dexametasona',
+   calcPath: '/dosagens?drug=dexametasona',
 },
 {
    id: 'pneumonia-complicada',
@@ -113,7 +129,9 @@ const PROTOCOLS = [
   tag: 'Respiratório',
   especialidade: 'Respiratório',
   source: 'SBP — Pneumologia / Infectologia · Atualização 2024',
-  keywords: ['pneumonia', 'empiema', 'derrame pleural', 'necrosante', 'abscesso pulmonar', 'pacc']
+  keywords: ['pneumonia', 'empiema', 'derrame pleural', 'necrosante', 'abscesso pulmonar', 'pacc'],
+  calcLabel: 'Dose Ceftriaxone',
+  calcPath: '/dosagens?drug=ceftriaxone',
 },
 {
   id: 'anemia-ferropriva',
@@ -124,7 +142,9 @@ const PROTOCOLS = [
   tag: 'Hematologia',
   especialidade: 'Hematologia',
   source: 'SBP — Hematologia / Nutrologia · Diretriz Nº 32 · 2026',
-  keywords: ['anemia', 'ferro', 'ferropriva', 'ferritina', 'hemoglobina', 'suplementação']
+  keywords: ['anemia', 'ferro', 'ferropriva', 'ferritina', 'hemoglobina', 'suplementação'],
+  calcLabel: 'Dose Ferro',
+  calcPath: '/dosagens?drug=sulfato-ferroso',
 },
 {
   id: 'meningite-bacteriana',
@@ -135,7 +155,9 @@ const PROTOCOLS = [
   tag: 'Infectologia',
   especialidade: 'Infectologia',
   source: 'Sociedade de Infecciologia Pediátrica + SCIP · SPP',
-  keywords: ['meningite', 'meningococo', 'pneumococo', 'haemophilus', 'lcr', 'punção lombar', 'antibiótico', 'cefotaxima', 'ceftriaxone', 'vancomicina']
+  keywords: ['meningite', 'meningococo', 'pneumococo', 'haemophilus', 'lcr', 'punção lombar', 'antibiótico', 'cefotaxima', 'ceftriaxone', 'vancomicina'],
+  calcLabel: 'Glasgow Pediátrico',
+  calcPath: '/glasgow-pediatrico',
 },
 {
   id: 'itu',
@@ -146,7 +168,9 @@ const PROTOCOLS = [
   tag: 'Infectologia',
   especialidade: 'Infectologia',
   source: 'Hospital Israelita Albert Einstein · Versão 3 · Set/2025',
-  keywords: ['itu', 'disúria', 'urocultura', 'urina tipo i', 'pielonefrite', 'uretrite', 'antibiótico', 'cefuroxima', 'cefalexina', 'ceftriaxone']
+  keywords: ['itu', 'disúria', 'urocultura', 'urina tipo i', 'pielonefrite', 'uretrite', 'antibiótico', 'cefuroxima', 'cefalexina', 'ceftriaxone'],
+  calcLabel: 'Dose Cefalexina',
+  calcPath: '/dosagens?drug=cefalexina',
 },
 {
   id: 'hipovitaminose-d',
@@ -157,7 +181,9 @@ const PROTOCOLS = [
   tag: 'Endocrinologia',
   especialidade: 'Endocrinologia',
   source: 'SBP — Dep. Científico de Endocrinologia · Doc. Científico Nº 181 · Nov/2024',
-  keywords: ['vitamina d', 'colecalciferol', 'raquitismo', 'calcidiol', 'calcifediol', 'suplementação', 'deficiência', 'hipocalcemia', 'PTH', 'fosfatase alcalina', 'osteomalácia']
+  keywords: ['vitamina d', 'colecalciferol', 'raquitismo', 'calcidiol', 'calcifediol', 'suplementação', 'deficiência', 'hipocalcemia', 'PTH', 'fosfatase alcalina', 'osteomalácia'],
+  calcLabel: 'Guia Vitamina D',
+  calcPath: '/guia?q=vitamina%20d',
 }];
 
 
@@ -761,6 +787,8 @@ function FluxogramaPanel({ id }) {
 }
 
 export default function Protocolos() {
+  const navigate = useNavigate();
+  const { isFavorite, toggleFavorite } = usePageFavorites();
   const [urlParams, setUrlParams] = useSearchParams();
   const selected = urlParams.get('id') || urlParams.get('protocolo');
   const setSelected = id => { const next = new URLSearchParams(urlParams); next.set('tab', 'protocolos'); next.delete('protocolo'); if (id) next.set('id', id); else next.delete('id'); setUrlParams(next); };
@@ -871,46 +899,96 @@ export default function Protocolos() {
 
       {/* Grid of Protocols */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-        {filtered.map((p) => (
-          <article
-            key={p.id}
-            className="group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-brand-teal hover:shadow-xs transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-sky text-brand-navy">
-                  {p.especialidade}
-                </span>
-                <span className="text-base">{p.icon}</span>
-              </div>
-              <h3 className="text-sm font-bold text-slate-800 group-hover:text-brand-navy transition-colors">
-                {p.title}
-              </h3>
-              <p className="text-xs text-slate-500 mt-0.5 leading-snug">{p.subtitle}</p>
-              {p.source && (
-                <p className="text-[10px] text-slate-400 mt-2 truncate">Fonte: {p.source}</p>
-              )}
-            </div>
+        {filtered.map((p) => {
+          const favKey = `protocolo-${p.id}`;
+          const favorited = isFavorite(favKey);
 
-            <div className="flex items-center justify-between mt-4 pt-2 border-t border-slate-100 text-xs">
-              <button
-                onClick={() => setSelected(p.id)}
-                className="font-bold text-brand-teal hover:text-teal-700 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
-              >
-                Abrir conduta <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-              {FLUXOGRAMAS[p.id] && (
+          return (
+            <article
+              key={p.id}
+              onClick={() => setSelected(p.id)}
+              className="group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-brand-teal hover:shadow-md transition-all flex flex-col justify-between cursor-pointer relative select-none"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-2 pr-8">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-sky text-brand-navy">
+                    {p.especialidade}
+                  </span>
+                  <span className="text-xl p-1 bg-slate-50 rounded-lg group-hover:scale-105 transition-transform">
+                    {p.icon}
+                  </span>
+                </div>
+
+                {/* Favorite Star Button - isolated with stopPropagation so it doesn't trigger card click */}
                 <button
-                  onClick={() => setExpandedFlux(p.id)}
-                  className="text-[11px] text-slate-500 hover:text-brand-navy flex items-center gap-1"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleFavorite(favKey);
+                    toast.success(
+                      favorited ? 'Protocolo removido dos favoritos' : 'Protocolo adicionado aos favoritos!'
+                    );
+                  }}
+                  className="absolute top-3.5 right-3.5 p-1.5 rounded-xl text-slate-300 hover:text-amber-500 hover:bg-amber-50/60 transition-colors z-10 cursor-pointer"
+                  title={favorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+                  aria-label={favorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
                 >
-                  <GitBranch className="w-3 h-3 text-brand-teal" />
-                  Fluxograma
+                  <Star
+                    className={`w-4 h-4 transition-colors ${
+                      favorited ? 'fill-amber-400 text-amber-400' : 'text-slate-300 hover:text-amber-400'
+                    }`}
+                  />
                 </button>
-              )}
-            </div>
-          </article>
-        ))}
+
+                <h3 className="text-sm font-bold text-slate-800 group-hover:text-brand-navy transition-colors">
+                  {p.title}
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5 leading-snug">{p.subtitle}</p>
+                {p.source && (
+                  <p className="text-[10px] text-slate-400 mt-2 truncate">Fonte: {p.source}</p>
+                )}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-2 mt-4 pt-2.5 border-t border-slate-100 text-xs">
+                <span className="font-bold text-brand-teal group-hover:text-teal-700 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                  Abrir conduta <ChevronRight className="w-3.5 h-3.5" />
+                </span>
+
+                <div className="flex items-center gap-2">
+                  {p.calcPath && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(p.calcPath);
+                      }}
+                      className="text-[11px] font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2 py-0.5 rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
+                      title={`Ir para ${p.calcLabel}`}
+                    >
+                      <Calculator className="w-3 h-3 text-blue-600" />
+                      <span>{p.calcLabel || 'Calculadora'}</span>
+                    </button>
+                  )}
+
+                  {FLUXOGRAMAS[p.id] && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setExpandedFlux(p.id);
+                      }}
+                      className="text-[11px] text-slate-500 hover:text-brand-navy flex items-center gap-1 hover:underline cursor-pointer"
+                    >
+                      <GitBranch className="w-3 h-3 text-brand-teal" />
+                      Fluxograma
+                    </button>
+                  )}
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
 
       {!filtered.length && (

@@ -293,7 +293,7 @@ function ProtocolCard({ protocol }) {
   return (
     <motion.div whileHover={{ y: -1 }}
       className="bg-white border border-border rounded-2xl p-4 flex gap-4 cursor-pointer hover:shadow-md transition-all group relative"
-      onClick={() => navigate(`/protocolos?id=${protocol.id}`)}>
+      onClick={() => navigate(`/biblioteca?tab=protocolos&id=${protocol.id}`)}>
       <button
         onClick={e => { e.stopPropagation(); toggleFavorite(favKey); }}
         className="absolute top-3 right-3 p-1 z-10"
