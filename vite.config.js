@@ -77,6 +77,9 @@ export default defineConfig({
           if (norm.includes('condutasPuericulturaData')) {
             return 'data-condutas-puericultura';
           }
+          if (norm.includes('condutasRespiratoriasData')) {
+            return 'data-condutas-respiratorio';
+          }
           if (norm.includes('condutasData')) {
             return 'data-condutas-index';
           }
