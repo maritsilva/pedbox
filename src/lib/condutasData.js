@@ -1,5 +1,5 @@
 // DADOS DE CONDUTAS E MANEJOS PEDIÁTRICOS
-// Estrutura espelhada do PedBook (pedb.com.br/condutas-e-manejos)
+// Catálogo de Diretrizes Clínicas e Protocolos do PedBox
 import { getNeonatalConteudo } from './condutasNeonatologiaData.js';
 import { getCipeConteudo } from './condutasCirurgiaPediatricaData.js';
 import { getUrgenciaConteudo } from './condutasUrgenciaEmergenciaData.js';

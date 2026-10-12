@@ -155,7 +155,7 @@ export default function Layout() {
               © {new Date().getFullYear()} PedBox · Plataforma gratuita de referência clínica em pediatria
             </p>
             <p className="text-slate-400">
-              Conhecimento médico deve ser <strong className="text-brand-teal font-bold">livre</strong>.
+              Prática pediátrica baseada em evidências científicas.
             </p>
           </div>
         </footer>
