@@ -22,6 +22,7 @@ test('amamentacao dataset contains 1301 items with unique IDs', () => {
 });
 
 test('levels 1 to 5 are defined and stats match', () => {
+  assert.equal(Object.keys(NIVEIS_SEGURANCA).length, 5);
   const stats = getAmamentacaoStats();
   assert.equal(stats.total, 1301);
   assert.ok(stats[1] > 0);

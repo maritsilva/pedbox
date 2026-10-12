@@ -1,4 +1,3 @@
-import { toast } from 'sonner';
 import React, { useState } from 'react';
 import { Mail, Heart, Github } from 'lucide-react';
 import { motion } from 'framer-motion';

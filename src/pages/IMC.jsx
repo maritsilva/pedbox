@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Trash2, Star, TrendingUp, RotateCcw, Info, Activity, CheckCircle2, AlertTriangle, ShieldCheck, ExternalLink } from 'lucide-react';
+import { Plus, Trash2, Star, TrendingUp, RotateCcw, Info, Activity, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { CartesianGrid, Line, ReferenceLine, ResponsiveContainer, Scatter, ComposedChart, Tooltip, XAxis, YAxis } from 'recharts';
 import PageHeader from '@/components/PageHeader';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
@@ -65,7 +65,7 @@ const initialForm = () => ({
 const displayDate = value => value ? value.split('-').reverse().join('/') : '—';
 
 /** Classificação Nutricional Pediátrica (OMS / SISVAN / SBP) */
-function getNutritionalDiagnosis({ type, age, z, percentile }) {
+function getNutritionalDiagnosis({ type, age, z, percentile, reference: _reference = '' }) {
   if (z == null && percentile == null) return null;
 
   if (type === 'bmi') {
@@ -148,7 +148,7 @@ export function formatAgeYearsMonths(rowOrAge, measureDate, birthDate) {
       if (years === 0 && months === 0) {
         const start = new Date(`${bDate}T12:00:00Z`);
         const end = new Date(`${mDate}T12:00:00Z`);
-        const days = Math.max(0, Math.round((end - start) / 86400000));
+        const days = Math.max(0, Math.round((end.getTime() - start.getTime()) / 86400000));
         return days === 1 ? '1 dia' : `${days} dias`;
       }
       if (years === 0) {
@@ -228,7 +228,7 @@ function getCentilesAtAge(series, targetAge) {
   });
 }
 
-function CustomGrowthTooltip({ active, label, series, points, rows, type, mode, isSds }) {
+function CustomGrowthTooltip({ active = false, label = null, series, points: _points = null, rows, type, mode, isSds = false }) {
   if (!active || label == null) return null;
   const targetAge = Number(label);
   if (!Number.isFinite(targetAge)) return null;

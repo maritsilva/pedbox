@@ -1,7 +1,7 @@
 import PageHeader from '@/components/PageHeader';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Star, ArrowRight, Calculator } from 'lucide-react';
+import { Search, Star, ArrowRight } from 'lucide-react';
 import { CALCULATORS, normalizeSearch } from '@/lib/calculatorRegistry';
 import { usePageFavorites } from '@/hooks/usePageFavorites';
 

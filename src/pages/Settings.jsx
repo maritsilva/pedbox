@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { services } from '@/api/services';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, LogOut, FolderOpen, ExternalLink, Check } from 'lucide-react';
+import { AlertTriangle, LogOut, FolderOpen, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Settings() {

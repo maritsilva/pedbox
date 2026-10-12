@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 import {
   ChevronLeft,
   Activity,
-  Heart,
-  TrendingUp,
   RefreshCw,
   BookOpen,
   Info,
   List as ListIcon,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const AGE_GROUPS = [
   { label: '1 a 6 anos', min: 1, max: 7, cutoff: 1.22, desc: 'Ponto de corte elevado devido à maior frequência cardíaca basal nesta faixa' },

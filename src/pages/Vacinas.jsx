@@ -5,21 +5,14 @@ import {
   ShieldCheck, 
   Calendar, 
   Info, 
-  Clock, 
   AlertTriangle, 
   CheckCircle2, 
   ChevronRight, 
-  BookOpen, 
-  Sparkles,
-  HelpCircle,
-  Activity,
-  Flame
+  Sparkles
 } from 'lucide-react';
-import PageHeader from '../components/PageHeader';
 import VacineDetailModal from '../components/VacineDetailModal';
 import {
   VACCINE_AGES,
-  VACCINE_REVIEW_DATE,
   VACCINE_SOURCES,
   filterVaccineGuide,
 } from '../lib/vaccineGuide';

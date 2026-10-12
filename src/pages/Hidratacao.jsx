@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Droplets, RotateCcw, Calculator, AlertCircle, Info, Star } from 'lucide-react';
+import { Droplets, Calculator, AlertCircle, Star } from 'lucide-react';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
-import { motion, AnimatePresence } from 'framer-motion';
 
 function round(value, decimals) {
   return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals);
@@ -102,7 +101,7 @@ function calcularManutencao(peso) {
 export default function Hidratacao() {
   const [peso, setPeso] = useState('12');
   const [fase, setFase] = useState('manut');
-  const [resultado, setResultado] = useState(() => calcularManutencao(12));
+  const [resultado, setResultado] = useState(/** @type {*} */ (calcularManutencao(12)));
   const resultRef = useRef(null);
   const { toggleFavorite, isFavorite } = usePageFavorites();
 

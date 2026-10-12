@@ -12,9 +12,7 @@ import {
   Star,
   ExternalLink,
   BookOpen,
-  CheckCircle2,
   AlertTriangle,
-  Info,
   Activity,
 } from 'lucide-react';
 

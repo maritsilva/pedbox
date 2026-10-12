@@ -1,4 +1,3 @@
-import PageHeader from '@/components/PageHeader';
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -8,22 +7,13 @@ import {
   Calculator,
   Pill,
   FileText,
-  Syringe,
   Activity,
-  BookOpen,
-  Scale,
   ShieldAlert,
   Stethoscope,
   Baby,
-  Calendar,
-  Sparkles,
   CheckCircle2,
   ChevronRight,
   X,
-  Droplets,
-  Heart,
-  TrendingUp,
-  Ruler,
 } from 'lucide-react';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import { CALCULATORS, normalizeSearch } from '@/lib/calculatorRegistry';
@@ -489,8 +479,9 @@ export default function ExplorarFerramentas() {
           desc: calc.desc,
           cat: calc.category || 'Calculadoras',
           categories: [calc.category || 'Calculadoras', 'Calculadoras'],
+          isConsultationCore: false,
           status: calc.status,
-          blockedReason: calc.blockedReason,
+          blockedReason: /** @type {*} */ (calc).blockedReason || '',
         });
       }
     });

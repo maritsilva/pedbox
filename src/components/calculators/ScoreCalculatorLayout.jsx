@@ -7,10 +7,7 @@ import {
   List as ListIcon,
   BookOpen,
   Info,
-  Check,
-  TrendingUp,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ScoreCalculatorLayout({
   title,

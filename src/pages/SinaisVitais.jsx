@@ -1,6 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import React from 'react';
-import { ChevronLeft, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 

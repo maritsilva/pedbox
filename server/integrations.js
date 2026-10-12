@@ -51,7 +51,7 @@ export function installIntegrations(app, db, config, overrides = {}) {
         FROM users WHERE email = 'marina@pedbox.app' LIMIT 1`,
         [JSON.stringify({ ...data, type: 'contact_message', target: toEmail, received_at: new Date().toISOString() })]
       );
-    } catch (e) {
+    } catch (_e) {
       // ignore archive failure
     }
 

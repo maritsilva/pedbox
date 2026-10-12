@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   FileText,
-  Plus,
   ExternalLink,
   Trash2,
   Copy,
@@ -14,15 +13,11 @@ import {
   Folder,
   FileSpreadsheet,
   Presentation,
-  BookOpen,
-  Sparkles,
-  Link as LinkIcon,
   HelpCircle,
   Eye,
   FolderOpen,
   UploadCloud,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
@@ -30,7 +25,6 @@ import { useAuth } from '@/lib/AuthContext';
 import { services } from '@/api/services';
 import { normalizeSearch } from '@/lib/calculatorRegistry';
 import {
-  DEFAULT_DOCUMENTS,
   CATEGORIAS_DOCUMENTOS,
   getGoogleDriveEmbedUrl,
   detectGoogleDriveType,
@@ -161,7 +155,10 @@ export default function DocumentosTab({ externalSearch = '' }) {
       return;
     }
 
-    const urlTrimmed = newUrl.trim();
+    let urlTrimmed = newUrl.trim();
+    if (!/^https?:\/\//i.test(urlTrimmed)) {
+      urlTrimmed = `https://${urlTrimmed}`;
+    }
     const embedUrl = getGoogleDriveEmbedUrl(urlTrimmed);
     const detectedType = detectGoogleDriveType(urlTrimmed);
     const finalCategory = newCategory === 'Pastas' || detectedType === 'folder' ? 'Pastas' : newCategory;

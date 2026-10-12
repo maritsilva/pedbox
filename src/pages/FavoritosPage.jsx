@@ -21,16 +21,8 @@ import {
   Sparkles,
   ArrowRight,
   Share2,
-  FileText,
-  Filter,
-  CheckCircle2,
-  Activity,
-  Heart,
-  Droplets,
-  Scale,
   Zap,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { usePageFavorites, ALL_PAGES } from '@/hooks/usePageFavorites.jsx';
 import { useDosagemFavorites } from '@/hooks/useDosagemFavorites.jsx';

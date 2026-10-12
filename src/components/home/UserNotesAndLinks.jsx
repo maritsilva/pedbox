@@ -7,10 +7,7 @@ import {
   Copy, 
   Check, 
   ExternalLink, 
-  Clock, 
-  Tag, 
   Sparkles,
-  ChevronDown,
   X
 } from 'lucide-react';
 import { toast } from 'sonner';

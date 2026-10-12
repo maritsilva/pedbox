@@ -5,14 +5,9 @@ import {
   X,
   ChevronRight,
   ChevronLeft,
-  BookOpen,
   Star,
   Search,
-  Stethoscope,
-  Filter,
   CheckCircle2,
-  FileText,
-  Clock,
   Sparkles,
 } from 'lucide-react';
 import { motion } from 'framer-motion';

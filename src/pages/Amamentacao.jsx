@@ -1,20 +1,17 @@
 import React, { useState, useMemo } from 'react';
 import {
   Search,
-  ShieldCheck,
   AlertTriangle,
   AlertOctagon,
   XCircle,
   Info,
   CheckCircle2,
   ExternalLink,
-  BookOpen,
   X,
   Star,
   Copy,
   Check,
   ArrowUpDown,
-  Filter,
   FileText,
   Baby,
   Sparkles,
@@ -22,9 +19,7 @@ import {
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
-import PageHeader from '@/components/PageHeader';
 import {
-  AMAMENTACAO_DATA,
   AMAMENTACAO_METADATA,
   NIVEIS_SEGURANCA,
   filterAmamentacao,
