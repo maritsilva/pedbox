@@ -183,17 +183,40 @@ export const PART4_CATEGORIAS = [
         name: 'Clindamicina',
         sinonimo: null,
         marcas: 'Dalacin C',
-        descricao: 'Lincosamida indicada para infecções por anaeróbios, MRSA ambulatorial e infecções de pele graves.',
+        descricao: 'Lincosamida indicada para infecções por anaeróbios, CA-MRSA, infecções de pele graves, mastoidite e pneumonia aspirativa.',
         indicacoes: [
           {
             id: 'pele-grave',
-            label: 'Infecção de Pele Grave / MRSA Ambulatorial',
-            dose_min: 10, dose_max: 20, dose_max_abs: 600,
-            unidade: 'mg/kg/dia ÷ 3', freq: '8/8h por 7–14 dias',
-            obs: 'VO: 10–20 mg/kg/dia ÷ 3. EV: 20–40 mg/kg/dia ÷ 3–4. Máx 600 mg/dose EV.',
+            label: 'Infecção de Pele / MRSA Comunitário (VO Padrão)',
+            dose_min: 10, dose_max: 20, dose_max_abs: 1800,
+            maxScope: 'day',
+            unidade: 'mg/kg/dia ÷ 3', freq: '8/8h',
+            obs: 'Dose padrão VO: 10–20 mg/kg/dia ÷ 3 (8/8h). Máx: 1,8 g/dia.',
             apresentacoes: [
               { label: 'Cápsula 300 mg', conc: 300, tipo: 'comprimido' },
               { label: 'Solução oral 75 mg/5 mL (15 mg/mL)', conc: 15, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'ca-mrsa-impetigo',
+            label: 'CA-MRSA / Impetigo / Celulite / Abscesso Periamigdaliano (VO Dose Alta)',
+            dose_min: 30, dose_max: 30, dose_max_abs: 1800,
+            maxScope: 'day',
+            unidade: 'mg/kg/dia ÷ 3', freq: '8/8h',
+            obs: 'Dose alta VO de 30 mg/kg/dia a cada 8h por 5 a 7 dias para impetigo com suspeita de CA-MRSA, celulite, infecções de face/períneo e abscesso periamigdaliano. Máx: 1,8 g/dia.',
+            apresentacoes: [
+              { label: 'Cápsula 300 mg', conc: 300, tipo: 'comprimido' },
+              { label: 'Solução oral 75 mg/5 mL (15 mg/mL)', conc: 15, tipo: 'mL' },
+            ],
+          },
+          {
+            id: 'mastoidite-aspirativa',
+            label: 'Mastoidite / Pneumonia Aspirativa / Casos Graves (EV)',
+            dose_min: 40, dose_max: 40, dose_max_abs: 2700,
+            maxScope: 'day',
+            unidade: 'mg/kg/dia ÷ 3', freq: '8/8h',
+            obs: 'Dose alta EV: 40 mg/kg/dia a cada 8h (máx 2,7 g/dia). Indicada em mastoidite aguda (+ Ceftriaxona), celulite orbitária (+ Ceftriaxona), pneumonia aspirativa (+ Ceftriaxona) e infecções osteoarticulares graves.',
+            apresentacoes: [
               { label: 'Ampola 150 mg/mL (EV/IM)', conc: 150, tipo: 'mL' },
             ],
           },
@@ -211,7 +234,8 @@ export const PART4_CATEGORIAS = [
             id: 'profilaxia-cirurgica',
             label: 'Profilaxia Cirúrgica',
             dose_min: 25, dose_max: 30, dose_max_abs: 2000,
-            unidade: 'mg/kg/dose', freq: 'Dose única (30–60 min antes)',
+            maxScope: 'dose',
+            unidade: 'mg/kg/dose', freq: 'Dose única',
             obs: '25–30 mg/kg. Dose máxima: 2 g. Repetir a cada 4h em cirurgias longas.',
             apresentacoes: [
               { label: 'Fr. amp. 500 mg (EV/IM)', conc: 500, tipo: 'frasco' },
@@ -220,10 +244,11 @@ export const PART4_CATEGORIAS = [
           },
           {
             id: 'infecção-grave',
-            label: 'Infecção Grave (Pele/Osso)',
-            dose_min: 25, dose_max: 100, dose_max_abs: 2000,
+            label: 'Infecção Pele / Osso / Osteoarticular',
+            dose_min: 50, dose_max: 100, dose_max_abs: 6000,
+            maxScope: 'day',
             unidade: 'mg/kg/dia ÷ 3', freq: '8/8h',
-            obs: 'Leve: 25 mg/kg/dia. Grave: 100 mg/kg/dia. Máx 6 g/dia.',
+            obs: 'Dose padrão: 50–100 mg/kg/dia EV/IM c/ 8h. Em infecções osteoarticulares utilizar doses altas: 100–150 mg/kg/dia c/ 6–8h. Máx: 8 g/dia.',
             apresentacoes: [
               { label: 'Fr. amp. 1000 mg (EV)', conc: 1000, tipo: 'frasco' },
             ],
@@ -240,10 +265,11 @@ export const PART4_CATEGORIAS = [
         indicacoes: [
           {
             id: 'oma-pneumonia',
-            label: 'OMA / Sinusite / Pneumonia Leve',
-            dose_min: 20, dose_max: 30, dose_max_abs: 500,
-            unidade: 'mg/kg/dia ÷ 2', freq: '12/12h por 7–10 dias',
-            obs: 'OMA: 25–30 mg/kg/dia ÷ 2. Máx 500 mg/dose.',
+            label: 'OMA / Sinusite / ITU (VO Padrão)',
+            dose_min: 20, dose_max: 30, dose_max_abs: 1000,
+            maxScope: 'day',
+            unidade: 'mg/kg/dia ÷ 2', freq: '12/12h',
+            obs: 'Dose padrão: 20–30 mg/kg/dia VO c/ 12h por 7–10 dias. Dose alta VO (osteoarticular): 30–40 mg/kg/dia (até 60–90 mg/kg/dia) c/ 8–12h. Máx VO: 3 g/dia.',
             apresentacoes: [
               { label: 'Suspensão 125 mg/5 mL (25 mg/mL)', conc: 25, tipo: 'mL' },
               { label: 'Comprimido 250 mg', conc: 250, tipo: 'comprimido' },
@@ -305,10 +331,11 @@ export const PART4_CATEGORIAS = [
         indicacoes: [
           {
             id: 'faringite',
-            label: 'Faringoamigdalite Estreptocócica',
+            label: 'Faringoamigdalite Estreptocócica (S. pyogenes)',
             dose_min: 600000, dose_max: 1200000, dose_max_abs: 1200000,
-            unidade: 'UI — dose única IM', freq: 'Dose única IM',
-            obs: '< 25 kg: 600.000 UI IM. ≥ 25 kg: 1.200.000 UI IM. Dose única.',
+            maxScope: 'dose',
+            unidade: 'UI — dose única IM', freq: 'Dose única',
+            obs: '< 27 kg: 600.000 UI IM dose única. ≥ 27 kg: 1.200.000 UI IM dose única. 1ª escolha para erradicação e prevenção de febre reumática.',
             apresentacoes: [
               { label: 'Fr. 600.000 UI (IM)', conc: 600000, tipo: 'frasco' },
               { label: 'Fr. 1.200.000 UI (IM)', conc: 1200000, tipo: 'frasco' },
@@ -316,10 +343,11 @@ export const PART4_CATEGORIAS = [
           },
           {
             id: 'profilaxia-reumatica',
-            label: 'Profilaxia Febre Reumática',
+            label: 'Profilaxia Secundária de Febre Reumática',
             dose_min: 600000, dose_max: 1200000, dose_max_abs: 1200000,
+            maxScope: 'dose',
             unidade: 'UI — a cada 21 dias IM', freq: 'A cada 21 dias',
-            obs: '< 25 kg: 600.000 UI. ≥ 25 kg: 1.200.000 UI. A cada 3 semanas indefinidamente.',
+            obs: '< 27 kg: 600.000 UI. ≥ 27 kg: 1.200.000 UI. Aplicação a cada 21 dias.',
             apresentacoes: [
               { label: 'Fr. 600.000 UI (IM)', conc: 600000, tipo: 'frasco' },
               { label: 'Fr. 1.200.000 UI (IM)', conc: 1200000, tipo: 'frasco' },

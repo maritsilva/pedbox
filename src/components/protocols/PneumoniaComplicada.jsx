@@ -24,20 +24,21 @@ function Section({ icon, title, color = 'blue', children }) {
 
 function AntibioticsTable() {
   const rows = [
-    { drug: 'Ampicilina', dose: '150–200 mg/kg/dia de 6/6h', obs: 'Máx 12 g/dia' },
-    { drug: 'Ampicilina-sulbactam', dose: '150–200 mg/kg/dia de ampicilina', obs: '—' },
-    { drug: 'Penicilina cristalina', dose: '200.000–250.000 U/kg/dia de 4/4h ou 6/6h', obs: 'Máx 24 milhões U/dia' },
-    { drug: 'Oxacilina', dose: '200 mg/kg/dia de 6/6h', obs: 'Máx 12 g/dia' },
-    { drug: 'Ceftriaxona', dose: '50–100 mg/kg/dia de 12/12h', obs: 'Máx 4 g/dia' },
-    { drug: 'Cefotaxima', dose: '150 mg/kg/dia de 8/8h ou 6/6h', obs: 'Máx 8 g/dia' },
-    { drug: 'Vancomicina', dose: '40–60 mg/kg/dia de 6/6h ou 8/8h', obs: 'Máx 4 g/dia' },
-    { drug: 'Ceftarolina', dose: '< 2 anos: 8 mg/kg/dose; ≥ 2 anos/≤ 33kg: 12 mg de 8/8h; > 33 kg: 400 mg de 8/8h ou 600 mg de 12/12h', obs: '—' },
-    { drug: 'Linezolida', dose: '< 12 anos: 30 mg/kg/dia de 8/8h; ≥ 12 anos: 600 mg de 8/8h', obs: 'Máx 600 mg/dose' },
-    { drug: 'Levofloxacino', dose: '6m–5 anos: 20 mg/kg/dia de 12/12h; 5–16 anos: 10 mg/kg 1×/dia', obs: 'Máx 750 mg/dia' },
-    { drug: 'Azitromicina', dose: '10 mg/kg/dia nos dias 1–2; 5 mg/kg/dia nos seguintes', obs: 'Máx 500 mg/dia' },
-    { drug: 'Amicacina', dose: '15 mg/kg/dia de 12/12h', obs: '—' },
-    { drug: 'Amoxicilina-clavulanato', dose: '75 mg/kg/dia de amoxicilina de 8/8h', obs: 'Máx 1 g/dose' },
-    { drug: 'Metronidazol', dose: '30 mg/kg/dia de 6/6h', obs: 'Máx 4 g/dia' },
+    { drug: 'Ampicilina', dose: '150–200 mg/kg/dia de 6/6h EV', obs: 'Máx 12 g/dia. 1ª escolha em pacientes imunizados e sem suspeita de germe atípico.' },
+    { drug: 'Ampicilina-sulbactam', dose: '150–200 mg/kg/dia (base ampicilina) de 6/6h EV', obs: 'Máx 8 g/dia de ampicilina.' },
+    { drug: 'Penicilina cristalina', dose: '200.000–400.000 UI/kg/dia EV de 4/4h ou 6/6h', obs: 'Máx 24 milhões UI/dia.' },
+    { drug: 'Oxacilina', dose: '150–200 mg/kg/dia EV de 4/4h a 6/6h', obs: 'Máx 12 g/dia. Indicada para S. aureus sensível (MSSA).' },
+    { drug: 'Ceftriaxona', dose: '50–100 mg/kg/dia EV a cada 12–24h', obs: 'Máx 4 g/dia. Preferir se vacinação incompleta, resistência ou gravidade.' },
+    { drug: 'Cefotaxima', dose: '150–200 mg/kg/dia de 6/6h ou 8/8h EV', obs: 'Máx 12 g/dia. Alternativa em < 3 meses ou risco de colestase.' },
+    { drug: 'Vancomicina', dose: '45–60 mg/kg/dia (alta: 60–80 mg/kg/dia se MRSA grave) de 6/6h EV', obs: 'Máx 4 g/dia. Alvo sérico: 15–20 mcg/mL. Infundir em 2h se >15 mg/kg.' },
+    { drug: 'Clindamicina', dose: '40 mg/kg/dia EV de 8/8h', obs: 'Máx 2,7 g/dia. Indicada na pneumonia aspirativa (+ Ceftriaxona) ou CA-MRSA.' },
+    { drug: 'Ceftarolina', dose: '< 2 anos: 8 mg/kg/dose; ≥ 2 anos/≤ 33kg: 12 mg de 8/8h; > 33 kg: 400 mg de 8/8h ou 600 mg de 12/12h', obs: 'Atividade contra MRSA e pneumococo resistente.' },
+    { drug: 'Linezolida', dose: '< 12 anos: 30 mg/kg/dia de 8/8h; ≥ 12 anos: 600 mg de 12/12h', obs: 'Máx 600 mg/dose (1.800 mg/dia).' },
+    { drug: 'Levofloxacino', dose: '6m–5 anos: 16–20 mg/kg/dia de 12/12h; ≥ 5 anos: 10 mg/kg 1×/dia (24/24h)', obs: 'Máx 500–750 mg/dia.' },
+    { drug: 'Azitromicina', dose: '10 mg/kg/dia 1×/dia nos dias 1–5', obs: 'Máx 500 mg/dia. Cobertura para patógenos atípicos (Mycoplasma/Chlamydia).' },
+    { drug: 'Amicacina', dose: '15–22,5 mg/kg/dia EV em dose única a cada 24h', obs: 'Máx 1,5 g/dia. Considerar 22–30 mg/kg/dia em choque/sepse pulmonar.' },
+    { drug: 'Amoxicilina-clavulanato', dose: '90 mg/kg/dia (base amoxicilina) de 8/8h', obs: 'Pneumonia comunitária de 8/8h (não usar 12/12h). Máx 3 g/dia.' },
+    { drug: 'Metronidazol', dose: '30–40 mg/kg/dia de 6/6h ou 8/8h EV', obs: 'Máx 4 g/dia EV.' },
   ];
   return (
     <div className="overflow-x-auto rounded-xl border border-border shadow-sm">

@@ -191,13 +191,15 @@ export default function InfeccaoTratoUrinario() {
                 </thead>
                 <tbody>
                   {[
-                    ['Cefuroxima', '30 mg/kg/dia, 2 doses', '7–10 dias', '1000 mg/dia'],
-                    ['Amoxicilina + ácido clavulânico', '50 mg/kg/dia, 2–3 doses', '7–10 dias', '1500 mg/dia'],
-                    ['Cefalexina (ITU afebril)', '50–100 mg/kg/dia, 3–4 doses', '7–10 dias', '500 mg/dose'],
-                    ['Cefadroxila (ITU afebril)', '30 mg/kg/dia, 2 doses', '7–10 dias', '500 mg/dose'],
-                    ['Fosfomicina (ITU afebril ≥12 anos)', '3000 mg/dose, 1 dose única', 'Dose única', '3000 mg/dose'],
-                    ['SMX-TMP (considerar alergia)', '8–12 mg TMP/kg/dia, 2 doses', '7–10 dias', '160 mg/dose'],
-                    ['Ciprofloxacino', '40 mg/kg/dia, 2 doses', '7–10 dias', '500 mg/dose'],
+                    ['Cefalexina (Lactentes 1m–2a)', '75 mg/kg/dia, 3 doses (8/8h)', '7–10 dias', '2000 mg/dia'],
+                    ['Cefalexina (Crianças ≥2 anos)', '12,5–25 mg/kg/dose 12/12h ou 50–100 mg/kg/dia 3–4x', '7–10 dias', '2000 mg/dia'],
+                    ['Amoxicilina + Clavulanato', '20–40 mg/kg/dia (amox) de 8/8h ou 22,5 mg/kg 12/12h', '7–10 dias', '875 mg amox/dose'],
+                    ['Cefuroxima axetil', '20–30 mg/kg/dia (ou 15 mg/kg 12/12h)', '7–10 dias', '500 mg/dose (1000 mg/dia)'],
+                    ['SMX-TMP (Sulfametoxazol+Trimetoprima)', '4–6 mg TMP/kg/dia, 2 doses (12/12h)', '7–10 dias', '160 mg TMP/dose'],
+                    ['Nitrofurantoína (Cistite ≥1 mês)', '1,25–1,75 mg/kg/dose, 4 doses (6/6h) ou 5 mg/kg/dia', '7–10 dias', '100 mg/dose'],
+                    ['Cefadroxila (ITU afebril)', '30 mg/kg/dia, 2 doses (12/12h)', '7–10 dias', '500 mg/dose (1000 mg/dia)'],
+                    ['Fosfomicina (Cistite ≥12 anos)', '3000 mg/dose, 1 dose única', 'Dose única', '3000 mg/dose'],
+                    ['Ciprofloxacino (ITU complicada)', '20–30 mg/kg/dia, 2 doses (12/12h)', '7–10 dias', '500 mg/dose (1,5 g/dia)'],
                   ].map((row, i) => (
                     <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-red-50/40'}>
                       <td className="px-2 py-1.5 font-semibold text-gray-800">{row[0]}</td>
@@ -212,9 +214,9 @@ export default function InfeccaoTratoUrinario() {
           </div>
 
           <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
-            <p className="font-bold text-xs text-orange-800 mb-2">Via Parenteral (IV/IM)</p>
+            <p className="font-bold text-xs text-orange-800 mb-2">Via Parenteral (IV/IM) — Pielonefrite / Hospitalização</p>
             <p className="text-xs text-orange-900 mb-2">
-              <strong>Indicações:</strong> Intolerância VO, comprometimento estado geral/sepse, falha em tratamento ambulatorial, germe multirresistente, injúria renal aguda, imunossuprimidos, &lt; 3 meses.
+              <strong>Indicações:</strong> Intolerância VO, comprometimento do estado geral/sepse, falha de resposta ambulatorial, germe multirresistente, desidratação/vômitos incoercíveis, &lt; 3 meses. Transição EV → VO após melhora clínica e resultado do antibiograma.
             </p>
             <div className="overflow-x-auto rounded-lg border border-orange-200">
               <table className="min-w-full text-xs border-collapse">
@@ -228,12 +230,14 @@ export default function InfeccaoTratoUrinario() {
                 </thead>
                 <tbody>
                   {[
-                    ['Ceftriaxone', '50 mg/kg/dia, 1 dose IV/IM', '7–10 dias', '2000 mg/dia'],
-                    ['Cefuroxima', '150 mg/kg/dia, 3 doses IV', '7–10 dias', '750 mg/dose'],
-                    ['Cefotaxima (&lt;3 meses)', '150 mg/kg/dia, 3 doses IV', '7–10 dias', '2000 mg/dose'],
-                    ['Gentamicina', '5–7 mg/kg/dia, 3 doses IV/IM', '7–10 dias', '300 mg/dia'],
-                    ['Ciprofloxacino', '20–30 mg/kg/dia, 2 doses IV', '7–10 dias', '400 mg/dose'],
-                    ['Piperacilina-tazobactam', '300 mg/kg/dia, 3 doses IV', '7–10 dias', '4000 mg/dose'],
+                    ['Ceftriaxona', '50–75 mg/kg/dia (até 150 mg/kg/dia na infecção grave), 1 dose IV/IM (24/24h)', '7–14 dias', '2000 mg/dose (4 g/dia)'],
+                    ['Cefotaxima (< 3 meses ou colestase)', '100–150 mg/kg/dia (até 200 mg/kg/dia), 3 doses IV (8/8h ou 6/6h)', '7–14 dias', '2000 mg/dose (12 g/dia)'],
+                    ['Gentamicina (Dose única diária)', '5–7,5 mg/kg/dia, 1 dose IV/IM (24/24h)', '7–14 dias', '300 mg/dia'],
+                    ['Amicacina (Dose única diária)', '15 mg/kg/dia (até 22,5 mg/kg/dia em choque), 1 dose IV (24/24h)', '7–14 dias', '1500 mg/dia'],
+                    ['Cefuroxima', '100–150 mg/kg/dia, 3 doses IV (8/8h)', '7–14 dias', '1500 mg/dose (9 g/dia)'],
+                    ['Ceftazidima (Pseudomonas)', '100–150 mg/kg/dia, 3 doses IV (8/8h)', '7–14 dias', '2000 mg/dose (8 g/dia)'],
+                    ['Piperacilina-tazobactam', '300–400 mg/kg/dia, 3–4 doses IV (6/6h ou 8/8h)', '7–14 dias', '4000 mg piperacilina/dose (16 g/dia)'],
+                    ['Ciprofloxacino IV', '20–30 mg/kg/dia, 2 doses IV (12/12h)', '7–14 dias', '400 mg/dose (1,2 g/dia)'],
                   ].map((row, i) => (
                     <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-orange-50/40'}>
                       <td className="px-2 py-1.5 font-semibold text-gray-800">{row[0]}</td>

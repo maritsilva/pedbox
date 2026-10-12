@@ -192,9 +192,9 @@ export default function MeningiteBacteriana() {
                   },
                   {
                     idade: '> 3 meses',
-                    esquema: 'Ceftriaxone¹ ou Cefotaxima + Vancomicina²',
-                    doses: 'Ceftriaxone 100 mg/kg/dia (máx 4 g) · Cefotaxima 200–300 mg/kg/dia · Vancomicina 60 mg/kg/dia (nível 15–20 mcg/ml)',
-                    freq: '1× · 3× · 4×',
+                    esquema: 'Ceftriaxona¹ ou Cefotaxima + Vancomicina²',
+                    doses: 'Ceftriaxona 100 mg/kg/dia EV 1–2×/dia (máx 4 g) · Cefotaxima 200–300 mg/kg/dia (máx 12 g) · Vancomicina 60 mg/kg/dia EV 6/6h (nível sérico 15–20 mcg/ml)',
+                    freq: '1–2× · 3–4× · 4×',
                     bg: 'bg-white',
                   },
                 ].map((row, i) => (
@@ -209,9 +209,9 @@ export default function MeningiteBacteriana() {
             </table>
           </div>
           <div className="text-[11px] text-gray-500 space-y-0.5 px-1">
-            <p>¹ Se sépsis meningocócica → monoterapia com ceftriaxone.</p>
-            <p>² Vancomicina obrigatória em todos &gt;1 mês com suspeita de pneumococo (alta resistência à penicilina e cefalosporinas 3ª G).</p>
-            <p>* Considerar terapia tripla no RN pelo risco de Gram negativos.</p>
+            <p>¹ Se sépsis meningocócica pura comprovada → monoterapia com ceftriaxona.</p>
+            <p>² Vancomicina obrigatória em todos &gt;1 mês com suspeita de pneumococo (alta taxa de cepas com sensibilidade intermediária/resistente à penicilina no Brasil — BrCAST/IAL 2024).</p>
+            <p>* Considerar terapia tripla no RN pelo risco de bacilos Gram-negativos entéricos e Listeria.</p>
           </div>
 
           {/* Condições especiais */}
@@ -229,9 +229,9 @@ export default function MeningiteBacteriana() {
                   {[
                     ['Cirurgia/Neurocirurgia, Shunt VP', 'Vancomicina + Cefotaxima (± Gentamicina) — Se Pseudomonas: Ceftazidima + Gentamicina'],
                     ['Sinus dermóide, Mielomeningocelo', 'Vancomicina + Cefotaxima (± Aminoglicosídeo)'],
-                    ['Fístula LCR, Asplenia, Défice de Ac, VIH', 'Vancomicina + Cefotaxima'],
-                    ['Defeitos do complemento', 'Cefotaxima'],
-                    ['Alergia beta-lactâmicos', 'Vancomicina + Rifampicina ou Meropenem'],
+                    ['Fístula LCR, Asplenia, Défice de Ac, VIH', 'Vancomicina + Cefotaxima ou Ceftriaxona'],
+                    ['Defeitos do complemento', 'Ceftriaxona ou Cefotaxima'],
+                    ['Alergia beta-lactâmicos', 'Vancomicina + Rifampicina ou Meropenem (120 mg/kg/dia 8/8h)'],
                   ].map(([cond, esquema], i) => (
                     <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                       <td className="px-3 py-2 font-semibold text-gray-800 border-r border-gray-100">{cond}</td>
@@ -245,27 +245,26 @@ export default function MeningiteBacteriana() {
 
           {/* Após identificação */}
           <div>
-            <p className="text-xs font-bold text-gray-600 mb-2">Antibiótico após identificação do agente e TSA:</p>
+            <p className="text-xs font-bold text-gray-600 mb-2">Antibiótico e Duração após identificação do agente e TSA (UpToDate 2025 / Diretrizes Internacionais):</p>
             <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
               <table className="min-w-full text-xs border-collapse">
                 <thead>
                   <tr className="bg-red-600 text-white">
                     <th className="px-3 py-2 text-left font-bold">Microrganismo</th>
                     <th className="px-3 py-2 text-left font-bold">Antibiótico</th>
-                    <th className="px-3 py-2 text-center font-bold">Duração</th>
+                    <th className="px-3 py-2 text-center font-bold">Duração Recomendada</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ['Enterobacteriaceae', 'Cefotaxima + Gentamicina', '21 dias'],
-                    ['Streptococcus do Grupo B', 'Ampicilina + Gentamicina', '14–21 dias'],
-                    ['Listeria monocytogenes', 'Ampicilina + Gentamicina', '14–21 dias'],
-                    ['Neisseria meningitidis', 'Cefotaxima / Ceftriaxone', '7 dias'],
-                    ['Haemophilus influenzae', 'Cefotaxima / Ceftriaxone', '10 dias'],
-                    ['SAMS', 'Flucloxacilina', '14 dias'],
-                    ['SAMR', 'Vancomicina + Rifampicina (ou Cotrimoxazol ou Linezolide)', '14 dias'],
-                    ['S. pneumoniae CIM <0,06', 'Cefotaxima / Ceftriaxone', '10–14 dias'],
-                    ['S. pneumoniae CIM >0,12', 'Vancomicina + Cefotaxima/Ceftriaxone (± Rifampicina)', '10–14 dias'],
+                    ['Neisseria meningitidis (Meningococo)', 'Ceftriaxona 100 mg/kg/dia ou Cefotaxima', '5 a 7 dias'],
+                    ['Haemophilus influenzae tipo b (Hib)', 'Ceftriaxona 100 mg/kg/dia ou Cefotaxima', '7 a 10 dias'],
+                    ['Streptococcus pneumoniae (Pneumococo)', 'Ceftriaxona 100 mg/kg/dia + Vancomicina 60 mg/kg/dia', '10 a 14 dias'],
+                    ['Enterobacteriaceae (Gram-negativos entéricos)', 'Cefotaxima + Gentamicina ou Amicacina', '21 dias (ou 14 dias pós-esterilização LCR)'],
+                    ['Streptococcus do Grupo B (SGB)', 'Ampicilina (300–400 mg/kg/dia) + Gentamicina', '14 a 21 dias'],
+                    ['Listeria monocytogenes', 'Ampicilina (300–400 mg/kg/dia) + Gentamicina', '14 a 21 dias'],
+                    ['Staphylococcus aureus sensível (MSSA)', 'Oxacilina 150–200 mg/kg/dia EV 4–6h', '14 a 21 dias'],
+                    ['Staphylococcus aureus resistente (MRSA)', 'Vancomicina 60–80 mg/kg/dia EV 6/6h (± Rifampicina)', '14 a 21 dias'],
                   ].map(([micro, ab, dur], i) => (
                     <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-red-50/40'}>
                       <td className="px-3 py-2 font-medium text-gray-800 border-r border-gray-100">{micro}</td>
@@ -276,7 +275,7 @@ export default function MeningiteBacteriana() {
                 </tbody>
               </table>
             </div>
-            <p className="text-[11px] text-gray-400 mt-1 px-1">Sem agente isolado: &lt;3 meses → 14–21 dias · &gt;3 meses → 7–10 dias. Meropenem (40 mg/kg 8/8h): Gram negativos multirresistentes ≥3 meses.</p>
+            <p className="text-[11px] text-gray-500 mt-1 px-1">Sem agente isolado: &lt;3 meses → 14–21 dias · &gt;3 meses → 7–10 dias. Meropenem dose alta de meningite (120 mg/kg/dia EV dividido 8/8h, infusão padrão 30 min): Gram-negativos multirresistentes.</p>
           </div>
         </div>
       </Section>

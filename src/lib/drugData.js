@@ -18,52 +18,61 @@ export const antibiotics = [
   {
     id: 'amox', name: 'Amoxicilina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 40, maxMgPerDay: 3000, interval: 3, via: 'VO (8/8h)' },
-      { label: 'Alta dose – OMA/Pneumonia', mgPerKgPerDay: 90, maxMgPerDay: 3000, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Padrão (Dose Usual)', mgPerKgPerDay: 50, maxMgPerDay: 3000, interval: 3, via: 'VO (8/8h)' },
+      { label: 'Alta dose – OMA', mgPerKgPerDay: 90, maxMgPerDay: 3000, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Alta dose – Pneumonia', mgPerKgPerDay: 90, maxMgPerDay: 3000, interval: 3, via: 'VO (8/8h - NÃO usar 12/12h)' },
+      { label: 'Faringoamigdalite (S. pyogenes)', mgPerKgPerDay: 50, maxMgPerDay: 1200, interval: 1, via: 'VO (24/24h ou dividida 8/8h ou 12/12h), 10 dias' },
     ],
     presentations: [
       { label: 'Suspensão 250 mg/5 mL', mgPerMl: 50 },
+      { label: 'Suspensão 400 mg/5 mL', mgPerMl: 80 },
       { label: 'Suspensão 500 mg/5 mL', mgPerMl: 100 },
     ],
-    indications: ['Otite média aguda', 'Amigdalite', 'Pneumonia comunitária', 'Sinusite', 'ITU'],
-    notes: ['Tomar com ou sem alimentos', 'Dose máxima: 3g/dia'],
+    indications: ['Otite média aguda', 'Faringoamigdalite estreptocócica', 'Pneumonia comunitária', 'Sinusite bacteriana', 'ITU'],
+    notes: ['Tomar com ou sem alimentos', 'Pneumonia comunitária: obrigatoriamente a cada 8h (cursos de 5 dias são não-inferiores a 10 dias)', 'Faringite: tratar por 10 dias para profilaxia de febre reumática', 'Dose máxima: 3g/dia'],
   },
   {
     id: 'amoxclav', name: 'Amoxicilina + Clavulanato', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 40, maxMgPerDay: 3000, interval: 3, via: 'VO (8/8h)' },
-      { label: 'Alta dose', mgPerKgPerDay: 90, maxMgPerDay: 3000, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Padrão (Pele / ITU / Leves)', mgPerKgPerDay: 45, maxMgPerDay: 3000, interval: 3, via: 'VO (8/8h)' },
+      { label: 'Alta dose – OMA / Sinusite (14:1)', mgPerKgPerDay: 90, maxMgPerDay: 3000, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Alta dose – Pneumonia comunitária', mgPerKgPerDay: 90, maxMgPerDay: 3000, interval: 3, via: 'VO (8/8h)' },
+      { label: 'Mordeduras (cão / gato / humano)', mgPerKgPerDay: 45, maxMgPerDay: 2000, interval: 3, via: 'VO (8/8h), 5–10 dias' },
     ],
     presentations: [
-      { label: 'Suspensão 200/28,5 mg/5 mL', mgPerMl: 40 },
-      { label: 'Suspensão 400/57 mg/5 mL', mgPerMl: 80 },
+      { label: 'Suspensão 250+62,5 mg/5 mL (4:1)', mgPerMl: 50 },
+      { label: 'Suspensão 400+57 mg/5 mL (7:1)', mgPerMl: 80 },
+      { label: 'Suspensão 600+42,9 mg/5 mL (14:1 ES)', mgPerMl: 120 },
     ],
-    indications: ['Otite média aguda refratária', 'Sinusite bacteriana', 'Infecções de pele', 'Pneumonia'],
-    notes: ['Tomar com alimentos para reduzir efeitos GI', 'Dose máxima: 3g/dia (amoxicilina)'],
+    indications: ['Otite média aguda refratária / alto risco', 'Sinusite bacteriana', 'Mordeduras animais/humanas', 'Impetigo extenso', 'Pneumonia'],
+    notes: ['Tomar com alimentos para reduzir efeitos GI', 'Calcular pela dose da amoxicilina', 'Dose máxima: 3g/dia (amoxicilina)'],
   },
   {
     id: 'ampi', name: 'Ampicilina', category: 'antibioticos',
     doses: [
       { label: 'Padrão', mgPerKgPerDay: 100, maxMgPerDay: 12000, interval: 4, via: 'EV/IM (6/6h)' },
-      { label: 'Alta – meningite', mgPerKgPerDay: 200, maxMgPerDay: 12000, interval: 4, via: 'EV (6/6h)' },
+      { label: 'Pneumonia moderada a grave', mgPerKgPerDay: 200, maxMgPerDay: 12000, interval: 4, via: 'EV (6/6h)' },
+      { label: 'Meningite / Endocardite', mgPerKgPerDay: 300, maxMgPerDay: 12000, interval: 4, via: 'EV (4/4h a 6/6h)' },
     ],
     presentations: [
       { label: 'Ampola 500 mg', mgPerMl: null, fixedMg: 500 },
       { label: 'Ampola 1g', mgPerMl: null, fixedMg: 1000 },
     ],
-    indications: ['Meningite bacteriana', 'Sepse neonatal', 'Listeriose', 'Infecções por enterococos'],
-    notes: ['Diluir em SF 0,9% ou SG 5%', 'Incompatível com aminoglicosídeos na mesma seringa'],
+    indications: ['Pneumonia comunitária hospitalar', 'Meningite bacteriana', 'Sepse neonatal', 'Listeriose', 'Infecções por enterococos'],
+    notes: ['Diluir em SF 0,9% ou SG 5%', 'Incompatível com aminoglicosídeos na mesma seringa', 'Dose máxima: 12g/dia'],
   },
   {
     id: 'cef', name: 'Cefalexina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 40, maxMgPerDay: 4000, interval: 4, via: 'VO (6/6h)' },
+      { label: 'Pele e partes moles / Impetigo', mgPerKgPerDay: 50, maxMgPerDay: 4000, interval: 3, via: 'VO (8/8h)' },
+      { label: 'ITU em lactentes (> 1m a < 2 anos)', mgPerKgPerDay: 75, maxMgPerDay: 2000, interval: 3, via: 'VO (8/8h)' },
+      { label: 'ITU crianças ≥ 2 anos', mgPerKgPerDay: 50, maxMgPerDay: 2000, interval: 2, via: 'VO (12/12h ou 6/6h)' },
     ],
     presentations: [
       { label: 'Suspensão 250 mg/5 mL', mgPerMl: 50 },
     ],
-    indications: ['Infecções de pele e partes moles', 'Faringoamigdalite', 'ITU não complicada'],
-    notes: ['Dose máxima: 4g/dia', 'Pode ser tomado com alimentos'],
+    indications: ['Infecções de pele e partes moles / Impetigo', 'Celulite sem risco MRSA', 'ITU'],
+    notes: ['Dose máxima: 4g/dia em infecções graves, 2g/dia em ITU', 'Pode ser tomado com alimentos'],
   },
   {
     id: 'cefa', name: 'Cefadroxila', category: 'antibioticos',
@@ -80,24 +89,26 @@ export const antibiotics = [
   {
     id: 'azi', name: 'Azitromicina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 10, maxMgPerDay: 500, interval: 1, via: 'VO (24/24h), 3–5 dias' },
+      { label: 'Padrão (Respiratório / Pele)', mgPerKgPerDay: 10, maxMgPerDay: 500, interval: 1, via: 'VO (24/24h), 3–5 dias' },
+      { label: 'Faringoamigdalite / Bartonella', mgPerKgPerDay: 12, maxMgPerDay: 500, interval: 1, via: 'VO (24/24h), 5 dias' },
     ],
     presentations: [
       { label: 'Suspensão 200 mg/5 mL', mgPerMl: 40 },
     ],
-    indications: ['Pneumonia atípica', 'Faringoamigdalite (alergia à penicilina)', 'Coqueluche', 'Sinusite'],
-    notes: ['Tomar 1h antes ou 2h após refeições', 'Pode prolongar intervalo QT'],
+    indications: ['Pneumonia atípica (Mycoplasma/Chlamydia)', 'Faringoamigdalite (alergia à penicilina)', 'Doença da arranhadura do gato (Bartonella)', 'Coqueluche'],
+    notes: ['Tomar 1h antes ou 2h após refeições', 'Pode prolongar intervalo QT', 'Bartonella e faringite: 12 mg/kg/dia 1x/dia por 5 dias'],
   },
   {
     id: 'clari', name: 'Claritromicina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 15, maxMgPerDay: 1000, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Padrão', mgPerKgPerDay: 15, maxMgPerDay: 500, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Dose alta / Infecção grave', mgPerKgPerDay: 25, maxMgPerDay: 1000, interval: 2, via: 'VO ou EV (12/12h)' },
     ],
     presentations: [
       { label: 'Suspensão 250 mg/5 mL', mgPerMl: 50 },
     ],
     indications: ['Pneumonia atípica', 'Faringoamigdalite', 'Otite média', 'Sinusite'],
-    notes: ['Dose máxima: 1g/dia', 'Inibidor do CYP3A4'],
+    notes: ['Dose padrão máx: 500 mg/dia; dose alta máx: 1g/dia', 'Inibidor do CYP3A4'],
   },
   {
     id: 'eritro', name: 'Eritromicina', category: 'antibioticos',
@@ -113,97 +124,102 @@ export const antibiotics = [
   {
     id: 'genta', name: 'Gentamicina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 5, maxMgPerDay: 300, interval: 1, via: 'EV/IM (24/24h)' },
+      { label: 'Padrão (Dose única diária)', mgPerKgPerDay: 7.5, maxMgPerDay: 300, interval: 1, via: 'EV/IM (24/24h)' },
+      { label: 'Choque / ITU grave / Fibrose Cística', mgPerKgPerDay: 10, maxMgPerDay: 400, interval: 1, via: 'EV/IM (24/24h)' },
       { label: 'Neonatal', mgPerKgPerDay: 4, maxMgPerDay: 200, interval: 1, via: 'EV/IM (24–48h)' },
     ],
     presentations: [
       { label: 'Ampola 40 mg/mL', mgPerMl: 40 },
       { label: 'Ampola 10 mg/mL', mgPerMl: 10 },
     ],
-    indications: ['Infecções gram-negativas graves', 'Sepse', 'Meningite por gram-negativos'],
-    notes: ['Monitorar função renal', 'Ototóxico – monitorar audição', 'Incompatível com ampicilina na mesma seringa'],
+    indications: ['ITU hospitalar', 'Infecções gram-negativas graves', 'Sepse', 'Meningite neonatal (associada)'],
+    notes: ['Dose padrão recomendada em tomada única a cada 24h (5 a 7,5 mg/kg/dia)', 'Monitorar função renal e nível sérico', 'Incompatível com ampicilina na mesma seringa'],
   },
   {
     id: 'amica', name: 'Amicacina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: 15, maxMgPerDay: 1500, interval: 1, via: 'EV/IM (24/24h)' },
+      { label: 'Padrão (Dose única diária)', mgPerKgPerDay: 15, maxMgPerDay: 1500, interval: 1, via: 'EV/IM (24/24h)' },
+      { label: 'Dose alta (Choque / Pulmonar / FC)', mgPerKgPerDay: 25, maxMgPerDay: 1500, interval: 1, via: 'EV/IM (24/24h)' },
     ],
     presentations: [
       { label: 'Ampola 250 mg/mL', mgPerMl: 250 },
     ],
-    indications: ['Infecções por gram-negativos resistentes', 'Sepse hospitalar', 'Pseudomonas'],
-    notes: ['Nefrotóxico e ototóxico', 'Dosar nível sérico quando possível'],
+    indications: ['Infecções por gram-negativos resistentes', 'Sepse hospitalar', 'ITU grave', 'Pseudomonas'],
+    notes: ['Dose única diária a cada 24h preferível', 'Nefrotóxico e ototóxico', 'Dose máxima: 1,5g/dia'],
   },
   {
     id: 'nitro', name: 'Nitrofurantoína', category: 'antibioticos',
     doses: [
-      { label: 'Terapêutica', mgPerKgPerDay: 5, maxMgPerDay: 400, interval: 4, via: 'VO (6/6h)' },
-      { label: 'Profilática', mgPerKgPerDay: 1, maxMgPerDay: 100, interval: 1, via: 'VO (noite)' },
+      { label: 'Terapêutica (Cistite)', mgPerKgPerDay: 5, maxMgPerDay: 400, interval: 4, via: 'VO (6/6h)' },
+      { label: 'Profilática', mgPerKgPerDay: 1.5, maxMgPerDay: 100, interval: 1, via: 'VO (noite)' },
     ],
     presentations: [
       { label: 'Cápsula 100 mg', mgPerMl: null, fixedMg: 100 },
     ],
-    indications: ['ITU baixo', 'Profilaxia de ITU recorrente'],
-    notes: ['Não usar em < 1 mês de vida', 'Tomar com alimentos', 'Urina pode ficar amarronzada'],
+    indications: ['ITU baixa (Cistite)', 'Profilaxia de ITU recorrente'],
+    notes: ['Não usar em < 1 mês de vida ou insuficiência renal', 'Tomar com alimentos', 'Urina pode ficar alaranjada/amarronzada'],
   },
   {
     id: 'sulfa', name: 'Sulfametoxazol + Trimetoprim', category: 'antibioticos',
     doses: [
-      { label: 'TMP (componente ativo)', mgPerKgPerDay: 8, maxMgPerDay: 320, interval: 2, via: 'VO (12/12h)' },
+      { label: 'ITU / Cistite (dose TMP)', mgPerKgPerDay: 5, maxMgPerDay: 320, interval: 2, via: 'VO (12/12h)' },
+      { label: 'Pele / CA-MRSA / Impetigo (dose TMP)', mgPerKgPerDay: 10, maxMgPerDay: 320, interval: 2, via: 'VO (12/12h), 5–7 dias' },
+      { label: 'PCP / Infecção Grave (dose TMP)', mgPerKgPerDay: 15, maxMgPerDay: 1280, interval: 4, via: 'VO/EV (6/6h)' },
     ],
     presentations: [
-      { label: 'Suspensão 200/40 mg/5 mL (SMX/TMP)', mgPerMl: 8 }, // 8mg TMP/5mL = 1,6 mg TMP/mL
+      { label: 'Suspensão 200/40 mg/5 mL (SMX/TMP)', mgPerMl: 8 }, // 8mg TMP/mL
     ],
-    indications: ['Infecção urinária', 'Pneumocistose (PCP)', 'Shiguelose', 'Otite média'],
-    notes: ['Suspensão: TMP 8 mg/mL + SMX 40 mg/mL', 'Hidratação adequada', 'Contraindicado em < 2 meses'],
+    indications: ['Infecção urinária', 'Impetigo / Pele com suspeita CA-MRSA', 'Pneumocistose (PCP)', 'Shiguelose'],
+    notes: ['Suspensão: TMP 8 mg/mL + SMX 40 mg/mL (calcular sempre pela Trimetoprima/TMP)', 'Hidratação adequada', 'Contraindicado em < 2 meses'],
   },
   {
     id: 'penp', name: 'Penicilina G Potássica', category: 'antibioticos',
     doses: [
-      { label: 'Padrão (25.000 UI/kg/dose × 6)', mgPerKgPerDay: null, fixedNote: 'Dose: 25.000–50.000 UI/kg/dose, 4/4h ou 6/6h, EV', interval: null, via: 'EV' },
+      { label: 'Padrão (100.000–200.000 UI/kg/dia)', mgPerKgPerDay: null, fixedNote: '100.000–200.000 UI/kg/dia EV c/ 6h', interval: null, via: 'EV' },
+      { label: 'Dose alta / Meningite (300.000–400.000 UI/kg/dia)', mgPerKgPerDay: null, fixedNote: '300.000–400.000 UI/kg/dia EV c/ 4–6h', interval: null, via: 'EV' },
     ],
     presentations: [
       { label: 'Frasco 500.000 UI', mgPerMl: null },
       { label: 'Frasco 1.000.000 UI', mgPerMl: null },
     ],
     indications: ['Infecções estreptocócicas', 'Sífilis congênita', 'Meningite bacteriana', 'Endocardite'],
-    notes: ['Unidade em UI (não mg)', 'Monitorar função renal', 'Diluir em SF 0,9% ou SG 5%'],
+    notes: ['Unidade em UI (não mg)', 'Dose máxima: 24 milhões UI/dia', 'Diluir em SF 0,9% ou SG 5%'],
   },
   {
     id: 'penc', name: 'Penicilina G Cristalina', category: 'antibioticos',
     doses: [
-      { label: 'Padrão', mgPerKgPerDay: null, fixedNote: 'Dose: 25.000–50.000 UI/kg/dose, 4/4h ou 6/6h, EV', interval: null, via: 'EV' },
+      { label: 'Padrão (100.000–200.000 UI/kg/dia)', mgPerKgPerDay: null, fixedNote: '100.000–200.000 UI/kg/dia EV c/ 6h', interval: null, via: 'EV' },
+      { label: 'Dose alta / Meningite (300.000–400.000 UI/kg/dia)', mgPerKgPerDay: null, fixedNote: '300.000–400.000 UI/kg/dia EV c/ 4h', interval: null, via: 'EV' },
     ],
     presentations: [
       { label: 'Frasco 1.000.000 UI', mgPerMl: null },
       { label: 'Frasco 5.000.000 UI', mgPerMl: null },
     ],
-    indications: ['Infecções estreptocócicas', 'Pneumonia bacteriana', 'Meningite bacteriana'],
-    notes: ['Dose em UI', 'Diluir antes de administrar'],
+    indications: ['Infecções estreptocócicas', 'Pneumonia bacteriana', 'Meningite bacteriana', 'Sífilis congênita'],
+    notes: ['Dose em UI', 'Dose máxima: 24 milhões UI/dia', 'Diluir antes de administrar'],
   },
   {
     id: 'peng', name: 'Penicilina G Benzatina', category: 'antibioticos',
     doses: [
-      { label: '< 30 kg', mgPerKgPerDay: null, fixedNote: '600.000 UI, IM, dose única', interval: null, via: 'IM' },
-      { label: '≥ 30 kg', mgPerKgPerDay: null, fixedNote: '1.200.000 UI, IM, dose única', interval: null, via: 'IM' },
+      { label: '< 27 kg', mgPerKgPerDay: null, fixedNote: '600.000 UI, IM, dose única', interval: null, via: 'IM' },
+      { label: '≥ 27 kg', mgPerKgPerDay: null, fixedNote: '1.200.000 UI, IM, dose única', interval: null, via: 'IM' },
     ],
     presentations: [
       { label: 'Frasco 600.000 UI', mgPerMl: null },
       { label: 'Frasco 1.200.000 UI', mgPerMl: null },
     ],
-    indications: ['Faringoamigdalite estreptocócica', 'Febre reumática (profilaxia)', 'Sífilis adquirida'],
-    notes: ['Aplicar profundamente IM', 'Agitar bem o frasco', 'Não administrar IV'],
+    indications: ['Faringoamigdalite estreptocócica (1ª escolha)', 'Febre reumática (profilaxia secundária)', 'Sífilis adquirida'],
+    notes: ['Aplicar profundamente IM em região glútea', 'Nunca administrar EV', 'Peso de corte oficial SBP/Nelson: 27 kg (600 mil UI se < 27 kg; 1,2 milhão UI se ≥ 27 kg)'],
   },
   {
     id: 'ceftri', name: 'Ceftriaxona', category: 'antibioticos',
     doses: [
-      { label: 'Dose usual (50–75 mg/kg/dia ÷ 1)', mgPerKgPerDay: 50, maxMgPerDay: 1000, interval: 1, via: 'EV ou IM (24/24h)' },
-      { label: 'Sepse/casos graves (100 mg/kg/dia ÷ 1–2)', mgPerKgPerDay: 100, maxMgPerDay: 4000, interval: 1, via: 'EV (24/24h)' },
-      { label: 'Meningite – manutenção (100 mg/kg/dia ÷ 1–2)', mgPerKgPerDay: 100, maxMgPerDay: 4000, interval: 2, via: 'EV (12/12h)' },
-      { label: 'Pneumonia/Epiglotite (50–100 mg/kg/dia ÷ 1–2)', mgPerKgPerDay: 75, maxMgPerDay: 4000, interval: 2, via: 'EV (12/12h)' },
-      { label: 'OMA – dose única (50 mg/kg)', mgPerKgPerDay: null, mgPerKgPerDose: 50, maxMgPerDose: 1000, interval: null, via: 'IM/EV, dose única' },
-      { label: 'D. de Lyme (50–75 mg/kg/dia ÷ 1)', mgPerKgPerDay: 75, maxMgPerDay: 2000, interval: 1, via: 'EV (24/24h), 2–4 semanas' },
-      { label: 'Endocardite (80–100 mg/kg/dia ÷ 1–2)', mgPerKgPerDay: 100, maxMgPerDay: 4000, interval: 2, via: 'EV (12/12h), 4–6 semanas' },
+      { label: 'Dose usual (50–75 mg/kg/dia ÷ 1)', mgPerKgPerDay: 50, maxMgPerDay: 2000, interval: 1, via: 'EV ou IM (24/24h)' },
+      { label: 'Sepse / Casos graves (100 mg/kg/dia)', mgPerKgPerDay: 100, maxMgPerDay: 4000, interval: 1, via: 'EV (24/24h)' },
+      { label: 'Meningite bacteriana (100 mg/kg/dia ÷ 1–2)', mgPerKgPerDay: 100, maxMgPerDay: 4000, interval: 2, via: 'EV (12/12h ou 24h)' },
+      { label: 'Pneumonia comunitária grave (50–100 mg/kg/dia)', mgPerKgPerDay: 75, maxMgPerDay: 4000, interval: 2, via: 'EV (12/12h)' },
+      { label: 'OMA – falha terapêutica (50 mg/kg)', mgPerKgPerDay: null, mgPerKgPerDose: 50, maxMgPerDose: 1000, interval: null, via: 'IM, dose única' },
+      { label: 'Mastoidite / Celulite Orbitária (50 mg/kg/dia + Clinda)', mgPerKgPerDay: 50, maxMgPerDay: 2000, interval: 1, via: 'EV (24/24h)' },
     ],
     presentations: [
       { label: 'Fr. Amp. IV 500 mg (Rocefin, Triaxon, Ceftriax)', mgPerMl: null, fixedMg: 500 },

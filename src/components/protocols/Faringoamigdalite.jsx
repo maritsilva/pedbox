@@ -126,30 +126,31 @@ export default function Faringoamigdalite() {
 
           {[
             {
-              label: '1ª Opção', color: 'bg-green-50 border-green-200 text-green-900',
+              label: '1ª Opção (1ª Escolha)', color: 'bg-green-50 border-green-200 text-green-900',
               items: [
-                'Penicilina G Benzatina IM: 600.000 UI (≤ 27 kg) ou 1.200.000 UI (> 27 kg) — dose única.',
-                'Amoxicilina VO: 50 mg/kg/dia 12/12h ou 1×/dia por 10 dias (máx 1 g/dia).',
+                'Penicilina G Benzatina IM: < 27 kg: 600.000 UI; ≥ 27 kg: 1.200.000 UI — dose única profunda (padrão-ouro em prevenção de febre reumática e adesão garantida).',
+                'Amoxicilina VO: 50–75 mg/kg/dia a cada 8h, 12h ou 24h por 10 dias completos. Quando administrada 1× ao dia (24h): dose de 50 mg/kg (máximo de 1.000 a 1.200 mg/dia).',
               ],
             },
             {
-              label: 'Alergia à penicilina SEM hipersensibilidade imediata', color: 'bg-yellow-50 border-yellow-200 text-yellow-900',
-              items: ['Cefalexina VO: 50 mg/kg/dia 12/12h ou 1×/dia por 10 dias (máx 500 mg/dose).'],
+              label: 'Alergia à penicilina SEM anafilaxia / não grave (cefalosporina de 1ª geração)', color: 'bg-yellow-50 border-yellow-200 text-yellow-900',
+              items: ['Cefalexina VO: 50–75 mg/kg/dia dividida a cada 8h ou 12/12h por 10 dias (máx 500 mg/dose, 2 g/dia).'],
             },
             {
-              label: 'Alergia à penicilina COM hipersensibilidade imediata', color: 'bg-red-50 border-red-200 text-red-900',
+              label: 'Alergia à penicilina COM hipersensibilidade imediata / grave (Macrolídeo ou Lincosamida)', color: 'bg-red-50 border-red-200 text-red-900',
               items: [
-                'Claritromicina VO: 15 mg/kg/dia 12/12h por 10 dias (máx 250 mg/dose).',
-                'Azitromicina VO: 12 mg/kg/dia 1×/dia por 5 dias (máx 500 mg/dose).',
-                'Clindamicina VO: 20 mg/kg/dia 8/8h por 10 dias (máx 300 mg/dose).',
+                'Azitromicina VO: 12 mg/kg/dia 1×/dia por 5 dias (máx 500 mg/dia) — 2ª escolha formal SBP/Nelson.',
+                'Claritromicina VO: 15 mg/kg/dia dividida de 12/12h por 10 dias (máx 250 mg/dose).',
+                'Clindamicina VO: 20–30 mg/kg/dia dividida de 8/8h por 10 dias (máx 300–450 mg/dose, 1,8 g/dia).',
               ],
             },
             {
-              label: 'Falha terapêutica com penicilina', color: 'bg-orange-50 border-orange-200 text-orange-900',
+              label: 'Falha terapêutica (co-patógenos produtores de β-lactamase ou não adesão)', color: 'bg-orange-50 border-orange-200 text-orange-900',
               items: [
-                'Penicilina G Benzatina IM dose única.',
-                'Amoxicilina + Clavulanato VO: 50 mg/kg/dia 12/12h por 10 dias (máx 875 mg amoxicilina/dose).',
-                'Azitromicina VO: 12 mg/kg/dia 1×/dia por 5 dias.',
+                'Nota microbiológica: Não há resistência do Streptococcus pyogenes à penicilina descrita na literatura.',
+                'Penicilina G Benzatina IM dose única (se suspeita de falha de adesão ao tratamento oral).',
+                'Amoxicilina + Clavulanato VO: 45–50 mg/kg/dia (amox) a cada 8h ou 12/12h por 10 dias (ação contra S. aureus, H. influenzae e M. catarrhalis produtores de β-lactamase copresentes).',
+                'Cefalosporina de 1ª ou 2ª geração: Cefalexina ou Cefuroxima axetil por 10 dias.',
               ],
             },
           ].map((block, i) => (
