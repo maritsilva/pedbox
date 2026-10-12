@@ -1,0 +1,16 @@
+# Robots.txt para o PedBox (https://pedbox.app)
+# Permite a indexação de todas as calculadoras, condutas e ferramentas clínicas públicas
+
+User-agent: *
+Allow: /
+
+# Bloquear rotas de autenticação, áreas administrativas e de configuração pessoal
+Disallow: /admin
+Disallow: /settings
+Disallow: /perfil
+Disallow: /favoritos
+Disallow: /login
+Disallow: /api/
+
+# Localização do Sitemap oficial
+Sitemap: https://pedbox.app/sitemap.xml

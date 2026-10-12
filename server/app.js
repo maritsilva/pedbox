@@ -3,6 +3,7 @@ import { installGrowth } from './growth.js';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { resolve } from 'node:path';
+import { existsSync } from 'node:fs';
 import { ZodError } from 'zod';
 import { installAuth } from './auth.js';
 import { installCollections } from './collections.js';
@@ -38,6 +39,14 @@ export function createApp({ db, config, integrations = {}, serveFrontend = false
   if (serveFrontend) {
     const dist = resolve('dist');
     app.use(express.static(dist, { setHeaders(res, path) { if (path.endsWith('.html') || path.endsWith('sw.js')) res.set('Cache-Control', 'no-cache'); } }));
+    app.get('/robots.txt', (_req, res) => {
+      const p = existsSync(resolve(dist, 'robots.txt')) ? resolve(dist, 'robots.txt') : resolve('public/robots.txt');
+      res.type('text/plain').sendFile(p);
+    });
+    app.get('/sitemap.xml', (_req, res) => {
+      const p = existsSync(resolve(dist, 'sitemap.xml')) ? resolve(dist, 'sitemap.xml') : resolve('public/sitemap.xml');
+      res.type('application/xml').sendFile(p);
+    });
     app.get('/{*path}', (req, res, next) => req.accepts('html') ? res.sendFile(resolve(dist, 'index.html')) : next());
   }
   app.use((error, _req, res, _next) => {
