@@ -4,7 +4,8 @@ import {
   Activity, Mail, MailCheck, Archive, Trash2, RefreshCw,
   Smartphone, Monitor, Tablet, CheckCircle2, Clock,
   Server, Database, Sparkles, ExternalLink, Search, ChevronRight,
-  BookOpen, Calculator, Stethoscope, ShieldCheck, Check, Info
+  BookOpen, Calculator, Stethoscope, ShieldCheck, Check, Info,
+  Globe, Save
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import {
@@ -109,19 +110,29 @@ export default function Admin() {
   // Health data
   const [health, setHealth] = useState(null);
 
+  // SEO & Google Platform Settings
+  const [googleSiteVerification, setGoogleSiteVerification] = useState('');
+  const [googleAnalyticsId, setGoogleAnalyticsId] = useState('');
+  const [savingSettings, setSavingSettings] = useState(false);
+
   // Load all admin data
   const loadData = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     try {
-      const [analyticsRes, contactsRes, healthRes] = await Promise.all([
+      const [analyticsRes, contactsRes, healthRes, settingsRes] = await Promise.all([
         services.admin.getAnalytics(analyticsDays).catch(() => null),
         services.admin.getContacts('all').catch(() => ({ items: [] })),
         services.admin.getHealth().catch(() => null),
+        services.admin.getSettings().catch(() => null),
       ]);
 
       if (analyticsRes) setAnalytics(analyticsRes);
       if (contactsRes?.items) setContacts(contactsRes.items);
       if (healthRes) setHealth(healthRes);
+      if (settingsRes) {
+        setGoogleSiteVerification(settingsRes.googleSiteVerification || '');
+        setGoogleAnalyticsId(settingsRes.googleAnalyticsId || '');
+      }
     } catch (err) {
       toast.error('Erro ao carregar dados administrativos: ' + (err.message || 'Falha de conexão'));
     } finally {
@@ -132,6 +143,22 @@ export default function Admin() {
       }
     }
   }, [analyticsDays]);
+
+  const handleSaveSeoSettings = async (e) => {
+    e?.preventDefault?.();
+    setSavingSettings(true);
+    try {
+      await services.admin.updateSettings({
+        googleSiteVerification,
+        googleAnalyticsId,
+      });
+      toast.success('Configurações do Google Search Console e Analytics salvas!');
+    } catch (err) {
+      toast.error('Erro ao salvar configurações: ' + (err.message || 'Falha de rede'));
+    } finally {
+      setSavingSettings(false);
+    }
+  };
 
   useEffect(() => {
     loadData(false);
@@ -351,6 +378,18 @@ export default function Admin() {
         >
           <Stethoscope className="w-4 h-4 text-primary" />
           Status Clínico & Sistema
+        </button>
+
+        <button
+          onClick={() => setTab('seo')}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            tab === 'seo'
+              ? 'bg-white text-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          <Globe className="w-4 h-4 text-primary" />
+          SEO & Google
         </button>
       </div>
 
@@ -907,6 +946,181 @@ export default function Admin() {
               </div>
             </div>
           </div>
+        </motion.div>
+      )}
+
+      {/* ─── TAB 4: SEO & Google Integrations ─── */}
+      {tab === 'seo' && (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+          <form onSubmit={handleSaveSeoSettings} className="space-y-6">
+            {/* Header info */}
+            <div className="bg-white border border-border rounded-2xl p-6 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                    <Globe className="w-5 h-5 text-primary" />
+                    Configurações de SEO & Google Integrations
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Conecte o PedBox ao Google Search Console e ao Google Analytics (GA4) para monitorar indexação e audiência sem alterar código.
+                  </p>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={savingSettings}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-sm active:scale-95 disabled:opacity-50 shrink-0"
+                >
+                  <Save className={`w-4 h-4 ${savingSettings ? 'animate-spin' : ''}`} />
+                  {savingSettings ? 'Salvando…' : 'Salvar Configurações'}
+                </button>
+              </div>
+            </div>
+
+            {/* Inputs Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Google Search Console */}
+              <div className="bg-white border border-border rounded-2xl p-6 shadow-sm space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs">
+                      GSC
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground">Google Search Console</h4>
+                      <p className="text-[11px] text-muted-foreground">Verificação de Propriedade do Domínio</p>
+                    </div>
+                  </div>
+
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    googleSiteVerification ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {googleSiteVerification ? 'Configurado' : 'Pendente'}
+                  </span>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-foreground block">
+                    Código de Verificação (Tag HTML)
+                  </label>
+                  <input
+                    type="text"
+                    value={googleSiteVerification}
+                    onChange={e => setGoogleSiteVerification(e.target.value)}
+                    placeholder="Cole aqui o código ou a tag <meta name='google-site-verification' content='...' />"
+                    className="w-full px-3.5 py-2.5 rounded-xl text-xs border border-border bg-secondary/20 focus:outline-none focus:ring-2 focus:ring-primary/20 font-mono"
+                  />
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    No Search Console, escolha <strong>Tag HTML</strong> como método de verificação e cole a tag ou código acima. O PedBox injeta dinamicamente no cabeçalho.
+                  </p>
+                </div>
+
+                <a
+                  href="https://search.google.com/search-console"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary font-bold hover:underline"
+                >
+                  Abrir Google Search Console <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Google Analytics 4 */}
+              <div className="bg-white border border-border rounded-2xl p-6 shadow-sm space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xs">
+                      GA4
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground">Google Analytics 4</h4>
+                      <p className="text-[11px] text-muted-foreground">Monitoramento de Tráfego e Engajamento</p>
+                    </div>
+                  </div>
+
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    googleAnalyticsId ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {googleAnalyticsId ? 'Ativo' : 'Inativo'}
+                  </span>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-foreground block">
+                    ID da Métrica (Measurement ID)
+                  </label>
+                  <input
+                    type="text"
+                    value={googleAnalyticsId}
+                    onChange={e => setGoogleAnalyticsId(e.target.value)}
+                    placeholder="Ex: G-XXXXXXXXXX"
+                    className="w-full px-3.5 py-2.5 rounded-xl text-xs border border-border bg-secondary/20 focus:outline-none focus:ring-2 focus:ring-primary/20 font-mono"
+                  />
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    Ao preencher o ID <strong>G-XXXXX</strong>, o script oficial gtag.js é inicializado assincronamente e registra as páginas visitadas pelos médicos.
+                  </p>
+                </div>
+
+                <a
+                  href="https://analytics.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary font-bold hover:underline"
+                >
+                  Abrir Google Analytics <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Sitemap & Diagnostics */}
+            <div className="bg-white border border-border rounded-2xl p-6 shadow-sm space-y-4">
+              <h4 className="text-sm font-bold text-foreground flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                Arquivos de Indexação Ativos
+              </h4>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <a
+                  href="https://pedbox.app/sitemap.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-xl bg-secondary/30 border border-border hover:bg-secondary/60 transition-all flex items-center justify-between"
+                >
+                  <div>
+                    <p className="text-xs font-bold text-foreground font-mono">sitemap.xml</p>
+                    <p className="text-[11px] text-muted-foreground">34 URLs clínicas indexadas</p>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-primary" />
+                </a>
+
+                <a
+                  href="https://pedbox.app/robots.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-xl bg-secondary/30 border border-border hover:bg-secondary/60 transition-all flex items-center justify-between"
+                >
+                  <div>
+                    <p className="text-xs font-bold text-foreground font-mono">robots.txt</p>
+                    <p className="text-[11px] text-muted-foreground">Diretrizes para o Googlebot</p>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-primary" />
+                </a>
+
+                <a
+                  href="https://search.google.com/test/rich-results?url=https%3A%2F%2Fpedbox.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-xl bg-secondary/30 border border-border hover:bg-secondary/60 transition-all flex items-center justify-between"
+                >
+                  <div>
+                    <p className="text-xs font-bold text-foreground">Resultados Avançados</p>
+                    <p className="text-[11px] text-muted-foreground">Validador de Schema do Google</p>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-primary" />
+                </a>
+              </div>
+            </div>
+          </form>
         </motion.div>
       )}
     </div>

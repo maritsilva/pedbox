@@ -64,6 +64,11 @@ export const services = {
     updateContact: (id, body) => request('/admin/contacts/' + encodeURIComponent(id), { method: 'PATCH', body }),
     deleteContact: (id) => request('/admin/contacts/' + encodeURIComponent(id), { method: 'DELETE' }),
     getHealth: () => request('/admin/health'),
+    getSettings: () => request('/admin/settings'),
+    updateSettings: (body) => request('/admin/settings', { method: 'PATCH', body }),
+  },
+  publicSeo: {
+    getSettings: () => request('/public/seo-settings'),
   },
   analytics: {
     hit: (path, category = 'geral', device = 'desktop') => request('/analytics/hit', { method: 'POST', body: { path, category, device } }),

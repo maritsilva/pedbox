@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SEO_PAGES, BASE_URL, DEFAULT_OG_IMAGE, generateSchemaLD } from '@/lib/seoConfig';
+import { services } from '@/api/services';
 
 function updateMetaTag(nameOrProperty, key, value) {
   let element = document.querySelector(`meta[${key}="${nameOrProperty}"]`);
@@ -33,9 +34,49 @@ function updateJsonLd(schemaData) {
   script.textContent = JSON.stringify(schemaData);
 }
 
+function setGoogleSiteVerification(code) {
+  if (!code) return;
+  let cleaned = code.trim();
+  const match = cleaned.match(/content=["']([^"']+)["']/i);
+  if (match) cleaned = match[1];
+  updateMetaTag('google-site-verification', 'name', cleaned);
+}
+
+function loadGoogleAnalytics(measurementId) {
+  if (!measurementId || document.getElementById('pedbox-ga4-script')) return;
+  const script = document.createElement('script');
+  script.id = 'pedbox-ga4-script';
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', measurementId);
+}
+
 export default function SEOHead() {
   const location = useLocation();
+  const gaIdRef = useRef('');
 
+  // Fetch and apply dynamic platform SEO settings (Google Search Console & GA4)
+  useEffect(() => {
+    services.publicSeo.getSettings()
+      .then(settings => {
+        if (settings?.googleSiteVerification) {
+          setGoogleSiteVerification(settings.googleSiteVerification);
+        }
+        if (settings?.googleAnalyticsId) {
+          gaIdRef.current = settings.googleAnalyticsId;
+          loadGoogleAnalytics(settings.googleAnalyticsId);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Update route SEO metadata on every page navigation
   useEffect(() => {
     const path = location.pathname;
     const isPrivate = ['/admin', '/settings', '/perfil', '/favoritos', '/login'].some(p => path.startsWith(p));
@@ -83,6 +124,16 @@ export default function SEOHead() {
       updateJsonLd(schema);
     } catch (_err) {
       // Ignore JSON-LD generation errors
+    }
+
+    // 7. Track GA4 page view if configured
+    if (typeof window.gtag === 'function' && gaIdRef.current) {
+      try {
+        window.gtag('event', 'page_view', {
+          page_path: path,
+          page_title: page.title,
+        });
+      } catch (_e) {}
     }
   }, [location.pathname]);
 

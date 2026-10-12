@@ -198,4 +198,55 @@ export function installAdmin(app, db, config) {
       },
     });
   });
+
+  // Public SEO Settings (for Google Search Console tag and GA4 script loading)
+  app.get('/api/v1/public/seo-settings', async (_req, res) => {
+    try {
+      const { rows } = await db.query(
+        "SELECT key, value FROM platform_settings WHERE key IN ('google_site_verification', 'google_analytics_id')"
+      );
+      const settings = {};
+      rows.forEach(r => { settings[r.key] = r.value; });
+      res.json({
+        googleSiteVerification: settings.google_site_verification || '',
+        googleAnalyticsId: settings.google_analytics_id || '',
+      });
+    } catch (_err) {
+      res.json({ googleSiteVerification: '', googleAnalyticsId: '' });
+    }
+  });
+
+  // Admin Platform Settings (Google Search Console & Google Analytics)
+  app.get('/api/v1/admin/settings', requireAdmin, async (_req, res) => {
+    const { rows } = await db.query('SELECT key, value FROM platform_settings');
+    const settings = {};
+    rows.forEach(r => { settings[r.key] = r.value; });
+    res.json({
+      googleSiteVerification: settings.google_site_verification || '',
+      googleAnalyticsId: settings.google_analytics_id || '',
+    });
+  });
+
+  app.patch('/api/v1/admin/settings', requireAdmin, async (req, res) => {
+    const body = z.object({
+      googleSiteVerification: z.string().trim().max(500).optional(),
+      googleAnalyticsId: z.string().trim().max(100).optional(),
+    }).strict().parse(req.body);
+
+    if (body.googleSiteVerification !== undefined) {
+      await db.query(
+        `INSERT INTO platform_settings(key, value, updated_date) VALUES('google_site_verification', $1, now())
+         ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_date = now()`,
+        [body.googleSiteVerification]
+      );
+    }
+    if (body.googleAnalyticsId !== undefined) {
+      await db.query(
+        `INSERT INTO platform_settings(key, value, updated_date) VALUES('google_analytics_id', $1, now())
+         ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_date = now()`,
+        [body.googleAnalyticsId]
+      );
+    }
+    res.json({ ok: true });
+  });
 }
