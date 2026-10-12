@@ -44,12 +44,20 @@ export function installIntegrations(app, db, config, overrides = {}) {
     const toEmail = config.contactTo || 'marina@pedbox.app';
     const fromEmail = config.mailFrom || 'PedBox <marina@pedbox.app>';
 
-    // Archive message in database for marina@pedbox.app
+    // Archive message in database
+    const msgId = 'msg_' + randomUUID().replace(/-/g, '').slice(0, 16);
+    try {
+      await db.query(
+        `INSERT INTO contact_submissions(id, name, email, institution, reason, message, status, created_date, updated_date)
+         VALUES($1, $2, $3, $4, $5, $6, 'unread', now(), now())`,
+        [msgId, data.name, data.email, data.institution, data.reason, data.message]
+      );
+    } catch (_e) {}
     try {
       await db.query(`INSERT INTO notes(id, user_id, data, created_date, updated_date)
-        SELECT 'msg_' || md5(random()::text || clock_timestamp()::text), id, $1::jsonb, now(), now()
+        SELECT $1, id, $2::jsonb, now(), now()
         FROM users WHERE email = 'marina@pedbox.app' LIMIT 1`,
-        [JSON.stringify({ ...data, type: 'contact_message', target: toEmail, received_at: new Date().toISOString() })]
+        [msgId, JSON.stringify({ ...data, type: 'contact_message', status: 'unread', target: toEmail, received_at: new Date().toISOString() })]
       );
     } catch (_e) {
       // ignore archive failure

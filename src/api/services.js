@@ -58,6 +58,16 @@ export const services = {
   notes: collection('/notes'), categories: collection('/categories'), contents: collection('/contents'), libraryLinks: collection('/library-links'), userLinks: collection('/user-links'),
   uploads: { create: ({ file }) => { const body = new FormData(); body.append('file', file); return request('/uploads', { method: 'POST', body }); } },
   contact: { send: body => request('/contact', { method: 'POST', body }) },
+  admin: {
+    getAnalytics: (days = 30) => request('/admin/analytics?days=' + encodeURIComponent(days)),
+    getContacts: (status = 'all') => request('/admin/contacts?status=' + encodeURIComponent(status)),
+    updateContact: (id, body) => request('/admin/contacts/' + encodeURIComponent(id), { method: 'PATCH', body }),
+    deleteContact: (id) => request('/admin/contacts/' + encodeURIComponent(id), { method: 'DELETE' }),
+    getHealth: () => request('/admin/health'),
+  },
+  analytics: {
+    hit: (path, category = 'geral', device = 'desktop') => request('/analytics/hit', { method: 'POST', body: { path, category, device } }),
+  },
   research: {
     status: () => request('/research/status'), list: () => request('/conversations'),
     create: () => request('/conversations', { method: 'POST' }),

@@ -8,6 +8,7 @@ import { installAuth } from './auth.js';
 import { installCollections } from './collections.js';
 import { installIntegrations, rateLimit } from './integrations.js';
 import { installResearch } from './research.js';
+import { installAdmin } from './admin.js';
 
 export function createApp({ db, config, integrations = {}, serveFrontend = false }) {
   const app = express();
@@ -30,6 +31,7 @@ export function createApp({ db, config, integrations = {}, serveFrontend = false
   installIntegrations(app, db, config, integrations);
   installResearch(app, db, config, integrations);
   installGrowth(app, db, config, integrations);
+  installAdmin(app, db, config);
   app.use('/api', (_req, res) => res.status(404).json({ error: 'Endpoint não encontrado.' }));
   app.use('/uploads', express.static(config.uploadDirectory, { dotfiles: 'deny', immutable: true, maxAge: '1y',
     setHeaders(res) { res.set('Content-Security-Policy', "default-src 'none'; sandbox"); } }));

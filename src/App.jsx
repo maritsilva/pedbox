@@ -12,6 +12,7 @@ import { DosagemFavoritesProvider } from '@/hooks/useDosagemFavorites.jsx';
 import { PageFavoritesProvider } from '@/hooks/usePageFavorites.jsx';
 import PageNotFound from './lib/PageNotFound';
 import Layout from './components/Layout';
+import AnalyticsTracker from './components/AnalyticsTracker';
 // Add page imports here
 const Ictericia = lazy(() => import('./pages/Ictericia'));
 const HorasDeVida = lazy(() => import('./pages/HorasDeVida'));
@@ -73,6 +74,7 @@ function App() {
       <DosagemFavoritesProvider>
       <PageFavoritesProvider>
       <Router>
+        <AnalyticsTracker />
         <Suspense fallback={<div className="clinical-page" role="status">Carregando página…</div>}>
         <Routes>
           <Route path="/login" element={<Login />} />
