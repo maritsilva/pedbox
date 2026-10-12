@@ -5,6 +5,7 @@ import { getCipeConteudo } from './condutasCirurgiaPediatricaData.js';
 import { getUrgenciaConteudo } from './condutasUrgenciaEmergenciaData.js';
 import { getPuericulturaConteudo } from './condutasPuericulturaData.js';
 import { getRespiratorioConteudo } from './condutasRespiratoriasData.js';
+import { getHematologiaConteudo } from './condutasHematologiaData.js';
 
 export const CONDUTAS_CATEGORIAS = [
   {
@@ -412,39 +413,34 @@ export const CONDUTAS_CATEGORIAS = [
         id: 'anemias',
         label: 'Anemias e Carências',
         topicos: [
-          { id: 'anemia-falciforme', label: 'Anemia Falciforme', conteudo: '' },
-          { id: 'anemia-ferropriva', label: 'Anemia Ferropriva', conteudo: '' },
-          { id: 'anemia-hemolitica-autoimune', label: 'Anemia Hemolítica Autoimune', conteudo: '' },
-          { id: 'anemia-megaloblastica-deficiencia-b12-e-b9-folato', label: 'Anemia Megaloblástica (Deficiência B12 e B9/Folato)', conteudo: '' },
-          { id: 'anemias-carenciais', label: 'Anemias Carenciais', conteudo: '' },
-          { id: 'anemia-transitoria-da-infancia', label: 'Anemia Transitória da Infância', conteudo: '' },
-          { id: 'crises-falcemicas', label: 'Crises Falcêmicas', conteudo: '' },
-          { id: 'deficiencia-de-g6pd', label: 'Deficiência de G6PD', conteudo: '' },
+          { id: 'anemia-falciforme', label: 'Anemia Falciforme', conteudo: getHematologiaConteudo('anemia-falciforme') },
+          { id: 'anemia-ferropriva', label: 'Anemia Ferropriva', conteudo: getHematologiaConteudo('anemia-ferropriva') },
+          { id: 'anemia-hemolitica-autoimune', label: 'Anemia Hemolítica Autoimune', conteudo: getHematologiaConteudo('anemia-hemolitica-autoimune') },
+          { id: 'anemia-megaloblastica-deficiencia-b12-e-b9-folato', label: 'Anemia Megaloblástica (Deficiência B12 e B9/Folato)', conteudo: getHematologiaConteudo('anemia-megaloblastica-deficiencia-b12-e-b9-folato') },
+          { id: 'anemias-carenciais', label: 'Anemias Carenciais', conteudo: getHematologiaConteudo('anemias-carenciais') },
+          { id: 'anemia-transitoria-da-infancia', label: 'Anemia Transitória da Infância', conteudo: getHematologiaConteudo('anemia-transitoria-da-infancia') },
+          { id: 'crises-falcemicas', label: 'Crises Falcêmicas', conteudo: getHematologiaConteudo('crises-falcemicas') },
+          { id: 'deficiencia-de-g6pd', label: 'Deficiência de G6PD', conteudo: getHematologiaConteudo('deficiencia-de-g6pd') },
         ],
       },
       {
         id: 'coagulacao',
         label: 'Coagulação',
         topicos: [
-          { id: 'anticoagulacao-pediatrica', label: 'Anticoagulação Pediátrica', conteudo: '' },
-          { id: 'deficiencia-do-fator-vii', label: 'Deficiência do Fator VII', conteudo: '' },
-          { id: 'deficiencia-do-fator-xiii', label: 'Deficiência do Fator XIII', conteudo: '' },
-          { id: 'doenca-de-von-willebrand', label: 'Doença de von Willebrand', conteudo: '' },
-          { id: 'purpura-trombocitopenica-imune', label: 'Púrpura Trombocitopênica Imune', conteudo: '' },
-          { id: 'sindrome-antifosfolipide-pediatrica', label: 'Síndrome Antifosfolípide Pediátrica', conteudo: '' },
+          { id: 'anticoagulacao-pediatrica', label: 'Anticoagulação Pediátrica', conteudo: getHematologiaConteudo('anticoagulacao-pediatrica') },
+          { id: 'deficiencia-do-fator-vii', label: 'Deficiência do Fator VII', conteudo: getHematologiaConteudo('deficiencia-do-fator-vii') },
+          { id: 'deficiencia-do-fator-xiii', label: 'Deficiência do Fator XIII', conteudo: getHematologiaConteudo('deficiencia-do-fator-xiii') },
+          { id: 'doenca-de-von-willebrand', label: 'Doença de von Willebrand', conteudo: getHematologiaConteudo('doenca-de-von-willebrand') },
+          { id: 'purpura-trombocitopenica-imune', label: 'Púrpura Trombocitopênica Imune', conteudo: getHematologiaConteudo('purpura-trombocitopenica-imune') },
+          { id: 'sindrome-antifosfolipide-pediatrica', label: 'Síndrome Antifosfolípide Pediátrica', conteudo: getHematologiaConteudo('sindrome-antifosfolipide-pediatrica') },
         ],
-      },
-      {
-        id: 'onco-hemato-e-sindromes',
-        label: 'Onco-hemato e Síndromes',
-        topicos: [],
       },
       {
         id: 'suporte',
         label: 'Suporte',
         topicos: [
-          { id: 'hemotransfusao-pediatrica', label: 'Hemotransfusão Pediátrica', conteudo: '' },
-          { id: 'neutropenia-febril', label: 'Neutropenia Febril', conteudo: '' },
+          { id: 'hemotransfusao-pediatrica', label: 'Hemotransfusão Pediátrica', conteudo: getHematologiaConteudo('hemotransfusao-pediatrica') },
+          { id: 'neutropenia-febril', label: 'Neutropenia Febril', conteudo: getHematologiaConteudo('neutropenia-febril') },
         ],
       },
     ],

@@ -80,6 +80,9 @@ export default defineConfig({
           if (norm.includes('condutasRespiratoriasData')) {
             return 'data-condutas-respiratorio';
           }
+          if (norm.includes('condutasHematologiaData')) {
+            return 'data-condutas-hematologia';
+          }
           if (norm.includes('condutasData')) {
             return 'data-condutas-index';
           }
