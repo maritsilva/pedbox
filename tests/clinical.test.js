@@ -201,16 +201,39 @@ test('getBPCategory evaluates Stage 2 and Stage 1 prior to Elevated BP under AAP
  assert.equal(adolNormal.label, 'Normal');
 });
 
-test('condutasData exports complete clinical catalog with explicit ESM imports', async () => {
+test('condutasData exports complete clinical catalog with explicit ESM imports and stripped headers', async () => {
  const { CONDUTAS_CATEGORIAS } = await import('../src/lib/condutasData.js');
  assert.ok(Array.isArray(CONDUTAS_CATEGORIAS));
  const neo = CONDUTAS_CATEGORIAS.find(c => c.id === 'neonatal');
  const cipe = CONDUTAS_CATEGORIAS.find(c => c.id === 'cirurgia-pediatrica');
+ const urg = CONDUTAS_CATEGORIAS.find(c => c.id === 'urgencias-emergencias');
+ const puer = CONDUTAS_CATEGORIAS.find(c => c.id === 'puericultura');
  assert.ok(neo, 'Neonatal category must exist');
  assert.ok(cipe, 'Cirurgia Pediátrica category must exist');
+ assert.ok(urg, 'Urgências e Emergências category must exist');
+ assert.ok(puer, 'Puericultura category must exist');
+
  const totalNeo = neo.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
  const totalCipe = cipe.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalUrg = urg.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalPuer = puer.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+
  assert.equal(totalNeo, 29, 'Must have 29 Neonatologia topics');
  assert.equal(totalCipe, 30, 'Must have 30 Cirurgia Pediátrica topics');
+ assert.equal(totalUrg, 22, 'Must have 22 Urgência e Emergência topics');
+ assert.equal(totalPuer, 28, 'Must have 28 Puericultura topics');
+
+ // All 109 topics must have substantive markdown content and NO forbidden metadata header
+ const allTopics = [...neo.subcategorias, ...cipe.subcategorias, ...urg.subcategorias, ...puer.subcategorias]
+   .flatMap(sub => sub.topicos);
+
+ assert.equal(allTopics.length, 109, 'Total condutas topics across 4 areas must be 109');
+ for (const topico of allTopics) {
+   assert.ok(topico.conteudo && topico.conteudo.length > 200, `Topic ${topico.id} must have substantive content`);
+   assert.ok(!topico.conteudo.includes('Versão editorial:'), `Topic ${topico.id} must not include "Versão editorial:"`);
+   assert.ok(!topico.conteudo.includes('**Categoria:**'), `Topic ${topico.id} must not include "**Categoria:**"`);
+   assert.ok(!topico.conteudo.includes('**Área:**'), `Topic ${topico.id} must not include "**Área:**"`);
+ }
 });
+
 

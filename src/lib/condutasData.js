@@ -2,6 +2,8 @@
 // Estrutura espelhada do PedBook (pedb.com.br/condutas-e-manejos)
 import { getNeonatalConteudo } from './condutasNeonatologiaData.js';
 import { getCipeConteudo } from './condutasCirurgiaPediatricaData.js';
+import { getUrgenciaConteudo } from './condutasUrgenciaEmergenciaData.js';
+import { getPuericulturaConteudo } from './condutasPuericulturaData.js';
 
 export const CONDUTAS_CATEGORIAS = [
   {
@@ -174,72 +176,67 @@ export const CONDUTAS_CATEGORIAS = [
     color: 'red',
     subcategorias: [
       {
-        id: 'ambiental-e-trauma',
-        label: 'Ambiental e Trauma',
-        topicos: [],
-      },
-      {
         id: 'disturbios-hidroeletroliticos-e-acido-base',
         label: 'Distúrbios Hidroeletrolíticos e Ácido Base',
         topicos: [
-          { id: 'acidose-metabolica', label: 'Acidose Metabólica', conteudo: '' },
-          { id: 'alcalose-metabolica', label: 'Alcalose Metabólica', conteudo: '' },
+          { id: 'acidose-metabolica', label: 'Acidose Metabólica', conteudo: getUrgenciaConteudo('acidose-metabolica') },
+          { id: 'alcalose-metabolica', label: 'Alcalose Metabólica', conteudo: getUrgenciaConteudo('alcalose-metabolica') },
         ],
       },
       {
         id: 'emergencias-circulatorias-choque',
         label: 'Emergências Circulatórias (Choque)',
         topicos: [
-          { id: 'choque', label: 'Choque', conteudo: '' },
-          { id: 'choque-hipovolemico', label: 'Choque Hipovolêmico', conteudo: '' },
-          { id: 'choque-septico', label: 'Choque Séptico', conteudo: '' },
+          { id: 'choque', label: 'Choque', conteudo: getUrgenciaConteudo('choque') },
+          { id: 'choque-hipovolemico', label: 'Choque Hipovolêmico', conteudo: getUrgenciaConteudo('choque-hipovolemico') },
+          { id: 'choque-septico', label: 'Choque Séptico', conteudo: getUrgenciaConteudo('choque-septico') },
         ],
       },
       {
         id: 'emergencias-metabolicas',
         label: 'Emergências Metabólicas',
         topicos: [
-          { id: 'cetoacidose-diabetica', label: 'Cetoacidose Diabética (CAD)', conteudo: '' },
-          { id: 'coma-hipoglicemico', label: 'Coma Hipoglicêmico', conteudo: '' },
+          { id: 'cetoacidose-diabetica', label: 'Cetoacidose Diabética (CAD)', conteudo: getUrgenciaConteudo('cetoacidose-diabetica') },
+          { id: 'coma-hipoglicemico', label: 'Coma Hipoglicêmico', conteudo: getUrgenciaConteudo('coma-hipoglicemico') },
         ],
       },
       {
         id: 'emergencias-neurologicas',
         label: 'Emergências Neurológicas',
         topicos: [
-          { id: 'crises-epileticas', label: 'Crises Epiléticas', conteudo: '' },
-          { id: 'estado-de-mal-epileptico', label: 'Estado de Mal Epiléptico (EME)', conteudo: '' },
+          { id: 'crises-epileticas', label: 'Crises Epiléticas', conteudo: getUrgenciaConteudo('crises-epileticas') },
+          { id: 'estado-de-mal-epileptico', label: 'Estado de Mal Epiléptico (EME)', conteudo: getUrgenciaConteudo('estado-de-mal-epileptico') },
         ],
       },
       {
         id: 'emergencias-pediatricas-gerais',
         label: 'Emergências Pediátricas Gerais',
         topicos: [
-          { id: 'febre-sem-sinais-localizatorios-fssl', label: 'Febre sem Sinais Localizatórios (FSSL)', conteudo: '' },
-          { id: 'insuficiencia-repiratoria-aguda', label: 'Insuficiência Respiratória Aguda', conteudo: '' },
-          { id: 'intoxicacoes', label: 'Intoxicações', conteudo: '' },
-          { id: 'parada-cardiorrespiratoria', label: 'Parada Cardiorrespiratória (PCR)', conteudo: '' },
-          { id: 'queimaduras', label: 'Queimaduras', conteudo: '' },
-          { id: 'sindrome-da-morte-subita-do-lactente-smsl', label: 'Síndrome da Morte Súbita do Lactente (SMSL)', conteudo: '' },
-          { id: 'trauma', label: 'Trauma', conteudo: '' },
+          { id: 'febre-sem-sinais-localizatorios-fssl', label: 'Febre sem Sinais Localizatórios (FSSL)', conteudo: getUrgenciaConteudo('febre-sem-sinais-localizatorios-fssl') },
+          { id: 'insuficiencia-respiratoria-aguda', label: 'Insuficiência Respiratória Aguda', conteudo: getUrgenciaConteudo('insuficiencia-respiratoria-aguda') },
+          { id: 'intoxicacoes', label: 'Intoxicações', conteudo: getUrgenciaConteudo('intoxicacoes') },
+          { id: 'parada-cardiorrespiratoria', label: 'Parada Cardiorrespiratória (PCR)', conteudo: getUrgenciaConteudo('parada-cardiorrespiratoria') },
+          { id: 'queimaduras', label: 'Queimaduras', conteudo: getUrgenciaConteudo('queimaduras') },
+          { id: 'sindrome-da-morte-subita-do-lactente-smsl', label: 'Síndrome da Morte Súbita do Lactente (SMSL)', conteudo: getUrgenciaConteudo('sindrome-da-morte-subita-do-lactente-smsl') },
+          { id: 'trauma', label: 'Trauma', conteudo: getUrgenciaConteudo('trauma') },
         ],
       },
       {
         id: 'suporte-e-via-aerea',
         label: 'Suporte e Via Aérea',
         topicos: [
-          { id: 'analgesia-e-sedacao-em-pediatria', label: 'Analgesia e Sedação em Pediatria', conteudo: '' },
-          { id: 'parada-cardiorrespiratoria-e-reanimacao-cardiopulmonar', label: 'Parada Cardiorrespiratória e Reanimação Cardiopulmonar', conteudo: '' },
-          { id: 'suporte-basico-de-vida-pediatrico', label: 'Suporte Básico de Vida Pediátrico', conteudo: '' },
-          { id: 'via-aerea-avancada-em-pediatria', label: 'Via Aérea Avançada em Pediatria', conteudo: '' },
+          { id: 'analgesia-e-sedacao-em-pediatria', label: 'Analgesia e Sedação em Pediatria', conteudo: getUrgenciaConteudo('analgesia-e-sedacao-em-pediatria') },
+          { id: 'parada-cardiorrespiratoria-e-reanimacao-cardiopulmonar', label: 'Parada Cardiorrespiratória e Reanimação Cardiopulmonar', conteudo: getUrgenciaConteudo('parada-cardiorrespiratoria-e-reanimacao-cardiopulmonar') },
+          { id: 'suporte-basico-de-vida-pediatrico', label: 'Suporte Básico de Vida Pediátrico', conteudo: getUrgenciaConteudo('suporte-basico-de-vida-pediatrico') },
+          { id: 'via-aerea-avancada-em-pediatria', label: 'Via Aérea Avançada em Pediatria', conteudo: getUrgenciaConteudo('via-aerea-avancada-em-pediatria') },
         ],
       },
       {
         id: 'ventilacao',
         label: 'Ventilação',
         topicos: [
-          { id: 'ventilacao-mecanica-invasiva-na-crianca', label: 'Ventilação Mecânica Invasiva na Criança', conteudo: '' },
-          { id: 'ventilacao-mecanica-nao-invasiva-na-crianca', label: 'Ventilação Mecânica Não Invasiva na Criança', conteudo: '' },
+          { id: 'ventilacao-mecanica-invasiva-na-crianca', label: 'Ventilação Mecânica Invasiva na Criança', conteudo: getUrgenciaConteudo('ventilacao-mecanica-invasiva-na-crianca') },
+          { id: 'ventilacao-mecanica-nao-invasiva-na-crianca', label: 'Ventilação Mecânica Não Invasiva na Criança', conteudo: getUrgenciaConteudo('ventilacao-mecanica-nao-invasiva-na-crianca') },
         ],
       },
     ],
@@ -255,82 +252,82 @@ export const CONDUTAS_CATEGORIAS = [
         id: 'aleitamento-e-alimentacao',
         label: 'Aleitamento e Alimentação',
         topicos: [
-          { id: 'alimentacao-complementar', label: 'Alimentação Complementar', conteudo: '' },
-          { id: 'alimentacao-na-infancia', label: 'Alimentação na Infância', conteudo: '' },
-          { id: 'formulas-infantis', label: 'Fórmulas Infantis', conteudo: '' },
-          { id: 'suplementacao-de-vitaminas-e-ferro', label: 'Suplementação de Vitaminas e Ferro', conteudo: '' },
+          { id: 'alimentacao-complementar', label: 'Alimentação Complementar', conteudo: getPuericulturaConteudo('alimentacao-complementar') },
+          { id: 'alimentacao-na-infancia', label: 'Alimentação na Infância', conteudo: getPuericulturaConteudo('alimentacao-na-infancia') },
+          { id: 'formulas-infantis', label: 'Fórmulas Infantis', conteudo: getPuericulturaConteudo('formulas-infantis') },
+          { id: 'suplementacao-de-vitaminas-e-ferro', label: 'Suplementação de Vitaminas e Ferro', conteudo: getPuericulturaConteudo('suplementacao-de-vitaminas-e-ferro') },
         ],
       },
       {
         id: 'crescimento-e-desenvolvimento',
         label: 'Crescimento e Desenvolvimento',
         topicos: [
-          { id: 'atraso-constitucional-do-desenvolvimento', label: 'Atraso Constitucional do Desenvolvimento', conteudo: '' },
-          { id: 'avaliacao-do-crescimento', label: 'Avaliação do Crescimento', conteudo: '' },
+          { id: 'atraso-constitucional-do-desenvolvimento', label: 'Atraso Constitucional do Desenvolvimento', conteudo: getPuericulturaConteudo('atraso-constitucional-do-desenvolvimento') },
+          { id: 'avaliacao-do-crescimento', label: 'Avaliação do Crescimento', conteudo: getPuericulturaConteudo('avaliacao-do-crescimento') },
         ],
       },
       {
         id: 'cuidados-em-puericultura',
         label: 'Cuidados em Puericultura',
         topicos: [
-          { id: 'choro-no-lactente', label: 'Choro no Lactente', conteudo: '' },
-          { id: 'colica-no-lactente', label: 'Cólica no Lactente', conteudo: '' },
-          { id: 'cuidados-gerais-com-o-recem-nascido', label: 'Cuidados Gerais com o Recém-Nascido', conteudo: '' },
+          { id: 'choro-no-lactente', label: 'Choro no Lactente', conteudo: getPuericulturaConteudo('choro-no-lactente') },
+          { id: 'colica-no-lactente', label: 'Cólica no Lactente', conteudo: getPuericulturaConteudo('colica-no-lactente') },
+          { id: 'cuidados-gerais-com-o-recem-nascido', label: 'Cuidados Gerais com o Recém-Nascido', conteudo: getPuericulturaConteudo('cuidados-gerais-com-o-recem-nascido') },
         ],
       },
       {
         id: 'fichas-de-acompanhamento',
         label: 'Fichas de Acompanhamento',
         topicos: [
-          { id: 'ficha-inicial-para-acompanhamento', label: 'Ficha inicial para acompanhamento', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-15-dias-a-1-mes', label: 'Ficha de Acompanhamento — 15 dias a 1 mês', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-1-a-2-meses', label: 'Ficha de Acompanhamento — 1 a 2 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-2-a-4-meses', label: 'Ficha de Acompanhamento — 2 a 4 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-4-a-6-meses', label: 'Ficha de Acompanhamento — 4 a 6 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-6-a-9-meses', label: 'Ficha de Acompanhamento — 6 a 9 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-9-a-12-meses', label: 'Ficha de Acompanhamento — 9 a 12 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-12-a-18-meses', label: 'Ficha de Acompanhamento — 12 a 18 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-18-a-24-meses', label: 'Ficha de Acompanhamento — 18 a 24 meses', conteudo: '' },
-          { id: 'ficha-de-acompanhamento-2-a-5-anos', label: 'Ficha de Acompanhamento — 2 a 5 anos', conteudo: '' },
+          { id: 'ficha-inicial-para-acompanhamento', label: 'Ficha inicial para acompanhamento', conteudo: getPuericulturaConteudo('ficha-inicial-para-acompanhamento') },
+          { id: 'ficha-de-acompanhamento-15-dias-a-1-mes', label: 'Ficha de Acompanhamento — 15 dias a 1 mês', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-15-dias-a-1-mes') },
+          { id: 'ficha-de-acompanhamento-1-a-2-meses', label: 'Ficha de Acompanhamento — 1 a 2 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-1-a-2-meses') },
+          { id: 'ficha-de-acompanhamento-2-a-4-meses', label: 'Ficha de Acompanhamento — 2 a 4 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-2-a-4-meses') },
+          { id: 'ficha-de-acompanhamento-4-a-6-meses', label: 'Ficha de Acompanhamento — 4 a 6 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-4-a-6-meses') },
+          { id: 'ficha-de-acompanhamento-6-a-9-meses', label: 'Ficha de Acompanhamento — 6 a 9 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-6-a-9-meses') },
+          { id: 'ficha-de-acompanhamento-9-a-12-meses', label: 'Ficha de Acompanhamento — 9 a 12 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-9-a-12-meses') },
+          { id: 'ficha-de-acompanhamento-12-a-18-meses', label: 'Ficha de Acompanhamento — 12 a 18 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-12-a-18-meses') },
+          { id: 'ficha-de-acompanhamento-18-a-24-meses', label: 'Ficha de Acompanhamento — 18 a 24 meses', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-18-a-24-meses') },
+          { id: 'ficha-de-acompanhamento-2-a-5-anos', label: 'Ficha de Acompanhamento — 2 a 5 anos', conteudo: getPuericulturaConteudo('ficha-de-acompanhamento-2-a-5-anos') },
         ],
       },
       {
         id: 'prevencao-e-risco',
         label: 'Prevenção e Risco',
         topicos: [
-          { id: 'sindrome-da-morte-subita-infantil', label: 'Síndrome da Morte Súbita Infantil', conteudo: '' },
+          { id: 'sindrome-da-morte-subita-infantil', label: 'Síndrome da Morte Súbita Infantil', conteudo: getPuericulturaConteudo('sindrome-da-morte-subita-infantil') },
         ],
       },
       {
         id: 'saude-bucal',
         label: 'Saúde Bucal',
         topicos: [
-          { id: 'denticao-e-higiene-bucal', label: 'Dentição e Higiene Bucal', conteudo: '' },
+          { id: 'denticao-e-higiene-bucal', label: 'Dentição e Higiene Bucal', conteudo: getPuericulturaConteudo('denticao-e-higiene-bucal') },
         ],
       },
       {
         id: 'saude-escolar-e-comportamento',
         label: 'Saúde Escolar e Comportamento',
         topicos: [
-          { id: 'bullying-e-violencia-escolar', label: 'Bullying e Violência Escolar', conteudo: '' },
+          { id: 'bullying-e-violencia-escolar', label: 'Bullying e Violência Escolar', conteudo: getPuericulturaConteudo('bullying-e-violencia-escolar') },
         ],
       },
       {
         id: 'triagens-neonatais',
         label: 'Triagens Neonatais',
         topicos: [
-          { id: 'teste-da-linguinha', label: 'Teste da Linguinha', conteudo: '' },
-          { id: 'teste-da-orelhinha', label: 'Teste da Orelhinha', conteudo: '' },
-          { id: 'triagem-cardiologica-e-auditiva-no-neonato', label: 'Teste do Coraçãozinho', conteudo: '' },
-          { id: 'teste-do-olhinho', label: 'Teste do Olhinho', conteudo: '' },
-          { id: 'triagem-neonatal', label: 'Triagem Neonatal', conteudo: '' },
+          { id: 'teste-da-linguinha', label: 'Teste da Linguinha', conteudo: getPuericulturaConteudo('teste-da-linguinha') },
+          { id: 'teste-da-orelhinha', label: 'Teste da Orelhinha', conteudo: getPuericulturaConteudo('teste-da-orelhinha') },
+          { id: 'teste-do-coracaozinho', label: 'Teste do Coraçãozinho', conteudo: getPuericulturaConteudo('teste-do-coracaozinho') },
+          { id: 'teste-do-olhinho', label: 'Teste do Olhinho', conteudo: getPuericulturaConteudo('teste-do-olhinho') },
+          { id: 'triagem-neonatal', label: 'Triagem Neonatal', conteudo: getPuericulturaConteudo('triagem-neonatal') },
         ],
       },
       {
         id: 'vacinacao',
         label: 'Vacinação',
         topicos: [
-          { id: 'eventos-adversos-em-vacinacao', label: 'Eventos Adversos em Vacinação', conteudo: '' },
+          { id: 'eventos-adversos-em-vacinacao', label: 'Eventos Adversos em Vacinação', conteudo: getPuericulturaConteudo('eventos-adversos-em-vacinacao') },
         ],
       },
     ],

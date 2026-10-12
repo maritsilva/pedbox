@@ -71,6 +71,12 @@ export default defineConfig({
           if (norm.includes('condutasCirurgiaPediatricaData')) {
             return 'data-condutas-cirurgia';
           }
+          if (norm.includes('condutasUrgenciaEmergenciaData')) {
+            return 'data-condutas-urgencia';
+          }
+          if (norm.includes('condutasPuericulturaData')) {
+            return 'data-condutas-puericultura';
+          }
           if (norm.includes('condutasData')) {
             return 'data-condutas-index';
           }

@@ -236,15 +236,18 @@ export default function MarkdownRenderer({ content }) {
 
   const allComponents = {
     ...components,
-    img: ({ src, alt }) => (
-      <img
-        src={src}
-        alt={alt}
-        onClick={() => setLightbox({ src, alt })}
-        className="max-w-full rounded-xl my-3 shadow border border-border cursor-zoom-in hover:opacity-90 transition-opacity"
-        title="Clique para ver em tela cheia"
-      />
-    ),
+    img: ({ src, alt }) => {
+      const resolvedSrc = src && !src.startsWith('/') && !src.startsWith('http') ? `/${src}` : src;
+      return (
+        <img
+          src={resolvedSrc}
+          alt={alt}
+          onClick={() => setLightbox({ src: resolvedSrc, alt })}
+          className="max-w-full rounded-xl my-3 shadow border border-border cursor-zoom-in hover:opacity-90 transition-opacity"
+          title="Clique para ver em tela cheia"
+        />
+      );
+    },
   };
 
   return (

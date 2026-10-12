@@ -1,0 +1,146 @@
+[
+  {
+    "grupo": "Linhas padrão e parcialmente hidrolisadas no Brasil",
+    "linha": "Aptamil Premium 1; Premium 2 em etapa própria",
+    "composicao": "Proteínas lácteas intactas; lactose",
+    "componentes_adicionais": "GOS/FOS, DHA/ARA, colina; lista brasileira inclui óleos vegetais e fontes de minerais/vitaminas",
+    "leitura_clinica": "Padrão; não indicada para tratar APLV",
+    "fontes": "https://www.mundodanone.com.br/formula-infantil-aptamil-premium-1-1-2kg-0-6-meses/p",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Linhas padrão e parcialmente hidrolisadas no Brasil",
+    "linha": "Aptamil Profutura 1/2",
+    "composicao": "Proteína íntegra; composição por etapa",
+    "componentes_adicionais": "GOS/FOS, DHA/ARA e nucleotídeos no portfólio",
+    "leitura_clinica": "Diferenciar de Profutura Gold; não atribuir HMO a toda versão",
+    "fontes": "https://danonenutricia.com.br/produtos/details/aptamil",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Linhas padrão e parcialmente hidrolisadas no Brasil",
+    "linha": "Aptamil Profutura Gold 1/2",
+    "composicao": "Base láctea da linha; conferir etapa",
+    "componentes_adicionais": "Material técnico descreve HMO 2’-FL e prebióticos",
+    "leitura_clinica": "Componente adicional não demonstra superioridade clínica universal",
+    "fontes": "https://www.academiadanonenutricia.com.br/content/dam/sn/local/bra/academia/universo-apta/one-page-aptmail-aptanutri-farmaceuticos-laspghan.pdf",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Linhas padrão e parcialmente hidrolisadas no Brasil",
+    "linha": "NAN Comfor HMO 0–6 meses",
+    "composicao": "Proteínas lácteas; lactose",
+    "componentes_adicionais": "GOS/FOS, 2’-FL, DHA/ARA e nucleotídeos",
+    "leitura_clinica": "“Comfor” não significa fórmula terapêutica para toda cólica",
+    "fontes": "https://www.nestleparaespecialistas.com.br/produtos/nanr-comforr-hmo-0-6-meses",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Linhas padrão e parcialmente hidrolisadas no Brasil",
+    "linha": "NAN Supreme Pro 0–6; etapa 6–12 própria",
+    "composicao": "Soro parcialmente hidrolisado na apresentação 0–6 consultada; lactose",
+    "componentes_adicionais": "HMOs 2’-FL, LNT, 3’-SL e 6’-SL; DHA/ARA e nucleotídeos",
+    "leitura_clinica": "Hidrólise parcial não é tratamento de APLV",
+    "fontes": "https://www.nestleparaespecialistas.com.br/produtos/nanr-supreme-pro-de-0-6-meses",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Linhas padrão e parcialmente hidrolisadas no Brasil",
+    "linha": "Nestogeno, etapa 6–12 consultada",
+    "composicao": "Soro/leite desnatado; lactose no rótulo consultado",
+    "componentes_adicionais": "GOS/FOS, DHA/ARA; óleos vegetais",
+    "leitura_clinica": "Formulações antigas podem ter perfil diferente; conferir versão 0–6 separadamente",
+    "fontes": "https://www.nestleparaespecialistas.com.br/produtos/nestogenor-6-12-meses",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Aptamil SL; NAN SL",
+    "composicao": "Restrição de lactose; conferir fonte proteica no rótulo",
+    "componentes_adicionais": "",
+    "leitura_clinica": "Má absorção/intolerância selecionada, não APLV apenas pelo nome",
+    "fontes": "https://danonenutricia.com.br/produtos/details/aptamil ; https://www.nestle.com.br/marcas/formulas-infantis/nan",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Aptamil ProExpert Soja 1/2; NAN Science Pro Soja",
+    "composicao": "Fórmulas à base de soja, etapa por idade",
+    "componentes_adicionais": "",
+    "leitura_clinica": "Escolha específica, com avaliação de alergia e idade",
+    "fontes": "https://danonenutricia.com.br/produtos/details/aptamil ; https://www.nestle.com.br/marcas/formulas-infantis/nan",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Aptamil AR; Nestogeno Espessar",
+    "composicao": "Fórmulas espessadas; espessante/etapa dependem da apresentação",
+    "componentes_adicionais": "",
+    "leitura_clinica": "Regurgitação selecionada e tolerância; não adicionar espessante extra sem cálculo",
+    "fontes": "https://danonenutricia.com.br/produtos/details/aptamil ; https://www.nestleparaespecialistas.com.br/produtos/nestogenor-espessar",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Aptamil Pepti",
+    "composicao": "Proteína láctea extensamente hidrolisada; GOS/FOS, DHA/ARA e nucleotídeos no portfólio",
+    "componentes_adicionais": "",
+    "leitura_clinica": "APLV selecionada; verificar lactose da versão vigente",
+    "fontes": "https://danonenutricia.com.br/produtos/details/aptamil",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Pregomin Pepti",
+    "composicao": "Extensamente hidrolisada, restrição de lactose, DHA/ARA",
+    "componentes_adicionais": "",
+    "leitura_clinica": "APLV com contexto gastrointestinal/indicação individual",
+    "fontes": "https://www.mundodanone.com.br/infantil/formulas-infantis/aplv/c",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Pregomin Plus",
+    "composicao": "Soro extensamente hidrolisado, restrição de lactose; TCM, xarope de glicose/maltodextrina, DHA/ARA",
+    "componentes_adicionais": "",
+    "leitura_clinica": "1 kcal/mL declarada; não é equivalente volumétrico à normocalórica",
+    "fontes": "https://danonenutricia.com.br/produtos/details/pregomin",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Alfaré",
+    "composicao": "Soro extensamente hidrolisado; restrição de lactose; maltodextrina, TCM/amido, DHA/ARA; 2’-FL/LNnT na lista vigente",
+    "componentes_adicionais": "",
+    "leitura_clinica": "APLV/necessidade gastrointestinal conforme avaliação",
+    "fontes": "https://www.nestlehealthscience.com.br/marcas/alfare-400g/lata-400g",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Alfamino",
+    "composicao": "Aminoácidos livres, xarope de glicose, TCM/óleos; DHA/ARA, 2’-FL/LNnT",
+    "componentes_adicionais": "",
+    "leitura_clinica": "Dietoterapia com aminoácidos, não uso rotineiro em lactente saudável",
+    "fontes": "https://www.nestlehealthscience.com.br/marcas/alfamino/lata-400g",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Neocate LCP Upgrade",
+    "composicao": "Aminoácidos livres, xarope de glicose, TCM/óleos e fontes de DHA/ARA",
+    "componentes_adicionais": "",
+    "leitura_clinica": "APLV grave/indicação especializada; não confundir com Neo Spoon ou linhas Junior",
+    "fontes": "https://danonenutricia.com.br/produtos/details/neocate-lcp-upgrade-400g",
+    "data_conferencia": "2026-10-12"
+  },
+  {
+    "grupo": "Especialidades disponíveis em portfólios brasileiros",
+    "linha": "Pré NAN; Aptamil Pre/Pre Transition",
+    "composicao": "Fórmulas para prematuros ou transição, com perfil próprio",
+    "componentes_adicionais": "",
+    "leitura_clinica": "Avaliar crescimento, minerais, tolerância e fase de seguimento",
+    "fontes": "https://www.lojafamilynes.com.br/formula-inf-pre-nan-400gr ; https://danonenutricia.com.br/produtos/details/aptamil",
+    "data_conferencia": "2026-10-12"
+  }
+]
