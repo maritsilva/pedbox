@@ -19,7 +19,8 @@ import {
   Link as LinkIcon,
   HelpCircle,
   Eye,
-  FolderOpen
+  FolderOpen,
+  UploadCloud,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
@@ -335,8 +336,8 @@ export default function DocumentosTab({ externalSearch = '' }) {
               onClick={() => setShowAddModal(true)}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-brand-navy hover:bg-slate-100 shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="w-4 h-4 text-brand-teal" />
-              <span>Adicionar Documento</span>
+              <UploadCloud className="w-4 h-4 text-brand-teal" />
+              <span>Enviar Documento</span>
             </button>
 
             <button
@@ -552,9 +553,10 @@ export default function DocumentosTab({ externalSearch = '' }) {
           </p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 bg-brand-navy text-white text-xs font-bold rounded-xl hover:bg-opacity-90 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-navy text-white text-xs font-bold rounded-xl hover:bg-opacity-90 shadow-xs transition-all"
           >
-            Adicionar Documento
+            <UploadCloud className="w-4 h-4 text-teal-300" />
+            <span>Enviar Documento</span>
           </button>
         </div>
       ) : (
@@ -671,24 +673,24 @@ export default function DocumentosTab({ externalSearch = '' }) {
         </div>
       )}
 
-      {/* ── MODAL: ADICIONAR DOCUMENTO DO GOOGLE DRIVE ── */}
+      {/* ── MODAL: ENVIAR DOCUMENTO DO GOOGLE DRIVE ── */}
       {showAddModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn"
           onClick={() => setShowAddModal(false)}
         >
           <div
-            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 animate-scaleUp"
+            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 animate-scaleUp max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <span className="p-2 rounded-xl bg-teal-50 text-brand-teal">
-                  <FileText className="w-5 h-5" />
+                  <UploadCloud className="w-5 h-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-base text-slate-900">Adicionar Documento do Google Drive</h3>
-                  <p className="text-xs text-slate-500">Vincule um arquivo para visualização integrada no PedBox</p>
+                  <h3 className="font-bold text-base text-slate-900">Enviar Documento do Google Drive</h3>
+                  <p className="text-xs text-slate-500">Cadastre um arquivo com link do Drive para visualização integrada</p>
                 </div>
               </div>
               <button onClick={() => setShowAddModal(false)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
@@ -696,69 +698,80 @@ export default function DocumentosTab({ externalSearch = '' }) {
               </button>
             </div>
 
+            {/* Aviso de compartilhamento recomendado */}
+            <div className="bg-sky-50 border border-sky-200/90 rounded-2xl p-4 text-xs space-y-1.5 text-sky-950">
+              <div className="flex items-center gap-2 font-bold text-sky-900">
+                <HelpCircle className="w-4 h-4 text-sky-600 shrink-0" />
+                <span>Recomendação de Compartilhamento no Google Drive</span>
+              </div>
+              <p className="leading-relaxed text-sky-800">
+                É <strong>recomendado compartilhar apenas para quem tem o link</strong> no Google Drive (configuração: <em>"Qualquer pessoa com o link pode ler"</em>). Dessa forma, o visualizador integrado do PedBox renderizará o documento instantaneamente sem bloqueios ou solicitações de permissão.
+              </p>
+            </div>
+
             <form onSubmit={handleSaveNewDoc} className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Título do Documento *</label>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Nome do Documento *</label>
                 <input
                   type="text"
                   required
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="Ex: Diretriz de Sepse Pediátrica 2026"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all"
+                  placeholder="Ex: Protocolo de Bronquiolite Viral 2026"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all font-medium"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Link de Compartilhamento do Google Drive *</label>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Categoria do Documento *</label>
+                <select
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white"
+                >
+                  <option value="Diretrizes">Diretrizes & Manuais</option>
+                  <option value="Protocolos">Protocolos Clínicos</option>
+                  <option value="Rotinas">Rotinas & Plantão</option>
+                  <option value="Tabelas">Tabelas & Diluições</option>
+                  <option value="Impressos">Impressos & Modelos</option>
+                  <option value="Artigos">Artigos & Referências</option>
+                  <option value="Pastas">Pastas do Drive</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Link do Google Drive *</label>
                 <input
                   type="url"
                   required
                   value={newUrl}
                   onChange={(e) => setNewUrl(e.target.value)}
                   placeholder="https://drive.google.com/file/d/... ou docs.google.com/..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all font-mono"
                 />
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Suporta arquivos PDF, Google Docs, Planilhas (Sheets), Apresentações (Slides) e Pastas do Drive.
+                <p className="text-[11px] text-amber-800 bg-amber-50/90 border border-amber-200/80 rounded-xl p-2.5 mt-1.5 leading-relaxed">
+                  💡 <strong>Recomendação:</strong> No Google Drive, deixe o arquivo configurado como <strong>"Qualquer pessoa com o link"</strong> (recomendado compartilhar apenas para quem tem o link). Suporta PDF, Google Docs, Planilhas, Slides e Pastas.
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Categoria</label>
-                  <select
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-teal"
-                  >
-                    <option value="Diretrizes">Diretrizes & Manuais</option>
-                    <option value="Rotinas">Rotinas & Plantão</option>
-                    <option value="Tabelas">Tabelas & Diluições</option>
-                    <option value="Impressos">Impressos & Modelos</option>
-                    <option value="Pastas">Pastas do Drive</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Fonte / Instituição</label>
-                  <input
-                    type="text"
-                    value={newSource}
-                    onChange={(e) => setNewSource(e.target.value)}
-                    placeholder="Ex: SBP, HU, MS"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800"
-                  />
-                </div>
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Fonte / Instituição (Opcional)</label>
+                <input
+                  type="text"
+                  value={newSource}
+                  onChange={(e) => setNewSource(e.target.value)}
+                  placeholder="Ex: SBP, Hospital Infantil, Residência Médica"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800"
+                />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Descrição Breve (Opcional)</label>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Descrição do Documento (Opcional)</label>
                 <textarea
                   rows={2}
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
-                  placeholder="Resumo dos tópicos abordados no arquivo..."
+                  placeholder="Resumo dos tópicos, indicações clínicas ou versão..."
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal"
                 />
               </div>
@@ -767,15 +780,16 @@ export default function DocumentosTab({ externalSearch = '' }) {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors"
+                  className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors cursor-pointer"
                 >
-                  Salvar Documento
+                  <UploadCloud className="w-4 h-4 text-teal-300" />
+                  <span>Enviar Documento</span>
                 </button>
               </div>
             </form>
@@ -809,6 +823,13 @@ export default function DocumentosTab({ externalSearch = '' }) {
               Cole o link de compartilhamento da pasta no Google Drive. Ele será salvo permanentemente nas <strong>configurações da sua conta de usuário</strong> e todos os arquivos e protocolos da pasta serão exibidos no visualizador integrado para fácil acesso.
             </p>
 
+            <div className="bg-purple-50/80 border border-purple-200/90 rounded-2xl p-3.5 text-xs text-purple-950 flex items-start gap-2.5">
+              <HelpCircle className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+              <p className="leading-relaxed">
+                <strong>Recomendação:</strong> No Google Drive, deixe a pasta configurada como <strong>"Qualquer pessoa com o link"</strong> (recomendado compartilhar apenas para quem tem o link), permitindo que todos os arquivos da pasta sejam navegáveis no visualizador.
+              </p>
+            </div>
+
             <form onSubmit={handleSaveTeamFolder} className="space-y-4">
               <div>
                 <label className="text-xs font-bold text-slate-700 block mb-1">Link da Pasta do Google Drive *</label>
@@ -826,13 +847,13 @@ export default function DocumentosTab({ externalSearch = '' }) {
                 <button
                   type="button"
                   onClick={() => setShowFolderModal(false)}
-                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors"
+                  className="px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors cursor-pointer"
                 >
                   Salvar nas Configurações
                 </button>

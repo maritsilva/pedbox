@@ -63,9 +63,11 @@ export function detectGoogleDriveType(url) {
 export const CATEGORIAS_DOCUMENTOS = [
   { id: 'Todas', label: 'Todos os Documentos' },
   { id: 'Diretrizes', label: 'Diretrizes & Manuais' },
+  { id: 'Protocolos', label: 'Protocolos Clínicos' },
   { id: 'Rotinas', label: 'Rotinas & Plantão' },
   { id: 'Tabelas', label: 'Tabelas & Diluições' },
   { id: 'Impressos', label: 'Impressos & Modelos' },
+  { id: 'Artigos', label: 'Artigos & Referências' },
   { id: 'Pastas', label: 'Pastas do Drive' },
 ];
 
