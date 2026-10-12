@@ -1,6 +1,7 @@
 // DADOS DE CONDUTAS E MANEJOS PEDIÁTRICOS
 // Estrutura espelhada do PedBook (pedb.com.br/condutas-e-manejos)
 import { getNeonatalConteudo } from './condutasNeonatologiaData';
+import { getCipeConteudo } from './condutasCirurgiaPediatricaData';
 
 export const CONDUTAS_CATEGORIAS = [
   {
@@ -83,84 +84,84 @@ export const CONDUTAS_CATEGORIAS = [
         id: 'atresias-e-esofago',
         label: 'Atresias e Esôfago',
         topicos: [
-          { id: 'atresia-duodenal', label: 'Atresia Duodenal', conteudo: '' },
-          { id: 'atresia-esofagica', label: 'Atresia Esofágica', conteudo: '' },
+          { id: 'atresia-duodenal', label: 'Atresia Duodenal', conteudo: getCipeConteudo('atresia-duodenal') },
+          { id: 'atresia-esofagica', label: 'Atresia Esofágica', conteudo: getCipeConteudo('atresia-esofagica') },
         ],
       },
       {
         id: 'avaliacao-e-perioperatorio',
         label: 'Avaliação e Perioperatório',
         topicos: [
-          { id: 'avaliacao-pre-operatoria-pediatrica', label: 'Avaliação Pré-operatória Pediátrica', conteudo: '' },
-          { id: 'suporte-nutricional-no-paciente-cirurgico-infantil', label: 'Suporte Nutricional no Paciente Cirúrgico Infantil', conteudo: '' },
+          { id: 'avaliacao-pre-operatoria-pediatrica', label: 'Avaliação Pré-operatória Pediátrica', conteudo: getCipeConteudo('avaliacao-pre-operatoria-pediatrica') },
+          { id: 'suporte-nutricional-no-paciente-cirurgico-infantil', label: 'Suporte Nutricional no Paciente Cirúrgico Infantil', conteudo: getCipeConteudo('suporte-nutricional-no-paciente-cirurgico-infantil') },
         ],
       },
       {
         id: 'cabeca-e-pescoco',
         label: 'Cabeça e Pescoço',
         topicos: [
-          { id: 'fenda-labial-e-fenda-palatina', label: 'Fenda Labial e Fenda Palatina', conteudo: '' },
+          { id: 'fenda-labial-e-fenda-palatina', label: 'Fenda Labial e Fenda Palatina', conteudo: getCipeConteudo('fenda-labial-e-fenda-palatina') },
         ],
       },
       {
         id: 'escroto-e-bolsa',
         label: 'Escroto e Bolsa',
         topicos: [
-          { id: 'escroto-agudo-pediatrico', label: 'Escroto Agudo Pediátrico', conteudo: '' },
+          { id: 'escroto-agudo-pediatrico', label: 'Escroto Agudo Pediátrico', conteudo: getCipeConteudo('escroto-agudo-pediatrico') },
         ],
       },
       {
         id: 'hepatobiliar-e-pancreas',
         label: 'Hepatobiliar e Pâncreas',
         topicos: [
-          { id: 'cisto-de-coledoco', label: 'Cisto de Colédoco', conteudo: '' },
+          { id: 'cisto-de-coledoco', label: 'Cisto de Colédoco', conteudo: getCipeConteudo('cisto-de-coledoco') },
         ],
       },
       {
         id: 'malformacoes-anorretais-e-intestinais',
         label: 'Malformações Anorretais e Intestinais',
         topicos: [
-          { id: 'anomalias-anorretais', label: 'Anomalias Anorretais', conteudo: '' },
-          { id: 'atresia-do-intestino-delgado', label: 'Atresia do Intestino Delgado', conteudo: '' },
-          { id: 'diverticulo-de-meckel', label: 'Divertículo de Meckel', conteudo: '' },
-          { id: 'doenca-de-hirschsprung', label: 'Doença de Hirschsprung', conteudo: '' },
-          { id: 'ma-rotacao-intestinal', label: 'Má Rotação Intestinal', conteudo: '' },
-          { id: 'obstrucao-intestinal-neonatal', label: 'Obstrução Intestinal Neonatal', conteudo: '' },
+          { id: 'anomalias-anorretais', label: 'Anomalias Anorretais', conteudo: getCipeConteudo('anomalias-anorretais') },
+          { id: 'atresia-do-intestino-delgado', label: 'Atresia do Intestino Delgado', conteudo: getCipeConteudo('atresia-do-intestino-delgado') },
+          { id: 'diverticulo-de-meckel', label: 'Divertículo de Meckel', conteudo: getCipeConteudo('diverticulo-de-meckel') },
+          { id: 'doenca-de-hirschsprung', label: 'Doença de Hirschsprung', conteudo: getCipeConteudo('doenca-de-hirschsprung') },
+          { id: 'ma-rotacao-intestinal', label: 'Má Rotação Intestinal', conteudo: getCipeConteudo('ma-rotacao-intestinal') },
+          { id: 'obstrucao-intestinal-neonatal', label: 'Obstrução Intestinal Neonatal', conteudo: getCipeConteudo('obstrucao-intestinal-neonatal') },
         ],
       },
       {
         id: 'parede-abdominal',
         label: 'Parede Abdominal',
         topicos: [
-          { id: 'onfalocele', label: 'Onfalocele', conteudo: '' },
+          { id: 'onfalocele', label: 'Onfalocele', conteudo: getCipeConteudo('onfalocele') },
         ],
       },
       {
         id: 'torax-e-pulmao',
         label: 'Tórax e Pulmão',
         topicos: [
-          { id: 'hernia-de-morgagni', label: 'Hérnia de Morgagni', conteudo: '' },
-          { id: 'hernia-diafragmatica-congenita', label: 'Hérnia Diafragmática Congênita', conteudo: '' },
-          { id: 'malformacao-adenomatoide-cistica-pulmonar-cpam', label: 'Malformação Adenomatoide Cística Pulmonar (CPAM)', conteudo: '' },
-          { id: 'malformacao-congenita-das-vias-aereas-pulmonares', label: 'Malformação Congênita das Vias Aéreas Pulmonares', conteudo: '' },
-          { id: 'sequestro-pulmonar', label: 'Sequestro Pulmonar', conteudo: '' },
+          { id: 'hernia-de-morgagni', label: 'Hérnia de Morgagni', conteudo: getCipeConteudo('hernia-de-morgagni') },
+          { id: 'hernia-diafragmatica-congenita', label: 'Hérnia Diafragmática Congênita', conteudo: getCipeConteudo('hernia-diafragmatica-congenita') },
+          { id: 'malformacao-adenomatoide-cistica-pulmonar-cpam', label: 'Malformação Adenomatoide Cística Pulmonar (CPAM)', conteudo: getCipeConteudo('malformacao-adenomatoide-cistica-pulmonar-cpam') },
+          { id: 'malformacao-congenita-das-vias-aereas-pulmonares', label: 'Malformação Congênita das Vias Aéreas Pulmonares', conteudo: getCipeConteudo('malformacao-congenita-das-vias-aereas-pulmonares') },
+          { id: 'sequestro-pulmonar', label: 'Sequestro Pulmonar', conteudo: getCipeConteudo('sequestro-pulmonar') },
         ],
       },
       {
         id: 'urologia-cirurgica',
         label: 'Urologia Cirúrgica',
         topicos: [
-          { id: 'anomalias-uretrais-e-prolapso-uretral', label: 'Anomalias Uretrais e Prolapso Uretral', conteudo: '' },
-          { id: 'criptorquidia', label: 'Criptorquidia', conteudo: '' },
-          { id: 'extrofia-vesical-e-epispadia', label: 'Extrofia Vesical e Epispádia', conteudo: '' },
-          { id: 'fimose-e-parafimose', label: 'Fimose e Parafimose', conteudo: '' },
-          { id: 'hidrocele-infantil', label: 'Hidrocele Infantil', conteudo: '' },
-          { id: 'malformacoes-ureterais-congenitas', label: 'Malformações Ureterais Congênitas', conteudo: '' },
-          { id: 'micropenis', label: 'Micropênis', conteudo: '' },
-          { id: 'obstrucao-da-juncao-ureteropelvica', label: 'Obstrução da Junção Ureteropélvica', conteudo: '' },
-          { id: 'urolitiase-pediatrica', label: 'Urolitíase Pediátrica', conteudo: '' },
-          { id: 'valvula-de-uretra-posterior', label: 'Válvula de Uretra Posterior', conteudo: '' },
-          { id: 'varicocele-infantil', label: 'Varicocele Infantil', conteudo: '' },
+          { id: 'anomalias-uretrais-e-prolapso-uretral', label: 'Anomalias Uretrais e Prolapso Uretral', conteudo: getCipeConteudo('anomalias-uretrais-e-prolapso-uretral') },
+          { id: 'criptorquidia', label: 'Criptorquidia', conteudo: getCipeConteudo('criptorquidia') },
+          { id: 'extrofia-vesical-e-epispadia', label: 'Extrofia Vesical e Epispádia', conteudo: getCipeConteudo('extrofia-vesical-e-epispadia') },
+          { id: 'fimose-e-parafimose', label: 'Fimose e Parafimose', conteudo: getCipeConteudo('fimose-e-parafimose') },
+          { id: 'hidrocele-infantil', label: 'Hidrocele Infantil', conteudo: getCipeConteudo('hidrocele-infantil') },
+          { id: 'malformacoes-ureterais-congenitas', label: 'Malformações Ureterais Congênitas', conteudo: getCipeConteudo('malformacoes-ureterais-congenitas') },
+          { id: 'micropenis', label: 'Micropênis', conteudo: getCipeConteudo('micropenis') },
+          { id: 'obstrucao-da-juncao-ureteropelvica', label: 'Obstrução da Junção Ureteropélvica', conteudo: getCipeConteudo('obstrucao-da-juncao-ureteropelvica') },
+          { id: 'urolitiase-pediatrica', label: 'Urolitíase Pediátrica', conteudo: getCipeConteudo('urolitiase-pediatrica') },
+          { id: 'valvula-de-uretra-posterior', label: 'Válvula de Uretra Posterior', conteudo: getCipeConteudo('valvula-de-uretra-posterior') },
+          { id: 'varicocele-infantil', label: 'Varicocele Infantil', conteudo: getCipeConteudo('varicocele-infantil') },
         ],
       },
     ],
