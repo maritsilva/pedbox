@@ -2,15 +2,17 @@ import PageHeader from '@/components/PageHeader';
 import { normalizeSearch } from '@/lib/calculatorRegistry';
 import React, { useState, useMemo, useEffect } from 'react';
 import { services } from '@/api/services';
-import { Search, Clock, ChevronRight, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, Copy, Stethoscope, Link as LinkIcon, StickyNote } from 'lucide-react';
+import { Search, Clock, ChevronRight, BookOpen, FlaskConical, X, LayoutGrid, GitBranch, ChevronLeft, Star, Copy, Stethoscope, Link as LinkIcon, StickyNote, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
 import CondutasTab from '@/components/biblioteca/CondutasTab';
 import { CONDUTAS_CATEGORIAS } from '@/lib/condutasData';
+import DocumentosTab from '@/components/biblioteca/DocumentosTab';
 import LinksTab from '@/components/biblioteca/LinksTab';
 import AnotacoesTab from '@/components/biblioteca/AnotacoesTab';
 import ProtocolosPage from './Protocolos';
+import { DEFAULT_DOCUMENTS } from '@/lib/driveDocumentsData';
 
 // ── Protocols list (duplicated metadata only) ──────────────────────────────
 const PROTOCOLS = [
@@ -345,18 +347,42 @@ function GlobalSearchResults({ q, setSearch }) {
   }, [q]);
 
   const [links, setLinks] = useState([]);
+  const [userDocs, setUserDocs] = useState([]);
+
   useEffect(() => {
     services.libraryLinks.list().then(setLinks).catch(() => {});
+    try {
+      const savedDocs = localStorage.getItem('pedbox_saved_documents');
+      if (savedDocs) setUserDocs(JSON.parse(savedDocs));
+    } catch {}
   }, []);
+
+  const allDocuments = useMemo(() => {
+    const list = [...userDocs];
+    DEFAULT_DOCUMENTS.forEach(d => {
+      if (!list.some(x => x.id === d.id)) list.push(d);
+    });
+    return list;
+  }, [userDocs]);
+
+  const filteredDocs = allDocuments.filter(d =>
+    normalizeSearch(d.titulo).includes(q) ||
+    normalizeSearch(d.descricao || '').includes(q) ||
+    normalizeSearch(d.categoria || '').includes(q) ||
+    (d.tags && d.tags.some(t => normalizeSearch(t).includes(q)))
+  ).slice(0, 6);
+
   const filteredLinks = links.filter(l =>
     normalizeSearch(l.titulo).includes(q) || normalizeSearch((l.descricao || '')).includes(q) || normalizeSearch((l.categoria || '')).includes(q)
   ).slice(0, 6);
 
-  const total = filteredProtocols.length + filteredCondutas.length + filteredLinks.length;
+  const total = filteredProtocols.length + filteredCondutas.length + filteredDocs.length + filteredLinks.length;
 
   return (
     <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
       <p className="text-xs text-muted-foreground mb-3">{total} resultado{total !== 1 ? 's' : ''} para "<strong>{q}</strong>"</p>
+
+      {/* Protocolos */}
       {filteredProtocols.length > 0 && (
         <div className="mb-4">
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Protocolos</p>
@@ -379,6 +405,8 @@ function GlobalSearchResults({ q, setSearch }) {
           </div>
         </div>
       )}
+
+      {/* Condutas */}
       {filteredCondutas.length > 0 && (
         <div className="mb-4">
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Condutas</p>
@@ -397,6 +425,29 @@ function GlobalSearchResults({ q, setSearch }) {
           </div>
         </div>
       )}
+
+      {/* Documentos Google Drive */}
+      {filteredDocs.length > 0 && (
+        <div className="mb-4">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Documentos do Google Drive</p>
+          <div className="space-y-2">
+            {filteredDocs.map(d => (
+              <button key={d.id} onClick={() => { setSearch(''); navigate(`/biblioteca?tab=documentos&doc=${d.id}`); }}
+                className="w-full text-left bg-white border border-border rounded-xl px-4 py-3 flex items-center gap-3 hover:shadow-md transition-all group">
+                <span className="text-xl">{d.tipo === 'sheet' ? '📊' : d.tipo === 'folder' ? '📁' : d.tipo === 'slide' ? '📽️' : '📄'}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm text-foreground group-hover:text-primary">{d.titulo}</p>
+                  <p className="text-xs text-muted-foreground">{d.categoria} · {d.fonte || 'Google Drive'}</p>
+                </div>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200 flex-shrink-0">Visualizador</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Links */}
       {filteredLinks.length > 0 && (
         <div>
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Links</p>
@@ -415,6 +466,7 @@ function GlobalSearchResults({ q, setSearch }) {
           </div>
         </div>
       )}
+
       {total === 0 && (
         <div className="py-12 text-center bg-white border border-border rounded-2xl">
           <p className="text-4xl mb-3">🔍</p>
@@ -430,6 +482,7 @@ function GlobalSearchResults({ q, setSearch }) {
 const TABS = [
   { id: 'protocolos', label: 'Protocolos',  icon: FlaskConical },
   { id: 'condutas',   label: 'Condutas',    icon: Stethoscope },
+  { id: 'documentos', label: 'Documentos',  icon: FileText },
   { id: 'links',      label: 'Links',       icon: LinkIcon },
   { id: 'anotacoes',  label: 'Anotações',   icon: StickyNote },
 ];
@@ -437,7 +490,8 @@ const TABS = [
 export default function Biblioteca() {
   const [search, setSearch] = useState('');
   const [tabParams, setTabParams] = useSearchParams();
-  const activeTab = ['protocolos','condutas','links','anotacoes'].includes(tabParams.get('tab')) ? tabParams.get('tab') : 'protocolos';
+  const VALID_TABS = ['protocolos', 'condutas', 'documentos', 'links', 'anotacoes'];
+  const activeTab = VALID_TABS.includes(tabParams.get('tab')) ? tabParams.get('tab') : 'protocolos';
   const setActiveTab = tab => { setSearch(''); setTabParams({tab}); };
 
   const q = normalizeSearch(search).trim();
@@ -451,7 +505,7 @@ export default function Biblioteca() {
         kind="library"
         eyebrow="Espaço de Evidências Clínicas"
         title="Biblioteca Pediátrica"
-        description="Protocolos assistenciais, condutas estruturadas, diretrizes e links úteis organizados para consulta rápida."
+        description="Protocolos assistenciais, condutas estruturadas, documentos integrados ao Google Drive, diretrizes e links úteis organizados para consulta rápida."
       />
 
       {/* ── SEARCH ── */}
@@ -460,7 +514,7 @@ export default function Biblioteca() {
         <input
           type="text"
           aria-label="Buscar na biblioteca"
-          placeholder="Buscar protocolos, condutas por doença ou links..."
+          placeholder="Buscar protocolos, condutas por doença, documentos ou links..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="w-full pl-11 pr-10 py-3.5 bg-white border border-slate-300 rounded-2xl text-sm shadow-2xs focus:outline-none focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/15 transition-all"
@@ -491,6 +545,7 @@ export default function Biblioteca() {
 
       {!isSearching && activeTab === 'condutas'   && <CondutasTab externalSearch={search} />}
       {!isSearching && activeTab === 'protocolos' && <ProtocolosPage />}
+      {!isSearching && activeTab === 'documentos' && <DocumentosTab externalSearch={search} />}
       {!isSearching && activeTab === 'links'      && <LinksTab />}
       {!isSearching && activeTab === 'anotacoes'  && <AnotacoesTab />}
     </div>

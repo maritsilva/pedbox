@@ -105,6 +105,7 @@ function App() {
             <Route path="/calculadoras/:id" element={<ClinicalCalculator />} />
             <Route path="/condutas" element={<LibraryRedirect tab="condutas" />} />
             <Route path="/protocolos" element={<LibraryRedirect tab="protocolos" />} />
+            <Route path="/documentos" element={<LibraryRedirect tab="documentos" />} />
             <Route path="/resumos" element={<LibraryRedirect tab="condutas" />} />
 
             <Route path="/dosagens" element={<Dosagens />} />
