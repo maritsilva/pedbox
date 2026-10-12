@@ -18,7 +18,9 @@
     "migrate:import": "node scripts/import-data.js",
     "migrate:export": "node scripts/export-data.js",
     "check:independence": "node scripts/check-independence.js",
-    "check:production": "node scripts/preflight.js"
+    "check:production": "node scripts/preflight.js",
+    "backup": "python scripts/auto_backup.py",
+    "backup:force": "python scripts/auto_backup.py --force"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",

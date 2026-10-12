@@ -40,3 +40,8 @@ test-results/
 # Generated visual QA screenshots
 artifacts/
 .agents/
+__pycache__/
+*.pyc
+backups/
+*.zip
+
