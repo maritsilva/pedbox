@@ -17,7 +17,7 @@ import {
   Star,
   Baby,
 } from 'lucide-react';
-import { universalSearch } from '@/lib/universalSearch';
+import { universalSearch, loadSearchDatasets, areSearchDatasetsLoaded } from '@/lib/universalSearch';
 import { usePageFavorites } from '@/hooks/usePageFavorites';
 import { useDosagemFavorites } from '@/hooks/useDosagemFavorites';
 import { getAllDosagens } from '@/lib/dosagensData';
@@ -81,8 +81,15 @@ const QUICK_ACCESS = [
 export default function Home() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const [datasetsLoaded, setDatasetsLoaded] = useState(() => areSearchDatasetsLoaded());
   const results = universalSearch(query, 8);
   const heroSearchRef = useRef(null);
+
+  useEffect(() => {
+    if (query.trim().length > 0 && !datasetsLoaded) {
+      loadSearchDatasets().then(() => setDatasetsLoaded(true));
+    }
+  }, [query, datasetsLoaded]);
 
   // Favorites for Acesso Rápido
   const { favPages = [] } = usePageFavorites() || {};
@@ -206,6 +213,9 @@ export default function Home() {
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onFocus={() => {
+                    if (!datasetsLoaded) loadSearchDatasets().then(() => setDatasetsLoaded(true));
+                  }}
                   placeholder="Busque por doenças, medicamentos, calculadoras, protocolos..."
                   className="w-full bg-white border border-slate-300 rounded-2xl pl-12 pr-14 py-3.5 text-sm sm:text-base shadow-sm focus:outline-none focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/15 transition-all text-slate-800"
                 />

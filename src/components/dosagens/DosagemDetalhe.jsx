@@ -63,13 +63,6 @@ export default function DosagemDetalhe({ drug, onBack }) {
   const avgDose = result && !result.error ? (result.min + result.max) / 2 : null;
   const avgPres = !result.error && ap ? presentationAmount(ap, avgDose, result.unit, context) : null;
 
-  // Dose range formatted string
-  const doseRangeStr = result && !result.error
-    ? result.min === result.max
-      ? `${fmt(result.min)} ${result.unit}`
-      : `${fmt(result.min)} a ${fmt(result.max)} ${result.unit}`
-    : null;
-
   // Presentation range formatted string
   const presRangeStr = minPres && maxPres && !minPres.error && !maxPres.error
     ? minPres.value === maxPres.value

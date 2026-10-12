@@ -56,7 +56,7 @@ export default function Contato() {
         setFormData({ name: '', email: '', institution: '', reason: '', message: '' });
         setSubmitted(false);
       }, 4000);
-    } catch (err) {
+    } catch {
       // Fallback para cliente de e-mail local direcionado à contato@pedbox.app
       const reasonText = reasonLabels[formData.reason] || formData.reason || 'Contato PedBox';
       const subject = encodeURIComponent(`[PedBox Contato] ${reasonText} — ${formData.name}`);

@@ -29,13 +29,34 @@ const HEAD_DATA = {
   },
 };
 
-function getClosestKey(months) {
-  const keys = [0,1,2,3,4,5,6,12,24,36];
-  if (months <= 0) return 0;
-  if (months >= 36) return 36;
-  return keys.reduce((prev, curr) =>
-    Math.abs(curr - months) < Math.abs(prev - months) ? curr : prev
-  );
+function getInterpolatedRefs(sex, months) {
+  const keys = [0, 1, 2, 3, 4, 5, 6, 12, 24, 36];
+  if (months <= 0) return HEAD_DATA[sex][0];
+  if (months >= 36) return HEAD_DATA[sex][36];
+
+  let k0 = keys[0];
+  let k1 = keys[keys.length - 1];
+  for (let i = 0; i < keys.length - 1; i++) {
+    if (months >= keys[i] && months <= keys[i + 1]) {
+      k0 = keys[i];
+      k1 = keys[i + 1];
+      break;
+    }
+  }
+
+  if (k0 === k1) return HEAD_DATA[sex][k0];
+
+  const t = (months - k0) / (k1 - k0);
+  const r0 = HEAD_DATA[sex][k0];
+  const r1 = HEAD_DATA[sex][k1];
+
+  return {
+    p3: Math.round((r0.p3 + t * (r1.p3 - r0.p3)) * 10) / 10,
+    p10: Math.round((r0.p10 + t * (r1.p10 - r0.p10)) * 10) / 10,
+    p50: Math.round((r0.p50 + t * (r1.p50 - r0.p50)) * 10) / 10,
+    p90: Math.round((r0.p90 + t * (r1.p90 - r0.p90)) * 10) / 10,
+    p97: Math.round((r0.p97 + t * (r1.p97 - r0.p97)) * 10) / 10,
+  };
 }
 
 function getClassify(val, refs) {
@@ -60,16 +81,35 @@ export default function PerimetroCefalico() {
   const [birthDate, setBirthDate] = useState('');
   const [sex, setSex] = useState('male');
   const [result, setResult] = useState(null);
+  const [error, setError] = useState('');
 
   const handleCalc = () => {
+    setError('');
     const val = parseFloat(pc);
-    if (!val || !birthDate) return;
+    if (!val || isNaN(val) || val <= 0) {
+      setError('Informe um valor numérico válido para o perímetro cefálico.');
+      setResult(null);
+      return;
+    }
+    if (!birthDate) {
+      setError('Informe a data de nascimento.');
+      setResult(null);
+      return;
+    }
     const birth = new Date(birthDate);
     const now = new Date();
     const months = Math.floor((now.getTime() - birth.getTime()) / (1000*60*60*24*30.4375));
-    if (months < 0 || months > 36) return;
-    const key = getClosestKey(months);
-    const refs = HEAD_DATA[sex][key];
+    if (months < 0) {
+      setError('A data de nascimento não pode ser no futuro.');
+      setResult(null);
+      return;
+    }
+    if (months > 36) {
+      setError('Esta referência de perímetro cefálico (OMS/CDC) é validada para crianças de até 36 meses. Para crianças com mais de 3 anos (> 36 meses), utilize as curvas gerais de crescimento pediátrico.');
+      setResult(null);
+      return;
+    }
+    const refs = getInterpolatedRefs(sex, months);
     const classify = getClassify(val, refs);
     const band = getPercBand(val, refs);
     const years = Math.floor(months / 12);
@@ -78,7 +118,7 @@ export default function PerimetroCefalico() {
     setResult({ val, months, ageText, refs, classify, band });
   };
 
-  const handleReset = () => { setPc(''); setBirthDate(''); setResult(null); };
+  const handleReset = () => { setPc(''); setBirthDate(''); setResult(null); setError(''); };
 
   const pct = result ? Math.min(((result.val - result.refs.p3) / (result.refs.p97 - result.refs.p3)) * 100, 100) : 0;
 
@@ -123,6 +163,13 @@ export default function PerimetroCefalico() {
               ))}
             </div>
           </div>
+
+          {error && (
+            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-start gap-2 leading-relaxed">
+              <Info className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+              <span>{error}</span>
+            </div>
+          )}
 
           <button onClick={handleCalc} disabled={!pc || !birthDate}
             className="w-full bg-teal-500 hover:bg-teal-600 disabled:opacity-40 text-white font-bold py-3.5 rounded-xl transition-all shadow-sm">

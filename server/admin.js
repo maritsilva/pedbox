@@ -5,7 +5,8 @@ import { rateLimit } from './integrations.js';
 
 export function installAdmin(app, db, config) {
   const requireAdmin = (req, _res, next) => {
-    if (!req.user || req.user.role !== 'admin') throw httpError(403, 'Acesso restrito ao administrador.');
+    if (!req.user) throw httpError(401, 'Entre para continuar.');
+    if (req.user.role !== 'admin') throw httpError(403, 'Acesso restrito ao administrador.');
     next();
   };
 
@@ -139,14 +140,6 @@ export function installAdmin(app, db, config) {
       [body.status, id]
     );
     if (!rows.length) throw httpError(404, 'Mensagem não encontrada.');
-
-    try {
-      await db.query(
-        "UPDATE notes SET data = jsonb_set(data, '{status}', to_jsonb($1::text)), updated_date = now() WHERE id = $2",
-        [body.status, id]
-      );
-    } catch (_e) {}
-
     res.json(rows[0]);
   });
 
@@ -187,7 +180,8 @@ export function installAdmin(app, db, config) {
           cirurgiaPediatrica: 30,
         },
         calculators: {
-          total: 47,
+          total: 36,
+          interactiveTools: 48,
         },
       },
       unreadContacts,

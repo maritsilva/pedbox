@@ -186,16 +186,6 @@ const PROTOCOLS = [
   calcPath: '/guia?q=vitamina%20d',
 }];
 
-
-const ESPECIALIDADE_META = {
-  'Respiratório': { color: 'blue', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', dot: 'bg-blue-500' },
-  'Neurologia': { color: 'purple', bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', dot: 'bg-purple-500' },
-  'Gastroenterologia': { color: 'teal', bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-700', dot: 'bg-teal-500' },
-  'Infectologia': { color: 'orange', bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700', dot: 'bg-orange-500' },
-  'Hematologia': { color: 'red', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', dot: 'bg-red-500' },
-  'Endocrinologia': { color: 'green', bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', dot: 'bg-green-500' }
-};
-
 // ── Severity Table ─────────────────────────────────────────────────────────────
 
 function SeverityTable() {
@@ -485,7 +475,7 @@ function Fluxograma() {
 
 // ── Protocol Detail ───────────────────────────────────────────────────────────
 
-function CriseAsmaticaDetail({ onBack = undefined }) {
+function CriseAsmaticaDetail() {
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -821,15 +811,6 @@ export default function Protocolos() {
   }, [search, activeEsp]);
 
   const especialidades = [...new Set(PROTOCOLS.map((p) => p.especialidade))];
-
-  const grouped = useMemo(() => {
-    const groups = {};
-    filtered.forEach((p) => {
-      if (!groups[p.especialidade]) groups[p.especialidade] = [];
-      groups[p.especialidade].push(p);
-    });
-    return groups;
-  }, [filtered]);
 
   // ── Detail view ──
   if (selected && detailMap[selected]) {

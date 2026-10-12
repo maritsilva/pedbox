@@ -188,7 +188,9 @@ export default function CondutasTab({ externalSearch = '', isAdmin = false }) {
           return merged;
         });
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error('Falha ao carregar condutas personalizadas:', err);
+      });
   }, [isAdmin]);
 
   // Flatten all topicos for search

@@ -159,3 +159,58 @@ test('CDLQI sums 10 questions and classifies quality of life impairment', () => 
  assert.equal(r.value, 20);
  assert.match(r.classification, /EXTREMAMENTE GRANDE/);
 });
+
+test('getBPCategory evaluates Stage 2 and Stage 1 prior to Elevated BP under AAP 2017 rules', async () => {
+ const { getBPCategory } = await import('../src/lib/bpData.js');
+
+ // Critical clinical case: severe hypertension must NEVER be downgraded to 'Pressão Elevada'
+ const severeCase = getBPCategory(99.9, 99.9, true, 180, 110, { p95: 112 }, { p95: 74 });
+ assert.equal(severeCase.label, 'Hipertensão Estágio 2', 'Severe BP must classify as Stage 2 HTN');
+
+ // Stage 2 via >= P95 + 12 mmHg: SBP 125 with P95 = 110 (125 >= 122)
+ const stage2P95 = getBPCategory(98, 50, true, 125, 65, { p95: 110 }, { p95: 70 });
+ assert.equal(stage2P95.label, 'Hipertensão Estágio 2', 'BP >= P95 + 12 must classify as Stage 2 HTN');
+
+ // Stage 1: BP >= P95 but < P95 + 12 mmHg
+ const stage1Case = getBPCategory(96, 50, true, 114, 65, { p95: 110 }, { p95: 70 });
+ assert.equal(stage1Case.label, 'Hipertensão Estágio 1', 'BP >= P95 must classify as Stage 1 HTN');
+
+ // Stage 1 via DBP >= 80 mmHg: SBP normal (P50) but DBP 82 mmHg
+ const stage1Dbp = getBPCategory(50, 92, true, 95, 82, { p95: 110 }, { p95: 75 });
+ assert.equal(stage1Dbp.label, 'Hipertensão Estágio 1', 'DBP >= 80 mmHg must classify as Stage 1 HTN');
+
+ // Elevated BP: SBP >= 120 or >= P90 to < P95
+ const elevatedCase = getBPCategory(91, 50, true, 105, 65, { p95: 110 }, { p95: 70 });
+ assert.equal(elevatedCase.label, 'Pressão Elevada', 'BP between P90 and P95 must classify as Pressão Elevada');
+
+ // Normal BP: < P90 and < 120/<80
+ const normalCase = getBPCategory(50, 50, true, 95, 60, { p95: 110 }, { p95: 70 });
+ assert.equal(normalCase.label, 'Normal', 'BP < P90 must classify as Normal');
+
+ // Adolescents >= 13 years
+ const adolStage2 = getBPCategory(99, 99, false, 142, 85);
+ assert.equal(adolStage2.label, 'Hipertensão Estágio 2');
+
+ const adolStage1 = getBPCategory(90, 90, false, 132, 75);
+ assert.equal(adolStage1.label, 'Hipertensão Estágio 1');
+
+ const adolElevated = getBPCategory(50, 50, false, 122, 75);
+ assert.equal(adolElevated.label, 'Pressão Elevada');
+
+ const adolNormal = getBPCategory(50, 50, false, 115, 75);
+ assert.equal(adolNormal.label, 'Normal');
+});
+
+test('condutasData exports complete clinical catalog with explicit ESM imports', async () => {
+ const { CONDUTAS_CATEGORIAS } = await import('../src/lib/condutasData.js');
+ assert.ok(Array.isArray(CONDUTAS_CATEGORIAS));
+ const neo = CONDUTAS_CATEGORIAS.find(c => c.id === 'neonatal');
+ const cipe = CONDUTAS_CATEGORIAS.find(c => c.id === 'cirurgia-pediatrica');
+ assert.ok(neo, 'Neonatal category must exist');
+ assert.ok(cipe, 'Cirurgia Pediátrica category must exist');
+ const totalNeo = neo.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalCipe = cipe.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ assert.equal(totalNeo, 29, 'Must have 29 Neonatologia topics');
+ assert.equal(totalCipe, 30, 'Must have 30 Cirurgia Pediátrica topics');
+});
+

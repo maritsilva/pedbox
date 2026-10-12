@@ -81,7 +81,7 @@ export default function Perfil() {
 
     setPersonalBusy(true);
     try {
-      const res = await services.auth.updateProfile({
+      await services.auth.updateProfile({
         full_name: fullName.trim(),
         email: email.trim().toLowerCase(),
       });
@@ -128,7 +128,7 @@ export default function Perfil() {
     services.auth.logout();
   };
 
-  const isMasterAdmin = user?.email === 'marina@pedbox.app';
+  const isMasterAdmin = user?.role === 'admin';
 
   return (
     <div className="clinical-page max-w-4xl mx-auto space-y-8">

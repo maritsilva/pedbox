@@ -32,8 +32,6 @@ const CentorMcIsaac = lazy(() => import('./pages/CentorMcIsaac'));
 const Vacinas = lazy(() => import('./pages/Vacinas'));
 const Amamentacao = lazy(() => import('./pages/Amamentacao'));
 const Contato = lazy(() => import('./pages/Contato'));
-
-const Contact = lazy(() => import('./pages/Contact'));
 const CartilhaDesenvolvimento = lazy(() => import('./pages/CartilhaDesenvolvimento'));
 const Settings = lazy(() => import('./pages/Settings'));
 const WoodDownes = lazy(() => import('./pages/WoodDownes'));
@@ -99,7 +97,7 @@ function App() {
             <Route path="/seguranca-amamentacao" element={<Navigate to="/amamentacao" replace />} />
             <Route path="/contato" element={<Contato />} />
 
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<Navigate to="/contato" replace />} />
             <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
             <Route element={<ProtectedRoute />}><Route path="/settings" element={<Settings />} /></Route>
             <Route path="/wood-downes" element={<WoodDownes />} />

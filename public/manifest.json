@@ -1,0 +1,43 @@
+{
+  "name": "PedBox - Guia & Ferramentas Pediátricas",
+  "short_name": "PedBox",
+  "description": "Plataforma médica de referência em pediatria: calculadoras de doses, curvas de crescimento OMS, condutas em neonatologia, cirurgia pediátrica e emergência.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0284c7",
+  "background_color": "#ffffff",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": [
+    "medical",
+    "health",
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/pedbox-icon.png",
+      "sizes": "305x305",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

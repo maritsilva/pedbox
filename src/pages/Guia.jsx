@@ -34,13 +34,10 @@ const MAIS_CONSULTADOS = [
 
 export default function Guia() {
   const [search, setSearch] = useState('');
-  const [catSearch, setCatSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedDrug, setSelectedDrug] = useState(null);
   const [activeTab, setActiveTab] = useState('categorias');
-  const [selectedClasses, setSelectedClasses] = useState([]);
-  const [sortAZ, setSortAZ] = useState(false);
-  const { favorites, isFavorite } = useFavorites();
+  const { favorites } = useFavorites();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -57,13 +54,6 @@ export default function Guia() {
 
   const searchResults = search.trim().length > 1 ? searchDrugs(search, 12) : [];
 
-  const resetAll = () => {
-    setSelectedDrug(null);
-    setSelectedCat(null);
-    setSearch('');
-    window.history.replaceState({}, '', window.location.pathname);
-  };
-
   const allDrugsMap = useMemo(() => Object.fromEntries(
     GUIDE_CATEGORIES.flatMap(c => c.drugs.map(d => [d.id, { ...d, catLabel: c.label, catColor: c.color, catIcon: c.icon, catId: c.id }]))
   ), []);
@@ -71,26 +61,12 @@ export default function Guia() {
   const favoriteDrugs = favorites.map(id => allDrugsMap[id]).filter(Boolean);
 
   const filteredCats = useMemo(() => {
-    const q = catSearch.toLowerCase().trim();
-    let filtered = !q ? GUIDE_CATEGORIES : GUIDE_CATEGORIES.filter(c => c.label.toLowerCase().includes(q));
-    if (selectedClasses.length > 0) {
-      filtered = filtered.filter(c => selectedClasses.includes(c.id));
-    }
-    return filtered.sort((a, b) => a.label.localeCompare(b.label));
-  }, [catSearch, selectedClasses]);
-
-  const allDrugsFlat = useMemo(() => {
-    let drugs = GUIDE_CATEGORIES.flatMap(c => c.drugs.map(d => ({ ...d, catLabel: c.label, catColor: c.color, catIcon: c.icon, catId: c.id })));
-    if (sortAZ) {
-      drugs = [...drugs].sort((a, b) => a.name.localeCompare(b.name));
-    }
-    return drugs;
-  }, [sortAZ]);
+    return [...GUIDE_CATEGORIES].sort((a, b) => a.label.localeCompare(b.label));
+  }, []);
 
   // ── Drug detail ──
   if (selectedDrug) {
     const cat = GUIDE_CATEGORIES.find(c => c.id === selectedDrug.category);
-    const colors = colorMap[cat?.color] || colorMap['blue-500'];
     return (
       <div className="clinical-page max-w-5xl mx-auto space-y-4">
         <button
@@ -99,7 +75,7 @@ export default function Guia() {
         >
           <ChevronLeft className="w-4 h-4" /> Voltar aos medicamentos
         </button>
-        <DrugGuideDetail drug={selectedDrug} colors={colors} catIcon={cat?.icon} catLabel={cat?.label} />
+        <DrugGuideDetail drug={selectedDrug} catIcon={cat?.icon} catLabel={cat?.label} />
       </div>
     );
   }

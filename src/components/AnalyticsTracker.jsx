@@ -45,7 +45,7 @@ export default function AnalyticsTracker() {
         const category = getCategory(path);
         const device = getDevice();
         services.analytics.hit(path, category, device).catch(() => {});
-      } catch (_e) {
+      } catch {
         // Ignore analytics reporting failures
       }
     }, 500);

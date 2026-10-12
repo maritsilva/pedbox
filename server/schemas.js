@@ -10,6 +10,7 @@ export const collections = {
   }).strict() },
   notes: { table: 'notes', private: true, schema: z.object({
     titulo: text.min(1), conteudo: z.string().max(200000).optional(), cor: z.enum(['yellow','blue','green','pink','purple']).default('yellow'),
+    status: z.enum(['unread', 'read', 'archived']).optional(),
   }).strict() },
   categories: { table: 'custom_categories', schema: z.object({
     categoria_id: short, label: text.min(1), icon: text, color: text,

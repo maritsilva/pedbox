@@ -70,8 +70,10 @@ function calcularManutencao(peso) {
   if (peso <= 10) formula = `100 mL/kg/dia × ${peso} kg = ${dailyVol} mL/dia`;
   else if (peso <= 20)
     formula = `1000 mL + 50 mL/kg × ${peso - 10} kg (excesso de 10) = ${dailyVol} mL/dia`;
-  else
-    formula = `1500 mL + 20 mL/kg × ${Math.min(peso - 20, 20)} kg (excesso de 20) = ${dailyVol} mL/dia`;
+  else {
+    const excessoAcima20 = round(Math.min(peso - 20, 45), 1);
+    formula = `1500 mL + 20 mL/kg × ${excessoAcima20} kg (excesso acima de 20 kg) = ${dailyVol} mL/dia`;
+  }
 
   return {
     title: 'Manutenção de Fluidos',
@@ -83,7 +85,7 @@ function calcularManutencao(peso) {
     detalhamento: {
       primeiros10: peso >= 10 ? 1000 : peso * 100,
       proximos10: peso > 10 ? Math.min(peso - 10, 10) * 50 : 0,
-      acima20: peso > 20 ? (peso - 20) * 20 : 0,
+      acima20: peso > 20 ? detalheRestante : 0,
     },
     steps: [
       { num: 1, label: 'Volume diário total', value: `${dailyVol} mL/dia` },

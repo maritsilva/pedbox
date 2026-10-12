@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import { ZodError } from 'zod';
-import { installAuth } from './auth.js';
+import { installAuth, sessionMiddleware } from './auth.js';
 import { installCollections } from './collections.js';
 import { installIntegrations, rateLimit } from './integrations.js';
 import { installResearch } from './research.js';
@@ -16,7 +16,29 @@ export function createApp({ db, config, integrations = {}, serveFrontend = false
   app.disable('x-powered-by');
   // Only enable behind a known number of proxies, with no public direct API port.
   app.set('trust proxy', config.trustProxyHops || false);
-  app.use(helmet({ contentSecurityPolicy: false, strictTransportSecurity: config.production ? undefined : false }));
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'https://accounts.google.com', 'https://www.googletagmanager.com'],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://accounts.google.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+        imgSrc: ["'self'", 'data:', 'blob:', 'https://*.googleusercontent.com', 'https://www.googletagmanager.com'],
+        connectSrc: [
+          "'self'",
+          'https://accounts.google.com',
+          'https://www.google-analytics.com',
+          'https://*.analytics.google.com',
+          'https://*.googletagmanager.com',
+        ],
+        frameSrc: ["'self'", 'https://drive.google.com', 'https://docs.google.com', 'https://accounts.google.com'],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        upgradeInsecureRequests: config.production ? [] : null,
+      },
+    },
+    strictTransportSecurity: config.production ? undefined : false,
+  }));
   app.use(cookieParser());
   app.use('/api', (_req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
   app.use('/api', (req, res, next) => {
@@ -25,7 +47,9 @@ export function createApp({ db, config, integrations = {}, serveFrontend = false
   });
   app.use(express.json({ limit: '2mb' }));
   app.get('/api/v1/health', async (_req, res) => { await db.query('SELECT 1'); res.json({ status: 'ok' }); });
+  app.use('/api', sessionMiddleware(db));
   app.use('/api/v1/auth', rateLimit(db, 'auth', 30, 600000));
+  app.use('/api/v1/me', rateLimit(db, 'me', 60, 60000));
   installAuth(app, db, config);
   app.use('/api', rateLimit(db, 'api', 300));
   installCollections(app, db);

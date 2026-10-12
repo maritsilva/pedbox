@@ -45,7 +45,7 @@ function DoseGroup({ group, items }) {
   );
 }
 
-export default function DrugGuideDetail({ drug, colors, catIcon, catLabel }) {
+export default function DrugGuideDetail({ drug, catIcon, catLabel }) {
   const { isFavorite, toggleFavorite } = useFavorites();
 
   if (!drug) return null;

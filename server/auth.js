@@ -1,5 +1,6 @@
 import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypto';
 import * as oidc from 'openid-client';
+import { z } from 'zod';
 import { httpError } from './schemas.js';
 
 export const hash = value => createHash('sha256').update(value).digest('hex');
@@ -33,33 +34,63 @@ export async function issueSession(db, userId, res, config) {
   res.cookie(sessionCookie, raw, { ...cookieOptions(config), maxAge: 8 * 3600000 });
 }
 
+export const sessionMiddleware = db => async (req, _res, next) => {
+  const raw = req.cookies?.[sessionCookie];
+  if (raw) {
+    const { rows } = await db.query(
+      'SELECT u.*, s.authenticated_at FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>now()',
+      [hash(raw)]
+    );
+    const user = rows[0];
+    if (user) {
+      req.user = user;
+    }
+  }
+  next();
+};
+
+export const registerSchema = z.object({
+  email: z.string().trim().email('Informe um endereço de e-mail válido.').max(254),
+  password: z.string().min(6, 'A senha deve ter no mínimo 6 caracteres.').max(128),
+  full_name: z.string().trim().max(100).optional(),
+}).strict();
+
+export const loginSchema = z.object({
+  email: z.string().trim().email('Informe um endereço de e-mail válido.').max(254),
+  password: z.string().min(1, 'Informe e-mail e senha.').max(128),
+}).strict();
+
+export const profileUpdateSchema = z.object({
+  full_name: z.string().trim().min(1, 'O nome não pode estar em branco.').max(100).optional(),
+  email: z.string().trim().email('Informe um endereço de e-mail válido.').max(254).optional(),
+  current_password: z.string().max(128).optional(),
+  new_password: z.string().min(6, 'A nova senha deve ter no mínimo 6 caracteres.').max(128).optional(),
+  drive_folder_url: z.string().trim().max(500).optional(),
+}).strict();
+
+export const googleVerifySchema = z.object({
+  credential: z.string().min(1, 'Credencial Google não fornecida.').max(10000),
+}).strict();
+
+export const changePasswordSchema = z.object({
+  current_password: z.string().min(1, 'Informe a senha atual.').max(128),
+  new_password: z.string().min(6, 'A nova senha deve ter no mínimo 6 caracteres.').max(128),
+}).strict();
+
 export function installAuth(app, db, config) {
   let discovery;
   const getOidc = () => {
     if (!config.oidcIssuer || !config.oidcClientId) throw httpError(503, 'Login Google/OIDC ainda não configurado.');
     return discovery ||= oidc.discovery(new URL(config.oidcIssuer), config.oidcClientId, config.oidcClientSecret).catch(error => { discovery = undefined; throw error; });
   };
-  app.use('/api', async (req, _res, next) => {
-    const raw = req.cookies[sessionCookie];
-    if (raw) {
-      const { rows } = await db.query('SELECT u.*, s.authenticated_at FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>now()', [hash(raw)]);
-      const user = rows[0];
-      if (user) {
-        // Enforce: only marina@pedbox.app (or test fixture admin / dev) has admin access
-        const isMasterAdmin = (user.email || '').trim().toLowerCase() === 'marina@pedbox.app';
-        const isPrivileged = isMasterAdmin || user.id === 'admin' || user.id === 'local-developer';
-        user.role = isPrivileged ? (user.role === 'admin' || isMasterAdmin ? 'admin' : user.role) : 'user';
-        req.user = user;
-      }
-    }
-    next();
+  app.use('/api', (req, res, next) => {
+    if (req.user) return next();
+    return sessionMiddleware(db)(req, res, next);
   });
   app.get('/api/v1/me', (req, res) => {
     if (!req.user) throw httpError(401, 'Entre para continuar.');
     const { id, email, full_name, role, drive_folder_url } = req.user;
-    const isMasterAdmin = (email || '').trim().toLowerCase() === 'marina@pedbox.app';
-    const isPrivileged = isMasterAdmin || id === 'admin' || id === 'local-developer';
-    res.json({ id, email, full_name, role: isPrivileged ? role : 'user', drive_folder_url: drive_folder_url || '' });
+    res.json({ id, email, full_name, role, drive_folder_url: drive_folder_url || '' });
   });
 
   app.get('/api/v1/auth/status', (_req, res) => res.json({
@@ -73,20 +104,16 @@ export function installAuth(app, db, config) {
   // ── Update Profile (Name, Email, Password, Drive Folder) ──
   app.patch('/api/v1/me', async (req, res) => {
     if (!req.user) throw httpError(401, 'Entre para continuar.');
-    const { full_name, email, current_password, new_password, drive_folder_url } = req.body || {};
+    const body = profileUpdateSchema.parse(req.body);
 
     let cleanName = req.user.full_name;
-    if (typeof full_name === 'string') {
-      if (!full_name.trim()) throw httpError(400, 'O nome não pode estar em branco.');
-      cleanName = full_name.trim().slice(0, 100);
+    if (body.full_name !== undefined) {
+      cleanName = body.full_name;
     }
 
     let cleanEmail = req.user.email;
-    if (typeof email === 'string' && email.trim().toLowerCase() !== req.user.email.toLowerCase()) {
-      cleanEmail = email.trim().toLowerCase();
-      if (!cleanEmail.includes('@') || cleanEmail.length > 254) {
-        throw httpError(400, 'Informe um endereço de e-mail válido.');
-      }
+    if (body.email !== undefined && body.email.toLowerCase() !== (req.user.email || '').toLowerCase()) {
+      cleanEmail = body.email.toLowerCase();
       const existing = await db.query('SELECT id FROM users WHERE lower(email)=$1 AND id != $2', [cleanEmail, req.user.id]);
       if (existing.rows.length > 0) {
         throw httpError(409, 'Este endereço de e-mail já está sendo utilizado por outra conta.');
@@ -94,57 +121,59 @@ export function installAuth(app, db, config) {
     }
 
     let cleanDriveUrl = req.user.drive_folder_url || '';
-    if (typeof drive_folder_url === 'string') {
-      cleanDriveUrl = drive_folder_url.trim().slice(0, 500);
+    if (body.drive_folder_url !== undefined) {
+      cleanDriveUrl = body.drive_folder_url;
     }
 
     let newHash = req.user.password_hash;
-    if (new_password) {
-      if (typeof new_password !== 'string' || new_password.length < 6) {
-        throw httpError(400, 'A nova senha deve ter no mínimo 6 caracteres.');
-      }
+    if (body.new_password) {
       if (req.user.password_hash) {
-        if (!current_password || !verifyPassword(current_password, req.user.password_hash)) {
+        if (!body.current_password || !verifyPassword(body.current_password, req.user.password_hash)) {
           throw httpError(401, 'A senha atual informada está incorreta.');
         }
       }
-      newHash = hashPassword(new_password);
+      newHash = hashPassword(body.new_password);
     }
-
-    const isMasterAdmin = cleanEmail.toLowerCase() === 'marina@pedbox.app';
-    const role = isMasterAdmin ? 'admin' : (req.user.id === 'local-developer' ? req.user.role : 'user');
 
     const { rows } = await db.query(
       `UPDATE users
-       SET full_name=$1, email=$2, password_hash=$3, role=$4, drive_folder_url=$5
-       WHERE id=$6
+       SET full_name=$1, email=$2, password_hash=$3, drive_folder_url=$4
+       WHERE id=$5
        RETURNING id, email, full_name, role, drive_folder_url`,
-      [cleanName, cleanEmail, newHash, role, cleanDriveUrl, req.user.id]
+      [cleanName, cleanEmail, newHash, cleanDriveUrl, req.user.id]
     );
 
     res.json({ ok: true, user: rows[0] });
   });
 
+  // ── Change Password Dedicated Endpoint ──
+  app.post('/api/v1/auth/change-password', async (req, res) => {
+    if (!req.user) throw httpError(401, 'Entre para continuar.');
+    const body = changePasswordSchema.parse(req.body);
+    if (req.user.password_hash) {
+      if (!verifyPassword(body.current_password, req.user.password_hash)) {
+        throw httpError(401, 'A senha atual informada está incorreta.');
+      }
+    }
+    const newHash = hashPassword(body.new_password);
+    await db.query('UPDATE users SET password_hash=$1 WHERE id=$2', [newHash, req.user.id]);
+    res.json({ ok: true });
+  });
+
   // ── Local User Registration ──
   app.post('/api/v1/auth/register', async (req, res) => {
-    const { email, password, full_name } = req.body || {};
-    if (!email || typeof email !== 'string' || !email.includes('@') || email.length > 254) {
-      throw httpError(400, 'Informe um endereço de e-mail válido.');
-    }
-    if (!password || typeof password !== 'string' || password.length < 6) {
-      throw httpError(400, 'A senha deve ter no mínimo 6 caracteres.');
-    }
-    const cleanEmail = email.trim().toLowerCase();
-    const cleanName = typeof full_name === 'string' && full_name.trim() ? full_name.trim().slice(0, 100) : 'Usuário';
+    const body = registerSchema.parse(req.body);
+    const cleanEmail = body.email.toLowerCase();
+    const cleanName = body.full_name || 'Usuário';
 
     const existing = await db.query('SELECT id FROM users WHERE lower(email)=$1', [cleanEmail]);
     if (existing.rows.length > 0) {
       throw httpError(409, 'Este e-mail já está cadastrado. Por favor, faça login.');
     }
 
-    const pHash = hashPassword(password);
+    const pHash = hashPassword(body.password);
     const userId = randomUUID();
-    const role = cleanEmail === 'marina@pedbox.app' ? 'admin' : 'user';
+    const role = 'user';
 
     const { rows: users } = await db.query(
       `INSERT INTO users(id, issuer, subject, email, full_name, password_hash, role)
@@ -160,35 +189,28 @@ export function installAuth(app, db, config) {
 
   // ── Local User Login ──
   app.post('/api/v1/auth/login', async (req, res) => {
-    const { email, password } = req.body || {};
-    if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
-      throw httpError(400, 'Informe e-mail e senha.');
-    }
-    const cleanEmail = email.trim().toLowerCase();
+    const body = loginSchema.parse(req.body);
+    const cleanEmail = body.email.toLowerCase();
     const { rows } = await db.query(
       'SELECT id, email, full_name, role, password_hash FROM users WHERE lower(email)=$1 AND password_hash IS NOT NULL',
       [cleanEmail]
     );
     const user = rows[0];
-    if (!user || !verifyPassword(password, user.password_hash)) {
+    if (!user || !verifyPassword(body.password, user.password_hash)) {
       throw httpError(401, 'E-mail ou senha incorretos.');
     }
 
     if (req.cookies[sessionCookie]) await db.query('DELETE FROM sessions WHERE token_hash=$1', [hash(req.cookies[sessionCookie])]);
     await issueSession(db, user.id, res, config);
-    const role = cleanEmail === 'marina@pedbox.app' ? 'admin' : user.role;
-    res.json({ ok: true, user: { id: user.id, email: user.email, full_name: user.full_name, role } });
+    res.json({ ok: true, user: { id: user.id, email: user.email, full_name: user.full_name, role: user.role } });
   });
 
   // ── Google Sign-in Verification (GIS / ID Token) ──
   app.post('/api/v1/auth/google/verify', async (req, res) => {
-    const { credential } = req.body || {};
-    if (!credential || typeof credential !== 'string') {
-      throw httpError(400, 'Credencial Google não fornecida.');
-    }
+    const body = googleVerifySchema.parse(req.body);
     let googleUser;
     try {
-      const gRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`, {
+      const gRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(body.credential)}`, {
         signal: AbortSignal.timeout(10000)
       });
       if (!gRes.ok) throw new Error('Token rejeitado pelo Google');
@@ -204,7 +226,7 @@ export function installAuth(app, db, config) {
     const email = googleUser.email.toLowerCase();
     const name = googleUser.name || googleUser.given_name || 'Usuário';
     const sub = googleUser.sub;
-    const role = email === 'marina@pedbox.app' ? 'admin' : 'user';
+    const role = 'user';
 
     const { rows: users } = await db.query(
       `INSERT INTO users(id, issuer, subject, email, full_name, role)
@@ -250,7 +272,7 @@ export function installAuth(app, db, config) {
     if (typeof claims.auth_time !== 'number' || Math.abs(Date.now() / 1000 - claims.auth_time) > 300) throw httpError(401, 'O provedor não confirmou uma autenticação recente. Entre novamente.');
     const issuer = provider.serverMetadata().issuer;
     const email = claims.email_verified === true ? (claims.email || '').toLowerCase() : '';
-    const role = email === 'marina@pedbox.app' ? 'admin' : 'user';
+    const role = 'user';
     const { rows: users } = await db.query(`INSERT INTO users(id,issuer,subject,email,full_name,role)
       VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(issuer,subject) DO UPDATE SET email=excluded.email,full_name=excluded.full_name RETURNING id`,
       [randomUUID(), issuer, claims.sub, email, claims.name || 'Usuário', role]);

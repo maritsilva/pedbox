@@ -136,7 +136,9 @@ export default function DocumentosTab({ externalSearch = '' }) {
 
           setDocuments(docLinks);
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.error('Falha ao carregar documentos do Google Drive:', err);
+        });
     } else {
       setDocuments([]);
     }

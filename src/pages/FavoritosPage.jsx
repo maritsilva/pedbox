@@ -95,13 +95,17 @@ export default function FavoritosPage() {
         .then((remoteNotes) => {
           if (Array.isArray(remoteNotes)) setLocalNotes(remoteNotes);
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.error('Falha ao carregar anotações do usuário:', err);
+        });
 
       services.userLinks.list('-created_date')
         .then((remoteLinks) => {
           if (Array.isArray(remoteLinks)) setLocalLinks(remoteLinks);
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.error('Falha ao carregar links favoritos do usuário:', err);
+        });
     } else {
       setLocalNotes([]);
       setLocalLinks([]);

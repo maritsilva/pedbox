@@ -39,3 +39,4 @@ test-results/
 
 # Generated visual QA screenshots
 artifacts/
+.agents/

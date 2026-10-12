@@ -42,7 +42,7 @@ export const SEO_PAGES = {
   },
   '/calculadoras': {
     title: 'Calculadoras Pediátricas e Escores Clínicos | PedBox',
-    description: 'Hub completo de 47 ferramentas clínicas e escores validados: Holliday-Segar, APGAR, Glasgow, PEWS, SIPA, Silverman-Andersen e Wood-Downes.',
+    description: 'Hub completo de 36 calculadoras clínicas (48 ferramentas interativas) e escores validados: Holliday-Segar, APGAR, Glasgow, PEWS, SIPA, Silverman-Andersen e Wood-Downes.',
     keywords: ['escores pediátricos', 'calculadoras médicas', 'holliday segar', 'pews pediatria', 'apgar recém-nascido', 'escala glasgow pediátrica'],
     category: 'Hub de Calculadoras',
     priority: '0.9',

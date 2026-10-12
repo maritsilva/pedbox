@@ -184,7 +184,7 @@ export default function PressaoArterial() {
     const sysR = getBPPercentile('sys', form.sex, ageInt, heightP, sys);
     const diasR = getBPPercentile('dias', form.sex, ageInt, heightP, dias);
 
-    const category = getBPCategory(sysR.percentile, diasR.percentile, ageInt < 13, sys, dias);
+    const category = getBPCategory(sysR.percentile, diasR.percentile, ageInt < 13, sys, dias, sysR.ref?.p95, diasR.ref?.p95);
 
     setResult({ ageYears, ageInt, h, sys, dias, heightP, heightR, sysR, diasR, category, sex: form.sex });
   };

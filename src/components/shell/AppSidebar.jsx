@@ -76,7 +76,7 @@ export default function AppSidebar() {
           );
         })}
 
-        {(user?.email === 'marina@pedbox.app' || user?.id === 'local-developer') && (
+        {user?.role === 'admin' && (
           <Link
             to="/admin"
             className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-50"

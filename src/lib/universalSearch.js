@@ -2,11 +2,40 @@ import { CALCULATORS, normalizeSearch } from './calculatorRegistry';
 // ============================================================
 // BUSCA UNIVERSAL — indexa todos os módulos do site
 // ============================================================
-import { getAllGuideDrugs, ALL_CATEGORIES } from './guideData';
-import { getAllDosagens } from './dosagensData';
-import { RESUMOS } from './resumosData';
-import { vacinasData } from './vacinasData';
-import { CONDUTAS_CATEGORIAS } from './condutasData';
+
+let clinicalDatasets = null;
+let datasetLoadingPromise = null;
+
+/**
+ * Carrega dinamicamente os grandes catálogos clínicos sob demanda
+ * (ao abrir a busca, focar no input ou executar query).
+ */
+export async function loadSearchDatasets() {
+  if (clinicalDatasets) return clinicalDatasets;
+  if (!datasetLoadingPromise) {
+    datasetLoadingPromise = Promise.all([
+      import('./guideData'),
+      import('./dosagensData'),
+      import('./resumosData'),
+      import('./vacinasData'),
+      import('./condutasData'),
+    ]).then(([guide, dosagens, resumos, vacinas, condutas]) => {
+      clinicalDatasets = {
+        getAllGuideDrugs: guide.getAllGuideDrugs,
+        getAllDosagens: dosagens.getAllDosagens,
+        RESUMOS: resumos.RESUMOS,
+        vacinasData: vacinas.vacinasData,
+        CONDUTAS_CATEGORIAS: condutas.CONDUTAS_CATEGORIAS,
+      };
+      return clinicalDatasets;
+    });
+  }
+  return datasetLoadingPromise;
+}
+
+export function areSearchDatasetsLoaded() {
+  return Boolean(clinicalDatasets);
+}
 
 // Protocolos
 const PROTOCOLS = [
@@ -55,8 +84,6 @@ const TOOLS_INDEX = [
   { label: 'Protocolos Clínicos',        path: '/biblioteca',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },
   { label: 'Biblioteca',                 path: '/biblioteca',               icon: '📚', desc: 'Protocolos, condutas, links e anotações pediátricas' },
   { label: 'Explorar Ferramentas',       path: '/ferramentas',              icon: '🧰', desc: 'Todas as ferramentas do site' },
-  { label: 'Sinais Vitais Pediátricos',  path: '/sinais-vitais',            icon: '📋', desc: 'Valores de referência por faixa etária' },
-  { label: 'Curvas de Crescimento',      path: '/curvas-crescimento',       icon: '📈', desc: 'Curvas OMS, CDC e SBP para download' },
   { label: 'Favoritos',                  path: '/favoritos',                icon: '⭐', desc: 'Ferramentas e medicamentos salvos' },
 ];
 
@@ -69,68 +96,19 @@ export function universalSearch(query, limit = 30) {
   const q = normalizeSearch(query);
   const results = [];
 
-  // 1. Ferramentas / páginas
+  // Se os catálogos ainda não foram carregados, dispara carregamento assíncrono
+  if (!clinicalDatasets && !datasetLoadingPromise) {
+    loadSearchDatasets().catch(() => {});
+  }
+
+  // 1. Ferramentas / páginas (sempre disponível imediatamente)
   for (const t of [...CALCULATORS, ...TOOLS_INDEX.filter(t => !CALCULATORS.some(c => c.path === t.path))]) {
     if (normalizeSearch(t.label).includes(q) || normalizeSearch(t.desc).includes(q)) {
       results.push({ label: t.label, desc: t.desc, path: t.path, icon: t.icon, type: 'tool' });
     }
   }
 
-  // 2. Bulas — medicamentos do Guia
-  const drugs = getAllGuideDrugs();
-  for (const d of drugs) {
-    if (
-      d.name.toLowerCase().includes(q) ||
-      (d.suffix && d.suffix.toLowerCase().includes(q)) ||
-      d.catLabel?.toLowerCase().includes(q)
-    ) {
-      results.push({
-        label: d.name + (d.suffix ? ` (${d.suffix})` : ''),
-        desc: `Bulas · ${d.catLabel}`,
-        path: `/guia?drug=${d.id}`,
-        icon: d.catIcon || '💊',
-        type: 'drug',
-      });
-      if (results.length >= limit * 2) break;
-    }
-  }
-
-  // 3. Dosagens
-  const dosagens = getAllDosagens();
-  for (const d of dosagens) {
-    if (
-      d.name.toLowerCase().includes(q) ||
-      (d.sinonimo && d.sinonimo.toLowerCase().includes(q)) ||
-      (d.marcas && d.marcas.toLowerCase().includes(q)) ||
-      d.catLabel?.toLowerCase().includes(q)
-    ) {
-      results.push({
-        label: `Dose — ${d.name}`,
-        desc: `Dosagens · ${d.catLabel}`,
-        path: `/dosagens?drug=${d.id}`,
-        icon: '⚡',
-        type: 'dosagem',
-      });
-      if (results.filter(r => r.type === 'dosagem').length >= 5) break;
-    }
-  }
-
-  // 4. Resumos clínicos
-  for (const r of RESUMOS) {
-    const matchTitle = r.titulo.toLowerCase().includes(q) || r.subtitulo?.toLowerCase().includes(q) || r.categoria?.toLowerCase().includes(q);
-    const matchSec = r.seções?.some(s => s.nome.toLowerCase().includes(q) || s.conteudo.toLowerCase().includes(q));
-    if (matchTitle || matchSec) {
-      results.push({
-        label: r.titulo,
-        desc: `Biblioteca · ${r.categoria} · ${r.subtitulo}`,
-        path: `/biblioteca?resumo=${r.id}`,
-        icon: r.emoji || '📝',
-        type: 'resumo',
-      });
-    }
-  }
-
-  // 5. Protocolos
+  // 5. Protocolos (lista local leve)
   for (const p of PROTOCOLS) {
     if (p.title.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q)) {
       results.push({
@@ -143,45 +121,101 @@ export function universalSearch(query, limit = 30) {
     }
   }
 
-  // 6. Vacinas
-  for (const v of vacinasData) {
-    if (
-      v.nome.toLowerCase().includes(q) ||
-      v.previne.toLowerCase().includes(q) ||
-      v.idade.toLowerCase().includes(q)
-    ) {
-      results.push({
-        label: v.nome,
-        desc: `Vacinas · ${v.idade} · ${v.previne.slice(0, 60)}...`,
-        path: `/vacinas`,
-        icon: '💉',
-        type: 'vacina',
-      });
+  // 2-4, 6-7. Catálogos pesados quando carregados dinamicamente
+  if (clinicalDatasets) {
+    // 2. Bulas — medicamentos do Guia
+    const drugs = clinicalDatasets.getAllGuideDrugs();
+    for (const d of drugs) {
+      if (
+        d.name.toLowerCase().includes(q) ||
+        (d.suffix && d.suffix.toLowerCase().includes(q)) ||
+        d.catLabel?.toLowerCase().includes(q)
+      ) {
+        results.push({
+          label: d.name + (d.suffix ? ` (${d.suffix})` : ''),
+          desc: `Bulas · ${d.catLabel}`,
+          path: `/guia?drug=${d.id}`,
+          icon: d.catIcon || '💊',
+          type: 'drug',
+        });
+        if (results.length >= limit * 2) break;
+      }
     }
-  }
 
-  // 7. Condutas — busca nas categorias, subcategorias e tópicos
-  for (const cat of CONDUTAS_CATEGORIAS) {
-    for (const sub of cat.subcategorias) {
-      for (const top of sub.topicos) {
-        if (
-          top.label.toLowerCase().includes(q) ||
-          cat.label.toLowerCase().includes(q) ||
-          sub.label.toLowerCase().includes(q)
-        ) {
-          results.push({
-            label: top.label,
-            desc: `Conduta · ${cat.label} › ${sub.label}`,
-            path: `/biblioteca`,
-            icon: cat.icon || '📋',
-            type: 'conduta',
-          });
-          if (results.filter(r => r.type === 'conduta').length >= 8) break;
+    // 3. Dosagens
+    const dosagens = clinicalDatasets.getAllDosagens();
+    for (const d of dosagens) {
+      if (
+        d.name.toLowerCase().includes(q) ||
+        (d.sinonimo && d.sinonimo.toLowerCase().includes(q)) ||
+        (d.marcas && d.marcas.toLowerCase().includes(q)) ||
+        d.catLabel?.toLowerCase().includes(q)
+      ) {
+        results.push({
+          label: `Dose — ${d.name}`,
+          desc: `Dosagens · ${d.catLabel}`,
+          path: `/dosagens?drug=${d.id}`,
+          icon: '⚡',
+          type: 'dosagem',
+        });
+        if (results.filter(r => r.type === 'dosagem').length >= 5) break;
+      }
+    }
+
+    // 4. Resumos clínicos
+    for (const r of clinicalDatasets.RESUMOS) {
+      const matchTitle = r.titulo.toLowerCase().includes(q) || r.subtitulo?.toLowerCase().includes(q) || r.categoria?.toLowerCase().includes(q);
+      const matchSec = r.seções?.some(s => s.nome.toLowerCase().includes(q) || s.conteudo.toLowerCase().includes(q));
+      if (matchTitle || matchSec) {
+        results.push({
+          label: r.titulo,
+          desc: `Biblioteca · ${r.categoria} · ${r.subtitulo}`,
+          path: `/biblioteca?resumo=${r.id}`,
+          icon: r.emoji || '📝',
+          type: 'resumo',
+        });
+      }
+    }
+
+    // 6. Vacinas
+    for (const v of clinicalDatasets.vacinasData) {
+      if (
+        v.nome.toLowerCase().includes(q) ||
+        v.previne.toLowerCase().includes(q) ||
+        v.idade.toLowerCase().includes(q)
+      ) {
+        results.push({
+          label: v.nome,
+          desc: `Vacinas · ${v.idade} · ${v.previne.slice(0, 60)}...`,
+          path: `/vacinas`,
+          icon: '💉',
+          type: 'vacina',
+        });
+      }
+    }
+
+    // 7. Condutas — busca nas categorias, subcategorias e tópicos
+    for (const cat of clinicalDatasets.CONDUTAS_CATEGORIAS) {
+      for (const sub of cat.subcategorias) {
+        for (const top of sub.topicos) {
+          if (
+            top.label.toLowerCase().includes(q) ||
+            cat.label.toLowerCase().includes(q) ||
+            sub.label.toLowerCase().includes(q)
+          ) {
+            results.push({
+              label: top.label,
+              desc: `Conduta · ${cat.label} › ${sub.label}`,
+              path: `/biblioteca`,
+              icon: cat.icon || '📋',
+              type: 'conduta',
+            });
+            if (results.filter(r => r.type === 'conduta').length >= 8) break;
+          }
         }
       }
       if (results.filter(r => r.type === 'conduta').length >= 8) break;
     }
-    if (results.filter(r => r.type === 'conduta').length >= 8) break;
   }
 
   // Deduplicar por path+label e limitar
@@ -192,6 +226,11 @@ export function universalSearch(query, limit = 30) {
     seen.add(key);
     return true;
   }).slice(0, limit);
+}
+
+export async function universalSearchAsync(query, limit = 30) {
+  await loadSearchDatasets();
+  return universalSearch(query, limit);
 }
 
 // Badge por tipo

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { services, safePath } from '@/api/services';
 import PedBoxLogo from '@/components/brand/PedBoxLogo';
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -16,11 +16,12 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
 
   const [params] = useSearchParams();
-  const navigate = useNavigate();
   const returnTo = safePath(params.get('returnTo'));
 
   useEffect(() => {
-    services.auth.status().then(setStatus).catch(() => {});
+    services.auth.status().then(setStatus).catch((err) => {
+      console.error('Falha ao verificar status de autenticação:', err);
+    });
   }, []);
 
   const handleSubmit = async (e) => {

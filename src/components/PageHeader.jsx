@@ -1,21 +1,12 @@
 import React from 'react';
-import { BookOpen, Calculator, Pill, LayoutGrid } from 'lucide-react';
-
-const icons = {
-  library: BookOpen,
-  calculator: Calculator,
-  doses: Pill,
-  tools: LayoutGrid,
-};
 
 export default function PageHeader({
   title,
   description,
   eyebrow,
-  kind = 'tools',
+  kind: _kind = 'tools',
   children = null,
 }) {
-  const Icon = icons[kind] || LayoutGrid;
 
   return (
     <header className="mb-6 pb-2 border-b border-slate-200/60">

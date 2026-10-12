@@ -83,7 +83,7 @@ export default function LinksTab({ search = '' }) {
 
   const handleSave = async (data) => {
     if (editing) {
-      const updated = await services.libraryLinks.update(editing.id, data);
+      await services.libraryLinks.update(editing.id, data);
       setLinks(prev => prev.map(l => l.id === editing.id ? { ...l, ...data } : l));
       setEditing(null);
     } else {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { Search, ChevronRight, X, WifiOff, LogIn, Settings, User } from 'lucide-react';
 import { ROUTE_TITLES } from '@/lib/navigation';
-import { universalSearch as doUniversalSearch } from '@/lib/universalSearch';
+import { universalSearch as doUniversalSearch, loadSearchDatasets, areSearchDatasetsLoaded } from '@/lib/universalSearch';
 import { useAuth } from '@/lib/AuthContext';
 import { services } from '@/api/services';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
@@ -18,8 +18,15 @@ export default function AppTopbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [userDropdown, setUserDropdown] = useState(false);
+  const [datasetsLoaded, setDatasetsLoaded] = useState(() => areSearchDatasetsLoaded());
   const searchInputRef = useRef(null);
   const searchContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (searchOpen && !datasetsLoaded) {
+      loadSearchDatasets().then(() => setDatasetsLoaded(true));
+    }
+  }, [searchOpen, datasetsLoaded]);
 
   // Close search when clicking outside
   useEffect(() => {
@@ -48,6 +55,7 @@ export default function AppTopbar() {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         setSearchOpen(true);
+        if (!datasetsLoaded) loadSearchDatasets().then(() => setDatasetsLoaded(true));
         setTimeout(() => searchInputRef.current?.focus(), 50);
       }
       if (event.key === 'Escape') {
@@ -100,6 +108,7 @@ export default function AppTopbar() {
             <button
               onClick={() => {
                 setSearchOpen(true);
+                if (!datasetsLoaded) loadSearchDatasets().then(() => setDatasetsLoaded(true));
                 setTimeout(() => searchInputRef.current?.focus(), 50);
               }}
               className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-700 hover:border-slate-300 transition-all text-xs cursor-pointer"
@@ -222,7 +231,7 @@ export default function AppTopbar() {
                       <User className="w-3.5 h-3.5 text-brand-teal" />
                       Meu Perfil & Senha
                     </Link>
-                    {(user.email === 'marina@pedbox.app' || user.id === 'local-developer') && (
+                    {user?.role === 'admin' && (
                       <Link
                         to="/admin"
                         onClick={() => setUserDropdown(false)}

@@ -13,25 +13,8 @@ import {
 import VacineDetailModal from '../components/VacineDetailModal';
 import {
   VACCINE_AGES,
-  VACCINE_SOURCES,
   filterVaccineGuide,
 } from '../lib/vaccineGuide';
-
-function SourceLinks({ page }) {
-  return (
-    <p className="mt-3 text-xs leading-relaxed text-slate-400">
-      Referências:{' '}
-      <a className="underline hover:text-brand-navy" href={VACCINE_SOURCES.pni.url} target="_blank" rel="noreferrer">
-        PNI 2026
-      </a>{' '}
-      ·{' '}
-      <a className="underline hover:text-brand-navy" href={VACCINE_SOURCES.sbim.url} target="_blank" rel="noreferrer">
-        SBIm 2026/2027
-      </a>{' '}
-      · Manual HU Pediatria, p. {page}.
-    </p>
-  );
-}
 
 export default function Vacinas() {
   const [network, setNetwork] = useState('compare');

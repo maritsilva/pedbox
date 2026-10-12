@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Star,
   ArrowRight,
@@ -461,7 +461,6 @@ const BASE_TOOLS = [
 ];
 
 export default function ExplorarFerramentas() {
-  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState('Todas');
   const [selectedRoteiroId, setSelectedRoteiroId] = useState('rn');

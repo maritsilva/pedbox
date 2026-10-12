@@ -59,13 +59,13 @@ const CRITERIA = [
   },
   {
     id: 'degeneracao',
-    label: 'Alterações Degenerativas nos Neutrófilos',
-    subtitle: 'Presença de vacuolização citoplasmática em neutrófilos',
+    label: 'Alterações degenerativas em neutrófilos',
+    subtitle: 'Granulações tóxicas acentuadas, corpúsculos de Döhle ou vacuolização citoplasmática',
     icon: '🔭',
     iconBg: 'bg-purple-50 text-purple-600',
     options: [
-      { label: 'Ausente', desc: 'Morfologia leucocitária habitual', value: 0 },
-      { label: 'Presente (vacuolização)', desc: 'Vacúolos citoplasmáticos tóxicos visíveis na hematoscopia', value: 1 },
+      { label: 'Ausente', desc: 'Morfologia leucocitária habitual sem alterações degenerativas', value: 0 },
+      { label: 'Presente', desc: 'Granulações tóxicas acentuadas, corpúsculos de Döhle ou vacuolização citoplasmática', value: 1 },
     ],
   },
   {
@@ -77,17 +77,6 @@ const CRITERIA = [
     options: [
       { label: '> 150.000 /mm³', desc: 'Contagem de plaquetas preservada', value: 0 },
       { label: '≤ 150.000 /mm³', desc: 'Trombocitopenia neonatal documentada', value: 1 },
-    ],
-  },
-  {
-    id: 'citoplasma',
-    label: 'Corpúsculos de Döhle / Granulações Tóxicas',
-    subtitle: 'Sinais citoplasmáticos de ativação inflamatória grave',
-    icon: '🧬',
-    iconBg: 'bg-blue-50 text-blue-600',
-    options: [
-      { label: 'Ausente', desc: 'Sem grânulos grosseiros ou inclusões de Döhle', value: 0 },
-      { label: 'Presente', desc: 'Granulações tóxicas acentuadas ou corpos de Döhle detectados', value: 1 },
     ],
   },
 ];
@@ -107,7 +96,7 @@ const REFERENCE_TABLE = [
   },
   {
     label: 'Sepse Altamente Provável',
-    range: '5 a 8 pontos',
+    range: '5 a 7 pontos',
     desc: 'Sensibilidade e especificidade elevadas. Indicação formal de antibioticoterapia imediata.',
     status: 'danger',
   },
@@ -171,7 +160,7 @@ export default function EscoreRodwell() {
       criteria={CRITERIA}
       scores={scores}
       onSelectOption={handleSelectOption}
-      maxScore={8}
+      maxScore={7}
       classification={classification}
       referenceTable={REFERENCE_TABLE}
       clinicalNotes={CLINICAL_NOTES}

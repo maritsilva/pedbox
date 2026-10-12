@@ -1,7 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import React from 'react';
 import { Info } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const VITAL_SIGNS = [
@@ -89,8 +88,6 @@ const VITAL_TABLES = [
 ];
 
 export default function SinaisVitais() {
-  const navigate = useNavigate();
-
   return (
     <div className="clinical-page max-w-6xl mx-auto space-y-6">
         <PageHeader

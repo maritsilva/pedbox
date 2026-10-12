@@ -100,7 +100,7 @@ test('local registration and login flow via API', async () => {
       });
     assert.equal(resNewLogin.status, 200);
 
-    // 7. Register marina@pedbox.app -> must receive role 'admin'
+    // 7. Register marina@pedbox.app -> must receive role 'user' (no automatic admin elevation)
     const resMarina = await request(app)
       .post('/api/v1/auth/register')
       .set('Origin', config.origin)
@@ -110,7 +110,58 @@ test('local registration and login flow via API', async () => {
         full_name: 'Administradora PedBox',
       });
     assert.equal(resMarina.status, 200);
-    assert.equal(resMarina.body.user.role, 'admin');
+    assert.equal(resMarina.body.user.role, 'user', 'Registration must never automatically assign admin role');
+    const marinaCookie = resMarina.headers['set-cookie'];
+
+    // 8. Promote user via admin mechanism (database administration)
+    await db.query("UPDATE users SET role = 'admin' WHERE id = $1", [resMarina.body.user.id]);
+
+    // 9. Verify promoted user has role 'admin' in /api/v1/me
+    const resMe = await request(app)
+      .get('/api/v1/me')
+      .set('Origin', config.origin)
+      .set('Cookie', marinaCookie);
+    assert.equal(resMe.status, 200);
+    assert.equal(resMe.body.role, 'admin');
+
+    // 10. Verify PATCH /api/v1/me cannot modify role
+    const resPatchAdmin = await request(app)
+      .patch('/api/v1/me')
+      .set('Origin', config.origin)
+      .set('Cookie', marinaCookie)
+      .send({
+        full_name: 'Dra. Marina Oficial',
+      });
+    assert.equal(resPatchAdmin.status, 200);
+    assert.equal(resPatchAdmin.body.user.role, 'admin', 'Admin role must not be demoted by PATCH /me');
+
+    // 11. Verify user cannot promote themselves by passing role
+    const resTryEscalate = await request(app)
+      .patch('/api/v1/me')
+      .set('Origin', config.origin)
+      .set('Cookie', userCookie)
+      .send({
+        role: 'admin',
+      });
+    assert.equal(resTryEscalate.status, 422, 'Extra/unauthorized fields must be rejected with 422');
+
+    // 12. Verify admin authorization status codes (401 unauthenticated, 403 non-admin, 200 admin)
+    const resUnauth = await request(app)
+      .get('/api/v1/admin/analytics')
+      .set('Origin', config.origin);
+    assert.equal(resUnauth.status, 401, 'Unauthenticated request to admin endpoint must return 401');
+
+    const resForbidden = await request(app)
+      .get('/api/v1/admin/analytics')
+      .set('Origin', config.origin)
+      .set('Cookie', userCookie);
+    assert.equal(resForbidden.status, 403, 'Non-admin authenticated request must return 403');
+
+    const resAdminOk = await request(app)
+      .get('/api/v1/admin/analytics')
+      .set('Origin', config.origin)
+      .set('Cookie', marinaCookie);
+    assert.equal(resAdminOk.status, 200, 'Admin authenticated request must return 200');
   } finally {
     await db.close();
   }

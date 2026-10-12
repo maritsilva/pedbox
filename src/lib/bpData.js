@@ -172,20 +172,40 @@ export function generateBPCurve(type, sex, heightP = 50) {
   }));
 }
 
-export function getBPCategory(sysPerc, diasPerc, ageLt13, sys, dias) {
+export function getBPCategory(sysPerc, diasPerc, ageLt13, sys, dias, sysRef, diasRef) {
   const maxP = Math.max(sysPerc, diasPerc);
+  const sP95 = typeof sysRef === 'object' && sysRef !== null ? sysRef.p95 : (typeof sysRef === 'number' ? sysRef : null);
+  const dP95 = typeof diasRef === 'object' && diasRef !== null ? diasRef.p95 : (typeof diasRef === 'number' ? diasRef : null);
+
   // AAP 2017 rules
   if (ageLt13) {
-    if (maxP < 90) return { label: 'Normal', color: '#22c55e', bg: 'bg-green-100 text-green-800' };
-    if (maxP < 95 || sys >= 120 || dias >= 80) return { label: 'Pressão Elevada', color: '#f59e0b', bg: 'bg-yellow-100 text-yellow-800' };
-    if (maxP < 95 + 12 && sys < 130 && dias < 80) return { label: 'Hipertensão Estágio 1', color: '#f97316', bg: 'bg-orange-100 text-orange-800' };
-    if (sys >= 140 || dias >= 90) return { label: 'Hipertensão Estágio 2', color: '#ef4444', bg: 'bg-red-100 text-red-800' };
-    return { label: 'Hipertensão Estágio 1', color: '#f97316', bg: 'bg-orange-100 text-orange-800' };
+    // 1. Stage 2 Hypertension:
+    // SBP or DBP >= 95th percentile + 12 mmHg OR >= 140/90 mmHg (whichever is lower)
+    const isStage2Sys = sP95 != null ? (sys >= Math.min(sP95 + 12, 140)) : (sys >= 140);
+    const isStage2Dias = dP95 != null ? (dias >= Math.min(dP95 + 12, 90)) : (dias >= 90);
+    if (isStage2Sys || isStage2Dias) {
+      return { label: 'Hipertensão Estágio 2', color: '#ef4444', bg: 'bg-red-100 text-red-800' };
+    }
+
+    // 2. Stage 1 Hypertension:
+    // SBP or DBP >= 95th percentile to < (95th percentile + 12 mmHg) OR 130/80 to 139/89 mmHg (whichever is lower)
+    if (maxP >= 95 || sys >= 130 || dias >= 80) {
+      return { label: 'Hipertensão Estágio 1', color: '#f97316', bg: 'bg-orange-100 text-orange-800' };
+    }
+
+    // 3. Elevated Blood Pressure:
+    // SBP or DBP >= 90th percentile to < 95th percentile OR 120/<80 mmHg to < 95th percentile
+    if (maxP >= 90 || sys >= 120) {
+      return { label: 'Pressão Elevada', color: '#f59e0b', bg: 'bg-yellow-100 text-yellow-800' };
+    }
+
+    // 4. Normal Blood Pressure (< 90th percentile and < 120/<80)
+    return { label: 'Normal', color: '#22c55e', bg: 'bg-green-100 text-green-800' };
   } else {
-    // ≥13 years
-    if (sys < 120 && dias < 80) return { label: 'Normal', color: '#22c55e', bg: 'bg-green-100 text-green-800' };
-    if (sys < 130 && dias < 80) return { label: 'Pressão Elevada', color: '#f59e0b', bg: 'bg-yellow-100 text-yellow-800' };
-    if (sys < 140 && dias < 90) return { label: 'Hipertensão Estágio 1', color: '#f97316', bg: 'bg-orange-100 text-orange-800' };
-    return { label: 'Hipertensão Estágio 2', color: '#ef4444', bg: 'bg-red-100 text-red-800' };
+    // ≥13 years (adult cutoffs)
+    if (sys >= 140 || dias >= 90) return { label: 'Hipertensão Estágio 2', color: '#ef4444', bg: 'bg-red-100 text-red-800' };
+    if (sys >= 130 || dias >= 80) return { label: 'Hipertensão Estágio 1', color: '#f97316', bg: 'bg-orange-100 text-orange-800' };
+    if (sys >= 120 && dias < 80) return { label: 'Pressão Elevada', color: '#f59e0b', bg: 'bg-yellow-100 text-yellow-800' };
+    return { label: 'Normal', color: '#22c55e', bg: 'bg-green-100 text-green-800' };
   }
 }

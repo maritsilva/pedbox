@@ -1,7 +1,7 @@
 // DADOS DE CONDUTAS E MANEJOS PEDIÁTRICOS
 // Estrutura espelhada do PedBook (pedb.com.br/condutas-e-manejos)
-import { getNeonatalConteudo } from './condutasNeonatologiaData';
-import { getCipeConteudo } from './condutasCirurgiaPediatricaData';
+import { getNeonatalConteudo } from './condutasNeonatologiaData.js';
+import { getCipeConteudo } from './condutasCirurgiaPediatricaData.js';
 
 export const CONDUTAS_CATEGORIAS = [
   {

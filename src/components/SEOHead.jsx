@@ -73,7 +73,9 @@ export default function SEOHead() {
           loadGoogleAnalytics(settings.googleAnalyticsId);
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error('Falha ao carregar configurações públicas de SEO:', err);
+      });
   }, []);
 
   // Update route SEO metadata on every page navigation
@@ -122,7 +124,7 @@ export default function SEOHead() {
     try {
       const schema = generateSchemaLD(path);
       updateJsonLd(schema);
-    } catch (_err) {
+    } catch {
       // Ignore JSON-LD generation errors
     }
 
@@ -133,7 +135,7 @@ export default function SEOHead() {
           page_path: path,
           page_title: page.title,
         });
-      } catch (_e) {}
+      } catch {}
     }
   }, [location.pathname]);
 

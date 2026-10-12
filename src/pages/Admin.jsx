@@ -23,7 +23,7 @@ function formatDate(dateStr) {
       day: '2-digit', month: '2-digit', year: 'numeric',
       hour: '2-digit', minute: '2-digit'
     }).format(d);
-  } catch (_e) {
+  } catch {
     return dateStr;
   }
 }
@@ -31,9 +31,9 @@ function formatDate(dateStr) {
 function formatDayLabel(dayStr) {
   if (!dayStr) return '';
   try {
-    const [year, month, day] = dayStr.split('-');
+    const [, month, day] = dayStr.split('-');
     return `${day}/${month}`;
-  } catch (_e) {
+  } catch {
     return dayStr;
   }
 }
@@ -328,11 +328,11 @@ export default function Admin() {
             </div>
           </div>
           <p className="text-2xl sm:text-3xl font-extrabold text-foreground mt-2">
-            47 Calculadoras
+            36 Calculadoras
           </p>
           <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground">
-            <span className="text-teal-600 font-semibold">100% validadas</span>
-            <span>com referências oficiais</span>
+            <span className="text-teal-600 font-semibold">48 ferramentas interativas</span>
+            <span>no catálogo</span>
           </div>
         </div>
       </div>
@@ -900,7 +900,7 @@ export default function Admin() {
                 Cobertura do Acervo Clínico Especializado
               </h3>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Todas as 59 condutas e 47 calculadoras estão integralmente indexadas no código fonte e acessíveis instantaneamente.
+                Todas as 59 condutas e 36 calculadoras (48 ferramentas interativas) estão integralmente indexadas no código fonte e acessíveis instantaneamente.
               </p>
             </div>
 

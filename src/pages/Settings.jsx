@@ -22,7 +22,7 @@ export default function Settings() {
         const me = await services.auth.me();
         setUser(me);
         setDriveFolderUrl(me.drive_folder_url || '');
-      } catch (error) {
+      } catch {
         navigate('/');
       } finally {
         setLoading(false);

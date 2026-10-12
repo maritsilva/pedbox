@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   ChevronLeft,
   RefreshCw,
@@ -25,8 +25,6 @@ export default function ScoreCalculatorLayout({
   referenceSource,
   scoreUnit = 'pontos',
 }) {
-  const navigate = useNavigate();
-
   const answeredCount = criteria.filter((c) => scores[c.id] !== undefined).length;
   const isComplete = answeredCount === criteria.length;
   const currentTotal = Object.values(scores).reduce((a, b) => a + Number(b), 0);
@@ -107,7 +105,7 @@ export default function ScoreCalculatorLayout({
               </span>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-4xl sm:text-5xl font-display font-extrabold text-white">
-                  {isComplete ? currentTotal : currentTotal > 0 ? currentTotal : '—'}
+                  {isComplete ? currentTotal : '—'}
                 </span>
                 <span className="text-xs sm:text-sm text-white/80 font-medium">
                   / {maxScore} {scoreUnit}
@@ -152,7 +150,7 @@ export default function ScoreCalculatorLayout({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT COLUMN: CRITERIA CARDS (lg:col-span-7 or 8) */}
         <div className="lg:col-span-8 space-y-4">
-          {criteria.map((c, idx) => {
+          {criteria.map((c) => {
             const currentSelected = scores[c.id];
             const hasSelection = currentSelected !== undefined;
 
@@ -279,7 +277,7 @@ export default function ScoreCalculatorLayout({
 
             <div className="flex items-baseline gap-2">
               <span className="text-4xl font-display font-extrabold text-emerald-600">
-                {isComplete ? currentTotal : currentTotal > 0 ? currentTotal : '—'}
+                {isComplete ? currentTotal : '—'}
               </span>
               <span className="text-sm font-semibold text-slate-500">
                 / {maxScore} {scoreUnit}

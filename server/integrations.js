@@ -54,10 +54,17 @@ export function installIntegrations(app, db, config, overrides = {}) {
       );
     } catch (_e) {}
     try {
+      const noteTitle = `[Contato] ${data.reason ? `${data.reason} — ` : ''}${data.name}`.slice(0, 1000);
+      const noteContent = `Nome: ${data.name}\nE-mail: ${data.email}\nInstituição: ${data.institution || '-'}\nMotivo: ${data.reason || '-'}\n\nMensagem:\n${data.message}`.slice(0, 200000);
+      const notePayload = {
+        titulo: noteTitle,
+        conteudo: noteContent,
+        cor: 'yellow',
+      };
       await db.query(`INSERT INTO notes(id, user_id, data, created_date, updated_date)
         SELECT $1, id, $2::jsonb, now(), now()
         FROM users WHERE email = 'marina@pedbox.app' LIMIT 1`,
-        [msgId, JSON.stringify({ ...data, type: 'contact_message', status: 'unread', target: toEmail, received_at: new Date().toISOString() })]
+        [msgId, JSON.stringify(notePayload)]
       );
     } catch (_e) {
       // ignore archive failure
