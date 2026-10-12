@@ -107,7 +107,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
     }
   }, [searchParams, documents]);
 
-  // Load documents and user's Google Drive folder from user account + default clinical docs
+  // Load documents and user's Google Drive folder from user account in server DB
   useEffect(() => {
     const userFolder = (user?.drive_folder_url || '').trim();
 
@@ -115,36 +115,61 @@ export default function DocumentosTab({ externalSearch = '' }) {
       setTeamFolderUrl(userFolder);
     }
 
-    let combined = [...DEFAULT_DOCUMENTS];
+    let initialDocs = [];
 
     if (userFolder) {
       const folderEmbed = getGoogleDriveEmbedUrl(userFolder);
       const folderDoc = {
         id: 'doc_team_drive_custom',
-        titulo: 'Pasta Vinculada da Equipe (Google Drive)',
-        descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox no servidor.',
+        titulo: 'Minha Pasta do Google Drive',
+        descricao: 'Arquivos, planilhas e documentos do seu Google Drive vinculado.',
         categoria: 'Pastas',
         tipo: 'folder',
         driveUrl: userFolder,
         embedUrl: folderEmbed,
         fonte: 'Google Drive Vinculado',
-        tags: ['drive', 'pasta', 'equipe', 'serviço'],
+        tags: ['drive', 'pasta', 'meu drive'],
         destaque: true,
       };
-      combined = [folderDoc, ...combined.filter((d) => d.id !== 'doc_team_drive_custom')];
+      initialDocs.push(folderDoc);
       // Automatically open the linked folder in viewer if no specific document is requested
       if (!searchParams.get('doc')) {
         setActiveDoc(folderDoc);
       }
     }
 
-    setDocuments(combined);
-  }, [user?.drive_folder_url, searchParams]);
+    // Load any custom documents added by the user from server DB (user-links)
+    if (user?.id) {
+      services.userLinks.list('-created_date')
+        .then((links) => {
+          const docLinks = (links || [])
+            .filter((l) => l.categoria === 'Documentos' || l.categoria === 'Diretrizes' || l.categoria === 'Tabelas' || l.categoria === 'Rotinas' || l.categoria === 'Impressos' || l.categoria === 'Pastas' || l.url?.includes('drive.google.com') || l.url?.includes('docs.google.com'))
+            .map((l) => {
+              const detectedType = detectGoogleDriveType(l.url);
+              return {
+                id: l.id,
+                titulo: l.titulo,
+                descricao: l.descricao || 'Documento clínico do Google Drive.',
+                categoria: l.categoria || 'Diretrizes',
+                tipo: detectedType,
+                driveUrl: l.url,
+                embedUrl: getGoogleDriveEmbedUrl(l.url),
+                fonte: 'Meu Google Drive',
+                tags: [l.titulo.toLowerCase()],
+                destaque: false,
+              };
+            });
 
-  // Update in-memory documents list
-  const persistDocuments = (updatedDocs) => {
-    setDocuments(updatedDocs);
-  };
+          setDocuments((prev) => {
+            const folderItem = prev.filter((d) => d.id === 'doc_team_drive_custom');
+            return [...folderItem, ...docLinks];
+          });
+        })
+        .catch(() => {});
+    }
+
+    setDocuments(initialDocs);
+  }, [user?.id, user?.drive_folder_url, searchParams]);
 
   // Save custom Team Google Drive Folder to user settings in server DB
   const handleSaveTeamFolder = async (e) => {
@@ -161,14 +186,14 @@ export default function DocumentosTab({ externalSearch = '' }) {
       const folderEmbed = getGoogleDriveEmbedUrl(url);
       const folderDoc = {
         id: 'doc_team_drive_custom',
-        titulo: 'Pasta Vinculada da Equipe (Google Drive)',
-        descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox no servidor.',
+        titulo: 'Minha Pasta do Google Drive',
+        descricao: 'Arquivos, planilhas e documentos do seu Google Drive vinculado.',
         categoria: 'Pastas',
         tipo: 'folder',
         driveUrl: url,
         embedUrl: folderEmbed,
         fonte: 'Google Drive Vinculado',
-        tags: ['drive', 'pasta', 'equipe', 'serviço'],
+        tags: ['drive', 'pasta', 'meu drive'],
         destaque: true,
       };
 
@@ -182,47 +207,83 @@ export default function DocumentosTab({ externalSearch = '' }) {
     }
   };
 
-  // Handle Add Document
-  const handleSaveNewDoc = (e) => {
+  // Handle Add Document in server DB
+  const handleSaveNewDoc = async (e) => {
     e.preventDefault();
     if (!newTitle.trim() || !newUrl.trim()) {
       toast.error('Informe o título e o link do Google Drive.');
       return;
     }
 
+    if (!user) {
+      toast.error('Faça login para salvar documentos na sua conta.');
+      return;
+    }
+
     const embedUrl = getGoogleDriveEmbedUrl(newUrl.trim());
     const detectedType = detectGoogleDriveType(newUrl.trim());
 
-    const newDoc = {
-      id: 'doc_' + Date.now(),
-      titulo: newTitle.trim(),
-      descricao: newDesc.trim() || 'Documento clínico vinculado ao Google Drive.',
-      categoria: newCategory || 'Diretrizes',
-      tipo: detectedType,
-      driveUrl: newUrl.trim(),
-      embedUrl: embedUrl,
-      fonte: newSource.trim() || 'Arquivo do Google Drive',
-      tags: [newTitle.toLowerCase(), newCategory.toLowerCase()],
-      destaque: false,
-    };
+    try {
+      const created = await services.userLinks.create({
+        titulo: newTitle.trim(),
+        url: newUrl.trim(),
+        descricao: newDesc.trim() || 'Documento clínico vinculado ao Google Drive.',
+        categoria: newCategory || 'Diretrizes',
+        icone: detectedType === 'sheet' ? '📊' : detectedType === 'folder' ? '📁' : detectedType === 'slide' ? '📽️' : '📄',
+      });
 
-    const updated = [newDoc, ...documents];
-    persistDocuments(updated);
-    setShowAddModal(false);
-    setNewTitle('');
-    setNewUrl('');
-    setNewDesc('');
-    setNewSource('');
-    toast.success('Documento adicionado ao visualizador!');
-    setActiveDoc(newDoc);
+      const newDoc = {
+        id: created.id,
+        titulo: created.titulo,
+        descricao: created.descricao || 'Documento clínico vinculado ao Google Drive.',
+        categoria: created.categoria || 'Diretrizes',
+        tipo: detectedType,
+        driveUrl: created.url,
+        embedUrl: embedUrl,
+        fonte: 'Meu Google Drive',
+        tags: [newTitle.toLowerCase()],
+        destaque: false,
+      };
+
+      setDocuments((prev) => [newDoc, ...prev]);
+      setShowAddModal(false);
+      setNewTitle('');
+      setNewUrl('');
+      setNewDesc('');
+      setNewSource('');
+      toast.success('Documento adicionado e salvo na sua conta!');
+      setActiveDoc(newDoc);
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar documento no servidor.');
+    }
   };
 
-  // Delete Document
-  const handleDeleteDoc = (id) => {
-    const updated = documents.filter((d) => d.id !== id);
-    persistDocuments(updated);
-    if (activeDoc?.id === id) setActiveDoc(null);
-    toast.success('Documento removido.');
+  // Delete Document in server DB
+  const handleDeleteDoc = async (id) => {
+    if (id === 'doc_team_drive_custom') {
+      try {
+        if (user) {
+          await services.auth.updateProfile({ drive_folder_url: '' });
+          if (typeof refreshUser === 'function') await refreshUser();
+        }
+        setTeamFolderUrl('');
+        setDocuments((prev) => prev.filter((d) => d.id !== id));
+        if (activeDoc?.id === id) setActiveDoc(null);
+        toast.success('Pasta do Google Drive desvinculada.');
+      } catch (err) {
+        toast.error(err.message || 'Erro ao desvincular pasta.');
+      }
+      return;
+    }
+
+    try {
+      await services.userLinks.delete(id);
+      setDocuments((prev) => prev.filter((d) => d.id !== id));
+      if (activeDoc?.id === id) setActiveDoc(null);
+      toast.success('Documento removido da sua conta.');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao remover documento.');
+    }
   };
 
   // Copy Link
@@ -591,19 +652,17 @@ export default function DocumentosTab({ externalSearch = '' }) {
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
 
-                    {doc.id.startsWith('doc_') && !DEFAULT_DOCUMENTS.some((d) => d.id === doc.id) && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteDoc(doc.id);
-                        }}
-                        className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-                        title="Remover documento"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteDoc(doc.id);
+                      }}
+                      className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                      title={doc.id === 'doc_team_drive_custom' ? 'Desvincular pasta do Drive' : 'Remover documento'}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               </div>
