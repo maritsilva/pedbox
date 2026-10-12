@@ -347,23 +347,12 @@ function GlobalSearchResults({ q, setSearch }) {
   }, [q]);
 
   const [links, setLinks] = useState([]);
-  const [userDocs, setUserDocs] = useState([]);
 
   useEffect(() => {
     services.libraryLinks.list().then(setLinks).catch(() => {});
-    try {
-      const savedDocs = localStorage.getItem('pedbox_saved_documents');
-      if (savedDocs) setUserDocs(JSON.parse(savedDocs));
-    } catch {}
   }, []);
 
-  const allDocuments = useMemo(() => {
-    const list = [...userDocs];
-    DEFAULT_DOCUMENTS.forEach(d => {
-      if (!list.some(x => x.id === d.id)) list.push(d);
-    });
-    return list;
-  }, [userDocs]);
+  const allDocuments = DEFAULT_DOCUMENTS;
 
   const filteredDocs = allDocuments.filter(d =>
     normalizeSearch(d.titulo).includes(q) ||

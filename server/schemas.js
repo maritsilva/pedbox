@@ -25,6 +25,9 @@ export const collections = {
   'library-links': { table: 'library_links', schema: z.object({
     titulo: text.min(1), url, descricao: z.string().max(20000).optional(), categoria: short, icone: short,
   }).strict() },
+  'user-links': { table: 'user_links', private: true, schema: z.object({
+    titulo: text.min(1), url, descricao: z.string().max(20000).optional(), categoria: short, icone: short,
+  }).strict() },
   vaccines: { table: 'vaccines', schema: z.object({
     nome: text.min(1), idade: text.min(1), previne: text.min(1), composicao: short, indicacao: short,
     contraindicacao: short, esquema: short, via: short, efeitosAdversos: short, ondeEncontrar: short,

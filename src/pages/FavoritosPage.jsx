@@ -96,47 +96,23 @@ export default function FavoritosPage() {
   const [localNotes, setLocalNotes] = useState([]);
   const [localLinks, setLocalLinks] = useState([]);
 
-  // Load notes & links from localStorage & sync backend
+  // Load notes & links directly from server DB
   useEffect(() => {
-    try {
-      const storedNotes = localStorage.getItem('pedbox_saved_notes');
-      if (storedNotes) setLocalNotes(JSON.parse(storedNotes));
-      const storedLinks = localStorage.getItem('pedbox_saved_links');
-      if (storedLinks) setLocalLinks(JSON.parse(storedLinks));
-    } catch {}
-
     if (user?.id) {
-      services.notes.filter({ created_by_id: user.id })
+      services.notes.list('-created_date')
         .then((remoteNotes) => {
-          if (Array.isArray(remoteNotes) && remoteNotes.length > 0) {
-            setLocalNotes((prev) => {
-              const combined = [...remoteNotes];
-              prev.forEach((local) => {
-                if (!combined.some((r) => r.id === local.id || r.titulo === local.titulo)) {
-                  combined.push(local);
-                }
-              });
-              localStorage.setItem('pedbox_saved_notes', JSON.stringify(combined));
-              return combined;
-            });
-          }
+          if (Array.isArray(remoteNotes)) setLocalNotes(remoteNotes);
         })
         .catch(() => {});
 
-      services.libraryLinks.list().then((remoteLinks) => {
-        if (Array.isArray(remoteLinks) && remoteLinks.length > 0) {
-          setLocalLinks((prev) => {
-            const combined = [...remoteLinks];
-            prev.forEach((local) => {
-              if (!combined.some((r) => r.id === local.id || r.url === local.url)) {
-                combined.push(local);
-              }
-            });
-            localStorage.setItem('pedbox_saved_links', JSON.stringify(combined));
-            return combined;
-          });
-        }
-      }).catch(() => {});
+      services.userLinks.list('-created_date')
+        .then((remoteLinks) => {
+          if (Array.isArray(remoteLinks)) setLocalLinks(remoteLinks);
+        })
+        .catch(() => {});
+    } else {
+      setLocalNotes([]);
+      setLocalLinks([]);
     }
   }, [user?.id]);
 
@@ -229,44 +205,40 @@ export default function FavoritosPage() {
   };
 
   // Add Note handler
-  const handleSaveNote = (e) => {
+  const handleSaveNote = async (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error('Faça login para salvar anotações no servidor.');
+      return;
+    }
     if (!newNoteTitle.trim() && !newNoteContent.trim()) {
-      toast.error('Informe ao menos o título ou conteúdo da anotação.');
+      toast.error('Informe pelo menos um título ou conteúdo para a anotação.');
       return;
     }
 
-    const noteObj = {
-      id: 'note_' + Date.now(),
-      titulo: newNoteTitle.trim() || 'Anotação sem título',
-      conteudo: newNoteContent.trim(),
-      cor: newNoteColor,
-      created_date: new Date().toISOString(),
-    };
-
-    const updated = [noteObj, ...localNotes];
-    setLocalNotes(updated);
     try {
-      localStorage.setItem('pedbox_saved_notes', JSON.stringify(updated));
-    } catch {}
-
-    if (user?.id) {
-      services.notes.create({
-        titulo: noteObj.titulo,
-        conteudo: noteObj.conteudo,
-        cor: noteObj.cor,
-      }).catch(() => {});
+      const created = await services.notes.create({
+        titulo: newNoteTitle.trim() || 'Anotação sem título',
+        conteudo: newNoteContent.trim(),
+        cor: newNoteColor,
+      });
+      setLocalNotes((prev) => [created, ...prev]);
+      setNewNoteTitle('');
+      setNewNoteContent('');
+      setShowAddModal(false);
+      toast.success('Anotação salva no banco de dados do servidor!');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar anotação.');
     }
-
-    setNewNoteTitle('');
-    setNewNoteContent('');
-    setShowAddModal(false);
-    toast.success('Anotação adicionada aos seus favoritos!');
   };
 
   // Add Link handler
-  const handleSaveLink = (e) => {
+  const handleSaveLink = async (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error('Faça login para salvar links no servidor.');
+      return;
+    }
     if (!newLinkTitle.trim() || !newLinkUrl.trim()) {
       toast.error('Informe o título e a URL do link.');
       return;
@@ -275,48 +247,44 @@ export default function FavoritosPage() {
     let url = newLinkUrl.trim();
     if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
 
-    const linkObj = {
-      id: 'link_' + Date.now(),
-      titulo: newLinkTitle.trim(),
-      url,
-      categoria: newLinkCategory.trim() || 'Geral',
-      created_date: new Date().toISOString(),
-    };
-
-    const updated = [linkObj, ...localLinks];
-    setLocalLinks(updated);
     try {
-      localStorage.setItem('pedbox_saved_links', JSON.stringify(updated));
-    } catch {}
-
-    setNewLinkTitle('');
-    setNewLinkUrl('');
-    setNewLinkCategory('');
-    setShowAddModal(false);
-    toast.success('Link adicionado aos seus favoritos!');
+      const created = await services.userLinks.create({
+        titulo: newLinkTitle.trim(),
+        url,
+        categoria: newLinkCategory.trim() || 'Geral',
+        icone: '🔗',
+      });
+      setLocalLinks((prev) => [created, ...prev]);
+      setNewLinkTitle('');
+      setNewLinkUrl('');
+      setNewLinkCategory('');
+      setShowAddModal(false);
+      toast.success('Link salvo no banco de dados do servidor!');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar link.');
+    }
   };
 
   // Delete Note
-  const handleDeleteNote = (id) => {
-    const updated = localNotes.filter((n) => n.id !== id);
-    setLocalNotes(updated);
+  const handleDeleteNote = async (id) => {
     try {
-      localStorage.setItem('pedbox_saved_notes', JSON.stringify(updated));
-    } catch {}
-    if (user?.id && !id.startsWith('note_')) {
-      services.notes.delete(id).catch(() => {});
+      await services.notes.delete(id);
+      setLocalNotes((prev) => prev.filter((n) => n.id !== id));
+      toast.success('Anotação removida do servidor.');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao remover anotação.');
     }
-    toast.success('Anotação removida.');
   };
 
   // Delete Link
-  const handleDeleteLink = (id) => {
-    const updated = localLinks.filter((l) => l.id !== id);
-    setLocalLinks(updated);
+  const handleDeleteLink = async (id) => {
     try {
-      localStorage.setItem('pedbox_saved_links', JSON.stringify(updated));
-    } catch {}
-    toast.success('Link removido.');
+      await services.userLinks.delete(id);
+      setLocalLinks((prev) => prev.filter((l) => l.id !== id));
+      toast.success('Link removido do servidor.');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao remover link.');
+    }
   };
 
   // Copy Note / Text helper

@@ -43,96 +43,63 @@ export default function UserNotesAndLinks() {
   const [linkUrl, setLinkUrl] = useState('');
   const [linkCategory, setLinkCategory] = useState('');
 
-  // Load from localStorage and backend
+  // Load notes and links directly from the server database
   useEffect(() => {
-    try {
-      const storedNotes = localStorage.getItem('pedbox_saved_notes');
-      if (storedNotes) setNotes(JSON.parse(storedNotes));
-      const storedLinks = localStorage.getItem('pedbox_saved_links');
-      if (storedLinks) setLinks(JSON.parse(storedLinks));
-    } catch {
-      // fallback
-    }
-
-    // If user is authenticated, sync with server
     if (user?.id) {
-      services.notes.filter({ created_by_id: user.id })
+      services.notes.list('-created_date')
         .then((remoteNotes) => {
-          if (Array.isArray(remoteNotes) && remoteNotes.length > 0) {
-            setNotes((prev) => {
-              const combined = [...remoteNotes];
-              prev.forEach((local) => {
-                if (!combined.some((r) => r.id === local.id || r.titulo === local.titulo)) {
-                  combined.push(local);
-                }
-              });
-              localStorage.setItem('pedbox_saved_notes', JSON.stringify(combined));
-              return combined;
-            });
-          }
+          if (Array.isArray(remoteNotes)) setNotes(remoteNotes);
         })
         .catch(() => {});
+
+      services.userLinks.list('-created_date')
+        .then((remoteLinks) => {
+          if (Array.isArray(remoteLinks)) setLinks(remoteLinks);
+        })
+        .catch(() => {});
+    } else {
+      setNotes([]);
+      setLinks([]);
     }
   }, [user?.id]);
 
-  // Persist notes helper
-  const persistNotes = (updated) => {
-    setNotes(updated);
-    try {
-      localStorage.setItem('pedbox_saved_notes', JSON.stringify(updated));
-    } catch {}
-  };
-
-  // Persist links helper
-  const persistLinks = (updated) => {
-    setLinks(updated);
-    try {
-      localStorage.setItem('pedbox_saved_links', JSON.stringify(updated));
-    } catch {}
-  };
-
-  // Handle create note
+  // Handle create note in server DB
   const handleSaveNote = async (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error('Faça login para salvar anotações no servidor.');
+      return;
+    }
     if (!noteTitle.trim() && !noteContent.trim()) {
       toast.error('Informe pelo menos um título ou conteúdo para a anotação.');
       return;
     }
 
-    const newNote = {
-      id: 'note_' + Date.now(),
-      titulo: noteTitle.trim() || 'Anotação sem título',
-      conteudo: noteContent.trim(),
-      cor: noteColor,
-      created_date: new Date().toISOString(),
-    };
-
-    const updated = [newNote, ...notes];
-    persistNotes(updated);
-
-    // Sync to backend if authenticated
-    if (user?.id) {
-      services.notes.create({
-        titulo: newNote.titulo,
-        conteudo: newNote.conteudo,
-        cor: newNote.cor,
-      }).catch(() => {});
+    try {
+      const created = await services.notes.create({
+        titulo: noteTitle.trim() || 'Anotação sem título',
+        conteudo: noteContent.trim(),
+        cor: noteColor,
+      });
+      setNotes((prev) => [created, ...prev]);
+      setNoteTitle('');
+      setNoteContent('');
+      setShowAddNote(false);
+      toast.success('Anotação salva no banco de dados do servidor!');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar anotação.');
     }
-
-    setNoteTitle('');
-    setNoteContent('');
-    setShowAddNote(false);
-    toast.success('Anotação salva com sucesso!');
   };
 
-  // Handle delete note
-  const handleDeleteNote = (id) => {
-    const updated = notes.filter((n) => n.id !== id);
-    persistNotes(updated);
-    if (user?.id && !id.startsWith('note_')) {
-      services.notes.delete(id).catch(() => {});
+  // Handle delete note in server DB
+  const handleDeleteNote = async (id) => {
+    try {
+      await services.notes.delete(id);
+      setNotes((prev) => prev.filter((n) => n.id !== id));
+      toast.success('Anotação removida do servidor.');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao remover anotação.');
     }
-    toast.success('Anotação removida.');
   };
 
   // Handle copy note
@@ -144,9 +111,13 @@ export default function UserNotesAndLinks() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  // Handle create link
-  const handleSaveLink = (e) => {
+  // Handle create link in server DB
+  const handleSaveLink = async (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error('Faça login para salvar links no servidor.');
+      return;
+    }
     if (!linkTitle.trim() || !linkUrl.trim()) {
       toast.error('Informe o título e a URL do link.');
       return;
@@ -157,29 +128,33 @@ export default function UserNotesAndLinks() {
       formattedUrl = 'https://' + formattedUrl;
     }
 
-    const newLink = {
-      id: 'link_' + Date.now(),
-      titulo: linkTitle.trim(),
-      url: formattedUrl,
-      categoria: linkCategory.trim() || 'Geral',
-      created_date: new Date().toISOString(),
-    };
-
-    const updated = [newLink, ...links];
-    persistLinks(updated);
-
-    setLinkTitle('');
-    setLinkUrl('');
-    setLinkCategory('');
-    setShowAddLink(false);
-    toast.success('Link salvo com sucesso!');
+    try {
+      const created = await services.userLinks.create({
+        titulo: linkTitle.trim(),
+        url: formattedUrl,
+        categoria: linkCategory.trim() || 'Geral',
+        icone: '🔗',
+      });
+      setLinks((prev) => [created, ...prev]);
+      setLinkTitle('');
+      setLinkUrl('');
+      setLinkCategory('');
+      setShowAddLink(false);
+      toast.success('Link salvo no banco de dados do servidor!');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar link.');
+    }
   };
 
-  // Handle delete link
-  const handleDeleteLink = (id) => {
-    const updated = links.filter((l) => l.id !== id);
-    persistLinks(updated);
-    toast.success('Link removido.');
+  // Handle delete link in server DB
+  const handleDeleteLink = async (id) => {
+    try {
+      await services.userLinks.delete(id);
+      setLinks((prev) => prev.filter((l) => l.id !== id));
+      toast.success('Link removido do servidor.');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao remover link.');
+    }
   };
 
   const formatDate = (isoString) => {

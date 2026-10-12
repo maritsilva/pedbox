@@ -55,7 +55,7 @@ export const services = {
     updateProfile: (body) => request('/me', { method: 'PATCH', body }),
   },
   favorites: { ...collection('/favorites'), remove: (tipo, chave) => request('/favorites', { method: 'DELETE', body: { tipo, chave } }) },
-  notes: collection('/notes'), categories: collection('/categories'), contents: collection('/contents'), libraryLinks: collection('/library-links'),
+  notes: collection('/notes'), categories: collection('/categories'), contents: collection('/contents'), libraryLinks: collection('/library-links'), userLinks: collection('/user-links'),
   uploads: { create: ({ file }) => { const body = new FormData(); body.append('file', file); return request('/uploads', { method: 'POST', body }); } },
   contact: { send: body => request('/contact', { method: 'POST', body }) },
   research: {

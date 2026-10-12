@@ -107,67 +107,46 @@ export default function DocumentosTab({ externalSearch = '' }) {
     }
   }, [searchParams, documents]);
 
-  // Load documents and user's Google Drive folder from user settings + defaults
+  // Load documents and user's Google Drive folder from user account + default clinical docs
   useEffect(() => {
     const userFolder = (user?.drive_folder_url || '').trim();
-    const savedFolder = (typeof localStorage !== 'undefined' ? localStorage.getItem('pedbox_team_drive_folder') : '') || '';
-    const folderToUse = userFolder || savedFolder;
 
-    if (folderToUse) {
-      setTeamFolderUrl(folderToUse);
+    if (userFolder) {
+      setTeamFolderUrl(userFolder);
     }
 
-    try {
-      const savedDocs = localStorage.getItem('pedbox_saved_documents');
-      let combined = [];
-      if (savedDocs) {
-        const parsed = JSON.parse(savedDocs);
-        combined = [...parsed];
-        DEFAULT_DOCUMENTS.forEach((def) => {
-          if (!combined.some((d) => d.id === def.id)) {
-            combined.push(def);
-          }
-        });
-      } else {
-        combined = [...DEFAULT_DOCUMENTS];
-      }
+    let combined = [...DEFAULT_DOCUMENTS];
 
-      if (folderToUse) {
-        const folderEmbed = getGoogleDriveEmbedUrl(folderToUse);
-        const folderDoc = {
-          id: 'doc_team_drive_custom',
-          titulo: 'Pasta Vinculada da Equipe (Google Drive)',
-          descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox.',
-          categoria: 'Pastas',
-          tipo: 'folder',
-          driveUrl: folderToUse,
-          embedUrl: folderEmbed,
-          fonte: 'Google Drive Vinculado',
-          tags: ['drive', 'pasta', 'equipe', 'serviço'],
-          destaque: true,
-        };
-        combined = [folderDoc, ...combined.filter((d) => d.id !== 'doc_team_drive_custom')];
-        // Automatically open the linked folder in viewer if no specific document is requested
-        if (!searchParams.get('doc')) {
-          setActiveDoc(folderDoc);
-        }
+    if (userFolder) {
+      const folderEmbed = getGoogleDriveEmbedUrl(userFolder);
+      const folderDoc = {
+        id: 'doc_team_drive_custom',
+        titulo: 'Pasta Vinculada da Equipe (Google Drive)',
+        descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox no servidor.',
+        categoria: 'Pastas',
+        tipo: 'folder',
+        driveUrl: userFolder,
+        embedUrl: folderEmbed,
+        fonte: 'Google Drive Vinculado',
+        tags: ['drive', 'pasta', 'equipe', 'serviço'],
+        destaque: true,
+      };
+      combined = [folderDoc, ...combined.filter((d) => d.id !== 'doc_team_drive_custom')];
+      // Automatically open the linked folder in viewer if no specific document is requested
+      if (!searchParams.get('doc')) {
+        setActiveDoc(folderDoc);
       }
-
-      setDocuments(combined);
-    } catch {
-      setDocuments(DEFAULT_DOCUMENTS);
     }
+
+    setDocuments(combined);
   }, [user?.drive_folder_url, searchParams]);
 
-  // Save documents to localStorage
+  // Update in-memory documents list
   const persistDocuments = (updatedDocs) => {
     setDocuments(updatedDocs);
-    try {
-      localStorage.setItem('pedbox_saved_documents', JSON.stringify(updatedDocs));
-    } catch {}
   };
 
-  // Save custom Team Google Drive Folder to user settings
+  // Save custom Team Google Drive Folder to user settings in server DB
   const handleSaveTeamFolder = async (e) => {
     e.preventDefault();
     const url = teamFolderUrl.trim();
@@ -178,15 +157,12 @@ export default function DocumentosTab({ externalSearch = '' }) {
         await services.auth.updateProfile({ drive_folder_url: url });
         if (typeof refreshUser === 'function') await refreshUser();
       }
-      try {
-        localStorage.setItem('pedbox_team_drive_folder', url);
-      } catch {}
 
       const folderEmbed = getGoogleDriveEmbedUrl(url);
       const folderDoc = {
         id: 'doc_team_drive_custom',
         titulo: 'Pasta Vinculada da Equipe (Google Drive)',
-        descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox.',
+        descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox no servidor.',
         categoria: 'Pastas',
         tipo: 'folder',
         driveUrl: url,
@@ -197,7 +173,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
       };
 
       const updated = [folderDoc, ...documents.filter((d) => d.id !== 'doc_team_drive_custom')];
-      persistDocuments(updated);
+      setDocuments(updated);
       setShowFolderModal(false);
       toast.success('Pasta vinculada às configurações da sua conta com sucesso!');
       setActiveDoc(folderDoc);
@@ -237,7 +213,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
     setNewUrl('');
     setNewDesc('');
     setNewSource('');
-    toast.success('Documento adicionado com sucesso!');
+    toast.success('Documento adicionado ao visualizador!');
     setActiveDoc(newDoc);
   };
 
