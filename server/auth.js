@@ -56,10 +56,10 @@ export function installAuth(app, db, config) {
   });
   app.get('/api/v1/me', (req, res) => {
     if (!req.user) throw httpError(401, 'Entre para continuar.');
-    const { id, email, full_name, role } = req.user;
+    const { id, email, full_name, role, drive_folder_url } = req.user;
     const isMasterAdmin = (email || '').trim().toLowerCase() === 'marina@pedbox.app';
     const isPrivileged = isMasterAdmin || id === 'admin' || id === 'local-developer';
-    res.json({ id, email, full_name, role: isPrivileged ? role : 'user' });
+    res.json({ id, email, full_name, role: isPrivileged ? role : 'user', drive_folder_url: drive_folder_url || '' });
   });
 
   app.get('/api/v1/auth/status', (_req, res) => res.json({
@@ -70,10 +70,10 @@ export function installAuth(app, db, config) {
     development: config.devAuth
   }));
 
-  // ── Update Profile (Name, Email, Password) ──
+  // ── Update Profile (Name, Email, Password, Drive Folder) ──
   app.patch('/api/v1/me', async (req, res) => {
     if (!req.user) throw httpError(401, 'Entre para continuar.');
-    const { full_name, email, current_password, new_password } = req.body || {};
+    const { full_name, email, current_password, new_password, drive_folder_url } = req.body || {};
 
     let cleanName = req.user.full_name;
     if (typeof full_name === 'string') {
@@ -91,6 +91,11 @@ export function installAuth(app, db, config) {
       if (existing.rows.length > 0) {
         throw httpError(409, 'Este endereço de e-mail já está sendo utilizado por outra conta.');
       }
+    }
+
+    let cleanDriveUrl = req.user.drive_folder_url || '';
+    if (typeof drive_folder_url === 'string') {
+      cleanDriveUrl = drive_folder_url.trim().slice(0, 500);
     }
 
     let newHash = req.user.password_hash;
@@ -111,10 +116,10 @@ export function installAuth(app, db, config) {
 
     const { rows } = await db.query(
       `UPDATE users
-       SET full_name=$1, email=$2, password_hash=$3, role=$4
-       WHERE id=$5
-       RETURNING id, email, full_name, role`,
-      [cleanName, cleanEmail, newHash, role, req.user.id]
+       SET full_name=$1, email=$2, password_hash=$3, role=$4, drive_folder_url=$5
+       WHERE id=$6
+       RETURNING id, email, full_name, role, drive_folder_url`,
+      [cleanName, cleanEmail, newHash, role, cleanDriveUrl, req.user.id]
     );
 
     res.json({ ok: true, user: rows[0] });

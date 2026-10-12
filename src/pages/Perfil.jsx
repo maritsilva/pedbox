@@ -15,7 +15,11 @@ import {
   LogOut,
   Trash2,
   Sparkles,
+  FolderOpen,
+  Folder,
+  ExternalLink,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Perfil() {
   const { user, refreshUser } = useAuth();
@@ -35,12 +39,35 @@ export default function Perfil() {
   const [passwordBusy, setPasswordBusy] = useState(false);
   const [passwordMsg, setPasswordMsg] = useState({ text: '', type: '' });
 
+  // Google Drive folder state
+  const [driveFolderUrl, setDriveFolderUrl] = useState(user?.drive_folder_url || '');
+  const [driveBusy, setDriveBusy] = useState(false);
+  const [driveMsg, setDriveMsg] = useState({ text: '', type: '' });
+
   useEffect(() => {
     if (user) {
       setFullName(user.full_name || '');
       setEmail(user.email || '');
+      setDriveFolderUrl(user.drive_folder_url || '');
     }
   }, [user]);
+
+  const handleUpdateDriveFolder = async (e) => {
+    e.preventDefault();
+    setDriveMsg({ text: '', type: '' });
+    setDriveBusy(true);
+    try {
+      await services.auth.updateProfile({
+        drive_folder_url: driveFolderUrl.trim(),
+      });
+      setDriveMsg({ text: 'Link da pasta do Google Drive salvo nas suas configurações!', type: 'success' });
+      if (typeof refreshUser === 'function') await refreshUser();
+    } catch (err) {
+      setDriveMsg({ text: err.message || 'Erro ao salvar pasta.', type: 'error' });
+    } finally {
+      setDriveBusy(false);
+    }
+  };
 
   const handleUpdatePersonal = async (e) => {
     e.preventDefault();
@@ -313,6 +340,95 @@ export default function Perfil() {
             >
               {passwordBusy ? 'Alterando...' : 'Alterar Senha'}
             </button>
+          </form>
+        </section>
+
+        {/* ── SECTION 3: PASTA VINCULADA DO GOOGLE DRIVE ── */}
+        <section className="md:col-span-2 bg-white border border-slate-200/90 rounded-3xl p-6 shadow-2xs space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-100">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-purple-50 text-purple-700">
+                <FolderOpen className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-brand-navy">Pasta Vinculada do Google Drive</h3>
+                <p className="text-[11px] text-slate-400">Armazenamento oficial de protocolos e documentos do seu serviço</p>
+              </div>
+            </div>
+
+            <Link
+              to="/biblioteca?tab=documentos"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-semibold transition-colors self-start sm:self-auto"
+            >
+              <span>Abrir na Biblioteca</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Cole abaixo o link de compartilhamento da pasta da sua equipe ou serviço no Google Drive.
+            O PedBox armazena este vínculo diretamente nas <strong>configurações da sua conta</strong> e
+            exibe os arquivos com o <strong>visualizador integrado</strong> na aba <strong>Biblioteca &gt; Documentos</strong>.
+          </p>
+
+          {driveMsg.text && (
+            <div
+              className={`p-3 rounded-xl text-xs flex items-start gap-2 ${
+                driveMsg.type === 'success'
+                  ? 'bg-teal-50 border border-teal-200 text-teal-800'
+                  : 'bg-rose-50 border border-rose-200 text-rose-800'
+              }`}
+            >
+              {driveMsg.type === 'success' ? (
+                <CheckCircle2 className="w-4 h-4 text-brand-teal shrink-0 mt-0.5" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              )}
+              <span>{driveMsg.text}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleUpdateDriveFolder} className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-700">
+                Link da Pasta do Google Drive
+              </label>
+              <div className="relative">
+                <Folder className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="url"
+                  placeholder="https://drive.google.com/drive/folders/..."
+                  value={driveFolderUrl}
+                  onChange={(e) => setDriveFolderUrl(e.target.value)}
+                  className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-brand-teal focus:ring-3 focus:ring-brand-teal/15 focus:bg-white transition-all font-mono"
+                />
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Dica: no Google Drive, clique com o botão direito na pasta &gt; Compartilhar &gt; Copiar link (certifique-se de que o acesso esteja liberado para sua equipe).
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="submit"
+                disabled={driveBusy}
+                className="py-2.5 px-5 rounded-xl bg-brand-navy hover:bg-slate-800 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer disabled:opacity-60"
+              >
+                {driveBusy ? 'Salvando...' : 'Salvar Pasta nas Configurações'}
+              </button>
+
+              {driveFolderUrl && (
+                <a
+                  href={driveFolderUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Testar Link no Drive</span>
+                </a>
+              )}
+            </div>
           </form>
         </section>
       </div>

@@ -16,8 +16,19 @@ export function AuthProvider({ children }) {
     window.addEventListener('pedbox:session-ended', invalidate);
     return () => { active = false; window.removeEventListener('pedbox:session-ended', invalidate); };
   }, []);
+
+  const refreshUser = async () => {
+    try {
+      const value = await services.auth.me();
+      setUser(value);
+      return value;
+    } catch {
+      return null;
+    }
+  };
+
   return <AuthContext.Provider value={{ user, isAuthenticated: Boolean(user), isLoadingAuth,
-    authChecked: !isLoadingAuth, error, logout: services.auth.logout, navigateToLogin: services.auth.redirectToLogin }}>
+    authChecked: !isLoadingAuth, error, logout: services.auth.logout, navigateToLogin: services.auth.redirectToLogin, refreshUser }}>
     {children}
   </AuthContext.Provider>;
 }

@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { services } from '@/api/services';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, LogOut } from 'lucide-react';
+import { AlertTriangle, LogOut, FolderOpen, ExternalLink, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -12,12 +13,15 @@ export default function Settings() {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [driveFolderUrl, setDriveFolderUrl] = useState('');
+  const [savingDrive, setSavingDrive] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
       try {
         const me = await services.auth.me();
         setUser(me);
+        setDriveFolderUrl(me.drive_folder_url || '');
       } catch (error) {
         navigate('/');
       } finally {
@@ -26,6 +30,20 @@ export default function Settings() {
     };
     loadUser();
   }, [navigate]);
+
+  const handleSaveDriveFolder = async (e) => {
+    e.preventDefault();
+    setSavingDrive(true);
+    try {
+      const res = await services.auth.updateProfile({ drive_folder_url: driveFolderUrl.trim() });
+      if (res?.user) setUser(res.user);
+      toast.success('Pasta do Google Drive vinculada salva nas suas configurações!');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar pasta.');
+    } finally {
+      setSavingDrive(false);
+    }
+  };
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
@@ -94,6 +112,53 @@ export default function Settings() {
             </div>
           </motion.div>
         )}
+
+        {/* Pasta do Google Drive Vinculada */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bg-white dark:bg-slate-800 rounded-2xl border border-border p-6 space-y-4"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="p-2 rounded-xl bg-purple-50 text-purple-700">
+                <FolderOpen className="w-4 h-4" />
+              </div>
+              <h2 className="text-base font-bold">Pasta do Google Drive Vinculada</h2>
+            </div>
+            <Link
+              to="/biblioteca?tab=documentos"
+              className="text-xs font-semibold text-brand-navy hover:text-brand-teal flex items-center gap-1"
+            >
+              <span>Ver Documentos</span>
+              <ExternalLink className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Link da pasta oficial compartilhada da sua equipe ou serviço no Google Drive. Salvo nas configurações da sua conta e sincronizado com a aba <strong>Biblioteca &gt; Documentos</strong>.
+          </p>
+
+          <form onSubmit={handleSaveDriveFolder} className="space-y-3">
+            <input
+              type="url"
+              placeholder="https://drive.google.com/drive/folders/..."
+              value={driveFolderUrl}
+              onChange={(e) => setDriveFolderUrl(e.target.value)}
+              className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-brand-teal"
+            />
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                disabled={savingDrive}
+                className="bg-brand-navy hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl"
+              >
+                {savingDrive ? 'Salvando...' : 'Salvar Pasta nas Configurações'}
+              </Button>
+            </div>
+          </form>
+        </motion.div>
 
         {/* Logout */}
         <motion.div

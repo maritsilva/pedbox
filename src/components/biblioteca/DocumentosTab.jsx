@@ -25,6 +25,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { usePageFavorites } from '@/hooks/usePageFavorites.jsx';
+import { useAuth } from '@/lib/AuthContext';
+import { services } from '@/api/services';
 import { normalizeSearch } from '@/lib/calculatorRegistry';
 import {
   DEFAULT_DOCUMENTS,
@@ -68,6 +70,7 @@ const TYPE_CONFIG = {
 };
 
 export default function DocumentosTab({ externalSearch = '' }) {
+  const { user, refreshUser } = useAuth() || {};
   const [documents, setDocuments] = useState([]);
   const [selectedCat, setSelectedCat] = useState('Todas');
   const [activeDoc, setActiveDoc] = useState(null);
@@ -104,32 +107,57 @@ export default function DocumentosTab({ externalSearch = '' }) {
     }
   }, [searchParams, documents]);
 
-  // Load documents from localStorage + defaults
+  // Load documents and user's Google Drive folder from user settings + defaults
   useEffect(() => {
+    const userFolder = (user?.drive_folder_url || '').trim();
+    const savedFolder = (typeof localStorage !== 'undefined' ? localStorage.getItem('pedbox_team_drive_folder') : '') || '';
+    const folderToUse = userFolder || savedFolder;
+
+    if (folderToUse) {
+      setTeamFolderUrl(folderToUse);
+    }
+
     try {
       const savedDocs = localStorage.getItem('pedbox_saved_documents');
+      let combined = [];
       if (savedDocs) {
         const parsed = JSON.parse(savedDocs);
-        // Merge user documents with default documents
-        const combined = [...parsed];
+        combined = [...parsed];
         DEFAULT_DOCUMENTS.forEach((def) => {
           if (!combined.some((d) => d.id === def.id)) {
             combined.push(def);
           }
         });
-        setDocuments(combined);
       } else {
-        setDocuments(DEFAULT_DOCUMENTS);
+        combined = [...DEFAULT_DOCUMENTS];
       }
 
-      const savedFolder = localStorage.getItem('pedbox_team_drive_folder');
-      if (savedFolder) {
-        setTeamFolderUrl(savedFolder);
+      if (folderToUse) {
+        const folderEmbed = getGoogleDriveEmbedUrl(folderToUse);
+        const folderDoc = {
+          id: 'doc_team_drive_custom',
+          titulo: 'Pasta Vinculada da Equipe (Google Drive)',
+          descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox.',
+          categoria: 'Pastas',
+          tipo: 'folder',
+          driveUrl: folderToUse,
+          embedUrl: folderEmbed,
+          fonte: 'Google Drive Vinculado',
+          tags: ['drive', 'pasta', 'equipe', 'serviço'],
+          destaque: true,
+        };
+        combined = [folderDoc, ...combined.filter((d) => d.id !== 'doc_team_drive_custom')];
+        // Automatically open the linked folder in viewer if no specific document is requested
+        if (!searchParams.get('doc')) {
+          setActiveDoc(folderDoc);
+        }
       }
+
+      setDocuments(combined);
     } catch {
       setDocuments(DEFAULT_DOCUMENTS);
     }
-  }, []);
+  }, [user?.drive_folder_url, searchParams]);
 
   // Save documents to localStorage
   const persistDocuments = (updatedDocs) => {
@@ -139,21 +167,29 @@ export default function DocumentosTab({ externalSearch = '' }) {
     } catch {}
   };
 
-  // Save custom Team Google Drive Folder
-  const handleSaveTeamFolder = (e) => {
+  // Save custom Team Google Drive Folder to user settings
+  const handleSaveTeamFolder = async (e) => {
     e.preventDefault();
-    if (!teamFolderUrl.trim()) return;
+    const url = teamFolderUrl.trim();
+    if (!url) return;
+
     try {
-      localStorage.setItem('pedbox_team_drive_folder', teamFolderUrl.trim());
-      // Create or update folder item in documents
-      const folderEmbed = getGoogleDriveEmbedUrl(teamFolderUrl.trim());
+      if (user) {
+        await services.auth.updateProfile({ drive_folder_url: url });
+        if (typeof refreshUser === 'function') await refreshUser();
+      }
+      try {
+        localStorage.setItem('pedbox_team_drive_folder', url);
+      } catch {}
+
+      const folderEmbed = getGoogleDriveEmbedUrl(url);
       const folderDoc = {
         id: 'doc_team_drive_custom',
-        titulo: 'Pasta Principal da Equipe Pediátrica',
-        descricao: 'Pasta oficial compartilhada no Google Drive do serviço.',
+        titulo: 'Pasta Vinculada da Equipe (Google Drive)',
+        descricao: 'Pasta oficial vinculada às configurações da sua conta PedBox.',
         categoria: 'Pastas',
         tipo: 'folder',
-        driveUrl: teamFolderUrl.trim(),
+        driveUrl: url,
         embedUrl: folderEmbed,
         fonte: 'Google Drive Vinculado',
         tags: ['drive', 'pasta', 'equipe', 'serviço'],
@@ -163,10 +199,10 @@ export default function DocumentosTab({ externalSearch = '' }) {
       const updated = [folderDoc, ...documents.filter((d) => d.id !== 'doc_team_drive_custom')];
       persistDocuments(updated);
       setShowFolderModal(false);
-      toast.success('Pasta do Google Drive vinculada com sucesso!');
+      toast.success('Pasta vinculada às configurações da sua conta com sucesso!');
       setActiveDoc(folderDoc);
-    } catch {
-      toast.error('Erro ao salvar pasta.');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao vincular pasta nas configurações.');
     }
   };
 
@@ -272,7 +308,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
               title="Vincular pasta compartilhada do Google Drive"
             >
               <Folder className="w-4 h-4 text-teal-300" />
-              <span>{teamFolderUrl ? 'Alterar Pasta Raiz' : 'Vincular Pasta Raiz'}</span>
+              <span>{teamFolderUrl ? 'Alterar Pasta nas Configurações' : 'Vincular Pasta nas Configurações'}</span>
             </button>
 
             <a
@@ -287,6 +323,66 @@ export default function DocumentosTab({ externalSearch = '' }) {
           </div>
         </div>
       </div>
+
+      {/* ── BANNER: STATUS DA PASTA VINCULADA ── */}
+      {teamFolderUrl ? (
+        <div className="bg-purple-50/70 border border-purple-200/80 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="p-2 rounded-xl bg-purple-100 text-purple-700 shrink-0">
+              <FolderOpen className="w-4 h-4" />
+            </span>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-purple-950">Pasta Vinculada nas Configurações do Usuário</span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  Ativa & Conectada
+                </span>
+              </div>
+              <p className="text-slate-500 truncate mt-0.5 font-mono text-[11px]">
+                {teamFolderUrl}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setShowFolderModal(true)}
+              className="px-3 py-1.5 rounded-xl border border-purple-200 bg-white hover:bg-purple-100/60 text-purple-800 font-semibold text-xs transition-colors"
+            >
+              Alterar Link
+            </button>
+            <a
+              href={teamFolderUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs shadow-2xs transition-colors"
+            >
+              <span>Abrir no Drive</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-amber-50/70 border border-amber-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+          <div className="flex items-start gap-3">
+            <span className="p-2.5 rounded-xl bg-amber-100 text-amber-800 shrink-0 mt-0.5">
+              <FolderOpen className="w-5 h-5" />
+            </span>
+            <div>
+              <h3 className="font-bold text-sm text-amber-950">Nenhuma pasta vinculada nas configurações da sua conta</h3>
+              <p className="text-amber-800/90 mt-1 leading-relaxed">
+                Vincule o link de compartilhamento da pasta do Google Drive da sua equipe ou serviço pediátrico para visualizar e acessar facilmente todos os protocolos e arquivos diretamente aqui no PedBox.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowFolderModal(true)}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs transition-colors shrink-0"
+          >
+            <Folder className="w-4 h-4" />
+            <span>Vincular Pasta Agora</span>
+          </button>
+        </div>
+      )}
 
       {/* ── INTEGRATED VIEWER (WHEN A DOCUMENT IS SELECTED) ── */}
       {activeDoc && (
@@ -667,7 +763,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
                 <span className="p-2 rounded-xl bg-purple-50 text-purple-700">
                   <Folder className="w-5 h-5" />
                 </span>
-                <h3 className="font-bold text-base text-slate-900">Vincular Pasta Raiz do Google Drive</h3>
+                <h3 className="font-bold text-base text-slate-900">Vincular Pasta às Configurações</h3>
               </div>
               <button onClick={() => setShowFolderModal(false)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
                 <X className="w-5 h-5" />
@@ -675,7 +771,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              Cole o link de uma pasta compartilhada no Google Drive (ex: a pasta do serviço pediátrico, residência ou plantão). O visualizador exibirá a grade de arquivos da pasta diretamente aqui.
+              Cole o link de compartilhamento da pasta no Google Drive. Ele será salvo permanentemente nas <strong>configurações da sua conta de usuário</strong> e todos os arquivos e protocolos da pasta serão exibidos no visualizador integrado para fácil acesso.
             </p>
 
             <form onSubmit={handleSaveTeamFolder} className="space-y-4">
@@ -687,7 +783,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
                   value={teamFolderUrl}
                   onChange={(e) => setTeamFolderUrl(e.target.value)}
                   placeholder="https://drive.google.com/drive/folders/..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal font-mono"
                 />
               </div>
 
@@ -703,7 +799,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
                   type="submit"
                   className="px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors"
                 >
-                  Vincular Pasta
+                  Salvar nas Configurações
                 </button>
               </div>
             </form>
