@@ -14,7 +14,7 @@ test('invalid input never becomes zero or a partial number',()=>{for(const v of 
 test('BSA reference case and missing inputs',()=>{const d=CLINICAL_DEFINITIONS['superficie-corporal'];assert.equal(evaluateClinical(d,{weight:36,height:100,method:'mosteller'}).value,1);assert.ok(evaluateClinical(d,{weight:'',height:100,method:'mosteller'}).error);});
 test('renal equations use correct units, age boundaries and sex coefficients',()=>{const d=CLINICAL_DEFINITIONS['tfg-pediatrica'];const base={height:100,creatinine:1,creatinineUnit:'mgdl',age:12,sex:'male',term:'yes',method:'u25'};assert.equal(evaluateClinical(d,base).value,39);assert.equal(evaluateClinical(d,{...base,sex:'female'}).value,36.1);assert.equal(evaluateClinical(d,{...base,age:18}).value,50.8);assert.ok(evaluateClinical(d,{...base,age:0}).error);assert.equal(evaluateClinical(d,{...base,method:'bedside',creatinine:88.4,creatinineUnit:'umol'}).value,41.3);});
 test('PAS requires explicit absence and correct weights',()=>{const d=CLINICAL_DEFINITIONS['pas-apendicite'];assert.ok(evaluateClinical(d,{}).error);assert.equal(evaluateClinical(d,Object.fromEntries(d.fields.map(f=>[f.id,f.options[1][0]]))).value,10);assert.equal(evaluateClinical(d,Object.fromEntries(d.fields.map(f=>[f.id,'0']))).value,0);});
-test('registry has unique IDs and paths; new tools stay drafts',()=>{assert.equal(new Set(CALCULATORS.map(c=>c.id)).size,CALCULATORS.length);assert.equal(new Set(CALCULATORS.map(c=>c.path)).size,CALCULATORS.length);for(const c of CALCULATORS.filter(c=>c.path.startsWith('/calculadoras/')))assert.equal(c.status,'draft');});
+test('registry has unique IDs and paths; all active tools are available except blocked ones',()=>{assert.equal(new Set(CALCULATORS.map(c=>c.id)).size,CALCULATORS.length);assert.equal(new Set(CALCULATORS.map(c=>c.path)).size,CALCULATORS.length);for(const c of CALCULATORS.filter(c=>c.id!=='pressao-arterial'))assert.equal(c.status,'available');});
 test('a daily frequency cannot bypass a recorded maximum number of administrations',()=>{
  const d={...indication,maxAdministrations:4,maxDailyPerKg:75,freq:'4/4h ou 6/6h'};
  assert.ok(calculateDose(d,10,4).error);
@@ -94,4 +94,68 @@ test('RDAI keeps wheeze and retraction components within 0–17 and requires all
 
 test('blood pressure with proven classification defects remains blocked',()=>{
  assert.equal(CALCULATORS.find(c=>c.id==='pressao-arterial').status,'blocked');
+});
+
+test('GINA 2026 asthma control calculates 0 to 4 criteria and assigns correct control status', () => {
+ const d = CLINICAL_DEFINITIONS.gina;
+ const well = evaluateClinical(d, { ageGroup: 'over5', daySymptoms: '0', nightAwakening: '0', relieverUse: '0', activityLimitation: '0' });
+ assert.equal(well.value, 0);
+ assert.equal(well.status, 'normal');
+ assert.match(well.classification, /Bem Controlada/);
+
+ const partly = evaluateClinical(d, { ageGroup: 'over5', daySymptoms: '1', nightAwakening: '0', relieverUse: '1', activityLimitation: '0' });
+ assert.equal(partly.value, 2);
+ assert.equal(partly.status, 'warning');
+ assert.match(partly.classification, /Parcialmente Controlada/);
+
+ const uncontrolled = evaluateClinical(d, { ageGroup: 'under6', daySymptoms: '1', nightAwakening: '1', relieverUse: '1', activityLimitation: '1' });
+ assert.equal(uncontrolled.value, 4);
+ assert.equal(uncontrolled.status, 'danger');
+ assert.match(uncontrolled.classification, /Não Controlada/);
+});
+
+test('Capurro somatoneurologico calculates weeks and remaining days with constant 200', () => {
+ const d = CLINICAL_DEFINITIONS['capurro-neuro'];
+ const r = evaluateClinical(d, { nipple: '15', skin: '20', ear: '24', sole: '20', scarf: '18', head: '12' });
+ // sum = 15+20+24+20+18+12 = 109. days = 109 + 200 = 309. weeks = 44, rem = 1
+ assert.equal(r.value, 44);
+ assert.equal(r.unit, 'semanas e 1 dias');
+});
+
+test('New Ballard Score calculates gestational age in weeks from neuromuscular and physical items', () => {
+ const d = CLINICAL_DEFINITIONS['new-ballard'];
+ const termInputs = {
+  posture: '4', squareWindow: '4', armRecoil: '4', poplitealAngle: '4', scarfSign: '3', heelToEar: '3',
+  skin: '4', lanugo: '3', plantarSurface: '4', breast: '3', eyeEar: '3', genitals: '3'
+ };
+ const r = evaluateClinical(d, termInputs);
+ assert.ok(r.value >= 37);
+});
+
+test('SIRS and Phoenix 2024 score identifies septic shock and severe organ dysfunction', () => {
+ const d = CLINICAL_DEFINITIONS['sirs-sepsis'];
+ const shock = evaluateClinical(d, {
+  tempSirs: '1', heartRateSirs: '1', respRateSirs: '1', leukoSirs: '1',
+  respDysfunction: '2', cvDysfunction: '1', coagDysfunction: '1', neuroDysfunction: '0'
+ });
+ assert.equal(shock.value, 4);
+ assert.equal(shock.status, 'danger');
+ assert.match(shock.classification, /CHOQUE SÉPTICO/);
+});
+
+test('Roma IV functional constipation confirms diagnosis with at least 2 criteria', () => {
+ const d = CLINICAL_DEFINITIONS['roma-iv'];
+ const positive = evaluateClinical(d, {
+  ageGroup: 'over4', bowelFreq: '1', incontinence: '1', retentive: '0', painful: '0', fecalMass: '0', largeStool: '0'
+ });
+ assert.equal(positive.value, 2);
+ assert.match(positive.classification, /Critérios preenchidos/);
+});
+
+test('CDLQI sums 10 questions and classifies quality of life impairment', () => {
+ const d = CLINICAL_DEFINITIONS.cdlqi;
+ const answers = Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`q${i + 1}`, '2']));
+ const r = evaluateClinical(d, answers);
+ assert.equal(r.value, 20);
+ assert.match(r.classification, /EXTREMAMENTE GRANDE/);
 });

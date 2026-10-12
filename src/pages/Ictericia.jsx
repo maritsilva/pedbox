@@ -88,7 +88,7 @@ export default function Ictericia() {
       <PageHeader
         kind="calculator"
         eyebrow="Neonatologia · Diretriz AAP 2022"
-        title="Icterícia Neonatal"
+        title="Icterícia Neonatal (Nomograma AAP)"
         description="Avaliação de bilirrubina por horas de vida e comparação com os limiares de fototerapia e exsanguineotransfusão (≥ 35 semanas)."
       />
 

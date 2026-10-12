@@ -98,16 +98,16 @@ export default function CalculadorasHub() {
                 {c.label}
               </h2>
               <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">{c.desc}</p>
-              {c.status && (
+              {c.status === 'blocked' && (
                 <p className="text-[11px] font-medium text-amber-700 mt-2">
-                  {c.status === 'blocked' ? 'Em revisão · cálculo desativado' : 'Revisão pendente'}
+                  Em revisão · cálculo desativado
                 </p>
               )}
             </div>
 
             <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
               <span className="font-bold text-brand-teal group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                {c.status === 'draft' ? 'Ver em revisão' : 'Calcular'}
+                {c.status === 'blocked' ? 'Ver detalhes' : 'Calcular'}
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>

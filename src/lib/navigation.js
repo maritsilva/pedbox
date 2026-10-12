@@ -56,7 +56,7 @@ export const ROUTE_TITLES = {
   '/pressao-arterial': 'Pressão Arterial',
   '/perimetro-cefalico': 'Perímetro Cefálico',
   '/alvo-parental': 'Alvo Parental',
-  '/ictericia': 'Icterícia Neonatal',
+  '/ictericia': 'Icterícia Neonatal (Nomograma AAP)',
   '/horas-de-vida': 'Horas de Vida',
   '/idade-gestacional': 'Idade Gestacional',
   '/idade-gestacional-corrigida': 'Idade Corrigida',
