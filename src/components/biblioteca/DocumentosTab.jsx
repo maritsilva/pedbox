@@ -71,17 +71,15 @@ const TYPE_CONFIG = {
 };
 
 export default function DocumentosTab({ externalSearch = '' }) {
-  const { user, refreshUser } = useAuth() || {};
+  const { user } = useAuth() || {};
   const [documents, setDocuments] = useState([]);
   const [selectedCat, setSelectedCat] = useState('Todas');
   const [activeDoc, setActiveDoc] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showFolderModal, setShowFolderModal] = useState(false);
-  const [teamFolderUrl, setTeamFolderUrl] = useState('');
   const [copiedId, setCopiedId] = useState(null);
 
-  // Form states for new document
+  // Form states for new document or folder
   const [newTitle, setNewTitle] = useState('');
   const [newUrl, setNewUrl] = useState('');
   const [newCategory, setNewCategory] = useState('Diretrizes');
@@ -108,50 +106,31 @@ export default function DocumentosTab({ externalSearch = '' }) {
     }
   }, [searchParams, documents]);
 
-  // Load documents and user's Google Drive folder from user account in server DB
+  // Load custom documents and folders added by the user from server DB (user_links)
   useEffect(() => {
-    const userFolder = (user?.drive_folder_url || '').trim();
-
-    if (userFolder) {
-      setTeamFolderUrl(userFolder);
-    }
-
-    let initialDocs = [];
-
-    if (userFolder) {
-      const folderEmbed = getGoogleDriveEmbedUrl(userFolder);
-      const folderDoc = {
-        id: 'doc_team_drive_custom',
-        titulo: 'Minha Pasta do Google Drive',
-        descricao: 'Arquivos, planilhas e documentos do seu Google Drive vinculado.',
-        categoria: 'Pastas',
-        tipo: 'folder',
-        driveUrl: userFolder,
-        embedUrl: folderEmbed,
-        fonte: 'Google Drive Vinculado',
-        tags: ['drive', 'pasta', 'meu drive'],
-        destaque: true,
-      };
-      initialDocs.push(folderDoc);
-      // Automatically open the linked folder in viewer if no specific document is requested
-      if (!searchParams.get('doc')) {
-        setActiveDoc(folderDoc);
-      }
-    }
-
-    // Load any custom documents added by the user from server DB (user-links)
     if (user?.id) {
       services.userLinks.list('-created_date')
         .then((links) => {
           const docLinks = (links || [])
-            .filter((l) => l.categoria === 'Documentos' || l.categoria === 'Diretrizes' || l.categoria === 'Tabelas' || l.categoria === 'Rotinas' || l.categoria === 'Impressos' || l.categoria === 'Pastas' || l.url?.includes('drive.google.com') || l.url?.includes('docs.google.com'))
+            .filter((l) => (
+              l.categoria === 'Documentos' ||
+              l.categoria === 'Diretrizes' ||
+              l.categoria === 'Protocolos' ||
+              l.categoria === 'Tabelas' ||
+              l.categoria === 'Rotinas' ||
+              l.categoria === 'Impressos' ||
+              l.categoria === 'Artigos' ||
+              l.categoria === 'Pastas' ||
+              l.url?.includes('drive.google.com') ||
+              l.url?.includes('docs.google.com')
+            ))
             .map((l) => {
               const detectedType = detectGoogleDriveType(l.url);
               return {
                 id: l.id,
                 titulo: l.titulo,
-                descricao: l.descricao || 'Documento clínico do Google Drive.',
-                categoria: l.categoria || 'Diretrizes',
+                descricao: l.descricao || (detectedType === 'folder' ? 'Pasta do Google Drive vinculada.' : 'Documento clínico do Google Drive.'),
+                categoria: l.categoria || (detectedType === 'folder' ? 'Pastas' : 'Diretrizes'),
                 tipo: detectedType,
                 driveUrl: l.url,
                 embedUrl: getGoogleDriveEmbedUrl(l.url),
@@ -161,54 +140,15 @@ export default function DocumentosTab({ externalSearch = '' }) {
               };
             });
 
-          setDocuments((prev) => {
-            const folderItem = prev.filter((d) => d.id === 'doc_team_drive_custom');
-            return [...folderItem, ...docLinks];
-          });
+          setDocuments(docLinks);
         })
         .catch(() => {});
+    } else {
+      setDocuments([]);
     }
+  }, [user?.id]);
 
-    setDocuments(initialDocs);
-  }, [user?.id, user?.drive_folder_url, searchParams]);
-
-  // Save custom Team Google Drive Folder to user settings in server DB
-  const handleSaveTeamFolder = async (e) => {
-    e.preventDefault();
-    const url = teamFolderUrl.trim();
-    if (!url) return;
-
-    try {
-      if (user) {
-        await services.auth.updateProfile({ drive_folder_url: url });
-        if (typeof refreshUser === 'function') await refreshUser();
-      }
-
-      const folderEmbed = getGoogleDriveEmbedUrl(url);
-      const folderDoc = {
-        id: 'doc_team_drive_custom',
-        titulo: 'Minha Pasta do Google Drive',
-        descricao: 'Arquivos, planilhas e documentos do seu Google Drive vinculado.',
-        categoria: 'Pastas',
-        tipo: 'folder',
-        driveUrl: url,
-        embedUrl: folderEmbed,
-        fonte: 'Google Drive Vinculado',
-        tags: ['drive', 'pasta', 'meu drive'],
-        destaque: true,
-      };
-
-      const updated = [folderDoc, ...documents.filter((d) => d.id !== 'doc_team_drive_custom')];
-      setDocuments(updated);
-      setShowFolderModal(false);
-      toast.success('Pasta vinculada às configurações da sua conta com sucesso!');
-      setActiveDoc(folderDoc);
-    } catch (err) {
-      toast.error(err.message || 'Erro ao vincular pasta nas configurações.');
-    }
-  };
-
-  // Handle Add Document in server DB
+  // Handle Add Document or Folder in server DB
   const handleSaveNewDoc = async (e) => {
     e.preventDefault();
     if (!newTitle.trim() || !newUrl.trim()) {
@@ -221,15 +161,17 @@ export default function DocumentosTab({ externalSearch = '' }) {
       return;
     }
 
-    const embedUrl = getGoogleDriveEmbedUrl(newUrl.trim());
-    const detectedType = detectGoogleDriveType(newUrl.trim());
+    const urlTrimmed = newUrl.trim();
+    const embedUrl = getGoogleDriveEmbedUrl(urlTrimmed);
+    const detectedType = detectGoogleDriveType(urlTrimmed);
+    const finalCategory = newCategory === 'Pastas' || detectedType === 'folder' ? 'Pastas' : newCategory;
 
     try {
       const created = await services.userLinks.create({
         titulo: newTitle.trim(),
-        url: newUrl.trim(),
-        descricao: newDesc.trim() || 'Documento clínico vinculado ao Google Drive.',
-        categoria: newCategory || 'Diretrizes',
+        url: urlTrimmed,
+        descricao: newDesc.trim() || (finalCategory === 'Pastas' ? 'Pasta do Google Drive vinculada.' : 'Documento clínico vinculado ao Google Drive.'),
+        categoria: finalCategory,
         icone: detectedType === 'sheet' ? '📊' : detectedType === 'folder' ? '📁' : detectedType === 'slide' ? '📽️' : '📄',
       });
 
@@ -241,7 +183,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
         tipo: detectedType,
         driveUrl: created.url,
         embedUrl: embedUrl,
-        fonte: 'Meu Google Drive',
+        fonte: newSource.trim() || 'Meu Google Drive',
         tags: [newTitle.toLowerCase()],
         destaque: false,
       };
@@ -252,38 +194,22 @@ export default function DocumentosTab({ externalSearch = '' }) {
       setNewUrl('');
       setNewDesc('');
       setNewSource('');
-      toast.success('Documento adicionado e salvo na sua conta!');
+      toast.success(finalCategory === 'Pastas' ? 'Pasta adicionada com sucesso!' : 'Documento adicionado com sucesso!');
       setActiveDoc(newDoc);
     } catch (err) {
       toast.error(err.message || 'Erro ao salvar documento no servidor.');
     }
   };
 
-  // Delete Document in server DB
+  // Delete Document or Folder in server DB
   const handleDeleteDoc = async (id) => {
-    if (id === 'doc_team_drive_custom') {
-      try {
-        if (user) {
-          await services.auth.updateProfile({ drive_folder_url: '' });
-          if (typeof refreshUser === 'function') await refreshUser();
-        }
-        setTeamFolderUrl('');
-        setDocuments((prev) => prev.filter((d) => d.id !== id));
-        if (activeDoc?.id === id) setActiveDoc(null);
-        toast.success('Pasta do Google Drive desvinculada.');
-      } catch (err) {
-        toast.error(err.message || 'Erro ao desvincular pasta.');
-      }
-      return;
-    }
-
     try {
       await services.userLinks.delete(id);
       setDocuments((prev) => prev.filter((d) => d.id !== id));
       if (activeDoc?.id === id) setActiveDoc(null);
-      toast.success('Documento removido da sua conta.');
+      toast.success('Item removido da sua conta.');
     } catch (err) {
-      toast.error(err.message || 'Erro ao remover documento.');
+      toast.error(err.message || 'Erro ao remover item.');
     }
   };
 
@@ -340,15 +266,6 @@ export default function DocumentosTab({ externalSearch = '' }) {
               <span>Enviar Documento</span>
             </button>
 
-            <button
-              onClick={() => setShowFolderModal(true)}
-              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-white/15 hover:bg-white/25 text-white border border-white/20 transition-colors cursor-pointer"
-              title="Vincular pasta compartilhada do Google Drive"
-            >
-              <Folder className="w-4 h-4 text-teal-300" />
-              <span>{teamFolderUrl ? 'Alterar Pasta nas Configurações' : 'Vincular Pasta nas Configurações'}</span>
-            </button>
-
             <a
               href="https://drive.google.com"
               target="_blank"
@@ -361,66 +278,6 @@ export default function DocumentosTab({ externalSearch = '' }) {
           </div>
         </div>
       </div>
-
-      {/* ── BANNER: STATUS DA PASTA VINCULADA ── */}
-      {teamFolderUrl ? (
-        <div className="bg-purple-50/70 border border-purple-200/80 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span className="p-2 rounded-xl bg-purple-100 text-purple-700 shrink-0">
-              <FolderOpen className="w-4 h-4" />
-            </span>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-purple-950">Pasta Vinculada nas Configurações do Usuário</span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  Ativa & Conectada
-                </span>
-              </div>
-              <p className="text-slate-500 truncate mt-0.5 font-mono text-[11px]">
-                {teamFolderUrl}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={() => setShowFolderModal(true)}
-              className="px-3 py-1.5 rounded-xl border border-purple-200 bg-white hover:bg-purple-100/60 text-purple-800 font-semibold text-xs transition-colors"
-            >
-              Alterar Link
-            </button>
-            <a
-              href={teamFolderUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs shadow-2xs transition-colors"
-            >
-              <span>Abrir no Drive</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        </div>
-      ) : (
-        <div className="bg-amber-50/70 border border-amber-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
-          <div className="flex items-start gap-3">
-            <span className="p-2.5 rounded-xl bg-amber-100 text-amber-800 shrink-0 mt-0.5">
-              <FolderOpen className="w-5 h-5" />
-            </span>
-            <div>
-              <h3 className="font-bold text-sm text-amber-950">Nenhuma pasta vinculada nas configurações da sua conta</h3>
-              <p className="text-amber-800/90 mt-1 leading-relaxed">
-                Vincule o link de compartilhamento da pasta do Google Drive da sua equipe ou serviço pediátrico para visualizar e acessar facilmente todos os protocolos e arquivos diretamente aqui no PedBox.
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() => setShowFolderModal(true)}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs transition-colors shrink-0"
-          >
-            <Folder className="w-4 h-4" />
-            <span>Vincular Pasta Agora</span>
-          </button>
-        </div>
-      )}
 
       {/* ── INTEGRATED VIEWER (WHEN A DOCUMENT IS SELECTED) ── */}
       {activeDoc && (
@@ -547,16 +404,16 @@ export default function DocumentosTab({ externalSearch = '' }) {
           <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
             <Search className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-slate-800">Nenhum documento encontrado</h3>
+          <h3 className="text-base font-bold text-slate-800">Nenhum documento ou pasta encontrado</h3>
           <p className="text-xs text-slate-500 max-w-sm mx-auto">
             Não encontramos nenhum arquivo no filtro selecionado. Adicione seus próprios arquivos ou pastas do Google Drive.
           </p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-navy text-white text-xs font-bold rounded-xl hover:bg-opacity-90 shadow-xs transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-navy text-white text-xs font-bold rounded-xl hover:bg-opacity-90 shadow-xs transition-all cursor-pointer"
           >
             <UploadCloud className="w-4 h-4 text-teal-300" />
-            <span>Enviar Documento</span>
+            <span>Enviar Documento ou Pasta</span>
           </button>
         </div>
       ) : (
@@ -606,7 +463,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
                       toggleFavorite(favKey);
                       toast.success(favorited ? 'Removido dos favoritos' : 'Adicionado aos favoritos!');
                     }}
-                    className="absolute top-4 right-4 p-1 rounded-lg text-slate-300 hover:text-amber-500 hover:bg-amber-50/80 transition-colors z-10"
+                    className="absolute top-4 right-4 p-1 rounded-lg text-slate-300 hover:text-amber-500 hover:bg-amber-50/80 transition-colors z-10 cursor-pointer"
                     title={favorited ? 'Remover dos favoritos' : 'Favoritar documento'}
                   >
                     <Star className={`w-4 h-4 ${favorited ? 'fill-amber-400 text-amber-500' : 'text-slate-300'}`} />
@@ -637,7 +494,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
                         e.stopPropagation();
                         handleCopyLink(doc);
                       }}
-                      className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                      className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
                       title="Copiar link do Google Drive"
                     >
                       {copiedId === doc.id ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -660,8 +517,8 @@ export default function DocumentosTab({ externalSearch = '' }) {
                         e.stopPropagation();
                         handleDeleteDoc(doc.id);
                       }}
-                      className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-                      title={doc.id === 'doc_team_drive_custom' ? 'Desvincular pasta do Drive' : 'Remover documento'}
+                      className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                      title={doc.tipo === 'folder' ? 'Remover pasta' : 'Remover documento'}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -689,8 +546,8 @@ export default function DocumentosTab({ externalSearch = '' }) {
                   <UploadCloud className="w-5 h-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-base text-slate-900">Enviar Documento do Google Drive</h3>
-                  <p className="text-xs text-slate-500">Cadastre um arquivo com link do Drive para visualização integrada</p>
+                  <h3 className="font-bold text-base text-slate-900">Enviar Documento ou Pasta</h3>
+                  <p className="text-xs text-slate-500">Cadastre um arquivo ou pasta com link do Google Drive para visualização integrada</p>
                 </div>
               </div>
               <button onClick={() => setShowAddModal(false)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
@@ -711,19 +568,19 @@ export default function DocumentosTab({ externalSearch = '' }) {
 
             <form onSubmit={handleSaveNewDoc} className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Nome do Documento *</label>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Nome do Documento ou Pasta *</label>
                 <input
                   type="text"
                   required
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="Ex: Protocolo de Bronquiolite Viral 2026"
+                  placeholder="Ex: Pasta de Protocolos da UTI ou Diretriz de Asma"
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all font-medium"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Categoria do Documento *</label>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Categoria *</label>
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
@@ -746,11 +603,11 @@ export default function DocumentosTab({ externalSearch = '' }) {
                   required
                   value={newUrl}
                   onChange={(e) => setNewUrl(e.target.value)}
-                  placeholder="https://drive.google.com/file/d/... ou docs.google.com/..."
+                  placeholder="https://drive.google.com/file/d/... ou drive.google.com/drive/folders/..."
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all font-mono"
                 />
                 <p className="text-[11px] text-amber-800 bg-amber-50/90 border border-amber-200/80 rounded-xl p-2.5 mt-1.5 leading-relaxed">
-                  💡 <strong>Recomendação:</strong> No Google Drive, deixe o arquivo configurado como <strong>"Qualquer pessoa com o link"</strong> (recomendado compartilhar apenas para quem tem o link). Suporta PDF, Google Docs, Planilhas, Slides e Pastas.
+                  💡 <strong>Recomendação:</strong> No Google Drive, deixe configurado como <strong>"Qualquer pessoa com o link"</strong> (recomendado compartilhar apenas para quem tem o link). Suporta arquivos individuais (PDF, Google Docs, Planilhas, Slides) e pastas inteiras com navegação direta de arquivos no visualizador.
                 </p>
               </div>
 
@@ -766,7 +623,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Descrição do Documento (Opcional)</label>
+                <label className="text-xs font-bold text-slate-700 block mb-1">Descrição (Opcional)</label>
                 <textarea
                   rows={2}
                   value={newDesc}
@@ -789,73 +646,7 @@ export default function DocumentosTab({ externalSearch = '' }) {
                   className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors cursor-pointer"
                 >
                   <UploadCloud className="w-4 h-4 text-teal-300" />
-                  <span>Enviar Documento</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ── MODAL: VINCULAR PASTA RAIZ DO DRIVE ── */}
-      {showFolderModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn"
-          onClick={() => setShowFolderModal(false)}
-        >
-          <div
-            className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4 animate-scaleUp"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-2 rounded-xl bg-purple-50 text-purple-700">
-                  <Folder className="w-5 h-5" />
-                </span>
-                <h3 className="font-bold text-base text-slate-900">Vincular Pasta às Configurações</h3>
-              </div>
-              <button onClick={() => setShowFolderModal(false)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Cole o link de compartilhamento da pasta no Google Drive. Ele será salvo permanentemente nas <strong>configurações da sua conta de usuário</strong> e todos os arquivos e protocolos da pasta serão exibidos no visualizador integrado para fácil acesso.
-            </p>
-
-            <div className="bg-purple-50/80 border border-purple-200/90 rounded-2xl p-3.5 text-xs text-purple-950 flex items-start gap-2.5">
-              <HelpCircle className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
-              <p className="leading-relaxed">
-                <strong>Recomendação:</strong> No Google Drive, deixe a pasta configurada como <strong>"Qualquer pessoa com o link"</strong> (recomendado compartilhar apenas para quem tem o link), permitindo que todos os arquivos da pasta sejam navegáveis no visualizador.
-              </p>
-            </div>
-
-            <form onSubmit={handleSaveTeamFolder} className="space-y-4">
-              <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Link da Pasta do Google Drive *</label>
-                <input
-                  type="url"
-                  required
-                  value={teamFolderUrl}
-                  onChange={(e) => setTeamFolderUrl(e.target.value)}
-                  placeholder="https://drive.google.com/drive/folders/..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-teal font-mono"
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
-                <button
-                  type="button"
-                  onClick={() => setShowFolderModal(false)}
-                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 text-xs font-bold bg-[#164B73] hover:bg-[#113a5a] text-white rounded-xl shadow-xs transition-colors cursor-pointer"
-                >
-                  Salvar nas Configurações
+                  <span>Enviar Documento ou Pasta</span>
                 </button>
               </div>
             </form>
