@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 import { services } from '@/api/services';
 import { useAuth } from '@/lib/AuthContext';
 import { detectGoogleDriveType } from '@/lib/driveDocumentsData';
+import { cleanClinicalText } from '@/lib/clinicalTextCleaner';
 
 const NOTE_COLORS = {
   yellow: { bg: 'bg-amber-50/80', border: 'border-amber-200', text: 'text-amber-900', badge: 'bg-amber-100 text-amber-800' },
@@ -89,6 +90,24 @@ export default function UserNotesAndLinks() {
   const links = rawLinks.filter((l) => !isDocItem(l));
   const docs = rawLinks.filter((l) => isDocItem(l));
 
+  // Handle paste in note textarea to auto-clean Google Docs HTML
+  const handlePasteContent = (e) => {
+    const htmlData = e.clipboardData?.getData('text/html');
+    const plainData = e.clipboardData?.getData('text/plain') || '';
+    const rawData = htmlData || plainData;
+    if (rawData && (rawData.includes('<') || rawData.includes('&') || rawData.includes('docs-internal-guid'))) {
+      e.preventDefault();
+      const cleaned = cleanClinicalText(rawData);
+      const target = e.target;
+      const start = target.selectionStart || 0;
+      const end = target.selectionEnd || 0;
+      const val = noteContent;
+      const next = val.substring(0, start) + cleaned + val.substring(end);
+      setNoteContent(next);
+      toast.success('Formatação do Google Docs/HTML limpa automaticamente!');
+    }
+  };
+
   // Handle create note in server DB
   const handleSaveNote = async (e) => {
     e.preventDefault();
@@ -96,15 +115,19 @@ export default function UserNotesAndLinks() {
       toast.error('Faça login para salvar anotações no servidor.');
       return;
     }
-    if (!noteTitle.trim() && !noteContent.trim()) {
+
+    const cleanTitle = cleanClinicalText(noteTitle) || 'Anotação sem título';
+    const cleanContent = cleanClinicalText(noteContent);
+
+    if (!cleanTitle.trim() && !cleanContent.trim()) {
       toast.error('Informe pelo menos um título ou conteúdo para a anotação.');
       return;
     }
 
     try {
       const created = await services.notes.create({
-        titulo: noteTitle.trim() || 'Anotação sem título',
-        conteudo: noteContent.trim(),
+        titulo: cleanTitle,
+        conteudo: cleanContent,
         cor: noteColor,
       });
       setNotes((prev) => [created, ...prev]);
@@ -130,7 +153,7 @@ export default function UserNotesAndLinks() {
 
   // Handle copy note text
   const handleCopyNoteText = (n) => {
-    const textToCopy = (n.conteudo || n.titulo || '').trim();
+    const textToCopy = cleanClinicalText(n.conteudo || n.titulo || '');
     if (!textToCopy) {
       toast.error('A anotação está vazia.');
       return;
@@ -160,7 +183,7 @@ export default function UserNotesAndLinks() {
 
     try {
       const created = await services.userLinks.create({
-        titulo: linkTitle.trim(),
+        titulo: cleanClinicalText(linkTitle),
         url: formattedUrl,
         categoria: linkCategory.trim() || 'Geral',
         icone: '🔗',
@@ -195,7 +218,7 @@ export default function UserNotesAndLinks() {
 
     try {
       const created = await services.userLinks.create({
-        titulo: docTitle.trim(),
+        titulo: cleanClinicalText(docTitle),
         url: formattedUrl,
         categoria: docCategory.trim() || 'Documentos',
         icone: '📄',
@@ -338,11 +361,12 @@ export default function UserNotesAndLinks() {
                   Conteúdo / Observação
                 </label>
                 <textarea
-                  rows={3}
-                  placeholder="Digite aqui telefones úteis, protocolos específicos, condutas ou lembretes clínicos..."
+                  rows={4}
+                  placeholder="Digite aqui telefones úteis, protocolos específicos, condutas ou lembretes clínicos (aceita texto copiado do Google Docs)..."
                   value={noteContent}
                   onChange={(e) => setNoteContent(e.target.value)}
-                  className="w-full bg-white border border-slate-300 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-brand-teal leading-relaxed"
+                  onPaste={handlePasteContent}
+                  className="w-full bg-white border border-slate-300 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-brand-teal leading-relaxed font-sans"
                 />
               </div>
 
@@ -378,6 +402,9 @@ export default function UserNotesAndLinks() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {notes.map((n) => {
                 const colorTheme = NOTE_COLORS[n.cor] || NOTE_COLORS.yellow;
+                const displayTitle = cleanClinicalText(n.titulo) || 'Anotação sem título';
+                const displayContent = cleanClinicalText(n.conteudo);
+
                 return (
                   <div
                     key={n.id}
@@ -386,7 +413,7 @@ export default function UserNotesAndLinks() {
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
                         <h4 className="text-xs font-bold text-slate-900 leading-snug break-words [word-break:break-word]">
-                          {n.titulo}
+                          {displayTitle}
                         </h4>
                         <div className="flex items-center gap-1 shrink-0">
                           <button
@@ -400,9 +427,9 @@ export default function UserNotesAndLinks() {
                         </div>
                       </div>
 
-                      {n.conteudo && (
+                      {displayContent && (
                         <p className="text-xs text-slate-700 whitespace-pre-wrap break-words [word-break:break-word] leading-relaxed font-normal">
-                          {n.conteudo}
+                          {displayContent}
                         </p>
                       )}
                     </div>

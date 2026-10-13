@@ -22,6 +22,7 @@ import {
   getGoogleDriveEmbedUrl,
   detectGoogleDriveType,
 } from '@/lib/driveDocumentsData';
+import { cleanClinicalText } from '@/lib/clinicalTextCleaner';
 
 const NOTE_COLORS = {
   yellow: { bg: 'bg-amber-50/90', border: 'border-amber-200', text: 'text-amber-950', badge: 'bg-amber-100 text-amber-800' },
@@ -113,7 +114,10 @@ export default function FavoritosPage() {
   // Filtered lists
   const filteredNotes = useMemo(() => {
     return localNotes.filter(
-      (n) => !q || normalizeSearch(n.titulo).includes(q) || normalizeSearch(n.conteudo || '').includes(q)
+      (n) =>
+        !q ||
+        normalizeSearch(cleanClinicalText(n.titulo)).includes(q) ||
+        normalizeSearch(cleanClinicalText(n.conteudo || '')).includes(q)
     );
   }, [localNotes, q]);
 
@@ -121,7 +125,7 @@ export default function FavoritosPage() {
     return allLinks.filter(
       (l) =>
         !q ||
-        normalizeSearch(l.titulo).includes(q) ||
+        normalizeSearch(cleanClinicalText(l.titulo)).includes(q) ||
         normalizeSearch(l.url).includes(q) ||
         normalizeSearch(l.categoria || '').includes(q)
     );
@@ -131,7 +135,7 @@ export default function FavoritosPage() {
     return allDocs.filter(
       (d) =>
         !q ||
-        normalizeSearch(d.titulo).includes(q) ||
+        normalizeSearch(cleanClinicalText(d.titulo)).includes(q) ||
         normalizeSearch(d.url).includes(q) ||
         normalizeSearch(d.descricao || '').includes(q) ||
         normalizeSearch(d.categoria || '').includes(q)
@@ -142,6 +146,24 @@ export default function FavoritosPage() {
   const totalItemsCount = localNotes.length + allLinks.length + allDocs.length;
   const isTotalEmpty = totalItemsCount === 0;
 
+  // Intercept paste in modal note textarea to clean Google Docs HTML
+  const handlePasteContent = (e) => {
+    const htmlData = e.clipboardData?.getData('text/html');
+    const plainData = e.clipboardData?.getData('text/plain') || '';
+    const rawData = htmlData || plainData;
+    if (rawData && (rawData.includes('<') || rawData.includes('&') || rawData.includes('docs-internal-guid'))) {
+      e.preventDefault();
+      const cleaned = cleanClinicalText(rawData);
+      const target = e.target;
+      const start = target.selectionStart || 0;
+      const end = target.selectionEnd || 0;
+      const val = newNoteContent;
+      const next = val.substring(0, start) + cleaned + val.substring(end);
+      setNewNoteContent(next);
+      toast.success('Formatação do Google Docs/HTML limpa automaticamente!');
+    }
+  };
+
   // Add Note handler
   const handleSaveNote = async (e) => {
     e.preventDefault();
@@ -149,15 +171,19 @@ export default function FavoritosPage() {
       toast.error('Faça login para salvar anotações no servidor.');
       return;
     }
-    if (!newNoteTitle.trim() && !newNoteContent.trim()) {
+
+    const cleanTitle = cleanClinicalText(newNoteTitle) || 'Anotação sem título';
+    const cleanContent = cleanClinicalText(newNoteContent);
+
+    if (!cleanTitle.trim() && !cleanContent.trim()) {
       toast.error('Informe pelo menos um título ou conteúdo para a anotação.');
       return;
     }
 
     try {
       const created = await services.notes.create({
-        titulo: newNoteTitle.trim() || 'Anotação sem título',
-        conteudo: newNoteContent.trim(),
+        titulo: cleanTitle,
+        conteudo: cleanContent,
         cor: newNoteColor,
       });
       setLocalNotes((prev) => [created, ...prev]);
@@ -187,7 +213,7 @@ export default function FavoritosPage() {
 
     try {
       const created = await services.userLinks.create({
-        titulo: newLinkTitle.trim(),
+        titulo: cleanClinicalText(newLinkTitle),
         url,
         categoria: newLinkCategory.trim() || 'Geral',
         icone: '🔗',
@@ -223,7 +249,7 @@ export default function FavoritosPage() {
 
     try {
       const created = await services.userLinks.create({
-        titulo: newDocTitle.trim(),
+        titulo: cleanClinicalText(newDocTitle),
         url,
         descricao: newDocDesc.trim() || (detectedType === 'folder' ? 'Pasta do Google Drive vinculada.' : 'Documento clínico vinculado.'),
         categoria: category,
@@ -263,9 +289,9 @@ export default function FavoritosPage() {
     }
   };
 
-  // Copy note text
+  // Copy note text cleanly
   const handleCopyNoteText = (n) => {
-    const textToCopy = (n.conteudo || n.titulo || '').trim();
+    const textToCopy = cleanClinicalText(n.conteudo || n.titulo || '');
     if (!textToCopy) {
       toast.error('A anotação está vazia.');
       return;
@@ -289,15 +315,15 @@ export default function FavoritosPage() {
     let summary = `📋 *PedBox — Meu Espaço Favorito*\n`;
     if (localNotes.length > 0) {
       summary += `\n*Anotações (${localNotes.length}):*\n`;
-      localNotes.forEach((n) => (summary += `• ${n.titulo}: ${n.conteudo || ''}\n`));
+      localNotes.forEach((n) => (summary += `• ${cleanClinicalText(n.titulo)}: ${cleanClinicalText(n.conteudo || '')}\n`));
     }
     if (allLinks.length > 0) {
       summary += `\n*Links Salvos (${allLinks.length}):*\n`;
-      allLinks.forEach((l) => (summary += `• ${l.titulo}: ${l.url}\n`));
+      allLinks.forEach((l) => (summary += `• ${cleanClinicalText(l.titulo)}: ${l.url}\n`));
     }
     if (allDocs.length > 0) {
       summary += `\n*Documentos (${allDocs.length}):*\n`;
-      allDocs.forEach((d) => (summary += `• ${d.titulo}: ${d.url}\n`));
+      allDocs.forEach((d) => (summary += `• ${cleanClinicalText(d.titulo)}: ${d.url}\n`));
     }
 
     if (navigator.share) {
@@ -593,6 +619,9 @@ export default function FavoritosPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {filteredNotes.map((n) => {
                   const colorTheme = NOTE_COLORS[n.cor] || NOTE_COLORS.yellow;
+                  const displayTitle = cleanClinicalText(n.titulo) || 'Anotação sem título';
+                  const displayContent = cleanClinicalText(n.conteudo);
+
                   return (
                     <div
                       key={n.id}
@@ -601,7 +630,7 @@ export default function FavoritosPage() {
                       <div className="space-y-2">
                         <div className="flex items-start justify-between gap-2">
                           <h4 className="text-xs font-bold text-slate-900 leading-snug break-words [word-break:break-word]">
-                            {n.titulo}
+                            {displayTitle}
                           </h4>
                           <div className="flex items-center gap-1 shrink-0">
                             <button
@@ -615,9 +644,9 @@ export default function FavoritosPage() {
                           </div>
                         </div>
 
-                        {n.conteudo && (
+                        {displayContent && (
                           <p className="text-xs text-slate-700 whitespace-pre-wrap break-words [word-break:break-word] leading-relaxed font-normal">
-                            {n.conteudo}
+                            {displayContent}
                           </p>
                         )}
                       </div>
@@ -689,7 +718,7 @@ export default function FavoritosPage() {
                           </div>
                           <div className="min-w-0 flex-1">
                             <h4 className="text-xs font-bold text-slate-900 leading-snug break-words [word-break:break-word]">
-                              {link.titulo}
+                              {cleanClinicalText(link.titulo)}
                             </h4>
                             <p className="text-[11px] text-slate-400 truncate">
                               {getDomain(link.url)}
@@ -787,7 +816,7 @@ export default function FavoritosPage() {
                             </div>
                             <div className="min-w-0 flex-1">
                               <h4 className="text-xs font-bold text-slate-900 leading-snug break-words [word-break:break-word]">
-                                {doc.titulo}
+                                {cleanClinicalText(doc.titulo)}
                               </h4>
                               <p className="text-[11px] text-slate-400 truncate">
                                 {getDomain(doc.url)}
@@ -807,7 +836,7 @@ export default function FavoritosPage() {
 
                         {doc.descricao && (
                           <p className="text-xs text-slate-600 break-words [word-break:break-word]">
-                            {doc.descricao}
+                            {cleanClinicalText(doc.descricao)}
                           </p>
                         )}
 
@@ -934,7 +963,7 @@ export default function FavoritosPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="Ex: Contatos da UTI Neonatal"
+                    placeholder="Ex: Contatos da UTI Neonatal / Evolução Modelo"
                     value={newNoteTitle}
                     onChange={(e) => setNewNoteTitle(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:border-brand-teal"
@@ -947,10 +976,11 @@ export default function FavoritosPage() {
                   </label>
                   <textarea
                     rows={4}
-                    placeholder="Digite lembretes, condutas, telefones ou orientações..."
+                    placeholder="Digite lembretes, condutas, telefones ou cole do Google Docs (a formatação HTML será limpa automaticamente)..."
                     value={newNoteContent}
                     onChange={(e) => setNewNoteContent(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-brand-teal leading-relaxed"
+                    onPaste={handlePasteContent}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-brand-teal leading-relaxed font-sans"
                   />
                 </div>
 

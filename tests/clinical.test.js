@@ -252,4 +252,15 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
  }
 });
 
-
+test('cleanClinicalText sanitizes Google Docs HTML paste and decodes entities', async () => {
+ const { cleanClinicalText } = await import('../src/lib/clinicalTextCleaner.js');
+ const googleDocsHtml = '<span id="docs-internal-guid-b619419f"><p dir="ltr">Acompanhando</p><br><p dir="ltr">-&gt; Subjetivo:</p><p dir="ltr">AC: TEC &lt;2s&nbsp;</p></span>';
+ const cleaned = cleanClinicalText(googleDocsHtml);
+ assert.ok(!cleaned.includes('<span'), 'Should not contain HTML tags');
+ assert.ok(!cleaned.includes('<p'), 'Should not contain paragraph tags');
+ assert.ok(cleaned.includes('Acompanhando'), 'Should retain text content');
+ assert.ok(cleaned.includes('-> Subjetivo:'), 'Should convert -&gt; to ->');
+ assert.ok(cleaned.includes('TEC <2s'), 'Should convert &lt; to < and &nbsp; to space');
+ assert.equal(cleanClinicalText(''), '');
+ assert.equal(cleanClinicalText(null), '');
+});
