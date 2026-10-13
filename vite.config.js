@@ -83,6 +83,12 @@ export default defineConfig({
           if (norm.includes('condutasHematologiaData')) {
             return 'data-condutas-hematologia';
           }
+          if (norm.includes('condutasNefrologiaData')) {
+            return 'data-condutas-nefrologia';
+          }
+          if (norm.includes('condutasNeurologiaData')) {
+            return 'data-condutas-neurologia';
+          }
           if (norm.includes('condutasData')) {
             return 'data-condutas-index';
           }

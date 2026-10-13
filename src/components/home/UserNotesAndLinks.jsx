@@ -8,11 +8,13 @@ import {
   Check, 
   ExternalLink, 
   Sparkles,
+  FileText,
   X
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { services } from '@/api/services';
 import { useAuth } from '@/lib/AuthContext';
+import { detectGoogleDriveType } from '@/lib/driveDocumentsData';
 
 const NOTE_COLORS = {
   yellow: { bg: 'bg-amber-50/80', border: 'border-amber-200', text: 'text-amber-900', badge: 'bg-amber-100 text-amber-800' },
@@ -21,13 +23,32 @@ const NOTE_COLORS = {
   purple: { bg: 'bg-purple-50/80', border: 'border-purple-200', text: 'text-purple-950', badge: 'bg-purple-100 text-purple-800' },
 };
 
+function isDocItem(item) {
+  const cat = (item.categoria || '').toLowerCase();
+  const url = (item.url || '').toLowerCase();
+  return (
+    cat === 'documentos' ||
+    cat === 'diretrizes' ||
+    cat === 'protocolos' ||
+    cat === 'tabelas' ||
+    cat === 'rotinas' ||
+    cat === 'impressos' ||
+    cat === 'artigos' ||
+    cat === 'pastas' ||
+    url.includes('drive.google.com') ||
+    url.includes('docs.google.com') ||
+    url.endsWith('.pdf')
+  );
+}
+
 export default function UserNotesAndLinks() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState('notes'); // 'notes' | 'links'
+  const [activeTab, setActiveTab] = useState('notes'); // 'notes' | 'links' | 'docs'
   const [notes, setNotes] = useState([]);
-  const [links, setLinks] = useState([]);
+  const [rawLinks, setRawLinks] = useState([]);
   const [showAddNote, setShowAddNote] = useState(false);
   const [showAddLink, setShowAddLink] = useState(false);
+  const [showAddDoc, setShowAddDoc] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
 
   // Form states for note
@@ -40,6 +61,11 @@ export default function UserNotesAndLinks() {
   const [linkUrl, setLinkUrl] = useState('');
   const [linkCategory, setLinkCategory] = useState('');
 
+  // Form states for document
+  const [docTitle, setDocTitle] = useState('');
+  const [docUrl, setDocUrl] = useState('');
+  const [docCategory, setDocCategory] = useState('Documentos');
+
   // Load notes and links directly from the server database
   useEffect(() => {
     if (user?.id) {
@@ -51,14 +77,17 @@ export default function UserNotesAndLinks() {
 
       services.userLinks.list('-created_date')
         .then((remoteLinks) => {
-          if (Array.isArray(remoteLinks)) setLinks(remoteLinks);
+          if (Array.isArray(remoteLinks)) setRawLinks(remoteLinks);
         })
         .catch(() => {});
     } else {
       setNotes([]);
-      setLinks([]);
+      setRawLinks([]);
     }
   }, [user?.id]);
+
+  const links = rawLinks.filter((l) => !isDocItem(l));
+  const docs = rawLinks.filter((l) => isDocItem(l));
 
   // Handle create note in server DB
   const handleSaveNote = async (e) => {
@@ -99,12 +128,16 @@ export default function UserNotesAndLinks() {
     }
   };
 
-  // Handle copy note
-  const handleCopyNote = (n) => {
-    const textToCopy = `${n.titulo}\n\n${n.conteudo || ''}`.trim();
+  // Handle copy note text
+  const handleCopyNoteText = (n) => {
+    const textToCopy = (n.conteudo || n.titulo || '').trim();
+    if (!textToCopy) {
+      toast.error('A anotação está vazia.');
+      return;
+    }
     navigator.clipboard.writeText(textToCopy);
     setCopiedId(n.id);
-    toast.success('Anotação copiada para a área de transferência!');
+    toast.success('Texto da anotação copiado para a área de transferência!');
     setTimeout(() => setCopiedId(null), 2000);
   };
 
@@ -132,7 +165,7 @@ export default function UserNotesAndLinks() {
         categoria: linkCategory.trim() || 'Geral',
         icone: '🔗',
       });
-      setLinks((prev) => [created, ...prev]);
+      setRawLinks((prev) => [created, ...prev]);
       setLinkTitle('');
       setLinkUrl('');
       setLinkCategory('');
@@ -143,14 +176,49 @@ export default function UserNotesAndLinks() {
     }
   };
 
-  // Handle delete link in server DB
-  const handleDeleteLink = async (id) => {
+  // Handle create document in server DB
+  const handleSaveDoc = async (e) => {
+    e.preventDefault();
+    if (!user) {
+      toast.error('Faça login para salvar documentos no servidor.');
+      return;
+    }
+    if (!docTitle.trim() || !docUrl.trim()) {
+      toast.error('Informe o título e o link do documento.');
+      return;
+    }
+
+    let formattedUrl = docUrl.trim();
+    if (!/^https?:\/\//i.test(formattedUrl)) {
+      formattedUrl = 'https://' + formattedUrl;
+    }
+
+    try {
+      const created = await services.userLinks.create({
+        titulo: docTitle.trim(),
+        url: formattedUrl,
+        categoria: docCategory.trim() || 'Documentos',
+        icone: '📄',
+      });
+      setRawLinks((prev) => [created, ...prev]);
+      setDocTitle('');
+      setDocUrl('');
+      setDocCategory('Documentos');
+      setShowAddDoc(false);
+      toast.success('Documento salvo no banco de dados do servidor!');
+    } catch (err) {
+      toast.error(err.message || 'Erro ao salvar documento.');
+    }
+  };
+
+  // Handle delete link/doc in server DB
+  const handleDeleteLinkOrDoc = async (id) => {
     try {
       await services.userLinks.delete(id);
-      setLinks((prev) => prev.filter((l) => l.id !== id));
-      toast.success('Link removido do servidor.');
+      setRawLinks((prev) => prev.filter((l) => l.id !== id));
+      toast.success('Item removido do servidor.');
     } catch (err) {
-      toast.error(err.message || 'Erro ao remover link.');
+      toast.error(err.message || 'Erro ao remover item.');
     }
   };
 
@@ -184,15 +252,15 @@ export default function UserNotesAndLinks() {
         <div>
           <h2 className="text-sm font-bold uppercase tracking-wider text-brand-navy flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-brand-teal" />
-            <span>Meu Espaço Clínico: Anotações & Links</span>
+            <span>Meu Espaço Favorito: Anotações, Links & Documentos</span>
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Suas anotações do plantão e links favoritos ficam salvos automaticamente no sistema.
+            Suas anotações do plantão, links favoritos e documentos clínicos salvos no sistema.
           </p>
         </div>
 
         {/* Tab switch */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl self-start sm:self-auto text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-1 bg-slate-100 p-1 rounded-xl self-start sm:self-auto text-xs font-semibold">
           <button
             type="button"
             onClick={() => setActiveTab('notes')}
@@ -216,6 +284,18 @@ export default function UserNotesAndLinks() {
           >
             <LinkIcon className="w-3.5 h-3.5 text-brand-teal" />
             <span>Links Salvos ({links.length})</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('docs')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
+              activeTab === 'docs'
+                ? 'bg-white text-brand-navy shadow-xs font-bold'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5 text-indigo-500" />
+            <span>Documentos ({docs.length})</span>
           </button>
         </div>
       </div>
@@ -301,26 +381,14 @@ export default function UserNotesAndLinks() {
                 return (
                   <div
                     key={n.id}
-                    className={`${colorTheme.bg} ${colorTheme.border} border rounded-2xl p-4 shadow-2xs flex flex-col justify-between space-y-2.5 transition-all`}
+                    className={`${colorTheme.bg} ${colorTheme.border} border rounded-2xl p-4 shadow-2xs flex flex-col justify-between space-y-3 transition-all overflow-hidden break-words [word-break:break-word]`}
                   >
-                    <div>
+                    <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
-                        <h4 className="text-xs font-bold text-slate-900 leading-snug">
+                        <h4 className="text-xs font-bold text-slate-900 leading-snug break-words [word-break:break-word]">
                           {n.titulo}
                         </h4>
                         <div className="flex items-center gap-1 shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => handleCopyNote(n)}
-                            className="p-1 text-slate-400 hover:text-slate-700 transition-colors"
-                            title="Copiar anotação"
-                          >
-                            {copiedId === n.id ? (
-                              <Check className="w-3.5 h-3.5 text-emerald-600" />
-                            ) : (
-                              <Copy className="w-3.5 h-3.5" />
-                            )}
-                          </button>
                           <button
                             type="button"
                             onClick={() => handleDeleteNote(n.id)}
@@ -333,15 +401,36 @@ export default function UserNotesAndLinks() {
                       </div>
 
                       {n.conteudo && (
-                        <p className="text-xs text-slate-700 whitespace-pre-wrap mt-1.5 leading-relaxed font-normal">
+                        <p className="text-xs text-slate-700 whitespace-pre-wrap break-words [word-break:break-word] leading-relaxed font-normal">
                           {n.conteudo}
                         </p>
                       )}
                     </div>
 
-                    <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-400 font-medium">
-                      <span>{formatDate(n.created_date)}</span>
-                      <span className="text-emerald-700 font-semibold">✓ Salvo</span>
+                    <div className="pt-2.5 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleCopyNoteText(n)}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-[11px] font-bold text-slate-700 shadow-2xs hover:shadow-xs transition-all shrink-0"
+                        title="Copiar texto da anotação"
+                      >
+                        {copiedId === n.id ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="text-emerald-700">Texto copiado!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5 text-brand-teal" />
+                            <span>Copiar texto</span>
+                          </>
+                        )}
+                      </button>
+
+                      <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium ml-auto">
+                        <span>{formatDate(n.created_date)}</span>
+                        <span className="text-emerald-700 font-semibold">✓ Salvo</span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -435,18 +524,18 @@ export default function UserNotesAndLinks() {
               {links.map((link) => (
                 <div
                   key={link.id}
-                  className="bg-white border border-slate-200/90 hover:border-brand-teal rounded-2xl p-3.5 shadow-2xs hover:shadow-xs transition-all flex items-center justify-between gap-3 group"
+                  className="bg-white border border-slate-200/90 hover:border-brand-teal rounded-2xl p-3.5 shadow-2xs hover:shadow-xs transition-all flex items-center justify-between gap-3 group overflow-hidden break-words [word-break:break-word]"
                 >
                   <a
                     href={link.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="min-w-0 flex-1 flex items-start gap-2.5"
+                    className="min-w-0 flex-1 flex items-start gap-2.5 overflow-hidden"
                   >
                     <div className="w-8 h-8 rounded-xl bg-teal-50 text-brand-teal flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <ExternalLink className="w-4 h-4" />
                     </div>
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1 overflow-hidden">
                       <div className="flex items-center gap-1.5">
                         <h4 className="text-xs font-bold text-slate-900 group-hover:text-brand-navy truncate">
                           {link.titulo}
@@ -466,7 +555,7 @@ export default function UserNotesAndLinks() {
 
                   <button
                     type="button"
-                    onClick={() => handleDeleteLink(link.id)}
+                    onClick={() => handleDeleteLinkOrDoc(link.id)}
                     className="p-1.5 text-slate-300 hover:text-rose-600 transition-colors shrink-0"
                     title="Excluir link"
                   >
@@ -480,6 +569,135 @@ export default function UserNotesAndLinks() {
               <LinkIcon className="w-6 h-6 mx-auto text-slate-400 mb-1" />
               <p className="font-semibold text-slate-700">Nenhum link salvo ainda.</p>
               <p>Guarde links de diretrizes, hospitais ou calculadoras externas para abrir em 1 clique.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* TAB 3: DOCUMENTOS */}
+      {activeTab === 'docs' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-600">
+              Documentos clínicos, PDFs e arquivos do Google Drive
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowAddDoc(!showAddDoc)}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-teal hover:text-teal-700 bg-teal-50 hover:bg-teal-100/70 border border-teal-200/80 px-3 py-1.5 rounded-xl transition-all"
+            >
+              {showAddDoc ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+              <span>{showAddDoc ? 'Cancelar' : 'Salvar Documento'}</span>
+            </button>
+          </div>
+
+          {/* Form to add document */}
+          {showAddDoc && (
+            <form onSubmit={handleSaveDoc} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Título do Documento
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex: Protocolo de Sepse Neonatal 2026"
+                    value={docTitle}
+                    onChange={(e) => setDocTitle(e.target.value)}
+                    className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:border-brand-teal"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Categoria
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex: Documentos / Diretrizes / Protocolos"
+                    value={docCategory}
+                    onChange={(e) => setDocCategory(e.target.value)}
+                    className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:border-brand-teal"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  Link do Google Drive / PDF
+                </label>
+                <input
+                  type="text"
+                  placeholder="https://drive.google.com/file/d/..."
+                  value={docUrl}
+                  onChange={(e) => setDocUrl(e.target.value)}
+                  className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-800 focus:outline-none focus:border-brand-teal"
+                />
+              </div>
+
+              <div className="flex justify-end pt-1">
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-brand-navy hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                >
+                  Salvar Documento
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* Docs Grid */}
+          {docs.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {docs.map((doc) => {
+                const detectedType = detectGoogleDriveType(doc.url);
+                return (
+                  <div
+                    key={doc.id}
+                    className="bg-white border border-slate-200/90 hover:border-indigo-300 rounded-2xl p-3.5 shadow-2xs hover:shadow-xs transition-all flex items-center justify-between gap-3 group overflow-hidden break-words [word-break:break-word]"
+                  >
+                    <a
+                      href={doc.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="min-w-0 flex-1 flex items-start gap-2.5 overflow-hidden"
+                    >
+                      <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <FileText className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0 flex-1 overflow-hidden">
+                        <div className="flex items-center gap-1.5">
+                          <h4 className="text-xs font-bold text-slate-900 group-hover:text-brand-navy truncate">
+                            {doc.titulo}
+                          </h4>
+                          <span className="text-[10px] text-emerald-700 font-semibold shrink-0">✓ Salvo</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 truncate">
+                          {getDomain(doc.url)}
+                        </p>
+                        <span className="inline-block mt-1 text-[9px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded">
+                          {detectedType.toUpperCase()}
+                        </span>
+                      </div>
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteLinkOrDoc(doc.id)}
+                      className="p-1.5 text-slate-300 hover:text-rose-600 transition-colors shrink-0"
+                      title="Excluir documento"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-6 text-center space-y-1 text-xs text-slate-500">
+              <FileText className="w-6 h-6 mx-auto text-slate-400 mb-1" />
+              <p className="font-semibold text-slate-700">Nenhum documento salvo ainda.</p>
+              <p>Adicione links de arquivos, manuais ou pastas do Google Drive para ter acesso instantâneo.</p>
             </div>
           )}
         </div>

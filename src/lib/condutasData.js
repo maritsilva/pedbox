@@ -6,6 +6,8 @@ import { getUrgenciaConteudo } from './condutasUrgenciaEmergenciaData.js';
 import { getPuericulturaConteudo } from './condutasPuericulturaData.js';
 import { getRespiratorioConteudo } from './condutasRespiratoriasData.js';
 import { getHematologiaConteudo } from './condutasHematologiaData.js';
+import { getNefrologiaConteudo } from './condutasNefrologiaData.js';
+import { getNeurologiaConteudo } from './condutasNeurologiaData.js';
 
 export const CONDUTAS_CATEGORIAS = [
   {
@@ -472,36 +474,36 @@ export const CONDUTAS_CATEGORIAS = [
         id: 'glomerulopatias',
         label: 'Glomerulopatias',
         topicos: [
-          { id: 'glomerulonefrite-difusa-aguda-pos-estreptococica-gnpe', label: 'Glomerulonefrite Difusa Aguda Pós-Estreptocócica (GNPE)', conteudo: '' },
-          { id: 'sindrome-nefritica-aguda', label: 'Síndrome Nefrítica Aguda', conteudo: '' },
-          { id: 'sindrome-nefrotica', label: 'Síndrome Nefrótica', conteudo: '' },
+          { id: 'glomerulonefrite-difusa-aguda-pos-estreptococica-gnpe', label: 'Glomerulonefrite Difusa Aguda Pós-Estreptocócica (GNPE)', conteudo: getNefrologiaConteudo('glomerulonefrite-difusa-aguda-pos-estreptococica-gnpe') },
+          { id: 'sindrome-nefritica-aguda', label: 'Síndrome Nefrítica Aguda', conteudo: getNefrologiaConteudo('sindrome-nefritica-aguda') },
+          { id: 'sindrome-nefrotica', label: 'Síndrome Nefrótica', conteudo: getNefrologiaConteudo('sindrome-nefrotica') },
         ],
       },
       {
         id: 'infeccoes-do-trato-urinario',
         label: 'Infecções do Trato Urinário',
         topicos: [
-          { id: 'cistite', label: 'Cistite', conteudo: '' },
-          { id: 'infeccao-do-trato-urinario', label: 'Infecção do Trato Urinário (ITU)', conteudo: '' },
-          { id: 'pielonefrite-aguda', label: 'Pielonefrite Aguda', conteudo: '' },
+          { id: 'cistite', label: 'Cistite', conteudo: getNefrologiaConteudo('cistite') },
+          { id: 'infeccao-do-trato-urinario', label: 'Infecção do Trato Urinário (ITU)', conteudo: getNefrologiaConteudo('infeccao-do-trato-urinario') },
+          { id: 'pielonefrite-aguda', label: 'Pielonefrite Aguda', conteudo: getNefrologiaConteudo('pielonefrite-aguda') },
         ],
       },
       {
         id: 'insuficiencia-renal',
         label: 'Insuficiência Renal',
         topicos: [
-          { id: 'doenca-renal-cronica', label: 'Doença Renal Crônica (DRC)', conteudo: '' },
-          { id: 'lesao-renal-aguda', label: 'Lesão Renal Aguda (LRA)', conteudo: '' },
+          { id: 'doenca-renal-cronica', label: 'Doença Renal Crônica (DRC)', conteudo: getNefrologiaConteudo('doenca-renal-cronica') },
+          { id: 'lesao-renal-aguda', label: 'Lesão Renal Aguda (LRA)', conteudo: getNefrologiaConteudo('lesao-renal-aguda') },
         ],
       },
       {
         id: 'outras-afeccoes',
         label: 'Outras Afecções',
         topicos: [
-          { id: 'enurese-noturna', label: 'Enurese Noturna', conteudo: '' },
-          { id: 'hipertensao-arterial-secundaria', label: 'Hipertensão Arterial Secundária', conteudo: '' },
-          { id: 'litiase-urinaria', label: 'Litíase Urinária', conteudo: '' },
-          { id: 'refluxo-vesicoureteral', label: 'Refluxo Vesicoureteral (RVU)', conteudo: '' },
+          { id: 'enurese-noturna', label: 'Enurese Noturna', conteudo: getNefrologiaConteudo('enurese-noturna') },
+          { id: 'hipertensao-arterial-secundaria', label: 'Hipertensão Arterial Secundária', conteudo: getNefrologiaConteudo('hipertensao-arterial-secundaria') },
+          { id: 'litiase-urinaria', label: 'Litíase Urinária', conteudo: getNefrologiaConteudo('litiase-urinaria') },
+          { id: 'refluxo-vesicoureteral', label: 'Refluxo Vesicoureteral (RVU)', conteudo: getNefrologiaConteudo('refluxo-vesicoureteral') },
         ],
       },
     ],
@@ -525,15 +527,15 @@ export const CONDUTAS_CATEGORIAS = [
         id: 'epilepsias-e-convulsoes',
         label: 'Epilepsias e Convulsões',
         topicos: [
-          { id: 'convulsao-febril', label: 'Convulsão Febril', conteudo: '' },
+          { id: 'convulsao-febril', label: 'Convulsão Febril', conteudo: getNeurologiaConteudo('convulsao-febril') },
         ],
       },
       {
         id: 'transtornos-do-neurodesenvolvimento',
         label: 'Transtornos do Neurodesenvolvimento',
         topicos: [
-          { id: 'transtorno-do-deficit-de-atencao-com-hiperatividade-tdah', label: 'Transtorno do Déficit de Atenção com Hiperatividade (TDAH)', conteudo: '' },
-          { id: 'transtorno-do-espectro-autista-tea', label: 'Transtorno do Espectro Autista (TEA)', conteudo: '' },
+          { id: 'transtorno-do-deficit-de-atencao-com-hiperatividade-tdah', label: 'Transtorno do Déficit de Atenção com Hiperatividade (TDAH)', conteudo: getNeurologiaConteudo('transtorno-do-deficit-de-atencao-com-hiperatividade-tdah') },
+          { id: 'transtorno-do-espectro-autista-tea', label: 'Transtorno do Espectro Autista (TEA)', conteudo: getNeurologiaConteudo('transtorno-do-espectro-autista-tea') },
         ],
       },
     ],
