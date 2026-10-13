@@ -212,6 +212,10 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
  const hemato = CONDUTAS_CATEGORIAS.find(c => c.id === 'hematologia');
  const nefro = CONDUTAS_CATEGORIAS.find(c => c.id === 'nefrologia');
  const neuro = CONDUTAS_CATEGORIAS.find(c => c.id === 'neurologia');
+ const gastro = CONDUTAS_CATEGORIAS.find(c => c.id === 'gastrointestinais');
+ const endocrino = CONDUTAS_CATEGORIAS.find(c => c.id === 'endocrinologia');
+ const sintomas = CONDUTAS_CATEGORIAS.find(c => c.id === 'abordagem-sintomas');
+
  assert.ok(neo, 'Neonatal category must exist');
  assert.ok(cipe, 'Cirurgia Pediátrica category must exist');
  assert.ok(urg, 'Urgências e Emergências category must exist');
@@ -220,6 +224,9 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
  assert.ok(hemato, 'Hematologia category must exist');
  assert.ok(nefro, 'Nefrologia category must exist');
  assert.ok(neuro, 'Neurologia category must exist');
+ assert.ok(gastro, 'Gastroenterologia category must exist');
+ assert.ok(endocrino, 'Endocrinologia category must exist');
+ assert.ok(sintomas, 'Abordagem de Sintomas category must exist');
 
  const totalNeo = neo.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
  const totalCipe = cipe.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
@@ -229,21 +236,38 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
  const totalHemato = hemato.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
  const totalNefro = nefro.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
  const totalNeuro = neuro.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalGastro = gastro.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalEndocrino = endocrino.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalSintomas = sintomas.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
 
  assert.equal(totalNeo, 29, 'Must have 29 Neonatologia topics');
- assert.equal(totalCipe, 30, 'Must have 30 Cirurgia Pediátrica topics');
- assert.equal(totalUrg, 22, 'Must have 22 Urgência e Emergência topics');
+ assert.equal(totalCipe, 35, 'Must have 35 Cirurgia Pediátrica topics');
+ assert.equal(totalUrg, 28, 'Must have 28 Urgência e Emergência topics');
  assert.equal(totalPuer, 28, 'Must have 28 Puericultura topics');
  assert.equal(totalResp, 23, 'Must have 23 Doenças Respiratórias topics');
- assert.equal(totalHemato, 16, 'Must have 16 Hematologia topics');
- assert.equal(totalNefro, 12, 'Must have 12 Nefrologia topics');
- assert.equal(totalNeuro, 3, 'Must have 3 Neurologia topics');
+ assert.equal(totalHemato, 21, 'Must have 21 Hematologia topics');
+ assert.equal(totalNefro, 16, 'Must have 16 Nefrologia topics');
+ assert.equal(totalNeuro, 8, 'Must have 8 Neurologia topics');
+ assert.equal(totalGastro, 4, 'Must have 4 Gastroenterologia topics');
+ assert.equal(totalEndocrino, 5, 'Must have 5 Endocrinologia topics');
+ assert.equal(totalSintomas, 6, 'Must have 6 Abordagem de Sintomas topics');
 
- // All 163 topics across 8 complete clinical areas must have substantive content and NO forbidden metadata header
- const allTopics = [...neo.subcategorias, ...cipe.subcategorias, ...urg.subcategorias, ...puer.subcategorias, ...resp.subcategorias, ...hemato.subcategorias, ...nefro.subcategorias, ...neuro.subcategorias]
-   .flatMap(sub => sub.topicos);
+ // All 203 topics across 11 complete clinical areas must have substantive content and NO forbidden metadata header
+ const allTopics = [
+   ...neo.subcategorias,
+   ...cipe.subcategorias,
+   ...urg.subcategorias,
+   ...puer.subcategorias,
+   ...resp.subcategorias,
+   ...hemato.subcategorias,
+   ...nefro.subcategorias,
+   ...neuro.subcategorias,
+   ...gastro.subcategorias,
+   ...endocrino.subcategorias,
+   ...sintomas.subcategorias,
+ ].flatMap(sub => sub.topicos);
 
- assert.equal(allTopics.length, 163, 'Total condutas topics across 8 areas must be 163');
+ assert.equal(allTopics.length, 203, 'Total condutas topics across 11 areas must be 203');
  for (const topico of allTopics) {
    assert.ok(topico.conteudo && topico.conteudo.length > 200, `Topic ${topico.id} must have substantive content`);
    assert.ok(!topico.conteudo.includes('Versão editorial:'), `Topic ${topico.id} must not include "Versão editorial:"`);
