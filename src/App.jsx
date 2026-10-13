@@ -96,7 +96,7 @@ function App() {
             <Route path="/amamentacao" element={<Amamentacao />} />
             <Route path="/seguranca-amamentacao" element={<Navigate to="/amamentacao" replace />} />
             <Route path="/contato" element={<Contato />} />
-
+            <Route path="/sobre" element={<Navigate to="/contato" replace />} />
             <Route path="/contact" element={<Navigate to="/contato" replace />} />
             <Route path="/desenvolvimento" element={<CartilhaDesenvolvimento />} />
             <Route element={<ProtectedRoute />}><Route path="/settings" element={<Settings />} /></Route>
