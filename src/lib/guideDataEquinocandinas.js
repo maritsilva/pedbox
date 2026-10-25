@@ -80,7 +80,7 @@ export const equinocandinas = [
     ],
     contraindications: [],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Periodic liver function tests, serum potassium, CBC, hemoglobin; signs of anaphylaxis or histamine-related reactions",
+      monitoring: "Periodic provas de função hepática, potássio sérico, CBC, hemoglobin; sinais de anaphylaxis or histamine-related reactions",
   },
   {
     id: 'micafungina',

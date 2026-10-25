@@ -133,7 +133,7 @@ export const antagonistasAntidotos = [
     ],
     contraindications: [],
       hepaticAdjustment: "Initial reversal dose: Use normal dose; repeat doses should be decreased in size or frequency",
-      monitoring: "Level of consciousness and resedation, blood pressure, heart rate, respiratory rate, continuous pulse oximetry; monitor for resedation for 1-2 hours after reversal of sedation in patients who receive benzodiazepine sedation",
+      monitoring: "Level of consciousness and resedation, pressão arterial, frequência cardíaca, frequência respiratória, continuous oximetria de pulso; monitor for resedation for 1-2 hours after reversal of sedation in patients who receive benzodiazepine sedation",
   },
 
   {
@@ -188,7 +188,7 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-        preparation: "Endotracheal: Dilute to 1 to 2 mL with NS Inhalation via nebulization: Dilute 2 mg of naloxone with 3 mL of NS (Mycyk 2003; Weber 2012) Parenteral: IV push: Dilute naloxone 0.4 mg (1 mL ampul) with 9 mL of NS for a total volume of 10 mL to achieve a concentration of 0.04 mg/mL (APS 2008) IV infusion: Dilute in NS or D5W to a final concentration of ...",
+        preparation: "Endotraqueal: Diluir para 1 a 2 mL com SF 0,9%. Inalação por nebulização: Diluir 2 mg de naloxona em 3 mL de SF 0,9%. (Mycyk 2003; Weber 2012) Via IV (bolus): Diluir naloxona 0,4 mg (1 ampola de 1 mL) com 9 mL de SF 0,9% (volume total de 10 mL, concentração final 0,04 mg/mL). (APS 2008) IV infusion: Diluir em NS or D5W para concentração final de ...",
         renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -199,7 +199,7 @@ export const antagonistasAntidotos = [
     ],
     contraindications: [],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Respiratory rate, heart rate, blood pressure, temperature, level of consciousness, ABGs, or pulse oximetry. Auto-injector: Evzio: When administered to infants <1 year of age, monitor the injec-tion site for residual needle parts and signs of infectio...",
+      monitoring: "Frequência respiratória, frequência cardíaca, pressão arterial, temperature, nível de consciência, ABGs, or oximetria de pulso. Auto-injector: Evzio: When administered to infants <1 year of age, monitor the injection site for residual needle parts and sinais de infectio...",
   },
 
   {
@@ -239,7 +239,7 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-        preparation: "Parenteral: May be administered undiluted by slow IV injection over several minutes; may be administered IM or SubQ~ Oral: Divide dosages so patient receives larger doses at times of greatest fatigue; may be administered with or without food",
+        preparation: "Parenteral: Pode ser administrado sem diluição por injeção IV lenta em vários minutos; também pode ser administrado por via IM ou SC.~ Oral: Divide dosages so patient receives larger doses at times of greatest fatigue; may be administered with or without food",
         renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -250,7 +250,7 @@ export const antagonistasAntidotos = [
     ],
     contraindications: ['Peritonite', 'Obstrução do trato urinário ou gastrointestinal', 'Amamentação'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "ECG, blood pressure, and heart rate especially with IV use; consult individual institutional policies and procedures; muscle strength",
+      monitoring: "ECG, pressão arterial, and frequência cardíaca especially with IV use; consult individual institutional policies and procedures; muscle strength",
   },
 
   {
@@ -343,7 +343,7 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-        preparation: "Parenteral: IV: Administer undiluted slow IVP at a rate not to exceed 5 mg/minute (50 mg in any 10- minute period); rapid IV infusion causes hypotension",
+        preparation: "Via IV: Injetar lentamente sem diluição a taxa não superior a 5 mg/minuto; a injeção rápida pode causar hipotensão severa.",
     sideEffects: [
       'Hipotensão, bradicardia, rubor, dispneia, náusea, vômitos, alergia, anafilaxia',
       'Efeito anticoagulante se usada isoladamente em dose alta',
@@ -354,7 +354,7 @@ export const antagonistasAntidotos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Coagulation tests, APTT or ACT, cardiac monitor, and blood pressure monitor required during administration",
+      monitoring: "Coagulation tests, APTT or ACT, cardiac monitor, and pressão arterial monitor required during administration",
   },
 
   {

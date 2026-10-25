@@ -137,7 +137,7 @@ export const emergenciaVasoativos = [
         ],
       },
     ],
-        preparation: "Parenteral: Dilute in D5W or NS to a maximum concen-tration of 5,000 mcg/mL (5 mg/mL); ISMP and Vermont Oxford Network recommends a standard concentration of 2,000 mceg/mL (2 mg/mL) for neonates (ISMP 2011) :",
+        preparation: "Parenteral: Diluir em D5W or NS para concentração máxima de 5,000 mcg/mL (5 mg/mL); ISMP and Vermont Oxford Network recommends a standard concentration of 2,000 mceg/mL (2 mg/mL) for neonates (ISMP 2011) :",
         renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -151,7 +151,7 @@ export const emergenciaVasoativos = [
       'Estenose subaórtica hipertrófica', 'Miocardiopatia hipertrófica',
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, ECG, heart rate, CVP, MAP, urine output; if pulmonary artery catheter is in place, monitor Cl, PCWP, RAP, and SVR. Dobut-amine lowers central venous pressure and wedge pres-sure but has little effect on pulmonary vascular resistance.",
+      monitoring: "Pressão arterial, ECG, frequência cardíaca, CVP, MAP, débito urinário; if pulmonary artery catheter is in place, monitor Cl, PCWP, RAP, and SVR. Dobut-amine lowers central venous pressure and wedge pres-sure but has little effect on pulmonary vascular resistance.",
   },
 
   {
@@ -186,7 +186,7 @@ export const emergenciaVasoativos = [
     contraindications: [
       'Feocromocitoma', 'Taquiarritmias', 'Fibrilação ventricular',
     ],
-      monitoring: "Blood pressure, ECG, heart rate, CVP, MAP, urine output; if pulmonary artery catheter is in place, monitor Cl, PWCP, SVR, RAP, and PVR; monitor for skin color and temperature changes",
+      monitoring: "Pressão arterial, ECG, frequência cardíaca, CVP, MAP, débito urinário; if pulmonary artery catheter is in place, monitor Cl, PWCP, SVR, RAP, and PVR; monitor for skin color and temperature changes",
   },
 
   {

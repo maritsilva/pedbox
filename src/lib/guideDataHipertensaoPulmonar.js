@@ -12,7 +12,7 @@ export const hipertensaoPulmonarDrugs = [
       'Descontinuado: Befaprostadil',
     ],
     presentations: [{ label: 'Ampola 2 mL — 500 µg' }],
-        preparation: "Continuous IV infusion: Prostin VR Pediatric: Dilute with D5W, D10W, or NS to a maximum concentration of 20 mcg/mL per the manufac-turer. ISMP and Vermont Oxford Network recommend a standard concentration of 10 mcg/mL for neonates (ISMP 2011). Avoid direct contact of undiluted alprostadil with the plastic walls of volumetric infusion chambers becau...",
+        preparation: "Continuous IV infusion: Prostin VR Pediatric: Diluir com D5W, D10W, or NS para concentração máxima de 20 mcg/mL per the manufac-turer. ISMP and Vermont Oxford Network recommend a standard concentration of 10 mcg/mL for neonates (ISMP 2011). Avoid direct contact of undiluted alprostadil with the plastic walls of volumetric infusion chambers becau...",
     observations_extra: 'Alerta: Pode piorar fisiopatologia de transposição com CIA restritiva, Fallot sem PCA, drenagem anômala total de veias pulmonares obstrutiva e HP do RN.',
     sideEffects: [],
     contraindications: [],
@@ -20,7 +20,7 @@ export const hipertensaoPulmonarDrugs = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Arterial pressure, respiratory rate, heart rate, temperature, pO2; monitor for gastric obstruction in patients receiving PGE, for longer than 120 hours; x-rays may be needed to assess cortical hyperostosis in patients receiving prolonged PGE, ther-ap...",
+      monitoring: "Arterial pressure, frequência respiratória, frequência cardíaca, temperature, pO2; monitor for gastric obstruction in patients receiving PGE, for longer than 120 hours; x-rays may be needed to assess cortical hyperostosis in patients receiving prolonged PGE, ther-ap...",
   },
 
   {
@@ -70,8 +70,8 @@ export const hipertensaoPulmonarDrugs = [
     sideEffects: ['Disfunção hepática (interromper e não reiniciar)', 'Aumento de transaminases, cefaleia, rinofairingite', 'Hipotensão, edema, anemia', 'Pode atenuar função hepatotóxica durante tratamento'],
     contraindications: ['Gravidez', 'Risco teratogênico', 'Interação com furosemida, ciclosporina ou glibenclamida', 'Disfunção hepática moderada a grave', 'Elevação persistente de transaminases', 'Hipotensão significativa'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: May be administered without regard to meals. Avoid grapefruit and grapefruit juice. Women of childbearing potential should avoid splitting, crushing, or handling broken tablets and exposure to the generated dust (tablets should be dissolved in water if necessary).",
-      monitoring: "Serum transaminase (AST and ALT) and bilirubin should be determined prior to the initiation of therapy and at monthly intervals thereafter. Monitor for clinical signs and symptoms of liver injury (eg, abdominal pain, fatigue, fever, jaundice, nausea,...",
+      preparation: "Oral: May be administered com ou sem alimentos. Avoid grapefruit and grapefruit juice. Women of childbearing potential should avoid splitting, crushing, or handling broken tablets and exposure to the generated dust (tablets should be dissolved in water if necessary).",
+      monitoring: "Serum transaminase (AST and ALT) and bilirubin should be determined prior to the initiation of therapy and at monthly intervals thereafter. Monitor for clinical sinais e sintomas de liver injury (eg, abdominal pain, fatigue, fever, jaundice, nausea,...",
   },
 
   {
@@ -130,8 +130,8 @@ export const hipertensaoPulmonarDrugs = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "There are no pediatric specific dosage recommendations; however, based on experience in adult patients, dosing adjustment sug-gested.",
-      preparation: "Oral: Revatio: Administer doses at least 4 to 6 hours apart; may be administered without regard to meals; shake oral suspension well prior to use; Note: Oral suspen-sions may be available in multiple concentrations (com-mercially available: 10 mg/mL; extemporaneous preparation: 2.5 mg/mL); use extra precaution when verifying product formulation and...",
-      monitoring: "Heart rate, blood pressure, oxy-gen saturation, PaO2z",
+      preparation: "Oral: Revatio: Administer doses at least 4 to 6 hours apart; may be administered com ou sem alimentos; shake oral suspension well prior to use; Note: Oral suspen-sions may be available in multiple concentrations (com-mercially available: 10 mg/mL; extemporaneous preparation: 2.5 mg/mL); use extra precaution when verifying product formulation and...",
+      monitoring: "Frequência cardíaca, pressão arterial, oxy-gen saturation, PaO2z",
   },
 
   {

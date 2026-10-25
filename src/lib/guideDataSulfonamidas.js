@@ -61,7 +61,7 @@ export const SULFONAMIDAS_CATEGORY = {
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Oral: Administer with at least 8 ounces of water and around-the-clock to promote less variation in peak and trough serum levels. In adults, oral sodium bicarbonate may be used to alkalinize the urine of patients unable to maintain adequate fluid intake (in order to prevent crystalluria, azotemia, oliguria) (Lerner, 1996)",
-      monitoring: "CBC, renal function tests, uri-nalysis; signs of serious blood disorders (sore throat, fever, pallor, purpura, jaundice); CD4+ count in HIV-exposed/-positive patients treated for toxoplasmosis; sul-fonamide blood concentrations may be monitored for s...",
+      monitoring: "CBC, função renal tests, uri-nalysis; sinais de serious blood disorders (sore throat, fever, pallor, purpura, jaundice); CD4+ count in HIV-exposed/-positive patients treated for toxoplasmosis; sul-fonamide blood concentrations may be monitored for s...",
   },
 
     {
@@ -206,7 +206,7 @@ export const AMINOGLICOSIDEOS_CATEGORY = {
           ],
         },
       ],
-          preparation: "Parenteral: IV intermit-tert infusion: Dilute in a compatible solution (eg, NS, D5W) to a final concentration of 0.25 to 5 mg/mL per the manufacturer; concentrations as high as 10 mg/mL have been reported (Murray 2014).",
+          preparation: "Parenteral: IV intermit-tert infusion: Diluir em a compatible solution (eg, NS, D5W) para concentração final de 0.25 to 5 mg/mL per the manufacturer; concentrations as high as 10 mg/mL have been reported (Murray 2014).",
           renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -229,7 +229,7 @@ export const AMINOGLICOSIDEOS_CATEGORY = {
         'Anemia, neutropenia, trombocitopenia, disfunção hepática, hepatomegalia, esplenomegalia, fibrose pulmonar, hipertensão, artralgia, eosinofilia',
       ],
       contraindications: [],
-        monitoring: "Urinalysis, urine output, BUN, serum creatinine, peak and trough serum amikacin con-centrations; be alert to ototoxicity With conventional dosing, typically obtain serum concen-tration after the third dose; exceptions for earlier monitor-ing may incl...",
+        monitoring: "Urinalysis, débito urinário, BUN, creatinina sérica, peak and trough serum amikacin con-centrations; be alert to ototoxicity With conventional dosing, typically obtain serum concentration after the third dose; exceptions for earlier monitor-ing may incl...",
   },
 
     {

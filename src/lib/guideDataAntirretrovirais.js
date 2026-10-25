@@ -38,8 +38,8 @@ export const antirretroviraisITRN = [
     ],
     contraindications: ['HLA-B5701 positivo', 'Insuficiência hepática grave (Child-Pugh B ou C)'],
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: May be administered without regard to food",
-      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); signs and symptoms of hyper-sensitivity reaction (in all patients, but especially...",
+      preparation: "Oral: May be administered com ou sem alimentos",
+      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); sinais e sintomas de hypersensitivity reaction (in all patients, but especially...",
   },
   {
     id: 'didanosina',
@@ -83,7 +83,7 @@ export const antirretroviraisITRN = [
       'Hipo ou hiperglicemia, diabetes mellitus, rabdomiólise',
     ],
     contraindications: [],
-      hepaticAdjustment: "No adjustment recom-mended.",
+      hepaticAdjustment: "No adjustment recommended.",
       preparation: "Oral: Pediatric powder for oral solution: Prior to dispensing, add 100 mL or 200 mL purified water, USP to the 2g or 4g container, respectively, to achieve a 20 mg/mL solution. Immediately mix the resulting solution with an equal volume of an antacid that contains the active ingredients aluminum hydroxide (400 mg/5 mL); magnesium hydroxide (400 mg/...",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
@@ -169,7 +169,7 @@ export const antirretroviraisITRN = [
     ],
     contraindications: [],
       hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
-      preparation: "Oral: May be administered without regard to meals",
+      preparation: "Oral: May be administered com ou sem alimentos",
       monitoring: "Hepatitis B: Screen for HIV before starting lamivudine; monitor LFTs prior to, periodically during, and for at least several months after discontinuation; monitor HBV DNA levels periodically during treatment HIV: Note: The absolute CD4 cell count is ...",
   },
   {
@@ -207,7 +207,7 @@ export const antirretroviraisITRN = [
     ],
     contraindications: ['Insuficiência renal', 'Alto risco de disfunção renal', 'Diabéticos', 'Hipertensos graves', 'Osteoporose', 'Alterações do metabolismo ósseo'],
       hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
-      preparation: "Administer dose at bedtime to decrease CNS adverse effects. Administer with water on an empty stomach; administration with food may increase efavirenz concentrations and adverse effects.",
+      preparation: "Administer dose at bedtime to decrease CNS adverse effects. Administer with water em jejum / estômago vazio; administration com alimentos may increase efavirenz concentrations and adverse effects.",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {
@@ -264,7 +264,7 @@ export const antirretroviraisITRN = [
     ],
     contraindications: [],
       hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
-      preparation: "Parenteral: Dilute with DSW to a final concentration <4 mg/mL.",
+      preparation: "Parenteral: Diluir com DSW to a final concentration <4 mg/mL.",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
 ];
@@ -315,7 +315,7 @@ export const antirretroviraisITRNN = [
     ],
     contraindications: [],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Administer dose at bedtime to decrease CNS adverse effects; administer with water on an empty stomach (administration with food may increase efavirenz concentrations and adverse effects). Capsules and tablets should be swallowed intact. For patients who cannot swallow capsules or tablets, the capsules may be opened and added to 1 to 2 teaspoons of ...",
+      preparation: "Administer dose at bedtime to decrease CNS adverse effects; administer with water em jejum / estômago vazio (administration com alimentos may increase efavirenz concentrations and adverse effects). Capsules and tablets should be swallowed intact. For patients who cannot swallow capsules or tablets, the capsules may be opened and added to 1 to 2 teaspoons of ...",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {
@@ -443,7 +443,7 @@ export const antirretroviraisIP = [
     ],
     contraindications: ['Insuficiência hepática grave'],
       hepaticAdjustment: "Atazanavir: Antiretroviral-naive patients: Adolescents 218 years: Mild impairment (Child-Pugh class A): Atazanavir 400 mg once daily Moderate impairment (Child-Pugh class B): Atazana-vir 300 mg once d...",
-      preparation: "Oral powder: It is preferable to mix oral powder with food, such as applesauce or yogurt; may also be mixed with a beverage (eg, milk, infant formula, water) for infants who can drink from a cup. Determine the number of packets (3, 4, 5, or 6 packets) needed. Prior to mixing, tap packet to settle the powder. Mix with a small amount (at least one ta...",
+      preparation: "Oral powder: It is preferable to mix oral powder com alimentos, such as applesauce or yogurt; may also be mixed with a beverage (eg, milk, infant formula, water) for infants who can drink from a cup. Determine the number of packets (3, 4, 5, or 6 packets) needed. Prior to mixing, tap packet to settle the powder. Mix with a small amount (at least one ta...",
       monitoring: "Note: The absolute CD4 cell count is. currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell coun...",
   },
   {
@@ -524,7 +524,7 @@ export const antirretroviraisIP = [
     ],
     contraindications: [],
       hepaticAdjustment: "There are no pediatric specific dosage adjustments provided in the manufac-turer’s labeling (has not been studied); based on expe-rience in adult patients, dosing adjustment is suggested.",
-      preparation: "Oral: Do not administer concurrently with antacids or buffered formulations of other medications (separate administration by 1 hour). Oral suspension: Administer with food to pediatric patients; administer without food to adults. Readminis-ter dose of suspension if emesis occurs within 30 minutes after dosing. Shake suspension vigorously prior to u...",
+      preparation: "Via Oral: Não administrar concomitantemente com antiácidos ou formulações tamponadas. of other medications (separate administration by 1 hour). Oral suspension: Administer com alimentos to pediatric patients; administer without food to adults. Readminis-ter dose of suspension if emesis occurs within 30 minutes after dosing. Shake suspension vigorously prior to u...",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {
@@ -565,7 +565,7 @@ export const antirretroviraisIP = [
     ],
     contraindications: [],
       hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
-      preparation: "Administer with meals to improve toler-ability. Swallow tablets whole; do not chew, break, or crush. Consider reserving liquid formulation for use in patients receiving tube feeding due to its bad taste. Shake liquid well before use. May mix liquid formulation with milk, chocolate milk, vanilla or chocolate pudding or ice cream, or a liquid nutriti...",
+      preparation: "Administer com as refeições to improve tolerability. Engolir comprimidos inteiros; do not chew, break, or crush. Consider reserving liquid formulation for use in patients receiving tube feeding due to its bad taste. Shake liquid well before use. May mix liquid formulation with milk, chocolate milk, vanilla or chocolate pudding or ice cream, or a liquid nutriti...",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {
@@ -630,7 +630,7 @@ export const antirretroviraisIP = [
     ],
     contraindications: [],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Coadministration with ritonavir is required. In pediatric patients, may administer tipranavir plus ritonavir capsules or solution together with food (HHS [pediatric] 2016) and in adults without regard to meals: Administer tipranavir plus ritonavir tablets at the same time with food. Swallow capsules whole; do not chew.",
+      preparation: "Coadministration with ritonavir is required. In pediatric patients, may administer tipranavir plus ritonavir capsules or solution together com alimentos (HHS [pediatric] 2016) and in adults com ou sem alimentos: Administer tipranavir plus ritonavir tablets at the same time com alimentos. Swallow capsules whole; do not chew.",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
 ];
@@ -668,7 +668,7 @@ export const antirretroviraisOutros = [
     ],
     contraindications: ['Gestantes'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: May be administered without regard to meals. Take 2 hours before or 6 hours after cation-containing antacids or laxatives, sucralfate, oral supple-ments containing iron or calcium, or buffered medications. Alternatively, dolutegravir and supplements containing calcium or iron can be taken together with food.",
+      preparation: "Oral: May be administered com ou sem alimentos. Take 2 hours before or 6 hours after cation-containing antacids or laxatives, sucralfate, oral supple-ments containing iron or calcium, or buffered medications. Alternatively, dolutegravir and supplements containing calcium or iron can be taken together com alimentos.",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {

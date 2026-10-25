@@ -254,7 +254,7 @@ export const QUINOLONAS_CATEGORY = {
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "For topical ophthalmic use only; not for injection. Avoid touching tip of applicator to eye, finger, or other surfaces. Apply gentle pressure to lacrimal sac during and immediately following instillation (1 minute) or instruct patient to gently close eyelid after administration, to decrease systemic absorption of ophthalmic drops (Urtti 1993; Zimme...",
-      monitoring: "Signs of infection",
+      monitoring: "Sinais de infection",
   },
 
     {

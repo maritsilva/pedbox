@@ -66,7 +66,7 @@ export const laxantesFibras = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Oral: Granules and powder must be mixed in an 8 ounce glass of water or juice; drink an 8 ounce glass of liquid with each dose of wafers or capsu-les; capsules should be swallowed one at a time. When more than one dose is required, divide throughout the day. Separate dose by at least 2 hours from other drug therapies. Inhalation of psyllium dust ma...",
-      monitoring: "Dependent upon use, may include stool output and frequency; serum lipids, weight",
+      monitoring: "Dependent upon use, may include stool output and frequency; serum lipids, peso corporal",
   },
   {
     id: 'policarbofila',
@@ -441,8 +441,8 @@ export const laxantesCatarticos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Rectal enema: To pre-pare a 25% to 30% weight to volume solution, dilute 1 part 70% commercially available solution with 2.3 parts water.",
-      monitoring: "Stool output, fluid status, serum electrolytes (changes may be delayed due to slow absorp-tion)",
+      preparation: "Rectal enema: To pre-pare a 25% to 30% peso corporal to volume solution, dilute 1 part 70% commercially available solution with 2.3 parts water.",
+      monitoring: "Stool output, fluid status, eletrólitos séricos (changes may be delayed due to slow absorp-tion)",
   },
   {
     id: 'sulfato-magnesio',

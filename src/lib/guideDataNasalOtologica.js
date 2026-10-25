@@ -114,7 +114,7 @@ export const corticosteroideNasal = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Shake well prior to each use. Blow nose to clear nostrils before each use. Insert applicator into nostril, keeping bottle upright, and close off the other nostril. Breathe in through nose. While inhaling, press pump to release spray. Do not spray into eyes. Discard after labeled number of doses has been used, even if bottle is not completely empty....",
-      monitoring: "Mucous membranes for signs of fungal infection, growth (pediatric patients), signs/symp-toms of HPA axis suppression/adrenal insufficiency; ocu-lar changes _",
+      monitoring: "Mucous membranes for sinais de fungal infection, growth (pediatric patients), signs/symp-toms of HPA axis suppression/adrenal insufficiency; ocu-lar changes _",
   },
 
   {
@@ -141,7 +141,7 @@ export const corticosteroideNasal = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Shake well prior to each use. Before first use, prime by pressing pump 10 times or until a fine spray appears. Repeat priming with 2 sprays or until a fine spray appears if 21 week between use. Blow nose to clear nostrils before each use. Insert applicator into nostril, keeping bottle upright, and close off the other nostril. Breathe in through nos...",
-      monitoring: "Mucous membranes for signs of fungal infection, growth (pediatric patients), signs/symp-toms of HPA axis suppression/adrenal insufficiency; ocu-lar changes",
+      monitoring: "Mucous membranes for sinais de fungal infection, growth (pediatric patients), signs/symp-toms of HPA axis suppression/adrenal insufficiency; ocu-lar changes",
   },
 ];
 

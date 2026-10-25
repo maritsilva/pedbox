@@ -39,7 +39,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-        preparation: "Parenteral: IV: Dilute prior to administration with NS, D5W, D5NS or LR to a concentration of 25 to 80 mcg/mL Continuous |V infusion: Further dilute in D5W, NS D5NS or LR to a concentration of 40 mcg/mL",
+        preparation: "Parenteral: IV: Dilute prior to administration with NS, D5W, D5NS or LR to a concentration of 25 to 80 mcg/mL Continuous |V infusion: Diluir adicionalmente em D5W, NS D5NS or LR to a concentration of 40 mcg/mL",
     sideEffects: [
       'Depressão respiratória, rigidez muscular e torácica (risco maior com injeção rápida e em neonatos)',
       'Pode exigir curarização para conseguir ventilar',
@@ -54,7 +54,7 @@ export const anestesicosSistemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Respiratory rate, blood pres-sure, heart rate, neurological status (for degree of anal-gesia/anesthesia)",
+      monitoring: "Frequência respiratória, blood pres-sure, frequência cardíaca, neurological status (for degree of anal-gesia/anesthesia)",
   },
 
   {
@@ -122,7 +122,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-        preparation: "Note: Three concen-trations are available (10 mg/mL, 50 mg/mL and 100 mg/mL); preparation information may be product spe- cific. Intranasal (using parenteral dosage form): Use the 50 mg/mL or 100 mg/mL solution; may administer undi-luted or further dilute in NS to a concentration of 20 mg/mL (Bahetwar 2011; Louon 1994; Surendar 2014; Weksler 1993) ...",
+        preparation: "Note: Three concentrations are available (10 mg/mL, 50 mg/mL and 100 mg/mL); preparation information may be product specific. Intranasal (using parenteral dosage form): Use the 50 mg/mL or 100 mg/mL solution; may administer undiluted or further dilute in NS to a concentration of 20 mg/mL (Bahetwar 2011; Louon 1994; Surendar 2014; Weksler 1993) ...",
     sideEffects: [
       'Alucinações auditivas e visuais, pesadelos, disforia, nistagmo, diplopia, tremores',
       'Hipertensão, taquicardia, arritmias, sensibilização à catecolamina (libera adrenalina endógena)',
@@ -141,7 +141,7 @@ export const anestesicosSistemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Cardiovascular effects, heart rate, blood pressure, respiratory rate, transcutaneous O> saturation, emergence reactions",
+      monitoring: "Cardiovascular effects, frequência cardíaca, pressão arterial, frequência respiratória, transcutaneous O> saturation, emergence reactions",
   },
 
   {
@@ -195,7 +195,7 @@ export const anestesicosSistemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "There are no specific dosage adjustments provided in the manufacturer’s labeling; however, clearance is reduced in varying degrees based on the level of hepatic impairment; adult data suggests a dosag...",
-      monitoring: "Level of sedation, heart rate, respiration, ECG, blood pressure, pain control",
+      monitoring: "Level of sedation, frequência cardíaca, respiration, ECG, pressão arterial, pain control",
   },
 
   {
@@ -241,7 +241,7 @@ export const anestesicosSistemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Cardiac monitoring, blood pres-sure, respiratory rate, renal function, level of sedation",
+      monitoring: "Cardiac monitoring, blood pres-sure, frequência respiratória, função renal, level of sedation",
   },
 
   {
@@ -493,7 +493,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-        preparation: "|V: Prepare solution by adding 1 mL of diluent per 1 mg of remifentanil. Shake well. Further dilute to a final concentration of 20, 25, 50, or 250 mcg/mL...",
+        preparation: "|V: Prepare solution by adding 1 mL of diluent per 1 mg of remifentanil. Shake well. Further dilute para concentração final de 20, 25, 50, or 250 mcg/mL...",
     sideEffects: [
       'Depressão respiratória, apneia, hipóxia',
       'Náusea, vômitos, constipação',
@@ -509,7 +509,7 @@ export const anestesicosSistemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Respiratory and cardiovascular status, blood pressure, heart rate",
+      monitoring: "Respiratory and cardiovascular status, pressão arterial, frequência cardíaca",
   },
 
   {
@@ -573,7 +573,7 @@ export const anestesicosSistemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Respiratory rate, blood pres-sure, heart rate, oxygen saturation, neurological status (for degree of analgesia/anesthesia)",
+      monitoring: "Frequência respiratória, blood pres-sure, frequência cardíaca, oxygen saturation, neurological status (for degree of analgesia/anesthesia)",
   },
 
   {

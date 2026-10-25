@@ -439,8 +439,8 @@ export const laxantesCatarticos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Rectal enema: To pre-pare a 25% to 30% weight to volume solution, dilute 1 part 70% commercially available solution with 2.3 parts water.",
-      monitoring: "Stool output, fluid status, serum electrolytes (changes may be delayed due to slow absorp-tion)",
+      preparation: "Rectal enema: To pre-pare a 25% to 30% peso corporal to volume solution, dilute 1 part 70% commercially available solution with 2.3 parts water.",
+      monitoring: "Stool output, fluid status, eletrólitos séricos (changes may be delayed due to slow absorp-tion)",
   },
   {
     id: 'sulfato-magnesio-laxante',

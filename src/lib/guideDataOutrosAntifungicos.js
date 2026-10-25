@@ -63,7 +63,7 @@ export const outrosAntifungicos = [
         ],
       },
     ],
-        preparation: "Oral: Administer with a fatty meal (peanut butter or ice cream to increase absorption), or with food or milk to avoid Gl upset; shake suspension well before use. Ultramicrosize tablets may be swallowed whole or crushed and sprinkled onto 1 tablespoonful of applesauce and taken immediately without chewing.",
+        preparation: "Oral: Administer with a fatty meal (peanut butter or ice cream to increase absorption), or com alimentos or milk to avoid Gl upset; agitar bem a suspensão before use. Ultramicrosize tablets may be swallowed whole or crushed and sprinkled onto 1 tablespoonful of applesauce and taken immediately without chewing.",
         renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],

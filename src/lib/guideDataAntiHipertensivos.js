@@ -99,7 +99,7 @@ export const antiHipertensivosOutros = [
         items: [{ label: 'Infusão', value: 'Iniciar 0,1 µg/kg/min; ajustar a cada 15 min. Dose média: 0,25 a 0,5 µg/kg/min' }],
       },
     ],
-        preparation: "Continuous IV infusion: Must be diluted prior to infusion; dilute in NS or DSW to a maximum final concentration of 60 mcg/mL for children and 40 mcg/mL for adults.",
+        preparation: "Continuous IV infusion: Deve ser diluído antes de infusion; dilute in NS or DSW to a maximum final concentration of 60 mcg/mL for children and 40 mcg/mL for adults.",
     sideEffects: [
       'Hipotensão exagerada, taquicardia reflexa, palpitação',
       'Choque cardiogênico, insuficiência cardíaca, infarto do miocárdio',
@@ -112,7 +112,7 @@ export const antiHipertensivosOutros = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, heart rate, ECG, renal/hepatic function tests, serum potassium",
+      monitoring: "Pressão arterial, frequência cardíaca, ECG, renal/função hepática tests, potássio sérico",
   },
 
   {
@@ -229,7 +229,7 @@ export const antiHipertensivosVasodilatadores = [
         items: [{ label: 'Oral', value: 'Iniciar 5 mg/dia ÷ 1; ajustar a cada 3 a 7 dias. Dose habitual: 10 a 40 mg/dia ÷ 1 a 2. Dose máxima: 80 mg/dia' }],
       },
     ],
-        preparation: "May be administered without regard to food",
+        preparation: "May be administered com ou sem alimentos",
     sideEffects: [
       'Retenção hídrica e edema (associar diurético de alça)',
       'Taquicardia reflexa (associar β-bloqueador)',
@@ -242,7 +242,7 @@ export const antiHipertensivosVasodilatadores = [
       { label: "Ajuste renal (Lexicomp)", value: "Children and Adoles-cents: Dialyzable: There are no specific dosage recom-mendations provided in the manufacturer's labeling; however, the manufacturer suggests..." },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, standing and sitting/supine; signs/symptoms of pericardial effusion; fluid and electrolyte balance and body weight should be moni-tored. Any tests that are abnormal at the time of initiation (including, renal function tests, ECG, echo...",
+      monitoring: "Pressão arterial, standing and sitting/supine; signs/symptoms of pericardial effusion; fluid and electrolyte balance and body peso corporal should be moni-tored. Any tests that are abnormal at the time of initiation (including, função renal tests, ECG, echo...",
   },
 
   {
@@ -310,7 +310,7 @@ export const antiHipertensivosAlfaBloqueadores = [
         ],
       },
     ],
-        preparation: "Oral: Immediate release: Administer without regard to meals at the same time each day Extended release (Cardura XL): Tablets should be swal-lowed whole; do not crush, chew, or divide. Administer with morning meal.",
+        preparation: "Oral: Immediate release: Administer com ou sem alimentos at the same time each day Extended release (Cardura XL): Tablets should be swallowed whole; do not crush, chew, or divide. Administer with morning meal.",
     sideEffects: [
       'Hipotensão ortostática, edema periférico, palpitações, rubor, edema facial',
       'Tontura, vertigem, cefaleia, fadiga, sonolência, ansiedade, depressão',
@@ -324,7 +324,7 @@ export const antiHipertensivosAlfaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Standing and sitting/supine blood pressure, especially 2 to 6 hours after the initial dose, then prior to doses (to ensure adequate control throughout the dosing interval); urinary symptoms if used for dysfunctional voiding or BPH treatment.",
+      monitoring: "Standing and sitting/supine pressão arterial, especially 2 to 6 hours after the initial dose, then prior to doses (to ensure adequate control throughout the dosing interval); urinary symptoms if used for dysfunctional voiding or BPH treatment.",
   },
 
   {
@@ -375,7 +375,7 @@ export const antiHipertensivosAlfaBloqueadores = [
         items: [{ label: 'Oral', value: '1 a 4 mg/dia ÷ 1' }],
       },
     ],
-        preparation: "Oral: Administer without regard to meals at the same time each day.",
+        preparation: "Via Oral: Administrar independentemente das refeições, sempre no mesmo horário a cada dia.",
     sideEffects: [
       'Hipotensão grave e síncope na 1ª dose (30–90 min após), hipotensão ortostática, edema, dispneia',
       'Sonolência, tontura, cefaleia, letargia, depressão, fraqueza',
@@ -389,7 +389,7 @@ export const antiHipertensivosAlfaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure (standing and sitting or supine)",
+      monitoring: "Pressão arterial (em ortostase e em repouso/decúbito).",
   },
 
   {
@@ -413,7 +413,7 @@ export const antiHipertensivosAlfaBloqueadores = [
         items: [{ label: 'Oral', value: 'Iniciar 1 mg/dia ao deitar. Ajustar até máximo 20 mg/dia' }],
       },
     ],
-        preparation: "Oral: Administer without regard to meals at the same time each day.",
+        preparation: "Via Oral: Administrar independentemente das refeições, sempre no mesmo horário a cada dia.",
     sideEffects: [
       'Hipotensão ortostática, palpitação, tontura, sonolência, cefaleia, fadiga',
       'Náuseas, vômito, diarreia, constipação',
@@ -425,7 +425,7 @@ export const antiHipertensivosAlfaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Standing and sitting/supine blood pressure, especially 2 to 3 hours after the initial dose, then prior to doses (to ensure adequate control | throughout the dosing interval); urinary symptoms if used for BPH treatment",
+      monitoring: "Standing and sitting/supine pressão arterial, especially 2 to 3 hours after the initial dose, then prior to doses (to ensure adequate control | throughout the dosing interval); urinary symptoms if used for BPH treatment",
   },
 ];
 
@@ -483,7 +483,7 @@ export const antiHipertensivosAlfaAgonistas = [
         items: [{ label: 'EV', value: '0,2 a 0,3 mg/dose em 7 a 10 min. Peridural: 30 µg/hora' }],
       },
     ],
-        preparation: "Epidural formulation: Prior to administration, the 500 mcg/mL concentration must be diluted in preservative-free NS to a final concen-tration of 100 mcg/mL; visually inspect for particulate matter and discoloration",
+        preparation: "Epidural formulation: Prior to administration, the 500 mcg/mL concentration must be diluted in preservative-free NS para concentração final de 100 mcg/mL; visually inspect for particulate matter and discoloration",
     sideEffects: [
       'Sonolência e sedação (principais), vertigem, depressão do SNC, fadiga, fraqueza, pesadelos, irritabilidade',
       'Hipotensão, hipotensão ortostática, bradicardia, BAV, ICC, retenção hidrossalina, fenômeno de Raynaud',
@@ -502,7 +502,7 @@ export const antiHipertensivosAlfaAgonistas = [
       { label: "Ajuste renal (Lexicomp)", value: "Children and Adoles-cents: Oral [extended release (Kapvay)], epidural: The manufacturer recommends dosage adjustment accord-ing to degree of renal impairment; h..." },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, heart rate; con-sider ECG monitoring in patients with history of heart disease or concurrent use of medications affecting cardiac conduction. With epidural administration: Blood pressure, heart rate; pulse oximetry with large bolus do...",
+      monitoring: "Pressão arterial, frequência cardíaca; con-sider ECG monitoring in patients with history of heart disease or concurrent use of medications affecting cardiac conduction. With epidural administration: Pressão arterial, frequência cardíaca; oximetria de pulso with large bolus do...",
   },
 
   {
@@ -617,8 +617,8 @@ export const antiHipertensivosBetaBloqueadores = [
     ],
     contraindications: ['BAV de II ou III grau', 'Bradicardia', 'Hipotensão', 'Asma', 'Choque cardiogênico'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: May be administered without regard to food",
-      monitoring: "Blood pressure, heart rate, ECG, fluid intake and output, daily weight, respiratory rate",
+      preparation: "Oral: May be administered com ou sem alimentos",
+      monitoring: "Pressão arterial, frequência cardíaca, ECG, balanço hídrico, daily peso corporal, frequência respiratória",
   },
 
   {
@@ -659,7 +659,7 @@ export const antiHipertensivosBetaBloqueadores = [
         items: [{ label: 'Oral', value: '3,125 a 25 mg/dia ÷ 1; ajustar semanalmente. Dose usual: 12,5 mg/dia ÷ 1' }],
       },
     ],
-        preparation: "Immediate release tablets: Administer with food to decrease the risk of orthostatic hypotension. Extended release capsules: Administer with food, prefera-bly in the morning; do not crush or chew capsule; swallow whole; do not take in divided doses. Capsule may be opened and contents sprinkled on a spoonful of applesauce; swallow applesauce/medicati...",
+        preparation: "Immediate release tablets: Administer com alimentos to decrease the risk of orthostatic hypotension. Extended release capsules: Administer com alimentos, prefera-bly in the morning; do not crush or chew capsule; engolir inteiro; do not take in divided doses. Capsule may be opened and contents sprinkled on a spoonful of applesauce; swallow applesauce/medicati...",
     sideEffects: [
       'Bradicardia, hipotensão ortostática, piora de ICC, edema',
       'Cefaleia, tontura, fadiga, distúrbios do sono, insônia',
@@ -681,7 +681,7 @@ export const antiHipertensivosBetaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Heart rate, blood pressure (determine need for dosage increase based on trough blood pressure measurements and tolerance on standing systolic pressure 1 hour after dosing), weight; Sc,, BUN, liver function; in patient with increased risk for developi...",
+      monitoring: "Frequência cardíaca, pressão arterial (determine need for dosage increase based on trough pressão arterial measurements and tolerance on standing systolic pressure 1 hour after dosing), peso corporal; Sc,, BUN, liver function; in patient with increased risk for developi...",
   },
 
   {
@@ -724,7 +724,7 @@ export const antiHipertensivosBetaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, ECG, heart rate, respiratory rate, IV site; serum potassium (especially with renal impairment)",
+      monitoring: "Pressão arterial, ECG, frequência cardíaca, frequência respiratória, IV site; potássio sérico (especially with renal impairment)",
   },
 
   {
@@ -748,7 +748,7 @@ export const antiHipertensivosBetaBloqueadores = [
         items: [{ label: 'EV', value: 'Dose inicial 10 a 20 mg em 2 min. Bolus adicionais 40 a 80 mg a cada 10 min. Dose máxima acumulada: 300 mg' }],
       },
     ],
-        preparation: "Parenteral: Continuous IV infusion: Further dilute in a compatible solution (eg, D5W, D5NS, NS; LR) to a concentration of 0.67 to 1 mg/mL; in adults, higher concentrations (2 mg/mL) are typical and per the manufacturer a final concentration of 3.75 mg/mL has been shown to be compatible",
+        preparation: "Parenteral: Continuous IV infusion: Diluir adicionalmente em a compatible solution (eg, D5W, D5NS, NS; LR) to a concentration of 0.67 to 1 mg/mL; in adults, higher concentrations (2 mg/mL) are typical and per the manufacturer a final concentration of 3.75 mg/mL has been shown to be compatible",
     sideEffects: [
       'Hipotensão excessiva, hipotensão ortostática, BAV, bradicardia',
       'Broncoespasmo, náuseas, vômitos',
@@ -759,7 +759,7 @@ export const antiHipertensivosBetaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, heart rate, pulse, ECG; Note: IV use: Monitor closely; due to the prolonged duration of action, careful monitoring should be extended for the duration of the infusion and for several hours after the infusion; excessive administration ...",
+      monitoring: "Pressão arterial, frequência cardíaca, pulse, ECG; Note: IV use: Monitor closely; due to the prolonged duration of action, careful monitoring should be extended for the duration of the infusion and for several hours after the infusion; excessive administration ...",
   },
 
   {
@@ -814,7 +814,7 @@ export const antiHipertensivosBetaBloqueadores = [
         items: [{ label: 'Oral', value: '50 a 200 mg/dia ÷ 1 a 2' }],
       },
     ],
-        preparation: "Oral: Metoprolol tartrate immediate release tablets: Administer with food or immediately after meals; swallow whole with a glass of water Metoprolol succinate extended release tablets: May be administered without regard to meals; Toprol-XL tablets are scored and may be divided; do not chew or crush the half or whole tablets; swallow whole. Do not c...",
+        preparation: "Oral: Metoprolol tartrate immediate release tablets: Administer com alimentos or immediately after meals; engolir inteiro with a glass of water Metoprolol succinate extended release tablets: May be administered com ou sem alimentos; Toprol-XL tablets are scored and may be divided; do not chew or crush the half or whole tablets; engolir inteiro. Do not c...",
     sideEffects: [
       'Bradicardia, hipotensão, BAV, piora de ICC',
       'Fadiga, tontura, depressão, pesadelos, insônia',
@@ -827,7 +827,7 @@ export const antiHipertensivosBetaBloqueadores = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Children and Adoles-cents: There are no specific dosage adjustments pro-vided in the manufacturer's labeling. Consider initiating with reduced doses and gradual dosage titration due to extensive hepat...",
-      monitoring: "BP, heart rate, Toprol XL: AST/ ALT, Alkaline phosphatase, LDH Acute cardiac treatment: Monitor ECG and blood pressure with IV administration; heart rate and blood pressure with oral administration IV use in a nonemergency situation: Necessary monito...",
+      monitoring: "BP, frequência cardíaca, Toprol XL: AST/ ALT, Alkaline phosphatase, LDH Acute cardiac treatment: Monitor ECG and pressão arterial with IV administration; frequência cardíaca and pressão arterial with oral administration IV use in a nonemergency situation: Necessary monito...",
   },
 
   {

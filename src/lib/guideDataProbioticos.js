@@ -218,8 +218,8 @@ export const proctologicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Parenteral: Continuous IV infusion: Further dilute with NS, D5W, or D5/2NS to a maximum final concentration of 1 mg/mL",
-      monitoring: "Blood pressure, heart rate, renal function, liver enzymes, heart function (eg, echocardio-gram); continuous ECG with IV therapy Ventricular rate control in patients with atrial fibrillation or flutter (adults): Patients who respond, usually have at l...",
+      preparation: "Via IV: Para infusão contínua, diluir em SF 0,9% ou SG 5% até concentração máxima final de 1 mg/mL.",
+      monitoring: "Pressão arterial, frequência cardíaca, função renal, liver enzymes, heart function (eg, echocardio-gram); continuous ECG with IV therapy Ventricular rate control in patients with atrial fibrillation or flutter (adults): Patients who respond, usually have at l...",
   },
 
   {
@@ -615,7 +615,7 @@ export const outrasGastro = [
         ],
       },
     ],
-        preparation: "Oral: Administer on an empty stomach 1 hour before meals and at bedtime; tablet may be broken or dissolved in water before ingestion; do not administer antacids within 30 minutes of administration; shake’sus-pension well before use",
+        preparation: "Oral: Administer em jejum / estômago vazio 1 hour before meals and at bedtime; tablet may be broken or dissolved in water before ingestion; do not administer antacids within 30 minutes of administration; shake’suspension well before use",
     sideEffects: [
       'Constipação, diarreia, flatulência, náusea, dispepsia.',
       'Tontura, cefaleia, sonolência.',

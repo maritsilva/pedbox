@@ -226,8 +226,8 @@ export const antagonistasH2 = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: 'Potente inibidor CYP450: interage com teofilina, varfarina, fenitoína, tricíclicos, benzodiazepínicos, sulfonilureias. Reduz eficácia de cetoconazol e clopidogrel.' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Administer with food; do not administer simultaneously with antacids",
-      monitoring: "CBC, gastric pH, occult blood with GI bleeding; renal function",
+      preparation: "Administer com alimentos; do not administer simultaneously with antacids",
+      monitoring: "CBC, gastric pH, occult blood with GI bleeding; função renal",
   },
   {
     id: 'famotidina',
@@ -267,8 +267,8 @@ export const antagonistasH2 = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: 'Evitar com drogas que prolongam QT.' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Reconstitute powder for oral suspension with appro-priate amount of water as specified on the bottle. Shake vigorously until suspended. Parenteral: IV push: Dilute famotidine with NS (or another compat-ible solution) to a maximum concentration of 4 mg/mL; in adults may also administer undiluted (Lipsy 1995) IV Infusion: Dilute to 0.2 mg/mL in...",
-      monitoring: "CBC, gastric pH, occult blood with GI bleeding; renal function",
+      preparation: "Oral: Reconstitute powder for oral suspension with appro-priate amount of water as specified on the bottle. Agitar vigorosamente until suspended. Parenteral: IV push: Dilute famotidine with NS (or another compat-ible solution) para concentração máxima de 4 mg/mL; in adults may also administer undiluted (Lipsy 1995) IV Infusion: Dilute to 0.2 mg/mL in...",
+      monitoring: "CBC, gastric pH, occult blood with GI bleeding; função renal",
   },
   {
     id: 'ranitidina',
@@ -336,7 +336,7 @@ export const antagonistasH2 = [
     sensitivity: { susceptible: [], resistant: [], warning: 'Acima de 400 mg/dia, inibe mais CYP450: aumenta nível de teofilina, varfarina, fenitoína, tricíclicos, benzodiazepínicos, sulfonilureias.' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Parenteral: Solution may be further diluted with NS or D5W. Intermittent IV infusion: Dilute to maximum concentration — of 0.5 mg/mL IV push: Dilute to maximum concentration of 2.5 mg/mL Continuous IV infusion: Dilute to a concentration of <0.6 mg/mL; concentrations up to 2.5 mg/mL have been used when treating Zollinger-Ellison syndrome",
-      monitoring: "AST, ALT, serum creatinine, occult blood with Gl bleeding, signs/symptoms of peptic ulcer disease; when used to prevent stress-related Gl bleeding, measure the intragastric pH and try to maintain pH >4; when used for Zollinger-Ellison syndrome, monit...",
+      monitoring: "AST, ALT, creatinina sérica, occult blood with Gl bleeding, signs/symptoms of peptic ulcer disease; when used to prevent stress-related Gl bleeding, measure the intragastric pH and try to maintain pH >4; when used for Zollinger-Ellison syndrome, monit...",
   },
 ];
 
@@ -410,7 +410,7 @@ export const ibp = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: 'Evitar com: clopidogrel, rifampicina, atazanavir, cetoconazol.' },
       hepaticAdjustment: "There are no specific pediatric recommendations; based on experience in adult patients, adjustment suggested in severe impair-ment.",
-      preparation: "Oral: Granules: Mix contents of the 2.5 mg or 5 mg packet with 5 mL of water or the 10 mg, 20 mg, or 40 mg packet with 15 mL of water and stir; leave 2 to 3 minutes to thicken. IV: For IV injection (23 minutes): Adults: Reconstitute pow-der with 5 mL NS. For IV infusion (10 to 30 minutes): Infants, Children, Adolescents, and Adults: Reconstitute po...",
+      preparation: "Oral: Granules: Mix contents of the 2.5 mg or 5 mg packet with 5 mL of water or the 10 mg, 20 mg, or 40 mg packet with 15 mL of water and stir; leave 2 to 3 minutes to thicken. IV: For IV injection (23 minutes): Adults: Reconstitute powder with 5 mL NS. For IV infusion (10 to 30 minutes): Infants, Children, Adolescents, and Adults: Reconstitute po...",
   },
   {
     id: 'lansoprazol',
@@ -555,7 +555,7 @@ export const ibp = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: 'Evitar uso concomitante com outros medicamentos.' },
       hepaticAdjustment: "Infants, Children and Adolescents: There are no pediatric specific recommen-dations; based on experience in adult patients, dosing adjustment suggested in some cases",
-      preparation: "IV: IV push: Reconstitute powder for injection with 10 mL NS; final concentration: 4 mg/mL Intermittent IV infusion: After reconstitution, further dilute in NS, D5W, or LR to a final concentration of 0.4 to 0.8 mg/mL",
+      preparation: "IV: IV push: Reconstitute powder for injection with 10 mL NS; final concentration: 4 mg/mL Intermittent IV infusion: After reconstitution, further dilute in NS, D5W, or LR para concentração final de 0.4 to 0.8 mg/mL",
   },
   {
     id: 'rabeprazol',

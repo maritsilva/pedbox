@@ -38,7 +38,7 @@ export const estatinas = [
     contraindications: ['Doença hepática ativa', 'Elevação persistente de transaminases', 'Mulheres em risco de gravidez'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "May be taken with or without food; may be taken at any time of the day; swallow tablet whole.",
-      monitoring: "Yost Pediatric patients: Baseline: ALT, AST, and creatine phos-phokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP...",
+      monitoring: "Yost Pediatric patients: Baseline: ALT, AST, and creatine phosphokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP...",
   },
 
   {
@@ -131,7 +131,7 @@ export const estatinas = [
     ],
     contraindications: ['Doença hepática ativa', 'Elevação persistente de transaminases', 'Mulheres em risco de gravidez'],
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: May be taken without regard to meals or time of day. Swallow whole; do not break, crush, or chew.",
+      preparation: "Oral: May be taken com ou sem alimentos or time of day. Engolir inteiro; do not break, crush, or chew.",
       monitoring: "Pediatric patients: Baseline: ALT, AST, and CPK; fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnormalities, then monitor FLP, ALT, and AST every 3 to 4 months duri...",
   },
 
@@ -163,8 +163,8 @@ export const estatinas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Fluvastatin may be taken without regard to meals. Immediate release capsules: Do not open capsules; do , not use two 40 mg capsules for an 80 mg once daily dose; extended release formulation should be used. Extended release tablet: Do not break, chew, or crush; swallow whole.",
-      monitoring: "Pediatric patients: Baseline: ALT, AST, and creatine phos-phokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP, ALT...",
+      preparation: "Fluvastatin may be taken com ou sem alimentos. Immediate release capsules: Do not open capsules; do , not use two 40 mg capsules for an 80 mg once daily dose; extended release formulation should be used. Extended release tablet: Do not break, chew, or crush; engolir inteiro.",
+      monitoring: "Pediatric patients: Baseline: ALT, AST, and creatine phosphokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP, ALT...",
   },
 
   {
@@ -205,7 +205,7 @@ export const estatinas = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Oral: Immediate release tablets: Take with the evening meal. Extended release tablets: Take at bedtime; do not crush or chew.",
-      monitoring: "Pediatric patients: Baseline: ALT, AST, and creatine phos-phokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP, ALT...",
+      monitoring: "Pediatric patients: Baseline: ALT, AST, and creatine phosphokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP, ALT...",
   },
 
   {

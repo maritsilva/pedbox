@@ -100,7 +100,7 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
       ],
       contraindications: [],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Signs and symptoms of myopa-thy (muscle pain or weakness, particularly of the distal extremities), weekly CPK levels during therapy (more frequent monitoring if history of current or prior statin therapy and/or renal impairment), signs of peripheral ...",
+      monitoring: "Sinais e sintomas de myopa-thy (muscle pain or weakness, particularly of the distal extremities), weekly CPK levels during therapy (more frequent monitoring if history of current or prior statin therapy and/or renal impairment), sinais de peripheral ...",
   },
     {
       id: 'fosfomicina',
@@ -172,7 +172,7 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
           ],
         },
       ],
-          preparation: "Oral: Immediate release tablets and capsules: May administer with food to minimize GI upset Extended release: Should be taken on an empty stom-ach (1 hour before or 2 hours after meals); do not split, chew, or crush. Parenteral: Administer undiluted (5 mg/mL) by slow inter-mittent infusion over 30 to 60 minutes. Avoid contact of drug solution with ...",
+          preparation: "Oral: Immediate release tablets and capsules: May administer com alimentos to minimize GI upset Extended release: Should be taken on an empty stom-ach (1 hour before or 2 hours after meals); do not split, chew, or crush. Parenteral: Administer undiluted (5 mg/mL) by slow inter-mittent infusion over 30 to 60 minutes. Avoid contact of drug solution with ...",
           renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -191,7 +191,7 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
       ],
       contraindications: [],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Monitor CBC with differential at baseline, during, and after prolonged or repeated courses of therapy. Closely monitor patients with severe hepatic impairment or ESRD for adverse reactions. Observe patients carefully if neurologic symptoms occur and ...",
+      monitoring: "Monitor CBC com diferencial no início (linha de base), during, and after prolonged or repeated courses of therapy. Closely monitor patients with severe hepatic impairment or ESRD for reações adversas. Observe patients carefully if neurologic symptoms occur and ...",
   },
     {
       id: 'linezolida',
@@ -284,8 +284,8 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
       ],
       contraindications: ['Neonatos', 'Gestantes a termo', 'Anúria / oligúria'],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; do not administer with antacid preparations containing magne-sium trisilicate; suspension may be mixed with water, milk, fruit juice, or infant formula. Shake suspension well before use.",
-      monitoring: "Signs of pulmonary reaction; signs of numbness or tingling of the extremities; periodic liver and renal function tests; CBC; urine culture and in vitro susceptibility tests. Observe for change in bowel frequency.",
+      preparation: "Oral: Administer com alimentos or milk; do not administer with antacid preparations containing magne-sium trisilicate; suspension may be mixed with water, milk, fruit juice, or infant formula. Shake suspension well before use.",
+      monitoring: "Sinais de pulmonary reaction; sinais de numbness or tingling of the extremities; periodic liver and função renal tests; CBC; urine culture and in vitro susceptibility tests. Observe for change in bowel frequency.",
   },
   ],
 };

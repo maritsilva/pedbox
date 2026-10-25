@@ -144,7 +144,7 @@ export const broncodilatadoresAdrenergicosAcao = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Heart rate, blood pressure, res-piratory rate, serum potassium, arterial or capillary blood gases (if applicable)",
+      monitoring: "Frequência cardíaca, pressão arterial, res-piratory rate, potássio sérico, arterial or capillary blood gases (if applicable)",
   },
 
   {

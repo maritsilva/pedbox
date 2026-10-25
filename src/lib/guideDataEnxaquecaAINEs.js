@@ -341,8 +341,8 @@ export const ainesDrugs = [
     contraindications: ['Úlcera péptica', 'Hipertensão', 'Cardiopatias', 'Asma', 'Doença hepática'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Children 22 years and Adolescents: Moderate hepatic impatient (Child-Pugh Class B): Reduce dose by 50%; monitor closely Severe hepatic impairment (Child-Pugh Class C): Use is not recommended; has not ...",
-      preparation: "Lower doses (up to 200 mg twice daily) may be administered without regard to meals (may admin-ister with food to reduce Gl upset); larger doses should be administered with food to improve absorption. Capsules may be swallowed whole or the entire contents emptied onto a teaspoon of cool or room temperature applesauce and ingested immediately with wa...",
-      monitoring: "CBC; blood chemistry profile; occult blood loss; periodic liver function tests; renal func-tion (urine output, serum BUN and creatinine); monitor efficacy (eg, in arthritic conditions: Pain, range of motion, grip strength, mobility, inflammation); ob...",
+      preparation: "Lower doses (up to 200 mg twice daily) may be administered com ou sem alimentos (may admin-ister com alimentos to reduce Gl upset); larger doses should be administered com alimentos to improve absorption. Capsules may be swallowed whole or the entire contents emptied onto a teaspoon of cool or room temperature applesauce and ingested immediately with wa...",
+      monitoring: "CBC; blood chemistry profile; occult blood loss; periodic provas de função hepática; renal func-tion (débito urinário, serum BUN and creatinine); monitor efficacy (eg, in arthritic conditions: Pain, range of motion, grip strength, mobility, inflammation); ob...",
   },
   {
     id: 'cetoprofeno',
@@ -550,9 +550,9 @@ export const ainesDrugs = [
       renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
-      hepaticAdjustment: "No adjustment required.",
-      preparation: "May be administered with food to decrease Gl upset.",
-      monitoring: "Periodic CBC, liver enzymes, serum BUN and creatinine, signs and symptoms of Gl bleeding",
+      hepaticAdjustment: "Não requer ajuste de dose.",
+      preparation: "May be administered com alimentos para reduzir desconforto gastrointestinal.",
+      monitoring: "Periodic CBC, liver enzymes, serum BUN and creatinine, sinais e sintomas de Gl bleeding",
   },
   {
     id: 'etoricoxibe',
@@ -733,8 +733,8 @@ export const ainesDrugs = [
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "May be taken with or without meals; administer with food or milk to minimize gastrointestinal irritation. Oral suspension: Shake gently prior to use.",
-      monitoring: "Periodic CBC, liver enzymes, serum BUN and creatinine, signs and symptoms of Gl bleeding 1295 5",
+      preparation: "May be taken with or without meals; administer com alimentos or milk to minimize gastrointestinal irritation. Oral suspension: Shake gently prior to use.",
+      monitoring: "Periodic CBC, liver enzymes, serum BUN and creatinine, sinais e sintomas de Gl bleeding 1295 5",
   },
   {
     id: 'naproxeno',
@@ -785,8 +785,8 @@ export const ainesDrugs = [
       { label: "Insuficiência renal grave", value: "Evitar o uso ou contraindicado" },
     ],
       hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
-      preparation: "Oral: Administer with food, milk, or ant-acids to decrease GI! adverse effects. Shake suspension well before use. Do not chew, crush, or break delayed or controlled release tablet, swallow whole. Separate admin-istration of naproxen and antacids, sucralfate, or choles-tyramine by 2 hours.",
-      monitoring: "CBC with differential, platelets, BUN, serum creatinine, liver enzymes, occult blood loss, periodic ophthalmologic exams, hemoglobin, hematocrit, blood pressure",
+      preparation: "Oral: Administer com alimentos, milk, or ant-acids to decrease GI! adverse effects. Shake suspension well before use. Do not chew, crush, or break delayed or controlled release tablet, engolir inteiro. Separate administration of naproxen and antacids, sucralfate, or choles-tyramine by 2 hours.",
+      monitoring: "CBC com diferencial, plaquetas, BUN, creatinina sérica, liver enzymes, occult blood loss, periodic ophthalmologic exams, hemoglobin, hematocrit, pressão arterial",
   },
   {
     id: 'nimesulida',
@@ -891,8 +891,8 @@ export const ainesDrugs = [
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "There are no specific dosage adjustments provided in manufacturer's labeling; however, based on experience in adult patients, dosage adjustment suggested",
-      preparation: "May administer with food or milk to decrease GI upset",
-      monitoring: "Occult blood loss, CBC, BUN, serum creatinine, liver enzymes; periodic ophthalmologic exams with chronic use",
+      preparation: "May administer com alimentos or milk para reduzir desconforto gastrointestinal",
+      monitoring: "Occult blood loss, CBC, BUN, creatinina sérica, liver enzymes; periodic ophthalmologic exams with chronic use",
   },
   {
     id: 'parecoxibe',

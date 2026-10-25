@@ -52,7 +52,7 @@ export const CARBAPENEMOS_CATEGORY = {
           ],
         },
       ],
-          preparation: "Parenteral: IM: Reconstitute vial with at least 3 mL SWFI, sterile bacteriostatic water for injection, NS, or bacteriostatic sodium chloride per gram.of aztreonam to a final concentration of ≤333 mg/mL; immediately shake vig-orously. Do not mix with any local anesthetic agent. IV: Bolus injection: Reconstitute vial with 6 to 10 mL SWFI; immediately...",
+          preparation: "Parenteral: IM: Reconstitute vial with at least 3 mL SWFI, sterile bacteriostatic water for injection, NS, or bacteriostatic sodium chloride per gram.of aztreonam para concentração final de ≤333 mg/mL; immediately shake vig-orously. Do not mix with any local anesthetic agent. IV: Bolus injection: Reconstitute vial with 6 to 10 mL SWFI; immediately...",
           renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -77,7 +77,7 @@ export const CARBAPENEMOS_CATEGORY = {
       ],
       contraindications: [],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Injection: Periodic renal and hepatic function tests; monitor for stool frequency; monitor for signs of anaphylaxis during first dose",
+      monitoring: "Injection: Periodic renal and função hepática tests; monitor for frequência de evacuações; monitor for sinais de anaphylaxis during first dose",
   },
 
     {
@@ -110,7 +110,7 @@ export const CARBAPENEMOS_CATEGORY = {
       ],
           preparation: "Parenteral: IM: Reconstitute 1,000 mg vial with 3.2 mL of 1% lidocaine HCI injection (without epinephrine); resultant concentration: 280 mg/mL (invanz prescribing informa-tion Canada 2014). Shake well. Intermittent 1V infusion: Reconstitute 1,000 mg vial with 10 mL of SWF, NS, or bacteriostatic water for injection; resultant concentration: 100 mg/m...",
           renalAdjustment: [
-      { label: "Ajuste renal (Lexicomp)", value: "There are no pediatric specific recommendations; based on experience in adult patients, dosage adjustment suggested." },
+      { label: "Ajuste renal (Lexicomp)", value: "Sem recomendações específicas para pediatria na bula; based on experience in adult patients, dosage adjustment suggested." },
     ],
       sensitivity: {
         susceptible: [
@@ -177,7 +177,7 @@ export const CARBAPENEMOS_CATEGORY = {
       ],
           preparation: "|V:,Reconstitute vials with approximately 10 mL of NS, D5W, D10W, D5NS, D51/2NS, or D51/4NS and shake well. Withdraw desired dose and dilute in a compatible solution to a final concentration not to exceed 5 mg/mL; concentrations >5 mg/mL may have shortened stability; a final admixture of imipenem-cilastatin 10 mg/mL in NS was shown to maintain solu...",
           renalAdjustment: [
-      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: IV: Manufacturer's tabeling: Patient weight <30 kg and impaired renal function (not defined): Use not rec-ommended The follo..." },
+      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: IV: Manufacturer's tabeling: Patient peso corporal <30 kg and impaired função renal (not defined): Use not rec-ommended The follo..." },
     ],
       sensitivity: {
         susceptible: [
@@ -202,7 +202,7 @@ export const CARBAPENEMOS_CATEGORY = {
       ],
       contraindications: [],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Periodic renal, hepatic, and hematologic function tests; bowel movement frequency. Monitor for signs of anaphylaxis during first dose.",
+      monitoring: "Periodic renal, hepatic, and hematologic function tests; bowel movement frequency. Monitor for sinais de anaphylaxis during first dose.",
   },
 
     {
@@ -270,7 +270,7 @@ export const CARBAPENEMOS_CATEGORY = {
       ],
       contraindications: [],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Periodic renal, hepatic, and hematologic function tests. Observe for changes in bowel frequency. Monitor for signs of anaphylaxis during first dose.",
+      monitoring: "Periodic renal, hepatic, and hematologic function tests. Observe for changes in bowel frequency. Monitor for sinais de anaphylaxis during first dose.",
   },
   ],
 };

@@ -55,7 +55,7 @@ export const antimalaricosDrugs = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Reconstitute vial with 11 mL of phosphate buffer diluent (provided), gently swirl for 5 to 6 minutes to mix; resultant concentration is 10 mg/mL (CDC 2014).",
-      monitoring: "Signs and symptoms of hyper-sensitivity reactions; hemoglobin and renal function 1 month after therapy for postartemisinin delayed hemolysis (PADH)",
+      monitoring: "Sinais e sintomas de hypersensitivity reactions; hemoglobin and função renal 1 month after therapy for postartemisinin delayed hemolysis (PADH)",
   },
   {
     id: 'artesunato-mefloquina',
@@ -218,8 +218,8 @@ export const antimalaricosDrugs = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food and an ample amount of water, at least 8 oz of water for adults. If vomiting occurs within 30 minutes after a dose, repeat dose. If vomiting occurs within 30-60 minutes after a dose, an additional half-dose should be administered. If vomiting recurs, monitor closely and consider alternative treatment. Administering mefloq...",
-      monitoring: "Sequential blood smears for percent parasitemia; periodic hepatic function tests, oph-thalmologic exam",
+      preparation: "Oral: Administer com alimentos and an ample amount of water, at least 8 oz of water for adults. If vomiting occurs within 30 minutes after a dose, repeat dose. If vomiting occurs within 30-60 minutes after a dose, an additional half-dose should be administered. If vomiting recurs, monitor closely and consider alternative treatment. Administering mefloq...",
+      monitoring: "Sequential blood smears for percent parasitemia; periodic função hepática tests, oph-thalmologic exam",
   },
   {
     id: 'primaquina',
@@ -272,8 +272,8 @@ export const antimalaricosDrugs = [
       'Granulocitopenia', 'Lúpus', 'Artrite reumatoide ativa',
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with meals to decrease adverse Gl effects; drug has a bitter taste",
-      monitoring: "Periodic CBC, visual color check of urine, hemoglobin, glucose; if hemolysis is suspected, monitor CBC, haptoglobin, peripheral smear, urinalysis dipstick for occult blood; G-6-PD deficiency screening (prior to initiating treatment; CDC recommendatio...",
+      preparation: "Oral: Administer com as refeições to decrease adverse Gl effects; drug has a bitter taste",
+      monitoring: "Periodic CBC, visual color check of urine, hemoglobin, glucose; if hemolysis is suspected, monitor CBC, haptoglobin, peripheral smear, urina tipo 1 (EAS) dipstick for occult blood; G-6-PD deficiency screening (prior to initiating treatment; CDC recommendatio...",
   },
   {
     id: 'quinina',
@@ -315,8 +315,8 @@ export const antimalaricosDrugs = [
     ],
     contraindications: [],
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: Swallow dose whole to avoid bitter taste. Administer with food to minimize upset stomach.",
-      monitoring: "CBC with platelet count, liver function tests, blood glucose, ophthalmologic examina-tion, ECG",
+      preparation: "Oral: Swallow dose whole to avoid bitter taste. Administer com alimentos to minimize upset stomach.",
+      monitoring: "CBC with contagem de plaquetas, provas de função hepática, blood glucose, ophthalmologic examina-tion, ECG",
   },
 ];
 
@@ -365,8 +365,8 @@ export const antiparasitariosDrugs = [
     ],
     contraindications: ['Gravidez (teratogênico)', 'Menores de 2 anos'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food. For patients who have difficulty swallowing whole tablets, tablet may be crushed or chewed and swallowed with a drink of water.",
-      monitoring: "Monitor liver function tests and CBC at start of each cycle and every 2 weeks during therapy (more frequent monitoring for patients with liver disease), fecal specimens for ova and parasites; preg-nancy test; ophthalmic exam for retinal lesions (pati...",
+      preparation: "Oral: Administer com alimentos. For patients who have difficulty swallowing whole tablets, tablet may be crushed or chewed and swallowed with a drink of water.",
+      monitoring: "Monitor provas de função hepática and CBC at start of each cycle and every 2 weeks during therapy (more frequent monitoring for patients with liver disease), fecal specimens for ova and parasites; preg-nancy test; ophthalmic exam for retinal lesions (pati...",
   },
   {
     id: 'antimoniato-meglumina',
@@ -521,8 +521,8 @@ export const antiparasitariosDrugs = [
     ],
     contraindications: ['Gestação (teratogênico)'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with or without food; tablet can be crushed and mixed with food, swallowed whole, or chewed",
-      monitoring: "Periodic hematologic, hepatic, and renal function; check for helminth ova in feces within 3 to 4 weeks following the initial therapy",
+      preparation: "Oral: Administer with or without food; tablet can be crushed and mixed com alimentos, swallowed whole, or chewed",
+      monitoring: "Periodic hematologic, hepatic, and função renal; check for helminth ova in feces within 3 to 4 weeks following the initial therapy",
   },
   {
     id: 'miltefosina',
@@ -546,8 +546,8 @@ export const antiparasitariosDrugs = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food to decrease GI distress. Twice-daily dosing should be administered with breakfast and dinner; 3-times daily dosing with breakfast, lunch, and dinner.",
-      monitoring: "Liver function tests (AST, ALT, alkaline phosphatase, bilirubin) and BUN/serum creati-nine; platelet count",
+      preparation: "Oral: Administer com alimentos para reduzir desconforto gastrointestinal. Twice-daily dosing should be administered with breakfast and dinner; 3-times daily dosing with breakfast, lunch, and dinner.",
+      monitoring: "Provas de função hepática (AST, ALT, alkaline phosphatase, bilirubin) and BUN/serum creati-nine; contagem de plaquetas",
   },
   {
     id: 'nitazoxanida',
@@ -592,7 +592,7 @@ export const antiparasitariosDrugs = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Oral suspension: Prior to dispensing, add 48 mL incrementally to 60 mL bottle; shake vigorously. Resulting suspension is 20 mg/mL (100 mg per 5 mL). > &",
-      monitoring: "Periodic liver function tests, stool frequency",
+      monitoring: "Provas de função hepática periódicas e frequência/aspecto das evacuações.",
   },
   {
     id: 'oxamniquina',
@@ -717,7 +717,7 @@ export const antiparasitariosDrugs = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Oral: Administer tablets with water during meals; tablets can be halved or quartered; do not chew tablets due to bitter taste. In infants and young children (eg, <24 months old) who are unable to swallow tablets, the tablets have been crushed and mixed with a spoonful of orange juice in trials (Sousa-Figueiredo 2012).",
-      monitoring: "Liver function tests; monitor patients with cardiac irregularities during treatment; mon-itor for seizures; culture urine or feces for ova prior to instituting therapy",
+      monitoring: "Provas de função hepática; monitor patients with cardiac irregularities during treatment; mon-itor for seizures; culture urine or feces for ova prior to instituting therapy",
   },
   {
     id: 'secnidazol',

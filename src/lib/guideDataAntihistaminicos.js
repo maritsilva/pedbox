@@ -342,7 +342,7 @@ export const antihistaminicos = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Suspension, tablet: May administer without respect to food. Take with water; avoid administration with fruit juices; shake suspension well before use. Orally disintegrating tablet: Take on an empty stomach. Do not remove from blister pack until ready to administer. Using dry hands, place immediately on tongue. Tablet will dissolve within seconds, a...",
+      preparation: "Suspension, tablet: May administer com ou sem alimentos. Take with water; avoid administration with fruit juices; agitar bem a suspensão before use. Orally disintegrating tablet: Take em jejum / estômago vazio. Do not remove from blister pack until ready to administer. Using dry hands, place immediately on tongue. Tablet will dissolve within seconds, a...",
       monitoring: "Improvement in signs and symp-toms of allergic rhinitis and chronic idiopathic urticaria",
   },
   {
@@ -417,7 +417,7 @@ export const antihistaminicos = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Administer without regard to food in the evening.",
+      preparation: "Administer com ou sem alimentos in the evening.",
   },
   {
     id: 'loratadina',
@@ -460,7 +460,7 @@ export const antihistaminicos = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer without regard to meals Rapidly disintegrating tablet: Place rapidly disintegrating tablet on the tongue; tablet disintegration occurs rapidly; may administer with or without water",
+      preparation: "Oral: Administer com ou sem alimentos Rapidly disintegrating tablet: Place rapidly disintegrating tablet on the tongue; tablet disintegration occurs rapidly; may administer with or without water",
       monitoring: "Improvement in signs and symp-toms of allergic rhinitis or chronic idiopathic urticaria",
   },
   {
@@ -683,7 +683,7 @@ export const antihistDescongestionantes = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with a large quantity of fluid to ensure proper action: Extended release tablet: Do not crush or chew extended release tablet Granules: Empty contents of packet onto tongue and swallow; for best taste, do not chew granules.",
+      preparation: "Oral: Administer with a large quantity of fluid to ensure proper action: Extended release tablet: Não triturar nem mastigar extended release tablet Granules: Empty contents of packet onto tongue and swallow; for best taste, do not chew granules.",
   },
   {
     id: 'difenidramina-citrato-cloreto',

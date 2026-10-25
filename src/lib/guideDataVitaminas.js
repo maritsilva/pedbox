@@ -50,7 +50,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -89,7 +89,7 @@ export const vitaminas = [
         ],
       },
     ],
-        preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+        preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
     sideEffects: [
       'EV: risco de reação anafilática, dificuldade respiratória, choque, hipotensão.',
       'EV/IM: rubor facial, agitação, diaforese, urticária, náusea, angioedema.',
@@ -173,7 +173,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -218,7 +218,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -249,7 +249,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -304,7 +304,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -335,7 +335,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -384,7 +384,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -436,7 +436,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -492,7 +492,7 @@ export const vitaminas = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -531,7 +531,7 @@ export const vitaminas = [
         ],
       },
     ],
-        preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+        preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
     sideEffects: [
       'No local da injeção: dor, edema, fibrose, flebite.',
       'Sistêmicos: hipotensão/hipertensão, rubor, tontura, cianose, dispneia, prurido, náuseas.',

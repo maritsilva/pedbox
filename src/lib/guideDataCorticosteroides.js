@@ -99,8 +99,8 @@ export const corticosteroides = [
     contraindications: ['Infecção não controlada', 'Atrofia muscular', 'Úlcera gástrica'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: May administer without regard to food Oral suspension: Shake well before use; measure pre-scribed dose with provided dispenser; add dose to 3 to 4 ounces of juice (not grapefruit) or milk, mix thoroughly and administer immediately Tablet: May administer whole or crush and mix with applesauce (administer applesauce mixture immedi-ately)",
-      monitoring: "Blood pressure; weight; serum glucose; electrolytes; growth in pediatric patients; signs and symptoms of infection, bone mineral density; assess HPA axis suppression (eg, ACTH stimulation test, morning plasma cortisol test, urinary free cortisol test...",
+      preparation: "Oral: May administer com ou sem alimentos Oral suspension: Agitar bem antes de usar; measure pre-scribed dose with provided dispenser; add dose to 3 to 4 ounces of juice (not grapefruit) or milk, mix thoroughly and administer immediately Tablet: May administer whole or crush and mix with applesauce (administer applesauce mixture immediately)",
+      monitoring: "Pressão arterial; peso corporal; glicemia sérica; electrolytes; growth in pediatric patients; sinais e sintomas de infection, bone mineral density; assess HPA axis suppression (eg, ACTH stimulation test, morning plasma cortisol test, urinary free cortisol test...",
   },
   {
     id: 'dexametasona',
@@ -438,8 +438,8 @@ export const corticosteroides = [
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer after meals or with food or milk to decrease GI upset. Delayed release tablet (Rayos) should be swallowed whole; do not crush, divide, or chew.",
-      monitoring: "Blood pressure; weight; serum glucose; electrolytes; growth in pediatric patients; pres-ence of infection, bone mineral density; assess HPA axis suppression (eg, ACTH stimulation test, morning plasma cortisol test, urinary free cortisol test); Hgb, o...",
+      preparation: "Oral: Administer after meals or com alimentos or milk para reduzir desconforto gastrointestinal. Delayed release tablet (Rayos) should be swallowed whole; do not crush, divide, or chew.",
+      monitoring: "Pressão arterial; peso corporal; glicemia sérica; electrolytes; growth in pediatric patients; pres-ence of infection, bone mineral density; assess HPA axis suppression (eg, ACTH stimulation test, morning plasma cortisol test, urinary free cortisol test); Hgb, o...",
   },
   {
     id: 'triancinolona',

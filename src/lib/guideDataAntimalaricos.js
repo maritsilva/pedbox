@@ -58,7 +58,7 @@ export const antimalaricos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Signs and symptoms of hyper-sensitivity reactions; hemoglobin and renal function 1 month after therapy for postartemisinin delayed hemolysis (PADH)",
+      monitoring: "Sinais e sintomas de hypersensitivity reactions; hemoglobin and função renal 1 month after therapy for postartemisinin delayed hemolysis (PADH)",
   },
   {
     id: 'artesunato-mefloquina',
@@ -226,8 +226,8 @@ export const antimalaricos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food and an ample amount of water, at least 8 oz of water for adults. If vomiting occurs within 30 minutes after a dose, repeat dose. If vomiting occurs within 30-60 minutes after a dose, an additional half-dose should be administered. If vomiting recurs, monitor closely and consider alternative treatment. Administering mefloq...",
-      monitoring: "Sequential blood smears for percent parasitemia; periodic hepatic function tests, oph-thalmologic exam",
+      preparation: "Oral: Administer com alimentos and an ample amount of water, at least 8 oz of water for adults. If vomiting occurs within 30 minutes after a dose, repeat dose. If vomiting occurs within 30-60 minutes after a dose, an additional half-dose should be administered. If vomiting recurs, monitor closely and consider alternative treatment. Administering mefloq...",
+      monitoring: "Sequential blood smears for percent parasitemia; periodic função hepática tests, oph-thalmologic exam",
   },
   {
     id: 'primaquina',
@@ -279,8 +279,8 @@ export const antimalaricos = [
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with meals to decrease adverse Gl effects; drug has a bitter taste",
-      monitoring: "Periodic CBC, visual color check of urine, hemoglobin, glucose; if hemolysis is suspected, monitor CBC, haptoglobin, peripheral smear, urinalysis dipstick for occult blood; G-6-PD deficiency screening (prior to initiating treatment; CDC recommendatio...",
+      preparation: "Oral: Administer com as refeições to decrease adverse Gl effects; drug has a bitter taste",
+      monitoring: "Periodic CBC, visual color check of urine, hemoglobin, glucose; if hemolysis is suspected, monitor CBC, haptoglobin, peripheral smear, urina tipo 1 (EAS) dipstick for occult blood; G-6-PD deficiency screening (prior to initiating treatment; CDC recommendatio...",
   },
   {
     id: 'quinina',
@@ -306,7 +306,7 @@ export const antimalaricos = [
         ],
       },
     ],
-        preparation: "Oral: Swallow dose whole to avoid bitter taste. Administer with food to minimize upset stomach.",
+        preparation: "Oral: Swallow dose whole to avoid bitter taste. Administer com alimentos to minimize upset stomach.",
         renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -323,6 +323,6 @@ export const antimalaricos = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      monitoring: "CBC with platelet count, liver function tests, blood glucose, ophthalmologic examina-tion, ECG",
+      monitoring: "CBC with contagem de plaquetas, provas de função hepática, blood glucose, ophthalmologic examina-tion, ECG",
   },
 ];

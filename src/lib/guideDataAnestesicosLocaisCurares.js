@@ -45,7 +45,7 @@ export const anestesicosLocais = [
         ],
       },
     ],
-        preparation: "Epidural continuous infusion: Use preservative-free formulation, further dilute with preservative-free NS.",
+        preparation: "Infusão peridural contínua: Usar formulação isenta de conservantes; diluir em SF 0,9% sem conservantes.",
     sideEffects: [
       'Hiperventilação, apneia, parada cardíaca secundária',
       'Agitação, ansiedade, vertigem, zumbido, visão borrada, tremor, convulsão, síncope, cefaleia',
@@ -232,7 +232,7 @@ export const anestesicosLocais = [
         ],
       },
     ],
-        preparation: "Before injecting, withdraw syringe plunger to ensure injection is not into vein or artery. Administer slowly in small incremental doses, with frequent aspira-tions before and during the injection to avoid intravascular injection. Use with caution when there is inflammation and/or sepsis in the region of the proposed injection. Dental: Aspirate the ...",
+        preparation: "Antes de injetar, aspirar o êmbolo da seringa para garantir que a agulha não atingiu vaso sanguíneo. Administrar lentamente em pequenas doses fracionadas, com aspirações frequentes antes e durante a injeção. Usar com cautela when there is inflammation and/or sepsis in the region of the proposed injection. Dental: Aspirate the ...",
     sideEffects: [
       'Bradicardia, parada cardiorrespiratória, bradicardia fatal com bloqueio paracervical',
       'Bloqueio cardíaco, hipotensão, arritmia ventricular',
@@ -244,7 +244,7 @@ export const anestesicosLocais = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Vital signs, state of conscious-ness, signs of CNS toxicity (lightheadedness, dizziness, tinnitus, restlessness, tremors, twitching, drowsiness, cir-cumoral paresthesia)",
+      monitoring: "Vital signs, state of conscious-ness, sinais de CNS toxicity (lightheadedness, dizziness, tinnitus, restlessness, tremors, twitching, drowsiness, cir-cumoral paresthesia)",
   },
 
   {
@@ -284,7 +284,7 @@ export const anestesicosLocais = [
         ],
       },
     ],
-        preparation: "Parenteral: Administered via local infiltra-tion, epidural block and epidural infusion, or intermittent bolus; if further dilution necessary, ensure appropriate diluent (eg, preservative-free). Prior to ropivacaine admin-istration, a test dose of short acting local anesthestic with epinephrine should be administered to verify avoidance of intravasc...",
+        preparation: "Parenteral: Administrado por infiltração local, bloqueio ou infusão peridural contínua; se diluição adicional for necessária, utilizar diluente adequado sem conservantes. Prior to ropivacaine administration, a test dose of short acting local anesthetic with epinephrine should be administered to verify avoidance of intravasc...",
     sideEffects: [
       'Vertigem, cefaleia, hipertermia, hipo/hipertensão, bradicardia, taquicardia',
       'Náusea, vômito, retenção urinária, lombalgia',
@@ -297,7 +297,7 @@ export const anestesicosLocais = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "After epidural or subarachnoid administration: Blood pressure, heart rate, respiration, signs of CNS toxicity (lightheadedness, dizziness, tinnitus, restlessness, tremors, twitching, drowsiness, circumoral paresthesia)",
+      monitoring: "After epidural or subarachnoid administration: Pressão arterial, frequência cardíaca, respiration, sinais de CNS toxicity (lightheadedness, dizziness, tinnitus, restlessness, tremors, twitching, drowsiness, circumoral paresthesia)",
   },
 ];
 
@@ -325,7 +325,7 @@ export const curares = [
         ],
       },
     ],
-        preparation: "Parenteral: For contin-uous IV infusion, dilute in DSW, NS or DsNS to a maximum concentration of 0.5 mg/mL. Atracurium should not be mixed with alkaline solutions.",
+        preparation: "Parenteral: For continuous IV infusion, dilute in DSW, NS or DsNS para concentração máxima de 0.5 mg/mL. Atracurium should not be mixed with alkaline solutions.",
     sideEffects: [
       'Liberação de histamina, hipotensão, vasodilatação, eritema difuso transitório',
       'Prurido, urticária, erupção cutânea, anafilaxia',
@@ -338,7 +338,7 @@ export const curares = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Muscle twitch response to peripheral nerve stimulation, heart rate, blood pressure, assisted ventilation status",
+      monitoring: "Muscle twitch response to peripheral nerve stimulation, frequência cardíaca, pressão arterial, assisted ventilation status",
   },
 
   {
@@ -364,7 +364,7 @@ export const curares = [
         ],
       },
     ],
-        preparation: "Parenteral: Continuous IV infusion: Further dilute in DSW or NS to a final concen-tration of 0.1 to 0.4 mg/mL",
+        preparation: "Parenteral: Continuous IV infusion: Diluir adicionalmente em DSW or NS para concentração final de 0.1 to 0.4 mg/mL",
     sideEffects: [
       'Liberação de histamina leve, rubor, exantema, erupção cutânea, anafilaxia',
       'Broncoespasmo, hipotensão, bradicardia',
@@ -375,7 +375,7 @@ export const curares = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Muscle twitch response to peripheral nerve stimulation, heart rate, blood pressure, assisted ventilation status",
+      monitoring: "Muscle twitch response to peripheral nerve stimulation, frequência cardíaca, pressão arterial, assisted ventilation status",
   },
 
   {
@@ -450,7 +450,7 @@ export const curares = [
         ],
       },
     ],
-        preparation: "Continuous IV infusion: Dilute with NS, D5W, DNS or LR to a final concentration of 0.5 to 5 mg/mL; use within 24 hours of preparation",
+        preparation: "Infusão IV contínua: Diluir em SF 0,9%, SG 5% ou Ringer Lactato até concentração final de 0,5 a 5 mg/mL; utilizar em até 24 horas após o preparo.",
     sideEffects: [
       'Hipertensão, hipotensão, taquicardia, arritmia',
       'Náusea, vômito, erupção cutânea, soluço, prurido',
@@ -462,7 +462,7 @@ export const curares = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Peripheral nerve stimulator measuring, twitch response, heart rate, blood pressure, assisted ventilation status",
+      monitoring: "Peripheral nerve stimulator measuring, twitch response, frequência cardíaca, pressão arterial, assisted ventilation status",
   },
 
   {

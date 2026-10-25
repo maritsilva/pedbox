@@ -106,7 +106,7 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Reconstitute pow-der for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until sus-pended.",
+      preparation: "Via Oral: Reconstituir o pó para suspensão com o volume de água filtrada indicado no frasco. Agitar vigorosamente até homogeneizar.",
       monitoring: "Stool frequency, resolution of infection",
   },
 
@@ -226,7 +226,7 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Renal function periodically when used in combination with other nephrotoxic drugs, hepatic function tests, and CBC; prothrombin time in patients at risk; number and type of stools/day for diarrhea; monitor for signs of anaphylaxis during first dose",
+      monitoring: "Função renal periodically when used in combination with other nephrotoxic drugs, função hepática tests, and CBC; prothrombin time in patients at risk; number and type of stools/day for diarrhea; monitor for sinais de anaphylaxis during first dose",
   },
 
       {
@@ -359,8 +359,8 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral suspension: Refer to manufacturer's product labeling for reconstitution instructions.",
-      monitoring: "With prolonged therapy, monitor CBC and stool frequency periodically",
+      preparation: "Suspensão oral: Consultar as instruções da bula do fabricante para o volume exato de reconstituição com água filtrada.",
+      monitoring: "With terapia prolongada, monitor CBC and frequência de evacuações periodically",
   },
 
       {
@@ -411,7 +411,7 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-            preparation: "Oral suspension: Reconstitute powder for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until suspended. Parenteral: IM: Dilute 750 mg vial with 3 mL SWEFI; resultant sus-pension with a concentration of 225 mg/mL Intermittent IV infusion: Further dilute reconstituted sol-ution to a final concentration ...",
+            preparation: "Oral suspension: Reconstitute powder for oral suspension with appropriate amount of water as specified on the bottle. Agitar vigorosamente until suspended. Parenteral: IM: Dilute 750 mg vial with 3 mL SWEFI; resultant suspension with a concentration of 225 mg/mL Intermittent IV infusion: Further dilute reconstituted solution to a final concentration ...",
             renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -433,7 +433,7 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "With prolonged therapy, monitor renal, hepatic, and hematologic function periodically; num-ber and type of stools/day for diarrhea; and prothrombin time. Observe for signs and symptoms of anaphylaxis during first dose.",
+      monitoring: "With terapia prolongada, monitor renal, hepatic, and hematologic function periodically; num-ber and type of stools/day for diarrhea; and prothrombin time. Observe for sinais e sintomas de anaphylaxis during first dose.",
   },
 
       {
@@ -468,7 +468,7 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-            preparation: "Parenteral: IVP: Reconstitute vials with SWF, bacteriostatic water for injection, NS, or D5W to a final concentration of 95 to180 mg/mL; see manufacturer's labeling for specific details. Intermittent IV infusion: Reconstitute vials with SWFI, bacteriostatic water for injection, NS, or DSW; see man-ufacturer’s labeling for specific details. Further ...",
+            preparation: "Parenteral: IVP: Reconstitute vials with SWF, bacteriostatic water for injection, NS, or D5W para concentração final de 95 to180 mg/mL; see manufacturer's labeling for specific details. Intermittent IV infusion: Reconstitute vials with SWFI, bacteriostatic water for injection, NS, or DSW; see manufacturer’s labeling for specific details. Further ...",
             renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -490,7 +490,7 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Renal function periodically when used in combination with other nephrotoxic drugs; liver function and hematologic function tests; number and type of stools/day for diarrhea. Observe for signs and symp-toms of anaphylaxis during first dose.",
+      monitoring: "Função renal periodically when used in combination with other nephrotoxic drugs; liver function and hematologic function tests; number and type of stools/day for diarrhea. Observe for signs and symp-toms of anaphylaxis during first dose.",
   },
 
       // ── 3ª Geração ──
@@ -540,7 +540,7 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-            preparation: "Parenteral: IM: Reconstitute powder for injection with SWF] to a final concentration between 230 to 330 mg/mL (see manu-facturer's labeling for specific details). Shake to dissolve. IV: IVP: Reconstitute vials with at least 10 mL SWFI to a maximum concentration of 200 mg/mL. > 4 Intermittent infusion: Reconstitute powder for injection with SWFI, re...",
+            preparation: "Parenteral: IM: Reconstitute powder for injection with SWF] to a final concentration between 230 to 330 mg/mL (see manufacturer's labeling for specific details). Shake to dissolve. IV: IVP: Reconstitute vials with at least 10 mL SWFI para concentração máxima de 200 mg/mL. > 4 Intermittent infusion: Reconstitute powder for injection with SWFI, re...",
             renalAdjustment: [
       { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: The following adjustments have been recommended (Aronoff 2007). Note: Renally adjusted dose recommenda-tions are based on do..." },
     ],
@@ -569,7 +569,7 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Observe for signs and symp-toms of anaphylaxis during first dose; monitor infusion site for extravasation; with prolonged therapy, monitor renal, hepatic, and hematologic function periodically; number and type of stools/day for diarrhea",
+      monitoring: "Observe for signs and symp-toms of anaphylaxis during first dose; monitor infusion site for extravasation; em tratamentos prolongados, monitor renal, hepatic, and hematologic function periodically; number and type of stools/day for diarrhea",
   },
 
       {
@@ -694,7 +694,7 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-            preparation: "Note: Any carbon diox-ide bubbles that may be present in the withdrawn solution should be expelled prior to injection. IM: Reconstitute the 500 mg vials with 1.5 mL or the 1,000 mg vials with 3 mL of either SWFI, bacteriostatic water for injection, or lidocaine (0.5% or 1%) to a final concentration of 280 mg/mL IV: IVP: Reconstitute vial using SWF ...",
+            preparation: "Note: Any carbon dioxide bubbles that may be present in the withdrawn solution should be expelled prior to injection. IM: Reconstitute the 500 mg vials with 1.5 mL or the 1,000 mg vials with 3 mL of either SWFI, bacteriostatic water for injection, or lidocaine (0.5% or 1%) para concentração final de 280 mg/mL IV: IVP: Reconstitute vial using SWF ...",
             renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -716,8 +716,8 @@ export const GUIDE_CATEGORIES = [
           'Cada grama contém ≈ 54 mg / 2,3 mEq de sódio',
         ],
         contraindications: [],
-          hepaticAdjustment: "Infants, Children and Adolescents: No adjustment required.",
-      monitoring: "Renal function periodically when used in combination with aminoglycosides; with prolonged therapy also monitor hepatic and hematologic function periodically; number and type of stools/day for diarrhea. Observe for signs and symptoms of anaphylaxis du...",
+          hepaticAdjustment: "Lactentes, crianças e adolescentes: Não requer ajuste posológico.",
+      monitoring: "Função renal periodically when used in combination with aminoglycosides; em tratamentos prolongados also monitor hepatic and hematologic function periodically; number and type of stools/day for diarrhea. Observe for sinais e sintomas de anaphylaxis du...",
   },
 
       // ── 4ª e 5ª Geração ──
@@ -758,7 +758,7 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-            preparation: "Parenteral: IV: Reconstitute 500 mg vial with 5 mL and 1 or 2 g vial with 10 mL of a compatible diluent (resulting concen-tration of 100 mg/mL for 500 mg and 1g vial and 160 mg/mL for 2g vial); further dilute in D5W, NS, D10W, D5NS, or DSLR; final concentration should not exceed 40 mg/mL. IM: Reconstitute 500 mg or 1 g vial with 1.3 mL or 2.4 mL, r...",
+            preparation: "Parenteral: IV: Reconstitute 500 mg vial with 5 mL and 1 or 2 g vial with 10 mL of a diluente compatível (resulting concentration of 100 mg/mL for 500 mg and 1g vial and 160 mg/mL for 2g vial); further dilute in D5W, NS, D10W, D5NS, or DSLR; final concentration should not exceed 40 mg/mL. IM: Reconstitute 500 mg or 1 g vial with 1.3 mL or 2.4 mL, r...",
             renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -783,7 +783,7 @@ export const GUIDE_CATEGORIES = [
         ],
         contraindications: [],
           hepaticAdjustment: "No dosage adjust-ments necessary.",
-      monitoring: "With prolonged therapy, monitor renal and hepatic function periodically; number and type of stools/day for diarrhea; CBC with differential. Observe for signs and symptoms of anaphylaxis during first dose.",
+      monitoring: "With terapia prolongada, monitor renal and função hepática periodically; number and type of stools/day for diarrhea; CBC com diferencial. Observe for sinais e sintomas de anaphylaxis during first dose.",
   },
 
       {
@@ -929,8 +929,8 @@ export const GUIDE_CATEGORIES = [
           'Síndrome de asma + pólipo nasal',
         ],
           hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: Immediate release: Administer with water, food, or milk to decrease Gl upset. Do not crush or chew enteric coated tablets; these preparations should be swal-lowed whole. For acute myocardial infarction, have patient chew immediate release tablet. Extended release capsules: Do not cut, crush, or chew. Administer with a full glass of water at t...",
-      monitoring: "CBC, iron studies, ferritin, stools for occult blood, and renal function tests with prolonged therapy. Serum salicylate concentration with chronic use; may not be necessary in Kawasaki disease; Note: Decreased aspirin absorption and increased salicyl...",
+      preparation: "Oral: Immediate release: Administer with water, food, or milk para reduzir desconforto gastrointestinal. Não mastigar nem triturar comprimidos com revestimento entérico; engolir inteiros. For acute myocardial infarction, have patient chew immediate release tablet. Extended release capsules: Do not cut, crush, or chew. Administer with a full glass of water at t...",
+      monitoring: "CBC, iron studies, ferritin, stools for occult blood, and função renal tests em tratamentos prolongados. Serum salicylate concentration with chronic use; may not be necessary in Kawasaki disease; Note: Decreased aspirin absorption and increased salicyl...",
   },
 
       {

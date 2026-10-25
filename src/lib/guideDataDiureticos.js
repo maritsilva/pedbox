@@ -81,7 +81,7 @@ export const diureticosTiazidicos = [
         items: [{ label: 'Oral', value: 'Iniciar 25 mg/dia ÷ 1. Máximo: 100 mg/dia' }],
       },
     ],
-        preparation: "Oral: May administer with food or milk; administer early in day to avoid nocturia; if multiple daily dosing, the last dose should not be administered later than 6 PM unless instructed otherwise.",
+        preparation: "Oral: May administer com alimentos or milk; administer early in day to avoid nocturia; if multiple daily dosing, the last dose should not be administered later than 6 PM unless instructed otherwise.",
         renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -97,7 +97,7 @@ export const diureticosTiazidicos = [
     ],
     contraindications: ['Hiponatremia', 'Anúria'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Serum electrolytes, BUN, crea-tinine, blood pressure, fluid balance, body weight, urinary electrolytes (if applicable); serum glucose levels",
+      monitoring: "Serum electrolytes, BUN, crea-tinine, pressão arterial, fluid balance, body peso corporal, urinary electrolytes (if applicable); glicemia sérica levels",
   },
 
   {
@@ -418,7 +418,7 @@ export const diureticosPoupadores = [
     ],
     contraindications: ['Insuficiência renal grave', 'Anúria', 'Hiperpotassemia', 'Doença de Addison'],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, serum potas-sium, sodium, calcium (neonates) and renal function (baseline, periodically during therapy), fluid balance, bodyweight (daily: neonates, infants)",
+      monitoring: "Pressão arterial, serum potas-sium, sodium, calcium (neonates) and função renal (baseline, periodicamente durante o tratamento), fluid balance, bodyweight (daily: neonates, infants)",
   },
 ];
 

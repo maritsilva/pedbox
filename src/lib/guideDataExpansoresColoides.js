@@ -55,10 +55,10 @@ export const expansoresColoides = [
     ],
     contraindications: ['Anemia grave', 'Insuficiência cardíaca congestiva'],
       renalAdjustment: [
-      { label: "Ajuste renal (Lexicomp)", value: "There are no dosing adjustments provided in the manufacturer's labeling; use with caution." },
+      { label: "Ajuste renal (Lexicomp)", value: "There are no dosing adjustments provided in the manufacturer's labeling; usar com cautela." },
     ],
       hepaticAdjustment: "There are no dosing adjustments provided in the manufacturer's labeling.",
-      monitoring: "Observe for signs of hypervole-mia, pulmonary edema, cardiac failure, vital signs, fluid status, Hgb, Hct, urine specific gravity",
+      monitoring: "Observe for sinais de hypervole-mia, pulmonary edema, cardiac failure, vital signs, fluid status, Hgb, Hct, urine specific gravity",
   },
 
   {
@@ -86,7 +86,7 @@ export const expansoresColoides = [
     ],
       hepaticAdjustment: "Use with extreme cau-tion.",
       preparation: "Parenteral: Do not use if crystalline pre-cipitate forms. For IV infusion only (use an infusion pump or pressure infusion). For volume expansion/shock, may infuse initial volume as rapidly as possible. Monitor closely for anaphylactic reaction; have epinephrine and resuscitative equipment available.",
-      monitoring: "Vital signs, signs of allergic/ anaphylactoid reaction especially for 30 minutes after starting infusions; coagulation parameters, hemoglobin, hematocrit, acid-base balance, electrolytes, serum pro-tein, signs of circulatory overload (ie, heart rate,...",
+      monitoring: "Vital signs, sinais de allergic/ anaphylactoid reaction especially for 30 minutes after starting infusions; coagulation parameters, hemoglobin, hematocrit, acid-base balance, electrolytes, serum pro-tein, sinais de circulatory overload (ie, frequência cardíaca,...",
   },
 
   {

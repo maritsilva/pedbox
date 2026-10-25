@@ -56,8 +56,8 @@ export const antirretroviraisAssociacoes = [
     contraindications: ['Genótipo HLAB5701 positivo', 'Insuficiência hepática grave'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: May be administered without regard to food",
-      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); signs and symptoms of hyper-sensitivity reaction (in all patients, but especially...",
+      preparation: "Oral: May be administered com ou sem alimentos",
+      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); sinais e sintomas de hypersensitivity reaction (in all patients, but especially...",
   },
   {
     id: 'lamivudina-abacavir-dolutegravir',
@@ -87,8 +87,8 @@ export const antirretroviraisAssociacoes = [
     contraindications: ['Genótipo HLAB5701 positivo', 'Insuficiência hepática moderada ou grave', 'Não associar à dofetilida'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: May be administered without regard to food",
-      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); signs and symptoms of hyper-sensitivity reaction (in all patients, but especially...",
+      preparation: "Oral: May be administered com ou sem alimentos",
+      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); sinais e sintomas de hypersensitivity reaction (in all patients, but especially...",
   },
   {
     id: 'lamivudina-abacavir-zidovudina',
@@ -105,8 +105,8 @@ export const antirretroviraisAssociacoes = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "Oral: May be administered without regard to food",
-      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); signs and symptoms of hyper-sensitivity reaction (in all patients, but especially...",
+      preparation: "Oral: May be administered com ou sem alimentos",
+      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); sinais e sintomas de hypersensitivity reaction (in all patients, but especially...",
   },
   {
     id: 'lamivudina-tenofovir',
@@ -162,7 +162,7 @@ export const antirretroviraisAssociacoes = [
     contraindications: ['Insuficiência hepática moderada a grave', 'Não associar à elbasvir/grazoprevir'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Administer dose at bedtime to decrease CNS adverse effects; administer with water on an empty stomach (administration with food may increase efavirenz concentrations and adverse effects). Capsules and tablets should be swallowed intact. For patients who cannot swallow capsules or tablets, the capsules may be opened and added to 1 to 2 teaspoons of ...",
+      preparation: "Administer dose at bedtime to decrease CNS adverse effects; administer with water em jejum / estômago vazio (administration com alimentos may increase efavirenz concentrations and adverse effects). Capsules and tablets should be swallowed intact. For patients who cannot swallow capsules or tablets, the capsules may be opened and added to 1 to 2 teaspoons of ...",
       monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {

@@ -105,8 +105,8 @@ export const antiviraisOftalmologia = [
       { label: "Ajuste renal (Lexicomp)", value: "Infants, Children and Adolescents: There are no specific pediatric recommen-dations; based on experience in adult patients, dosage adjustment necessary." },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Parenteral: Reconsti-tute 500 mg vial with 10 mL SWFI not bacteriostatic water because parabens may cause precipitation. Further dilute in DSW or NS to a final concentration <10 mg/mL.",
-      monitoring: "CBC with differential and plate-let count, urine output, serum creatinine, ophthalmologic exams, liver enzyme tests, blood pressure, urinalysis",
+      preparation: "Parenteral: Reconsti-tute 500 mg vial with 10 mL SWFI not bacteriostatic water because parabens may cause precipitation. Diluir adicionalmente em DSW or NS to a final concentration <10 mg/mL.",
+      monitoring: "CBC com diferencial and plate-let count, débito urinário, creatinina sérica, ophthalmologic exams, liver enzyme tests, pressão arterial, urina tipo 1 (EAS)",
   },
 
   {
@@ -263,7 +263,7 @@ export const glaucomaOftalmologia = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Ophthalmic: Wash hands before use. Unscrew the cap by turning in the direction of the arrows on top of the cap. Pull lower eyelid down slightly to form a pocket for the eye drop and tilt head back; administer 1 drop. Apply gentle pressure to lacrimal sac immediately following instillation (1 minute) or instruct patient to gently close eyelid after ...",
+      preparation: "Ophthalmic: Lavar as mãos antes de usar. Unscrew the cap by turning in the direction of the arrows on top of the cap. Pull lower eyelid down slightly to form a pocket for the eye drop and tilt head back; administer 1 drop. Apply gentle pressure to lacrimal sac immediately following instillation (1 minute) or instruct patient to gently close eyelid after ...",
   },
 
   {
@@ -289,7 +289,7 @@ export const glaucomaOftalmologia = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Ophthalmic: Administer other topically applied ophthalmic medications at least 10 minutes prior to timolol Wash hands before use; invert closed bottle and shake gel once before use; remove cap carefully so that tip does not touch anything; hold bottle between thumb and index finger; use index finger of other hand to pull down the lower eyelid to fo...",
+      preparation: "Ophthalmic: Administer other topically applied ophthalmic medications at least 10 minutes prior to timolol Lavar as mãos antes de usar; invert closed bottle and shake gel once before use; remove cap carefully so that tip does not touch anything; hold bottle between thumb and index finger; use index finger of other hand to pull down the lower eyelid to fo...",
       monitoring: "Monitor IOP; systemic beta-blocker effects including vital signs (especially in younger patients)",
   },
 
@@ -474,7 +474,7 @@ export const antimicrobianoOftalmologia = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "For topical ophthalmic use only; avoid touching tip of applicator to eye, fingers, or other surfaces. Apply finger pressure to lacrimal sac during and for 1 to 2 minutes after instillation to decrease risk of absorption and systemic effects.",
-      monitoring: "Signs of infection",
+      monitoring: "Sinais de infection",
   },
 
   {
@@ -535,7 +535,7 @@ export const antimicrobianoOftalmologia = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "For topical ophthalmic use only; not for injection. Avoid touching tip of applicator to eye, finger, or other surfaces. Apply gentle pressure to lacrimal sac during and immediately following instillation (1 minute) or instruct patient to gently close eyelid after administration, to decrease systemic absorption of ophthalmic drops (Urtti 1993; Zimme...",
-      monitoring: "Signs of infection",
+      monitoring: "Sinais de infection",
   },
 
   {
@@ -558,8 +558,8 @@ export const antimicrobianoOftalmologia = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Ophthalmic: For topical ophthalmic use only. Wash hands before and after instillation. Invert bottle while closed and shake bottle once prior to each admin-istration. Avoid contaminating the applicator tip with affected eye(s), fingers, or other sources.",
-      monitoring: "Signs and symptoms of infection or hypersensitivity reaction",
+      preparation: "Ophthalmic: For topical ophthalmic use only. Wash hands before and after instillation. Invert bottle while closed and shake bottle once prior to each administration. Avoid contaminating the applicator tip with affected eye(s), fingers, or other sources.",
+      monitoring: "Sinais e sintomas de infection or hypersensitivity reaction",
   },
 
   {

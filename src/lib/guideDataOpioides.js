@@ -77,8 +77,8 @@ export const opioides = [
     contraindications: ['Toxicomanias', 'Tosse produtiva', 'Tosse em < 2 anos', 'Asma grave', 'Íleo paralítico'],
     sensitivity: { susceptible: [], resistant: [], warning: 'Interações: anticolinérgicos, antidepressivos, benzodiazepínicos, barbitúricos.' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or water to decrease nausea and GI upset; administer oral liquid doses with an accurate measuring device (calibrated oral syringe or measuring cup); do not use a household teaspoon or tablespoon to measure dose (overdosage may occur)",
-      monitoring: "Respiratory rate, heart rate, blood pressure, pain relief, CNS status Chronic pain (long-term therapy outside of end-of-life or palliative care, active cancer treatment, sickle cell dis-ease, or medication-assisted treatment for opioid use disorder):...",
+      preparation: "Oral: Administer com alimentos or water to decrease nausea and GI upset; administer oral liquid doses with an accurate measuring device (calibrated oral syringe or measuring cup); do not use a household teaspoon or tablespoon to measure dose (overdosage may occur)",
+      monitoring: "Frequência respiratória, frequência cardíaca, pressão arterial, pain relief, CNS status Chronic pain (long-term therapy outside of end-of-life or palliative care, active cancer treatment, sickle cell dis-ease, or medication-assisted treatment for opioid use disorder):...",
   },
   {
     id: 'hidromorfona',
@@ -400,8 +400,8 @@ export const opioides = [
     contraindications: ['Uso de inibidores da monoaminoxidase (IMAO)', 'Dependência a opioides', 'Epilepsia'],
     sensitivity: { susceptible: [], resistant: [], warning: 'Carbamazepina reduz eficácia. Fluoxetina, olanzapina e venlafaxina aumentam risco de síndrome serotoninérgica.' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Immediate release tablet: May administer with or without food, but it is recommended that it be administered in a consistent manner. Extended release tablet: Swallow whole with a sufficient amount of liquid. Do not crush, cut, dissolve, or chew extended release tablet; may be taken without regard to meals; tablet should be taken once daily at...",
-      monitoring: "Pain relief, respiratory rate, blood pressure, and pulse; signs of tolerance, overseda-tion, withdrawal, abuse or suicidal ideation; renal and hepatic function Chronic pain (long-term therapy outside of end-of-life or palliative care, active cancer t...",
+      preparation: "Oral: Immediate release tablet: May administer with or without food, but it is recommended that it be administered in a consistent manner. Extended release tablet: Engolir inteiro with a sufficient amount of liquid. Do not crush, cut, dissolve, or chew extended release tablet; may be taken com ou sem alimentos; tablet should be taken once daily at...",
+      monitoring: "Pain relief, frequência respiratória, pressão arterial, and pulse; sinais de tolerance, overseda-tion, withdrawal, abuse or suicidal ideation; renal and função hepática Chronic pain (long-term therapy outside of end-of-life or palliative care, active cancer t...",
   },
   {
     id: 'viminol',

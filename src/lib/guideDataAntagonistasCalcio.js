@@ -92,7 +92,7 @@ export const antagonistasCalcio = [
         items: [{ label: 'Oral LP', value: '120 a 360 mg/dia' }],
       },
     ],
-        preparation: "Parenteral: Continuous IV infusion: Further dilute with NS, D5W, or D5/2NS to a maximum final concentration of 1 mg/mL",
+        preparation: "Via IV: Para infusão contínua, diluir em SF 0,9% ou SG 5% até concentração máxima final de 1 mg/mL.",
     sideEffects: [
       'Bradicardia, hipotensão, rubor, arritmia, BAV, assistolia, pode piorar ICC',
       'Tontura, fraqueza, tremores, cefaleia, nervosismo, parestesia, astenia',
@@ -117,7 +117,7 @@ export const antagonistasCalcio = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Blood pressure, heart rate, renal function, liver enzymes, heart function (eg, echocardio-gram); continuous ECG with IV therapy Ventricular rate control in patients with atrial fibrillation or flutter (adults): Patients who respond, usually have at l...",
+      monitoring: "Pressão arterial, frequência cardíaca, função renal, liver enzymes, heart function (eg, echocardio-gram); continuous ECG with IV therapy Ventricular rate control in patients with atrial fibrillation or flutter (adults): Patients who respond, usually have at l...",
   },
 
   {

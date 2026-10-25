@@ -35,10 +35,10 @@ export const iecaDrugs = [
     ],
     contraindications: [],
       renalAdjustment: [
-      { label: "Ajuste renal (Lexicomp)", value: "Children and Adoles-cents: CrCl <30 mL/minute/1.73 m?: Use is not recom-mended (insufficient data exists; dose not established)" },
+      { label: "Ajuste renal (Lexicomp)", value: "Children and Adoles-cents: CrCl <30 mL/minute/1.73 m?: Use is not recommended (insufficient data exists; dose not established)" },
     ],
-      preparation: "Oral: May be administered without regard to food.",
-      monitoring: "Blood pressure (supervise for at least 2 hours after the initial dose or any dosage increase for significant orthostasis); renal function, WBC, serum potassium; monitor for angioedema and anaphylactoid reactions",
+      preparation: "Oral: May be administered com ou sem alimentos.",
+      monitoring: "Pressão arterial (supervise for at least 2 hours after the initial dose or any dosage increase for significant orthostasis); função renal, WBC, potássio sérico; monitor for angioedema and anaphylactoid reactions",
   },
 
   {

@@ -170,8 +170,8 @@ export const ansiolíticosHipnóticos = [
       renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
-      preparation: "Oral: Immediate release tablet: Adults: May be administered sublingually if oral administration is not possible; absorp-tion and onset of effect is comparable to oral adminis-tration (Scavone, 1987; Scavone, 1992) Extended release tablet: Administer once daily, preferably in the morning; do not crush, chew, or break; swallow whole Orally disintegra...",
-      monitoring: "CNS and cardiovascular status, respiratory rate",
+      preparation: "Oral: Immediate release tablet: Adults: May be administered sublingually if oral administration is not possible; absorp-tion and onset of effect is comparable to oral adminis-tration (Scavone, 1987; Scavone, 1992) Comprimido de liberação prolongada: Administrar 1 vez ao dia, de preferência pela manhã; engolir inteiro sem mastigar, triturar ou partir. Orally disintegra...",
+      monitoring: "CNS and cardiovascular status, frequência respiratória",
   },
 
   {
@@ -286,7 +286,7 @@ export const ansiolíticosHipnóticos = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Oral: To reduce somnolence, administra-tion of one dose at bedtime may be desirable. Orally disintegrating tablet: Open pouch and peel back foil on the blister; do not push tablet through foil. Use dry hands to remove tablet and place in mouth. May be swallowed with or without water. Use immediately after removing from package. j Tablet: Swallow wh...",
-      monitoring: "Signs and symptoms of suici-dality (eg, anxiety, depression, behavior changes). Long-term use: CBC with differential, platelets, liver and renal function",
+      monitoring: "Sinais e sintomas de suici-dality (eg, anxiety, depression, behavior changes). Long-term use: CBC com diferencial, plaquetas, liver and função renal",
   },
 
   {
@@ -445,8 +445,8 @@ export const ansiolíticosHipnóticos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Parenteral: |V: Dilute dose prior to use with an equal volume of compatible diluent (DSW, NS, SWFI), Neonates: Since both concentrations of the injection con-tain 2% benzyl alcohol, some experts recommend using the 4 mg/mL product for dilution with preservative free SWEI to make a 0.4 mg/mL dilution (in order to decrease the amount of benzyl alcoho...",
-      monitoring: "Respiratory rate, blood pres-sure, heart rate; CBC with differential and liver function with long-term use; symptoms of anxiety; clinical signs of propylene glycol toxicity (for continuous high-dose and/or long duration intravenous use) including ser...",
+      preparation: "Parenteral: |V: Diluir a dose antes do uso with an equal volume of diluente compatível (DSW, NS, SWFI), Neonates: Since both concentrations of the injection con-tain 2% benzyl alcohol, some experts recommend using the 4 mg/mL product for dilution with preservative free SWEI to make a 0.4 mg/mL dilution (in order to decrease the amount of benzyl alcoho...",
+      monitoring: "Frequência respiratória, blood pres-sure, frequência cardíaca; CBC com diferencial and liver function with long-term use; symptoms of anxiety; clinical sinais de propylene glycol toxicity (for continuous high-dose and/or long duration intravenous use) including ser...",
   },
 
   {
@@ -493,8 +493,8 @@ export const ansiolíticosHipnóticos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
-      preparation: "All formulations (excluding Intermezzo): Administer imme-diately before bedtime due to rapid onset of action. For faster sleep onset, do not administer with (or immedi-ately after) a meal. Sublingual tablets (Edluar, Intermezzo): Examine blister-pack before use; do not use if blisters are broken, torn, or missing. Separate individual blisters at pe...",
-      monitoring: "Daytime alertness; respiratory rate; behavior profile",
+      preparation: "All formulations (excluding Intermezzo): Administer imme-diately ao deitar due to rapid onset of action. For faster sleep onset, do not administer with (or immediately after) a meal. Sublingual tablets (Edluar, Intermezzo): Examine blister-pack before use; do not use if blisters are broken, torn, or missing. Separate individual blisters at pe...",
+      monitoring: "Daytime alertness; frequência respiratória; behavior profile",
   },
 
   {
@@ -529,11 +529,11 @@ export const ansiolíticosHipnóticos = [
       'Uso de IMAO',
     ],
       renalAdjustment: [
-      { label: "Ajuste renal (Lexicomp)", value: "Patients with impaired renal function demonstrated increased plasma levels and a prolonged half-life of buspirone. Use in patients with severe renal impairment ..." },
+      { label: "Ajuste renal (Lexicomp)", value: "Patients with impaired função renal demonstrated increased plasma levels and a prolonged half-life of buspirone. Use in patients with severe renal impairment ..." },
     ],
-      hepaticAdjustment: "Patients with impaired hepatic function demonstrated increased plasma levels and a prolonged half-life of buspirone. Use in patients with severe hepatic impairment not recommended.",
-      preparation: "Oral: Administer in a consistent manner in relation to food (ie, either always with food or always without food); may administer with food to decrease Gl upset",
-      monitoring: "Mental-status, signs and symp-toms of anxiety, liver and renal function; signs of dopa-mine-related movement disorders (eg, dystonia, akathisia, pseudo-parkinsonism).",
+      hepaticAdjustment: "Patients with impaired função hepática demonstrated increased plasma levels and a prolonged half-life of buspirone. Use in patients with severe hepatic impairment not recommended.",
+      preparation: "Via Oral: Administrar de modo padronizado em relação às refeições (sempre junto ou sempre em jejum).; may administer com alimentos para reduzir desconforto gastrointestinal",
+      monitoring: "Mental-status, signs and symp-toms of anxiety, liver and função renal; sinais de dopa-mine-related movement disorders (eg, dystonia, akathisia, pseudo-parkinsonism).",
   },
 
   {

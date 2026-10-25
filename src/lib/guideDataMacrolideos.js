@@ -129,7 +129,7 @@ export const MACROLIDEOS_CATEGORY = {
           ],
         },
       ],
-          preparation: "Oral: Powder for oral suspension: Reconstitute powder for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until suspended.",
+          preparation: "Oral: Powder for oral suspension: Reconstitute powder for oral suspension with appropriate amount of water as specified on the bottle. Agitar vigorosamente until suspended.",
           renalAdjustment: [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
@@ -152,7 +152,7 @@ export const MACROLIDEOS_CATEGORY = {
       ],
       contraindications: [],
         hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "CBC with differential, serum BUN and creatinine, liver function tests; serum concen-tration of drugs whose concentrations may be affected in patients receiving concomitant clarithromycin (ie, theo-phylline, carbamazepine, quinidine, digoxin, anticoag...",
+      monitoring: "CBC com diferencial, serum BUN and creatinine, provas de função hepática; serum concentration of drugs whose concentrations may be affected in patients receiving concomitant clarithromycin (ie, theo-phylline, carbamazepine, quinidine, digoxin, anticoag...",
   },
 
     {

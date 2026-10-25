@@ -409,7 +409,7 @@ export const mucoliticos = [
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with a large quantity of fluid to ensure proper action: Extended release tablet: Do not crush or chew extended release tablet Granules: Empty contents of packet onto tongue and swallow; for best taste, do not chew granules.",
+      preparation: "Oral: Administer with a large quantity of fluid to ensure proper action: Extended release tablet: Não triturar nem mastigar extended release tablet Granules: Empty contents of packet onto tongue and swallow; for best taste, do not chew granules.",
   },
   {
     id: 'hedera',
@@ -510,7 +510,7 @@ export const colutoriosTopicos = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Note: Some products may contain flam- ~ mable ingredients, do not use near fire, flame or heat. Some products may stain certain fabrics; avoid contact with clothing or furniture. Oral gel/solution (topical): Apply with cotton applicator or fingertip to affected area. Children <12 years of age should be supervised during use. Oral lozenge: Allow to ...",
-      monitoring: "Monitor patients for signs and symptoms of methemoglobinemia such as pallor, fatigue, cyanosis, nausea, muscle weakness, dizziness, confu-sion, agitation, dyspnea, and tachycardia. The classical Clinical finding of methemoglobinemia is chocolate brow...",
+      monitoring: "Monitor patients for sinais e sintomas de methemoglobinemia such as pallor, fatigue, cyanosis, nausea, muscle weakness, dizziness, confu-sion, agitation, dyspnea, and tachycardia. The classical Clinical finding of methemoglobinemia is chocolate brow...",
   },
   {
     id: 'flurbiprofeno',

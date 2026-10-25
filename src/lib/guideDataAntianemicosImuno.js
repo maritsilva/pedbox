@@ -355,7 +355,7 @@ export const antianemicos = [
       'Hemocromatose', 'Hemosiderose', 'Anemias hemolíticas',
       'Anemias relacionadas a infecções e neoplasias', 'Ferritina > 500 ng/mL',
     ],
-      preparation: "Oral: Do not chew or crush sustained release preparations; administer with water or juice between meals for maximum absorption; may administer with food if Gl upset occurs; do not administer with milk or milk products",
+      preparation: "Oral: Do not chew or crush sustained release preparations; administer with water or juice entre as refeições for maximum absorption; may administer com alimentos if Gl upset occurs; do not administer with milk or milk products",
       monitoring: "Serum iron, total iron binding capacity, reticulocyte count, hemoglobin, ferritin",
   },
 
@@ -435,7 +435,7 @@ export const antianemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
@@ -470,7 +470,7 @@ export const antianemicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      preparation: "Via Oral: Administrar com alimentos ou leite; para lactentes e crianças <24 meses, as cápsulas podem ser abertas e o conteúdo administrado diretamente na boca. Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
       monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 ];
@@ -522,7 +522,7 @@ export const imunoestimulantes = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Chemotherapy-induced neutropenia: Complete blood cell count (CBC) with differential and platelets prior to che-motherapy and twice weekly during growth factor treat-ment Bone marrow transplantation: CBC with differential and platelets frequently Hema...",
+      monitoring: "Chemotherapy-induced neutropenia: Complete blood cell count (CBC) com diferencial and plaquetas prior to che-motherapy and twice weekly during growth factor treat-ment Bone marrow transplantation: CBC com diferencial and plaquetas frequently Hema...",
   },
 
   {
@@ -550,7 +550,7 @@ export const imunoestimulantes = [
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Parenteral: Visually inspect prior to use; discard if discolored or if particulates are present. Neupogen: Do not dilute with saline at any time; product may precipitate. Neupogen, Zarxio: IV: Do not dilute with saline at any time; product may precipitate. Filgrastim (vial only; do not use prefilled syringe for IV preparation) and filgrastim-sndz m...",
-      monitoring: "Chemotherapy-induced neutropenia: Complete blood cell count (CBC) with differential and platelets prior to che-motherapy and twice weekly during growth factor treat-ment Bone marrow transplantation: CBC with differential and platelets frequently Hema...",
+      monitoring: "Chemotherapy-induced neutropenia: Complete blood cell count (CBC) com diferencial and plaquetas prior to che-motherapy and twice weekly during growth factor treat-ment Bone marrow transplantation: CBC com diferencial and plaquetas frequently Hema...",
   },
 
   {
@@ -611,8 +611,8 @@ export const imunoestimulantes = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Note: Pegfilgrastim is available in pre-filled syringes for manual subcutaneous administration or as a kit for use with the On-body injector. Direct administration of doses <6 mg using the prefilled syringe is not recommended because it does not have the neces-sary graduation marks for accurate measurement of doses other than 6 mg. SubQ: Manual sub...",
-      monitoring: "Chemotherapy-induced neutropenia: Complete blood count (with differential) and platelet count should be obtained prior to chemotherapy and as clinically neces-Sary. Hematopoietic radiation injury syndrome: CBC at baseline (do not delay administration...",
+      preparation: "Note: Pegfilgrastim is available in pre-filled syringes for manual subcutaneous administration or as a kit for use with the On-body injector. Direct administration of doses <6 mg using the prefilled syringe is not recommended because it does not have the necessary graduation marks for accurate measurement of doses other than 6 mg. SubQ: Manual sub...",
+      monitoring: "Chemotherapy-induced neutropenia: Hemograma completo (com diferencial) and contagem de plaquetas should be obtained prior to chemotherapy and as clinically necessary. Hematopoietic radiation injury syndrome: CBC no início (linha de base) (do not delay administration...",
   },
 
   {

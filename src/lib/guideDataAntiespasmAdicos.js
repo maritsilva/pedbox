@@ -181,7 +181,7 @@ export const antiespasmódicos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Ophthalmic: Wash hands before and after use. Do not touch tip of container to. eye. Contact lenses should be removed before instillation; do- not reinsert contact lenses within 15 minutes of drops. Apply gentle pressure to lacrimal sac during and immediately following instillation (2 to 3 minutes) or instruct patient to gently close eyelid after ad...",
+      preparation: "Ophthalmic: Lavar as mãos antes e após o uso. Do not touch tip of container to. eye. Retirar lentes de contato antes da instilação before instillation; do- not reinsert contact lenses within 15 minutes of drops. Apply gentle pressure to lacrimal sac during and immediately following instillation (2 to 3 minutes) or instruct patient to gently close eyelid after ad...",
   },
   {
     id: 'homatropina-simeticona',
@@ -544,7 +544,7 @@ export const antieméticos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Parenteral: Administer undiluted IM or by slow IV injection over 2 to 5 minutes",
+      preparation: "Parenteral: Administrar sem diluição por via IM profunda ou por injeção IV lenta em 2 a 5 minutos.",
       monitoring: "Prior to use: 12-lead ECG to identify patients with QT prolongation (use is contraindi-cated); continuous ECG during and for 2 to 3 hours after dosage administration is recommended in patients with prolonged QT where the benefit of use outweighs the ...",
   },
   {
@@ -613,7 +613,7 @@ export const antieméticos = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "Oral: Administer without regard to food Chewable tablets: May be chewed or swallowed whole",
+      preparation: "Via Oral: Pode ser administrado independentemente das refeições. Comprimidos mastigáveis: Podem ser mastigados ou engolidos inteiros.",
   },
   {
     id: 'metoclopramida',
@@ -649,7 +649,7 @@ export const antieméticos = [
       },
     ],
         renalAdjustment: [
-      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: The following adjustments have been recommended (Aronoff, 2007)..Note: Renally adjusted dose recommenda-tions are based on d..." },
+      { label: "Ajuste renal (Lexicomp)", value: "Lactentes, crianças e adolescentes: Ajustes recomendados conforme literatura (Aronoff):.Note: Renally adjusted dose recommenda-tions are based on d..." },
     ],
     sideEffects: [
       'Reações extrapiramidais agudas (até 48 h após início, principalmente EV): distonia muscular, trismo, protrusão da língua, espasmos, opistótono, hipertonia',
@@ -666,7 +666,7 @@ export const antieméticos = [
     sensitivity: { susceptible: [], resistant: [], warning: '' },
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
       preparation: "Parenteral: Doses >10 mg should be diluted in 50 mL of compatible solution (preferably NS) prior to administration",
-      monitoring: "Blood pressure and heart rate (when rapid IV administration is used); dystonic reactions, agitation, and confusion",
+      monitoring: "Pressão arterial and frequência cardíaca (when rapid IV administration is used); dystonic reactions, agitation, and confusion",
   },
   {
     id: 'ondansetrona',

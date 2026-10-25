@@ -95,8 +95,8 @@ export const insuficienciaCardiacaRefratariaDrugs = [
     ],
     contraindications: [],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      preparation: "IV, Intraosseous: Loading dose: Prepare loading doses using the vial formulation only (not the premixed bag). Dilute in /2NS, NS, or D5W if necessary for small doses or longer infusion times; in adults, diluting to 10 to 20 mL for ease of administration has been recommended. Continuous IV infusion: Dilute with 1/72NS, NS, or D5W; usual concentratio...",
-      monitoring: "Blood pressure, heart rate, ECG; platelet count, electrolytes (especially potassium and magnesium) and fluid status, renal function; infusion site If pulmonary artery catheter is in place, monitor cardiac index, stroke volume, systemic vascular resis...",
+      preparation: "IV, Intraosseous: Loading dose: Prepare loading doses using the vial formulation only (not the premixed bag). Diluir em /2NS, NS, or D5W if necessary for small doses or longer infusion times; in adults, diluting to 10 to 20 mL for ease of administration has been recommended. Continuous IV infusion: Diluir com 1/72NS, NS, or D5W; usual concentratio...",
+      monitoring: "Pressão arterial, frequência cardíaca, ECG; contagem de plaquetas, electrolytes (especially potassium and magnesium) and fluid status, função renal; infusion site If pulmonary artery catheter is in place, monitor cardiac index, stroke volume, systemic vascular resis...",
   },
 
   {

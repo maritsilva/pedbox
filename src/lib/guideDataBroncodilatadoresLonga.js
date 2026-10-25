@@ -68,7 +68,7 @@ export const broncodilatadoresAdrenergicosLonga = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "FEV,, peak flow, and/or other pulmonary function tests, blood pressure, heart rate, CNS stimulation, serum glucose, serum potassium",
+      monitoring: "FEV,, peak flow, and/or other pulmonary function tests, pressão arterial, frequência cardíaca, CNS stimulation, glicemia sérica, potássio sérico",
   },
 
   {
@@ -156,7 +156,7 @@ export const broncodilatadoresAdrenergicosLonga = [
       { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
       hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
-      monitoring: "Monitor asthma symptoms, FEV,, peak flow, and/or other pulmonary function tests, blood pressure, heart rate, CNS stimulation, serum glu-cose, serum potassium. Monitor for increased use of short-acting betaz-agonist inhalers; may be marker of a deteri...",
+      monitoring: "Monitor asthma symptoms, FEV,, peak flow, and/or other pulmonary function tests, pressão arterial, frequência cardíaca, CNS stimulation, serum glu-cose, potássio sérico. Monitor for increased use of short-acting betaz-agonist inhalers; may be marker of a deteri...",
   },
 
   {
