@@ -46,7 +46,7 @@ export const antimalaricos = [
         ],
       },
     ],
-    preparation: 'Reconstituir em 1 mL de bicarbonato 5% e diluir com 5 mL (EV) ou 2 mL (IM) de SGI 5% ou SF 0,9%. Usar imediatamente. EV: administrar em 3 a 4 mL/minuto.',
+        preparation: "Reconstitute vial with 11 mL of phosphate buffer diluent (provided), gently swirl for 5 to 6 minutes to mix; resultant concentration is 10 mg/mL (CDC 2014).",
     sideEffects: [
       'Neurotoxicidade', 'Tontura', 'BAV', 'Taquicardia', 'Agranulocitose',
       'Náusea', 'Vômitos', 'Diarreia', 'Aumento de transaminases',
@@ -54,6 +54,11 @@ export const antimalaricos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Signs and symptoms of hyper-sensitivity reactions; hemoglobin and renal function 1 month after therapy for postartemisinin delayed hemolysis (PADH)",
   },
   {
     id: 'artesunato-mefloquina',
@@ -217,6 +222,12 @@ export const antimalaricos = [
     ],
     contraindications: ['Neuropatia', 'Convulsão', 'Miocardiopatia', 'Arritmia', 'Primeiro trimestre de gestação'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food and an ample amount of water, at least 8 oz of water for adults. If vomiting occurs within 30 minutes after a dose, repeat dose. If vomiting occurs within 30-60 minutes after a dose, an additional half-dose should be administered. If vomiting recurs, monitor closely and consider alternative treatment. Administering mefloq...",
+      monitoring: "Sequential blood smears for percent parasitemia; periodic hepatic function tests, oph-thalmologic exam",
   },
   {
     id: 'primaquina',
@@ -253,7 +264,9 @@ export const antimalaricos = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Cefaleia', 'Arritmia', 'Hipertensão', 'Vômito', 'Dor abdominal', 'Diarreia',
       'Fraqueza', 'Mal-estar', 'Coriza',
@@ -265,6 +278,9 @@ export const antimalaricos = [
       'Lúpus', 'Artrite reumatoide ativa',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with meals to decrease adverse Gl effects; drug has a bitter taste",
+      monitoring: "Periodic CBC, visual color check of urine, hemoglobin, glucose; if hemolysis is suspected, monitor CBC, haptoglobin, peripheral smear, urinalysis dipstick for occult blood; G-6-PD deficiency screening (prior to initiating treatment; CDC recommendatio...",
   },
   {
     id: 'quinina',
@@ -290,10 +306,9 @@ export const antimalaricos = [
         ],
       },
     ],
-    preparation: 'Diluir em 10 mL/kg de SGI. Correr em 4 horas. Após reconstituir, repetir a 5 mL/h.',
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: '1 dose a cada 12 h' },
-      { label: 'ClCr < 10 mL/min', value: '1 dose a cada 24 h' },
+        preparation: "Oral: Swallow dose whole to avoid bitter taste. Administer with food to minimize upset stomach.",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Tontura', 'Zumbido', 'Visão embaçada', 'Tremores', 'Cefaleia', 'Febre',
@@ -307,5 +322,7 @@ export const antimalaricos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      monitoring: "CBC with platelet count, liver function tests, blood glucose, ophthalmologic examina-tion, ECG",
   },
 ];

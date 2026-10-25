@@ -85,11 +85,9 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        renalAdjustment: [
-          { label: 'ClCr 25–50 mL/min', value: '500 mg/dose 2×/dia' },
-          { label: 'ClCr 10–25 mL/min', value: '500 mg/dia' },
-          { label: 'ClCr < 10 mL/min', value: '500 mg a cada 36 h' },
-        ],
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sensitivity: {
           susceptible: [
             'Bacteroides, Estafilococos, Estreptococos, Moraxella catarrhalis',
@@ -107,7 +105,10 @@ export const GUIDE_CATEGORIES = [
           'Risco de superinfecção por Candida, Pseudomonas e enterococos',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Reconstitute pow-der for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until sus-pended.",
+      monitoring: "Stool frequency, resolution of infection",
+  },
 
       {
         id: 'cefalotina',
@@ -206,12 +207,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'EV: diluir para 50–100 mg/mL em SF ou AD; infundir em 3–5 min. IM: diluir a 330 mg/mL (dolorosa).',
-        renalAdjustment: [
-          { label: 'ClCr 11–34 mL/min', value: '50% da dose a cada 12 h' },
-          { label: 'ClCr ≤ 10 mL/min', value: '50% da dose a cada 18–24 h' },
-          { label: 'Hemodiálise', value: 'Remove 20–50%' },
-        ],
+            preparation: "Parenteral: IM: Dilute 500 mg vial with 2 mL SWF and 1 g vial with 2.5 mL SWFI resulting in a concentration of 225 mg/mL and 330 mg/mL, respectively. IVP: Reconstitute appropriate vial size and further dilute to a maximum concentration: 100 mg/mL (Klaus 1989); in fluid-restricted patients, a concentration of 138 mg/mL using SWFI results in a maximu...",
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sensitivity: {
           susceptible: [
             'Estafilococos sensíveis à meticilina, Estreptococos',
@@ -226,7 +225,9 @@ export const GUIDE_CATEGORIES = [
           'Coombs direto positivo, prolongamento do TP, aumento transitório de transaminases',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Renal function periodically when used in combination with other nephrotoxic drugs, hepatic function tests, and CBC; prothrombin time in patients at risk; number and type of stools/day for diarrhea; monitor for signs of anaphylaxis during first dose",
+  },
 
       {
         id: 'cefalexina',
@@ -270,14 +271,13 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'Suspensão: reconstituir com água filtrada ou fervida. Após reconstituição: geladeira 2–8 ºC por até 14 dias.',
-        renalAdjustment: [
-          { label: 'ClCr 30–60 mL/min', value: 'Máx 1 g/dia' },
-          { label: 'ClCr 15–29 mL/min', value: '250 mg a cada 8–12 h' },
-          { label: 'ClCr 5–14 mL/min', value: '250 mg a cada 24 h' },
-          { label: 'ClCr < 4 mL/min', value: '250 mg a cada 48–60 h' },
-          { label: 'Diálise', value: 'Remove 20–50%' },
-        ],
+            preparation: "Oral: Agitar bem a suspensão antes de administrar. Pode ser administrada com ou sem alimentos; se houver desconforto gástrico, administrar com alimentos ou leite.",
+            renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "100% da dose a cada 6 a 8 horas" },
+      { label: "ClCr 30–49 mL/min", value: "100% da dose a cada 8 a 12 horas" },
+      { label: "ClCr 15–29 mL/min", value: "50% da dose a cada 8 a 12 horas (ou dose normal a cada 12 h)" },
+      { label: "ClCr < 15 mL/min", value: "50% da dose a cada 12 a 24 horas (ou pós-hemodiálise)" },
+    ],
         sensitivity: {
           susceptible: [
             'Gram+: Estreptococos, Estafilococo sensível à oxacilina, Pneumococo (menos eficaz que penicilina/amoxicilina)',
@@ -298,7 +298,9 @@ export const GUIDE_CATEGORIES = [
           'Coombs falso positivo, proteinúria falso positiva, vaginite por superinfecção',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem necessidade de ajuste específico descrito na bula.",
+      monitoring: "Hemograma com diferencial em tratamentos prolongados (> 10 a 14 dias), função renal e sintomas gastrointestinais.",
+  },
 
       // ── 2ª Geração ──
       {
@@ -356,7 +358,10 @@ export const GUIDE_CATEGORIES = [
           'Falso positivo de glicose na urina; Coombs positivo',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral suspension: Refer to manufacturer's product labeling for reconstitution instructions.",
+      monitoring: "With prolonged therapy, monitor CBC and stool frequency periodically",
+  },
 
       {
         id: 'cefuroxima',
@@ -406,11 +411,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'Via oral: melhor tomar com alimento. EV: diluir a 100 mg/mL; infundir em 5 min. Após reconstituição: geladeira por até 10 dias.',
-        renalAdjustment: [
-          { label: 'ClCr 10–29 mL/min', value: '1 dose a cada 24 h' },
-          { label: 'ClCr < 10 mL/min', value: '1 dose a cada 48 h' },
-        ],
+            preparation: "Oral suspension: Reconstitute powder for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until suspended. Parenteral: IM: Dilute 750 mg vial with 3 mL SWEFI; resultant sus-pension with a concentration of 225 mg/mL Intermittent IV infusion: Further dilute reconstituted sol-ution to a final concentration ...",
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sensitivity: {
           susceptible: [
             'Semelhante ao cefaclor, com maior ação contra H. influenzae e Pneumococo',
@@ -428,7 +432,9 @@ export const GUIDE_CATEGORIES = [
           'Dor local e flebite',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "With prolonged therapy, monitor renal, hepatic, and hematologic function periodically; num-ber and type of stools/day for diarrhea; and prothrombin time. Observe for signs and symptoms of anaphylaxis during first dose.",
+  },
 
       {
         id: 'cefoxitina',
@@ -462,13 +468,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'Diluir a 100 mg/mL em ABD; infundir em 5 min.',
-        renalAdjustment: [
-          { label: 'ClCr 30–50 mL/min', value: 'A cada 8–12 h' },
-          { label: 'ClCr 10–29 mL/min', value: 'A cada 12–24 h' },
-          { label: 'ClCr < 10 mL/min', value: 'Máx 1 g/dia a cada 12–24 h' },
-          { label: 'Hemodiálise', value: 'Remove 20–50%' },
-        ],
+            preparation: "Parenteral: IVP: Reconstitute vials with SWF, bacteriostatic water for injection, NS, or D5W to a final concentration of 95 to180 mg/mL; see manufacturer's labeling for specific details. Intermittent IV infusion: Reconstitute vials with SWFI, bacteriostatic water for injection, NS, or DSW; see man-ufacturer’s labeling for specific details. Further ...",
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sensitivity: {
           susceptible: [
             'Cefalosporina mais ativa contra Bacteroides fragilis e anaeróbios',
@@ -486,7 +489,9 @@ export const GUIDE_CATEGORIES = [
           'Aplicação IM muito dolorosa',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Renal function periodically when used in combination with other nephrotoxic drugs; liver function and hematologic function tests; number and type of stools/day for diarrhea. Observe for signs and symp-toms of anaphylaxis during first dose.",
+  },
 
       // ── 3ª Geração ──
       {
@@ -535,13 +540,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'EV: diluir para 200 mg/mL com ABD, agitar até dissolver, depois rediluir para 40 mg/mL com SGI/SF/RL e infundir em 3–5 min. IM: diluir em ABD para 230–330 mg/mL; máximo de 2 g por sítio.',
-        renalAdjustment: [
-          { label: 'ClCr 10–50 mL/min', value: 'Mesma dose a cada 12 horas' },
-          { label: 'ClCr < 10 mL/min', value: 'Mesma dose a cada 24 h ou 50% da dose' },
-          { label: 'Hemodiálise', value: 'Mesma dose a cada 12–24 h' },
-          { label: 'CPAD', value: '0,5 a 1 g/dose a cada 12–24 h' },
-        ],
+            preparation: "Parenteral: IM: Reconstitute powder for injection with SWF] to a final concentration between 230 to 330 mg/mL (see manu-facturer's labeling for specific details). Shake to dissolve. IV: IVP: Reconstitute vials with at least 10 mL SWFI to a maximum concentration of 200 mg/mL. > 4 Intermittent infusion: Reconstitute powder for injection with SWFI, re...",
+            renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: The following adjustments have been recommended (Aronoff 2007). Note: Renally adjusted dose recommenda-tions are based on do..." },
+    ],
         sensitivity: {
           susceptible: [
             'Gram+: Streptococcus A,B,C,G, Pneumococo, S. viridans, Estafilococo sensível à oxacilina/meticilina',
@@ -566,7 +568,9 @@ export const GUIDE_CATEGORIES = [
           'Infiltração provoca necrose tecidual',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Observe for signs and symp-toms of anaphylaxis during first dose; monitor infusion site for extravasation; with prolonged therapy, monitor renal, hepatic, and hematologic function periodically; number and type of stools/day for diarrhea",
+  },
 
       {
         id: 'ceftriaxona',
@@ -621,10 +625,12 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'EV: diluir para 100 mg/mL com ABD ou SF, agitar até dissolver, depois rediluir para 40 mg/mL com SG/SF/RL; infundir em 5–30 min. NÃO infundir com soluções contendo cálcio. IM: diluir com lidocaína 1% sem vasoconstritor para 350 mg/mL. Infusão contínua pode ser mais eficaz que bolus.',
-        renalAdjustment: [
-          { label: 'Insuficiência renal ou hepática', value: 'Máximo 2 g/dia' },
-        ],
+            preparation: "IV: Reconstituir 1 g em 10 mL de AD. Para infusão intermitente, diluir em SF 0,9% ou SG 5% para concentração de 10 a 40 mg/mL (máx: 40 mg/mL). Infundir em 30 minutos.\nATENÇÃO: NUNCA reconstituir ou infundir com soluções contendo CÁLCIO (como Ringer Lactato), devido ao risco de precipitação fatal em pulmões e rins.",
+            renalAdjustment: [
+      { label: "ClCr > 10 mL/min", value: "Não requer ajuste de dose" },
+      { label: "ClCr < 10 mL/min", value: "Máximo de 2 g a cada 24 horas" },
+      { label: "Falência renal e hepática combinadas", value: "Monitorar concentrações séricas e limitar a 2 g/dia" },
+    ],
         sensitivity: {
           susceptible: [],
           resistant: [
@@ -648,7 +654,9 @@ export const GUIDE_CATEGORIES = [
         contraindications: [
           'Neonato com icterícia grave — preferir cefotaxima',
         ],
-      },
+          hepaticAdjustment: "Não requer ajuste em insuficiência hepática isolada. Se houver disfunção renal associada, reduzir a dose máxima para 2 g/dia.",
+      monitoring: "Hemograma com contagem de plaquetas, tempo de protrombina (TP), função renal (ureia e creatinina), função hepática e número de evacuações.",
+  },
 
       // ── 3ª Geração (cont.) ──
       {
@@ -686,14 +694,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'Bolus: diluir a 100 mg/mL, infundir em 3–5 min (se dor/febre: 40 mg/mL em 20 min). IM: diluir em ABD ou lidocaína 1% para 250 mg/mL. Incompatível com bicarbonato e aminoglicosídeo — não associar no mesmo equipo.',
-        renalAdjustment: [
-          { label: 'ClCr 31–50 mL/min', value: '1–1,5 g a cada 12 h' },
-          { label: 'ClCr 16–30 mL/min', value: '1–1,5 g a cada 24 h' },
-          { label: 'ClCr 6–15 mL/min', value: '0,5–1 g a cada 24 h' },
-          { label: 'ClCr < 5 mL/min', value: '0,5 g a cada 48 h' },
-          { label: 'Diálise', value: 'Remove 50–100%' },
-        ],
+            preparation: "Note: Any carbon diox-ide bubbles that may be present in the withdrawn solution should be expelled prior to injection. IM: Reconstitute the 500 mg vials with 1.5 mL or the 1,000 mg vials with 3 mL of either SWFI, bacteriostatic water for injection, or lidocaine (0.5% or 1%) to a final concentration of 280 mg/mL IV: IVP: Reconstitute vial using SWF ...",
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sensitivity: {
           susceptible: [
             'Melhor opção entre cefalosporinas de 3ª geração para: Pseudomonas aeruginosa, Stenotrophomonas maltophilia, Acinetobacter (mas muitas cepas hospitalares são resistentes)',
@@ -712,7 +716,9 @@ export const GUIDE_CATEGORIES = [
           'Cada grama contém ≈ 54 mg / 2,3 mEq de sódio',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "Infants, Children and Adolescents: No adjustment required.",
+      monitoring: "Renal function periodically when used in combination with aminoglycosides; with prolonged therapy also monitor hepatic and hematologic function periodically; number and type of stools/day for diarrhea. Observe for signs and symptoms of anaphylaxis du...",
+  },
 
       // ── 4ª e 5ª Geração ──
       {
@@ -752,13 +758,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        preparation: 'Bolus: diluir a 40 mg/mL em SF ou SG; infundir em 20–30 min. IM: diluir a 280 mg/mL em SF, ABD ou lidocaína 0,5–1%.',
-        renalAdjustment: [
-          { label: 'ClCr 30–60 mL/min', value: '1 dose a cada 24 h' },
-          { label: 'ClCr 11–29 mL/min', value: '50% da dose a cada 24 h' },
-          { label: 'ClCr < 10 mL/min', value: '25% da dose a cada 24 h' },
-          { label: 'Hemodiálise', value: '1 dose a cada 24 h' },
-        ],
+            preparation: "Parenteral: IV: Reconstitute 500 mg vial with 5 mL and 1 or 2 g vial with 10 mL of a compatible diluent (resulting concen-tration of 100 mg/mL for 500 mg and 1g vial and 160 mg/mL for 2g vial); further dilute in D5W, NS, D10W, D5NS, or DSLR; final concentration should not exceed 40 mg/mL. IM: Reconstitute 500 mg or 1 g vial with 1.3 mL or 2.4 mL, r...",
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sensitivity: {
           susceptible: [
             'E. coli, Klebsiella, Proteus, Enterobacter, Citrobacter, Pseudomonas (maioria), Neisseria meningitidis, Staphylococcus sensível à oxacilina, Serratia marcescens',
@@ -779,7 +782,9 @@ export const GUIDE_CATEGORIES = [
           'Vaginite, leucopenia, trombocitopenia',
         ],
         contraindications: [],
-      },
+          hepaticAdjustment: "No dosage adjust-ments necessary.",
+      monitoring: "With prolonged therapy, monitor renal and hepatic function periodically; number and type of stools/day for diarrhea; CBC with differential. Observe for signs and symptoms of anaphylaxis during first dose.",
+  },
 
       {
         id: 'ceftarolina',
@@ -895,11 +900,9 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        renalAdjustment: [
-          { label: 'ClCr < 10 mL/min', value: 'Evitar' },
-          { label: 'Insuficiência hepática', value: 'Melhor evitar' },
-          { label: 'Idosos > 80 anos', value: 'Evitar uso crônico' },
-        ],
+            renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
         sideEffects: [
           'Hemorragias, inclusive aguda grave; duplica o risco de sangramento gástrico',
           'Gastrite e ulcerações gástricas (até 30%)',
@@ -925,7 +928,10 @@ export const GUIDE_CATEGORIES = [
           'Crianças com influenza ou varicela',
           'Síndrome de asma + pólipo nasal',
         ],
-      },
+          hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "Oral: Immediate release: Administer with water, food, or milk to decrease Gl upset. Do not crush or chew enteric coated tablets; these preparations should be swal-lowed whole. For acute myocardial infarction, have patient chew immediate release tablet. Extended release capsules: Do not cut, crush, or chew. Administer with a full glass of water at t...",
+      monitoring: "CBC, iron studies, ferritin, stools for occult blood, and renal function tests with prolonged therapy. Serum salicylate concentration with chronic use; may not be necessary in Kawasaki disease; Note: Decreased aspirin absorption and increased salicyl...",
+  },
 
       {
         id: 'clonixinato',
@@ -1105,10 +1111,10 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        renalAdjustment: [
-          { label: 'Insuficiência renal', value: 'Usar a menor dose possível' },
-          { label: 'Insuficiência hepática', value: 'Evitar' },
-        ],
+            renalAdjustment: [
+      { label: "ClCr ≥ 30 mL/min", value: "Dose usual; garantir hidratação adequada" },
+      { label: "ClCr < 30 mL/min", value: "Evitar o uso devido ao risco de redução do fluxo sanguíneo renal e precipitação de insuficiência renal aguda." },
+    ],
         sideEffects: [
           'Náusea, vômitos, dispepsia, azia, dor abdominal, erupção cutânea, tontura (3–9%)',
           'Cefaleia, edema, prurido, úlcera gástrica, gastrite, zumbido, constipação (1–3%)',
@@ -1127,7 +1133,10 @@ export const GUIDE_CATEGORIES = [
           'Prematuros com sepse ou enterocolite necrosante suspeita/confirmada',
           'Hemorragia ativa',
         ],
-      },
+          hepaticAdjustment: "Usar com cautela em disfunção hepática. Suspender se houver elevação significativa de transaminases ou sinais clínicos de hepatotoxicidade.",
+      preparation: "Oral: Administrar preferencialmente com leite ou alimentos para minimizar irritação gástrica. Agitar vigorosamente frascos de suspensão.",
+      monitoring: "Função renal e débito urinário em pacientes desidratados ou em uso de nefrotóxicos; sinais de sangramento gastrointestinal e pressão arterial.",
+  },
 
       {
         id: 'paracetamol',
@@ -1191,11 +1200,11 @@ export const GUIDE_CATEGORIES = [
             ],
           },
         ],
-        renalAdjustment: [
-          { label: 'ClCr 10–50 mL/min', value: 'Máx 4 doses/dia, a cada 6 horas' },
-          { label: 'ClCr < 10 mL/min', value: 'Máx 3 doses/dia, a cada 8 horas' },
-          { label: 'Insuficiência hepática', value: 'Melhor evitar' },
-        ],
+            renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "Dose plena usual sem alteração" },
+      { label: "ClCr 10–49 mL/min", value: "Aumentar intervalo para 6 a 8 horas" },
+      { label: "ClCr < 10 mL/min", value: "Aumentar intervalo para 8 horas" },
+    ],
         sideEffects: [
           'Erupção cutânea, náusea, vômitos, dor de garganta, febre',
           'Urticária, angioedema e anafilaxia',
@@ -1208,7 +1217,10 @@ export const GUIDE_CATEGORIES = [
           'Deficiência de G6PD (risco de hemólise em doses altas)',
           'Hepatopatias graves',
         ],
-      },
+          hepaticAdjustment: "Usar com cautela em hepatopatias e cirrose. Em disfunção hepática leve/moderada, tolerado em baixas doses; evitar doses repetidas sem reavaliação. Contraindicado em insuficiência hepática descompensada aguda.",
+      preparation: "Oral: Gotas, suspensão ou comprimidos. Injetável IV (quando disponível): Infundir em 15 minutos; não diluir se volume adequado ao equipo.",
+      monitoring: "Em uso por mais de 48–72 horas contínuas: vigiar função hepática (transaminases), dor em hipocôndrio direito, icterícia e sintomas de intoxicação.",
+  },
     ],
   },
   {

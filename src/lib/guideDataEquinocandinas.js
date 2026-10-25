@@ -61,8 +61,10 @@ export const equinocandinas = [
         ],
       },
     ],
-    preparation: 'Reconstituir com 10,5 mL de água para injeção. Diluir em 250 mL de SF. Não diluir em SG. Infundir em 1 hora.',
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        preparation: "Bring refrigerated vial to room temperature. Reconstitute vials using 10.8 mL NS, SWFI, or bacteriostatic water for injection, resulting in a concentration of 5 mg/mL for the 50 mg vial, and 7 mg/mL for the 70 mg vial (vials contain overfill). Mix gently to dissolve until clear solution is formed; do not use if cloudy or contains particles. Solutio...",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: {
       susceptible: ['Candida, Aspergillus'],
       resistant: [],
@@ -77,6 +79,8 @@ export const equinocandinas = [
       'Dispneia, broncoespasmo, anafilaxia, alteração de coagulação, sudorese',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Periodic liver function tests, serum potassium, CBC, hemoglobin; signs of anaphylaxis or histamine-related reactions",
   },
   {
     id: 'micafungina',

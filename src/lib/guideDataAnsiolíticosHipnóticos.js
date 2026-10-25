@@ -100,6 +100,13 @@ export const ansiolíticosHipnóticos = [
       'Apneia de sono não tratada',
       'Insuficiência hepática grave',
     ],
+      renalAdjustment: [
+      { label: "ClCr ≥ 10 mL/min", value: "Não requer ajuste de dose em bolus agudo" },
+      { label: "ClCr < 10 mL/min / Insuficiência renal grave", value: "Em infusão contínua prolongada, metabólito ativo (1-hidroximidazolam glicuronídeo) pode acumular e causar sedação excessiva duradoura." },
+    ],
+      hepaticAdjustment: "Metabolizado por CYP3A4. Em disfunção hepática, o clearance é reduzido. Titular doses menores (reduzir em 30% a 50%) com monitorização cuidadosa.",
+      preparation: "IV Bolus: Injetar lentamente em 2 a 3 minutos.\nInfusão IV Contínua: Diluir em SF 0,9% ou SG 5% para concentração de 0,5 a 1 mg/mL (ex: 50 mg em 100 mL de SF = 0,5 mg/mL). Compatível com acessos venosos periféricos e centrais.",
+      monitoring: "Oximetria de pulso, capnografia (se intubado/sedação profunda), frequência cardíaca e pressão arterial. Disponibilidade imediata de Flumazenil como antídoto específico.",
   },
 
   {
@@ -160,6 +167,11 @@ export const ansiolíticosHipnóticos = [
       'Apneia de sono',
       'Atividades de risco que exijam atenção',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      preparation: "Oral: Immediate release tablet: Adults: May be administered sublingually if oral administration is not possible; absorp-tion and onset of effect is comparable to oral adminis-tration (Scavone, 1987; Scavone, 1992) Extended release tablet: Administer once daily, preferably in the morning; do not crush, chew, or break; swallow whole Orally disintegra...",
+      monitoring: "CNS and cardiovascular status, respiratory rate",
   },
 
   {
@@ -269,6 +281,12 @@ export const ansiolíticosHipnóticos = [
       'Miastenia',
       'Alcoolismo grave',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: To reduce somnolence, administra-tion of one dose at bedtime may be desirable. Orally disintegrating tablet: Open pouch and peel back foil on the blister; do not push tablet through foil. Use dry hands to remove tablet and place in mouth. May be swallowed with or without water. Use immediately after removing from package. j Tablet: Swallow wh...",
+      monitoring: "Signs and symptoms of suici-dality (eg, anxiety, depression, behavior changes). Long-term use: CBC with differential, platelets, liver and renal function",
   },
 
   {
@@ -326,6 +344,13 @@ export const ansiolíticosHipnóticos = [
       'Hipersensibilidade a benzodiazepínicos',
       'Disfunção hepática grave',
     ],
+      renalAdjustment: [
+      { label: "ClCr ≥ 10 mL/min", value: "Não requer ajuste de dose" },
+      { label: "ClCr < 10 mL/min", value: "Usar com cautela; pode haver acúmulo de metabólitos ativos (desmetildiazepam)." },
+    ],
+      hepaticAdjustment: "Extensamente metabolizado pelo fígado. Em hepatopatia grave ou cirrose, a meia-vida pode aumentar em até 4 a 5 vezes. Reduzir dose e monitorar depressão do SNC.",
+      preparation: "IV Direto: Injetar sem diluição lentamente em veia calibrosa à velocidade máxima de 1 a 2 mg/minuto (administrar em pelo menos 3 a 5 minutos).\nATENÇÃO: NÃO diluir em soluções glicosadas ou fisiológicas em frascos/equipos plásticos de PVC, pois o diazepam precipita e é adsorvido pelas paredes plásticas.",
+      monitoring: "Frequência respiratória, oximetria contínua, frequência cardíaca, pressão arterial e nível de consciência. Ter equipamento de ventilação com pressão positiva e aspirador de vias aéreas disponíveis.",
   },
 
   {
@@ -416,6 +441,12 @@ export const ansiolíticosHipnóticos = [
       'Glaucoma de ângulo fechado',
       'Hipotensão grave',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: |V: Dilute dose prior to use with an equal volume of compatible diluent (DSW, NS, SWFI), Neonates: Since both concentrations of the injection con-tain 2% benzyl alcohol, some experts recommend using the 4 mg/mL product for dilution with preservative free SWEI to make a 0.4 mg/mL dilution (in order to decrease the amount of benzyl alcoho...",
+      monitoring: "Respiratory rate, blood pres-sure, heart rate; CBC with differential and liver function with long-term use; symptoms of anxiety; clinical signs of propylene glycol toxicity (for continuous high-dose and/or long duration intravenous use) including ser...",
   },
 
   {
@@ -458,6 +489,12 @@ export const ansiolíticosHipnóticos = [
     contraindications: [
       'Insuficiência hepática grave',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "All formulations (excluding Intermezzo): Administer imme-diately before bedtime due to rapid onset of action. For faster sleep onset, do not administer with (or immedi-ately after) a meal. Sublingual tablets (Edluar, Intermezzo): Examine blister-pack before use; do not use if blisters are broken, torn, or missing. Separate individual blisters at pe...",
+      monitoring: "Daytime alertness; respiratory rate; behavior profile",
   },
 
   {
@@ -491,6 +528,12 @@ export const ansiolíticosHipnóticos = [
       'Disfunção hepática/renal grave',
       'Uso de IMAO',
     ],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Patients with impaired renal function demonstrated increased plasma levels and a prolonged half-life of buspirone. Use in patients with severe renal impairment ..." },
+    ],
+      hepaticAdjustment: "Patients with impaired hepatic function demonstrated increased plasma levels and a prolonged half-life of buspirone. Use in patients with severe hepatic impairment not recommended.",
+      preparation: "Oral: Administer in a consistent manner in relation to food (ie, either always with food or always without food); may administer with food to decrease Gl upset",
+      monitoring: "Mental-status, signs and symp-toms of anxiety, liver and renal function; signs of dopa-mine-related movement disorders (eg, dystonia, akathisia, pseudo-parkinsonism).",
   },
 
   {

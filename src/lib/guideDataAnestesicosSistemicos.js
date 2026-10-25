@@ -39,7 +39,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Diluir em SF, SGI ou Ringer. Bolus lento: 3 a 5 minutos. Risco de apneia aumenta com dose — monitorar frequência respiratória e ventilação. Não misturar com anfotericina. Crianças: não exige ajuste renal.',
+        preparation: "Parenteral: IV: Dilute prior to administration with NS, D5W, D5NS or LR to a concentration of 25 to 80 mcg/mL Continuous |V infusion: Further dilute in D5W, NS D5NS or LR to a concentration of 40 mcg/mL",
     sideEffects: [
       'Depressão respiratória, rigidez muscular e torácica (risco maior com injeção rápida e em neonatos)',
       'Pode exigir curarização para conseguir ventilar',
@@ -50,6 +50,11 @@ export const anestesicosSistemicos = [
       'Antídoto: naloxona 2 mg EV. Risco de aumento da pressão intracraniana',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Respiratory rate, blood pres-sure, heart rate, neurological status (for degree of anal-gesia/anesthesia)",
   },
 
   {
@@ -117,7 +122,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Diluir 500 mg em 500 mL de SGI ou SF (1 mg/mL). Injeção EV lenta, máximo 0,5 mg/kg/min. Atropinização prévia reduz secreção. Não usar barbitúricos e benzodiazepínicos na mesma seringa ou linha. Insuficiência renal: não exige ajuste.',
+        preparation: "Note: Three concen-trations are available (10 mg/mL, 50 mg/mL and 100 mg/mL); preparation information may be product spe- cific. Intranasal (using parenteral dosage form): Use the 50 mg/mL or 100 mg/mL solution; may administer undi-luted or further dilute in NS to a concentration of 20 mg/mL (Bahetwar 2011; Louon 1994; Surendar 2014; Weksler 1993) ...",
     sideEffects: [
       'Alucinações auditivas e visuais, pesadelos, disforia, nistagmo, diplopia, tremores',
       'Hipertensão, taquicardia, arritmias, sensibilização à catecolamina (libera adrenalina endógena)',
@@ -132,6 +137,11 @@ export const anestesicosSistemicos = [
       'Insuficiência cardíaca congestiva grave, angina, neurotoxicose, tireotoxicose',
       'Cirurgias de faringe, laringe e traqueia, eclâmpsia',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Cardiovascular effects, heart rate, blood pressure, respiratory rate, transcutaneous O> saturation, emergence reactions",
   },
 
   {
@@ -169,7 +179,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Diluir 2 mL (200 µg) em 48 mL de solução fisiológica → concentração final 4 µg/mL. Usar bomba de infusão. Monitorização clínica e eletrônica cuidadosa. Em idosos, titular mais devagar com doses de manutenção mais baixas. Insuficiência renal: não exige ajuste.',
+        preparation: "|V: Dexmedetomidate injection concentrate (100 mcg/mL) must be diluted prior to administration. Dilute 200 mcg (2 mL) in 48 mL NS to achieve a final concentration of 4 mcg/mL. Shake gently to mix.",
     sideEffects: [
       'Bradicardia, hipotensão, arritmia, alterações eletrocardiográficas, parada sinusal, fibrilação atrial, BAV',
       'Taquicardia ventricular, hipertensão, taquicardia durante bolus inicial',
@@ -181,6 +191,11 @@ export const anestesicosSistemicos = [
       'Taquifilaxia: pode exigir aumento da dose após 24 horas de uso',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "There are no specific dosage adjustments provided in the manufacturer’s labeling; however, clearance is reduced in varying degrees based on the level of hepatic impairment; adult data suggests a dosag...",
+      monitoring: "Level of sedation, heart rate, respiration, ECG, blood pressure, pain control",
   },
 
   {
@@ -210,7 +225,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Age em 30 segundos; efeito dura 3 a 5 min (pode ser prolongado com doses repetidas). Evitar em choque séptico — risco de depressão suprarrenal. Insuficiência renal: não exige ajuste.',
+        preparation: "|V: Administer |V push over 30 to 60 seconds; very irritating; avoid administration into small vessels on the head .or dorsum of the hand (Kay 1976); preadministration of lidocaine may be beneficial (Baxter 2007; Lee-Jayaram 2010)",
     sideEffects: [
       'Baixo potencial de depressão respiratória, apneia curta (~15 a 20 segundos)',
       'Mioclonia, movimentos involuntários',
@@ -222,6 +237,11 @@ export const anestesicosSistemicos = [
       'Náusea, vômito',
     ],
     contraindications: ['Choque séptico'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Cardiac monitoring, blood pres-sure, respiratory rate, renal function, level of sedation",
   },
 
   {
@@ -412,7 +432,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Diluir somente em SGI (mínimo 2 mg/mL). Trocar solução e equipo a cada 12 h. Bolus de 30 a 60 s. Assepsia rigorosa — solução é bom meio de cultura. Monitorar gasometria no uso prolongado. Pacientes alérgicos a ovo têm risco aumentado. Armazenar 2 a 8 °C. Insuficiência renal: não exige ajuste.',
+        preparation: "Parenteral: IV: May be further diluted in D5W to a concentration of 22 mg/mL; diluted emulsion is more stable in glass (stability in plastic: 95% potency after 2 hours). To reduce pain associated with administration, may add lidocaine to propofol imme-diately before administration in a quantity not to exceed 20 mg lidocaine per 200 mg propofol. Str...",
     sideEffects: [
       'Hipotensão, bradicardia, hipertensão',
       'Apneia, hipertrigliceridemia, hipercapnia, acidose aguda',
@@ -427,6 +447,11 @@ export const anestesicosSistemicos = [
       'Menores de 3 anos com infecção respiratória grave',
       'Crianças com difteria ou epiglotite graves',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Cardiac monitor, blood pres-sure, oxygen saturation (during monitored anesthesia care sedation), arterial blood gas (with prolonged infu-sions). With prolonged infusions (eg, ICU sedation), mon-itor for metabolic acidosis, hyperkalemia, rhabdomyolysi...",
   },
 
   {
@@ -468,7 +493,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Diluir em ABD, SG ou SF para 25 ou 50 µg/mL. Bolus EV lentos (3 a 5 min) devem ser evitados em pacientes respirando espontaneamente. Não utilizar para induzir anestesia em crianças. Não usar intratecal ou epidural.',
+        preparation: "|V: Prepare solution by adding 1 mL of diluent per 1 mg of remifentanil. Shake well. Further dilute to a final concentration of 20, 25, 50, or 250 mcg/mL...",
     sideEffects: [
       'Depressão respiratória, apneia, hipóxia',
       'Náusea, vômitos, constipação',
@@ -480,6 +505,11 @@ export const anestesicosSistemicos = [
       'Interações: IMAOs, naltrexona, etanol',
     ],
     contraindications: ['Uso intratecal ou epidural (contém glicina)'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Respiratory and cardiovascular status, blood pressure, heart rate",
   },
 
   {
@@ -527,7 +557,7 @@ export const anestesicosSistemicos = [
         ],
       },
     ],
-    preparation: 'Diluir em SG ou SF. Estável por 24 horas.',
+        preparation: "IV: May further dilute in an appropriate fluid to a concentration <50 mcg/mL",
     sideEffects: [
       'Depressão respiratória neonatal, rigidez muscular e torácica',
       'Bradicardia, bradiarritmia, hipotensão, hipertensão, parada cardíaca',
@@ -539,6 +569,11 @@ export const anestesicosSistemicos = [
       'Interação com barbitúricos e depressores do SNC',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Respiratory rate, blood pres-sure, heart rate, oxygen saturation, neurological status (for degree of analgesia/anesthesia)",
   },
 
   {

@@ -64,12 +64,9 @@ export const QUINOLONAS_CATEGORY = {
           ],
         },
       ],
-      renalAdjustment: [
-        { label: 'ClCr 30–50 mL/min', value: '50% da dose a cada 12 h' },
-        { label: 'ClCr 5–30 mL/min', value: '50% da dose a cada 18–24 h' },
-        { label: 'ClCr < 5 mL/min ou hemodiálise', value: '50% da dose a cada 24 h' },
-        { label: 'CAPD', value: '500 mg VO 2×/dia' },
-      ],
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Pseudomonas (maioria), E. coli, Proteus, Klebsiella, Enterobacter, Serratia, Salmonella, Shigella, Campylobacter, Citrobacter, Aeromonas, Acinetobacter, Providencia, Morganella, Yersinia',
@@ -91,7 +88,9 @@ export const QUINOLONAS_CATEGORY = {
         'Descoloração esverdeada de dentes em RN; possível risco de suicídio',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Ophthalmic: For topical use only. Avoid contacting tip with skin or eye. Ointment: Instill ointment in the lower conjunctival sac. Solution: Apply gentle pressure to lacrimal sac during and for 1 to 2 minutes after instillation or instruct patient to gently close eyelid after administration to decrease risk of absorption and systemic effects (Urrti...",
+  },
 
     {
       id: 'acido-nalidixo',
@@ -180,10 +179,9 @@ export const QUINOLONAS_CATEGORY = {
           ],
         },
       ],
-      renalAdjustment: [
-        { label: 'ClCr 20–49 mL/min (ref. 500 mg/dia)', value: 'Dose inicial 500 mg; depois 250 mg a cada 24 h' },
-        { label: 'ClCr < 20 mL/min ou diálise ou CAPD', value: 'Dose inicial 500 mg; depois 250 mg a cada 48 h' },
-      ],
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Pneumococo (inclusive resistente à penicilina), S. viridans, S. pyogenes, S. agalactiae',
@@ -206,7 +204,9 @@ export const QUINOLONAS_CATEGORY = {
         'Neutropenia, trombocitopenia, piora de miastenia grave, aumento de transaminases',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "For topical ophthalmic use only; not for injection: Apply finger pressure to lacrimal sac during and for 1 to 2 minutes after instillation to decrease risk of absorption and systemic effects; avoid contacting bottle tip with skin",
+  },
 
     {
       id: 'moxifloxacino',
@@ -249,7 +249,13 @@ export const QUINOLONAS_CATEGORY = {
         'Taquicardia, hipotensão, QT longo, agranulocitose, anemia, hipopotassemia, aumento de enzimas hepáticas',
       ],
       contraindications: [],
-    },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "For topical ophthalmic use only; not for injection. Avoid touching tip of applicator to eye, finger, or other surfaces. Apply gentle pressure to lacrimal sac during and immediately following instillation (1 minute) or instruct patient to gently close eyelid after administration, to decrease systemic absorption of ophthalmic drops (Urtti 1993; Zimme...",
+      monitoring: "Signs of infection",
+  },
 
     {
       id: 'norfloxacino',
@@ -340,10 +346,9 @@ export const QUINOLONAS_CATEGORY = {
           ],
         },
       ],
-      renalAdjustment: [
-        { label: 'ClCr 20–50 mL/min', value: 'Mesma dose a cada 24 h' },
-        { label: 'ClCr < 20 mL/min ou diálise', value: '50% da dose a cada 24 h' },
-      ],
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'E. coli, Proteus, Klebsiella, Serratia, Salmonella, Shigella, Citrobacter, Aeromonas, Yersinia, Campylobacter, Chlamydia',
@@ -362,6 +367,8 @@ export const QUINOLONAS_CATEGORY = {
         'Leucopenia, trombocitopenia, eosinofilia, hepatite, nefrite intersticial',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Ophthalmic: For topical use only. Avoid contacting tip with skin or eye. Ointment: Instill ointment in the lower conjunctival sac. Solution: Apply gentle pressure to lacrimal sac during and for 1 to 2 minutes after instillation or instruct patient to gently close eyelid after administration to decrease risk of absorption and systemic effects (Urrti...",
+  },
   ],
 };

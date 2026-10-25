@@ -14,10 +14,8 @@ export const antiHepatite = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 30–49 mL/min', value: 'Mesma dose a cada 48 h' },
-      { label: 'ClCr 10–29 mL/min', value: 'Mesma dose a cada 72 h' },
-      { label: 'ClCr < 10 mL/min / hemodiálise', value: 'Dose a cada 7 dias' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: { susceptible: ['HBV'], resistant: [], warning: '' },
     sideEffects: [
@@ -28,6 +26,8 @@ export const antiHepatite = [
       'Pode piorar hepatite B',
     ],
     contraindications: [],
+      preparation: "Oral: May be administered without regard to food.",
+      monitoring: "HIV status (prior to initiation of therapy); serum creatinine (prior to initiation and during therapy); LFTs for several months following discontinua-tion of adefovir; HBV DNA (every 3 to 6 months during therapy); HBeAg and anti-HBe; if at risk for r...",
   },
   {
     id: 'alfainterferona',
@@ -201,7 +201,9 @@ export const antiHepatite = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: { susceptible: ['HCV genótipo 1'], resistant: [], warning: 'Tomar junto com refeições.' },
     sideEffects: [
       'Fadiga, insônia, astenia, náusea, prurido, erupção cutânea, angioedema',
@@ -209,6 +211,9 @@ export const antiHepatite = [
       'Insuficiência hepática',
     ],
     contraindications: [],
+      hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
+      preparation: "Administer with meals to improve toler-ability. Swallow tablets whole; do not chew, break, or crush. Consider reserving liquid formulation for use in patients receiving tube feeding due to its bad taste. Shake liquid well before use. May mix liquid formulation with milk, chocolate milk, vanilla or chocolate pudding or ice cream, or a liquid nutriti...",
+      monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {
     id: 'elbasvir-grazoprevir',
@@ -253,10 +258,8 @@ export const antiHepatite = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 30–49 mL/min', value: 'Mesma dose a cada 48 h' },
-      { label: 'ClCr 10–29 mL/min', value: 'Mesma dose a cada 72 h' },
-      { label: 'ClCr < 10 mL/min', value: 'Mesma dose a cada 7 dias' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: { susceptible: ['HBV'], resistant: [], warning: '' },
     sideEffects: [
@@ -266,6 +269,9 @@ export const antiHepatite = [
       'Dor abdominal, diarreia, vômito, dispepsia, náusea',
     ],
     contraindications: ['Gestantes'],
+      hepaticAdjustment: "Children 22 years and Adolescents: No adjustment necessary.",
+      preparation: "Oral: Administer on an empty stomach (2 hours before or after a meal). Oral solution: Do not dilute or mix oral solution with water or other beverages; use calibrated oral dosing syringe.",
+      monitoring: "HIV status (prior to initiation of therapy); liver function tests, renal function; in HBV/HIV-coinfected patients, monitor HIV viral load and CD4 count; HBeAg, HBV DNA; in patients with lamivudine-refractory or -resistant viremia (or known lamivudine...",
   },
   {
     id: 'ribavirina',
@@ -359,6 +365,12 @@ export const antiHepatite = [
       'Fraqueza, mialgia, sintomas gripais, aumento de CPK, hiperbilirrubinemia',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with or without food.",
+      monitoring: "Manufacturer’s labeling: Bilirubin, liver enzymes, and serum creatinine at baseline and periodically when clinically indicated. If used in combination with amiodarone and another direct acting antiviral (DAA) (or in patients who discontinued amio-dar...",
   },
   {
     id: 'sofosbuvir-ledipasvir',

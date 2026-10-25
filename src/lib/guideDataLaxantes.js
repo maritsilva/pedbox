@@ -29,12 +29,16 @@ export const antiflatulentos = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Não absorvido — raramente: eczema de contato, urticária, diarreia, cefaleia, constipação transitória',
     ],
     contraindications: ['Perfuração ou obstrução intestinal', 'Distensão abdominal grave com dor persistente'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Chewable tablet: Chew thoroughly and swallow. Suspension (drops): Shake well before using. Fill enclosed dropper to recommended dosage level and dispense slowly in mouth towards inner cheek. May mix with 30 mL water, infant formula, or other liquids. Strips: Allow to dissolve on tongue.",
   },
 ];
 
@@ -253,6 +257,12 @@ export const laxantesCatarticos = [
     ],
     contraindications: ['Obstrução intestinal', 'Apendicite', 'Intolerância à lactose', 'Galactosemia'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Oral solution: May mix with fruit juice, water, or milk Crystals for oral solution: Dissolve contents of packet in 120 mL water Rectal: Adults: Mix with water or normal saline; administer as retention enema using a rectal balloon catheter; retain for 30 to 60 minutes. Transition to oral lactulose when appropriate (able to take oral medication...",
+      monitoring: "Serum ammonia, serum electro-lytes, fluid status, stool output",
   },
   {
     id: 'lactitol',
@@ -425,6 +435,12 @@ export const laxantesCatarticos = [
     sideEffects: ['Diarreia', 'Cólica', 'Náusea', 'Distensão abdominal', 'Flatulência'],
     contraindications: ['Retocolite hemorrágica', 'Hemorragias agudas'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Rectal enema: To pre-pare a 25% to 30% weight to volume solution, dilute 1 part 70% commercially available solution with 2.3 parts water.",
+      monitoring: "Stool output, fluid status, serum electrolytes (changes may be delayed due to slow absorp-tion)",
   },
   {
     id: 'sulfato-magnesio-laxante',

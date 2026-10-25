@@ -34,6 +34,11 @@ export const iecaDrugs = [
       'Hiperpotassemia, hiperuricemia, aumento de creatinina, disfunção renal',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Children and Adoles-cents: CrCl <30 mL/minute/1.73 m?: Use is not recom-mended (insufficient data exists; dose not established)" },
+    ],
+      preparation: "Oral: May be administered without regard to food.",
+      monitoring: "Blood pressure (supervise for at least 2 hours after the initial dose or any dosage increase for significant orthostasis); renal function, WBC, serum potassium; monitor for angioedema and anaphylactoid reactions",
   },
 
   {
@@ -97,10 +102,10 @@ export const iecaDrugs = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: '75% da dose a cada 12 a 24 horas' },
-      { label: 'ClCr < 10 mL/min', value: '50% da dose a cada 12 horas' },
-      { label: 'Diálise', value: '50% da dose' },
+        renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "Dose plena sem alteração" },
+      { label: "ClCr 10–49 mL/min", value: "75% da dose diária usual" },
+      { label: "ClCr < 10 mL/min", value: "50% da dose diária usual" },
     ],
     sideEffects: [
       'Hipotensão exagerada com a primeira dose (síncope, fraqueza, tontura)',
@@ -120,6 +125,9 @@ export const iecaDrugs = [
       'Mulheres em idade fértil (teratogênico: oligoidrâmnio, hipoplasia pulmonar, displasia tubular renal)',
       'Antecedente de angioedema relacionado a IECA',
     ],
+      hepaticAdjustment: "Não sofre metabolismo hepático intenso de primeira passagem como o enalapril (captopril é droga ativa). Sem ajuste formal na bula.",
+      preparation: "Oral: Administrar 1 hora antes das refeições (alimentos reduzem a absorção em até 30–40%). Os comprimidos podem ser triturados e dissolvidos em pequena quantidade de água.",
+      monitoring: "Pressão arterial (aferir antes da dose e no pico em 1 a 2 horas), creatinina sérica, potássio sérico (risco de hipercalemia) e hemograma com diferencial (risco de neutropenia nos primeiros meses).",
   },
 
   {

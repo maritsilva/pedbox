@@ -92,7 +92,7 @@ export const antagonistasCalcio = [
         items: [{ label: 'Oral LP', value: '120 a 360 mg/dia' }],
       },
     ],
-    preparation: 'Melhor tomar com copo de água, antes das refeições. Aguardar 2 semanas antes de ajustar dose. Insuficiência renal: não exige ajuste.',
+        preparation: "Parenteral: Continuous IV infusion: Further dilute with NS, D5W, or D5/2NS to a maximum final concentration of 1 mg/mL",
     sideEffects: [
       'Bradicardia, hipotensão, rubor, arritmia, BAV, assistolia, pode piorar ICC',
       'Tontura, fraqueza, tremores, cefaleia, nervosismo, parestesia, astenia',
@@ -113,6 +113,11 @@ export const antagonistasCalcio = [
       'Taquicardia ventricular',
       'Bradicardia grave',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Blood pressure, heart rate, renal function, liver enzymes, heart function (eg, echocardio-gram); continuous ECG with IV therapy Ventricular rate control in patients with atrial fibrillation or flutter (adults): Patients who respond, usually have at l...",
   },
 
   {

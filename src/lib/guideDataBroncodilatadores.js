@@ -130,7 +130,7 @@ export const broncodilatadoresAdrenergicosAcao = [
         ],
       },
     ],
-    preparation: 'Diluir 5 mg em 1000 mL de SG 5% para obter solução a 5 µg/mL. Usar em 12 horas. Uso parenteral reservado para casos graves. Não exige ajuste renal.',
+        preparation: "Parenteral: Continuous IV infusion: Pediatric patients (asthma): May dilute in DSW or NS to a concentration <1 mg/mL (Murray 2014)",
     sideEffects: [
       'Tremores, irritabilidade, tonzia, cefaleia, sonolência, insônia, vertigem, ansiedade, inquietação',
       'Taquicardia, palpitações, hipertensão sistólica, redução diastólica, arritmias, prolongamento QT',
@@ -140,6 +140,11 @@ export const broncodilatadoresAdrenergicosAcao = [
       'Faringite, aperto peito, garganta seca, sudorese, fraqueza, cãibras',
     ],
     contraindications: ['Hipopotassemia', 'Hiperinsulinemia', 'Hiperlipidemia', 'Cardiopatia', 'Hipertireoidismo', 'Gestação múltipla'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Heart rate, blood pressure, res-piratory rate, serum potassium, arterial or capillary blood gases (if applicable)",
   },
 
   {
@@ -251,7 +256,7 @@ export const broncodilatadoresAdrenergicosAcao = [
         items: [{ label: 'Dose', value: '10-20 mg diluída para 4 mL SF. Nebulizar 40-60 min. Efeito 5h' }],
       },
     ],
-    preparation: 'Agitar spray antes de usar. Aguardar 3 min entre jatos da mesma dose. Espaçadores melhoram eficácia. Diluir nebulização em SF 0,9% para 2-3 mL por 10 min. Fazer em local ventilado. Testar bombinha em água: flutua = vazia, afunda = cheia.',
+        preparation: "Inalatório (Spray / MDI): Sempre utilizar com espaçador valvulado apropriado à idade (com máscara em < 4 anos). Agitar antes de cada jato. Aguardar 30 segundos entre jatos.\nNebulização: Diluir as gotas da solução a 0,5% em SF 0,9% para volume final de 3 a 4 mL com fluxo de O2 de 6 a 8 L/min.",
     sideEffects: [
       'Tremores finos, taquicardia, irritabilidade, inquietação, vertigem, cefaleia, cãibras, agitação, insônia, ansiedade, fadiga',
       'Palpitações, hipertensão sistólica, redução diastólica, arritmias',
@@ -263,5 +268,10 @@ export const broncodilatadoresAdrenergicosAcao = [
       'Broncoespasmo paradoxal, sudorese',
     ],
     contraindications: ['Arritmia cardíaca grave'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Não requer ajuste de dose; usar com cautela habitual em pacientes dialíticos devido ao controle de potássio." },
+    ],
+      hepaticAdjustment: "Sem necessidade de ajuste descrita pelo fabricante.",
+      monitoring: "Frequência cardíaca (taquicardia), frequência respiratória, oximetria de pulso (SpO2), esforço ventilatório e potássio sérico em nebulizações contínuas de alta dose.",
   },
 ];

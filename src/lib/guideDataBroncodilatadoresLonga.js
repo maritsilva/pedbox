@@ -53,7 +53,7 @@ export const broncodilatadoresAdrenergicosLonga = [
         items: [{ label: 'Asma e DPOC manutenção', value: '12-24 µg, 1-2 jatos ou cápsulas/dose, 2 vezes ao dia' }],
       },
     ],
-    preparation: 'Explicar que as cápsulas são para usar no dispositivo de inalação, não para ingerir. Inalador pode ser usado indefinidamente. Cápsulas semiabertas devem ser armazenadas em local fresco sem congelar. Alertar risco de confundir com β2 ação curta e usar várias doses (pode ser fatal). Orientar aspirar cápsula mais de uma vez pois pode ficar conteúdo no dispositivo.',
+        preparation: "Foradil Aerolizer (Dry powder inhaler): Remove capsule from foil blister immediately before use. The contents of a capsule are aerosolized via a device called an Aerol-izer. Place the capsule into the capsule-chamber in the base of the Aerolizer inhlaer. Capsules must not be swallowed; must only use the Aerolizer Inhaler. Press both buttons once on...",
     sideEffects: [
       'Tremores, tontura, sonolência, cefaleia, irritabilidade, agitação',
       'Cãibras, mialgia',
@@ -64,6 +64,11 @@ export const broncodilatadoresAdrenergicosLonga = [
       'Superdosagem ou sem corticosteroide inalatório aumenta risco de piora asma',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "FEV,, peak flow, and/or other pulmonary function tests, blood pressure, heart rate, CNS stimulation, serum glucose, serum potassium",
   },
 
   {
@@ -137,7 +142,7 @@ export const broncodilatadoresAdrenergicosLonga = [
         ],
       },
     ],
-    preparation: 'Alertar risco de confundir com β2 ação curta e usar várias doses como resgate (pode ser fatal). Em crises agudas, preferir salbutamol ou fenoterol. De ação longa úteis no controle prolongado e profilaxia do broncoespasmo do exercício, 1x ao dia antes atividade física.',
+        preparation: "For oral inhalation route only. Before inhaling the dose, breath out fully; do not exhale into the Diskus device; activate and use only in a level, horizontal position. Inhale quickly and deeply through the Diskus; hold breath for about 10 seconds or for as long as comfortable and exhale slowly. Do not use with a spacer device or wash mouthpiece; D...",
     sideEffects: [
       'Tremores, cefaleia, irritabilidade, hiperatividade',
       'Palpitações, arritmias, broncoespasmo paradoxal',
@@ -147,6 +152,11 @@ export const broncodilatadoresAdrenergicosLonga = [
       'Risco menor com associação a corticosteroide inalatório que sem',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Monitor asthma symptoms, FEV,, peak flow, and/or other pulmonary function tests, blood pressure, heart rate, CNS stimulation, serum glu-cose, serum potassium. Monitor for increased use of short-acting betaz-agonist inhalers; may be marker of a deteri...",
   },
 
   {

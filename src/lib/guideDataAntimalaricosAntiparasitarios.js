@@ -50,6 +50,12 @@ export const antimalaricosDrugs = [
       'Náusea', 'Vômitos', 'Diarreia', 'Aumento de transaminases', 'Redução transitória de reticulócitos',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Reconstitute vial with 11 mL of phosphate buffer diluent (provided), gently swirl for 5 to 6 minutes to mix; resultant concentration is 10 mg/mL (CDC 2014).",
+      monitoring: "Signs and symptoms of hyper-sensitivity reactions; hemoglobin and renal function 1 month after therapy for postartemisinin delayed hemolysis (PADH)",
   },
   {
     id: 'artesunato-mefloquina',
@@ -208,6 +214,12 @@ export const antimalaricosDrugs = [
       'Arritmia', 'Cardiotoxicidade',
     ],
     contraindications: ['Neuropatia', 'Convulsão', 'Miocardiopatia', 'Arritmia', 'Primeiro trimestre de gestação'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food and an ample amount of water, at least 8 oz of water for adults. If vomiting occurs within 30 minutes after a dose, repeat dose. If vomiting occurs within 30-60 minutes after a dose, an additional half-dose should be administered. If vomiting recurs, monitor closely and consider alternative treatment. Administering mefloq...",
+      monitoring: "Sequential blood smears for percent parasitemia; periodic hepatic function tests, oph-thalmologic exam",
   },
   {
     id: 'primaquina',
@@ -245,7 +257,9 @@ export const antimalaricosDrugs = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: { susceptible: ['Formas hepáticas e gametócitos de P. vivax e P. ovale'], resistant: [], warning: '' },
     sideEffects: [
       'Cefaleia', 'Arritmia', 'Hipertensão', 'Vômito', 'Dor abdominal', 'Diarreia',
@@ -257,6 +271,9 @@ export const antimalaricosDrugs = [
       'Gestantes', 'Crianças < 6 meses', 'Risco de hemólise',
       'Granulocitopenia', 'Lúpus', 'Artrite reumatoide ativa',
     ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with meals to decrease adverse Gl effects; drug has a bitter taste",
+      monitoring: "Periodic CBC, visual color check of urine, hemoglobin, glucose; if hemolysis is suspected, monitor CBC, haptoglobin, peripheral smear, urinalysis dipstick for occult blood; G-6-PD deficiency screening (prior to initiating treatment; CDC recommendatio...",
   },
   {
     id: 'quinina',
@@ -282,9 +299,8 @@ export const antimalaricosDrugs = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: '1 dose a cada 12 h' },
-      { label: 'ClCr < 10 mL/min', value: '1 dose a cada 24 h' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: { susceptible: ['Plasmodium falciparum — primeira escolha'], resistant: [], warning: 'Atenção para cepas resistentes de P. falciparum.' },
     sideEffects: [
@@ -298,6 +314,9 @@ export const antimalaricosDrugs = [
       'Púrpura', 'Plaquetopenia', 'Protrombina reduzida', 'Agranulocitose',
     ],
     contraindications: [],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "Oral: Swallow dose whole to avoid bitter taste. Administer with food to minimize upset stomach.",
+      monitoring: "CBC with platelet count, liver function tests, blood glucose, ophthalmologic examina-tion, ECG",
   },
 ];
 
@@ -331,7 +350,9 @@ export const antiparasitariosDrugs = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: { susceptible: ['Nematódeos intestinais, Giardia, Taenia, larvas de cestódeos'], resistant: [], warning: '' },
     sideEffects: [
       'Cefaleia', 'Tontura', 'Vertigem', 'Aumento de pressão intracraniana', 'Febre', 'Convulsões',
@@ -343,6 +364,9 @@ export const antiparasitariosDrugs = [
       'Tratamentos prolongados: monitorar transaminases e hemograma',
     ],
     contraindications: ['Gravidez (teratogênico)', 'Menores de 2 anos'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food. For patients who have difficulty swallowing whole tablets, tablet may be crushed or chewed and swallowed with a drink of water.",
+      monitoring: "Monitor liver function tests and CBC at start of each cycle and every 2 weeks during therapy (more frequent monitoring for patients with liver disease), fecal specimens for ova and parasites; preg-nancy test; ophthalmic exam for retinal lesions (pati...",
   },
   {
     id: 'antimoniato-meglumina',
@@ -485,7 +509,9 @@ export const antiparasitariosDrugs = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: { susceptible: ['Nematódeos intestinais', 'Giardia', 'Taenia'], resistant: [], warning: '' },
     sideEffects: [
       'Tontura', 'Cefaleia', 'Febre', 'Convulsão',
@@ -494,6 +520,9 @@ export const antiparasitariosDrugs = [
       'Neutropenia', 'Anemia', 'Leucopenia', 'Aumento de transaminases', 'Hematúria',
     ],
     contraindications: ['Gestação (teratogênico)'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with or without food; tablet can be crushed and mixed with food, swallowed whole, or chewed",
+      monitoring: "Periodic hematologic, hepatic, and renal function; check for helminth ova in feces within 3 to 4 weeks following the initial therapy",
   },
   {
     id: 'miltefosina',
@@ -513,6 +542,12 @@ export const antiparasitariosDrugs = [
     sensitivity: { susceptible: ['Leishmania spp. resistente'], resistant: [], warning: '' },
     sideEffects: ['Erupção cutânea', 'Prurido', 'Náusea', 'Vômito', 'Anorexia', 'Dor abdominal', 'Leucocitose', 'Trombocitose'],
     contraindications: ['Gravidez', 'Disfunção renal ou hepática'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food to decrease GI distress. Twice-daily dosing should be administered with breakfast and dinner; 3-times daily dosing with breakfast, lunch, and dinner.",
+      monitoring: "Liver function tests (AST, ALT, alkaline phosphatase, bilirubin) and BUN/serum creati-nine; platelet count",
   },
   {
     id: 'nitazoxanida',
@@ -552,6 +587,12 @@ export const antiparasitariosDrugs = [
       'Cor amarela ou esverdeada da urina', 'Aumento discreto de transaminases',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral suspension: Prior to dispensing, add 48 mL incrementally to 60 mL bottle; shake vigorously. Resulting suspension is 20 mg/mL (100 mg per 5 mL). > &",
+      monitoring: "Periodic liver function tests, stool frequency",
   },
   {
     id: 'oxamniquina',
@@ -671,6 +712,12 @@ export const antiparasitariosDrugs = [
       'Broncopneumonia por imunocomplexos',
     ],
     contraindications: ['Gravidez', 'Lactação', 'Cisticercose ocular', 'Insuficiência renal ou hepática'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer tablets with water during meals; tablets can be halved or quartered; do not chew tablets due to bitter taste. In infants and young children (eg, <24 months old) who are unable to swallow tablets, the tablets have been crushed and mixed with a spoonful of orange juice in trials (Sousa-Figueiredo 2012).",
+      monitoring: "Liver function tests; monitor patients with cardiac irregularities during treatment; mon-itor for seizures; culture urine or feces for ova prior to instituting therapy",
   },
   {
     id: 'secnidazol',

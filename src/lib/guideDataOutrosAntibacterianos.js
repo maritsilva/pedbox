@@ -84,10 +84,10 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'Infundir em 2–30 min. Interromper se miopatia ou CPK > 5× normal. Refrigerar 2–8°C. Suspender estatinas durante o uso.',
-      renalAdjustment: [
-        { label: 'ClCr < 30 mL/min ou diálise', value: '1 dose a cada 48 h' },
-      ],
+          preparation: "IV: Cubicin: Reconstitute vial with 10 mL NS to a resultant concentration of 50 mg/mL. Using a 21-gauge needle or smaller or needleless device, add NS to vial by directing to the wall of the vial and rotate gently to wet powder. Allow vial to stand for 10 minutes, then gently swirl to obtain completely reconstituted solution. Do not shake or agitat...",
+          renalAdjustment: [
+      { label: "ClCr <30 mL/minute", value: "received 4 mg/kg/dose and had the dosing interval extended to every 48 hours (Ardura 2007) GFR <10 mL/minute/1" },
+    ],
       sensitivity: {
         susceptible: ['Todos os Gram-positivos, inclusive SARM, enterococo resistente à vancomicina'],
         resistant: ['Ineficaz em pneumonias (inativada por surfactante)'],
@@ -99,7 +99,9 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
         'Aumento de CPK, proteinúria',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Signs and symptoms of myopa-thy (muscle pain or weakness, particularly of the distal extremities), weekly CPK levels during therapy (more frequent monitoring if history of current or prior statin therapy and/or renal impairment), signs of peripheral ...",
+  },
     {
       id: 'fosfomicina',
       name: 'Fosfomicina',
@@ -170,10 +172,10 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: concentração < 8 mg/mL em SF ou SGI. Máxima infusão: 5 mL/min. Não ingerir álcool até 4 dias após o término.',
-      renalAdjustment: [
-        { label: 'ClCr < 10 mL/min', value: '50% da dose 4×/dia' },
-      ],
+          preparation: "Oral: Immediate release tablets and capsules: May administer with food to minimize GI upset Extended release: Should be taken on an empty stom-ach (1 hour before or 2 hours after meals); do not split, chew, or crush. Parenteral: Administer undiluted (5 mg/mL) by slow inter-mittent infusion over 30 to 60 minutes. Avoid contact of drug solution with ...",
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Bacteroides, Peptococcus, Peptostreptococcus, Clostridium difficile',
@@ -188,7 +190,9 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
         'Neuropatia periférica em dose alta prolongada',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Monitor CBC with differential at baseline, during, and after prolonged or repeated courses of therapy. Closely monitor patients with severe hepatic impairment or ESRD for adverse reactions. Observe patients carefully if neurologic symptoms occur and ...",
+  },
     {
       id: 'linezolida',
       name: 'Linezolida',
@@ -219,10 +223,10 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: 2 mg/mL — infundir em 30–120 min. Nível sérico > 20 mg/L aumenta toxicidade. Evitar com inibidores da recaptação de serotonina.',
-      renalAdjustment: [
-        { label: 'Insuficiência renal', value: 'Não exige ajuste' },
-      ],
+          preparation: "Oral suspension: Reconstitute with 123 mL of distilled water (in 2 portions); shake vigorously. Concentration is 100 mg/5 mL. Prior to administration mix gently by inverting bottle; do not shake.",
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Todos os Gram-positivos, Staphylococcus resistentes, Streptococcus A, B, C, G',
@@ -237,7 +241,9 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
         'Trombocitopenia — monitorar hemograma semanalmente',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Mild to moderate impairment (Child Pugh class A or B): No adjustment is recommended. Severe hepatic impairment (Child Pugh Class C): Use has not been adequately evaluated.",
+      monitoring: "CBC (weekly), particularly in patients at increased risk for bleeding, patients with pre-existing thrombocytopenia or myelosuppression, patients with chronic infection who have received or who are on concomitant antibiotics, or concomitant medication...",
+  },
     {
       id: 'nitrofurantoina',
       name: 'Nitrofurantoína',
@@ -263,9 +269,9 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
           ],
         },
       ],
-      renalAdjustment: [
-        { label: 'ClCr < 60 mL/min', value: 'Uso contraindicado' },
-      ],
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: ['E. coli, Klebsiella, Enterobacter, Enterococcus'],
         resistant: ['S. aureus, Serratia, Pseudomonas'],
@@ -277,6 +283,9 @@ export const OUTROS_ANTIBACTERIANOS_CATEGORY = {
         'Pneumonite, fibrose pulmonar intersticial (uso crônico)',
       ],
       contraindications: ['Neonatos', 'Gestantes a termo', 'Anúria / oligúria'],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; do not administer with antacid preparations containing magne-sium trisilicate; suspension may be mixed with water, milk, fruit juice, or infant formula. Shake suspension well before use.",
+      monitoring: "Signs of pulmonary reaction; signs of numbness or tingling of the extremities; periodic liver and renal function tests; CBC; urine culture and in vitro susceptibility tests. Observe for change in bowel frequency.",
+  },
   ],
 };

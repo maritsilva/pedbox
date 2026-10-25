@@ -56,7 +56,13 @@ export const SULFONAMIDAS_CATEGORY = {
         'Nefropatia aguda, cristalúria, nefrite intersticial, hemólise',
       ],
       contraindications: [],
-    },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with at least 8 ounces of water and around-the-clock to promote less variation in peak and trough serum levels. In adults, oral sodium bicarbonate may be used to alkalinize the urine of patients unable to maintain adequate fluid intake (in order to prevent crystalluria, azotemia, oliguria) (Lerner, 1996)",
+      monitoring: "CBC, renal function tests, uri-nalysis; signs of serious blood disorders (sore throat, fever, pallor, purpura, jaundice); CD4+ count in HIV-exposed/-positive patients treated for toxoplasmosis; sul-fonamide blood concentrations may be monitored for s...",
+  },
 
     {
       id: 'sulfametoxazol-trimetoprima',
@@ -200,12 +206,10 @@ export const AMINOGLICOSIDEOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'Diluir a dose em 100 mL de NaCl 0,9% ou SGI; infundir em 40 min. Pode ser diluída em Ringer, ABD e bicarbonato.',
-      renalAdjustment: [
-        { label: 'ClCr 10–50 mL/min', value: '50% da dose diária a cada 24–72 h' },
-        { label: 'ClCr < 10 mL/min', value: '50% da dose diária a cada 48–72 h' },
-        { label: 'Hemodiálise', value: 'Remove 20%; meia dose adicional após sessão' },
-      ],
+          preparation: "Parenteral: IV intermit-tert infusion: Dilute in a compatible solution (eg, NS, D5W) to a final concentration of 0.25 to 5 mg/mL per the manufacturer; concentrations as high as 10 mg/mL have been reported (Murray 2014).",
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'E. coli, Pseudomonas (maioria), Proteus, Klebsiella, Enterobacter, Serratia, Salmonella, Shigella, Citrobacter, Enterococcus, Yersinia enterocolitica',
@@ -225,7 +229,8 @@ export const AMINOGLICOSIDEOS_CATEGORY = {
         'Anemia, neutropenia, trombocitopenia, disfunção hepática, hepatomegalia, esplenomegalia, fibrose pulmonar, hipertensão, artralgia, eosinofilia',
       ],
       contraindications: [],
-    },
+        monitoring: "Urinalysis, urine output, BUN, serum creatinine, peak and trough serum amikacin con-centrations; be alert to ototoxicity With conventional dosing, typically obtain serum concen-tration after the third dose; exceptions for earlier monitor-ing may incl...",
+  },
 
     {
       id: 'gentamicina',
@@ -274,12 +279,13 @@ export const AMINOGLICOSIDEOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'Diluir para no mínimo 10 mg/mL em SF ou SGI; infundir em 30 min.',
-      renalAdjustment: [
-        { label: 'ClCr 10–50 mL/min', value: 'Mesma dose a cada 12–24 h' },
-        { label: 'ClCr < 10 mL/min', value: 'Mesma dose a cada 48–72 h' },
-        { label: 'Hemodiálise', value: 'Iniciar com 2–3 mg/kg; depois 1–2 mg/kg a cada 48–72 h' },
-      ],
+          preparation: "IV: Diluir em SF 0,9% ou SG 5% para concentração de 1 a 2 mg/mL. Infundir em 30 a 60 minutos (não administrar em bolus rápido devido ao risco de bloqueio neuromuscular e ototoxicidade).",
+          renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "2,5 mg/kg a cada 8 a 12 horas (ou 7 mg/kg dose única diária a cada 24 h)" },
+      { label: "ClCr 30–49 mL/min", value: "2,5 mg/kg a cada 12 a 18 horas" },
+      { label: "ClCr 10–29 mL/min", value: "2,5 mg/kg a cada 18 a 24 horas" },
+      { label: "ClCr < 10 mL/min", value: "2 a 2,5 mg/kg a cada 48 a 72 horas com monitorização estrita" },
+    ],
       sensitivity: {
         susceptible: [
           'Gram-negativos: E. coli, Pseudomonas, Proteus, Klebsiella, Enterobacter, Serratia, Salmonella, Shigella, Citrobacter, Yersinia, H. influenzae, Haemophilus, Moraxella',
@@ -300,7 +306,9 @@ export const AMINOGLICOSIDEOS_CATEGORY = {
         'Disfunção hepática, hepatomegalia, transaminases alteradas, esplenomegalia, fibrose pulmonar, neurite óptica, hipertensão, artralgia',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Eliminação predominantemente renal por filtração glomerular; não sofre metabolismo hepático.",
+      monitoring: "Pico sérico (30 min após fim da infusão): 5 a 10 mcg/mL (infecções graves). Vale sérico (imediatamente antes da próxima dose): < 1 a 2 mcg/mL. Monitorar creatinina, ureia e função auditiva/vestibular.",
+  },
 
     {
       id: 'tobramicina',

@@ -62,10 +62,11 @@ export const MACROLIDEOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: diluir em 1 ou 2 mg/mL; correr cada dose em 1–3 horas.',
-      renalAdjustment: [
-        { label: 'Insuficiência renal', value: 'Não exige ajuste' },
-      ],
+          preparation: "Oral: Administrar com ou sem alimentos. IV: Reconstituir 500 mg com 4,8 mL de AD (100 mg/mL). Diluir em SF 0,9% ou SG 5% para concentração de 1 a 2 mg/mL. Infundir em pelo menos 60 minutos (concentração 2 mg/mL em 1 h ou 1 mg/mL em 3 h). NUNCA administrar em bolus IV ou IM.",
+          renalAdjustment: [
+      { label: "ClCr ≥ 10 mL/min", value: "Não é necessário ajuste de dose" },
+      { label: "ClCr < 10 mL/min", value: "Usar com cautela; dados clínicos limitados, sem alteração de dose mandatória" },
+    ],
       sensitivity: {
         susceptible: [
           'S. pyogenes, Pneumococo, Estafilococos, Mycoplasma pneumoniae, Legionella, Chlamydia pneumoniae',
@@ -89,7 +90,9 @@ export const MACROLIDEOS_CATEGORY = {
         'Anemia, leucopenia, trombocitopenia, nefrite, insuficiência renal aguda',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Principal via de eliminação é biliar. Usar com cautela em insuficiência hepática moderada a grave; suspender se houver icterícia ou piora de enzimas.",
+      monitoring: "Eletrocardiograma com monitorização do intervalo QTc em pacientes de risco; eletrólitos séricos (K+, Mg++) e função hepática.",
+  },
 
     {
       id: 'claritromicina',
@@ -126,11 +129,10 @@ export const MACROLIDEOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: diluir liofilizado em 10 mL de água para injeção; depois rediluir em 250 mL de SGI, SF ou Ringer.',
-      renalAdjustment: [
-        { label: 'ClCr 10–30 mL/min', value: '50% da dose' },
-        { label: 'ClCr < 10 mL/min', value: '25% da dose 1×/dia' },
-      ],
+          preparation: "Oral: Powder for oral suspension: Reconstitute powder for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until suspended.",
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Pneumococo, S. pyogenes, H. influenzae, Moraxella, Gonococo, Meningococo, Campylobacter',
@@ -149,7 +151,9 @@ export const MACROLIDEOS_CATEGORY = {
         'Risco de arritmias em pacientes com QT longo',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "CBC with differential, serum BUN and creatinine, liver function tests; serum concen-tration of drugs whose concentrations may be affected in patients receiving concomitant clarithromycin (ie, theo-phylline, carbamazepine, quinidine, digoxin, anticoag...",
+  },
 
     {
       id: 'clindamicina',

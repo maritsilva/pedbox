@@ -107,6 +107,12 @@ export const antiviraisHerpes = [
       'Fraqueza, pneumonia, colangite, colite, asma, cardiomiopatia, síncope',
     ],
     contraindications: ['Disfunção renal, mesmo leve'],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Adenovirus post-transplant (Yusuf 2006): Infants 26 months, Children, and Adolescents: S,, >1.5 mg/dL, CrCl <90 mL/ minute/1.73 m2, and >2+ proteinuria: Inducti..." },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Intermittent IV infusion: Dilute in 100 mL NS (per manufacturer) or to a final concentration not to exceed 8 mg/mL (Ennis 1997); stability also reported in D5W Intralesional: In pediatric trials, has been administered as solution with final concentration of 5 to 10 mg/mL (Bie-lecki 2009; Naiman 2006).",
+      monitoring: "Monitor renal function (BUN, serum creatinine) within 48 hours prior to each dose, urinalysis (urine glucose and protein), CBC with differ-ential (neutrophil count) prior to each dose, electrolytes (calcium, magnesium, phosphorus, uric acid), liver f...",
   },
   {
     id: 'famciclovir',
@@ -131,11 +137,8 @@ export const antiviraisHerpes = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 40–59 mL/min', value: '500 mg a cada 12 h' },
-      { label: 'ClCr 20–39 mL/min', value: '500 mg a cada 24 h' },
-      { label: 'ClCr < 20 mL/min', value: '250 mg a cada 24 h' },
-      { label: 'Hemodiálise', value: '250 mg após cada sessão' },
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "There are no pediatric specific recommendations available; based on experi-ence in adult patients; dosage adjustment suggested." },
     ],
     sensitivity: {
       susceptible: ['HSV-1, HSV-2, VZV'],
@@ -149,6 +152,9 @@ export const antiviraisHerpes = [
       'Neutropenia, elevação de enzimas hepáticas',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: May be administered without regard to meals",
+      monitoring: "Resolution of rash, renal func-tion, periodic CBC with long-term therapy, liver enzymes",
   },
   {
     id: 'ganciclovir',
@@ -185,11 +191,8 @@ export const antiviraisHerpes = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 50–69 mL/min', value: '50% da dose EV ou oral' },
-      { label: 'ClCr 25–49 mL/min', value: '25% dose EV a cada 24 h; 1/3 dose oral a cada 24 h' },
-      { label: 'ClCr 10–24 mL/min', value: '12,5% dose EV a cada 24 h; 1/6 dose oral a cada 24 h' },
-      { label: 'ClCr < 10 mL/min', value: '12,5% da dose 3×/sem após diálise' },
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children and Adolescents: There are no specific pediatric recommen-dations; based on experience in adult patients, dosage adjustment necessary." },
     ],
     sensitivity: {
       susceptible: ['CMV, HSV-1, HSV-2, VZV, EBV'],
@@ -205,6 +208,9 @@ export const antiviraisHerpes = [
       'Neutropenia, plaquetopenia, leucopenia, anemia, pancitopenia, eosinofilia, depressão medular',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Reconsti-tute 500 mg vial with 10 mL SWFI not bacteriostatic water because parabens may cause precipitation. Further dilute in DSW or NS to a final concentration <10 mg/mL.",
+      monitoring: "CBC with differential and plate-let count, urine output, serum creatinine, ophthalmologic exams, liver enzyme tests, blood pressure, urinalysis",
   },
   {
     id: 'valaciclovir',
@@ -266,11 +272,8 @@ export const antiviraisHerpes = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 40–59 mL/min', value: '50% da dose a cada 12 h' },
-      { label: 'ClCr 25–39 mL/min', value: '25% da dose a cada 24 h' },
-      { label: 'ClCr 10–24 mL/min', value: '25% da dose a cada 48 h' },
-      { label: 'ClCr < 10 mL/min', value: 'Melhor evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: {
       susceptible: ['CMV'],
@@ -282,6 +285,9 @@ export const antiviraisHerpes = [
       'Neutropenia, plaquetopenia, anemia grave',
     ],
     contraindications: ['Neutropenia', 'Plaquetopenia', 'Anemia grave'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral solution: Prior to dispensing, prepare the oral solution by adding 91 mk of purified water. to the bottle; shake well. Discard any unused medication after 49 days. A reconstituted 100 mL bottle will only provide 88 mL of solution for admin-istration.",
+      monitoring: "Retinal exam at least every 4 to 6 weeks when treating CMV retinitis; CBC with differential, platelet count, serum creatinine at baseline and periodi-cally during therapy",
   },
 ];
 
@@ -324,6 +330,8 @@ export const antiviraisInfluenza = [
       'Hiporexia, náusea, vômito, constipação, boca seca, retenção urinária',
     ],
     contraindications: [],
+      preparation: "Oral: May be taken without regard to food. For regimens with multiple daily dosing, timing of doses may vary based upon patient tolerance (eg, if insomnia develops, administer evening dose several hours before bedtime) and use [for ADHD, administer morning and noon; if thrice daily dosing, last dose should be given around 4 PM (Mohammadi, 2010)].",
+      monitoring: "Renal function; mental status, monitor for signs of neurotoxicity; periodic skin exam for melanoma, blood pressure",
   },
   {
     id: 'oseltamivir',
@@ -373,12 +381,9 @@ export const antiviraisInfluenza = [
         ],
       },
     ],
-    preparation: 'Preparo da suspensão a partir da cápsula: abrir uma cápsula em copo, acrescentar água com seringa, misturar bem, administrar imediatamente.',
-    renalAdjustment: [
-      { label: 'ClCr 30–60 mL/min', value: 'Máx 30 mg/dose 2×/dia' },
-      { label: 'ClCr 10–29 mL/min', value: 'Máx 30 mg/dose 1×/dia' },
-      { label: 'ClCr < 10 mL/min / hemodiálise', value: '30 mg/dose após sessão de hemodiálise' },
-      { label: 'Diálise peritoneal', value: '30 mg/dose uma vez por semana' },
+        preparation: "Oral suspension: Reconstitute with 55 mL of water to a final concentration of 6 mg/mL (to make 60 mL total suspension).",
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Children >1 year and Adolescents: Treatment (Schreuder 2010): Limited data available: Intermittent hemodialysis (IHD) (CrCl ≤10 mL/minute): Fixed dosing: <15 kg..." },
     ],
     sensitivity: {
       susceptible: ['Influenza A e B, H1N1'],
@@ -394,6 +399,8 @@ export const antiviraisInfluenza = [
       'Relatos de distúrbios de comportamento em adolescentes',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Renal function, serum glucose in patients with diabetes mellitus; signs or symptoms of unusual behavior, including attempts at self-injury, con-fusion, and/or delirium Critically ill patients: Repeat rRT-PCR or viral culture may help to determine ong...",
   },
   {
     id: 'peramivir',
@@ -418,9 +425,8 @@ export const antiviraisInfluenza = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 30–50 mL/min', value: '1/3 da dose' },
-      { label: 'ClCr 10–29 mL/min', value: '1/6 da dose' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: {
       susceptible: ['Influenza A e B'],
@@ -433,6 +439,9 @@ export const antiviraisInfluenza = [
       'Neutropenia, aumento de enzimas hepáticas, aumento de CPK',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Dilute per-amivir dose in NS, /2NS, D5W, or LR to a final concen-tration <6 mg/mL; maximum total volume: 100 mL. Administer immediately. If refrigerated, allow diluted sol-ution to reach room temperature, then administer imme-diately.",
+      monitoring: "Renal function (prior to initiation and during therapy); development of diarrhea; signs or symptoms of unusual behavior (including attempts at self-injury, confusion, and/or delirium), rash after administra-tion",
   },
   {
     id: 'rimantadina',
@@ -456,8 +465,8 @@ export const antiviraisInfluenza = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 30 mL/min', value: '50% da dose' },
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "There are no pediatric specific recommendations; based on experience in adult patients, dosing adjustment suggested. Hemodialysis: Nondialyzable" },
     ],
     sensitivity: {
       susceptible: ['Influenza A'],
@@ -469,6 +478,8 @@ export const antiviraisInfluenza = [
       'Dor abdominal, náusea, vômito, anorexia, boca seca',
     ],
     contraindications: [],
+      hepaticAdjustment: "There are no pediatric specific recommendations; based on experience in adult patients, dosing adjustment suggested.",
+      preparation: "Oral: May administer with food",
   },
   {
     id: 'zanamivir',

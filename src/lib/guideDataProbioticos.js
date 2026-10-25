@@ -84,9 +84,13 @@ export const probioticos = [
         ],
       },
     ],
-    preparation: 'Tomar com água ou misturar o conteúdo da cápsula ou sachê aos alimentos.',
+        preparation: "Oral: Granules (packet), powder, or con-tents of capsules may be added to or administered with cereal, food, milk, fruit juice, or water. For infants or children <3 years, contents of packets should be mixed with cool food or drink; mix until dissolved. Infant drops may be added to breastmilk or formula.",
     sideEffects: [],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
   },
 
   {
@@ -116,9 +120,13 @@ export const probioticos = [
         ],
       },
     ],
-    preparation: 'As gotas podem ser tomadas puras ou diluídas em água, suco ou leite, não aquecidos.',
+        preparation: "Oral: Granules (packet), powder, or con-tents of capsules may be added to or administered with cereal, food, milk, fruit juice, or water. For infants or children <3 years, contents of packets should be mixed with cool food or drink; mix until dissolved. Infant drops may be added to breastmilk or formula.",
     sideEffects: [],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
   },
 
   {
@@ -206,6 +214,12 @@ export const proctologicos = [
       'Dermatite de contato.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Continuous IV infusion: Further dilute with NS, D5W, or D5/2NS to a maximum final concentration of 1 mg/mL",
+      monitoring: "Blood pressure, heart rate, renal function, liver enzymes, heart function (eg, echocardio-gram); continuous ECG with IV therapy Ventricular rate control in patients with atrial fibrillation or flutter (adults): Patients who respond, usually have at l...",
   },
 
   {
@@ -601,7 +615,7 @@ export const outrasGastro = [
         ],
       },
     ],
-    preparation: 'Tomar com água, longe das refeições.',
+        preparation: "Oral: Administer on an empty stomach 1 hour before meals and at bedtime; tablet may be broken or dissolved in water before ingestion; do not administer antacids within 30 minutes of administration; shake’sus-pension well before use",
     sideEffects: [
       'Constipação, diarreia, flatulência, náusea, dispepsia.',
       'Tontura, cefaleia, sonolência.',
@@ -610,6 +624,10 @@ export const outrasGastro = [
       'Hiperglicemia em diabéticos.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
   },
 
   {

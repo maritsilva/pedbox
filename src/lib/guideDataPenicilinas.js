@@ -52,11 +52,12 @@ export const PENICILINAS_CATEGORY = {
           ],
         },
       ],
-      renalAdjustment: [
-        { label: 'ClCr 10–30 mL/min', value: '250–500 mg/dose a cada 12 h' },
-        { label: 'ClCr < 10 mL/min', value: '250–500 mg/dose a cada 24 h' },
-        { label: 'Hemodiálise', value: 'Remove 20–50%' },
-      ],
+          renalAdjustment: [
+      { label: "ClCr ≥ 30 mL/min", value: "Dose plena usual sem alteração" },
+      { label: "ClCr 10–29 mL/min", value: "8 a 20 mg/kg a cada 12 horas (máx: 500 mg a cada 12 h)" },
+      { label: "ClCr < 10 mL/min", value: "8 a 20 mg/kg a cada 24 horas (máx: 500 mg a cada 24 h)" },
+      { label: "Hemodiálise", value: "Dose adicional pós-sessão de diálise" },
+    ],
       sensitivity: {
         susceptible: [
           'Gram+ sensíveis à penicilina, Pneumococo, Meningococo, Streptococcus beta-hemolítico grupo A',
@@ -77,7 +78,10 @@ export const PENICILINAS_CATEGORY = {
         'Anemia, neutropenia, eosinofilia, trombocitopenia, hemólise',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem ajuste posológico definido na bula do fabricante; monitorar clinicamente.",
+      preparation: "Oral: Reconstituir o pó para suspensão com água filtrada conforme a marca do frasco. Agitar vigorosamente antes de cada tomada. Após reconstituída, manter em temperatura ambiente (até 14 dias) ou sob refrigeração.",
+      monitoring: "Em terapias prolongadas, monitorar periodicamente função renal, hepática e hemograma; observar frequência e consistência das evacuações.",
+  },
 
     {
       id: 'amoxicilina-clavulanato',
@@ -235,12 +239,12 @@ export const PENICILINAS_CATEGORY = {
           ],
         },
       ],
-      renalAdjustment: [
-        { label: 'ClCr > 50 mL/min', value: 'A cada 6 h' },
-        { label: 'ClCr 10–50 mL/min', value: 'A cada 6–12 h' },
-        { label: 'ClCr < 10 mL/min', value: 'A cada 12–24 h' },
-        { label: 'Hemodiálise', value: 'Remove 20–50%' },
-      ],
+          renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "Dose normal a cada 6 horas" },
+      { label: "ClCr 30–49 mL/min", value: "Dose normal a cada 6 a 8 horas" },
+      { label: "ClCr 10–29 mL/min", value: "Dose normal a cada 8 a 12 horas" },
+      { label: "ClCr < 10 mL/min", value: "Dose normal a cada 12 a 24 horas" },
+    ],
       sensitivity: {
         susceptible: [
           'Gram+: Pneumococo (maioria), S. pyogenes, Meningococo, N. gonorrhoeae, S. typhi, Listeria',
@@ -260,7 +264,10 @@ export const PENICILINAS_CATEGORY = {
         'Convulsões em doses muito altas, nefrite intersticial',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Não requer ajuste específico descrito na bula.",
+      preparation: "IV Direto: Administrar lentamente ao longo de pelo menos 3 a 5 minutos (velocidade máx: 100 mg/min para evitar convulsões).\nInfusão IV: Diluir em SF 0,9% para concentração de até 30 mg/mL e infundir em 15 a 30 minutos.",
+      monitoring: "Hemograma, função renal, eletrólitos séricos e vigilância para reações cutâneas e diarreia associada a Clostridioides.",
+  },
 
     {
       id: 'ampicilina-sulbactam',
@@ -539,7 +546,7 @@ export const PENICILINAS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: diluir para 100 mg/mL ou mais; correr em 10 min.',
+          preparation: "IV: Reconstituir o frasco de 500 mg com 5 mL de AD (100 mg/mL). Para infusão intermitente, diluir em SF 0,9% ou SG 5% para concentração de 10 a 40 mg/mL. Infundir em 30 a 60 minutos para evitar flebite.",
       sensitivity: {
         susceptible: [
           'S. aureus sensível à oxacilina, S. epidermidis sensível, Streptococcus A, B, C, G, Pneumococo, C. diphtheriae, Listeria (algumas cepas), Peptostreptococcus',
@@ -556,7 +563,13 @@ export const PENICILINAS_CATEGORY = {
         'Nefrite intersticial, hematúria, albuminúria, disfunção renal (especialmente em RN com dose alta)',
       ],
       contraindications: [],
-    },
+        renalAdjustment: [
+      { label: "ClCr ≥ 10 mL/min", value: "Dose plena usual sem alteração" },
+      { label: "ClCr < 10 mL/min", value: "Não é necessário ajuste formal na maioria dos casos; em nefropatia grave pode-se considerar intervalo a cada 6 horas com monitorização." },
+    ],
+      hepaticAdjustment: "Depuração predominantemente hepática e biliar. Usar com cautela em hepatopatias graves com monitorização de enzimas e bilirrubinas.",
+      monitoring: "Hemograma semanal (risco de neutropenia reversível com uso prolongado), TGO/TGP, creatinina e inspeção do sítio de punção venosa (risco de flebite e extravasamento).",
+  },
 
     {
       id: 'piperacilina-tazobactam',

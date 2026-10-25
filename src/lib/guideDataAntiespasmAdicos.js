@@ -177,6 +177,11 @@ export const antiespasmódicos = [
     ],
     contraindications: ['Glaucoma de ângulo fechado', 'Hemorragia', 'Síndrome de Down (toleram mal)'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Ophthalmic: Wash hands before and after use. Do not touch tip of container to. eye. Contact lenses should be removed before instillation; do- not reinsert contact lenses within 15 minutes of drops. Apply gentle pressure to lacrimal sac during and immediately following instillation (2 to 3 minutes) or instruct patient to gently close eyelid after ad...",
   },
   {
     id: 'homatropina-simeticona',
@@ -262,6 +267,12 @@ export const antiespasmódicos = [
     ],
     contraindications: ['Glaucoma de ângulo fechado', 'Retenção urinária', 'Bloqueio atrioventricular', 'Amamentação', 'Gestação'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: |V infusion: Peripheral arterial catheter patency: Add 30 mg papaver-ine to an admixture of 250 mL NS or */2NS with heparin 1 unit/mL",
+      monitoring: "Liver enzymes; intraocular pres-sure in glaucoma patients",
   },
   {
     id: 'pinavério',
@@ -357,7 +368,9 @@ export const antieméticos = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Confusão', 'Cefaleia', 'Depressão', 'Tontura', 'Insônia', 'Ansiedade',
       'Anorexia', 'Perda de peso', 'Fraqueza', 'Fadiga',
@@ -369,6 +382,8 @@ export const antieméticos = [
     ],
     contraindications: ['Pimozida', 'Terfenadina', 'Astemizol', 'Cisaprida', 'Clozapina', 'Ergotamina', 'Gravidez', 'Lactação'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral Suspension: Suspension kit (aprepitant 25 mg/mL): Kit contains a 1 mL and a 5 mL oral syringe, one syringe cap, one mixing cup, and the aprepitant 125 mg pouch. Fill mixing cup with room temperature drinking water; using the 5 mL oral syringe, measure 4.6 mL of water from the mixing cup and discard unused water from cup. Make sure the oral syr...",
   },
   {
     id: 'bromoprida',
@@ -483,7 +498,9 @@ export const antieméticos = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Sonolência', 'Sedação', 'Excitação', 'Insônia', 'Nervosismo', 'Tontura', 'Zumbidos',
       'Incoordenação', 'Fadiga', 'Diplopia', 'Euforia', 'Tremores', 'Convulsões', 'Cefaleia', 'Febre',
@@ -494,6 +511,8 @@ export const antieméticos = [
     ],
     contraindications: ['Glaucoma de ângulo fechado', 'Retenção urinária', 'Demência', 'Comprometimento cognitivo'],
     sensitivity: { susceptible: [], resistant: [], warning: 'Potencializa álcool, sedativos e anticolinérgicos.' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: IM: No dilution required IV: Dilute each 50 mg in 10 mL NS",
   },
   {
     id: 'droperidol',
@@ -521,6 +540,12 @@ export const antieméticos = [
     ],
     contraindications: ['QT longo', 'Cardiopatia grave', 'Arritmia', 'Feocromocitoma'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Administer undiluted IM or by slow IV injection over 2 to 5 minutes",
+      monitoring: "Prior to use: 12-lead ECG to identify patients with QT prolongation (use is contraindi-cated); continuous ECG during and for 2 to 3 hours after dosage administration is recommended in patients with prolonged QT where the benefit of use outweighs the ...",
   },
   {
     id: 'granisetrona',
@@ -553,6 +578,11 @@ export const antieméticos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Children 22 years and Adolescents: Pharmacokinetic studies in patients with hepatic impairment showed that total clearance was approximately halved; however, standard doses were very well tolerated, a...",
+      preparation: "Parenteral: IV: May be diluted in a small volume of NS or D5W; volumes ranging from 2 to 20 mL have been reported in trials with pediatric patients (Cieslak 1996; Hahlen 1995)",
   },
   {
     id: 'meclizina',
@@ -579,6 +609,11 @@ export const antieméticos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer without regard to food Chewable tablets: May be chewed or swallowed whole",
   },
   {
     id: 'metoclopramida',
@@ -613,10 +648,8 @@ export const antieméticos = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 30–50 mL/min', value: '75% da dose' },
-      { label: 'ClCr 10–29 mL/min', value: '50% da dose' },
-      { label: 'ClCr < 10 mL/min', value: '25% da dose' },
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: The following adjustments have been recommended (Aronoff, 2007)..Note: Renally adjusted dose recommenda-tions are based on d..." },
     ],
     sideEffects: [
       'Reações extrapiramidais agudas (até 48 h após início, principalmente EV): distonia muscular, trismo, protrusão da língua, espasmos, opistótono, hipertonia',
@@ -631,6 +664,9 @@ export const antieméticos = [
     ],
     contraindications: ['Feocromocitoma', 'Obstrução gastrointestinal', 'Convulsões mal controladas'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Doses >10 mg should be diluted in 50 mL of compatible solution (preferably NS) prior to administration",
+      monitoring: "Blood pressure and heart rate (when rapid IV administration is used); dystonic reactions, agitation, and confusion",
   },
   {
     id: 'ondansetrona',
@@ -674,6 +710,12 @@ export const antieméticos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Não requer ajuste de dose posológica nem intervalo." },
+    ],
+      hepaticAdjustment: "Insuficiência hepática grave (Child-Pugh ≥ 10): Clearance significativamente reduzido e meia-vida quadruplicada. Recomenda-se não exceder a dose máxima diária de 8 mg.",
+      preparation: "IV Direto: Administrar sem diluição ou diluído em 10 mL de SF 0,9% lentamente em pelo menos 2 a 5 minutos.\nInfusão IV: Diluir em SF 0,9% ou SG 5% para concentração de 0,1 a 0,5 mg/mL e infundir em 15 minutos.",
+      monitoring: "Monitorar intervalo QT no ECG em pacientes com distúrbios eletrolíticos prévios, cardiopatias congênitas ou em uso concomitante de drogas arritmogênicas. Eletrólitos séricos (K+ e Mg++).",
   },
   {
     id: 'palonosetrona',
@@ -701,6 +743,12 @@ export const antieméticos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: Prevention of chemotherapy-induced nausea and vomiting: May fur-ther dilute in NS, D5W, Ds/2NS, or DsLR injection to 5 mcg/mL or 30 mcg/mL has been shown to be stable (Trissel 2004a)",
+      monitoring: "Hypersensitivity reactions; eme-sis episodes; HR",
   },
   {
     id: 'palonosetrona-netupitanto',

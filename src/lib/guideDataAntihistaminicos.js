@@ -101,8 +101,8 @@ export const antihistaminicos = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 10 mL/min', value: '1 dose a cada 2 dias' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Sedação', 'Sonolência', 'Tontura', 'Cefaleia', 'Fadiga', 'Vertigem', 'Ataxia', 'Agitação',
@@ -113,6 +113,8 @@ export const antihistaminicos = [
     ],
     contraindications: ['Uso de IMAO', 'Glaucoma de ângulo fechado', 'Doenças do trato respiratório inferior', 'Porfiria'],
     sensitivity: { susceptible: [], resistant: [], warning: 'Risco de depressão respiratória com anticolinérgicos. Potencializa efeito de álcool e sedativos.' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Monitor therapeutic response (eg, reduction of rhinitis, urticaria, eczema, pruritus, or other allergic symptoms)",
   },
   {
     id: 'desloratadina',
@@ -145,9 +147,8 @@ export const antihistaminicos = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'Insuficiência renal leve/moderada', value: 'Não exige ajuste' },
-      { label: 'ClCr < 10 mL/min', value: '50% da dose normal' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Fadiga', 'Cefaleia', 'Sonolência', 'Tontura', 'Boca seca', 'Garganta seca',
@@ -157,6 +158,8 @@ export const antihistaminicos = [
     ],
     contraindications: ['Hipersensibilidade a desloratadina ou loratadina'],
     sensitivity: { susceptible: [], resistant: [], warning: 'Pode potencializar efeito do álcool e sedativos.' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Improvement in signs and symp-toms of allergic rhinitis or urticaria",
   },
   {
     id: 'dexclorfeniramina',
@@ -328,9 +331,8 @@ export const antihistaminicos = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: '50% da dose' },
-      { label: 'ClCr < 10 mL/min', value: '25% da dose' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Sedação e sonolência menores que de 1ª geração', 'Tontura', 'Cefaleia', 'Febre', 'Fadiga',
@@ -339,6 +341,9 @@ export const antihistaminicos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Suspension, tablet: May administer without respect to food. Take with water; avoid administration with fruit juices; shake suspension well before use. Orally disintegrating tablet: Take on an empty stomach. Do not remove from blister pack until ready to administer. Using dry hands, place immediately on tongue. Tablet will dissolve within seconds, a...",
+      monitoring: "Improvement in signs and symp-toms of allergic rhinitis and chronic idiopathic urticaria",
   },
   {
     id: 'hidroxizina',
@@ -401,11 +406,8 @@ export const antihistaminicos = [
         items: [{ label: 'Alergias / urticária / rinite', value: '5 mg/dia' }],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 50–80 mL/min', value: '50% da dose' },
-      { label: 'ClCr 10–49 mL/min', value: '50% da dose a cada 2 dias' },
-      { label: 'ClCr 10–29 mL/min', value: '½ dose a cada 3 dias' },
-      { label: 'ClCr < 10 mL/min', value: 'Melhor evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Menos sedativo que os de 1ª geração', 'Sonolência', 'Astenia', 'Boca seca', 'Dor abdominal',
@@ -414,6 +416,8 @@ export const antihistaminicos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Administer without regard to food in the evening.",
   },
   {
     id: 'loratadina',
@@ -443,9 +447,8 @@ export const antihistaminicos = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 50 mL/min', value: 'Mesma dose em dias alternados' },
-      { label: 'Insuficiência hepática grave', value: '50% da dose ou mesma dose em dias alternados' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Menos sedativo que os de 1ª geração', 'Sonolência', 'Confusão mental', 'Cefaleia', 'Fadiga',
@@ -456,6 +459,9 @@ export const antihistaminicos = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer without regard to meals Rapidly disintegrating tablet: Place rapidly disintegrating tablet on the tongue; tablet disintegration occurs rapidly; may administer with or without water",
+      monitoring: "Improvement in signs and symp-toms of allergic rhinitis or chronic idiopathic urticaria",
   },
   {
     id: 'prometazina',
@@ -673,6 +679,11 @@ export const antihistDescongestionantes = [
     sideEffects: ['Ver dexclorfeniramina'],
     contraindications: ['Ver bronfeniramina + fenilefrina'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with a large quantity of fluid to ensure proper action: Extended release tablet: Do not crush or chew extended release tablet Granules: Empty contents of packet onto tongue and swallow; for best taste, do not chew granules.",
   },
   {
     id: 'difenidramina-citrato-cloreto',

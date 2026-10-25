@@ -45,7 +45,7 @@ export const anestesicosLocais = [
         ],
       },
     ],
-    preparation: 'Apresentações com vasoconstritor contêm 5 µg/mL de epinefrina. A solução 0,75% não deve ser usada em obstetrícia. Não usar por via venosa. Tempo de ação: 2–4 horas sem epinefrina; até 8 horas com vasoconstritor.',
+        preparation: "Epidural continuous infusion: Use preservative-free formulation, further dilute with preservative-free NS.",
     sideEffects: [
       'Hiperventilação, apneia, parada cardíaca secundária',
       'Agitação, ansiedade, vertigem, zumbido, visão borrada, tremor, convulsão, síncope, cefaleia',
@@ -56,6 +56,10 @@ export const anestesicosLocais = [
       'Não usar para bloqueio paracervical',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
   },
 
   {
@@ -228,7 +232,7 @@ export const anestesicosLocais = [
         ],
       },
     ],
-    preparation: 'Não usar por via venosa. Em anestesia paracervical: dose máxima dividida e aplicada lentamente; pode ser repetida a cada 90 minutos. Evitar em gestantes — metabolização fetal é difícil.',
+        preparation: "Before injecting, withdraw syringe plunger to ensure injection is not into vein or artery. Administer slowly in small incremental doses, with frequent aspira-tions before and during the injection to avoid intravascular injection. Use with caution when there is inflammation and/or sepsis in the region of the proposed injection. Dental: Aspirate the ...",
     sideEffects: [
       'Bradicardia, parada cardiorrespiratória, bradicardia fatal com bloqueio paracervical',
       'Bloqueio cardíaco, hipotensão, arritmia ventricular',
@@ -236,6 +240,11 @@ export const anestesicosLocais = [
       'Condrólise da articulação, transtorno do nervo craniano, convulsão',
     ],
     contraindications: ['Gestantes (metabolização fetal difícil)'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Vital signs, state of conscious-ness, signs of CNS toxicity (lightheadedness, dizziness, tinnitus, restlessness, tremors, twitching, drowsiness, cir-cumoral paresthesia)",
   },
 
   {
@@ -275,7 +284,7 @@ export const anestesicosLocais = [
         ],
       },
     ],
-    preparation: 'Não usar por via venosa.',
+        preparation: "Parenteral: Administered via local infiltra-tion, epidural block and epidural infusion, or intermittent bolus; if further dilution necessary, ensure appropriate diluent (eg, preservative-free). Prior to ropivacaine admin-istration, a test dose of short acting local anesthestic with epinephrine should be administered to verify avoidance of intravasc...",
     sideEffects: [
       'Vertigem, cefaleia, hipertermia, hipo/hipertensão, bradicardia, taquicardia',
       'Náusea, vômito, retenção urinária, lombalgia',
@@ -284,6 +293,11 @@ export const anestesicosLocais = [
       'Efeitos cardiovasculares e neurológicos se injetada em vasos ou absorvida em dose alta',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "After epidural or subarachnoid administration: Blood pressure, heart rate, respiration, signs of CNS toxicity (lightheadedness, dizziness, tinnitus, restlessness, tremors, twitching, drowsiness, circumoral paresthesia)",
   },
 ];
 
@@ -311,7 +325,7 @@ export const curares = [
         ],
       },
     ],
-    preparation: 'Bolus EV pode ser rápido e sem diluir. Em debilitados e hipovolêmicos, fracionar a dose. Insuficiência renal: não exige ajuste. Antídoto: neostigmina + atropina.',
+        preparation: "Parenteral: For contin-uous IV infusion, dilute in DSW, NS or DsNS to a maximum concentration of 0.5 mg/mL. Atracurium should not be mixed with alkaline solutions.",
     sideEffects: [
       'Liberação de histamina, hipotensão, vasodilatação, eritema difuso transitório',
       'Prurido, urticária, erupção cutânea, anafilaxia',
@@ -320,6 +334,11 @@ export const curares = [
       'Interação com aminoglicosídeos, polimixina B e isoflurano',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Muscle twitch response to peripheral nerve stimulation, heart rate, blood pressure, assisted ventilation status",
   },
 
   {
@@ -345,13 +364,18 @@ export const curares = [
         ],
       },
     ],
-    preparation: 'Insuficiência renal: não exige ajuste. Antídoto: neostigmina + atropina.',
+        preparation: "Parenteral: Continuous IV infusion: Further dilute in DSW or NS to a final concen-tration of 0.1 to 0.4 mg/mL",
     sideEffects: [
       'Liberação de histamina leve, rubor, exantema, erupção cutânea, anafilaxia',
       'Broncoespasmo, hipotensão, bradicardia',
       'Interação com aminoglicosídeos, polimixina B, desflurano, enflurano, isoflurano e N₂O',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Muscle twitch response to peripheral nerve stimulation, heart rate, blood pressure, assisted ventilation status",
   },
 
   {
@@ -426,7 +450,7 @@ export const curares = [
         ],
       },
     ],
-    preparation: 'Perde potência após 60 dias à temperatura ambiente. Pode ser diluído em SF, SGI ou Ringer lactato. Antídoto: edrofônio ou neostigmina. Equipamento para ventilação disponível antes do uso.',
+        preparation: "Continuous IV infusion: Dilute with NS, D5W, DNS or LR to a final concentration of 0.5 to 5 mg/mL; use within 24 hours of preparation",
     sideEffects: [
       'Hipertensão, hipotensão, taquicardia, arritmia',
       'Náusea, vômito, erupção cutânea, soluço, prurido',
@@ -434,6 +458,11 @@ export const curares = [
       'Interação com aminoglicosídeos, polimixina B; fenitoína diminui o efeito',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Peripheral nerve stimulator measuring, twitch response, heart rate, blood pressure, assisted ventilation status",
   },
 
   {

@@ -46,6 +46,12 @@ export const vitaminas = [
       'Diplopia, aumento da pressão intracraniana, papiledema, sonolência, coma.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -83,13 +89,18 @@ export const vitaminas = [
         ],
       },
     ],
-    preparation: 'EV: infundir lentamente, em cerca de 30 min.',
+        preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
     sideEffects: [
       'EV: risco de reação anafilática, dificuldade respiratória, choque, hipotensão.',
       'EV/IM: rubor facial, agitação, diaforese, urticária, náusea, angioedema.',
       'Oral (raro): tremor, mal-estar, cefaleia, intolerância digestiva.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -158,6 +169,12 @@ export const vitaminas = [
     ],
     sideEffects: ['Urina amarelo-escura ou laranjada.'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -197,6 +214,12 @@ export const vitaminas = [
       'Hepatotoxicidade, intolerância à glicose, hiperuricemia, edema macular.',
     ],
     contraindications: ['Doença hepática', 'Úlcera', 'Hemorragia arterial', 'Elevação de transaminases'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -222,6 +245,12 @@ export const vitaminas = [
     ],
     sideEffects: ['Deficiência (rara): emagrecimento, distúrbios do crescimento, cefaleia, irritabilidade, insônia, lesões de mucosa.'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -271,6 +300,12 @@ export const vitaminas = [
       'EV: raros casos de anafilaxia.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -296,6 +331,12 @@ export const vitaminas = [
     ],
     sideEffects: ['Não há efeitos colaterais relacionados ao excesso. Deficiência isolada é rara.'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -339,6 +380,12 @@ export const vitaminas = [
       'EV rápido: tontura e síncope.',
     ],
     contraindications: ['Evitar doses altas em urolitíase ou condições de acumulação de ferro (talassemia, hemocromatose)'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -385,6 +432,12 @@ export const vitaminas = [
       'Nível tóxico: acima de 100 ng/mL.',
     ],
     contraindications: ['Hipercalcemia', 'Hiperparatireoidismo primário'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -435,6 +488,12 @@ export const vitaminas = [
       'Atrapalha a resposta ao ferro na anemia ferropriva.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -472,7 +531,7 @@ export const vitaminas = [
         ],
       },
     ],
-    preparation: 'EV: injetar lentamente, mínimo 1 mg/min na linha do equipo durante infusão de SF 0,9% ou SG 5%. Não diluir ou misturar com outros medicamentos. A ampola pode ser usada por via oral (diluída em suco) se não for necessária reversão rápida.',
+        preparation: "Oral: Administer with food or milk; for infants and children <24 months of age, capsules may be cut open and contents squeezed into the mouth Parenteral: For IM use only; for neonatal patients, a 0.3 mL syringe and 29-gauge needle should be used for IM dose administration",
     sideEffects: [
       'No local da injeção: dor, edema, fibrose, flebite.',
       'Sistêmicos: hipotensão/hipertensão, rubor, tontura, cianose, dispneia, prurido, náuseas.',
@@ -481,6 +540,11 @@ export const vitaminas = [
       'Kernicterus em prematuros < 1,5 kg.',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Serum retinol (baseline, 1 to 2 months after start of therapy [eg, CF infants, pre-schoolers], and annually at minimum [eg, chronic condi-tions]) (Borowitz 2002; Borowitz 2009; Debray 2011; Kelly 2007; Lahiri 2016)",
   },
 
   {
@@ -567,6 +631,11 @@ export const minerais = [
     ],
     sideEffects: ['Distúrbios de humor e sono, cefaleia, anemia.'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Children 22 years and Adolescents: Consider dose reduction; specific pediatric recommendations not available." },
+    ],
+      hepaticAdjustment: "Children 22 years and Adolescents: Consider dose reduction; specific pediatric recommendations not available.",
+      preparation: "Oral concentrate: Open ampul and squeeze contents into glass of water; stir well; administer at least 30 minutes before meals and at bedtime; do not mix with juice, milk, or food",
   },
 
   {

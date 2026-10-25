@@ -87,7 +87,9 @@ export const corticosteroides = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Cefaleia', 'Agitação', 'Psicose', 'Dispepsia', 'Dor abdominal', 'Úlcera péptica',
       'Hemorragia gástrica', 'Pancreatite', 'Hipertensão', 'Hiperglicemia',
@@ -96,6 +98,9 @@ export const corticosteroides = [
     ],
     contraindications: ['Infecção não controlada', 'Atrofia muscular', 'Úlcera gástrica'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: May administer without regard to food Oral suspension: Shake well before use; measure pre-scribed dose with provided dispenser; add dose to 3 to 4 ounces of juice (not grapefruit) or milk, mix thoroughly and administer immediately Tablet: May administer whole or crush and mix with applesauce (administer applesauce mixture immedi-ately)",
+      monitoring: "Blood pressure; weight; serum glucose; electrolytes; growth in pediatric patients; signs and symptoms of infection, bone mineral density; assess HPA axis suppression (eg, ACTH stimulation test, morning plasma cortisol test, urinary free cortisol test...",
   },
   {
     id: 'dexametasona',
@@ -146,7 +151,9 @@ export const corticosteroides = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Não requer ajuste de dose posológica." },
+    ],
     sideEffects: [
       'Cefaleia', 'Vertigem', 'Adinamia', 'Excitação', 'Agitação', 'Insônia', 'Nervosismo', 'Psicose', 'Convulsão',
       'Vômitos', 'Náusea', 'Diarreia', 'Dispepsia', 'Úlcera péptica', 'Gastrite',
@@ -169,6 +176,9 @@ export const corticosteroides = [
       susceptible: [], resistant: [],
       warning: 'Não infundir EV junto com: amicacina, anfotericina, amiodarona, cálcio, cefuroxima, ciprofloxacino, diazepam, dobutamina, gentamicina, hidantoína, labetalol, midazolam, fenitoína, tobramicina, vancomicina.',
     },
+      hepaticAdjustment: "Metabolismo hepático. Em doença hepática crônica grave, o efeito pode ser prolongado; monitorar clinicamente.",
+      preparation: "Oral: Administrar com alimentos para reduzir desconforto gástrico.\nIV Direto: Administrar em 1 a 3 minutos sem necessidade de diluição.\nInfusão IV: Compatível com SF 0,9% e SG 5%.",
+      monitoring: "Glicemia capilar em pacientes diabéticos ou em uso prolongado, pressão arterial, balanço hidroeletrolítico e sinais de infecção oculta.",
   },
   {
     id: 'hidrocortisona',
@@ -294,8 +304,10 @@ export const corticosteroides = [
         ],
       },
     ],
-    preparation: 'EV: reconstituir com diluente incluído (água + álcool benzílico) e aplicar em mín 5 min. Doses > 250 mg: diluir a 2,5–20 mg/mL em SF/SGI e infundir em mín 30 min. Após reconstituição: geladeira por até 48 h. Após diluição: usar em até 24 h. Não usar intratecal. Não usar acetato EV.',
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        preparation: "Pulsoterapia IV: Diluir a dose prescrita em 100 a 250 mL de SG 5% ou SF 0,9%. Infundir lentamente em pelo menos 1 a 2 horas (não administrar em bolus rápido para evitar arritmias cardíacas graves e parada cardíaca).",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Não requer ajuste posológico na maioria dos casos; levemente dialisável (5% a 20%), administrar após hemodiálise." },
+    ],
     sideEffects: [
       'Cefaleia', 'Vertigem', 'Psicose', 'Insônia', 'Depressão', 'Euforia', 'Convulsões',
       'Náusea', 'Úlcera', 'Gastrite', 'Edema', 'Hipertensão', 'Insuficiência cardíaca congestiva',
@@ -313,6 +325,8 @@ export const corticosteroides = [
       'Não usar em PTI por via EV',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: 'Por via oral, tomar pela manhã com água e alimentos. Doses > 20 mg/dia são consideradas altas e devem ser retiradas gradualmente.' },
+      hepaticAdjustment: "Não requer ajuste formal de dose na bula.",
+      monitoring: "Pressão arterial contínua e monitorização de ECG durante a infusão de pulsoterapia, glicemia, eletrólitos (potássio e sódio) e vigilância para arritmias.",
   },
   {
     id: 'prednisolona',
@@ -367,7 +381,9 @@ export const corticosteroides = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Não requer ajuste de dose posológica." },
+    ],
     sideEffects: [
       'Cefaleia', 'Vertigem', 'Pseudotumor cerebral', 'Psicoses', 'Insônia', 'Depressão', 'Euforia', 'Convulsões',
       'Acne', 'Petéquias', 'Estrias', 'Inibição de cicatrização', 'Hirsutismo',
@@ -384,6 +400,9 @@ export const corticosteroides = [
       'Diabetes', 'Atrofia muscular', 'Osteoporose não controlada', 'Úlcera gástrica',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: 'Atenção à concentração da solução oral entre as marcas (5 ou 15 mg/5 mL). Tomar pela manhã com água e alimentos. Retirada abrupta após > 7 dias ou doses > 25 mg pode causar insuficiência adrenal secundária.' },
+      hepaticAdjustment: "Prednisolona já é a forma metabolicamente ativa da prednisona, sendo preferível em pacientes com insuficiência hepática (não requer conversão hepática).",
+      preparation: "Oral: Administrar pela manhã, preferencialmente com leite ou após o desjejum para minimizar queixas epigástricas e mimetizar o pico circadiano fisiológico de cortisol.",
+      monitoring: "Pressão arterial, glicemia, peso, crescimento linear (em terapias prolongadas) e sinais de irritabilidade ou distúrbios de humor.",
   },
   {
     id: 'prednisona',
@@ -403,7 +422,9 @@ export const corticosteroides = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Cefaleia', 'Fadiga', 'Tontura', 'Insônia', 'Náusea', 'Diarreia',
       'Hipertensão', 'Hiperglicemia', 'Retenção hídrica', 'Supressão adrenal',
@@ -416,6 +437,9 @@ export const corticosteroides = [
       'Diabetes', 'Atrofia muscular', 'Osteoporose não controlada', 'Úlcera gástrica',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer after meals or with food or milk to decrease GI upset. Delayed release tablet (Rayos) should be swallowed whole; do not crush, divide, or chew.",
+      monitoring: "Blood pressure; weight; serum glucose; electrolytes; growth in pediatric patients; pres-ence of infection, bone mineral density; assess HPA axis suppression (eg, ACTH stimulation test, morning plasma cortisol test, urinary free cortisol test); Hgb, o...",
   },
   {
     id: 'triancinolona',

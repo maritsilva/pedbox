@@ -109,6 +109,12 @@ export const corticosteroideNasal = [
     ],
     sideEffects: ['Cefaleia, infecção viral, faringite, tosse, epistaxe', 'Sintomas resfriado, rinite, sinusite', 'Irritação e queimação nasal, candidíase'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Shake well prior to each use. Blow nose to clear nostrils before each use. Insert applicator into nostril, keeping bottle upright, and close off the other nostril. Breathe in through nose. While inhaling, press pump to release spray. Do not spray into eyes. Discard after labeled number of doses has been used, even if bottle is not completely empty....",
+      monitoring: "Mucous membranes for signs of fungal infection, growth (pediatric patients), signs/symp-toms of HPA axis suppression/adrenal insufficiency; ocu-lar changes _",
   },
 
   {
@@ -130,6 +136,12 @@ export const corticosteroideNasal = [
     ],
     sideEffects: [],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Shake well prior to each use. Before first use, prime by pressing pump 10 times or until a fine spray appears. Repeat priming with 2 sprays or until a fine spray appears if 21 week between use. Blow nose to clear nostrils before each use. Insert applicator into nostril, keeping bottle upright, and close off the other nostril. Breathe in through nos...",
+      monitoring: "Mucous membranes for signs of fungal infection, growth (pediatric patients), signs/symp-toms of HPA axis suppression/adrenal insufficiency; ocu-lar changes",
   },
 ];
 
@@ -152,6 +164,11 @@ export const antialergicosNasais = [
     ],
     sideEffects: ['Cefaleia, sonolência, tontura, fadiga, mialgia', 'Irritação nasal, epistaxe, espirros, tosse', 'Gosto amargo na boca, ganho de peso, náusea', 'Pode piorar broncoespasmo'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Before initial use, the delivery system should be primed until a fine mist appears; when 3 or more days have elapsed since the last use, the pump should be reprimed until a fine mist appears. Blow nose to clear nostrils. Remove the dust cover. Keep head tilted downward when spraying. Insert applicator into nostril, keeping bottle upright, and close...",
   },
 
   {
@@ -274,6 +291,11 @@ export const antimicrobianosOtologicos = [
     usage: 'Inclinar cabeça para lado oposto. Limpar e secar ouvido. Aplicar gotas e manter posição 5-10 min. Tratamento 7-14 dias. Não usar tampões algodão.',
     sideEffects: [],
     contraindications: ['Não usar se tímpano não estiver íntegro'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Ophthalmic: For topical use only. Avoid contacting tip with skin or eye. Ointment: Instill ointment in the lower conjunctival sac. Solution: Apply gentle pressure to lacrimal sac during and for 1 to 2 minutes after instillation or instruct patient to gently close eyelid after administration to decrease risk of absorption and systemic effects (Urrti...",
   },
 
   {

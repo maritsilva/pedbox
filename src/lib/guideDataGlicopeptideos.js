@@ -96,12 +96,13 @@ export const GLICOPEPTIDEOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'Diluir para 50 mg/mL em ABD e depois rediluir para 2,5–5 mg/mL em SF ou SGI. Infundir em 30–60 min. Doses > 1 g em 2 horas. Reduzir velocidade se hiperemia de pele/pescoço.',
-      renalAdjustment: [
-        { label: 'ClCr 30–50 mL/min', value: '50% da dose diária' },
-        { label: 'ClCr 10–29 mL/min', value: '50% da dose a cada 24 h' },
-        { label: 'ClCr < 10 mL/min ou diálise', value: 'Ajustar para manter nível sérico 15–20 µg/mL' },
-      ],
+          preparation: "IV: Reconstituir o frasco de 500 mg com 10 mL de AD (50 mg/mL). Diluir obrigatoriamente em SF 0,9% ou SG 5% para concentração máxima de 5 mg/mL (máx 10 mg/mL em acesso venoso central).\nTEMPO DE INFUSÃO: Infundir em pelo menos 60 minutos (ou taxa ≤ 10 mg/minuto) para prevenir Síndrome do Homem Vermelho (reação anafilactoide com rubor e hipotensão).",
+          renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "15 mg/kg a cada 6 a 8 horas com controle de nível sérico" },
+      { label: "ClCr 30–49 mL/min", value: "15 mg/kg a cada 12 horas" },
+      { label: "ClCr 10–29 mL/min", value: "15 mg/kg a cada 18 a 24 horas" },
+      { label: "ClCr < 10 mL/min / TRS", value: "15 mg/kg dose de ataque; redosar guiado por nível sérico (<10–15 mcg/mL)" },
+    ],
       sensitivity: {
         susceptible: [
           'S. aureus, S. epidermidis resistentes, S. pneumoniae inclusive resistentes, S. pyogenes, S. bovis, S. viridans',
@@ -120,6 +121,8 @@ export const GLICOPEPTIDEOS_CATEGORY = {
         'Flebite, leucopenia, aumento de transaminases',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Oral: Baixa absorção sistêmica, sem ajuste. IV: Sem recomendação formal de ajuste na bula, mas monitorar estritamente função renal.",
+      monitoring: "Nível sérico de vale (trough): coletar 30 min antes da 4ª dose. Alvo: 10 a 15 mcg/mL (infecções moderadas) e 15 a 20 mcg/mL (meningite, sepse, endocardite, osteomielite, pneumonia por MRSA). Monitorar creatinina e débito urinário.",
+  },
   ],
 };

@@ -31,9 +31,14 @@ export const estatinas = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'ClCr < 30 mL/min', value: 'Iniciar com 5 mg' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: ['Cefaleia, astenia, vertigem', 'Náusea, vômito, dor abdominal, constipação, pancreatite', 'Aumento de enzimas hepáticas, insuficiência hepática', 'Mialgia, rabdomiólise', 'Prurido, exantema, urticária', 'Diabetes, aumento de hemoglobina, hipoglicemia', 'Hematúria, proteinúria'],
     contraindications: ['Doença hepática ativa', 'Elevação persistente de transaminases', 'Mulheres em risco de gravidez'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "May be taken with or without food; may be taken at any time of the day; swallow tablet whole.",
+      monitoring: "Yost Pediatric patients: Baseline: ALT, AST, and creatine phos-phokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP...",
   },
 
   {
@@ -113,7 +118,9 @@ export const estatinas = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Children 210 years and Adolescents: Because atorvas-tatin does not undergo significant renal excretion, dose modification is not necessary. Dialysis: Due to the..." },
+    ],
     sideEffects: [
       'Cefaleia, fraqueza, artralgia, tontura',
       'Edema, dor torácica ou costas, artrite',
@@ -123,6 +130,9 @@ export const estatinas = [
       'Infecção, rinite, sinusite, laringite, bronquite, IVAS',
     ],
     contraindications: ['Doença hepática ativa', 'Elevação persistente de transaminases', 'Mulheres em risco de gravidez'],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "Oral: May be taken without regard to meals or time of day. Swallow whole; do not break, crush, or chew.",
+      monitoring: "Pediatric patients: Baseline: ALT, AST, and CPK; fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnormalities, then monitor FLP, ALT, and AST every 3 to 4 months duri...",
   },
 
   {
@@ -149,6 +159,12 @@ export const estatinas = [
     ],
     sideEffects: ['Cefaleia, fadiga, insônia, tontura, depressão, febre', 'Exantema', 'Dispepsia, dor abdominal, diarreia, náusea, indigestão', 'Hepatite, pancreatite (raro)', 'Aumento de transaminases', 'Lúpus, mialgia, rabdomiólise → IRA'],
     contraindications: ['Doença hepática ativa', 'Elevação persistente de transaminases', 'Mulheres em risco de gravidez'],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Fluvastatin may be taken without regard to meals. Immediate release capsules: Do not open capsules; do , not use two 40 mg capsules for an 80 mg once daily dose; extended release formulation should be used. Extended release tablet: Do not break, chew, or crush; swallow whole.",
+      monitoring: "Pediatric patients: Baseline: ALT, AST, and creatine phos-phokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP, ALT...",
   },
 
   {
@@ -184,6 +200,12 @@ export const estatinas = [
       'Artralgia, câimbra, fraqueza, claudicação, IVAS',
     ],
     contraindications: ['Doença hepática ativa', 'Elevação persistente de transaminases', 'Mulheres em risco de gravidez'],
+      renalAdjustment: [
+      { label: "ClCr <30 mL/minute", value: "Immediate release: Children 210 years and Adoles-cents: Doses exceeding 20 mg/day should be carefully considered and implemented cautiously" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Immediate release tablets: Take with the evening meal. Extended release tablets: Take at bedtime; do not crush or chew.",
+      monitoring: "Pediatric patients: Baseline: ALT, AST, and creatine phos-phokinase levels (CPK); fasting lipid panel (FLP) and repeat ALT and AST should be checked after 4 weeks of therapy; if no myopathy symptoms or laboratory abnor-malities, then monitor FLP, ALT...",
   },
 
   {

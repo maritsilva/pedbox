@@ -63,8 +63,10 @@ export const outrosAntifungicos = [
         ],
       },
     ],
-    preparation: 'Tomar após as refeições. Evitar exposição solar ou usar protetor fator > 20. Monitorar função hepática/renal, hemograma e função hematopoética.',
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        preparation: "Oral: Administer with a fatty meal (peanut butter or ice cream to increase absorption), or with food or milk to avoid Gl upset; shake suspension well before use. Ultramicrosize tablets may be swallowed whole or crushed and sprinkled onto 1 tablespoonful of applesauce and taken immediately without chewing.",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: {
       susceptible: ['Microsporum, Epidermophyton, Trichophyton'],
       resistant: ['Candida'],
@@ -77,6 +79,8 @@ export const outrosAntifungicos = [
       'Lúpus-like, leucopenia, granulocitopenia, hepatotoxicidade',
     ],
     contraindications: ['Lesão hepatocelular', 'Lúpus', 'Gestação', 'Porfiria'],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      monitoring: "Periodic renal, hepatic, and hematopoietic function tests",
   },
   {
     id: 'terbinafina',

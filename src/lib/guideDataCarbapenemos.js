@@ -52,12 +52,10 @@ export const CARBAPENEMOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'Diluir para 100 mg/mL em ABD, SF ou SGI; correr EV em 3–5 min. Ou diluir para 20 mg/mL e infundir em 20–60 min. Não associar com vancomicina ou metronidazol no mesmo equipo.',
-      renalAdjustment: [
-        { label: 'ClCr 10–30 mL/min', value: '50% da dose' },
-        { label: 'ClCr < 10 mL/min', value: '25% da dose' },
-        { label: 'Hemodiálise', value: 'Remove 20–50%' },
-      ],
+          preparation: "Parenteral: IM: Reconstitute vial with at least 3 mL SWFI, sterile bacteriostatic water for injection, NS, or bacteriostatic sodium chloride per gram.of aztreonam to a final concentration of ≤333 mg/mL; immediately shake vig-orously. Do not mix with any local anesthetic agent. IV: Bolus injection: Reconstitute vial with 6 to 10 mL SWFI; immediately...",
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Gram-negativos aeróbios resistentes ou alternativos às cefalosporinas de 3ª geração e aminoglicosídeos',
@@ -78,7 +76,9 @@ export const CARBAPENEMOS_CATEGORY = {
         'Leucopenia, neutropenia, trombocitopenia, anafilaxia, tromboflebite e dor no local da injeção',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Injection: Periodic renal and hepatic function tests; monitor for stool frequency; monitor for signs of anaphylaxis during first dose",
+  },
 
     {
       id: 'ertapenem',
@@ -108,10 +108,10 @@ export const CARBAPENEMOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: reconstituir com 10 mL de ABD ou SF; diluir com 40 mL de SF. Pediátrico: concentração máxima de 20 mg/mL. Infundir em 30 min. IM: reconstituir com 3,2 mL de lidocaína. Não associar com outros medicamentos no mesmo equipo.',
-      renalAdjustment: [
-        { label: 'ClCr ≤ 30 mL/min ou diálise', value: '50% da dose' },
-      ],
+          preparation: "Parenteral: IM: Reconstitute 1,000 mg vial with 3.2 mL of 1% lidocaine HCI injection (without epinephrine); resultant concentration: 280 mg/mL (invanz prescribing informa-tion Canada 2014). Shake well. Intermittent 1V infusion: Reconstitute 1,000 mg vial with 10 mL of SWF, NS, or bacteriostatic water for injection; resultant concentration: 100 mg/m...",
+          renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "There are no pediatric specific recommendations; based on experience in adult patients, dosage adjustment suggested." },
+    ],
       sensitivity: {
         susceptible: [
           'S. aureus, S. pneumoniae, E. coli, H. influenzae, Klebsiella, Moraxella, Proteus, Citrobacter, Enterobacter',
@@ -130,7 +130,9 @@ export const CARBAPENEMOS_CATEGORY = {
         'Dor na injeção intramuscular',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Periodic renal, hepatic, and hematologic function tests; neurological assessment",
+  },
 
     {
       id: 'imipenem',
@@ -173,13 +175,10 @@ export const CARBAPENEMOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'EV: diluir para 5 mg/mL ou mais; infundir 250–500 mg em 20–30 min. Não infundir junto a aminoglicosídeos. Formulação IM acompanha diluente com lidocaína — NÃO usar por via venosa.',
-      renalAdjustment: [
-        { label: 'ClCr 30–50 mL/min', value: '7–13 mg/kg a cada 8 h' },
-        { label: 'ClCr 10–29 mL/min', value: '7–13 mg/kg a cada 12 h' },
-        { label: 'ClCr < 10 mL/min', value: '7–13 mg/kg a cada 24 h' },
-        { label: 'Hemodiálise', value: 'Remove 20–50%' },
-      ],
+          preparation: "|V:,Reconstitute vials with approximately 10 mL of NS, D5W, D10W, D5NS, D51/2NS, or D51/4NS and shake well. Withdraw desired dose and dilute in a compatible solution to a final concentration not to exceed 5 mg/mL; concentrations >5 mg/mL may have shortened stability; a final admixture of imipenem-cilastatin 10 mg/mL in NS was shown to maintain solu...",
+          renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children, and Adolescents: IV: Manufacturer's tabeling: Patient weight <30 kg and impaired renal function (not defined): Use not rec-ommended The follo..." },
+    ],
       sensitivity: {
         susceptible: [
           'Todos os cocos Gram-positivos (exceto S. aureus resistente à oxacilina e Enterococcus)',
@@ -202,7 +201,9 @@ export const CARBAPENEMOS_CATEGORY = {
         'Eosinofilia, leucopenia, agranulocitose, anemia, aumento de transaminases, disfunção renal, Coombs positivo',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Periodic renal, hepatic, and hematologic function tests; bowel movement frequency. Monitor for signs of anaphylaxis during first dose.",
+  },
 
     {
       id: 'meropenem',
@@ -244,13 +245,10 @@ export const CARBAPENEMOS_CATEGORY = {
           ],
         },
       ],
-      preparation: 'Diluir com SF ou ABD entre 2,5 e 50 mg/mL. Bolus EV em 3–5 min ou infusão de 20–30 min. Diluída é estável por 18 h em temperatura ambiente. Não infundir junto a aminoglicosídeos.',
-      renalAdjustment: [
-        { label: 'ClCr 30–50 mL/min', value: '20–40 mg/kg a cada 12 h' },
-        { label: 'ClCr 10–29 mL/min', value: '10–20 mg/kg a cada 12 h' },
-        { label: 'ClCr < 10 mL/min', value: '10–20 mg/kg a cada 24 h' },
-        { label: 'Hemodiálise', value: 'Hemodialisável' },
-      ],
+          preparation: "Parenteral: Reconsti-tute meropenem 500 mg and 1g vials with 10 mL and 20 mL SWFI respectively to yield a concentration of 50 mg/mL. For IV infusion, may further dilute with DSW or NS to a final concentration ranging from 1 to 20 mg/mL.",
+          renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
       sensitivity: {
         susceptible: [
           'Cocos Gram-positivos (exceto S. aureus oxacilina resistente e E. faecium)',
@@ -271,6 +269,8 @@ export const CARBAPENEMOS_CATEGORY = {
         'Hipotensão, eosinofilia, leucopenia, anemia, aumento de transaminases, LDH, fosfatase alcalina, bilirrubina, hepatite, disfunção renal',
       ],
       contraindications: [],
-    },
+        hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Periodic renal, hepatic, and hematologic function tests. Observe for changes in bowel frequency. Monitor for signs of anaphylaxis during first dose.",
+  },
   ],
 };

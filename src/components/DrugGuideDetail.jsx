@@ -14,6 +14,7 @@ import {
   Sparkles,
   CheckCircle2,
   XCircle,
+  Activity,
 } from 'lucide-react';
 import { useFavorites } from '@/hooks/useFavorites.jsx';
 
@@ -201,6 +202,32 @@ export default function DrugGuideDetail({ drug, catIcon, catLabel }) {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Ajuste Hepático */}
+          {drug.hepaticAdjustment && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
+                <AlertTriangle className="w-4 h-4 text-amber-600" />
+                <span>Ajuste na Insuficiência Hepática</span>
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                {drug.hepaticAdjustment}
+              </p>
+            </div>
+          )}
+
+          {/* Monitorização Clínica e Laboratorial */}
+          {drug.monitoring && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-navy">
+                <Activity className="w-4 h-4 text-brand-teal" />
+                <span>Monitorização Clínica e Laboratorial</span>
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                {drug.monitoring}
+              </p>
             </div>
           )}
 

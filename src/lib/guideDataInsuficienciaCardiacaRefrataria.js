@@ -83,8 +83,8 @@ export const insuficienciaCardiacaRefratariaDrugs = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'Ajustes por ClCr', value: 'ClCr 50: 0,43; 40: 0,36; 30: 0,33; 20: 0,29; 10: 0,23; <5: 0,20 µg/kg/min' },
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Infants, Children and Adolescents: Specific recommendations for dosing adjustments in pediatric patients are lacking. Milrinone clearance is significantly reduc..." },
     ],
     sideEffects: [
       'Hipovolemia excessiva, desidratação, hipotensão ortostática, azotemia pré-renal, choque',
@@ -94,6 +94,9 @@ export const insuficienciaCardiacaRefratariaDrugs = [
       'Tremores, febre',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "IV, Intraosseous: Loading dose: Prepare loading doses using the vial formulation only (not the premixed bag). Dilute in /2NS, NS, or D5W if necessary for small doses or longer infusion times; in adults, diluting to 10 to 20 mL for ease of administration has been recommended. Continuous IV infusion: Dilute with 1/72NS, NS, or D5W; usual concentratio...",
+      monitoring: "Blood pressure, heart rate, ECG; platelet count, electrolytes (especially potassium and magnesium) and fluid status, renal function; infusion site If pulmonary artery catheter is in place, monitor cardiac index, stroke volume, systemic vascular resis...",
   },
 
   {

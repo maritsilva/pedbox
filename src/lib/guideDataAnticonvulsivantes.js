@@ -59,6 +59,12 @@ export const anticonvulsivantes = [
       'Erro inato do ciclo da ureia',
       'Evitar se houver risco de gravidez',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "Parenteral: IV: Manufacturer's labeling recommends dilut-ing dose in 50 mL of D5W,.NS, or LR for patients 210 years of age. In pediatric clinical trials doses were usually diluted 1:1 with NS or DSW (Mehta 2007; Uberall 2000). Rectal: Dilute oral solution or syrup 1:1 with an equal volume of water prior to administration (Graves 1987)",
+      monitoring: "Liver enzymes (prior to therapy and at frequent intervals, especially during the first 6 months), bilirubin, serum ammonia (with symptoms of lethargy, mental status change), CBC with platelets (prior to initiation and periodically during therapy), se...",
   },
 
   {
@@ -114,6 +120,15 @@ export const anticonvulsivantes = [
       'Insuficiência respiratória grave sem ventilação assistida',
       'Cardiopatia hipertrófica (altas doses)',
     ],
+      renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "Dose plena usual" },
+      { label: "ClCr 10–49 mL/min", value: "Aumentar intervalo entre tomadas para cada 8 a 12 horas" },
+      { label: "ClCr < 10 mL/min", value: "Aumentar intervalo para cada 12 a 16 horas" },
+      { label: "Hemodiálise", value: "Moderadamente dialisável (20% a 50%); administrar dose de reposição pós-diálise." },
+    ],
+      hepaticAdjustment: "Metabolização primariamente hepática por enzimas microssomais (CYP2C9/2C19). Em hepatopatias moderadas a graves, reduzir dose inicial e monitorar níveis séricos e nível de sedação.",
+      preparation: "IV: Injetar em veia calibrosa na velocidade máxima de 50 a 60 mg/minuto (velocidade máx absoluta: 1 mg/kg/min em crianças). Risco de colapso circulatório e depressão respiratória em infusão rápida. Não misturar com soluções ácidas (precipitação imediata).",
+      monitoring: "Nível sérico terapêutico: 15 a 40 mcg/mL. Monitorar frequência respiratória, oximetria, pressão arterial, sedação, hemograma e enzimas hepáticas em uso contínuo.",
   },
 
   {
@@ -166,6 +181,12 @@ export const anticonvulsivantes = [
       'BAV',
       'Porfiria hepática',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: IV: May be further diluted in NS to a final concentration 25 mg/mL; infusion must be completed within 4 hours after prepara-tion. Do not refrigerate.",
+      monitoring: "CBC with differential, liver func-tion, suicidality (eg, suicidal thoughts, depression, behav-ioral changes), bone growth or BMD and vitamin:D status (chronic use; particularly pediatric patients) Serum phenytoin concentrations: If available, free ph...",
   },
 
   {
@@ -220,6 +241,11 @@ export const anticonvulsivantes = [
       'BAV',
       'Porfiria hepática',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer with food to decrease GI upset Immediate release: Chewable and conventional tablets: Administer with meals; may be given 2 to 3 times daily. Oral suspension: Shake well before use; administer with meals; must be given on a 3 to 4 times daily schedule. When carbamazepine suspension has been combined with chlorpromazine or thioridazi...",
   },
 
   {
@@ -261,6 +287,12 @@ export const anticonvulsivantes = [
       'Insuficiência hepática grave',
       'Alergia ao fenobarbital',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Administer without regard to food; may consider food to decrease GI upset",
+      monitoring: "CNS status, seizure activity, liver enzymes, CBC with differential, renal function, serum concentrations; signs and symptoms of suicidality (eg, anxiety, depression, behavior changes)",
   },
 
   // ────────────────────────────────────────────────────────────────────
@@ -312,6 +344,12 @@ export const anticonvulsivantes = [
     contraindications: [
       'Hipersensibilidade conhecida',
     ],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Children 22 years and Adolescents: Use with caution; has not been adequately studied; base initial dose on patient's AED regimen; decreased maintenance dosage m..." },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Chewable, disper-sible tablet: To disperse, add tablets to a small amount of liquid (~5 mL or enough to cover the medication); tablets should be completely dispersed in about 1 minute.",
+      monitoring: "All patients: Monitor for hyper-sensitivity reactions, especially rash; CBC with differential; liver and renal function Epilepsy: Seizure frequency, duration, and severity; serum levels of concurrent anticonvulsants; signs and symp-toms of suicidalit...",
   },
 
   {
@@ -357,6 +395,12 @@ export const anticonvulsivantes = [
     contraindications: [
       'Hipersensibilidade ao carbamazepina ou oxcarbazepina',
     ],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Children 22 years and Adolescents: Severe impairment (CrCl <30 mL/minute): Immediate release (eg, Trileptal), Extended release (eg, Oxtellar XR): Therapy should..." },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Immediate release: May be taken without regard to meals Suspension: Prior to using for the first time, firmly insert the manufacturer supplied plastic adapter into the neck of the bottle; cover the adapter with child-resistant cap when not in use; shake suspension well (for at least 10 seconds) before use; use manufacturer supplied oral syrin...",
+      monitoring: "Seizure frequency, duration and severity; symptoms of CNS depression (dizziness, head-ache, somnolence);-consider monitoring serum sodium (particularly during first three months of therapy) espe-cially in patients who receive other drugs that may cau...",
   },
 
   {
@@ -400,6 +444,12 @@ export const anticonvulsivantes = [
     contraindications: [
       'Hipersensibilidade',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Parenteral: IV: Vials: Dilute dose in 100 mL of NS, LR, or D5W; if smaller diluent volume required (eg, pediatric patients), dilute dose in a compatible diluent to final concentration 15 mg/mL (Ng 2010). A 1:1 dilution of drug from vial with D5W or NS has also been safely used in patients 24 years (Wheless 2009).",
+      monitoring: "Seizure frequency, duration, and severity; CNS depression; psychiatric and behavioral symptoms; diastolic blood pressure in pediatric patients <4 years of age; renal function; CBC; signs and symptoms of suicidality (eg, anxiety, depression, behavior ...",
   },
 
   {
@@ -451,6 +501,12 @@ export const anticonvulsivantes = [
       'Síndrome QT curto (rufinamida)',
       'Insuficiência hepática grave',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "May be administered without regard to food. Immediate release: Tablets: Broken tablets have a bitter taste; tablets may be crushed, mixed with water, and administered imme-diately. Sprinkle capsules: Swallow sprinkle capsules whole or open and sprinkle contents on small amount of soft food (eg, 1 teaspoonful of applesauce, oatmeal, ice cream, puddi...",
+      monitoring: "Frequency, duration, and severity of seizure episodes or migraine headaches; renal function; monitor serum electrolytes including baseline and periodic serum bicarbonate, symptoms of metabolic acidosis, complications of chronic acidosis (eg, nephroli...",
   },
 
   {
@@ -497,6 +553,12 @@ export const anticonvulsivantes = [
     contraindications: [
       'Hipersensibilidade',
     ],
+      renalAdjustment: [
+      { label: "ClCr <15 mL/minute", value: "Reduce daily dose in proportion to creatinine clearance" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Immediate release: Capsule, tablet, oral solution: May consider administration of first dose on first day at bed-time to avoid somnolence and dizziness. May be admin-istered without regard to meals; administration with meals may decrease adverse Gl effects. Dose may be administered as combination of dosage forms; do not administer within 2 hours of...",
+      monitoring: "Seizure frequency and duration; renal function; weight; behavior in children; signs and symptoms of suicidality (eg, anxiety, depression, behavior changes) is",
   },
 
   {
@@ -535,6 +597,12 @@ export const anticonvulsivantes = [
     contraindications: [
       'Hipersensibilidade',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Immediate release: May be administered with or without food. Extended release: Administer once daily after an evening meal; swallow whole; do not split, crush, or chew. A missed dose should be taken before bedtime following a snack. If missed before bedtime, administer in the morning with a meal. If missed in the morning, wait until the evening mea...",
+      monitoring: "Seizure frequency, duration, and severity; pain intensity; sedation; symptoms of myopathy (eg, unexplained muscle pain, tenderness, or weakness accompanied by fever and malaise), CPK, ocular disturb-ance (eg, blurred vision or visual field change), w...",
   },
 
   {
@@ -621,6 +689,12 @@ export const anticonvulsivantes = [
     contraindications: [
       'Hipersensibilidade',
     ],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Powder for oral solu-tion: Dissolve each 500 mg powder packet in 10 mL (may use provided syringe to measure) of cold or room temper-ature water to make a 50 mg/mL solution; discard solution if it is not clear (or free of particles) and colorless",
+      monitoring: "Ophthalmologic examination by an ophthalmic professional with expertise in visual field interpretation and the ability to perform dilated indirect ophthalmoscopy of the retina at baseline (no later than 4 weeks after therapy initiation), periodically...",
   },
 
   {

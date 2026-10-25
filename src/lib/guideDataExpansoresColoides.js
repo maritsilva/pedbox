@@ -45,7 +45,7 @@ export const expansoresColoides = [
         ],
       },
     ],
-    preparation: 'Diluir o frasco a 20% em 1:3 com SF, SG 5% ou 10%, ou Ringer, para obter solução a 5%. Infusão solução 5%: 2 a 4 mL/min (volemia normal) ou 5 a 10 mL/min (hipoproteinemia). Infusão solução 20%: 1 a 2 mL/min (volemia normal) ou 2 a 3 mL/min (hipoproteinemia). Não misturar com verapamil ou lípides de nutrição parenteral. Não diluir com água. Armazenar 2 a 8 ºC, sem congelar.',
+        preparation: "If 5% human albumin is unavailable, it may be prepared by diluting 25% human albumin with NS or D5W (if sodium load is a concern). Do not use sterile water to dilute albumin solutions, as this has been associated with hypotonic-associated hemoly-sis.",
     sideEffects: [
       'Geralmente bem tolerada',
       'Risco de congestão aguda e edema agudo de pulmão em ICC',
@@ -54,6 +54,11 @@ export const expansoresColoides = [
       'Cada litro a 5% contém 160 mEq de sódio',
     ],
     contraindications: ['Anemia grave', 'Insuficiência cardíaca congestiva'],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "There are no dosing adjustments provided in the manufacturer's labeling; use with caution." },
+    ],
+      hepaticAdjustment: "There are no dosing adjustments provided in the manufacturer's labeling.",
+      monitoring: "Observe for signs of hypervole-mia, pulmonary edema, cardiac failure, vital signs, fluid status, Hgb, Hct, urine specific gravity",
   },
 
   {
@@ -76,6 +81,12 @@ export const expansoresColoides = [
     ],
     sideEffects: ['Anafilaxia (1% dos casos)', 'Hipervolemia, congestão, lesão e formação de coágulos', 'Aumenta fibrinólise, disfunção renal'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Use with extreme cau-tion." },
+    ],
+      hepaticAdjustment: "Use with extreme cau-tion.",
+      preparation: "Parenteral: Do not use if crystalline pre-cipitate forms. For IV infusion only (use an infusion pump or pressure infusion). For volume expansion/shock, may infuse initial volume as rapidly as possible. Monitor closely for anaphylactic reaction; have epinephrine and resuscitative equipment available.",
+      monitoring: "Vital signs, signs of allergic/ anaphylactoid reaction especially for 30 minutes after starting infusions; coagulation parameters, hemoglobin, hematocrit, acid-base balance, electrolytes, serum pro-tein, signs of circulatory overload (ie, heart rate,...",
   },
 
   {

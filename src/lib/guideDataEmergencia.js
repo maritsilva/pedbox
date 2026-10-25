@@ -137,8 +137,10 @@ export const emergenciaVasoativos = [
         ],
       },
     ],
-    preparation: 'Diluir em SG ou SF. Concentração máxima recomendada: 5 mg/mL (5.000 µg/mL). Soluções padrão: 1.000 µg/mL ou 400 µg/mL. Incompatível na mesma linha com: heparina, bicarbonato e antimicrobianos.',
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste.' }],
+        preparation: "Parenteral: Dilute in D5W or NS to a maximum concen-tration of 5,000 mcg/mL (5 mg/mL); ISMP and Vermont Oxford Network recommends a standard concentration of 2,000 mceg/mL (2 mg/mL) for neonates (ISMP 2011) :",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Taquicardia, extrassístoles, palpitação, hipertensão (raro), hipotensão, angina.',
       'Cefaleia, parestesia, náusea, vômito, dispneia, dor no peito.',
@@ -148,6 +150,8 @@ export const emergenciaVasoativos = [
     contraindications: [
       'Estenose subaórtica hipertrófica', 'Miocardiopatia hipertrófica',
     ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Blood pressure, ECG, heart rate, CVP, MAP, urine output; if pulmonary artery catheter is in place, monitor Cl, PCWP, RAP, and SVR. Dobut-amine lowers central venous pressure and wedge pres-sure but has little effect on pulmonary vascular resistance.",
   },
 
   {
@@ -170,7 +174,7 @@ export const emergenciaVasoativos = [
         ],
       },
     ],
-    preparation: 'Diluições padrão: 800–1.600 µg/mL (crianças); 200, 400 ou 1.000 µg/mL (adultos). Evitar concentração > 3.200 µg/mL.',
+        preparation: "Parenteral: Vials (con-centrated solution) must be diluted prior to administration; maximum concentration: 3,200 mcg/mL (3.2 mg/mL); con-centrations as high as 6,000 mcg/mL (6 mg/mL) have been infused into large veins, safely and with efficacy, in cases of extreme fluid restriction (Murray 2014). ISMP and Vermont Oxford Network recommend a standard...",
     renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste.' }],
     sideEffects: [
       'Taquicardia, arritmia, extrassístolia, alargamento de QRS, palpitação, hipertensão, angina.',
@@ -182,6 +186,7 @@ export const emergenciaVasoativos = [
     contraindications: [
       'Feocromocitoma', 'Taquiarritmias', 'Fibrilação ventricular',
     ],
+      monitoring: "Blood pressure, ECG, heart rate, CVP, MAP, urine output; if pulmonary artery catheter is in place, monitor Cl, PWCP, SVR, RAP, and PVR; monitor for skin color and temperature changes",
   },
 
   {

@@ -121,10 +121,9 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-    preparation: 'Cada aplicação EV em 15 a 60 segundos. Diluir em SF ou SGI. Pode deflagrar sintomas de abstinência se o paciente estava sedado há vários dias.',
-    renalAdjustment: [
-      { label: 'Insuficiência renal', value: 'Não exige ajuste' },
-      { label: 'Insuficiência hepática', value: 'Reduzir dose ou frequência' },
+        preparation: "Parenteral: For lV use only; administer by rapid IV injection over 15-30 seconds via a freely running IV infusion into larger vein (to decrease chance of pain, phlebitis). Children: Do not exceed 0.2 mg/minute. Adults: Repeat doses: Do not exceed 0.2 mg/minute for reversal of general anesthesia and do not exceed 0.5 mg/minute for reversal of benzod...",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Náusea, vômitos, sensação de frio, cefaleia, agitação, euforia, ansiedade, visão borrada',
@@ -133,6 +132,8 @@ export const antagonistasAntidotos = [
       'O efeito do diazepínico pode reaparecer, exigindo doses adicionais',
     ],
     contraindications: [],
+      hepaticAdjustment: "Initial reversal dose: Use normal dose; repeat doses should be decreased in size or frequency",
+      monitoring: "Level of consciousness and resedation, blood pressure, heart rate, respiratory rate, continuous pulse oximetry; monitor for resedation for 1-2 hours after reversal of sedation in patients who receive benzodiazepine sedation",
   },
 
   {
@@ -187,14 +188,18 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-    preparation: 'Diluir 2 mg em 500 mL de SF ou SGI → solução 0,004 mg/mL. Estável por 24 horas em temperatura ambiente. EV: infundir bem lento. Monitorar por pelo menos 2 horas.',
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        preparation: "Endotracheal: Dilute to 1 to 2 mL with NS Inhalation via nebulization: Dilute 2 mg of naloxone with 3 mL of NS (Mycyk 2003; Weber 2012) Parenteral: IV push: Dilute naloxone 0.4 mg (1 mL ampul) with 9 mL of NS for a total volume of 10 mL to achieve a concentration of 0.04 mg/mL (APS 2008) IV infusion: Dilute in NS or D5W to a final concentration of ...",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Náusea, vômito, sudorese, nervosismo, inquietação, irritabilidade',
       'Em pacientes com uso crônico de opioides: crise de abstinência com vômitos, taquicardia, hipertensão, hipotensão, midríase, piloereção',
       'Raramente: arritmia, fibrilação, parada em pós-operatórios',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Respiratory rate, heart rate, blood pressure, temperature, level of consciousness, ABGs, or pulse oximetry. Auto-injector: Evzio: When administered to infants <1 year of age, monitor the injec-tion site for residual needle parts and signs of infectio...",
   },
 
   {
@@ -234,10 +239,9 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-    preparation: 'Usar preferencialmente sob monitorização ECG — risco de bradicardia e BAV.',
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: 'Metade da dose' },
-      { label: 'ClCr < 10 mL/min', value: '1/4 da dose' },
+        preparation: "Parenteral: May be administered undiluted by slow IV injection over several minutes; may be administered IM or SubQ~ Oral: Divide dosages so patient receives larger doses at times of greatest fatigue; may be administered with or without food",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Crise colinérgica: broncoespasmo, hipersecreção brônquica, hipersalivação, bradicardia, hipotensão, assistolia, bloqueio atrioventricular',
@@ -245,6 +249,8 @@ export const antagonistasAntidotos = [
       'Alergia, erupção cutânea, urticária, anafilaxia, perda de consciência, convulsão',
     ],
     contraindications: ['Peritonite', 'Obstrução do trato urinário ou gastrointestinal', 'Amamentação'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "ECG, blood pressure, and heart rate especially with IV use; consult individual institutional policies and procedures; muscle strength",
   },
 
   {
@@ -337,13 +343,18 @@ export const antagonistasAntidotos = [
         ],
       },
     ],
-    preparation: 'Uso EV lento. Não misturar com outros medicamentos. Não altera anticoagulantes cumarínicos orais.',
+        preparation: "Parenteral: IV: Administer undiluted slow IVP at a rate not to exceed 5 mg/minute (50 mg in any 10- minute period); rapid IV infusion causes hypotension",
     sideEffects: [
       'Hipotensão, bradicardia, rubor, dispneia, náusea, vômitos, alergia, anafilaxia',
       'Efeito anticoagulante se usada isoladamente em dose alta',
       'Risco aumentado de alergia em usuários de insulina com protamina',
     ],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Coagulation tests, APTT or ACT, cardiac monitor, and blood pressure monitor required during administration",
   },
 
   {

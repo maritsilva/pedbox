@@ -61,9 +61,8 @@ export const antifungicosAzolicos = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: '50% da dose' },
-      { label: 'ClCr < 10 mL/min', value: '50% da dose a cada 48 h' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: {
       susceptible: ['Candida albicans, C. tropicalis, C. parapsilosis, Cryptococcus neoformans, Coccidioides'],
@@ -72,6 +71,9 @@ export const antifungicosAzolicos = [
     },
     sideEffects: ['Cefaleia', 'Convulsões', 'Náusea', 'Vômito', 'Dor abdominal', 'Hepatotoxicidade', 'Síndrome de Stevens-Johnson'],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Reconstitute pow-der for oral suspension with appropriate amount of water as specified on the bottle. Shake vigorously until sus-pended.",
+      monitoring: "Periodic liver function (AST, ALT, alkaline phosphatase), renal function tests, serum potas-sium, CBC with differential, and platelet count",
   },
   {
     id: 'itraconazol',
@@ -117,7 +119,9 @@ export const antifungicosAzolicos = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Ajuste renal (Lexicomp)", value: "Nondialyzable. The man-ufacturer's labeling states to use with caution in patients with renal impairment; dosage adjustment may be needed. Limited data suggest ..." },
+    ],
     sensitivity: {
       susceptible: ['Candida, Aspergillus, Blastomyces, Histoplasma, Cryptococcus, Paracoccidioides, Sporothrix, Coccidioides'],
       resistant: [],
@@ -132,6 +136,9 @@ export const antifungicosAzolicos = [
       'Hepatotoxicidade grave (rara)',
     ],
     contraindications: [],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Do not administer with antacids. Capsule and oral solution formulations are not bioequiva-lent and thus are not interchangeable. Capsule and tablet absorption is best if taken with food; therefore, it is best to administer itraconazole after meals at the same time each day. Capsules should be swal-lowed whole. Solution should be taken on an e...",
+      monitoring: "Liver function in patients with preexisting hepatic dysfunction, and in all patients being treated for longer than 1 month; serum concentrations when clinically indicated (due to erratic bioavailability with oral formulations); renal function; serum ...",
   },
   {
     id: 'miconazol',
@@ -155,6 +162,12 @@ export const antifungicosAzolicos = [
     },
     sideEffects: ['Glossalgia', 'Desconforto local', 'Cefaleia', 'Fadiga', 'Diarreia', 'Alteração do paladar'],
     contraindications: [],
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Topical: For external use only. Apply sparingly and rub gently into the cleansed, dry affected area. For tinea pedis, also apply to spaces between the toes. Vaginal: Wash hands before using; gently insert full appli-cator of cream (prefilled or filled at time of use) or vaginal insert high into vagina and press the plunger to release the medication...",
+      monitoring: "Monitor for worsening symp-toms",
   },
   {
     id: 'posaconazol',
@@ -174,7 +187,9 @@ export const antifungicosAzolicos = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal', value: 'Não exige ajuste' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sensitivity: {
       susceptible: ['Candida, Aspergillus, Cryptococcus'],
       resistant: [],
@@ -188,6 +203,9 @@ export const antifungicosAzolicos = [
       'Arritmia / torsades de pointes, hepatotoxicidade e icterícia',
     ],
     contraindications: ['Menores de 13 anos'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "|V: Equilibrate the refri-gerated vial to room temperature. Contents of vial should be withdrawn and admixed with 150 mL D5W or NS. The admixed solution may be colorless to yellow. Color varia-tions in this range do not affect potency. Admixture should be used immediately; if not used immediately, may be stored for up to 24 hours refrigerated at 2°...",
+      monitoring: "Hepatic function tests and bilir-ubin prior to initiation and periodically during therapy, serum electrolytes (eg, calcium, potassium and magne-sium), serum creatinine, renal function, especially in patients on IV therapy if eG6FR <50 mL/minute/1.73 ...",
   },
   {
     id: 'voriconazol',

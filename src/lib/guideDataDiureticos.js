@@ -81,11 +81,9 @@ export const diureticosTiazidicos = [
         items: [{ label: 'Oral', value: 'Iniciar 25 mg/dia ÷ 1. Máximo: 100 mg/dia' }],
       },
     ],
-    preparation: 'Melhor tomar pela manhã após o café. Monitorar hipopotassemia (reduz efeito hipotensor). Orientar sobre partição do comprimido de 25 mg ao meio quando dose = 12,5 mg/dia.',
-    renalAdjustment: [
-      { label: 'ClCr < 30 mL/min (pediatria)', value: 'Melhor evitar' },
-      { label: 'ClCr < 10 mL/min ou creatinina > 2,5 mg/dL', value: 'Uso não recomendado' },
-      { label: 'Insuficiência hepática grave', value: 'Uso não recomendado' },
+        preparation: "Oral: May administer with food or milk; administer early in day to avoid nocturia; if multiple daily dosing, the last dose should not be administered later than 6 PM unless instructed otherwise.",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Cefaleia, tontura, fraqueza muscular',
@@ -98,6 +96,8 @@ export const diureticosTiazidicos = [
       'Interações: anticoagulantes, digitálicos, AINEs, opioides, corticosteroides, metotrexato, colestiramina',
     ],
     contraindications: ['Hiponatremia', 'Anúria'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Serum electrolytes, BUN, crea-tinine, blood pressure, fluid balance, body weight, urinary electrolytes (if applicable); serum glucose levels",
   },
 
   {
@@ -268,7 +268,7 @@ export const diureticosAlca = [
         items: [{ label: 'EV/oral', value: '20 a 160 mg × 2/dia. Útil enquanto FG > 20 a 30 mL/min' }],
       },
     ],
-    preparation: 'EV sem diluir ou a 1 mg/mL. Aplicar em 3 a 5 min (não bolus rápido — risco de surdez reversível). Doses > 1 g: infusão em 1 hora. Não misturar na mesma solução com cefalosporinas, clorpromazina, dopamina, dobutamina, fluconazol, gentamicina, hidrocortisona, imipenem, metoclopramida, midazolam, morfina, ondansetrona, vecurônio, tiopental. Insuficiência renal: não exige ajuste.',
+        preparation: "IV Direto: Injetar lentamente ao longo de 1 a 2 minutos (velocidade máx: 4 mg/min para evitar zumbido e ototoxicidade transitória ou permanente).\nInfusão IV Contínua: Diluir em SF 0,9% ou SG 5% para concentração de 1 a 2 mg/mL (proteger da luz se infusão prolongada).",
     sideEffects: [
       'Hipovolemia excessiva, desidratação, hipotensão ortostática, azotemia pré-renal, choque, tromboembolismo',
       'Hipopotassemia, hiponatremia, hipofosfatemia, hipocalcemia, hipomagnesemia, hipocloremia, alcalose, hipercalciúria, hiperuricemia',
@@ -281,6 +281,13 @@ export const diureticosAlca = [
       'Idosos: piora de incontinência urinária e risco de quedas',
     ],
     contraindications: ['Insuficiência renal anúrica que não respondeu a doses altas'],
+      renalAdjustment: [
+      { label: "ClCr ≥ 50 mL/min", value: "Dose plena usual" },
+      { label: "ClCr 10–49 mL/min", value: "Doses usuais podem ser aumentadas conforme resposta diurética" },
+      { label: "ClCr < 10 mL/min / Anúria", value: "Pode necessitar de doses significativamente mais altas (2 a 5 mg/kg/dose) para deflagrar diurese; evitar doses excessivas se não houver resposta (risco de ototoxicidade)." },
+    ],
+      hepaticAdjustment: "Em cirrose hepática, usar com extremo cuidado e monitorização estrita de potássio (hipocalemia pode precipitar encefalopatia hepática).",
+      monitoring: "Eletrólitos séricos (sódio, potássio, magnésio, cloreto), gasometria venosa (risco de alcalose metabólica hipoclorêmica), ureia, creatinina, pressão arterial e balanço hídrico rigoroso.",
   },
 
   {
@@ -393,10 +400,9 @@ export const diureticosPoupadores = [
         items: [{ label: 'Oral', value: '100 a 400 mg/dia ÷ 1 a 2' }],
       },
     ],
-    preparation: 'Dosar potássio com 1 mês de tratamento e a cada 4 meses após estabilização.',
-    renalAdjustment: [
-      { label: 'ClCr 10–50 mL/min', value: '1 ou 2 doses/dia' },
-      { label: 'ClCr < 10 mL/min', value: 'Uso não recomendado' },
+        preparation: "Oral: May be taken with or without food; however, consistent administration with or without food is preferred to minimize fluctuations in drug exposure.",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Tontura, letargia, cefaleia, confusão',
@@ -411,6 +417,8 @@ export const diureticosPoupadores = [
       'Tosse, rouquidão',
     ],
     contraindications: ['Insuficiência renal grave', 'Anúria', 'Hiperpotassemia', 'Doença de Addison'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Blood pressure, serum potas-sium, sodium, calcium (neonates) and renal function (baseline, periodically during therapy), fluid balance, bodyweight (daily: neonates, infants)",
   },
 ];
 

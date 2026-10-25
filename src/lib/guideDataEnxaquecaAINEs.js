@@ -175,6 +175,12 @@ export const analgesicoEnxaqueca = [
     ],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: 'Evitar associação com opioides, antieméticos, antipsicóticos e antidepressivos moduladores de serotonina (risco de síndrome serotoninérgica).' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Oral: Orally disintegrating tablets (Maxalt-MLT®): Do not remove the blister from the pouch until ready to use; blister pouch should be opened by peeling back (not pushing through foil) and with dry hands; place tablet on the tongue to dissolve; do not crush, break, or chew; additional liquids are not necessary.",
+      monitoring: "Headache severity",
   },
   {
     id: 'sumatriptana',
@@ -201,9 +207,8 @@ export const analgesicoEnxaqueca = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'Insuficiência renal', value: 'Não exige ajuste' },
-      { label: 'Insuficiência hepática grave', value: 'Evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [],
     contraindications: [
@@ -213,6 +218,8 @@ export const analgesicoEnxaqueca = [
       'Uso simultâneo com derivados do ergot', 'Uso de IMAO',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "Administer as soon as symptoms appear. Intranasal: Powder (Onzetra Xsail): For intranasal administration with the Xsail device only. Remove the clear device cap from the reusable delivery device; remove one 11 mg disposable nosepiece from the foil pouch and click into the device body. Prior to administration, pierce the capsule inside the nosepiece...",
   },
   {
     id: 'zolmitriptana',
@@ -235,6 +242,11 @@ export const analgesicoEnxaqueca = [
     sideEffects: [],
     contraindications: [],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "Nasal inhalation: Chil-dren 212 years and Adolescents: Not recommended in patients with moderate or severe hepatic impairment.",
+      preparation: "Administer as soon as migraine head-ache starts. Nasal spray: Blow nose gently prior to use. After removing protective cap, instill device into nostril, tilt head back slightly. Block opposite nostril; breathe in gently through nose while pressing plunger of spray device. Breathe gently through mouth for 5 to 10 seconds. Oral: Tablet: May be broken...",
   },
 ];
 
@@ -315,7 +327,9 @@ export const ainesDrugs = [
         ],
       },
     ],
-    renalAdjustment: [{ label: 'Insuficiência renal grave', value: 'Melhor evitar' }],
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
     sideEffects: [
       'Dor abdominal', 'Diarreia', 'Náusea', 'Vômito', 'Estomatite', 'Dispepsia', 'Gastrite',
       'Úlcera', 'Sangramento gástrico', 'Esofagite', 'Colite',
@@ -326,6 +340,9 @@ export const ainesDrugs = [
     ],
     contraindications: ['Úlcera péptica', 'Hipertensão', 'Cardiopatias', 'Asma', 'Doença hepática'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Children 22 years and Adolescents: Moderate hepatic impatient (Child-Pugh Class B): Reduce dose by 50%; monitor closely Severe hepatic impairment (Child-Pugh Class C): Use is not recommended; has not ...",
+      preparation: "Lower doses (up to 200 mg twice daily) may be administered without regard to meals (may admin-ister with food to reduce Gl upset); larger doses should be administered with food to improve absorption. Capsules may be swallowed whole or the entire contents emptied onto a teaspoon of cool or room temperature applesauce and ingested immediately with wa...",
+      monitoring: "CBC; blood chemistry profile; occult blood loss; periodic liver function tests; renal func-tion (urine output, serum BUN and creatinine); monitor efficacy (eg, in arthritic conditions: Pain, range of motion, grip strength, mobility, inflammation); ob...",
   },
   {
     id: 'cetoprofeno',
@@ -530,6 +547,12 @@ export const ainesDrugs = [
     ],
     contraindications: ['Úlcera', 'Gastrite', 'Hipertensão', 'Asma', 'Doença renal ou hepática grave'],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
+    ],
+      hepaticAdjustment: "No adjustment required.",
+      preparation: "May be administered with food to decrease Gl upset.",
+      monitoring: "Periodic CBC, liver enzymes, serum BUN and creatinine, signs and symptoms of Gl bleeding",
   },
   {
     id: 'etoricoxibe',
@@ -688,10 +711,8 @@ export const ainesDrugs = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 30 mL/min', value: 'Uso não recomendado' },
-      { label: 'Hemodiálise', value: 'Máx 7,5 mg/dia' },
-      { label: 'Insuficiência hepática grave', value: 'Melhor evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Náusea', 'Vômitos', 'Dispepsia', 'Gastrite', 'Úlcera péptica', 'Colite', 'Diarreia',
@@ -711,6 +732,9 @@ export const ainesDrugs = [
       'Último trimestre de gestação',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      preparation: "May be taken with or without meals; administer with food or milk to minimize gastrointestinal irritation. Oral suspension: Shake gently prior to use.",
+      monitoring: "Periodic CBC, liver enzymes, serum BUN and creatinine, signs and symptoms of Gl bleeding 1295 5",
   },
   {
     id: 'naproxeno',
@@ -757,6 +781,12 @@ export const ainesDrugs = [
       'Último trimestre de gestação',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: 'Rever a necessidade após 10 dias de uso contínuo. Apresentação com esomeprazol: ingerir longe das refeições.' },
+      renalAdjustment: [
+      { label: "Insuficiência renal grave", value: "Evitar o uso ou contraindicado" },
+    ],
+      hepaticAdjustment: "Usar com cautela em hepatopatias; monitorar enzimas hepáticas e sinais clínicos de toxicidade.",
+      preparation: "Oral: Administer with food, milk, or ant-acids to decrease GI! adverse effects. Shake suspension well before use. Do not chew, crush, or break delayed or controlled release tablet, swallow whole. Separate admin-istration of naproxen and antacids, sucralfate, or choles-tyramine by 2 hours.",
+      monitoring: "CBC with differential, platelets, BUN, serum creatinine, liver enzymes, occult blood loss, periodic ophthalmologic exams, hemoglobin, hematocrit, blood pressure",
   },
   {
     id: 'nimesulida',
@@ -839,9 +869,8 @@ export const ainesDrugs = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 30 mL/min', value: 'Uso não recomendado' },
-      { label: 'Insuficiência hepática', value: 'Melhor evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sideEffects: [
       'Anorexia', 'Náusea', 'Vômitos', 'Gastrite', 'Úlcera péptica', 'Hemorragia GI', 'Epigastralgia',
@@ -861,6 +890,9 @@ export const ainesDrugs = [
       'Histórico de alergia a salicilatos',
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
+      hepaticAdjustment: "There are no specific dosage adjustments provided in manufacturer's labeling; however, based on experience in adult patients, dosage adjustment suggested",
+      preparation: "May administer with food or milk to decrease GI upset",
+      monitoring: "Occult blood loss, CBC, BUN, serum creatinine, liver enzymes; periodic ophthalmologic exams with chronic use",
   },
   {
     id: 'parecoxibe',

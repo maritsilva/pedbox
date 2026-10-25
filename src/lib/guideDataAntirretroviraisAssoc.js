@@ -46,8 +46,8 @@ export const antirretroviraisAssoc = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 50 mL/min', value: 'Melhor evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
     sideEffects: [
@@ -56,6 +56,9 @@ export const antirretroviraisAssoc = [
       'Acidose lática grave', 'Hepatomegalia',
     ],
     contraindications: ['Genótipo HLAB5701 positivo', 'Insuficiência hepática grave'],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "Oral: May be administered without regard to food",
+      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); signs and symptoms of hyper-sensitivity reaction (in all patients, but especially...",
   },
   {
     id: 'lamivudina-abacavir-dolutegravir',
@@ -72,8 +75,8 @@ export const antirretroviraisAssoc = [
         ],
       },
     ],
-    renalAdjustment: [
-      { label: 'ClCr < 50 mL/min', value: 'Melhor evitar' },
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: { susceptible: [], resistant: [], warning: '' },
     sideEffects: [
@@ -88,6 +91,9 @@ export const antirretroviraisAssoc = [
       'Insuficiência hepática moderada ou grave',
       'Não associar à dofetilida',
     ],
+      hepaticAdjustment: "Contraindicado ou evitar em insuficiência hepática descompensada.",
+      preparation: "Oral: May be administered without regard to food",
+      monitoring: "HLA-B*5707 genotype status prior to initiating therapy or resuming therapy in patients of unknown HLA-B*5707 status (including patients previ-ously tolerating therapy); signs and symptoms of hyper-sensitivity reaction (in all patients, but especially...",
   },
   {
     id: 'lamivudina-tenofovir',
@@ -130,9 +136,9 @@ export const antirretroviraisAssoc = [
         ],
       },
     ],
-    preparation: 'Melhor tomar ao deitar, 2 horas após a última refeição.',
-    renalAdjustment: [
-      { label: 'ClCr < 50 mL/min', value: 'Melhor evitar' },
+        preparation: "Administer dose at bedtime to decrease CNS adverse effects; administer with water on an empty stomach (administration with food may increase efavirenz concentrations and adverse effects). Capsules and tablets should be swallowed intact. For patients who cannot swallow capsules or tablets, the capsules may be opened and added to 1 to 2 teaspoons of ...",
+        renalAdjustment: [
+      { label: "Insuficiência renal", value: "Geralmente não requer ajuste de dose" },
     ],
     sensitivity: { susceptible: [], resistant: [], warning: 'Não associar à elbasvir/grazoprevir.' },
     sideEffects: [
@@ -142,6 +148,8 @@ export const antirretroviraisAssoc = [
       'Osteopenia', 'Fratura', 'Insuficiência renal',
     ],
     contraindications: ['Insuficiência hepática moderada a grave'],
+      hepaticAdjustment: "Sem recomendação de ajuste específico na bula; monitorar função clínica.",
+      monitoring: "Note: The absolute CD4 cell count is currently recommended to monitor immune status in children of all ages; CD4 percentage can be used as an alternative in children <5 years of age. This recommen-dation is based on the use of absolute CD4 cell count...",
   },
   {
     id: 'lamivudina-zidovudina',
