@@ -53,7 +53,8 @@ const PROTOCOLS = [
 
 // Calculadoras e ferramentas
 const TOOLS_INDEX = [
-  { label: 'Hidratação Venosa',          path: '/hidratacao',              icon: '💧', desc: 'Holliday-Segar · volumes e soluções' },
+  { label: 'Plantão Pediátrico — Guia Rápido', path: '/calculadoras', icon: '🩺', desc: 'Doses, calculadoras de emergência e condutas rápidas para plantão', keywords: ['plantao', 'plantão', 'ped ajuda', 'pede ajuda', 'pedajuda', 'pedbook', 'pedbok', 'pedbooks', 'medped', 'ajuda'] },
+  { label: 'Hidratação Venosa',          path: '/hidratacao',              icon: '💧', desc: 'Holliday-Segar · volumes e soluções', keywords: ['holliday', 'segar', 'hidratacao', 'expansao'] },
   { label: 'IMC Pediátrico',             path: '/imc',                     icon: '📊', desc: 'Índice de massa corporal por faixa etária' },
   { label: 'Pressão Arterial Pediátrica',path: '/pressao-arterial',        icon: '❤️', desc: 'Valores de referência por percentil e idade' },
   { label: 'Perímetro Cefálico',         path: '/perimetro-cefalico',       icon: '🔵', desc: 'Percentis e avaliação do crescimento craniano' },
@@ -66,23 +67,23 @@ const TOOLS_INDEX = [
   { label: 'PRAM',                       path: '/pram',                     icon: '💨', desc: 'Pontuação de risco em asma pediátrica' },
   { label: 'APGAR',                      path: '/apgar',                    icon: '👶', desc: 'Avaliação rápida da vitalidade do recém-nascido' },
   { label: 'Glasgow Pediátrico',         path: '/glasgow-pediatrico',       icon: '🧠', desc: 'Nível de consciência em pacientes pediátricos' },
-  { label: 'PEWS',                       path: '/pews',                     icon: '⚠️', desc: 'Pontuação de alerta precoce em pediatria' },
+  { label: 'PEWS',                       path: '/pews',                     icon: '⚠️', desc: 'Pontuação de alerta precoce em pediatria', keywords: ['alerta', 'precoce', 'plantao'] },
   { label: 'SIPA',                       path: '/sipa',                     icon: '💓', desc: 'Shock Index pediatric age-adjusted' },
   { label: 'Silverman-Anderson',         path: '/silverman-anderson',       icon: '🫂', desc: 'Desconforto respiratório neonatal' },
   { label: 'Escore de Rodwell',          path: '/rodwell',                  icon: '🧬', desc: 'Probabilidade de sepse neonatal' },
   { label: 'Centor / McIsaac',           path: '/centor-mcisaac',           icon: '🦠', desc: 'Probabilidade de faringoamigdalite estreptocócica' },
   { label: 'PAS — Asma',                 path: '/pas-asma',                 icon: '🌬️', desc: 'Pediatric Asthma Score emergência' },
-  { label: 'Drogas na Emergência',       path: '/drogas-emergencia',        icon: '🚨', desc: 'Broselow · bolus e infusão contínua' },
-  { label: 'Calculadoras Clínicas',      path: '/calculadoras-hub',         icon: '🧮', desc: 'Hub de calculadoras e escores pediátricos' },
+  { label: 'Drogas na Emergência',       path: '/drogas-emergencia',        icon: '🚨', desc: 'Broselow · bolus e infusão contínua', keywords: ['plantao', 'plantão', 'pals', 'ajuda', 'ped ajuda', 'urgencia', 'emergencia'] },
+  { label: 'Calculadoras Clínicas',      path: '/calculadoras-hub',         icon: '🧮', desc: 'Hub de calculadoras e escores pediátricos', keywords: ['escores', 'ped ajuda', 'medped', 'plantao', 'plantão'] },
   { label: 'Curvas de Crescimento OMS',  path: '/curvas-crescimento',       icon: '📈', desc: 'Curvas OMS, CDC e SBP para download' },
   { label: 'Sinais Vitais Pediátricos',  path: '/sinais-vitais',            icon: '📋', desc: 'Valores de referência por faixa etária' },
   { label: 'Desenvolvimento Infantil',   path: '/desenvolvimento',          icon: '🌱', desc: 'Marcos dos 2 meses aos 5 anos com sinais de alerta' },
   { label: 'Vacinas',                    path: '/vacinas',                  icon: '💉', desc: 'Calendário vacinal e informações detalhadas' },
   { label: 'Segurança na Amamentação',   path: '/amamentacao',              icon: '🤱', desc: 'Medicamentos e lactação · Guia Ministério da Saúde 2025' },
-  { label: 'Guia de Medicamentos',       path: '/guia',                     icon: '📖', desc: 'Doses, preparo e apresentações · 100+ fármacos' },
-  { label: 'Dosagens — Cálculo Rápido',  path: '/dosagens',                 icon: '⚡', desc: 'Calcule doses por peso instantaneamente' },
+  { label: 'Guia de Medicamentos',       path: '/guia',                     icon: '📖', desc: 'Doses, preparo e apresentações · 100+ fármacos', keywords: ['pedbook', 'pedbooks', 'pedbok', 'livro', 'guia', 'manual', 'plantao', 'plantão'] },
+  { label: 'Dosagens — Cálculo Rápido',  path: '/dosagens',                 icon: '⚡', desc: 'Calcule doses por peso instantaneamente', keywords: ['medped', 'ped ajuda', 'pede ajuda', 'pedajuda', 'doses', 'ajuda'] },
   { label: 'Protocolos Clínicos',        path: '/biblioteca',               icon: '🧪', desc: 'Diretrizes passo a passo com fluxogramas' },
-  { label: 'Biblioteca',                 path: '/biblioteca',               icon: '📚', desc: 'Protocolos, condutas, links e anotações pediátricas' },
+  { label: 'Biblioteca de Condutas',     path: '/biblioteca',               icon: '📚', desc: '203 condutas, protocolos, links e anotações pediátricas', keywords: ['pedbook', 'pedbooks', 'livro', 'condutas', 'protocolos', 'diretrizes', 'medped'] },
   { label: 'Explorar Ferramentas',       path: '/ferramentas',              icon: '🧰', desc: 'Todas as ferramentas do site' },
   { label: 'Favoritos',                  path: '/favoritos',                icon: '⭐', desc: 'Ferramentas e medicamentos salvos' },
 ];
@@ -103,7 +104,10 @@ export function universalSearch(query, limit = 30) {
 
   // 1. Ferramentas / páginas (sempre disponível imediatamente)
   for (const t of [...CALCULATORS, ...TOOLS_INDEX.filter(t => !CALCULATORS.some(c => c.path === t.path))]) {
-    if (normalizeSearch(t.label).includes(q) || normalizeSearch(t.desc).includes(q)) {
+    const matchLabel = normalizeSearch(t.label).includes(q);
+    const matchDesc = normalizeSearch(t.desc || '').includes(q);
+    const matchKeywords = Array.isArray(t.keywords) && t.keywords.some(k => normalizeSearch(k).includes(q) || q.includes(normalizeSearch(k)));
+    if (matchLabel || matchDesc || matchKeywords) {
       results.push({ label: t.label, desc: t.desc, path: t.path, icon: t.icon, type: 'tool' });
     }
   }

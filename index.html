@@ -13,9 +13,9 @@
     <link rel="manifest" href="/manifest.json" />
 
     <!-- Primários SEO -->
-    <title>PedBox | Calculadoras Pediátricas, Condutas Clínicas e Doses</title>
-    <meta name="description" content="Plataforma médica de referência em pediatria: calculadoras de doses, curvas de crescimento OMS, condutas em neonatologia, cirurgia pediátrica e emergência." />
-    <meta name="keywords" content="pediatria, calculadoras pediátricas, doses de medicamentos infantis, curvas oms, condutas médicas, neonatologia, pedbox, hidratação venosa, apgar, pews" />
+    <title>PedBox | Guia de Pediatria Grátis, Calculadoras, Doses e Condutas no Plantão</title>
+    <meta name="description" content="Plataforma médica 100% gratuita para ajuda rápida no plantão pediátrico: doses por kg, 203 condutas clínicas, escores de emergência e curvas OMS sem assinatura." />
+    <meta name="keywords" content="pedbox, pedbok, pedbook, pedbooks, ped ajuda, pede ajuda, pedajuda, medped, plantão pediátrico, calculadoras pediátricas, doses de medicamentos infantis, guia de bolso pediatria, livro digital pediatria, condutas médicas, neonatologia, hidratação venosa, holliday segar, apgar, pews, pediatria grátis" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="PedBox" />
     <link rel="canonical" href="https://pedbox.app/" />
@@ -23,8 +23,8 @@
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pedbox.app/" />
-    <meta property="og:title" content="PedBox | Calculadoras Pediátricas, Condutas Clínicas e Doses" />
-    <meta property="og:description" content="Plataforma médica de referência em pediatria: calculadoras de doses, curvas de crescimento OMS, condutas em neonatologia, cirurgia pediátrica e emergência." />
+    <meta property="og:title" content="PedBox | Guia de Pediatria Grátis, Calculadoras, Doses e Condutas no Plantão" />
+    <meta property="og:description" content="Plataforma médica 100% gratuita para ajuda rápida no plantão pediátrico: doses por kg, 203 condutas clínicas, escores de emergência e curvas OMS sem assinatura." />
     <meta property="og:image" content="https://pedbox.app/assets/hero-pediatra.jpg" />
     <meta property="og:site_name" content="PedBox" />
     <meta property="og:locale" content="pt_BR" />
@@ -32,37 +32,134 @@
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://pedbox.app/" />
-    <meta name="twitter:title" content="PedBox | Calculadoras Pediátricas, Condutas Clínicas e Doses" />
-    <meta name="twitter:description" content="Plataforma médica de referência em pediatria: calculadoras de doses, curvas de crescimento OMS, condutas em neonatologia, cirurgia pediátrica e emergência." />
+    <meta name="twitter:title" content="PedBox | Guia de Pediatria Grátis, Calculadoras, Doses e Condutas no Plantão" />
+    <meta name="twitter:description" content="Plataforma médica 100% gratuita para ajuda rápida no plantão pediátrico: doses por kg, 203 condutas clínicas, escores de emergência e curvas OMS sem assinatura." />
     <meta name="twitter:image" content="https://pedbox.app/assets/hero-pediatra.jpg" />
 
     <!-- Schema.org JSON-LD Inicial -->
     <script id="pedbox-seo-schema" type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "MedicalWebPage",
-      "name": "PedBox | Calculadoras Pediátricas, Condutas Clínicas e Doses",
-      "description": "Plataforma médica de referência em pediatria: calculadoras de doses, curvas de crescimento OMS, condutas em neonatologia, cirurgia pediátrica e emergência.",
-      "url": "https://pedbox.app/",
-      "inLanguage": "pt-BR",
-      "mainEntity": {
-        "@type": "MedicalSpecialty",
-        "name": "Pediatria e Neonatologia"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "PedBox",
-        "url": "https://pedbox.app",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://pedbox.app/assets/pedbox-logo.png"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://pedbox.app/#website",
+          "url": "https://pedbox.app/",
+          "name": "PedBox",
+          "alternateName": ["PedBox App", "Ped Box", "PedBook Digital", "PedBok"],
+          "description": "Plataforma médica 100% gratuita de suporte, calculadoras, doses e condutas clínicas em pediatria.",
+          "inLanguage": "pt-BR",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://pedbox.app/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://pedbox.app/#application",
+          "name": "PedBox",
+          "applicationCategory": "MedicalApplication",
+          "operatingSystem": "All (Web, Android, iOS)",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/InStock"
+          },
+          "featureList": "48 calculadoras clínicas e escores, 203 condutas clínicas estruturadas, guia de bolso de medicamentos com doses por kg, curvas OMS, calendário vacinal SBIm/PNI"
+        },
+        {
+          "@type": "MedicalWebPage",
+          "@id": "https://pedbox.app/#webpage",
+          "url": "https://pedbox.app/",
+          "name": "PedBox | Guia de Pediatria Grátis, Calculadoras, Doses e Condutas no Plantão",
+          "description": "Plataforma médica 100% gratuita para ajuda rápida no plantão pediátrico: doses por kg, 203 condutas clínicas, escores de emergência e curvas OMS sem assinatura.",
+          "inLanguage": "pt-BR",
+          "about": [
+            { "@type": "MedicalSpecialty", "name": "Pediatria" },
+            { "@type": "MedicalSpecialty", "name": "Neonatologia" },
+            { "@type": "MedicalSpecialty", "name": "Medicina de Emergência Pediátrica" }
+          ],
+          "audience": {
+            "@type": "MedicalAudience",
+            "audienceType": "Médicos, Médicos Residentes em Pediatria e Estudantes de Medicina"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "PedBox",
+            "url": "https://pedbox.app",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://pedbox.app/assets/pedbox-logo.png"
+            }
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://pedbox.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "O PedBox é gratuito para sempre?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim. O PedBox é uma plataforma médica pediátrica 100% gratuita para sempre. Todo o acervo de calculadoras, doses e condutas está disponível sem mensalidades, assinaturas ou barreiras de pagamento."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como o PedBox oferece ajuda rápida no plantão de pediatria?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "O PedBox foi desenhado para agilidade no plantão e emergência: cálculo instantâneo de doses por peso (mg/kg e mL), calculadoras de hidratação venosa (Holliday-Segar), 203 condutas clínicas completas e escores validados (PEWS, APGAR, Glasgow, Wood-Downes, SIPA)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "O PedBox funciona como um livro ou guia de bolso no celular?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim. O PedBox funciona como um guia de bolso digital completo no celular e no computador. Pode ser instalado diretamente pela tela inicial (PWA), oferecendo navegação ultrarrápida durante a assistência médica."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quais condutas clínicas pediátricas estão disponíveis no PedBox?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "São 203 condutas cobrindo Neonatologia, Cirurgia Pediátrica, Urgências e Emergências, Puericultura, Doenças Respiratórias, Neurologia, Hematologia, Nefrologia, Gastroenterologia, Endocrinologia e Abordagem de Sinais e Sintomas."
+              }
+            }
+          ]
         }
-      }
+      ]
     }
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Conteúdo Semântico Pré-Renderizado para Indexação SEO (substituído pelo React na montagem) -->
+      <header style="max-width:1200px;margin:0 auto;padding:24px 16px;font-family:system-ui,-apple-system,sans-serif;">
+        <h1 style="font-size:2rem;color:#0f172a;margin-bottom:8px;">PedBox — Plataforma Médica Pediátrica 100% Gratuita</h1>
+        <p style="font-size:1.1rem;color:#475569;margin-bottom:16px;">Seu guia de bolso digital, calculadoras de doses por peso e ajuda rápida no plantão de pediatria.</p>
+        <nav style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+          <a href="/calculadoras" style="color:#0284c7;font-weight:600;">Calculadoras Clínicas</a> •
+          <a href="/dosagens" style="color:#0284c7;font-weight:600;">Doses e Diluições</a> •
+          <a href="/guia" style="color:#0284c7;font-weight:600;">Guia de Medicamentos</a> •
+          <a href="/biblioteca" style="color:#0284c7;font-weight:600;">203 Condutas Clínicas</a> •
+          <a href="/curvas-crescimento" style="color:#0284c7;font-weight:600;">Curvas OMS</a> •
+          <a href="/vacinas" style="color:#0284c7;font-weight:600;">Vacinas SBIm/PNI</a> •
+          <a href="/drogas-emergencia" style="color:#0284c7;font-weight:600;">Drogas de Emergência</a>
+        </nav>
+      </header>
+      <main style="max-width:1200px;margin:0 auto;padding:0 16px;font-family:system-ui,-apple-system,sans-serif;">
+        <section style="margin-bottom:32px;">
+          <h2 style="font-size:1.4rem;color:#0f172a;">Ajuda Rápida e Decisão Clínica no Plantão Pediátrico</h2>
+          <p style="color:#475569;line-height:1.6;">O PedBox é uma plataforma médica livre e 100% gratuita desenvolvida para médicos, residentes e estudantes de medicina. Reúne 203 condutas clínicas atualizadas, 48 calculadoras e escores validados, cálculo automático de doses por kg (mg/kg e mL), curvas de crescimento da OMS e guia completo de antimicrobianos e segurança na amamentação.</p>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

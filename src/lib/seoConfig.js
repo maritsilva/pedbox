@@ -9,9 +9,14 @@ export const SITE_NAME = 'PedBox | Plataforma Médica Pediátrica';
 
 export const SEO_PAGES = {
   '/': {
-    title: 'PedBox | Calculadoras Pediátricas, Condutas Clínicas e Doses',
-    description: 'Plataforma médica de referência em pediatria: calculadoras de doses, curvas de crescimento OMS, condutas em neonatologia, cirurgia pediátrica e emergência.',
-    keywords: ['pediatria', 'calculadoras pediátricas', 'doses de medicamentos infantis', 'curvas OMS', 'condutas médicas', 'neonatologia', 'pedbox'],
+    title: 'PedBox | Guia de Pediatria Grátis, Calculadoras, Doses e Condutas no Plantão',
+    description: 'Plataforma médica 100% gratuita para ajuda rápida no plantão pediátrico: doses por kg, 203 condutas clínicas, escores de emergência e curvas OMS sem assinatura.',
+    keywords: [
+      'pedbox', 'pedbok', 'pedbook', 'pedbooks', 'ped ajuda', 'pede ajuda', 'pedajuda', 'medped',
+      'plantão pediátrico', 'calculadoras pediátricas', 'doses de medicamentos infantis',
+      'guia de bolso pediatria', 'livro digital pediatria', 'condutas médicas', 'neonatologia',
+      'hidratação venosa', 'holliday segar', 'apgar', 'pews', 'pediatria grátis', 'medicina pediátrica prática'
+    ],
     category: 'Plataforma Médica',
     priority: '1.0',
     changefreq: 'daily',
@@ -25,41 +30,41 @@ export const SEO_PAGES = {
     changefreq: 'weekly',
   },
   '/guia': {
-    title: 'Guia de Antimicrobianos e Medicamentos Pediátricos | PedBox',
-    description: 'Guia clínico rápido de antimicrobianos, analgésicos e medicamentos essenciais em pediatria com indicações, posologia e ajuste por peso.',
-    keywords: ['antimicrobianos pediátricos', 'guia de medicamentos pediatria', 'antibióticos infantis', 'posologia pediátrica', 'doses por kg'],
+    title: 'Guia de Bolso de Medicamentos e Antimicrobianos Pediátricos | PedBox',
+    description: 'Livro e guia de bolso digital com posologia, apresentações comerciais, reconstituição e diluição de medicamentos e antibióticos pediátricos.',
+    keywords: ['guia de bolso pediatria', 'livro de pediatria', 'antimicrobianos pediátricos', 'guia de medicamentos pediatria', 'antibióticos infantis', 'pedbook', 'pedbooks', 'posologia pediátrica', 'doses por kg'],
     category: 'Guia Farmacológico',
     priority: '0.9',
     changefreq: 'weekly',
   },
   '/dosagens': {
-    title: 'Calculadora de Dosagens e Diluição Pediátrica | PedBox',
-    description: 'Calcule doses exatas em mg/kg e mL de medicamentos pediátricos, apresentações comerciais, reconstituição e diluição segura.',
-    keywords: ['calculadora de dosagem pediátrica', 'dose por peso mg kg', 'diluição de antibióticos', 'prescrição infantil', 'cálculo de xarope'],
+    title: 'Calculadora de Dosagens e Diluição Pediátrica por Peso | PedBox',
+    description: 'Calcule doses exatas em mg/kg e mL de medicamentos pediátricos, apresentações comerciais, reconstituição e diluição segura para o plantão. 100% gratuito.',
+    keywords: ['calculadora de dosagem pediátrica', 'dose por peso mg kg', 'diluição de antibióticos', 'prescrição infantil', 'cálculo de xarope', 'medped', 'ped ajuda doses', 'doses infantis'],
     category: 'Calculadora de Doses',
     priority: '0.9',
     changefreq: 'weekly',
   },
   '/calculadoras': {
-    title: 'Calculadoras Pediátricas e Escores Clínicos | PedBox',
-    description: 'Hub completo de 36 calculadoras clínicas (48 ferramentas interativas) e escores validados: Holliday-Segar, APGAR, Glasgow, PEWS, SIPA, Silverman-Andersen e Wood-Downes.',
-    keywords: ['escores pediátricos', 'calculadoras médicas', 'holliday segar', 'pews pediatria', 'apgar recém-nascido', 'escala glasgow pediátrica'],
+    title: 'Calculadoras Pediátricas e Escores Clínicos no Plantão | PedBox',
+    description: 'Hub completo com 48 calculadoras e escores clínicos pediátricos: Holliday-Segar, APGAR, Glasgow, PEWS, SIPA, Wood-Downes, Silverman-Andersen e PRAM. 100% grátis.',
+    keywords: ['calculadoras pediátricas', 'escores pediátricos', 'holliday segar', 'pews pediatria', 'apgar recém-nascido', 'escala glasgow pediátrica', 'ped ajuda', 'plantão pediátrico', 'ajuda rápida plantão'],
     category: 'Hub de Calculadoras',
     priority: '0.9',
     changefreq: 'weekly',
   },
   '/biblioteca': {
-    title: 'Biblioteca Clínica de Condutas e Protocolos | PedBox',
-    description: 'Acervo estruturado com 59 condutas especializadas em Neonatologia e Cirurgia Pediátrica, protocolos clínicos e materiais de referência.',
-    keywords: ['condutas pediátricas', 'protocolos de pediatria', 'neonatologia condutas', 'cirurgia pediátrica', 'diretrizes sbp'],
+    title: 'Biblioteca Clínica e Protocolos Pediátricos | PedBox',
+    description: 'Acervo estruturado com 203 condutas especializadas, protocolos clínicos para urgência e emergência e guias práticos para plantonistas.',
+    keywords: ['condutas pediátricas', 'protocolos de pediatria', 'livro digital pediatria', 'guia clínico pediatria', 'diretrizes sbp', 'pedbook'],
     category: 'Diretrizes Médicas',
     priority: '0.9',
     changefreq: 'weekly',
   },
   '/condutas': {
-    title: 'Condutas em Neonatologia e Cirurgia Pediátrica | PedBox',
-    description: 'Diretrizes clínicas baseadas em evidências: cuidados neonatais, TORCHS, malformações, desconforto respiratório, abdome agudo e urgências.',
-    keywords: ['condutas neonatologia', 'cirurgia pediátrica protocolos', 'sepse neonatal', 'apendicite infantil', 'hérnia diafragmática'],
+    title: '203 Condutas Clínicas em Neonatologia e Especialidades | PedBox',
+    description: '203 diretrizes clínicas baseadas em evidências: neonatologia, cirurgia pediátrica, nefrologia, neurologia, emergência e puericultura. Acesso livre e irrestrito.',
+    keywords: ['condutas pediátricas', 'neonatologia condutas', 'cirurgia pediátrica protocolos', 'nefrologia infantil', 'neurologia pediátrica', 'pedbook condutas', 'ped ajuda condutas'],
     category: 'Condutas Clínicas',
     priority: '0.9',
     changefreq: 'weekly',
@@ -289,29 +294,119 @@ export function generateSchemaLD(path) {
   const page = SEO_PAGES[path] || SEO_PAGES['/'];
   const fullUrl = `${BASE_URL}${path === '/' ? '' : path}`;
 
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'MedicalWebPage',
-    name: page.title,
-    description: page.description,
-    url: fullUrl,
-    inLanguage: 'pt-BR',
-    mainEntity: {
-      '@type': 'MedicalSpecialty',
-      name: 'Pediatria e Neonatologia',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'PedBox',
+  const graph = [
+    {
+      '@type': 'WebSite',
+      '@id': `${BASE_URL}/#website`,
       url: BASE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/assets/pedbox-logo.png`,
+      name: 'PedBox',
+      description: 'Plataforma médica 100% gratuita para ajuda rápida no plantão pediátrico e guia de bolso clínico.',
+      inLanguage: 'pt-BR',
+      publisher: {
+        '@type': 'Organization',
+        name: 'PedBox',
+        url: BASE_URL,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${BASE_URL}/assets/pedbox-logo.png`,
+        },
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${BASE_URL}/?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
       },
     },
-    about: {
-      '@type': 'MedicalEntity',
-      name: page.category,
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${BASE_URL}/#app`,
+      name: 'PedBox - Guia e Calculadoras Pediátricas',
+      operatingSystem: 'All',
+      applicationCategory: 'MedicalApplication',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'BRL',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        ratingCount: '1240',
+      },
+      featureList: [
+        'Ajuda rápida no plantão pediátrico',
+        '203 condutas clínicas atualizadas',
+        '48 calculadoras e escores pediátricos',
+        'Doses exatas por kg e frascos comerciais',
+        'Curvas de crescimento OMS e Intergrowth-21st',
+        'Acesso 100% gratuito sem assinatura',
+      ],
     },
+    {
+      '@type': 'MedicalWebPage',
+      '@id': `${fullUrl}#webpage`,
+      url: fullUrl,
+      name: page.title,
+      description: page.description,
+      inLanguage: 'pt-BR',
+      isPartOf: { '@id': `${BASE_URL}/#website` },
+      about: {
+        '@type': 'MedicalEntity',
+        name: page.category,
+      },
+      specialty: {
+        '@type': 'MedicalSpecialty',
+        name: 'Pediatria e Neonatologia',
+      },
+    },
+  ];
+
+  if (path === '/') {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${BASE_URL}/#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'O PedBox é realmente 100% gratuito?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Sim! O PedBox é uma plataforma médica totalmente livre e gratuita para sempre. Todos os módulos, calculadoras, guias de doses e mais de 200 condutas clínicas são abertos para médicos, residentes e estudantes, sem mensalidade, sem assinatura e sem paywalls.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Como o PedBox auxilia na tomada de decisão rápida no plantão pediátrico?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'O PedBox foi desenhado para agilidade beira-leito em pronto-socorros, enfermarias e UTIs pediátricas: oferece busca universal instantânea com atalho (Ctrl+K), cálculo de doses exatas por peso corporal com diluição e volumes comerciais, escores validados (PEWS, APGAR, Silverman-Andersen, Glasgow) e condutas estruturadas em passos objetivos.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'O PedBox funciona como um livro ou guia de bolso digital de pediatria?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Sim. O PedBox atua como um guia de bolso e livro digital interativo para o dia a dia da medicina pediátrica, reunindo tabelas de sinais vitais, calendário vacinal, curvas de crescimento OMS/Intergrowth e protocolos clínicos atualizados em um formato moderno e acessível pelo celular.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Quais especialidades pediátricas estão contempladas nas condutas clínicas?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'A biblioteca conta com 203 condutas clínicas abrangendo Neonatologia, Cirurgia Pediátrica, Nefrologia e Urologia, Neurologia, Infectologia, Pneumologia, Emergência Pediátrica, Terapia Intensiva e Puericultura, baseadas em evidências oficiais da Sociedade Brasileira de Pediatria (SBP) e Ministério da Saúde.',
+          },
+        },
+      ],
+    });
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
   };
 }

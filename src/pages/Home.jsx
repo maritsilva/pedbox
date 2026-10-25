@@ -16,6 +16,8 @@ import {
   Zap,
   Star,
   Baby,
+  ChevronDown,
+  ShieldCheck,
 } from 'lucide-react';
 import { universalSearch, loadSearchDatasets, areSearchDatasetsLoaded } from '@/lib/universalSearch';
 import { usePageFavorites } from '@/hooks/usePageFavorites';
@@ -78,8 +80,28 @@ const QUICK_ACCESS = [
   { label: 'Drogas emergência', path: '/drogas-emergencia', icon: ShieldAlert },
 ];
 
+const HOME_FAQS = [
+  {
+    q: 'O PedBox é realmente 100% gratuito?',
+    a: 'Sim! O PedBox é uma plataforma médica digital totalmente livre e gratuita para sempre. Todo o acervo com 203 condutas clínicas, 48 calculadoras e escores pediátricos, guias de dosagem por peso e calendário vacinal é aberto para médicos, residentes e estudantes, sem mensalidades, sem assinaturas e sem paywalls.',
+  },
+  {
+    q: 'Como o PedBox auxilia na tomada de decisão rápida no plantão pediátrico?',
+    a: 'O PedBox foi desenhado para agilidade beira-leito em pronto-socorro, enfermaria e UTI: conta com busca universal instantânea com atalho Ctrl+K, cálculo automático de doses por kg com diluição e volumes práticos, escores de gravidade imediatos (PEWS, APGAR, Silverman-Andersen, Glasgow) e condutas estruturadas em passos objetivos.',
+  },
+  {
+    q: 'O PedBox funciona como um livro ou guia de bolso digital de pediatria?',
+    a: 'Sim. Ele consolida o conteúdo dos principais tratados, manuais de condutas e rotinas pediátricas em um formato digital interativo e responsivo. Funciona como Progressive Web App (PWA) no celular, permitindo consulta ágil mesmo com conexões instáveis de plantão.',
+  },
+  {
+    q: 'Quais especialidades e condutas estão disponíveis na plataforma?',
+    a: 'O acervo reúne 203 condutas clínicas divididas em 11 áreas: Neonatologia, Cirurgia Pediátrica, Nefrologia e Urologia, Neurologia, Infectologia, Pneumologia, Emergência, Terapia Intensiva, Puericultura e Imunização, com base em evidências da Sociedade Brasileira de Pediatria (SBP) e Ministério da Saúde.',
+  },
+];
+
 export default function Home() {
   const [query, setQuery] = useState('');
+  const [openFaq, setOpenFaq] = useState(null);
   const navigate = useNavigate();
   const [datasetsLoaded, setDatasetsLoaded] = useState(() => areSearchDatasetsLoaded());
   const results = universalSearch(query, 8);
@@ -190,8 +212,9 @@ export default function Home() {
           {/* Left Text & Search */}
           <div className="lg:col-span-7 p-6 sm:p-10 space-y-6">
             <div className="space-y-2">
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-teal">
-                Plataforma Pediátrica Livre
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 border border-teal-200/80 text-[11px] font-extrabold uppercase tracking-wider text-brand-teal shadow-2xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-brand-teal" />
+                100% Gratuito Para Sempre • Guia de Bolso & Plantão
               </span>
               <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-display font-extrabold text-brand-navy leading-tight tracking-tight">
                 Conhecimento <br className="hidden sm:inline" />
@@ -201,7 +224,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-sm sm:text-base text-slate-600 max-w-lg leading-relaxed">
-                Protocolos, calculadoras, doses, vacinas e muito mais. Tudo em um só lugar, para apoiar sua prática clínica pediátrica.
+                Ajuda rápida no plantão e consultório: doses exatas por kg, 203 condutas clínicas atualizadas, 48 calculadoras e escores de emergência. Sem assinaturas, aberto para sempre.
               </p>
             </div>
 
@@ -413,6 +436,119 @@ export default function Home() {
 
       {/* BLOCO DO USUÁRIO: ANOTAÇÕES E LINKS SALVOS */}
       <UserNotesAndLinks />
+
+      {/* SEÇÃO PLANTÃO PEDIÁTRICO & GUIA DE BOLSO DIGITAL */}
+      <section className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 pb-5">
+          <div>
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-teal">
+              Prática Clínica & Beira-Leito
+            </span>
+            <h2 className="text-xl sm:text-2xl font-display font-extrabold text-brand-navy mt-1">
+              Ajuda Rápida no Plantão & Guia Pediátrico Gratuito
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+              Projetado para médicos, residentes e acadêmicos que precisam de precisão imediata em pronto-socorro, enfermaria e UTI.
+            </p>
+          </div>
+          <Link
+            to="/calculadoras"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-brand-navy hover:bg-brand-navy/90 px-4 py-2.5 rounded-xl shadow-xs transition-colors shrink-0 self-start md:self-auto"
+          >
+            Acessar Calculadoras de Plantão <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-teal-100 text-brand-teal flex items-center justify-center font-bold">
+              <Zap className="w-4 h-4" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-800">Doses Exatas por kg</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Cálculo instantâneo em mg/kg e mL, apresentações comerciais, reconstituição e diluição segura.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-blue-100 text-brand-navy flex items-center justify-center font-bold">
+              <BookOpen className="w-4 h-4" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-800">203 Condutas Clínicas</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Neonatologia, Cirurgia Pediátrica, Nefrologia, Neurologia, Infectologia e Emergência baseadas na SBP.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
+              <Activity className="w-4 h-4" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-800">48 Escores e Calculadoras</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Holliday-Segar, Fenton, Intergrowth, APGAR, PEWS, Wood-Downes, Silverman-Andersen e Glasgow.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-800">100% Grátis para Sempre</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Sem mensalidades, sem limites de telas e sem paywalls. Conhecimento médico aberto e democrático.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* PERGUNTAS FREQUENTES (FAQ) - SEO RICH SNIPPETS */}
+      <section className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-sm space-y-5">
+        <div className="space-y-1">
+          <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-teal">
+            Dúvidas Frequentes
+          </span>
+          <h2 className="text-xl sm:text-2xl font-display font-extrabold text-brand-navy">
+            Perguntas Frequentes sobre o PedBox
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500">
+            Tudo o que você precisa saber sobre a plataforma de apoio à medicina pediátrica prática.
+          </p>
+        </div>
+
+        <div className="divide-y divide-slate-100 border border-slate-200/80 rounded-2xl overflow-hidden">
+          {HOME_FAQS.map((faq, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div key={idx} className="bg-white">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors cursor-pointer"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-sm font-bold text-slate-800 flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-lg bg-teal-50 text-brand-teal font-extrabold text-xs flex items-center justify-center shrink-0">
+                      {idx + 1}
+                    </span>
+                    {faq.q}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-brand-teal' : ''
+                    }`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                    <p className="pl-8">{faq.a}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

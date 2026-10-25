@@ -46,8 +46,8 @@ const PILARES_LIBERDADE = [
 ];
 
 const STATS = [
-  { value: '47+', label: 'Calculadoras clínicas' },
-  { value: '130+', label: 'Tópicos de conduta' },
+  { value: '48', label: 'Calculadoras clínicas' },
+  { value: '203', label: 'Tópicos de conduta' },
   { value: '500+', label: 'Dosagens pediátricas' },
   { value: '100%', label: 'Gratuito e aberto' },
 ];
