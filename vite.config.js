@@ -89,7 +89,16 @@ export default defineConfig({
           if (norm.includes('condutasNeurologiaData')) {
             return 'data-condutas-neurologia';
           }
-          if (norm.includes('condutasData')) {
+          if (norm.includes('condutasRedbookPart1Data')) {
+            return 'data-condutas-redbook-1';
+          }
+          if (norm.includes('condutasRedbookPart2Data')) {
+            return 'data-condutas-redbook-2';
+          }
+          if (norm.includes('condutasRedbookPart3Data')) {
+            return 'data-condutas-redbook-3';
+          }
+          if (norm.includes('condutasData') || norm.includes('condutasInfecciosasData')) {
             return 'data-condutas-index';
           }
           if (norm.includes('guideData')) {

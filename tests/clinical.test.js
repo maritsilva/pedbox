@@ -215,8 +215,10 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
  const gastro = CONDUTAS_CATEGORIAS.find(c => c.id === 'gastrointestinais');
  const endocrino = CONDUTAS_CATEGORIAS.find(c => c.id === 'endocrinologia');
  const sintomas = CONDUTAS_CATEGORIAS.find(c => c.id === 'abordagem-sintomas');
+ const inf = CONDUTAS_CATEGORIAS.find(c => c.id === 'infecciosas');
 
  assert.ok(neo, 'Neonatal category must exist');
+ assert.ok(inf, 'Infecciosas e Exantemáticas category must exist');
  assert.ok(cipe, 'Cirurgia Pediátrica category must exist');
  assert.ok(urg, 'Urgências e Emergências category must exist');
  assert.ok(puer, 'Puericultura category must exist');
@@ -239,8 +241,10 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
  const totalGastro = gastro.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
  const totalEndocrino = endocrino.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
  const totalSintomas = sintomas.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
+ const totalInf = inf.subcategorias.reduce((acc, sub) => acc + sub.topicos.length, 0);
 
  assert.equal(totalNeo, 29, 'Must have 29 Neonatologia topics');
+ assert.equal(totalInf, 320, 'Must have 320 Red Book Infecciosas e Exantemáticas topics');
  assert.equal(totalCipe, 35, 'Must have 35 Cirurgia Pediátrica topics');
  assert.equal(totalUrg, 28, 'Must have 28 Urgência e Emergência topics');
  assert.equal(totalPuer, 28, 'Must have 28 Puericultura topics');
@@ -265,9 +269,10 @@ test('condutasData exports complete clinical catalog with explicit ESM imports a
    ...gastro.subcategorias,
    ...endocrino.subcategorias,
    ...sintomas.subcategorias,
+   ...inf.subcategorias,
  ].flatMap(sub => sub.topicos);
 
- assert.equal(allTopics.length, 203, 'Total condutas topics across 11 areas must be 203');
+ assert.equal(allTopics.length, 523, 'Total condutas topics across 12 areas must be 523 (203 + 320 Red Book)');
  for (const topico of allTopics) {
    assert.ok(topico.conteudo && topico.conteudo.length > 200, `Topic ${topico.id} must have substantive content`);
    assert.ok(!topico.conteudo.includes('Versão editorial:'), `Topic ${topico.id} must not include "Versão editorial:"`);
